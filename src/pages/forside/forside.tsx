@@ -9,6 +9,7 @@ import SoknadLenkepanel from '../../components/lenker/soknader'
 import SykmeldingLenkepanel from '../../components/lenker/sykemelding'
 import UtbetalingAvSykepengerLenkepanel from '../../components/lenker/utbetaling'
 import Oppgaver from '../../components/oppgaver/oppgaver'
+import Personvernsopplysninger from '../../components/personvernsopplysninger/personvernsopplysninger'
 import Vis from '../../components/vis'
 import { useAppStore } from '../../data/stores/app-store'
 import { tekst } from '../../utils/tekster'
@@ -49,6 +50,7 @@ const Forside = () => {
                     <UtbetalingAvSykepengerLenkepanel />
                 </Vis>
 
+                <Personvernsopplysninger />
             </div>
         </>
     )
