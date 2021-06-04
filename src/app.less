@@ -1,0 +1,90 @@
+@import '../node_modules/nav-frontend-core/less/core';
+@import './basic';
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: @navMorkGra;
+}
+
+html, body, #app-root {
+    height: 100%;
+
+    .spinner {
+        display: block;
+        margin: 0 auto;
+    }
+}
+
+.pagewrapper {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100%;
+}
+
+.app {
+    min-height: 70vh;
+}
+
+.limit {
+    position: relative;
+    padding: 1rem 1rem 0;
+}
+
+.maincontent {
+    &:focus {
+        outline: 0;
+    }
+
+    .limit {
+        background-color: @white;
+        padding-top: 1rem;
+    }
+}
+
+.vekk {
+    line-height: 0;
+    color: transparent;
+    font-size: 0;
+    width: 0;
+    height: 0;
+}
+
+a {
+    color: @navBla;
+}
+
+.fade-enter {
+    opacity: 0.01;
+
+    &.fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms ease-in;
+    }
+}
+
+.fade-exit {
+    opacity: 1;
+
+    &.fade-exit-active {
+        opacity: 0.01;
+        transition: opacity 300ms ease-in;
+    }
+}
+
+.navno-dekorator .login-knapp.knapp--standard {
+    min-height: auto;
+    font-size: 1rem;
+    padding: 0.2rem 0.7rem;
+}
+
+@media (min-width: @screen-sm) {
+    .limit {
+        width: @desktopLimitWidth;
+        margin: 0 auto;
+        padding: 2rem 5rem 3.5rem;
+    }
+}

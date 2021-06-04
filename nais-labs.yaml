@@ -1,0 +1,33 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: ditt-sykefravaer
+  namespace: flex
+  labels:
+    team: flex
+spec:
+  image: {{ image }}
+  port: 8080
+  ingresses:
+    - "https://ditt-sykefravaer.labs.nais.io/"
+  liveness:
+    path: internal/isAlive
+  readiness:
+    path: internal/isReady
+  env:
+    - name: LOGINSERVICE_URL
+      value: "https://loginservice-q.nav.no/login"
+    - name: MOCK_BACKEND
+      value: "true"
+    - name: DECORATOR_URL
+      value: "https://www.nav.no/dekoratoren"
+    - name: ENVIRONMENT
+      value: "labs"
+    - name: SYKEFRAVAER_URL
+      value: "https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer"
+    - name: DITTNAV_URL
+      value: "https://www.nav.no/person/dittnav"
+    - name: OPPLAERING
+      value: "true"
+    - name: AMPLITUDE_ENABLED
+      value: "false"
