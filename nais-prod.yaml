@@ -52,3 +52,7 @@ spec:
       value: "d5b43a81941b61a3b06059197807a25a"
     - name: AMPLITUDE_ENABLED
       value: "true"
+    - name: SYKEPENGESOKNAD_URL
+      value: "https://www.nav.no/syk/sykepengesoknad"
+    - name: SPINNSYN_URL
+      value: "https://www.nav.no/syk/sykepenger"

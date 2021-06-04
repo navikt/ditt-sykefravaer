@@ -42,6 +42,14 @@ class Environment {
         return this.env.SYKEFRAVAER_URL
     }
 
+    get sykepengesoknadUrl() {
+        return this.env.SYKEPENGESOKNAD_URL
+    }
+
+    get spinnsynUrl() {
+        return this.env.SPINNSYN_URL
+    }
+
     get dittNavUrl() {
         return this.env.DITTNAV_URL
     }

@@ -1,6 +1,5 @@
 import './app.less'
 
-import ModalWrapper from 'nav-frontend-modal'
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 
@@ -13,8 +12,6 @@ export interface RouteParams {
 }
 
 const App = (): any => {
-
-    ModalWrapper.setAppElement('#root')
 
     return (
         <StoreProvider>

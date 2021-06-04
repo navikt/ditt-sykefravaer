@@ -9,7 +9,7 @@ spec:
   image: {{ image }}
   port: 8080
   ingresses:
-    - "https://www-gcp-ny.dev.nav.no/syk/sykefravaer"
+    - "https://www-gcp.dev.nav.no/syk/sykefravaer"
   replicas:
     min: 1
     max: 2
@@ -52,3 +52,7 @@ spec:
       value: "7a887ba3e5a07c755526c6591810101a"
     - name: AMPLITUDE_ENABLED
       value: "true"
+    - name: SYKEPENGESOKNAD_URL
+      value: "https://www-gcp.dev.nav.no/syk/sykepengesoknad"
+    - name: SPINNSYN_URL
+      value: "https://www-gcp.dev.nav.no/syk/sykepenger"
