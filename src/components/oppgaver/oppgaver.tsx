@@ -24,7 +24,10 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
         <div style={{ border: '1px', borderStyle: 'solid', marginBottom: '2em', padding: '1em' }}>
             <h3>Oppgaver som venter på deg</h3>
             {oppgaveProps.oppgaver.map((v, idx) => {
-                return <Lenke key={idx} href={v.lenke}>{v.tekst}</Lenke>
+                return <>
+                    <Lenke key={idx} href={v.lenke}>{v.tekst}</Lenke>
+                    <br />
+                </>
             })}
         </div>
     )
@@ -33,10 +36,10 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
 
 const Oppgaver = () => {
 
-    const { soknader } = useAppStore()
+    const { soknader, sykmeldinger } = useAppStore()
 
     const soknadOppgaver = soknader
-        .filter((s) => s.status == RSSoknadstatus.NY) //TODO garra flere som må med
+        .filter((s) => s.status == RSSoknadstatus.NY) //TODO garra flere som må med. Håndter når flere.
         .map((s) => {
             return {
                 tekst: 'Du har en ny sykepengesoknad til utfylling',
@@ -44,9 +47,19 @@ const Oppgaver = () => {
             }
         })
 
+    const sykmeldingOppgaver = sykmeldinger
+        .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN') //TODO garra flere som må med. Håndter når flere
+        .map((s) => {
+            return {
+                tekst: 'Du har en ny sykmelding',
+                lenke: `${environment.sykmeldingUrl}/${s.id}`
+            }
+        })
+
+
     return (
         <>
-            <OppgaveLista oppgaver={soknadOppgaver} />
+            <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver ]} />
         </>
     )
 }
