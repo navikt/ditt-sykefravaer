@@ -50,6 +50,11 @@ class Environment {
         return this.env.SPINNSYN_URL
     }
 
+    get sykmeldingUrl() {
+        return this.env.SYKMELDING_URL
+    }
+
+
     get dittNavUrl() {
         return this.env.DITTNAV_URL
     }

@@ -5,6 +5,7 @@ import IngenData from '../pages/feil/ingen-data'
 import { RSSoknad } from '../types/rs-types/rs-soknad'
 import { RSVedtakWrapper } from '../types/rs-types/rs-vedtak'
 import { Soknad } from '../types/soknad'
+import { Sykmelding } from '../types/sykmelding'
 import env from '../utils/environment'
 import { logger } from '../utils/logger'
 import useFetch from './rest/use-fetch'
@@ -12,9 +13,11 @@ import { FetchState, hasAny401, hasAnyFailed, hasData, isAnyNotStartedOrPending,
 import { useAppStore } from './stores/app-store'
 
 export function DataFetcher(props: { children: any }) {
-    const { setSoknader, setRsVedtak } = useAppStore()
+    const { setSoknader, setRsVedtak, setSykmeldinger } = useAppStore()
     const rssoknader = useFetch<RSSoknad[]>()
     const rsVedtak = useFetch<RSVedtakWrapper[]>()
+    const sykmeldinger = useFetch<Sykmelding[]>()
+
 
     useEffect(() => {
         if (isNotStarted(rssoknader)) {
@@ -39,16 +42,26 @@ export function DataFetcher(props: { children: any }) {
             })
         }
 
+        if (isNotStarted(sykmeldinger)) {
+            sykmeldinger.fetch(env.sykmeldingerBackendProxyRoot + '/api/v1/sykmeldinger', {
+                credentials: 'include',
+            }, (fetchState: FetchState<Sykmelding[]>) => {
+                if (hasData(fetchState)) {
+                    setSykmeldinger(fetchState.data)
+                }
+            })
+        }
+
         // eslint-disable-next-line
     }, [rssoknader, rsVedtak]);
 
-    if (hasAny401([ rssoknader, rsVedtak ])) {
+    if (hasAny401([ rssoknader, rsVedtak, sykmeldinger ])) {
         window.location.href = hentLoginUrl()
 
-    } else if (isAnyNotStartedOrPending([ rsVedtak ])) {
+    } else if (isAnyNotStartedOrPending([ rsVedtak, sykmeldinger, rssoknader ])) {
         return <Spinner type={'XXL'} />
 
-    } else if (hasAnyFailed([ rssoknader, rsVedtak ])) {
+    } else if (hasAnyFailed([ rssoknader, rsVedtak, sykmeldinger ])) {
         logger.error(`Klarer ikke hente en av disse [ rssoknader = ${rssoknader.httpCode}, rsVedtak = ${rsVedtak.httpCode} ]`)
         return <IngenData />
     }

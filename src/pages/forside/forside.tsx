@@ -6,6 +6,7 @@ import React, { useEffect } from 'react'
 import Banner from '../../components/banner/banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import SoknadLenkepanel from '../../components/lenker/soknader'
+import SykmeldingLenkepanel from '../../components/lenker/sykemelding'
 import UtbetalingAvSykepengerLenkepanel from '../../components/lenker/utbetaling'
 import Oppgaver from '../../components/oppgaver/oppgaver'
 import Vis from '../../components/vis'
@@ -17,10 +18,10 @@ const brodsmuler: Brodsmule[] = []
 
 const Forside = () => {
 
-    const { rsVedtak, soknader } = useAppStore()
+    const { rsVedtak, soknader, sykmeldinger } = useAppStore()
 
     useEffect(() => {
-        setBodyClass('vedtak-liste')
+        setBodyClass('forside')
     }, [])
 
 
@@ -36,6 +37,10 @@ const Forside = () => {
             <div className="limit">
                 <Oppgaver />
 
+                <Vis hvis={sykmeldinger.length > 0}>
+                    <SykmeldingLenkepanel />
+                </Vis>
+
                 <Vis hvis={soknader.length > 0}>
                     <SoknadLenkepanel />
                 </Vis>
@@ -43,6 +48,7 @@ const Forside = () => {
                 <Vis hvis={rsVedtak.length > 0}>
                     <UtbetalingAvSykepengerLenkepanel />
                 </Vis>
+
             </div>
         </>
     )
