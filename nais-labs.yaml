@@ -32,6 +32,6 @@ spec:
     - name: AMPLITUDE_ENABLED
       value: "false"
     - name: SYKEPENGESOKNAD_URL
-      value: "https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer"
+      value: "https://sykepengesoknad.labs.nais.io"
     - name: SPINNSYN_URL
-      value: "https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer"
+      value: "https://sykepenger.labs.nais.io/syk/sykepenger"

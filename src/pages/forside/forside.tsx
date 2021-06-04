@@ -7,6 +7,7 @@ import Banner from '../../components/banner/banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import SoknadLenkepanel from '../../components/lenker/soknader'
 import UtbetalingAvSykepengerLenkepanel from '../../components/lenker/utbetaling'
+import Oppgaver from '../../components/oppgaver/oppgaver'
 import Vis from '../../components/vis'
 import { useAppStore } from '../../data/stores/app-store'
 import { tekst } from '../../utils/tekster'
@@ -31,7 +32,10 @@ const Forside = () => {
                 </Sidetittel>
             </Banner>
             <Brodsmuler brodsmuler={brodsmuler} />
+
             <div className="limit">
+                <Oppgaver />
+
                 <Vis hvis={soknader.length > 0}>
                     <SoknadLenkepanel />
                 </Vis>
