@@ -20,7 +20,8 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
         lenke: 'http://soknad/soknader/123',
-        tekst: 'Du har 1 ny søknad om sykepenger',
+        tekst: 'Du har en ny søknad om sykepenger',
+        type: 'info',
     } ])
 })
 
@@ -51,10 +52,12 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     expect(oppgaver).toEqual([ {
         'lenke': 'http://soknad',
         'tekst': 'Du har 3 nye søknader om sykepenger',
+        type: 'info',
     },
     {
         'lenke': 'http://soknad/soknader/4',
-        'tekst': 'Du har 1 ny søknad om reisetilskudd',
+        'tekst': 'Du har en ny søknad om reisetilskudd',
+        type: 'info',
     }
     ])
 })
@@ -69,7 +72,8 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
         lenke: 'http://soknad/soknader/123',
-        tekst: 'Du har 1 ny søknad om reisetilskudd',
+        tekst: 'Du har en ny søknad om reisetilskudd',
+        type: 'info',
     } ])
 })
 

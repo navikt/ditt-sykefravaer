@@ -1,3 +1,4 @@
+import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import React from 'react'
 
@@ -13,6 +14,7 @@ import { tekst } from '../../utils/tekster'
 interface Oppgave {
     tekst: string;
     lenke: string;
+    type: 'info' | 'advarsel'
 }
 
 interface OppgaveProps {
@@ -25,24 +27,22 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
         return null
     }
     return (
-        <div style={{ border: '1px', borderStyle: 'solid', marginBottom: '2em', padding: '1em' }}>
-            <h3>{tekst('oppgaver.tittel')}</h3>
+        <>
             {oppgaveProps.oppgaver.map((v, idx) => {
-                return <>
-                    <Lenke key={idx} href={v.lenke}>{v.tekst}</Lenke>
-                    <br />
-                </>
+                return <div key={idx} style={{ marginBottom: '1em' }}>
+                    <Alertstripe type={v.type}><Lenke href={v.lenke}>{v.tekst}</Lenke></Alertstripe>
+                </div>
             })}
-        </div>
+        </>
     )
 
 }
 
-export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string) {
+export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
 
     const søknaderTilUtfylling = (s: Soknad) => (s.status == RSSoknadstatus.NY || s.status == RSSoknadstatus.UTKAST_TIL_KORRIGERING)
 
-    function skapSykepengesoknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string) {
+    function skapSykepengesoknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
         const vanligeSoknader = [ RSSoknadstype.ARBEIDSTAKERE, RSSoknadstype.ARBEIDSLEDIG, RSSoknadstype.ANNET_ARBEIDSFORHOLD, RSSoknadstype.BEHANDLINGSDAGER, RSSoknadstype.SELVSTENDIGE_OG_FRILANSERE, ]
 
         const soknadene = soknader
@@ -55,18 +55,20 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykepengesoknad.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                type: 'info'
             } ]
         }
         return [ {
             tekst: tekst('oppgaver.sykepengesoknad.flere', {
                 '%ANTALL%': soknadene.length.toString()
             }),
-            lenke: sykepengesoknadUrl
+            lenke: sykepengesoknadUrl,
+            type: 'info'
         } ]
     }
 
-    function skapReisetilskuddOppgaver(soknader: Soknad[], sykepengesoknadUrl: string) {
+    function skapReisetilskuddOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
             .filter((s) => s.soknadstype == RSSoknadstype.REISETILSKUDD)
@@ -76,14 +78,16 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.reisetilskudd.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                type: 'info'
             } ]
         }
         return [ {
             tekst: tekst('oppgaver.reisetilskudd.flere', {
                 '%ANTALL%': soknadene.length.toString()
             }),
-            lenke: sykepengesoknadUrl
+            lenke: sykepengesoknadUrl,
+            type: 'info'
         } ]
     }
 
@@ -91,9 +95,9 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
 }
 
 
-export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
 
-    function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+    function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
 
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
@@ -106,18 +110,21 @@ export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl:
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
+                type: 'info'
             } ]
         }
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
                 '%ANTALL%': sykmeldingene.length.toString()
             }),
-            lenke: sykmeldingUrl
+            lenke: sykmeldingUrl,
+            type: 'info',
+
         } ]
     }
 
-    function skapAvvisteOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+    function skapAvvisteOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
             .filter((s) => s.behandlingsutfall.status == 'INVALID')
@@ -129,14 +136,17 @@ export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl:
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
+                type: 'advarsel',
+
             } ]
         }
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
                 '%ANTALL%': sykmeldingene.length.toString()
             }),
-            lenke: sykmeldingUrl
+            lenke: sykmeldingUrl,
+            type: 'advarsel',
         } ]
     }
 

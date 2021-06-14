@@ -25,6 +25,10 @@ const sykmeldinger: Sykmelding[] = [ {
     id: 'APEN',
     sykmeldingStatus: { statusEvent: 'APEN' },
     behandlingsutfall: { status: 'OK' }
+}, {
+    id: 'APEN',
+    sykmeldingStatus: { statusEvent: 'APEN' },
+    behandlingsutfall: { status: 'INVALID' }
 } ]
 
 mock.get(`${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
