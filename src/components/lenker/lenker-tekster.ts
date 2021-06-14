@@ -1,6 +1,6 @@
 export const LenkerTekster = {
-    'lenker.soknader': 'Soknader',
-    'lenker.sykmelding': 'Sykmelding',
+    'lenker.soknader': 'Søknader',
+    'lenker.sykmelding': 'Sykmeldinger',
     'lenker.utbetaling': 'Utbetaling av sykepenger',
 }
 
