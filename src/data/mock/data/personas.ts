@@ -17,6 +17,25 @@ export const heltFrisk: Persona = {
     sykmeldinger: []
 }
 
+export const enNySykmelding: Persona = {
+    soknader: soknader,
+    vedtak: [ vedtakMed100Grad ],
+    sykmeldinger: [ {
+        id: 'APEN',
+        sykmeldingStatus: { statusEvent: 'APEN' },
+        behandlingsutfall: { status: 'OK' }
+    } ]
+}
+
+export const enAvvistSykmelding: Persona = {
+    soknader: soknader,
+    vedtak: [ vedtakMed100Grad ],
+    sykmeldinger: [ {
+        id: 'APEN',
+        sykmeldingStatus: { statusEvent: 'APEN' },
+        behandlingsutfall: { status: 'INVALID' }
+    } ]
+}
 
 export const defaultPersona: Persona = {
     soknader: soknader,

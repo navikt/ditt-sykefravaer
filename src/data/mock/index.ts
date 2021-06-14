@@ -1,7 +1,7 @@
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import env from '../../utils/environment'
-import { defaultPersona, heltFrisk, Persona } from './data/personas'
+import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk, Persona } from './data/personas'
 
 const mock = FetchMock.configure({
     enableFallback: true,
@@ -27,6 +27,10 @@ function setUpMock(persona: Persona) {
 const href = window.location.href
 if (href.includes('helt-frisk')) {
     setUpMock(heltFrisk)
+} else if (href.includes('en-ny-sykmelding')) {
+    setUpMock(enNySykmelding)
+}  else if (href.includes('en-avvist-sykmelding')) {
+    setUpMock(enAvvistSykmelding)
 } else {
     setUpMock(defaultPersona)
 }
