@@ -31,7 +31,7 @@ export const enAvvistSykmelding: Persona = {
     soknader: [],
     vedtak: [],
     sykmeldinger: [ {
-        id: 'APEN',
+        id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' }
     } ]
@@ -45,7 +45,7 @@ export const defaultPersona: Persona = {
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'OK' }
     }, {
-        id: 'APEN',
+        id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' }
     } ]
