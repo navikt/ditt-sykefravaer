@@ -27,7 +27,7 @@ spec:
     path: internal/isReady
   env:
     - name: SYKMELDINGER_BACKEND_PROXY_ROOT
-      value: "https://sykmeldinger-backend-proxy.dev.nav.no"
+      value: "https://sykmelding-gateway.dev.nav.no/sykmeldinger-backend"
     - name: FLEX_GATEWAY_ROOT
       value: "https://flex-gateway.dev.nav.no"
     - name: LOGINSERVICE_URL
