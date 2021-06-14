@@ -1,7 +1,9 @@
-
 export interface Sykmelding {
     id: string;
     sykmeldingStatus: {
-        statusEvent: string;
+        statusEvent: 'SENDT' | 'APEN' | 'AVBRUTT' | 'UTGATT' | 'BEKREFTET',
     };
+    behandlingsutfall: {
+        status: 'OK' | 'MANUAL_PROCESSING' | 'INVALID',
+    }
 }

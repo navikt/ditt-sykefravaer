@@ -5,8 +5,9 @@ import { useAppStore } from '../../data/stores/app-store'
 import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
 import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
+import { Sykmelding } from '../../types/sykmelding'
 import environment from '../../utils/environment'
-import { byttTekstInnhold, tekst } from '../../utils/tekster'
+import { tekst } from '../../utils/tekster'
 
 
 interface Oppgave {
@@ -25,7 +26,7 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
     }
     return (
         <div style={{ border: '1px', borderStyle: 'solid', marginBottom: '2em', padding: '1em' }}>
-            <h3>Oppgaver som venter på deg</h3>
+            <h3>{tekst('oppgaver.tittel')}</h3>
             {oppgaveProps.oppgaver.map((v, idx) => {
                 return <>
                     <Lenke key={idx} href={v.lenke}>{v.tekst}</Lenke>
@@ -61,7 +62,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
             tekst: tekst('oppgaver.sykepengesoknad.flere', {
                 '%ANTALL%': soknadene.length.toString()
             }),
-            lenke: `${sykepengesoknadUrl}`
+            lenke: sykepengesoknadUrl
         } ]
     }
 
@@ -82,28 +83,74 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
             tekst: tekst('oppgaver.reisetilskudd.flere', {
                 '%ANTALL%': soknadene.length.toString()
             }),
-            lenke: `${sykepengesoknadUrl}`
+            lenke: sykepengesoknadUrl
         } ]
     }
 
     return [ ...skapSykepengesoknadOppgaver(soknader, sykepengesoknadUrl), ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl) ]
 }
 
+
+export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+
+    function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+
+        const sykmeldingene = sykmeldinger
+            .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
+            .filter((s) => s.behandlingsutfall.status == 'OK' || s.behandlingsutfall.status == 'MANUAL_PROCESSING')
+
+        if (sykmeldingene.length == 0) {
+            return []
+        }
+
+        if (sykmeldingene.length == 1) {
+            return [ {
+                tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`
+            } ]
+        }
+        return [ {
+            tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
+                '%ANTALL%': sykmeldingene.length.toString()
+            }),
+            lenke: sykmeldingUrl
+        } ]
+    }
+
+    function skapAvvisteOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string) {
+        const sykmeldingene = sykmeldinger
+            .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
+            .filter((s) => s.behandlingsutfall.status == 'INVALID')
+
+        if (sykmeldingene.length == 0) {
+            return []
+        }
+
+        if (sykmeldingene.length == 1) {
+            return [ {
+                tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`
+            } ]
+        }
+        return [ {
+            tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
+                '%ANTALL%': sykmeldingene.length.toString()
+            }),
+            lenke: sykmeldingUrl
+        } ]
+    }
+
+    return [ ...skapVanligeOppgaver(sykmeldinger, sykmeldingUrl), ...skapAvvisteOppgaver(sykmeldinger, sykmeldingUrl) ]
+
+}
+
+
 const Oppgaver = () => {
 
     const { soknader, sykmeldinger } = useAppStore()
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
-
-    const sykmeldingOppgaver = sykmeldinger
-        .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN') //TODO garra flere som må med. Håndter når flere
-        .map((s) => {
-            return {
-                tekst: 'Du har en ny sykmelding',
-                lenke: `${environment.sykmeldingUrl}/${s.id}`
-            }
-        })
-
+    const sykmeldingOppgaver = skapSykmeldingppgaver(sykmeldinger, environment.sykmeldingUrl)
 
     return (
         <>

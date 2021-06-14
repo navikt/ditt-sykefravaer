@@ -21,7 +21,11 @@ mock.get(`${env.flexGatewayRoot}/spinnsyn-backend/api/v2/vedtak`,
 mock.post(`${env.flexGatewayRoot}/spinnsyn-backend/api/v2/vedtak/:id/les`, () => Promise.resolve({ status: 200 }))
 
 
-const sykmeldinger: Sykmelding[] = [ { id: 'APEN', sykmeldingStatus: { statusEvent: 'APEN' } } ]
+const sykmeldinger: Sykmelding[] = [ {
+    id: 'APEN',
+    sykmeldingStatus: { statusEvent: 'APEN' },
+    behandlingsutfall: { status: 'OK' }
+} ]
 
 mock.get(`${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
     (req, res, ctx) => res(ctx.json(sykmeldinger)))
