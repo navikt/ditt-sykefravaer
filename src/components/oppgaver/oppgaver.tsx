@@ -1,5 +1,8 @@
+import './oppgaver.less'
+
 import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
+import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
@@ -21,25 +24,26 @@ interface OppgaveProps {
     oppgaver: Oppgave[];
 }
 
-
 const OppgaveLista = (oppgaveProps: OppgaveProps) => {
     if (oppgaveProps.oppgaver.length == 0) {
         return null
     }
-    return (
-        <>
-            {oppgaveProps.oppgaver.map((v, idx) => {
-                return <div key={idx} style={{ marginBottom: '1em' }}>
-                    <Alertstripe type={v.type}><Lenke href={v.lenke}>{v.tekst}</Lenke></Alertstripe>
-                </div>
-            })}
-        </>
-    )
 
+    return (
+        <section className="oppgaver">
+            <Systemtittel tag="h2">Oppgaver</Systemtittel>
+            {oppgaveProps.oppgaver.map((v, idx) => {
+                return (
+                    <Alertstripe type={v.type} key={idx}>
+                        <Lenke href={v.lenke}>{v.tekst}</Lenke>
+                    </Alertstripe>
+                )
+            })}
+        </section>
+    )
 }
 
 export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
-
     const søknaderTilUtfylling = (s: Soknad) => (s.status == RSSoknadstatus.NY || s.status == RSSoknadstatus.UTKAST_TIL_KORRIGERING)
 
     function skapSykepengesoknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
@@ -55,7 +59,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykepengesoknad.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
                 type: 'info'
             } ]
         }
@@ -78,7 +82,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.reisetilskudd.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
                 type: 'info'
             } ]
         }
@@ -110,10 +114,11 @@ export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl:
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[0].id}`,
                 type: 'info'
             } ]
         }
+
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
                 '%ANTALL%': sykmeldingene.length.toString()
@@ -136,7 +141,7 @@ export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl:
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
+                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[0].id}`,
                 type: 'advarsel',
 
             } ]
@@ -151,21 +156,15 @@ export function skapSykmeldingppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl:
     }
 
     return [ ...skapVanligeOppgaver(sykmeldinger, sykmeldingUrl), ...skapAvvisteOppgaver(sykmeldinger, sykmeldingUrl) ]
-
 }
 
-
 const Oppgaver = () => {
-
     const { soknader, sykmeldinger } = useAppStore()
-
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingppgaver(sykmeldinger, environment.sykmeldingUrl)
 
     return (
-        <>
-            <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver ]} />
-        </>
+        <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver ]} />
     )
 }
 
