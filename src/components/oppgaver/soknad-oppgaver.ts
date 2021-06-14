@@ -3,6 +3,7 @@ import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
+import { tallTilSpråk } from './tall-til-språk'
 
 export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
 
@@ -27,7 +28,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         }
         return [ {
             tekst: tekst('oppgaver.sykepengesoknad.flere', {
-                '%ANTALL%': soknadene.length.toString()
+                '%ANTALL%': tallTilSpråk(soknadene.length),
             }),
             lenke: sykepengesoknadUrl,
             type: 'info'
@@ -50,7 +51,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         }
         return [ {
             tekst: tekst('oppgaver.reisetilskudd.flere', {
-                '%ANTALL%': soknadene.length.toString()
+                '%ANTALL%': tallTilSpråk(soknadene.length),
             }),
             lenke: sykepengesoknadUrl,
             type: 'info'

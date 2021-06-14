@@ -51,7 +51,7 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
         'lenke': 'http://soknad',
-        'tekst': 'Du har 3 nye søknader om sykepenger',
+        'tekst': 'Du har tre nye søknader om sykepenger',
         type: 'info',
     },
     {

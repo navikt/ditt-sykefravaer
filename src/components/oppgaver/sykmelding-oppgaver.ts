@@ -1,6 +1,7 @@
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
+import { tallTilSpråk } from './tall-til-språk'
 
 export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
 
@@ -23,7 +24,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         }
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
-                '%ANTALL%': sykmeldingene.length.toString()
+                '%ANTALL%': tallTilSpråk(sykmeldingene.length),
             }),
             lenke: sykmeldingUrl,
             type: 'info',
@@ -50,7 +51,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         }
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
-                '%ANTALL%': sykmeldingene.length.toString()
+                '%ANTALL%': tallTilSpråk(sykmeldingene.length),
             }),
             lenke: sykmeldingUrl,
             type: 'advarsel',
