@@ -1,0 +1,54 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../basic';
+
+.lenkepanel {
+    .typo-undertittel {
+        width: 70%;
+    }
+
+    .lenkeikon {
+        display: flex;
+        align-items: center;
+        background-color: @navDypBlaLighten80;
+        border-radius: 4px 0 0 4px;
+        margin: -1rem;
+        padding: 8px;
+        align-self: stretch;
+
+        &.soknader {
+            padding: 8px 10px;
+        }
+
+        &.utbetaling {
+            padding: 8px 9px;
+        }
+
+        svg {
+            width: 90%;
+        }
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .lenkepanel {
+        .typo-undertittel {
+            width: 80%;
+        }
+
+        .lenkeikon {
+            padding: 16px;
+
+            &.soknader {
+                padding: 16px 18px;
+            }
+
+            &.utbetaling {
+                padding: 16px 17px;
+            }
+
+            svg {
+                width: 100%;
+            }
+        }
+    }
+}

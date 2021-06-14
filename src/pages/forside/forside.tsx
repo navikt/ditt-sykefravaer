@@ -1,15 +1,15 @@
 import './forside.less'
 
+import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import { Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect } from 'react'
 
 import Banner from '../../components/banner/banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import SoknadLenkepanel from '../../components/lenker/soknader'
-import SykmeldingLenkepanel from '../../components/lenker/sykemelding'
+import SykmeldingLenkepanel from '../../components/lenker/sykmelding'
 import UtbetalingAvSykepengerLenkepanel from '../../components/lenker/utbetaling'
 import Oppgaver from '../../components/oppgaver/oppgaver'
-import Personvernsopplysninger from '../../components/personvernsopplysninger/personvernsopplysninger'
 import Vis from '../../components/vis'
 import { useAppStore } from '../../data/stores/app-store'
 import { tekst } from '../../utils/tekster'
@@ -24,7 +24,6 @@ const Forside = () => {
     useEffect(() => {
         setBodyClass('forside')
     }, [])
-
 
     return (
         <>
@@ -50,7 +49,7 @@ const Forside = () => {
                     <UtbetalingAvSykepengerLenkepanel />
                 </Vis>
 
-                <Personvernsopplysninger />
+                <AlertStripeInfo>{tekst('forside.personverninfo')}</AlertStripeInfo>
             </div>
         </>
     )
