@@ -1,5 +1,4 @@
 export const OppgaverTekster = {
-    'oppgaver.tittel': 'Oppgaver som venter på deg',
     'oppgaver.sykepengesoknad.enkel': 'Du har en ny søknad om sykepenger',
     'oppgaver.sykepengesoknad.flere': 'Du har %ANTALL% nye søknader om sykepenger',
     'oppgaver.reisetilskudd.enkel': 'Du har en ny søknad om reisetilskudd',
