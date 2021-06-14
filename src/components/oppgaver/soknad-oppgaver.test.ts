@@ -2,7 +2,7 @@ import { RSArbeidssituasjon } from '../../types/rs-types/rs-arbeidssituasjon'
 import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
 import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
-import { skapSøknadOppgaver } from './oppgaver'
+import { skapSøknadOppgaver } from './soknad-oppgaver'
 
 it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
     const oppgaver = skapSøknadOppgaver([], 'http://soknad')
