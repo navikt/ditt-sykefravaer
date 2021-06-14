@@ -18,8 +18,8 @@ export const heltFrisk: Persona = {
 }
 
 export const enNySykmelding: Persona = {
-    soknader: soknader,
-    vedtak: [ vedtakMed100Grad ],
+    soknader: [],
+    vedtak: [],
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -28,8 +28,8 @@ export const enNySykmelding: Persona = {
 }
 
 export const enAvvistSykmelding: Persona = {
-    soknader: soknader,
-    vedtak: [ vedtakMed100Grad ],
+    soknader: [],
+    vedtak: [],
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },

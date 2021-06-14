@@ -29,7 +29,7 @@ if (href.includes('helt-frisk')) {
     setUpMock(heltFrisk)
 } else if (href.includes('en-ny-sykmelding')) {
     setUpMock(enNySykmelding)
-}  else if (href.includes('en-avvist-sykmelding')) {
+} else if (href.includes('en-avvist-sykmelding')) {
     setUpMock(enAvvistSykmelding)
 } else {
     setUpMock(defaultPersona)
