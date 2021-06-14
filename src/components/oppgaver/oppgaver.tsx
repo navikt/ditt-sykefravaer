@@ -21,7 +21,7 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
         <>
             {oppgaveProps.oppgaver.map((v, idx) => {
                 return <div key={idx} style={{ marginBottom: '1em' }}>
-                    <Alertstripe type={v.type}><Lenke href={v.lenke}>{v.tekst}</Lenke></Alertstripe>
+                    <Alertstripe type={v.oppgavetype}><Lenke href={v.lenke}>{v.tekst}</Lenke></Alertstripe>
                 </div>
             })}
         </>

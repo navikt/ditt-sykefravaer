@@ -18,8 +18,8 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
-                type: 'info'
+                lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
+                oppgavetype: 'info'
             } ]
         }
         return [ {
@@ -27,7 +27,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
                 '%ANTALL%': tallTilSpråk(sykmeldingene.length),
             }),
             lenke: sykmeldingUrl,
-            type: 'info',
+            oppgavetype: 'info',
 
         } ]
     }
@@ -44,8 +44,8 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         if (sykmeldingene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
-                lenke: `${sykmeldingUrl}/soknader/${sykmeldingene[ 0 ].id}`,
-                type: 'advarsel',
+                lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
+                oppgavetype: 'advarsel',
 
             } ]
         }
@@ -54,7 +54,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
                 '%ANTALL%': tallTilSpråk(sykmeldingene.length),
             }),
             lenke: sykmeldingUrl,
-            type: 'advarsel',
+            oppgavetype: 'advarsel',
         } ]
     }
 

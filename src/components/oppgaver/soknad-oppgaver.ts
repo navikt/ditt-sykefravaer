@@ -23,7 +23,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
             return [ {
                 tekst: tekst('oppgaver.sykepengesoknad.enkel'),
                 lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
-                type: 'info'
+                oppgavetype: 'info'
             } ]
         }
         return [ {
@@ -31,7 +31,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
                 '%ANTALL%': tallTilSpråk(soknadene.length),
             }),
             lenke: sykepengesoknadUrl,
-            type: 'info'
+            oppgavetype: 'info'
         } ]
     }
 
@@ -46,7 +46,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
             return [ {
                 tekst: tekst('oppgaver.reisetilskudd.enkel'),
                 lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
-                type: 'info'
+                oppgavetype: 'info'
             } ]
         }
         return [ {
@@ -54,7 +54,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
                 '%ANTALL%': tallTilSpråk(soknadene.length),
             }),
             lenke: sykepengesoknadUrl,
-            type: 'info'
+            oppgavetype: 'info'
         } ]
     }
 
