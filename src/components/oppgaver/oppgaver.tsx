@@ -6,6 +6,7 @@ import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
 import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
 import environment from '../../utils/environment'
+import { byttTekstInnhold, tekst } from '../../utils/tekster'
 
 
 interface Oppgave {
@@ -52,12 +53,14 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
 
         if (soknadene.length == 1) {
             return [ {
-                tekst: 'Du har 1 ny søknad om sykepenger',
+                tekst: tekst('oppgaver.sykepengesoknad.enkel'),
                 lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`
             } ]
         }
         return [ {
-            tekst: `Du har ${soknadene.length} nye søknader om sykepenger`,
+            tekst: tekst('oppgaver.sykepengesoknad.flere', {
+                '%ANTALL%': soknadene.length.toString()
+            }),
             lenke: `${sykepengesoknadUrl}`
         } ]
     }
@@ -71,12 +74,14 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         }
         if (soknadene.length == 1) {
             return [ {
-                tekst: 'Du har 1 ny søknad om reisetilskudd',
+                tekst: tekst('oppgaver.reisetilskudd.enkel'),
                 lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`
             } ]
         }
         return [ {
-            tekst: `Du har ${soknadene.length} nye søknader om reisetilskudd`,
+            tekst: tekst('oppgaver.reisetilskudd.flere', {
+                '%ANTALL%': soknadene.length.toString()
+            }),
             lenke: `${sykepengesoknadUrl}`
         } ]
     }
