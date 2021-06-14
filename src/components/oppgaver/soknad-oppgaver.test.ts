@@ -2,7 +2,7 @@ import { RSArbeidssituasjon } from '../../types/rs-types/rs-arbeidssituasjon'
 import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
 import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
-import { skapSøknadOppgaver } from './oppgaver'
+import { skapSøknadOppgaver } from './soknad-oppgaver'
 
 it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
     const oppgaver = skapSøknadOppgaver([], 'http://soknad')
@@ -21,7 +21,7 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
     expect(oppgaver).toEqual([ {
         lenke: 'http://soknad/soknader/123',
         tekst: 'Du har en ny søknad om sykepenger',
-        type: 'info',
+        oppgavetype: 'info',
     } ])
 })
 
@@ -51,13 +51,13 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
         'lenke': 'http://soknad',
-        'tekst': 'Du har 3 nye søknader om sykepenger',
-        type: 'info',
+        'tekst': 'Du har tre nye søknader om sykepenger',
+        oppgavetype: 'info',
     },
     {
         'lenke': 'http://soknad/soknader/4',
         'tekst': 'Du har en ny søknad om reisetilskudd',
-        type: 'info',
+        oppgavetype: 'info',
     }
     ])
 })
@@ -73,7 +73,7 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
     expect(oppgaver).toEqual([ {
         lenke: 'http://soknad/soknader/123',
         tekst: 'Du har en ny søknad om reisetilskudd',
-        type: 'info',
+        oppgavetype: 'info',
     } ])
 })
 
