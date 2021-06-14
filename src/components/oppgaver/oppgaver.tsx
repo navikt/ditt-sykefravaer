@@ -1,3 +1,5 @@
+import './oppgaver.less'
+
 import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
@@ -23,7 +25,7 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
             <Systemtittel tag="h2">Oppgaver</Systemtittel>
             {oppgaveProps.oppgaver.map((v, idx) => {
                 return (
-                    <Alertstripe type={v.type} key={idx}>
+                    <Alertstripe type={v.oppgavetype} key={idx}>
                         <Lenke href={v.lenke}>{v.tekst}</Lenke>
                     </Alertstripe>
                 )
