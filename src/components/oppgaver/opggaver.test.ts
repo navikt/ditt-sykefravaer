@@ -24,6 +24,41 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
     } ])
 })
 
+it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
+    const soknader: Soknad[] = [ {
+        id: '1',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
+        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
+        status: RSSoknadstatus.NY
+    }, {
+        id: '2',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEISLEDIG,
+        soknadstype: RSSoknadstype.ARBEIDSLEDIG,
+        status: RSSoknadstatus.NY
+    }, {
+        id: '3',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
+        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
+        status: RSSoknadstatus.UTKAST_TIL_KORRIGERING
+    }, {
+        id: '4',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
+        soknadstype: RSSoknadstype.REISETILSKUDD,
+        status: RSSoknadstatus.UTKAST_TIL_KORRIGERING
+    }
+    ]
+    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    expect(oppgaver).toEqual([ {
+        'lenke': 'http://soknad',
+        'tekst': 'Du har 3 nye søknader om sykepenger',
+    },
+    {
+        'lenke': 'http://soknad/soknader/4',
+        'tekst': 'Du har 1 ny søknad om reisetilskudd',
+    }
+    ])
+})
+
 it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
     const soknader: Soknad[] = [ {
         id: '123',
@@ -36,4 +71,26 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
         lenke: 'http://soknad/soknader/123',
         tekst: 'Du har 1 ny søknad om reisetilskudd',
     } ])
+})
+
+it('Returnerer ingen oppgaver når det er en sendt arbeidstakersøknad', () => {
+    const soknader: Soknad[] = [ {
+        id: '123',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
+        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
+        status: RSSoknadstatus.SENDT
+    } ]
+    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    expect(oppgaver).toEqual([])
+})
+
+it('Returnerer ingen oppgaver når det er en ny utenlandssøknad', () => {
+    const soknader: Soknad[] = [ {
+        id: '123',
+        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
+        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
+        status: RSSoknadstatus.SENDT
+    } ]
+    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    expect(oppgaver).toEqual([])
 })
