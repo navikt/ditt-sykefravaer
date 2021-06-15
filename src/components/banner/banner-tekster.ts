@@ -1,5 +1,5 @@
 export const BannerTekster = {
-    'spinnsyn.sidetittel.liste': 'Ditt sykefravær',
-
+    'sidetittel.liste': 'Ditt sykefravær',
+    'sidetittel.snartslutt': 'Snart slutt på sykepengene',
 }
 

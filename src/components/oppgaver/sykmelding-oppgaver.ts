@@ -3,9 +3,9 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
 import { tallTilSpråk } from './tall-til-språk'
 
-export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
+export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
 
-    function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
+    const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) =>
@@ -35,7 +35,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         } ]
     }
 
-    function skapAvvisteOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
+    const skapAvvisteOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'INVALID')

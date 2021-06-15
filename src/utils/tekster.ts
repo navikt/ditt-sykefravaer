@@ -3,6 +3,7 @@ import { IngenSykmeldingTekster } from '../components/ingen-sykmelding/ingen-syk
 import { LenkerTekster } from '../components/lenker/lenker-tekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaver-tekster'
 import { ForsideTekster } from '../pages/forside/forside-tekster'
+import { SnartsluttTekster } from '../pages/snart-slutt/snartslutt-tekster'
 import { StringMap } from '../types/simple-types'
 import { logger } from './logger'
 
@@ -10,6 +11,7 @@ const tekster: any = {
     ...BannerTekster,
     ...LenkerTekster,
     ...ForsideTekster,
+    ...SnartsluttTekster,
     ...OppgaverTekster,
     ...IngenSykmeldingTekster,
 }
@@ -20,7 +22,8 @@ type TekstKeys =
     keyof typeof LenkerTekster |
     keyof typeof OppgaverTekster |
     keyof typeof IngenSykmeldingTekster |
-    keyof typeof ForsideTekster;
+    keyof typeof ForsideTekster |
+    keyof typeof SnartsluttTekster
 
 
 export const tekst = (tekst: TekstKeys, data?: StringMap): string => {

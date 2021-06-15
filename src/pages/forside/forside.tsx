@@ -24,9 +24,10 @@ const Forside = () => {
         <>
             <Banner>
                 <Sidetittel className="sidebanner__tittel">
-                    {tekst('spinnsyn.sidetittel.liste')}
+                    {tekst('sidetittel.liste')}
                 </Sidetittel>
             </Banner>
+
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">

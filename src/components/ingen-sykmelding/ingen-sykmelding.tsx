@@ -9,9 +9,11 @@ import { tekst } from '../../utils/tekster'
 
 export const IngenSykmelding = () => {
     const { sykmeldinger } = useAppStore()
+
     if (sykmeldinger.length > 0) {
         return null
     }
+
     return (
         <Veilederpanel svg={veileder}>
             {parser(tekst('ingen.sykmelding'))}

@@ -5,12 +5,19 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
 import { tallTilSpråk } from './tall-til-språk'
 
-export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
+export const skapSøknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+    const søknaderTilUtfylling = (s: Soknad) =>
+        s.status === RSSoknadstatus.NY ||
+        s.status === RSSoknadstatus.UTKAST_TIL_KORRIGERING
 
-    const søknaderTilUtfylling = (s: Soknad) => (s.status === RSSoknadstatus.NY || s.status === RSSoknadstatus.UTKAST_TIL_KORRIGERING)
-
-    function skapSykepengesoknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
-        const vanligeSoknader = [ RSSoknadstype.ARBEIDSTAKERE, RSSoknadstype.ARBEIDSLEDIG, RSSoknadstype.ANNET_ARBEIDSFORHOLD, RSSoknadstype.BEHANDLINGSDAGER, RSSoknadstype.SELVSTENDIGE_OG_FRILANSERE, ]
+    const skapSykepengesoknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+        const vanligeSoknader = [
+            RSSoknadstype.ARBEIDSTAKERE,
+            RSSoknadstype.ARBEIDSLEDIG,
+            RSSoknadstype.ANNET_ARBEIDSFORHOLD,
+            RSSoknadstype.BEHANDLINGSDAGER,
+            RSSoknadstype.SELVSTENDIGE_OG_FRILANSERE,
+        ]
 
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
@@ -37,7 +44,7 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         } ]
     }
 
-    function skapReisetilskuddOppgaver(soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] {
+    const skapReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
             .filter((s) => s.soknadstype === RSSoknadstype.REISETILSKUDD)
