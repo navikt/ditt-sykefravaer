@@ -6,22 +6,25 @@ import { tallTilSpråk } from './tall-til-språk'
 export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
 
     function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
-
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
-            .filter((s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status == 'MANUAL_PROCESSING')
+            .filter((s) =>
+                s.behandlingsutfall.status === 'OK' ||
+                s.behandlingsutfall.status === 'MANUAL_PROCESSING'
+            )
 
         if (sykmeldingene.length === 0) {
             return []
         }
 
-        if (sykmeldingene.length == 1) {
+        if (sykmeldingene.length === 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
                 lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
                 oppgavetype: 'info'
             } ]
         }
+
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
                 '%ANTALL%': tallTilSpråk(sykmeldingene.length),
@@ -49,6 +52,7 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
 
             } ]
         }
+
         return [ {
             tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
                 '%ANTALL%': tallTilSpråk(sykmeldingene.length),
@@ -58,6 +62,8 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
         } ]
     }
 
-    return [ ...skapVanligeOppgaver(sykmeldinger, sykmeldingUrl), ...skapAvvisteOppgaver(sykmeldinger, sykmeldingUrl) ]
-
+    return [
+        ...skapVanligeOppgaver(sykmeldinger, sykmeldingUrl),
+        ...skapAvvisteOppgaver(sykmeldinger, sykmeldingUrl)
+    ]
 }
