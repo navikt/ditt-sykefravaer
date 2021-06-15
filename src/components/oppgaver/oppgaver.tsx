@@ -17,7 +17,7 @@ interface OppgaveProps {
 }
 
 const OppgaveLista = (oppgaveProps: OppgaveProps) => {
-    if (oppgaveProps.oppgaver.length == 0) {
+    if (oppgaveProps.oppgaver.length === 0) {
         return null
     }
 

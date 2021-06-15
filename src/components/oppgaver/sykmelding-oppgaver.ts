@@ -8,10 +8,10 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
     function skapVanligeOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
 
         const sykmeldingene = sykmeldinger
-            .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
-            .filter((s) => s.behandlingsutfall.status == 'OK' || s.behandlingsutfall.status == 'MANUAL_PROCESSING')
+            .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
+            .filter((s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status == 'MANUAL_PROCESSING')
 
-        if (sykmeldingene.length == 0) {
+        if (sykmeldingene.length === 0) {
             return []
         }
 
@@ -34,14 +34,14 @@ export function skapSykmeldingoppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl
 
     function skapAvvisteOppgaver(sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] {
         const sykmeldingene = sykmeldinger
-            .filter((s) => s.sykmeldingStatus.statusEvent == 'APEN')
-            .filter((s) => s.behandlingsutfall.status == 'INVALID')
+            .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
+            .filter((s) => s.behandlingsutfall.status === 'INVALID')
 
-        if (sykmeldingene.length == 0) {
+        if (sykmeldingene.length === 0) {
             return []
         }
 
-        if (sykmeldingene.length == 1) {
+        if (sykmeldingene.length === 1) {
             return [ {
                 tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
                 lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
