@@ -15,17 +15,19 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
             .filter((s) => vanligeSoknader.includes(s.soknadstype))
-        if (soknadene.length == 0) {
+
+        if (soknadene.length === 0) {
             return []
         }
 
-        if (soknadene.length == 1) {
+        if (soknadene.length === 1) {
             return [ {
                 tekst: tekst('oppgaver.sykepengesoknad.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
                 oppgavetype: 'info'
             } ]
         }
+
         return [ {
             tekst: tekst('oppgaver.sykepengesoknad.flere', {
                 '%ANTALL%': tallTilSpråk(soknadene.length),
@@ -39,16 +41,19 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
             .filter((s) => s.soknadstype == RSSoknadstype.REISETILSKUDD)
+
         if (soknadene.length == 0) {
             return []
         }
+
         if (soknadene.length == 1) {
             return [ {
                 tekst: tekst('oppgaver.reisetilskudd.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
                 oppgavetype: 'info'
             } ]
         }
+
         return [ {
             tekst: tekst('oppgaver.reisetilskudd.flere', {
                 '%ANTALL%': tallTilSpråk(soknadene.length),
@@ -58,5 +63,8 @@ export function skapSøknadOppgaver(soknader: Soknad[], sykepengesoknadUrl: stri
         } ]
     }
 
-    return [ ...skapSykepengesoknadOppgaver(soknader, sykepengesoknadUrl), ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl) ]
+    return [
+        ...skapSykepengesoknadOppgaver(soknader, sykepengesoknadUrl),
+        ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl)
+    ]
 }

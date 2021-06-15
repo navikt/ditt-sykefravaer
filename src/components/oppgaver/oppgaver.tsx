@@ -7,6 +7,7 @@ import React from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
 import environment from '../../utils/environment'
+import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
 import { skapSøknadOppgaver } from './soknad-oppgaver'
 import { skapSykmeldingoppgaver } from './sykmelding-oppgaver'
@@ -38,9 +39,14 @@ const Oppgaver = () => {
     const { soknader, sykmeldinger } = useAppStore()
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
+    const snartSluttOppgaver: Oppgave[] = [ {
+        tekst: tekst('oppgaver.snartslutt'),
+        lenke: tekst('oppgaver.snartslutt.url'),
+        oppgavetype: 'advarsel'
+    } ]
 
     return (
-        <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver ]} />
+        <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver, ...snartSluttOppgaver ]} />
     )
 }
 
