@@ -15,6 +15,9 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.flexGatewayRoot}/syfosoknad/api/soknader`,
         (req, res, ctx) => res(ctx.json(persona.soknader)))
 
+    mock.get(`${env.flexGatewayRoot}/syfosoknad/api/syfosyketilfelle/39ukersvarsel`,
+        (req, res, ctx) => res(ctx.json(persona.snartSluttSykepenger)))
+
     mock.get(`${env.flexGatewayRoot}/spinnsyn-backend/api/v2/vedtak`,
         (req, res, ctx) => res(ctx.json(persona.vedtak)))
 

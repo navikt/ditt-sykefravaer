@@ -8,13 +8,15 @@ export interface Persona {
     soknader: RSSoknad[],
     vedtak: RSVedtakWrapper[],
     sykmeldinger: Sykmelding[],
+    snartSluttSykepenger: boolean
 }
 
 
 export const heltFrisk: Persona = {
     soknader: [],
     vedtak: [],
-    sykmeldinger: []
+    sykmeldinger: [],
+    snartSluttSykepenger: false,
 }
 
 export const enNySykmelding: Persona = {
@@ -24,7 +26,9 @@ export const enNySykmelding: Persona = {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'OK' }
-    } ]
+    } ],
+    snartSluttSykepenger: false,
+
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -34,7 +38,8 @@ export const enAvvistSykmelding: Persona = {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' }
-    } ]
+    } ],
+    snartSluttSykepenger: false,
 }
 
 export const defaultPersona: Persona = {
@@ -48,5 +53,6 @@ export const defaultPersona: Persona = {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' }
-    } ]
+    } ],
+    snartSluttSykepenger: true,
 }

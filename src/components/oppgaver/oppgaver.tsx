@@ -36,17 +36,20 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
 }
 
 const Oppgaver = () => {
-    const { soknader, sykmeldinger } = useAppStore()
+    const { soknader, sykmeldinger, snartSluttPaSykepengene } = useAppStore()
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
-    const snartSluttOppgaver: Oppgave[] = [ {
-        tekst: tekst('oppgaver.snartslutt'),
-        lenke: tekst('oppgaver.snartslutt.url'),
-        oppgavetype: 'advarsel'
-    } ]
 
+    const oppgaver = [ ...sykmeldingOppgaver, ...soknadOppgaver ]
+    if (snartSluttPaSykepengene) {
+        oppgaver.push({
+            tekst: tekst('oppgaver.snartslutt'),
+            lenke: tekst('oppgaver.snartslutt.url'),
+            oppgavetype: 'advarsel'
+        })
+    }
     return (
-        <OppgaveLista oppgaver={[ ...sykmeldingOppgaver, ...soknadOppgaver, ...snartSluttOppgaver ]} />
+        <OppgaveLista oppgaver={oppgaver} />
     )
 }
 

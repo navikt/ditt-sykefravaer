@@ -10,11 +10,13 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     const [ sykmeldinger, setSykmeldinger ] = useState<Sykmelding[]>([])
     const [ rsVedtak, setRsVedtak ] = useState<RSVedtakWrapper[]>([])
     const [ feilState, setFeilState ] = useState<boolean>(false)
+    const [ snartSluttPaSykepengene, setSnartSluttPaSykepengene ] = useState<boolean>(false)
 
     return {
         soknader, setSoknader,
         rsVedtak, setRsVedtak,
         feilState, setFeilState,
-        sykmeldinger, setSykmeldinger
+        sykmeldinger, setSykmeldinger,
+        snartSluttPaSykepengene, setSnartSluttPaSykepengene
     }
 })
