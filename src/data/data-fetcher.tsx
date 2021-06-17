@@ -2,6 +2,7 @@ import Spinner from 'nav-frontend-spinner'
 import React, { useEffect } from 'react'
 
 import IngenData from '../pages/feil/ingen-data'
+import { ArbeidsrettetOppfolging } from '../types/arbeidsrettetOppfolging'
 import { RSSoknad } from '../types/rs-types/rs-soknad'
 import { RSVedtakWrapper } from '../types/rs-types/rs-vedtak'
 import { Soknad } from '../types/soknad'
@@ -17,13 +18,17 @@ export function DataFetcher(props: { children: any }) {
         setSoknader,
         setRsVedtak,
         setSykmeldinger,
+        setArbeidsrettetOppfolging,
         setSnartSluttPaSykepengene,
     } = useAppStore()
     const rssoknader = useFetch<RSSoknad[]>()
     const rsVedtak = useFetch<RSVedtakWrapper[]>()
     const sykmeldinger = useFetch<Sykmelding[]>()
+    const arbeidsrettetOppfolgingFetch = useFetch<ArbeidsrettetOppfolging>()
     const snartSlutt = useFetch<boolean>()
 
+
+    const alleHooks = [ rssoknader, rsVedtak, snartSlutt, sykmeldinger, arbeidsrettetOppfolgingFetch ]
 
     useEffect(() => {
         if (isNotStarted(rssoknader)) {
@@ -44,6 +49,16 @@ export function DataFetcher(props: { children: any }) {
             }, (fetchState: FetchState<boolean>) => {
                 if (hasData(fetchState)) {
                     setSnartSluttPaSykepengene(fetchState.data)
+                }
+            })
+        }
+
+        if (isNotStarted(arbeidsrettetOppfolgingFetch)) {
+            arbeidsrettetOppfolgingFetch.fetch(env.flexGatewayRoot + '/veilarboppfolging/api/oppfolging', {
+                credentials: 'include',
+            }, (fetchState: FetchState<ArbeidsrettetOppfolging>) => {
+                if (hasData(fetchState)) {
+                    setArbeidsrettetOppfolging(fetchState.data)
                 }
             })
         }
@@ -69,15 +84,15 @@ export function DataFetcher(props: { children: any }) {
         }
 
         // eslint-disable-next-line
-    }, [rssoknader, rsVedtak, snartSlutt, sykmeldinger]);
+    }, alleHooks);
 
-    if (hasAny401([ rssoknader, rsVedtak, sykmeldinger ])) {
+    if (hasAny401(alleHooks)) {
         window.location.href = hentLoginUrl()
 
-    } else if (isAnyNotStartedOrPending([ rsVedtak, sykmeldinger, rssoknader, snartSlutt ])) {
+    } else if (isAnyNotStartedOrPending(alleHooks)) {
         return <Spinner type={'XXL'} />
 
-    } else if (hasAnyFailed([ rssoknader, rsVedtak, sykmeldinger, snartSlutt ])) {
+    } else if (hasAnyFailed(alleHooks)) {
         // TODO være litt mer graceful ved feil?
         logger.error(`Klarer ikke hente en av disse [ rssoknader = ${rssoknader.httpCode}, rsVedtak = ${rsVedtak.httpCode} ]`)
         return <IngenData />

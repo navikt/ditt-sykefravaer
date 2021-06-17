@@ -58,3 +58,5 @@ spec:
       value: "https://www.nav.no/syk/sykepenger"
     - name: SYKMELDING_URL
       value: "https://www.nav.no/syk/sykmeldinger"
+    - name: AKTIVITETSPLAN_URL
+      value: "https://aktivitetsplan.nav.no/"

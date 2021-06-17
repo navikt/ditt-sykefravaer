@@ -54,6 +54,10 @@ class Environment {
         return this.env.SYKMELDING_URL
     }
 
+    get aktivitetsplanUrl() {
+        return this.env.AKTIVITETSPLAN_URL
+    }
+
 
     get dittNavUrl() {
         return this.env.DITTNAV_URL
