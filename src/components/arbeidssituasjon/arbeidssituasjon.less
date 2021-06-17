@@ -6,22 +6,28 @@
 
     .din-situasjon__header {
         display: flex;
-        border-bottom: 1px solid @navGra40;
-        margin-bottom: 1rem;
+
+        & > * {
+            margin-right: 1rem;
+        }
     }
 
-    .din-situasjon__header > * {
-        margin-right: 1rem;
-    }
 
-    .situasjon {
-        display: flex;
+    .situasjon__panel {
+        border-top: 1px solid @navGra40;
+        margin-top: 1rem;
 
-        .situasjon__innhold {
-            margin-left: 1rem;
+        .situasjon {
+            display: flex;
+            padding-top: 1rem;
+            padding-bottom: 1rem;
 
-            .leder__forskuttering {
-                display: flex;
+            .situasjon__innhold {
+                margin-left: 1rem;
+
+                .leder__forskuttering {
+                    display: flex;
+                }
             }
         }
     }

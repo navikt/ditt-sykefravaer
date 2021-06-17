@@ -220,7 +220,9 @@ const Arbeidssituasjon = () => {
                                         <div className="situasjon__ikon">
                                             <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)} alt={arbeidssituasjonLedetekst} />
                                         </div>
-                                        <Normaltekst className="situasjon__tittel">{arbeidssituasjonLedetekst}</Normaltekst>
+                                        <div className="situasjon__innhold">
+                                            <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>
+                                        </div>
                                     </div>
                                 </div>
                             )
