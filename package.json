@@ -15,6 +15,7 @@
     "@types/react-dom": "^17.0.3",
     "@types/react-modal": "^3.12.0",
     "amplitude-js": "^8.2.1",
+    "browserslist": ">=4.16.5",
     "classnames": "^2.3.1",
     "constate": "^3.2.0",
     "craco-less": "^1.17.1",
@@ -60,6 +61,7 @@
     "nav-frontend-veilederpanel-style": "^2.0.1",
     "node-forge": ">=0.10.0",
     "normalize-url": ">=4.5.1",
+    "postcss": ">=7.0.36",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-collapse": "^5.1.0",
@@ -68,7 +70,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "typescript": "~4.2.4",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "ws": ">=7.4.6"
   },
   "devDependencies": {
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
