@@ -1,3 +1,4 @@
+import { ArbeidsrettetOppfolging } from '../../../types/arbeidsrettetOppfolging'
 import { RSSoknad } from '../../../types/rs-types/rs-soknad'
 import { RSVedtakWrapper } from '../../../types/rs-types/rs-vedtak'
 import { Sykmelding } from '../../../types/sykmelding'
@@ -8,7 +9,8 @@ export interface Persona {
     soknader: RSSoknad[],
     vedtak: RSVedtakWrapper[],
     sykmeldinger: Sykmelding[],
-    snartSluttSykepenger: boolean
+    snartSluttSykepenger: boolean,
+    arbeidsrettetOppfolging: ArbeidsrettetOppfolging,
 }
 
 
@@ -17,6 +19,7 @@ export const heltFrisk: Persona = {
     vedtak: [],
     sykmeldinger: [],
     snartSluttSykepenger: false,
+    arbeidsrettetOppfolging: { underOppfolging: false }
 }
 
 export const enNySykmelding: Persona = {
@@ -28,6 +31,7 @@ export const enNySykmelding: Persona = {
         behandlingsutfall: { status: 'OK' }
     } ],
     snartSluttSykepenger: false,
+    arbeidsrettetOppfolging: { underOppfolging: false }
 
 }
 
@@ -40,6 +44,8 @@ export const enAvvistSykmelding: Persona = {
         behandlingsutfall: { status: 'INVALID' }
     } ],
     snartSluttSykepenger: false,
+    arbeidsrettetOppfolging: { underOppfolging: false }
+
 }
 
 export const defaultPersona: Persona = {
@@ -55,4 +61,6 @@ export const defaultPersona: Persona = {
         behandlingsutfall: { status: 'INVALID' }
     } ],
     snartSluttSykepenger: true,
+    arbeidsrettetOppfolging: { underOppfolging: true }
+
 }
