@@ -4,6 +4,7 @@ import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import { Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect } from 'react'
 
+import Arbeidssituasjon from '../../components/arbeidssituasjon/arbeidssituasjon'
 import Banner from '../../components/banner/banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import { IngenSykmelding } from '../../components/ingen-sykmelding/ingen-sykmelding'
@@ -33,6 +34,7 @@ const Forside = () => {
             <div className="limit">
                 <IngenSykmelding />
                 <Oppgaver />
+                <Arbeidssituasjon />
                 <Lenker />
                 <AlertStripeInfo>{tekst('forside.personverninfo')}</AlertStripeInfo>
             </div>

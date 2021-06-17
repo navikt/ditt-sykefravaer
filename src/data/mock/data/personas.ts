@@ -28,11 +28,11 @@ export const enNySykmelding: Persona = {
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'OK' }
+        behandlingsutfall: { status: 'OK' },
+        sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
     } ],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false }
-
+    arbeidsrettetOppfolging: { underOppfolging: false },
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -41,26 +41,35 @@ export const enAvvistSykmelding: Persona = {
     sykmeldinger: [ {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'INVALID' }
+        behandlingsutfall: { status: 'INVALID' },
+        sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
     } ],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false }
-
+    arbeidsrettetOppfolging: { underOppfolging: false },
 }
 
 export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
     sykmeldinger: [ {
+        id: 'SENDT',
+        sykmeldingStatus: {
+            statusEvent: 'SENDT',
+            arbeidsgiver: { orgnummer: '972674818', orgNavn: 'PENGELØS SPAREBANK' }
+        },
+        behandlingsutfall: { status: 'OK' },
+        sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
+    }, {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'OK' }
+        behandlingsutfall: { status: 'OK' },
+        sykmeldingsperioder: [ { fom: '2021-03-15', tom: '2021-03-19' } ],
     }, {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'INVALID' }
+        behandlingsutfall: { status: 'INVALID' },
+        sykmeldingsperioder: [ { fom: '2021-03-19', tom: '2021-03-19' } ],
     } ],
     snartSluttSykepenger: true,
-    arbeidsrettetOppfolging: { underOppfolging: true }
-
+    arbeidsrettetOppfolging: { underOppfolging: true },
 }

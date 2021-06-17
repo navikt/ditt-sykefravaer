@@ -1,4 +1,5 @@
 import { hentLoginUrl } from '../data/data-fetcher'
+import { Sykmelding } from '../types/sykmelding'
 import { logger } from './logger'
 
 
@@ -17,4 +18,8 @@ export const setBodyClass = (name: string) => {
         document.body.classList.remove(document.body.className)
     }
     document.body.classList.add(name)
+}
+
+export const hentArbeidssituasjon = (sykmelding: Sykmelding) => {
+    return sykmelding.sykmeldingStatus.sporsmalOgSvarListe?.find(s => s.shortName === 'ARBEIDSSITUASJON')?.svar?.svar
 }
