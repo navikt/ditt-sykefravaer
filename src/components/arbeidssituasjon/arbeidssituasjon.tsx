@@ -59,7 +59,7 @@ export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerPr
 
     // TODO: Finnes også en egen tekst når lønn ikke forskuteres, men tror den aldri vises
     return (
-        <div>
+        <Vis hvis={leder}>
             <Lightbox open={open} toggle={toggleOpen} narmesteLeder={leder!} />
             <Normaltekst className="leder__informasjon">
                 Din nærmeste leder er <strong>{leder?.navn}</strong>.
@@ -77,7 +77,7 @@ export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerPr
                     <Hjelpetekst> Arbeidsgiveren betaler vanligvis lønnen de første 16 kalenderdagene man er syk. Noen arbeidsgivere fortsetter å utbetale lønn og søker om å få pengene igjen fra NAV senere. Hvis du har en arbeidsgiver som stanser lønnen etter 16 dager, får du i stedet utbetalingen fra NAV. Det er arbeidsgiveren som melder inn til oss hva som gjelder hos dere. </Hjelpetekst>
                 </div>
             </Vis>
-        </div>
+        </Vis>
     )
 }
 
