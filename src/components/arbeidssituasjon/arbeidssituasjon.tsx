@@ -22,30 +22,26 @@ import AnnenArbeidssituasjonIkon from './skilt.svg'
 // TODO: Flytt
 interface ArbeidsgiverProps { orgnummer: string }
 export const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const { narmesteLedere, sykmeldinger  } = useAppStore()
+    const { sykmeldinger  } = useAppStore()
 
-    let arbeidsgiverNavn = narmesteLedere.find((nl) => nl.orgnummer === orgnummer)?.organisasjonsnavn
-
-    if (!arbeidsgiverNavn) {
-        arbeidsgiverNavn = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
-            .find((syk) =>
-                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
-                syk.sykmeldingStatus.arbeidsgiver?.orgNavn
-            )
-            ?.sykmeldingStatus.arbeidsgiver!.orgNavn
-    }
+    const orgNavn = sykmeldinger
+        .find((syk) =>
+            syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
+            syk.sykmeldingStatus.arbeidsgiver?.orgNavn
+        )
+        ?.sykmeldingStatus.arbeidsgiver!.orgNavn
 
     return (
         <div className="situasjon__innhold">
-            <Normaltekst>{tekst('din-situasjon.ansatt') + arbeidsgiverNavn}</Normaltekst>
-            <NaermesteLederContainer orgnummer={orgnummer} />
+            <Normaltekst>{tekst('din-situasjon.ansatt') + orgNavn}</Normaltekst>
+            <NaermesteLederContainer orgnummer={orgnummer} orgNavn={orgNavn} />
         </div>
     )
 }
 
 // TODO: Flytt
-interface NaermesteLederContainerProps { orgnummer: string }
-export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerProps) => {
+interface NaermesteLederContainerProps { orgnummer: string, orgNavn?: string }
+export const NaermesteLederContainer = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { narmesteLedere } = useAppStore()
 
     const leder = narmesteLedere
@@ -59,8 +55,8 @@ export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerPr
 
     // TODO: Finnes også en egen tekst når lønn ikke forskuteres, men tror den aldri vises
     return (
-        <Vis hvis={leder}>
-            <Lightbox open={open} toggle={toggleOpen} narmesteLeder={leder!} />
+        <Vis hvis={leder && orgNavn}>
+            <Lightbox open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />
             <Normaltekst className="leder__informasjon">
                 Din nærmeste leder er <strong>{leder?.navn}</strong>.
             </Normaltekst>
@@ -71,7 +67,7 @@ export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerPr
                     <Normaltekst>Meld fra om endring</Normaltekst>
                 </a>
             </Vis>
-            <Vis hvis={leder?.arbeidsgiverForskuttererLoenn}>
+            <Vis hvis={leder?.arbeidsgiverForskutterer}>
                 <div className="leder__forskuttering">
                     <Normaltekst> Arbeidsgiveren din betaler lønn også etter de 16 første dagene. </Normaltekst>
                     <Hjelpetekst> Arbeidsgiveren betaler vanligvis lønnen de første 16 kalenderdagene man er syk. Noen arbeidsgivere fortsetter å utbetale lønn og søker om å få pengene igjen fra NAV senere. Hvis du har en arbeidsgiver som stanser lønnen etter 16 dager, får du i stedet utbetalingen fra NAV. Det er arbeidsgiveren som melder inn til oss hva som gjelder hos dere. </Hjelpetekst>
@@ -82,8 +78,8 @@ export const NaermesteLederContainer = ({ orgnummer }: NaermesteLederContainerPr
 }
 
 // TODO: Flytt, padding inne i modal
-interface LightboxProps { open: boolean, toggle: () => void, narmesteLeder: NarmesteLeder }
-export const Lightbox = ({ open, toggle, narmesteLeder }: LightboxProps) => {
+interface LightboxProps { open: boolean, toggle: () => void, narmesteLeder: NarmesteLeder, orgNavn: string }
+export const Lightbox = ({ open, toggle, narmesteLeder, orgNavn }: LightboxProps) => {
     useEffect(() => {
         Modal.setAppElement('#maincontent')
     }, [])
@@ -102,15 +98,15 @@ export const Lightbox = ({ open, toggle, narmesteLeder }: LightboxProps) => {
                 <Undertittel tag="h2">Takk for oppdateringen!</Undertittel>
             </Vis>
             <Vis hvis={!avkreftet}>
-                <BekreftFeilLeder narmesteLeder={narmesteLeder} avbryt={toggle} />
+                <BekreftFeilLeder narmesteLeder={narmesteLeder} orgNavn={orgNavn} avbryt={toggle} />
             </Vis>
         </Modal>
     )
 }
 
 // TODO: Flytt, oppsett av feilmelding
-interface BekreftFeilLederProps { narmesteLeder: NarmesteLeder, avbryt: () => void }
-export const BekreftFeilLeder = ({ narmesteLeder, avbryt }: BekreftFeilLederProps) => {
+interface BekreftFeilLederProps { narmesteLeder: NarmesteLeder, orgNavn: string, avbryt: () => void }
+export const BekreftFeilLeder = ({ narmesteLeder, orgNavn, avbryt }: BekreftFeilLederProps) => {
     const [ avkrefter, setAvkrefter ] = useState<boolean>(false)
 
     const avkreftLeder = (orgnummer: string) => {
@@ -128,7 +124,7 @@ export const BekreftFeilLeder = ({ narmesteLeder, avbryt }: BekreftFeilLederProp
     return (
         <div>
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
-            <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i <strong>{narmesteLeder.organisasjonsnavn}</strong>?</Normaltekst>
+            <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i <strong>{orgNavn}</strong>?</Normaltekst>
             <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</Normaltekst>
 
             <div className="knapperad">

@@ -86,9 +86,8 @@ export function DataFetcher(props: { children: any }) {
             })
         }
 
-        // TODO: Sett opp med nytt endepunkt "/user/sykmeldt/narmesteledere", mister da organisasjonsnavn
         if (isNotStarted(narmesteLedere)) {
-            narmesteLedere.fetch(env.narmestelederUrl + '/syforest/narmesteledere', {
+            narmesteLedere.fetch(env.narmestelederUrl + '/user/sykmeldt/narmesteledere', {
                 credentials: 'include',
             }, (fetchState: FetchState<NarmesteLeder[]>) => {
                 if (hasData(fetchState)) {

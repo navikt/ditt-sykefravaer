@@ -27,7 +27,7 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
         (req, res, ctx) => res(ctx.json(persona.sykmeldinger)))
 
-    mock.get(`${env.narmestelederUrl}/syforest/narmesteledere`,
+    mock.get(`${env.narmestelederUrl}/user/sykmeldt/narmesteledere`,
         (req, res, ctx) => res(ctx.json(persona.narmesteledere)))
 }
 

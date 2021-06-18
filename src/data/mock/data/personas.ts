@@ -103,8 +103,7 @@ export const defaultPersona: Persona = {
     narmesteledere: [ {
         navn: 'Albus Dumbledore',
         orgnummer: '972674818',
-        organisasjonsnavn: 'Hogwarts School of Witchcraft and Wizardry',
-        arbeidsgiverForskuttererLoenn: true,
+        arbeidsgiverForskutterer: true,
     } ],
     snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { underOppfolging: true },
