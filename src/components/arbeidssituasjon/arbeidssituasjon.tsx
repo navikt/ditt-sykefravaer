@@ -1,151 +1,20 @@
 import './arbeidssituasjon.less'
 
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Knapp } from 'nav-frontend-knapper'
-import Modal from 'nav-frontend-modal'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import React, { useEffect, useState } from 'react'
+import { Normaltekst } from 'nav-frontend-typografi'
+import React from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
-import { NarmesteLeder } from '../../types/narmesteLeder'
+import ArbeidsgiverIkon from '../../grafikk/arbeidsgiver.svg'
+import ArbeidssituasjonIkon from '../../grafikk/arbeidssituasjon.svg'
+import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
+import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/utils'
 import Vis from '../vis'
-import ArbeidsgiverIkon from './arbeidsgiver.svg'
-import ArbeidssituasjonIkon from './arbeidssituasjon.svg'
-import SelvstendigFrilanserIkon from './id-kort.svg'
-import AnnenArbeidssituasjonIkon from './skilt.svg'
-
-
-// TODO: Flytt
-interface ArbeidsgiverProps { orgnummer: string }
-export const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const { sykmeldinger  } = useAppStore()
-
-    const orgNavn = sykmeldinger
-        .find((syk) =>
-            syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
-            syk.sykmeldingStatus.arbeidsgiver?.orgNavn
-        )
-        ?.sykmeldingStatus.arbeidsgiver!.orgNavn
-
-    return (
-        <div className="situasjon__innhold">
-            <Normaltekst>{tekst('din-situasjon.ansatt') + orgNavn}</Normaltekst>
-            <NaermesteLederContainer orgnummer={orgnummer} orgNavn={orgNavn} />
-        </div>
-    )
-}
-
-// TODO: Flytt
-interface NaermesteLederContainerProps { orgnummer: string, orgNavn?: string }
-export const NaermesteLederContainer = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
-    const { narmesteLedere } = useAppStore()
-
-    const leder = narmesteLedere
-        .filter((nl) => !nl.aktivTom && nl.navn)    // Aktiv og har navn på leder
-        .find((nl) => nl.orgnummer === orgnummer)
-    const [ open, setOpen ] = useState<boolean>(false)
-
-    const toggleOpen = () => {
-        setOpen(!open)
-    }
-
-    // TODO: Finnes også en egen tekst når lønn ikke forskuteres, men tror den aldri vises
-    return (
-        <Vis hvis={leder && orgNavn}>
-            <Lightbox open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />
-            <Normaltekst className="leder__informasjon">
-                Din nærmeste leder er <strong>{leder?.navn}</strong>.
-            </Normaltekst>
-            <Vis hvis={
-                true // TODO: Finn ut hvor vi mottar avkreftet i fra
-            }>
-                <a className="lenke leder__meldFeil js-feil" onClick={() => toggleOpen()}>
-                    <Normaltekst>Meld fra om endring</Normaltekst>
-                </a>
-            </Vis>
-            <Vis hvis={leder?.arbeidsgiverForskutterer}>
-                <div className="leder__forskuttering">
-                    <Normaltekst> Arbeidsgiveren din betaler lønn også etter de 16 første dagene. </Normaltekst>
-                    <Hjelpetekst> Arbeidsgiveren betaler vanligvis lønnen de første 16 kalenderdagene man er syk. Noen arbeidsgivere fortsetter å utbetale lønn og søker om å få pengene igjen fra NAV senere. Hvis du har en arbeidsgiver som stanser lønnen etter 16 dager, får du i stedet utbetalingen fra NAV. Det er arbeidsgiveren som melder inn til oss hva som gjelder hos dere. </Hjelpetekst>
-                </div>
-            </Vis>
-        </Vis>
-    )
-}
-
-// TODO: Flytt, padding inne i modal
-interface LightboxProps { open: boolean, toggle: () => void, narmesteLeder: NarmesteLeder, orgNavn: string }
-export const Lightbox = ({ open, toggle, narmesteLeder, orgNavn }: LightboxProps) => {
-    useEffect(() => {
-        Modal.setAppElement('#maincontent')
-    }, [])
-
-    // TODO: Må holde state på om nl er avkreftet for å vise egen tekst, avkreftete ledere blir ikke med i oversikten neste gang man går inn
-    const avkreftet = false
-
-    return (
-        <Modal
-            isOpen={open}
-            closeButton={true}
-            contentLabel="Modal"
-            onRequestClose={toggle}
-        >
-            <Vis hvis={avkreftet}>
-                <Undertittel tag="h2">Takk for oppdateringen!</Undertittel>
-            </Vis>
-            <Vis hvis={!avkreftet}>
-                <BekreftFeilLeder narmesteLeder={narmesteLeder} orgNavn={orgNavn} avbryt={toggle} />
-            </Vis>
-        </Modal>
-    )
-}
-
-// TODO: Flytt, oppsett av feilmelding
-interface BekreftFeilLederProps { narmesteLeder: NarmesteLeder, orgNavn: string, avbryt: () => void }
-export const BekreftFeilLeder = ({ narmesteLeder, orgNavn, avbryt }: BekreftFeilLederProps) => {
-    const [ avkrefter, setAvkrefter ] = useState<boolean>(false)
-
-    const avkreftLeder = (orgnummer: string) => {
-        /***
-         * prod = https://narmesteleder.nav.no
-         * dc = http://localhost:6998/api/v1/syforest
-         * NY lokal og dev i samme = https://narmesteleder.dev.nav.no
-         */
-
-        const backend = 'https://narmesteleder.nav.no'
-        const url = `${backend}/${orgnummer}/avkreft`
-        console.log('AVKREFTER!') // eslint-disable-line
-    }
-
-    return (
-        <div>
-            <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
-            <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i <strong>{orgNavn}</strong>?</Normaltekst>
-            <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</Normaltekst>
-
-            <div className="knapperad">
-                <Knapp
-                    htmlType="button"
-                    spinner={avkrefter}
-                    onClick={() => {
-                        // TODO: Sett opp logikk for avkrefting av leder
-                        setAvkrefter(true)
-                        avkreftLeder(narmesteLeder.orgnummer)
-                    }}
-                >
-                    Ja, jeg er sikker
-                </Knapp>
-                <a className="lenke js-avbryt" onClick={() => avbryt()}>
-                    <Normaltekst>Avbryt</Normaltekst>
-                </a>
-            </div>
-        </div>
-    )
-}
+import Arbeidsgiver from './arbeidsgiver'
 
 const Arbeidssituasjon = () => {
     const { sykmeldinger, narmesteLedere } = useAppStore()
