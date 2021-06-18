@@ -205,7 +205,7 @@ const Arbeidssituasjon = () => {
 
     return (
         <Vis hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}>
-            <div className="landingspanel din-situasjon lenkepanel lenkepanel--border">
+            <div className="landingspanel din-situasjon">
                 <header className="din-situasjon__header">
                     <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
                     <h2>{tekst('din-situasjon.tittel.2')}</h2>
