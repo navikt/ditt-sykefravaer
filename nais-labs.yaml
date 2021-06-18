@@ -39,3 +39,5 @@ spec:
       value: "https://sykmeldinger.labs.nais.io/syk/sykmeldinger"
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
+    - name: NARMESTELEDER_URL
+      value: "https://narmesteleder.dev.nav.no"

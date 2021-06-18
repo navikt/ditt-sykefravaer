@@ -2,6 +2,7 @@ import constate from 'constate'
 import { useState } from 'react'
 
 import { ArbeidsrettetOppfolging } from '../../types/arbeidsrettetOppfolging'
+import { NarmesteLeder } from '../../types/narmesteLeder'
 import { RSVedtakWrapper } from '../../types/rs-types/rs-vedtak'
 import { Soknad } from '../../types/soknad'
 import { Sykmelding } from '../../types/sykmelding'
@@ -13,6 +14,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
     const [ arbeidsrettetOppfolging, setArbeidsrettetOppfolging ] = useState<ArbeidsrettetOppfolging | null>(null)
     const [ feilState, setFeilState ] = useState<boolean>(false)
     const [ snartSluttPaSykepengene, setSnartSluttPaSykepengene ] = useState<boolean>(false)
+    const [ narmesteLedere, setNarmesteLedere ] = useState<NarmesteLeder[]>([])
 
     return {
         soknader, setSoknader,
@@ -20,6 +22,7 @@ export const [ AppStoreProvider, useAppStore ] = constate(() => {
         feilState, setFeilState,
         sykmeldinger, setSykmeldinger,
         snartSluttPaSykepengene, setSnartSluttPaSykepengene,
-        arbeidsrettetOppfolging, setArbeidsrettetOppfolging
+        arbeidsrettetOppfolging, setArbeidsrettetOppfolging,
+        narmesteLedere, setNarmesteLedere,
     }
 })

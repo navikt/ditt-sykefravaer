@@ -74,6 +74,10 @@ class Environment {
     get amplitudeEnabled() {
         return this.env.AMPLITUDE_ENABLED === 'true'
     }
+
+    get narmestelederUrl() {
+        return this.env.NARMESTELEDER_URL
+    }
 }
 
 const env = new Environment()

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 
 import IngenData from '../pages/feil/ingen-data'
 import { ArbeidsrettetOppfolging } from '../types/arbeidsrettetOppfolging'
+import { NarmesteLeder } from '../types/narmesteLeder'
 import { RSSoknad } from '../types/rs-types/rs-soknad'
 import { RSVedtakWrapper } from '../types/rs-types/rs-vedtak'
 import { Soknad } from '../types/soknad'
@@ -20,15 +21,17 @@ export function DataFetcher(props: { children: any }) {
         setSykmeldinger,
         setArbeidsrettetOppfolging,
         setSnartSluttPaSykepengene,
+        setNarmesteLedere,
     } = useAppStore()
     const rssoknader = useFetch<RSSoknad[]>()
     const rsVedtak = useFetch<RSVedtakWrapper[]>()
     const sykmeldinger = useFetch<Sykmelding[]>()
     const arbeidsrettetOppfolgingFetch = useFetch<ArbeidsrettetOppfolging>()
     const snartSlutt = useFetch<boolean>()
+    const narmesteLedere = useFetch<NarmesteLeder[]>()
 
 
-    const alleHooks = [ rssoknader, rsVedtak, snartSlutt, sykmeldinger, arbeidsrettetOppfolgingFetch ]
+    const alleHooks = [ rssoknader, rsVedtak, snartSlutt, sykmeldinger, arbeidsrettetOppfolgingFetch, narmesteLedere ]
 
     useEffect(() => {
         if (isNotStarted(rssoknader)) {
@@ -79,6 +82,17 @@ export function DataFetcher(props: { children: any }) {
             }, (fetchState: FetchState<Sykmelding[]>) => {
                 if (hasData(fetchState)) {
                     setSykmeldinger(fetchState.data)
+                }
+            })
+        }
+
+        // TODO: Sett opp med nytt endepunkt "/user/sykmeldt/narmesteledere", mister da organisasjonsnavn
+        if (isNotStarted(narmesteLedere)) {
+            narmesteLedere.fetch(env.narmestelederUrl + '/syforest/narmesteledere', {
+                credentials: 'include',
+            }, (fetchState: FetchState<NarmesteLeder[]>) => {
+                if (hasData(fetchState)) {
+                    setNarmesteLedere(fetchState.data)
                 }
             })
         }

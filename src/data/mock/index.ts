@@ -24,9 +24,11 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.flexGatewayRoot}/spinnsyn-backend/api/v2/vedtak`,
         (req, res, ctx) => res(ctx.json(persona.vedtak)))
 
-
     mock.get(`${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
         (req, res, ctx) => res(ctx.json(persona.sykmeldinger)))
+
+    mock.get(`${env.narmestelederUrl}/syforest/narmesteledere`,
+        (req, res, ctx) => res(ctx.json(persona.narmesteledere)))
 }
 
 

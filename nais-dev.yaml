@@ -60,3 +60,5 @@ spec:
       value: "https://www-gcp.dev.nav.no/syk/sykmeldinger"
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan-q1.dev.nav.no/"
+    - name: NARMESTELEDER_URL
+      value: "https://narmesteleder.dev.nav.no"
