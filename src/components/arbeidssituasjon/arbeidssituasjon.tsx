@@ -1,6 +1,5 @@
 import './arbeidssituasjon.less'
 
-import dayjs from 'dayjs'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Knapp } from 'nav-frontend-knapper'
 import Modal from 'nav-frontend-modal'
@@ -10,9 +9,9 @@ import React, { useEffect, useState } from 'react'
 import { useAppStore } from '../../data/stores/app-store'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
-import { Periode, Sykmelding } from '../../types/sykmelding'
+import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
-import { hentArbeidssituasjon } from '../../utils/utils'
+import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/utils'
 import Vis from '../vis'
 import ArbeidsgiverIkon from './arbeidsgiver.svg'
 import ArbeidssituasjonIkon from './arbeidssituasjon.svg'
@@ -23,9 +22,18 @@ import AnnenArbeidssituasjonIkon from './skilt.svg'
 // TODO: Flytt
 interface ArbeidsgiverProps { orgnummer: string }
 export const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const { narmesteLedere } = useAppStore()
+    const { narmesteLedere, sykmeldinger  } = useAppStore()
 
-    const arbeidsgiverNavn = narmesteLedere.find((nl) => nl.orgnummer === orgnummer)?.organisasjonsnavn
+    let arbeidsgiverNavn = narmesteLedere.find((nl) => nl.orgnummer === orgnummer)?.organisasjonsnavn
+
+    if (!arbeidsgiverNavn) {
+        arbeidsgiverNavn = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
+            .find((syk) =>
+                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
+                syk.sykmeldingStatus.arbeidsgiver?.orgNavn
+            )
+            ?.sykmeldingStatus.arbeidsgiver!.orgNavn
+    }
 
     return (
         <div className="situasjon__innhold">
@@ -146,20 +154,6 @@ export const BekreftFeilLeder = ({ narmesteLeder, avbryt }: BekreftFeilLederProp
 const Arbeidssituasjon = () => {
     const { sykmeldinger, narmesteLedere } = useAppStore()
 
-    const selectSykmeldingerYngreEnnTreMaaneder = () => {
-        const treMndSiden = dayjs().subtract(3, 'months')
-        const senesteTom = (perioder: Periode[]) => {
-            const nyeste = perioder
-                .sort((p1, p2) =>
-                    dayjs(p1.tom).unix() - dayjs(p2.tom).unix()
-                )[0]
-            return dayjs(nyeste.tom)
-        }
-        return sykmeldinger.filter((syk) =>
-            senesteTom(syk.sykmeldingsperioder) > treMndSiden
-        )
-    }
-
     const finnAktuelleArbeidsgivere = () => {
         const aktiveLedereOrgnummer = narmesteLedere
             .filter((nl) => !nl.aktivTom && nl.navn)
@@ -168,7 +162,7 @@ const Arbeidssituasjon = () => {
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
             .filter((syk) => aktiveLedereOrgnummer.includes(syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''))
 
-        const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder()
+        const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
 
         const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] = [
@@ -186,7 +180,7 @@ const Arbeidssituasjon = () => {
 
     const finnAktuelleArbeidssituasjoner = (): string[] => {
         const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
-        const arbeidssituasjoner = selectSykmeldingerYngreEnnTreMaaneder()
+        const arbeidssituasjoner = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
             .map((syk) => hentArbeidssituasjon(syk)!)
             .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
