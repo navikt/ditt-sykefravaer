@@ -20,10 +20,12 @@ export interface Brodsmule {
 }
 
 
-const faste: Brodsmule[] = [
-    { tittel: 'Ditt NAV', sti: env.dittNavUrl, erKlikkbar: true },
-    { tittel: 'Ditt sykefravær', sti: env.sykefravaerUrl, erKlikkbar: false }
-]
+const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
+    return [
+        { tittel: 'Ditt NAV', sti: env.dittNavUrl, erKlikkbar: true },
+        { tittel: 'Ditt sykefravær', sti: '/', erKlikkbar: sykefravaerKlikkbar }
+    ]
+}
 
 const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
     const erEkstern = sti && (sti.startsWith('https://') || sti.startsWith('http://'))
@@ -62,19 +64,22 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
     const [ skjerm, setSkjerm ] = useState<number>(window.innerWidth)
     const smulesti = useRef<HTMLElement>(null)
 
-    brodsmuler = faste.concat(brodsmuler)
+
+    const sykefravaerKlikkbar = brodsmuler.length > 0
+
+    brodsmuler = faste(sykefravaerKlikkbar).concat(brodsmuler)
 
     useEffect(() => {
         window.addEventListener('resize', () => {
             setSkjerm(window.innerWidth)
         })
-        setSynlige(skjerm <= LITEN ? [ brodsmuler[brodsmuler.length - 1] ] : brodsmuler)
+        setSynlige(skjerm <= LITEN ? [ brodsmuler[ brodsmuler.length - 1 ] ] : brodsmuler)
         // eslint-disable-next-line
-    }, [ skjerm ])
+    }, [skjerm])
 
     const toggleSynlige = () => {
         if (synlige.length === brodsmuler.length) {
-            setSynlige([ brodsmuler[brodsmuler.length - 1] ])
+            setSynlige([ brodsmuler[ brodsmuler.length - 1 ] ])
             smulesti.current!.classList.remove('apen')
         } else {
             setSynlige(brodsmuler)

@@ -20,9 +20,7 @@ import { tekst } from '../../utils/tekster'
 import { setBodyClass } from '../../utils/utils'
 
 const brodsmuler: Brodsmule[] = [
-    { tittel: 'Ditt NAV', sti: env.dittNavUrl, erKlikkbar: true },
-    { tittel: 'Ditt sykefravær', sti: env.sykefravaerUrl, erKlikkbar: true },
-    { tittel: 'Varsling', sti: '/arbeidsrettet-oppfolging', erKlikkbar: false }
+    { tittel: 'Snart slutt på sykepengene', sti: '/snart-slutt-pa-sykepengene', erKlikkbar: false }
 ]
 
 const SnartSlutt = () => {
@@ -39,7 +37,7 @@ const SnartSlutt = () => {
     }
 
     const handleNeiBtnClicked = () => {
-        history.push('/sykefravaer')
+        history.push('/')
     }
 
     return (
@@ -137,7 +135,7 @@ const SnartSlutt = () => {
                     </Knapp>
                 </div>
 
-                <Link to="/sykefravaer" className="lenke">
+                <Link to="/" className="lenke">
                     <VenstreChevron />
                     <Normaltekst tag="span">Til hovedsiden Ditt sykefravaer</Normaltekst>
                 </Link>
