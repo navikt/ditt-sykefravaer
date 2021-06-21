@@ -30,8 +30,6 @@ const SnartSlutt = () => {
         setBodyClass('snartslutt')
     }, [])
 
-    // TODO: Sjekk logikken i handleButtonClicked-funksjonene med gammel app
-
     const handleJaBtnClicked = () => {
         window.location.href = env.arbeidssokerregistreringUrl
     }
