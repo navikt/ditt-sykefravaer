@@ -60,3 +60,5 @@ spec:
       value: "https://aktivitetsplan-q1.dev.nav.no/"
     - name: NARMESTELEDER_URL
       value: "https://narmesteleder.dev.nav.no"
+    - name: ARBEIDSSOKERREGISTRERING_URL
+      value: "https://arbeidssokerregistrering-q1.nav.no/start?fraSykefravaer=true"

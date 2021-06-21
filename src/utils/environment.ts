@@ -74,6 +74,10 @@ class Environment {
     get narmestelederUrl() {
         return this.env.NARMESTELEDER_URL
     }
+
+    get arbeidssokerregistreringUrl(){
+        return this.env.ARBEIDSSOKERREGISTRERING_URL
+    }
 }
 
 const env = new Environment()

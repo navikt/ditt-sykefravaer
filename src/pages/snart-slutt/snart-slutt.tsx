@@ -33,7 +33,7 @@ const SnartSlutt = () => {
     // TODO: Sjekk logikken i handleButtonClicked-funksjonene med gammel app
 
     const handleJaBtnClicked = () => {
-        history.push('/arbeidssokerregistrering/start?fraSykefravaer=true')
+        window.location.href = env.arbeidssokerregistreringUrl
     }
 
     const handleNeiBtnClicked = () => {
