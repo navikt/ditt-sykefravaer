@@ -29,6 +29,9 @@ function setUpMock(persona: Persona) {
 
     mock.get(`${env.narmestelederUrl}/user/sykmeldt/narmesteledere`,
         (req, res, ctx) => res(ctx.json(persona.narmesteledere)))
+
+    mock.post(`${env.narmestelederUrl}/:org/avkreft`,
+        () => Promise.resolve({ status: 200 }))
 }
 
 

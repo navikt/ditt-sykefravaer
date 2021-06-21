@@ -1,9 +1,11 @@
+import Alertstripe from 'nav-frontend-alertstriper'
 import { Knapp } from 'nav-frontend-knapper'
 import Modal from 'nav-frontend-modal'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import { NarmesteLeder } from '../../types/narmesteLeder'
+import env from '../../utils/environment'
 import Vis from '../vis'
 
 interface BekreftFeilLederProps {
@@ -13,26 +15,33 @@ interface BekreftFeilLederProps {
     orgNavn: string
 }
 
+type NarmesteLederStatus = 'AKTIV' | 'AVKREFTET' | 'ERROR'
+
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
     const [ avkrefter, setAvkrefter ] = useState<boolean>(false)
-    // TODO: Må holde state på om nl er avkreftet for å vise egen tekst, avkreftete ledere blir ikke med i oversikten neste gang man går inn
-    const avkreftet = false
+    const [ narmesteLederStatus, setNarmesteLederStatus ] = useState<NarmesteLederStatus>('AKTIV')
 
     useEffect(() => {
         Modal.setAppElement('#maincontent')
     }, [])
 
     const avkreftLeder = () => {
-        /***
-         * prod = https://narmesteleder.nav.no
-         * dc = http://localhost:6998/api/v1/syforest
-         * NY lokal og dev i samme = https://narmesteleder.dev.nav.no
-         */
-        // TODO: Sett opp logikk for avkrefting av leder
         setAvkrefter(true)
-        const backend = 'https://narmesteleder.nav.no'
-        const url = `${backend}/${narmesteLeder.orgnummer}/avkreft`
-        console.log('AVKREFTER!') // eslint-disable-line
+
+        fetch(`${env.narmestelederUrl}/${narmesteLeder.orgnummer}/avkreft`, {
+            method: 'POST',
+            credentials: 'include',
+        }).then((res) => {
+            if (res.ok) {
+                setNarmesteLederStatus('AVKREFTET')
+            } else {
+                setNarmesteLederStatus('ERROR')
+            }
+        }).catch(() =>
+            setNarmesteLederStatus('ERROR')
+        ).finally(() =>
+            setAvkrefter(false)
+        )
     }
 
     return (
@@ -42,25 +51,31 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             contentLabel="Modal"
             onRequestClose={toggle}
         >
-            <Vis hvis={avkreftet}>
-                <Undertittel tag="h2">Takk for oppdateringen!</Undertittel>
+            <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
+
+            <Vis hvis={narmesteLederStatus === 'AVKREFTET'}>
+                <Normaltekst>Takk for oppdateringen!</Normaltekst>
             </Vis>
-            <Vis hvis={!avkreftet}>
-                <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
+            <Vis hvis={narmesteLederStatus === 'ERROR'}>
+                <Alertstripe type="feil">
+                    Beklager, det oppstod en feil! Vennligst prøv igjen senere.
+                </Alertstripe>
+            </Vis>
+            <Vis hvis={narmesteLederStatus === 'AKTIV'}>
                 <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i <strong>{orgNavn}</strong>?</Normaltekst>
                 <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</Normaltekst>
 
                 <div className="knapperad">
                     <Knapp
-                        htmlType="button"
+                        type="fare"
                         spinner={avkrefter}
                         onClick={avkreftLeder}
                     >
                         Ja, jeg er sikker
                     </Knapp>
-                    <a className="lenke js-avbryt" onClick={toggle}>
+                    <button className="lenke" onClick={toggle}>
                         <Normaltekst>Avbryt</Normaltekst>
-                    </a>
+                    </button>
                 </div>
             </Vis>
         </Modal>

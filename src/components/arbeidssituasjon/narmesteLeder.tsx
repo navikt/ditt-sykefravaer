@@ -14,11 +14,11 @@ interface NaermesteLederContainerProps {
 
 const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { narmesteLedere } = useAppStore()
+    const [ open, setOpen ] = useState<boolean>(false)
 
     const leder = narmesteLedere
         .filter((nl) => !nl.aktivTom && nl.navn)    // Aktiv og har navn på leder
         .find((nl) => nl.orgnummer === orgnummer)
-    const [ open, setOpen ] = useState<boolean>(false)
 
     const toggleOpen = () => {
         setOpen(!open)
@@ -29,23 +29,26 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
             <Normaltekst className="leder__informasjon">
                 Din nærmeste leder er <strong>{leder?.navn}</strong>.
             </Normaltekst>
-            <Vis hvis={
-                true // TODO: Finn ut hvor vi mottar avkreftet i fra
-            }>
-                <a className="lenke leder__meldFeil js-feil" onClick={() => toggleOpen()}>
+            <div className="leder__handlinger">
+                <button className="lenke" onClick={() => toggleOpen()}>
                     <Normaltekst>Meld fra om endring</Normaltekst>
-                </a>
+                </button>
                 <BekreftFeilLeder
                     open={open}
                     toggle={toggleOpen}
                     narmesteLeder={leder!}
                     orgNavn={orgNavn!}
                 />
-            </Vis>
+            </div>
             <Vis hvis={leder?.arbeidsgiverForskutterer !== null}>
                 <div className="leder__forskuttering">
                     <Normaltekst>{tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}` as any)}</Normaltekst>
-                    <Hjelpetekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst')}</Hjelpetekst>
+                    <Hjelpetekst>
+                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>
+                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</Normaltekst>
+                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</Normaltekst>
+                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</Normaltekst>
+                    </Hjelpetekst>
                 </div>
             </Vis>
         </Vis>
