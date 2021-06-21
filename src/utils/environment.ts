@@ -38,10 +38,6 @@ class Environment {
         return this.env.LOGINSERVICE_REDIRECT_URL
     }
 
-    get sykefravaerUrl() {
-        return this.env.SYKEFRAVAER_URL
-    }
-
     get sykepengesoknadUrl() {
         return this.env.SYKEPENGESOKNAD_URL
     }

@@ -23,8 +23,6 @@ spec:
       value: "https://www.nav.no/dekoratoren"
     - name: ENVIRONMENT
       value: "labs"
-    - name: SYKEFRAVAER_URL
-      value: "https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
     - name: OPPLAERING

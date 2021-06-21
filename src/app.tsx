@@ -20,7 +20,7 @@ const App = (): any => {
                 <main id="maincontent" className="maincontent" role="main" tabIndex={-1}>
                     <Switch>
                         <Route exact={true} path="/" component={Forside} />
-                        <Route path="/arbeidsrettet-oppfolging" component={SnartSlutt} />
+                        <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
                     </Switch>
                 </main>
             </DataFetcher>
