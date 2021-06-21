@@ -3,8 +3,10 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
 import { tallTilSpråk } from './tall-til-språk'
 
-export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
-
+export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
+    if (!sykmeldinger) {
+        return []
+    }
     const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
