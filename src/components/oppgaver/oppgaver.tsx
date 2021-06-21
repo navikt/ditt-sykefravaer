@@ -6,6 +6,8 @@ import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
+import useSoknader from '../../query-hooks/useSoknader'
+import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import environment from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
@@ -36,7 +38,10 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
 }
 
 const Oppgaver = () => {
-    const { soknader, sykmeldinger, snartSluttPaSykepengene } = useAppStore()
+    const { snartSluttPaSykepengene } = useAppStore()
+    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: soknader } = useSoknader()
+
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
 
@@ -48,6 +53,7 @@ const Oppgaver = () => {
             oppgavetype: 'advarsel'
         })
     }
+
     return (
         <OppgaveLista oppgaver={oppgaver} />
     )

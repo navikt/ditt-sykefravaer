@@ -1,6 +1,7 @@
 import './app.less'
 
 import React from 'react'
+import { QueryClient, QueryClientProvider } from 'react-query'
 import { Route, Switch } from 'react-router-dom'
 
 import { DataFetcher } from './data/data-fetcher'
@@ -13,18 +14,28 @@ export interface RouteParams {
 }
 
 const App = (): any => {
-
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: {
+                retry: 1,
+                refetchOnWindowFocus: false,
+                staleTime: Infinity,
+            },
+        },
+    })
     return (
-        <StoreProvider>
-            <DataFetcher>
-                <main id="maincontent" className="maincontent" role="main" tabIndex={-1}>
-                    <Switch>
-                        <Route exact={true} path="/" component={Forside} />
-                        <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
-                    </Switch>
-                </main>
-            </DataFetcher>
-        </StoreProvider>
+        <QueryClientProvider client={queryClient}>
+            <StoreProvider>
+                <DataFetcher>
+                    <main id="maincontent" className="maincontent" role="main" tabIndex={-1}>
+                        <Switch>
+                            <Route exact={true} path="/" component={Forside} />
+                            <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
+                        </Switch>
+                    </main>
+                </DataFetcher>
+            </StoreProvider>
+        </QueryClientProvider>
     )
 }
 

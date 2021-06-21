@@ -9,6 +9,7 @@ import ArbeidsgiverIkon from '../../grafikk/arbeidsgiver.svg'
 import ArbeidssituasjonIkon from '../../grafikk/arbeidssituasjon.svg'
 import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
 import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
+import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
@@ -17,8 +18,12 @@ import Vis from '../vis'
 import Arbeidsgiver from './arbeidsgiver'
 
 const Arbeidssituasjon = () => {
-    const { sykmeldinger, narmesteLedere } = useAppStore()
+    const { narmesteLedere } = useAppStore()
+    const { data: sykmeldinger } = useSykmeldinger()
 
+    if (!sykmeldinger) {
+        return null
+    }
     const finnAktuelleArbeidsgivere = () => {
         const aktiveLedereOrgnummer = narmesteLedere
             .filter((nl) => !nl.aktivTom && nl.navn)
@@ -69,7 +74,8 @@ const Arbeidssituasjon = () => {
     }
 
     return (
-        <Vis hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}>
+        <Vis
+            hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}>
             <div className="landingspanel din-situasjon">
                 <header className="din-situasjon__header">
                     <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
@@ -83,7 +89,8 @@ const Arbeidssituasjon = () => {
                                 <div className="situasjon__panel" key={idx}>
                                     <div className={'situasjon'}>
                                         <div className="situasjon__ikon">
-                                            <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')} alt={tekst('din-situasjon.ARBEIDSTAKER')} />
+                                            <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
+                                                alt={tekst('din-situasjon.ARBEIDSTAKER')} />
                                         </div>
                                         <Arbeidsgiver orgnummer={orgnummer} />
                                     </div>
@@ -98,7 +105,8 @@ const Arbeidssituasjon = () => {
                                 <div className="situasjon__panel" key={idx}>
                                     <div className={'situasjon'}>
                                         <div className="situasjon__ikon">
-                                            <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)} alt={arbeidssituasjonLedetekst} />
+                                            <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
+                                                alt={arbeidssituasjonLedetekst} />
                                         </div>
                                         <div className="situasjon__innhold">
                                             <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>

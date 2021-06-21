@@ -5,7 +5,10 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgave-typer'
 import { tallTilSpråk } from './tall-til-språk'
 
-export const skapSøknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesoknadUrl: string): Oppgave[] => {
+    if (!soknader) {
+        return []
+    }
     const søknaderTilUtfylling = (s: Soknad) =>
         s.status === RSSoknadstatus.NY ||
         s.status === RSSoknadstatus.UTKAST_TIL_KORRIGERING
@@ -30,7 +33,7 @@ export const skapSøknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length === 1) {
             return [ {
                 tekst: tekst('oppgaver.sykepengesoknad.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
                 oppgavetype: 'info'
             } ]
         }
@@ -56,7 +59,7 @@ export const skapSøknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: stri
         if (soknadene.length === 1) {
             return [ {
                 tekst: tekst('oppgaver.reisetilskudd.enkel'),
-                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
                 oppgavetype: 'info'
             } ]
         }

@@ -2,6 +2,7 @@ import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
+import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import NarmesteLeder from './narmesteLeder'
 
@@ -10,7 +11,10 @@ interface ArbeidsgiverProps {
 }
 
 const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const { sykmeldinger  } = useAppStore()
+    const { data: sykmeldinger } = useSykmeldinger()
+    if (!sykmeldinger) {
+        return null
+    }
 
     const orgNavn = sykmeldinger
         .find((syk) =>
