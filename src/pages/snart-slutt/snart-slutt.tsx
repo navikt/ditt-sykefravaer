@@ -16,8 +16,8 @@ import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import { penger } from '../../grafikk/penger'
 import { veilederDame } from '../../grafikk/veileder-dame'
 import env from '../../utils/environment'
+import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
-import { setBodyClass } from '../../utils/utils'
 
 const brodsmuler: Brodsmule[] = [
     { tittel: 'Snart slutt på sykepengene', sti: '/snart-slutt-pa-sykepengene', erKlikkbar: false }

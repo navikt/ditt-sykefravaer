@@ -1,7 +1,6 @@
 import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { useAppStore } from '../../data/stores/app-store'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import NarmesteLeder from './narmesteLeder'
