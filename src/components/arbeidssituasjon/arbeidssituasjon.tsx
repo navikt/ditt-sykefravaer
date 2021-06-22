@@ -4,11 +4,11 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { useAppStore } from '../../data/stores/app-store'
 import ArbeidsgiverIkon from '../../grafikk/arbeidsgiver.svg'
 import ArbeidssituasjonIkon from '../../grafikk/arbeidssituasjon.svg'
 import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
 import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
+import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
 import { Sykmelding } from '../../types/sykmelding'
@@ -18,12 +18,17 @@ import Vis from '../vis'
 import Arbeidsgiver from './arbeidsgiver'
 
 const Arbeidssituasjon = () => {
-    const { narmesteLedere } = useAppStore()
+    const { data: narmesteLedere } = useNarmesteledere()
     const { data: sykmeldinger } = useSykmeldinger()
 
-    if (!sykmeldinger) {
+    // eslint-disable-next-line no-console
+    console.log(narmesteLedere)
+    if (!sykmeldinger || !narmesteLedere) {
         return null
     }
+
+    // eslint-disable-next-line no-console
+    console.log('Forbi return null')
     const finnAktuelleArbeidsgivere = () => {
         const aktiveLedereOrgnummer = narmesteLedere
             .filter((nl) => !nl.aktivTom && nl.navn)

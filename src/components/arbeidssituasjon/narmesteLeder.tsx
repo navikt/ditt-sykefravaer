@@ -3,6 +3,7 @@ import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useState } from 'react'
 
 import { useAppStore } from '../../data/stores/app-store'
+import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
 import Vis from '../vis'
 import BekreftFeilLeder from './bekreftFeilLeder'
@@ -13,9 +14,12 @@ interface NaermesteLederContainerProps {
 }
 
 const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
-    const { narmesteLedere } = useAppStore()
+    const { data: narmesteLedere } = useNarmesteledere()
     const [ open, setOpen ] = useState<boolean>(false)
 
+    if (!narmesteLedere) {
+        return null
+    }
     const leder = narmesteLedere
         .filter((nl) => !nl.aktivTom && nl.navn)    // Aktiv og har navn på leder
         .find((nl) => nl.orgnummer === orgnummer)

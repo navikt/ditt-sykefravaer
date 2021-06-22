@@ -5,7 +5,7 @@ import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { useAppStore } from '../../data/stores/app-store'
+import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import environment from '../../utils/environment'
@@ -38,9 +38,9 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
 }
 
 const Oppgaver = () => {
-    const { snartSluttPaSykepengene } = useAppStore()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
+    const { data: snartSluttPaSykepengene } = use39ukersvarsel()
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)

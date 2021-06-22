@@ -4,7 +4,7 @@ import { Sykmelding } from '../types/sykmelding'
 import env from '../utils/environment'
 import Fetch from '../utils/Fetch'
 
-function useSykmeldinger() {
+export default function() {
     return useQuery<Sykmelding[], Error>('sykmeldinger', () =>
         Fetch.authenticatedGet(
             `${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
@@ -15,4 +15,3 @@ function useSykmeldinger() {
     )
 }
 
-export default useSykmeldinger

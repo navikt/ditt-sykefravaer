@@ -3,7 +3,6 @@ import React, { useEffect } from 'react'
 
 import IngenData from '../pages/feil/ingen-data'
 import { ArbeidsrettetOppfolging } from '../types/arbeidsrettetOppfolging'
-import { NarmesteLeder } from '../types/narmesteLeder'
 import { RSVedtakWrapper } from '../types/rs-types/rs-vedtak'
 import env from '../utils/environment'
 import { logger } from '../utils/logger'
@@ -15,28 +14,13 @@ export function DataFetcher(props: { children: any }) {
     const {
         setRsVedtak,
         setArbeidsrettetOppfolging,
-        setSnartSluttPaSykepengene,
-        setNarmesteLedere,
     } = useAppStore()
     const rsVedtak = useFetch<RSVedtakWrapper[]>()
     const arbeidsrettetOppfolgingFetch = useFetch<ArbeidsrettetOppfolging>()
-    const snartSlutt = useFetch<boolean>()
-    const narmesteLedere = useFetch<NarmesteLeder[]>()
 
-
-    const alleHooks = [ rsVedtak, snartSlutt, arbeidsrettetOppfolgingFetch, narmesteLedere ]
+    const alleHooks = [ rsVedtak, arbeidsrettetOppfolgingFetch ]
 
     useEffect(() => {
-
-        if (isNotStarted(snartSlutt)) {
-            snartSlutt.fetch(env.flexGatewayRoot + '/syfosoknad/api/syfosyketilfelle/39ukersvarsel', {
-                credentials: 'include',
-            }, (fetchState: FetchState<boolean>) => {
-                if (hasData(fetchState)) {
-                    setSnartSluttPaSykepengene(fetchState.data)
-                }
-            })
-        }
 
         if (isNotStarted(arbeidsrettetOppfolgingFetch)) {
             arbeidsrettetOppfolgingFetch.fetch(env.flexGatewayRoot + '/veilarboppfolging/api/oppfolging', {
@@ -58,16 +42,6 @@ export function DataFetcher(props: { children: any }) {
             })
         }
 
-
-        if (isNotStarted(narmesteLedere)) {
-            narmesteLedere.fetch(env.narmestelederUrl + '/user/sykmeldt/narmesteledere', {
-                credentials: 'include',
-            }, (fetchState: FetchState<NarmesteLeder[]>) => {
-                if (hasData(fetchState)) {
-                    setNarmesteLedere(fetchState.data)
-                }
-            })
-        }
 
         // eslint-disable-next-line
     }, alleHooks);
