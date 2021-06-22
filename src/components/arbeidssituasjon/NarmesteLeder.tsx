@@ -4,8 +4,8 @@ import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
-import Vis from '../vis'
-import BekreftFeilLeder from './bekreftFeilLeder'
+import Vis from '../Vis'
+import BekreftFeilLeder from './BekreftFeilLeder'
 
 interface NaermesteLederContainerProps {
     orgnummer: string,

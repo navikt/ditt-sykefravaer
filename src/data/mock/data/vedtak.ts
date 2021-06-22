@@ -1,4 +1,4 @@
-import { RSVedtakWrapper } from '../../../types/rs-types/rs-vedtak'
+import { RSVedtakWrapper } from '../../../types/vedtak'
 
 export const vedtakMed100Grad: RSVedtakWrapper = {
     id: 'dff11217-31ea-404a-86ab-b521a6a946af',

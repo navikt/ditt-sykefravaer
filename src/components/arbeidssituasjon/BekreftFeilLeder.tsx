@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import env from '../../utils/environment'
-import Vis from '../vis'
+import Vis from '../Vis'
 
 interface BekreftFeilLederProps {
     open: boolean,

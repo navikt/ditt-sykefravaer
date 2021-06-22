@@ -15,7 +15,7 @@ import SnakkMedArbeidsgiver from '../../grafikk/tidslinjeutdrag/snakk-med-arbeid
 import SykmeldtHvaNaa from '../../grafikk/tidslinjeutdrag/sykmeldt-hva-naa.svg'
 import VurdertAktivitet from '../../grafikk/tidslinjeutdrag/vurdert-aktivitet.svg'
 import { tekst } from '../../utils/tekster'
-import Vis from '../vis'
+import Vis from '../Vis'
 
 type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 

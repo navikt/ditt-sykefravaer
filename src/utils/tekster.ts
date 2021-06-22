@@ -1,12 +1,12 @@
-import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjon-tekster'
-import { BannerTekster } from '../components/banner/banner-tekster'
-import { IngenSykmeldingTekster } from '../components/ingen-sykmelding/ingen-sykmelding-tekster'
-import { LenkerTekster } from '../components/lenker/lenker-tekster'
-import { OppgaverTekster } from '../components/oppgaver/oppgaver-tekster'
-import { TidslinjeUtdragTekster } from '../components/tidslinje-utdrag/tidslinje-utdrag-tekster'
-import { ForsideTekster } from '../pages/forside/forside-tekster'
-import { SnartsluttTekster } from '../pages/snart-slutt/snartslutt-tekster'
-import { StringMap } from '../types/simple-types'
+import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
+import { BannerTekster } from '../components/banner/bannerTekster'
+import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykmeldingTekster'
+import { LenkerTekster } from '../components/lenker/lenkerTekster'
+import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
+import { TidslinjeUtdragTekster } from '../components/tidslinje-utdrag/tidslinjeUtdragTekster'
+import { ForsideTekster } from '../pages/forside/forsideTekster'
+import { SnartsluttTekster } from '../pages/snart-slutt/snartsluttTekster'
+import { StringMap } from '../types/stringMap'
 import { logger } from './logger'
 
 const tekster: any = {
@@ -15,7 +15,7 @@ const tekster: any = {
     ...ForsideTekster,
     ...SnartsluttTekster,
     ...OppgaverTekster,
-    ...IngenSykmeldingTekster,
+    ...ingenSykmeldingTekster,
     ...ArbeidssituasjonTekster,
     ...TidslinjeUtdragTekster,
 }
@@ -25,7 +25,7 @@ type TekstKeys =
     keyof typeof BannerTekster |
     keyof typeof LenkerTekster |
     keyof typeof OppgaverTekster |
-    keyof typeof IngenSykmeldingTekster |
+    keyof typeof ingenSykmeldingTekster |
     keyof typeof ForsideTekster |
     keyof typeof SnartsluttTekster |
     keyof typeof ArbeidssituasjonTekster |

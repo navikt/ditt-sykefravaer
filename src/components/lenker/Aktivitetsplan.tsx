@@ -1,5 +1,5 @@
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import environment from '../../utils/environment'

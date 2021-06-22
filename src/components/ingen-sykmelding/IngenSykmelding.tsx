@@ -2,7 +2,7 @@ import parser from 'html-react-parser'
 import Veilederpanel from 'nav-frontend-veilederpanel'
 import React from 'react'
 
-import { veileder } from '../../grafikk/veileder'
+import { veileder } from '../../grafikk/Veileder'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 

@@ -1,14 +1,14 @@
 import { ArbeidsrettetOppfolging } from '../../../types/arbeidsrettetOppfolging'
 import { NarmesteLeder } from '../../../types/narmesteLeder'
 import { Oppfolgingsplan } from '../../../types/oppfolgingsplan'
-import { RSSoknad } from '../../../types/rs-types/rs-soknad'
-import { RSVedtakWrapper } from '../../../types/rs-types/rs-vedtak'
+import { Soknad } from '../../../types/soknad'
 import { Sykmelding } from '../../../types/sykmelding'
+import { RSVedtakWrapper } from '../../../types/vedtak'
 import { soknader } from './soknader'
 import { vedtakMed100Grad } from './vedtak'
 
 export interface Persona {
-    soknader: RSSoknad[],
+    soknader: Soknad[],
     vedtak: RSVedtakWrapper[],
     sykmeldinger: Sykmelding[],
     narmesteledere: NarmesteLeder[],

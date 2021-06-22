@@ -1,4 +1,4 @@
-export interface RSSoknadsperiode {
+export interface Soknadsperiode {
     fom: string;
     tom: string;
     grad: number;

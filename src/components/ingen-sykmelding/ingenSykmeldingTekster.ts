@@ -1,4 +1,4 @@
-export const IngenSykmeldingTekster = {
+export const ingenSykmeldingTekster = {
     'ingen.sykmelding': `
 Du har ingen digital sykmelding. Har du fått sykmeldingen på papir,
 kan du vente noen dager, så vil du finne den her.
