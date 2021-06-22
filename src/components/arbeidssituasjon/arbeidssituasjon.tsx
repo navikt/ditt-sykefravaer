@@ -1,5 +1,6 @@
 import './arbeidssituasjon.less'
 
+import dayjs from 'dayjs'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
@@ -11,11 +12,29 @@ import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
-import { Sykmelding } from '../../types/sykmelding'
+import { Periode, Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
-import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/utils'
 import Vis from '../vis'
 import Arbeidsgiver from './arbeidsgiver'
+
+const hentArbeidssituasjon = (sykmelding: Sykmelding) => {
+    return sykmelding.sykmeldingStatus.sporsmalOgSvarListe?.find(s => s.shortName === 'ARBEIDSSITUASJON')?.svar?.svar
+}
+
+const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: Sykmelding[]) => {
+    const treMndSiden = dayjs().subtract(3, 'months')
+    const senesteTom = (perioder: Periode[]) => {
+        const nyeste = perioder
+            .sort((p1, p2) =>
+                dayjs(p1.tom).unix() - dayjs(p2.tom).unix()
+            )[ 0 ]
+        return dayjs(nyeste.tom)
+    }
+    return sykmeldinger.filter((syk) =>
+        senesteTom(syk.sykmeldingsperioder) > treMndSiden
+    )
+}
+
 
 const Arbeidssituasjon = () => {
     const { data: narmesteLedere } = useNarmesteledere()

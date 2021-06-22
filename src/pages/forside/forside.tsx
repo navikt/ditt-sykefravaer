@@ -10,9 +10,8 @@ import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import { IngenSykmelding } from '../../components/ingen-sykmelding/ingen-sykmelding'
 import Lenker from '../../components/lenker/lenker'
 import Oppgaver from '../../components/oppgaver/oppgaver'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import setBodyClass  from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
-import { setBodyClass } from '../../utils/utils'
 
 const brodsmuler: Brodsmule[] = []
 
