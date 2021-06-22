@@ -62,3 +62,7 @@ spec:
       value: "https://narmesteleder.dev.nav.no"
     - name: ARBEIDSSOKERREGISTRERING_URL
       value: "https://arbeidssokerregistrering-q1.nav.no/start?fraSykefravaer=true"
+    - name: SYFOAPI_ROOT
+      value: "https://syfoapi.dev.nav.no"
+    - name: OPPFOLGINGSPLAN_URL
+      value: "https://tjenester-q1.nav.no/oppfolgingsplan/oppfolgingsplaner"

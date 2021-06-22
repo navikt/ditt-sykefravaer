@@ -22,6 +22,10 @@ class Environment {
         return this.env.FLEX_GATEWAY_ROOT
     }
 
+    get syfoApiRoot() {
+        return this.env.SYFOAPI_ROOT
+    }
+
     get isMockBackend() {
         return this.env.MOCK_BACKEND === 'true'
     }
@@ -54,6 +58,9 @@ class Environment {
         return this.env.AKTIVITETSPLAN_URL
     }
 
+    get oppfolgingsplanUrl() {
+        return this.env.OPPFOLGINGSPLAN_URL
+    }
 
     get dittNavUrl() {
         return this.env.DITTNAV_URL
@@ -75,7 +82,7 @@ class Environment {
         return this.env.NARMESTELEDER_URL
     }
 
-    get arbeidssokerregistreringUrl(){
+    get arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
 }

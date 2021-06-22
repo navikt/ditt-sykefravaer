@@ -1,5 +1,6 @@
 import { ArbeidsrettetOppfolging } from '../../../types/arbeidsrettetOppfolging'
 import { NarmesteLeder } from '../../../types/narmesteLeder'
+import { Oppfolgingsplan } from '../../../types/oppfolgingsplan'
 import { RSSoknad } from '../../../types/rs-types/rs-soknad'
 import { RSVedtakWrapper } from '../../../types/rs-types/rs-vedtak'
 import { Sykmelding } from '../../../types/sykmelding'
@@ -13,12 +14,14 @@ export interface Persona {
     narmesteledere: NarmesteLeder[],
     snartSluttSykepenger: boolean,
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging,
+    oppfolgingsplaner: Oppfolgingsplan[],
 }
 
 
 export const heltFrisk: Persona = {
     soknader: [],
     vedtak: [],
+    oppfolgingsplaner: [],
     sykmeldinger: [],
     narmesteledere: [],
     snartSluttSykepenger: false,
@@ -28,6 +31,7 @@ export const heltFrisk: Persona = {
 export const enNySykmelding: Persona = {
     soknader: [],
     vedtak: [],
+    oppfolgingsplaner: [],
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -42,6 +46,7 @@ export const enNySykmelding: Persona = {
 export const enAvvistSykmelding: Persona = {
     soknader: [],
     vedtak: [],
+    oppfolgingsplaner: [],
     sykmeldinger: [ {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -56,6 +61,7 @@ export const enAvvistSykmelding: Persona = {
 export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
+    oppfolgingsplaner: [],
     sykmeldinger: [ {
         id: 'SENDT',
         sykmeldingStatus: {
