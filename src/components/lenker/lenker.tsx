@@ -2,11 +2,14 @@ import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
+import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import useVedtak from '../../query-hooks/useVedtak'
 import Vis from '../vis'
 import Aktivitetsplan from './aktivitetsplan'
+import Oppfolgingsplan from './oppfolgingsplan'
+import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 import SoknadLenkepanel from './soknader'
 import SykmeldingLenkepanel from './sykmelding'
 import UtbetalingAvSykepengerLenkepanel from './utbetaling'
@@ -16,6 +19,7 @@ const Lenker = () => {
     const { data: vedtak } = useVedtak()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
+    const { data: oppfolgingsplaner } = useOppfolgingsplaner()
 
 
     return (
@@ -35,6 +39,10 @@ const Lenker = () => {
 
             <Vis hvis={arbeidsrettetOppfolging?.underOppfolging}>
                 <Aktivitetsplan />
+            </Vis>
+
+            <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}>
+                <Oppfolgingsplan />
             </Vis>
         </section>
     )

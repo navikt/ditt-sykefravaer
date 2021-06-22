@@ -3,6 +3,6 @@ export const LenkerTekster = {
     'lenker.sykmelding': 'Sykmeldinger',
     'lenker.utbetaling': 'Utbetaling av sykepenger',
     'lenker.aktivitetsplan': 'Aktivitetsplan',
-    'lenker.aktivitetsplan.undertekst': 'For deg og NAV',
+    'lenker.oppfolgingsplan': 'Oppfølgingsplan',
 }
 
