@@ -2,9 +2,8 @@ import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { Sykmelding } from '../../types/sykmelding'
 
 const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 4
-// Kode fra gammelt ditt sykefravær
 
-const erSykmeldingGyldigForOppfolgingMedGrensedato = (sykmelding: Sykmelding, dato: Date) => {
+const erSykmeldingGyldigForOppfolgingMedGrensedato = (sykmelding: Sykmelding, dato: Date): boolean => {
     return sykmelding.sykmeldingsperioder.filter((periode) => {
         const tomGrenseDato = new Date(dato)
         tomGrenseDato.setHours(0, 0, 0, 0)
@@ -13,7 +12,7 @@ const erSykmeldingGyldigForOppfolgingMedGrensedato = (sykmelding: Sykmelding, da
     }).length > 0
 }
 
-const sykmeldtHarGyldigSykmelding = (sykmeldinger: Sykmelding[] | undefined) => {
+const sykmeldtHarGyldigSykmelding = (sykmeldinger: Sykmelding[] | undefined): boolean => {
     const tomGrenseDato = new Date()
     if (!sykmeldinger) {
         return false
@@ -25,7 +24,14 @@ const sykmeldtHarGyldigSykmelding = (sykmeldinger: Sykmelding[] | undefined) => 
     }).length > 0
 }
 
+const sykmeldtHarOppfolgingsplan = (oppfolgingsplaner: Oppfolgingsplan[] | undefined): boolean => {
+    if (!oppfolgingsplaner) {
+        return false
+    }
+    return oppfolgingsplaner.length > 0
+}
 
-export const skalViseOppfoelgingsplanLenke = (sykmeldinger: Sykmelding[] | undefined, oppfolgingsplaner: Oppfolgingsplan[] | undefined) => {
-    return sykmeldtHarGyldigSykmelding(sykmeldinger) || (oppfolgingsplaner && oppfolgingsplaner.length > 0)
+
+export const skalViseOppfoelgingsplanLenke = (sykmeldinger: Sykmelding[] | undefined, oppfolgingsplaner: Oppfolgingsplan[] | undefined): boolean => {
+    return sykmeldtHarGyldigSykmelding(sykmeldinger) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
 }
