@@ -10,6 +10,7 @@ import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/brodsmuler'
 import { IngenSykmelding } from '../../components/ingen-sykmelding/ingen-sykmelding'
 import Lenker from '../../components/lenker/lenker'
 import Oppgaver from '../../components/oppgaver/oppgaver'
+import TidslinjeUtdrag from '../../components/tidslinje-utdrag/tidslinje-utdrag'
 import setBodyClass  from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
 
@@ -20,7 +21,6 @@ const Forside = () => {
     useEffect(() => {
         setBodyClass('forside')
     }, [])
-
 
     return (
         <>
@@ -35,6 +35,7 @@ const Forside = () => {
             <div className="limit">
                 <IngenSykmelding />
                 <Oppgaver />
+                <TidslinjeUtdrag />
                 <Arbeidssituasjon />
                 <Lenker />
                 <AlertStripeInfo>{tekst('forside.personverninfo')}</AlertStripeInfo>

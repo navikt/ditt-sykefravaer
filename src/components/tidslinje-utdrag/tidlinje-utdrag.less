@@ -1,0 +1,34 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+
+.tidslinjeutdrag__container {
+    margin: 1rem 0 2rem;
+
+    .tidslinjeutdrag {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .tidslinjeutdrag__bilde {
+            margin-bottom: 1rem;
+            width: 66%;
+        }
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .tidslinjeutdrag__container {
+        .tidslinjeutdrag {
+            flex-direction: row-reverse;
+            align-items: flex-start;
+
+            .tidslinjeutdrag__bilde {
+                margin-left: 2rem;
+                width: 35%;
+            }
+
+            .tidslinjeutdrag__intro {
+                flex: 1;
+            }
+        }
+    }
+}
