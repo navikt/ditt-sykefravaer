@@ -22,7 +22,6 @@ const Forside = () => {
         setBodyClass('forside')
     }, [])
 
-    const { isLoading, isFetching, error, data: sykmeldinger } = useSykmeldinger()
 
     return (
         <>

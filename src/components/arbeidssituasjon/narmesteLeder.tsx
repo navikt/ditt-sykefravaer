@@ -2,7 +2,6 @@ import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useState } from 'react'
 
-import { useAppStore } from '../../data/stores/app-store'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
 import Vis from '../vis'
