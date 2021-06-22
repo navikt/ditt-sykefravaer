@@ -1,5 +1,5 @@
 import { Sykmelding } from '../../types/sykmelding'
-import { skapSykmeldingoppgaver } from './sykmelding-oppgaver'
+import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
     const oppgaver = skapSykmeldingoppgaver([], 'http://sykmelding')
@@ -10,6 +10,7 @@ it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
 it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -28,6 +29,7 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -47,6 +49,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -55,6 +58,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
         }
     }, {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -74,6 +78,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
 it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'SENDT'
         },
@@ -89,6 +94,7 @@ it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -108,6 +114,7 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
 it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen ok', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -116,6 +123,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         }
     }, {
         id: '12345',
+        sykmeldingsperioder: [],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -128,7 +136,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         lenke: 'http://sykmelding/12345',
         tekst: 'Du har en ny sykmelding',
         oppgavetype: 'info',
-    } , {
+    }, {
         lenke: 'http://sykmelding/123',
         tekst: 'Du har en avvist sykmelding',
         oppgavetype: 'advarsel',

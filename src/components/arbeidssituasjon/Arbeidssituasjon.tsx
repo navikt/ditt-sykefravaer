@@ -11,11 +11,11 @@ import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
 import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { RSArbeidssituasjonType } from '../../types/rs-types/rs-arbeidssituasjon'
+import {  ArbeidssituasjonType } from '../../types/arbeidssituasjon'
 import { Periode, Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
-import Vis from '../vis'
-import Arbeidsgiver from './arbeidsgiver'
+import Vis from '../Vis'
+import Arbeidsgiver from './Arbeidsgiver'
 
 const hentArbeidssituasjon = (sykmelding: Sykmelding) => {
     return sykmelding.sykmeldingStatus.sporsmalOgSvarListe?.find(s => s.shortName === 'ARBEIDSSITUASJON')?.svar?.svar
@@ -85,7 +85,7 @@ const Arbeidssituasjon = () => {
     const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
     const arbeidssituasjoner: string[] = finnAktuelleArbeidssituasjoner()
 
-    const arbeidssituasjonTilIkon = (arbeidssituasjon: RSArbeidssituasjonType) => {
+    const arbeidssituasjonTilIkon = (arbeidssituasjon: ArbeidssituasjonType) => {
         switch (arbeidssituasjon) {
             case 'ARBEIDSTAKER':
                 return ArbeidsgiverIkon

@@ -6,8 +6,8 @@ import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { tekst } from '../../utils/tekster'
-import BjornBildeLiten from './bjorn-bilde-liten'
-import BjornBildeStor from './bjorn-bilde-stor'
+import BjornBildeLiten from './BjornBildeLiten'
+import BjornBildeStor from './BjornBildeStor'
 
 interface BjornProps {
     bildeAlt?: string;

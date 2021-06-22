@@ -10,9 +10,10 @@ import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import environment from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import { Oppgave } from './oppgave-typer'
-import { skapSøknadOppgaver } from './soknad-oppgaver'
-import { skapSykmeldingoppgaver } from './sykmelding-oppgaver'
+import { Oppgave } from './oppgaveTyper'
+import { skapSøknadOppgaver } from './soknadOppgaver'
+import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
+
 
 interface OppgaveProps {
     oppgaver: Oppgave[];

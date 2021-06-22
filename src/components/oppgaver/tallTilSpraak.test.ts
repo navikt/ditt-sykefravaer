@@ -1,5 +1,4 @@
-
-import { tallTilSpråk } from './tall-til-språk'
+import { tallTilSpråk } from './tallTilSpraak'
 
 it('Språk er riktig', () => {
     expect(tallTilSpråk(-1)).toEqual('-1')

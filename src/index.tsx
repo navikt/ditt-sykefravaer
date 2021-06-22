@@ -1,3 +1,4 @@
+/* eslint-disable filename/match */
 import 'dayjs/locale/nb'
 
 import dayjs from 'dayjs'
@@ -6,7 +7,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
 
-import App from './app'
+import App from './App'
 import env from './utils/environment'
 
 dayjs.locale({

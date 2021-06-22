@@ -1,8 +1,6 @@
-import { RSArbeidssituasjon } from '../../types/rs-types/rs-arbeidssituasjon'
-import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
-import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
-import { skapSøknadOppgaver } from './soknad-oppgaver'
+import { skapSøknadOppgaver } from './soknadOppgaver'
+
 
 it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
     const oppgaver = skapSøknadOppgaver([], 'http://soknad')
@@ -13,9 +11,9 @@ it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
 it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
     const soknader: Soknad[] = [ {
         id: '123',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
-        status: RSSoknadstatus.NY
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'ARBEIDSTAKERE',
+        status: 'NY'
     } ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
@@ -28,24 +26,24 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
 it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     const soknader: Soknad[] = [ {
         id: '1',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
-        status: RSSoknadstatus.NY
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'ARBEIDSTAKERE',
+        status: 'NY'
     }, {
         id: '2',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEISLEDIG,
-        soknadstype: RSSoknadstype.ARBEIDSLEDIG,
-        status: RSSoknadstatus.NY
+        arbeidssituasjon: 'ARBEIDSLEDIG',
+        soknadstype: 'ARBEIDSLEDIG',
+        status: 'NY'
     }, {
         id: '3',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
-        status: RSSoknadstatus.UTKAST_TIL_KORRIGERING
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'ARBEIDSTAKERE',
+        status: 'UTKAST_TIL_KORRIGERING'
     }, {
         id: '4',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.REISETILSKUDD,
-        status: RSSoknadstatus.UTKAST_TIL_KORRIGERING
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'REISETILSKUDD',
+        status: 'UTKAST_TIL_KORRIGERING'
     }
     ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
@@ -65,9 +63,9 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
 it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
     const soknader: Soknad[] = [ {
         id: '123',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.REISETILSKUDD,
-        status: RSSoknadstatus.UTKAST_TIL_KORRIGERING
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'REISETILSKUDD',
+        status: 'UTKAST_TIL_KORRIGERING'
     } ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([ {
@@ -80,9 +78,9 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
 it('Returnerer ingen oppgaver når det er en sendt arbeidstakersøknad', () => {
     const soknader: Soknad[] = [ {
         id: '123',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
-        status: RSSoknadstatus.SENDT
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'ARBEIDSTAKERE',
+        status: 'SENDT'
     } ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([])
@@ -91,9 +89,9 @@ it('Returnerer ingen oppgaver når det er en sendt arbeidstakersøknad', () => {
 it('Returnerer ingen oppgaver når det er en ny utenlandssøknad', () => {
     const soknader: Soknad[] = [ {
         id: '123',
-        arbeidssituasjon: RSArbeidssituasjon.ARBEIDSTAKER,
-        soknadstype: RSSoknadstype.ARBEIDSTAKERE,
-        status: RSSoknadstatus.SENDT
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'ARBEIDSTAKERE',
+        status: 'SENDT'
     } ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([])

@@ -4,8 +4,8 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Route, Switch } from 'react-router-dom'
 
-import Forside from './pages/forside/forside'
-import SnartSlutt from './pages/snart-slutt/snart-slutt'
+import Forside from './pages/forside/Forside'
+import SnartSlutt from './pages/snart-slutt/SnartSlutt'
 
 export interface RouteParams {
     id: string;

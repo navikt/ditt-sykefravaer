@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import env from '../../utils/environment'
-import Vis from '../vis'
+import Vis from '../Vis'
 import personIkon from './person.svg'
 
 const LITEN = 768

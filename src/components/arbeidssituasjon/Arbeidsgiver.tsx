@@ -3,7 +3,7 @@ import React from 'react'
 
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
-import NarmesteLeder from './narmesteLeder'
+import NarmesteLeder from './NarmesteLeder'
 
 interface ArbeidsgiverProps {
     orgnummer: string

@@ -1,7 +1,7 @@
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
-import { Oppgave } from './oppgave-typer'
-import { tallTilSpråk } from './tall-til-språk'
+import { Oppgave } from './oppgaveTyper'
+import { tallTilSpråk } from './tallTilSpraak'
 
 export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
     if (!sykmeldinger) {

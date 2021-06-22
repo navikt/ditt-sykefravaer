@@ -1,25 +1,25 @@
-import { RSSoknadstatus } from '../../types/rs-types/rs-soknadstatus'
-import { RSSoknadstype } from '../../types/rs-types/rs-soknadstype'
 import { Soknad } from '../../types/soknad'
+import { Soknadstype } from '../../types/soknadstype'
 import { tekst } from '../../utils/tekster'
-import { Oppgave } from './oppgave-typer'
-import { tallTilSpråk } from './tall-til-språk'
+import { Oppgave } from './oppgaveTyper'
+import { tallTilSpråk } from './tallTilSpraak'
+
 
 export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesoknadUrl: string): Oppgave[] => {
     if (!soknader) {
         return []
     }
     const søknaderTilUtfylling = (s: Soknad) =>
-        s.status === RSSoknadstatus.NY ||
-        s.status === RSSoknadstatus.UTKAST_TIL_KORRIGERING
+        s.status === 'NY' ||
+        s.status === 'UTKAST_TIL_KORRIGERING'
 
     const skapSykepengesoknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
-        const vanligeSoknader = [
-            RSSoknadstype.ARBEIDSTAKERE,
-            RSSoknadstype.ARBEIDSLEDIG,
-            RSSoknadstype.ANNET_ARBEIDSFORHOLD,
-            RSSoknadstype.BEHANDLINGSDAGER,
-            RSSoknadstype.SELVSTENDIGE_OG_FRILANSERE,
+        const vanligeSoknader: Soknadstype[] = [
+            'ARBEIDSTAKERE',
+            'ARBEIDSLEDIG',
+            'ANNET_ARBEIDSFORHOLD',
+            'BEHANDLINGSDAGER',
+            'SELVSTENDIGE_OG_FRILANSERE',
         ]
 
         const soknadene = soknader
@@ -50,7 +50,7 @@ export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesok
     const skapReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
         const soknadene = soknader
             .filter(søknaderTilUtfylling)
-            .filter((s) => s.soknadstype === RSSoknadstype.REISETILSKUDD)
+            .filter((s) => s.soknadstype === 'REISETILSKUDD')
 
         if (soknadene.length === 0) {
             return []
