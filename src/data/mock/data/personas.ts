@@ -4,6 +4,7 @@ import { Oppfolgingsplan } from '../../../types/oppfolgingsplan'
 import { Soknad } from '../../../types/soknad'
 import { Sykmelding } from '../../../types/sykmelding'
 import { RSVedtakWrapper } from '../../../types/vedtak'
+import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { soknader } from './soknader'
 import { vedtakMed100Grad } from './vedtak'
 
@@ -61,7 +62,7 @@ export const enAvvistSykmelding: Persona = {
 export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
-    oppfolgingsplaner: [],
+    oppfolgingsplaner: [ nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid ],
     sykmeldinger: [ {
         id: 'SENDT',
         sykmeldingStatus: {
