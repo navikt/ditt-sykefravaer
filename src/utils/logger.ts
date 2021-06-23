@@ -3,7 +3,7 @@ import safeStringify from 'fast-safe-stringify'
 const frontendlogger = (window as any).frontendlogger
 
 // Grafana - Metrikk
-export const event = (arg: object): void => {
+export const event = (arg: Record<string, unknown>): void => {
     frontendlogger.event(arg)
 }
 

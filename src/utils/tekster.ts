@@ -31,6 +31,17 @@ type TekstKeys =
     keyof typeof ArbeidssituasjonTekster |
     keyof typeof TidslinjeUtdragTekster
 
+export const byttTekstInnhold = (text: string, data: StringMap): string => {
+    if (text === undefined || data === undefined) {
+        return ''
+    }
+    let newtext = text
+    Object.keys(data).forEach((key) => {
+        const regex = new RegExp(key, 'g')
+        newtext = newtext.replace(regex, data[ key ])
+    })
+    return newtext
+}
 
 export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
     const verdi = tekster[ tekst ]
@@ -50,14 +61,4 @@ export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
     return verdi
 }
 
-export const byttTekstInnhold = (text: string, data: StringMap): string => {
-    if (text === undefined || data === undefined) {
-        return ''
-    }
-    let newtext = text
-    Object.keys(data).forEach((key) => {
-        const regex = new RegExp(key, 'g')
-        newtext = newtext.replace(regex, data[ key ])
-    })
-    return newtext
-}
+

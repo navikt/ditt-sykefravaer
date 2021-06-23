@@ -11,7 +11,7 @@ export interface RouteParams {
     id: string;
 }
 
-const App = (): any => {
+const App = () => {
     const queryClient = new QueryClient({
         defaultOptions: {
             queries: {
