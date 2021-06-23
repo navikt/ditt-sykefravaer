@@ -1,4 +1,4 @@
-describe('Tester visning av forside', () => {
+describe('Tester helt frisk person', () => {
 
 
     before(() => {

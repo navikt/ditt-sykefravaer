@@ -9,8 +9,8 @@ export const OppgaverTekster = {
     'oppgaver.sykmeldinger.flere-avviste-sykmeldinger': 'Du har %ANTALL% avviste sykmeldinger',
     'oppgaver.snartslutt': 'Snart slutt på sykepengene',
     'oppgaver.snartslutt.url': '/syk/sykefravaer/snart-slutt-pa-sykepengene',
-    'oppgaver.oppfoelgingsplan.avventendegodkjenninger.entall': 'Du har en oppfølgingsplan som venter på godkjenning av deg.',
-    'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall': 'Du har %ANTALL% oppfølgingsplaner som venter på godkjenning av deg.',
-    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall': 'Lederen din har begynt på oppfølgingsplanen dere skal skrive sammen.',
+    'oppgaver.oppfoelgingsplan.avventendegodkjenninger.entall': 'Du har en oppfølgingsplan som venter på godkjenning av deg',
+    'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall': 'Du har %ANTALL% oppfølgingsplaner som venter på godkjenning av deg',
+    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall': 'Lederen din har begynt på oppfølgingsplanen dere skal skrive sammen',
     'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall': 'Det er startet %ANTALL% oppfølgingsplaner du er en del av',
 }
