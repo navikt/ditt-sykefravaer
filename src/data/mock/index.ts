@@ -1,7 +1,11 @@
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import env from '../../utils/environment'
-import { enNyTilGodkjenning } from './data/oppfolginsplanTestPersoner'
+import {
+    enNyOppfolgingsplan,
+    enNyTilGodkjenning,
+    toNyeOppfolgingsplaner, toTilGodkjenning
+} from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
 
@@ -50,7 +54,10 @@ const personas: StringFunctionMap = {
     'helt-frisk': () => heltFrisk,
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,
-    'en-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
+    'en-ny-oppfolgingsplan': enNyOppfolgingsplan,
+    'to-nye-oppfolgingsplaner': toNyeOppfolgingsplaner,
+    'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
+    'to-nye-oppfolgingsplaner-til-godkjenning': toTilGodkjenning,
 }
 
 const testperson = url.searchParams.get('testperson')
