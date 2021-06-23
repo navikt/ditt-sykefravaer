@@ -14,7 +14,7 @@ const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (oppfolgingsdialog: Oppfol
     }).length > 0
 }
 
-const idAlleredeFunnet = (planer: Oppfolgingsplan[], id: string) => {
+const idAlleredeFunnet = (planer: Oppfolgingsplan[], id: number) => {
     return planer.filter((plan) => {
         return plan.id === id
     }).length > 0

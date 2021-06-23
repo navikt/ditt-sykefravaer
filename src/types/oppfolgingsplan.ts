@@ -1,3 +1,4 @@
+
 export interface Godkjenning {
     godkjenningsTidspunkt: string
     godkjent: boolean,
@@ -7,7 +8,7 @@ export interface Godkjenning {
 }
 
 export interface Oppfolgingsplan {
-    id: string,
+    id: number,
     arbeidstaker: {
         sistInnlogget: string | null
         fnr: string
@@ -15,7 +16,7 @@ export interface Oppfolgingsplan {
     virksomhet: {
         virksomhetsnummer: string
     }
-    status: string
+    status: 'AVBRUTT' | 'UTDATERT' | 'UNDER_ARBEID'
     sistEndretAv: {
         fnr: string
     }
