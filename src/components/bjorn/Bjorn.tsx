@@ -55,6 +55,7 @@ export const Bjorn = ({
     return (
         <div className={classNames}>
             <div className={bobleClassNames}>
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {nokkel !== undefined ? <Normaltekst>{parser(tekst(nokkel as any))}</Normaltekst> : children}
             </div>
             <div className={bildeClassNames}>

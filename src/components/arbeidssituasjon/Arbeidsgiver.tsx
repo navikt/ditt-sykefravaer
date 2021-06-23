@@ -20,7 +20,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
             syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
             syk.sykmeldingStatus.arbeidsgiver?.orgNavn
         )
-        ?.sykmeldingStatus.arbeidsgiver!.orgNavn
+        ?.sykmeldingStatus.arbeidsgiver?.orgNavn
 
     return (
         <div className="situasjon__innhold">

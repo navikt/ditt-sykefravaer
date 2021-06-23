@@ -80,10 +80,10 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
     const toggleSynlige = () => {
         if (synlige.length === brodsmuler.length) {
             setSynlige([ brodsmuler[ brodsmuler.length - 1 ] ])
-            smulesti.current!.classList.remove('apen')
+            smulesti.current?.classList.remove('apen')
         } else {
             setSynlige(brodsmuler)
-            smulesti.current!.classList.add('apen')
+            smulesti.current?.classList.add('apen')
         }
     }
 
@@ -112,7 +112,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                             <BrodsmuleBit key={index}
                                 sti={smule.sti}
                                 tittel={
-                                    skjerm <= LITEN && smule.mobilTittel && !smulesti.current!.classList.contains('apen')
+                                    skjerm <= LITEN && smule.mobilTittel && !smulesti.current?.classList.contains('apen')
                                         ? smule.mobilTittel
                                         : smule.tittel
                                 }

@@ -116,29 +116,39 @@ const TidslinjeUtdrag = () => {
             ? teksterUtenArbeidsgiver
             : teksterMedArbeidsgiver
 
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         return tekster.find((t) =>
             t.fom <= antallDager && t.tom >= antallDager
-        )
+        )!
     }
 
     const bildeNokkelTilBilde = (bildeNokkel: string) => {
         switch (bildeNokkel) {
-            case 'sykmeldt-hva-naa.svg': return SykmeldtHvaNaa
-            case 'snakk-med-arbeidsgiver.svg': return SnakkMedArbeidsgiver
-            case 'dialogmote-med-arbeidsgiver.svg': return DialogmoteMedArbeidsgiver
-            case 'aktivitetsplikt.svg': return Aktivitestplikt
-            case 'dialogmote-med-nav.svg': return DialogmoteMedNav
-            case 'langtidssykmeldt.svg': return Langtidssykmeldt
-            case 'sluttfasen.svg': return Sluttfasen
-            case 'vurdert-aktivitet.svg': return VurdertAktivitet
-            case 'aktivitetsplan.svg': return Aktivitetsplan
+            case 'sykmeldt-hva-naa.svg':
+                return SykmeldtHvaNaa
+            case 'snakk-med-arbeidsgiver.svg':
+                return SnakkMedArbeidsgiver
+            case 'dialogmote-med-arbeidsgiver.svg':
+                return DialogmoteMedArbeidsgiver
+            case 'aktivitetsplikt.svg':
+                return Aktivitestplikt
+            case 'dialogmote-med-nav.svg':
+                return DialogmoteMedNav
+            case 'langtidssykmeldt.svg':
+                return Langtidssykmeldt
+            case 'sluttfasen.svg':
+                return Sluttfasen
+            case 'vurdert-aktivitet.svg':
+                return VurdertAktivitet
+            case 'aktivitetsplan.svg':
+                return Aktivitetsplan
         }
     }
 
     const [ visInnhold, setVisInnhold ] = useState<boolean>(skalViseUtdrag())
     const [ antallDager, setAntallDager ] = useState<number>(getSykefravaerVarighet())
     const [ visning, setVisning ] = useState<Visning>(getVisning())
-    const nokkelbase = getNokkelBase(visning, antallDager)!
+    const nokkelbase = getNokkelBase(visning, antallDager)
 
     // TODO: Nå ligger tittel inne i Ekspanderbartpanel, intro tar da litt mindre plass og kan kanskje styles annerledes
     // TODO: Fix %ARBEIDSRETTETOPPFOLGING% i tekster
@@ -149,7 +159,8 @@ const TidslinjeUtdrag = () => {
 
             <Vis hvis={visInnhold}>
                 {' Syk '}
-                <input type="number" defaultValue={antallDager} onChange={(e) => setAntallDager(Number(e.target.value))} />
+                <input type="number" defaultValue={antallDager}
+                    onChange={(e) => setAntallDager(Number(e.target.value))} />
                 {' dager '}
                 <select defaultValue={visning} onChange={(e) => {
                     console.log('e', e) // eslint-disable-line
@@ -159,9 +170,8 @@ const TidslinjeUtdrag = () => {
                     <option value="UTEN_ARBEIDSGIVER">UTEN_ARBEIDSGIVER</option>
                     <option value="VALGFRI">VALGFRI</option>
                 </select>
-
-                <Ekspanderbartpanel
-                    tittel={tekst(nokkelbase.nokkel + '.tittel' as any)}
+                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                <Ekspanderbartpanel tittel={tekst(nokkelbase.nokkel + '.tittel' as any)}
                     apen={true}
                     className="tidslinjeutdrag__container"
                 >
@@ -169,12 +179,14 @@ const TidslinjeUtdrag = () => {
                         <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase.bilde)} />
                         <div className="tidslinjeutdrag__intro">
                             <Normaltekst className="tidslinjeutdrag__ingress">
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                                 {parser(tekst((nokkelbase.nokkel + '.ingress') as any))}
                             </Normaltekst>
                         </div>
                     </div>
 
                     <Normaltekst>
+                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                         {parser(tekst((nokkelbase.nokkel + '.mer') as any))}
                     </Normaltekst>
                 </Ekspanderbartpanel>

@@ -9,7 +9,7 @@ import { SnartsluttTekster } from '../pages/snart-slutt/snartsluttTekster'
 import { StringMap } from '../types/stringMap'
 import { logger } from './logger'
 
-const tekster: any = {
+const tekster = {
     ...BannerTekster,
     ...LenkerTekster,
     ...ForsideTekster,
@@ -31,25 +31,6 @@ type TekstKeys =
     keyof typeof ArbeidssituasjonTekster |
     keyof typeof TidslinjeUtdragTekster
 
-
-export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
-    const verdi = tekster[ tekst ]
-    // Generiskfeilmelding har ingen tekst
-    if (!verdi === undefined && !tekst.includes('soknad.feilmelding')) {
-        // eslint-disable-next-line no-console
-        console.log(`Mangler teksten [ ${tekst} ]`)
-        logger.error(`Mangler teksten [ ${tekst} ]`)
-        return undefined as any
-    }
-    if (verdi === undefined) {
-        return tekst
-    }
-    if (data) {
-        return byttTekstInnhold(verdi, data)
-    }
-    return verdi
-}
-
 export const byttTekstInnhold = (text: string, data: StringMap): string => {
     if (text === undefined || data === undefined) {
         return ''
@@ -61,3 +42,23 @@ export const byttTekstInnhold = (text: string, data: StringMap): string => {
     })
     return newtext
 }
+
+export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
+    const verdi = tekster[ tekst ]
+    // Generiskfeilmelding har ingen tekst
+    if (!verdi === undefined && !tekst.includes('soknad.feilmelding')) {
+        // eslint-disable-next-line no-console
+        console.log(`Mangler teksten [ ${tekst} ]`)
+        logger.error(`Mangler teksten [ ${tekst} ]`)
+        return tekst
+    }
+    if (verdi === undefined) {
+        return tekst
+    }
+    if (data) {
+        return byttTekstInnhold(verdi, data)
+    }
+    return verdi
+}
+
+
