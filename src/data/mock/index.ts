@@ -1,7 +1,9 @@
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import env from '../../utils/environment'
-import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk, Persona } from './data/personas'
+import { enNyTilGodkjenning } from './data/oppfolginsplanTestPersoner'
+import { Persona } from './data/persona'
+import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
 
 const mock = FetchMock.configure({
     enableFallback: true,
@@ -37,14 +39,23 @@ function setUpMock(persona: Persona) {
         () => Promise.resolve({ status: 200 }))
 }
 
+const url = new URL(window.location.href)
 
-const href = window.location.href
-if (href.includes('helt-frisk')) {
-    setUpMock(heltFrisk)
-} else if (href.includes('en-ny-sykmelding')) {
-    setUpMock(enNySykmelding)
-} else if (href.includes('en-avvist-sykmelding')) {
-    setUpMock(enAvvistSykmelding)
+export interface StringFunctionMap {
+    [ index: string ]: () => Persona;
+}
+
+
+const personas: StringFunctionMap = {
+    'helt-frisk': () => heltFrisk,
+    'en-ny-sykmelding': () => enNySykmelding,
+    'en-avvist-sykmelding': () => enAvvistSykmelding,
+    'en-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
+}
+
+const testperson = url.searchParams.get('testperson')
+if (testperson && Object.prototype.hasOwnProperty.call(personas, testperson)) {
+    setUpMock(personas[ testperson ]())
 } else {
     setUpMock(defaultPersona)
 }
