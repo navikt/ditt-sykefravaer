@@ -1,5 +1,6 @@
 class Environment {
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private env = (window as any)._env_;
 
     get isDev() {

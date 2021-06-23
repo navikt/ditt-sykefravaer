@@ -26,7 +26,9 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
     const toggleOpen = () => {
         setOpen(!open)
     }
-
+    if (!leder || !orgNavn) {
+        return null
+    }
     return (
         <Vis hvis={leder && orgNavn}>
             <Normaltekst className="leder__informasjon">
@@ -39,12 +41,13 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                 <BekreftFeilLeder
                     open={open}
                     toggle={toggleOpen}
-                    narmesteLeder={leder!}
-                    orgNavn={orgNavn!}
+                    narmesteLeder={leder}
+                    orgNavn={orgNavn}
                 />
             </div>
-            <Vis hvis={leder?.arbeidsgiverForskutterer !== null}>
+            <Vis hvis={leder.arbeidsgiverForskutterer !== null}>
                 <div className="leder__forskuttering">
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     <Normaltekst>{tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}` as any)}</Normaltekst>
                     <Hjelpetekst>
                         <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>

@@ -12,8 +12,8 @@ export interface BjornBildeProps {
 const BjornBildeStor = ({ alt }: BjornBildeProps) => {
     const [ oyefarge, setOyefarge ] = useState<string>(fargeApen)
     const [ munnform, setMunnform ] = useState<string>(smilemunn)
-    const [ timeout1, setTimeout1 ] = useState<number>()
-    const [ timeout2, setTimeout2 ] = useState<number>()
+    const [ timeout1, setTimeout1 ] = useState<number | undefined>()
+    const [ timeout2, setTimeout2 ] = useState<number | undefined>()
 
     function bevegMunn() {
         setMunnform(alvorligmunn)
@@ -53,8 +53,8 @@ const BjornBildeStor = ({ alt }: BjornBildeProps) => {
         setTimeout2(handle2)
 
         return () => {
-            setTimeout1(null as any)
-            setTimeout2(null as any)
+            setTimeout1(undefined)
+            setTimeout2(undefined )
             window.clearTimeout(timeout1)
             window.clearTimeout(timeout2)
         }

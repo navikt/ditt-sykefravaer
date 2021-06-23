@@ -9,7 +9,7 @@ import { SnartsluttTekster } from '../pages/snart-slutt/snartsluttTekster'
 import { StringMap } from '../types/stringMap'
 import { logger } from './logger'
 
-const tekster: any = {
+const tekster = {
     ...BannerTekster,
     ...LenkerTekster,
     ...ForsideTekster,
@@ -50,7 +50,7 @@ export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
         // eslint-disable-next-line no-console
         console.log(`Mangler teksten [ ${tekst} ]`)
         logger.error(`Mangler teksten [ ${tekst} ]`)
-        return undefined as any
+        return tekst
     }
     if (verdi === undefined) {
         return tekst

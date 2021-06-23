@@ -11,7 +11,7 @@ import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
 import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import {  ArbeidssituasjonType } from '../../types/arbeidssituasjon'
+import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
 import { Periode, Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
@@ -40,14 +40,10 @@ const Arbeidssituasjon = () => {
     const { data: narmesteLedere } = useNarmesteledere()
     const { data: sykmeldinger } = useSykmeldinger()
 
-    // eslint-disable-next-line no-console
-    console.log(narmesteLedere)
     if (!sykmeldinger || !narmesteLedere) {
         return null
     }
 
-    // eslint-disable-next-line no-console
-    console.log('Forbi return null')
     const finnAktuelleArbeidsgivere = () => {
         const aktiveLedereOrgnummer = narmesteLedere
             .filter((nl) => !nl.aktivTom && nl.navn)
@@ -66,6 +62,7 @@ const Arbeidssituasjon = () => {
         const unikeArbeidsgiver = new Set(
             sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
                 .filter((syk) => syk.sykmeldingStatus.arbeidsgiver)
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 .map((syk) => syk.sykmeldingStatus.arbeidsgiver!.orgnummer)
         )
 
@@ -76,7 +73,7 @@ const Arbeidssituasjon = () => {
         const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
         const arbeidssituasjoner = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
-            .map((syk) => hentArbeidssituasjon(syk)!)
+            .map((syk) => hentArbeidssituasjon(syk) || '')
             .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
 
         return arbeidssituasjoner
@@ -124,11 +121,13 @@ const Arbeidssituasjon = () => {
                     }
                     {
                         arbeidssituasjoner.map((arbeidssituasjon, idx) => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
                             return (
                                 <div className="situasjon__panel" key={idx}>
                                     <div className={'situasjon'}>
                                         <div className="situasjon__ikon">
+                                            {/* eslint-disable-next-line */}
                                             <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
                                                 alt={arbeidssituasjonLedetekst} />
                                         </div>
