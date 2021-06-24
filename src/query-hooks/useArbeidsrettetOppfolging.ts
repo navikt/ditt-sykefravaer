@@ -5,7 +5,7 @@ import env from '../utils/environment'
 import Fetch from '../utils/fetch'
 
 export default function() {
-    return useQuery<ArbeidsrettetOppfolging, Error>('vedtak', () =>
+    return useQuery<ArbeidsrettetOppfolging, Error>('arbeidsrettetOppfolging', () =>
         Fetch.authenticatedGet(
             `${env.flexGatewayRoot}/veilarboppfolging/api/oppfolging`,
             async(data) => {

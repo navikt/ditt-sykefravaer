@@ -1,6 +1,7 @@
 import './forside.less'
 
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import Modal from 'nav-frontend-modal'
 import { Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect } from 'react'
 
@@ -20,6 +21,7 @@ const Forside = () => {
 
     useEffect(() => {
         setBodyClass('forside')
+        Modal.setAppElement('#maincontent')
     }, [])
 
     return (

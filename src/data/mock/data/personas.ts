@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
@@ -13,7 +15,8 @@ export const heltFrisk: Persona = {
     sykmeldinger: [],
     narmesteledere: [],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false }
+    arbeidsrettetOppfolging: { underOppfolging: false },
+    sykeforloep: [],
 }
 
 export const enNySykmelding: Persona = {
@@ -26,11 +29,16 @@ export const enNySykmelding: Persona = {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
+        sykmeldingsperioder: [ {
+            fom: dayjs().format('YYYY-MM-DD'),
+            tom: dayjs().add(12, 'days').format('YYYY-MM-DD'),
+        } ],
+        syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
     } ],
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
+    sykeforloep: [ { oppfolgingsdato: dayjs().format('YYYY-MM-DD') } ],
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -44,10 +52,12 @@ export const enAvvistSykmelding: Persona = {
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' },
         sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
+        syketilfelleStartDato: '2021-03-01',
     } ],
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
+    sykeforloep: [],
 }
 
 export const defaultPersona: Persona = {
@@ -64,41 +74,35 @@ export const defaultPersona: Persona = {
         },
         behandlingsutfall: { status: 'OK' },
         sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
+        syketilfelleStartDato: '2021-03-01',
     }, {
         id: 'APEN',
         sykmeldingStatus: {
-            'statusEvent': 'BEKREFTET',
-            'sporsmalOgSvarListe': [
+            statusEvent: 'BEKREFTET',
+            sporsmalOgSvarListe: [
                 {
-                    'shortName': 'FORSIKRING',
-                    'svar': {
-                        'svarType': 'JA_NEI',
-                        'svar': 'JA'
-                    }
+                    shortName: 'FORSIKRING',
+                    svar: { svarType: 'JA_NEI', svar: 'JA' }
                 },
                 {
-                    'shortName': 'FRAVAER',
-                    'svar': {
-                        'svarType': 'JA_NEI',
-                        'svar': 'NEI'
-                    }
+                    shortName: 'FRAVAER',
+                    svar: { svarType: 'JA_NEI', svar: 'NEI' }
                 },
                 {
-                    'shortName': 'ARBEIDSSITUASJON',
-                    'svar': {
-                        'svarType': 'ARBEIDSSITUASJON',
-                        'svar': 'FRILANSER'
-                    }
+                    shortName: 'ARBEIDSSITUASJON',
+                    svar: { svarType: 'ARBEIDSSITUASJON', svar: 'FRILANSER' }
                 }
             ]
         },
         behandlingsutfall: { status: 'OK' },
         sykmeldingsperioder: [ { fom: '2021-03-15', tom: '2021-03-19' } ],
+        syketilfelleStartDato: '2021-03-01',
     }, {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
         behandlingsutfall: { status: 'INVALID' },
         sykmeldingsperioder: [ { fom: '2021-03-19', tom: '2021-03-19' } ],
+        syketilfelleStartDato: '2021-03-01',
     } ],
     narmesteledere: [ {
         navn: 'Albus Dumbledore',
@@ -107,4 +111,5 @@ export const defaultPersona: Persona = {
     } ],
     snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { underOppfolging: true },
+    sykeforloep: [ { oppfolgingsdato: '2021-03-01' } ],
 }

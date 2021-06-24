@@ -47,6 +47,9 @@ function setUpMock(persona: Persona) {
 
     mock.post(`${env.narmestelederUrl}/:org/avkreft`,
         () => Promise.resolve({ status: 200 }))
+
+    mock.get(`${env.flexGatewayRoot}/syfosoknad/api/sykeforloep`,
+        (req, res, ctx) => res(ctx.json(persona.sykeforloep)))
 }
 
 const url = new URL(window.location.href)

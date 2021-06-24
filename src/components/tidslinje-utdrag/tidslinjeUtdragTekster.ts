@@ -48,4 +48,12 @@ export const TidslinjeUtdragTekster = {
     'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2.ingress': '<p>Det nærmer seg datoen da du ikke lenger kan få sykepenger. Sammen med en NAV-veileder kan du planlegge veien videre. <a href="%ARBEIDSRETTETOPPFOLGING%" target="_blank">Se hva du kan gjøre.</a></p>\n',
     'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2.mer': '<p>Blir du sykmeldt lenger enn 52 uker til sammen, har du ikke lenger rett til sykepenger. Du har ulike alternativer for å unngå å stå uten inntekt når sykepengene tar slutt. Se mer om hvordan du kan planlegge veien videre sammen med en NAV-veileder. <a href="%ARBEIDSRETTETOPPFOLGING%" target="_blank">Gå til alternativene.</a></p>\n',
     'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2.tittel': 'Snart slutt på sykepengene\n',
+
+    // Friskmelding
+    'friskmelding.bjorn': 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.',
+    'friskmelding.bjorn-knapp': 'Jeg vil vite mer',
+    'friskmelding.info-tittel.delvis': 'Kan du jobbe mer enn det sykmeldingen sier?',
+    'friskmelding.info-tittel.helt': 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?',
+    'friskmelding.info.delvis': '<ul>\n\t<li>Ta kontakt med arbeidsgiveren din.</li>\n\t<li>Du trenger ikke ny sykmelding fra legen.</li>\n\t<li>Når du får søknaden om sykepenger til utfylling, skriver du inn hvor mye du har jobbet.</li>\n</ul>',
+    'friskmelding.info.helt': '<ul>\n\t<li>Ta kontakt med arbeidsgiveren din.</li>\n\t<li>Du trenger ikke si fra til legen eller spørre NAV.</li>\n\t<li>Når du får søknaden om sykepenger til utfylling, skriver du inn datoen du begynte å jobbe igjen.</li>\n</ul>',
 }

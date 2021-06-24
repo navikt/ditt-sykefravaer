@@ -2,7 +2,7 @@ import Alertstripe from 'nav-frontend-alertstriper'
 import { Knapp } from 'nav-frontend-knapper'
 import Modal from 'nav-frontend-modal'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import env from '../../utils/environment'
@@ -20,10 +20,6 @@ type NarmesteLederStatus = 'AKTIV' | 'AVKREFTET' | 'ERROR'
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
     const [ avkrefter, setAvkrefter ] = useState<boolean>(false)
     const [ narmesteLederStatus, setNarmesteLederStatus ] = useState<NarmesteLederStatus>('AKTIV')
-
-    useEffect(() => {
-        Modal.setAppElement('#maincontent')
-    }, [])
 
     const avkreftLeder = () => {
         setAvkrefter(true)
