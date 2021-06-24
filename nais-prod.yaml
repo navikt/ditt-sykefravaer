@@ -66,3 +66,5 @@ spec:
       value: "https://syfoapi.nav.no"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
+    - name: DIALOGMOTE_URL
+      value: "https://tjenester.nav.no/dialogmote/mote"

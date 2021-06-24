@@ -63,6 +63,10 @@ class Environment {
         return this.env.OPPFOLGINGSPLAN_URL
     }
 
+    get dialogmoteUrl() {
+        return this.env.DIALOGMOTE_URL
+    }
+
     get dittNavUrl() {
         return this.env.DITTNAV_URL
     }

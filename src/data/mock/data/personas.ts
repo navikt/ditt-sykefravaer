@@ -2,12 +2,16 @@ import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfo
 import { Persona } from './persona'
 import { soknader } from './soknader'
 import { vedtakMed100Grad } from './vedtak'
+import { DialogMote } from '../../../types/dialogmote'
+import { DialogmoteBehov } from '../../../types/dialogmoteBehov'
 
 
 export const heltFrisk: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
+    dialogmote: { status: 'AVBRUTT' },
+    dialogmoteBehov: { visMotebehov: false },
     sykmeldinger: [],
     narmesteledere: [],
     snartSluttSykepenger: false,
@@ -18,6 +22,8 @@ export const enNySykmelding: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
+    dialogmote: { status: 'AVBRUTT' },
+    dialogmoteBehov: { visMotebehov: false },
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -33,6 +39,8 @@ export const enAvvistSykmelding: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
+    dialogmote: { status: 'AVBRUTT' },
+    dialogmoteBehov: { visMotebehov: false },
     sykmeldinger: [ {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -48,6 +56,8 @@ export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
     oppfolgingsplaner: [ nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid ],
+    dialogmote: { status: 'BEKREFTET' },
+    dialogmoteBehov: { visMotebehov: true },
     sykmeldinger: [ {
         id: 'SENDT',
         sykmeldingStatus: {

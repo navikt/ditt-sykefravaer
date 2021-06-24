@@ -2,12 +2,15 @@ import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
+import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
+import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import useVedtak from '../../query-hooks/useVedtak'
 import Vis from '../Vis'
 import Aktivitetsplan from './Aktivitetsplan'
+import Dialogmote from './Dialogmote'
 import Oppfolgingsplan from './Oppfolgingsplan'
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 import SoknadLenkepanel from './Soknader'
@@ -20,6 +23,8 @@ const Lenker = () => {
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
+    const { data: dialogmote } = useDialogmoter()
+    const { data: dialogmoteBehov } = useDialogmoteBehov()
 
 
     return (
@@ -44,6 +49,11 @@ const Lenker = () => {
             <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}>
                 <Oppfolgingsplan />
             </Vis>
+
+            <Vis hvis={dialogmoteBehov?.visMotebehov  || dialogmote !== null}>
+                <Dialogmote />
+            </Vis>
+
         </section>
     )
 }

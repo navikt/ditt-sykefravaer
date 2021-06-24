@@ -43,3 +43,5 @@ spec:
       value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner"
+    - name: DIALOGMOTE_URL
+      value: "https://dialogmote.herokuapp.com/dialogmote/mote"
