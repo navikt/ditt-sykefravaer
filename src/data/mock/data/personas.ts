@@ -2,8 +2,6 @@ import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfo
 import { Persona } from './persona'
 import { soknader } from './soknader'
 import { vedtakMed100Grad } from './vedtak'
-import { DialogMote } from '../../../types/dialogmote'
-import { DialogmoteBehov } from '../../../types/dialogmoteBehov'
 
 
 export const heltFrisk: Persona = {

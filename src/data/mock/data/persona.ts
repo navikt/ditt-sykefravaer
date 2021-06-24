@@ -14,5 +14,7 @@ export interface Persona {
     snartSluttSykepenger: boolean,
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging,
     oppfolgingsplaner: Oppfolgingsplan[],
+    dialogmote: { status: string },
+    dialogmoteBehov: { visMotebehov: boolean },
 }
 

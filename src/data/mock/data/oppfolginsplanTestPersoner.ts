@@ -26,6 +26,8 @@ const commonPersona: Persona = {
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
+    dialogmote: { status: 'AVBRUTT' },
+    dialogmoteBehov: { visMotebehov: false }
 }
 
 export const enNyOppfolgingsplan = () => {
