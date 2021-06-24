@@ -18,10 +18,14 @@ class Fetch {
      * Redirects to Login Service if request contains a 401 response.
      * @param {string} url - The endpoint to call
      * @param {(data: unknown) => Promise<T>} cb - The function to call after res.json()
+     * @param {HeadersInit} headers - Headers
      * @return {Promise<T>} The data
      */
-    static async authenticatedGet<T>(url: string, cb: (data: unknown) => Promise<T>): Promise<T> {
-        const res = await fetch(url, { credentials: 'include' })
+    static async authenticatedGet<T>(url: string, cb: (data: unknown) => Promise<T>, headers?: HeadersInit): Promise<T> {
+        const res = await fetch(url, {
+            credentials: 'include',
+            headers: headers
+        })
         if (res.ok) {
             try {
                 return await cb(await res.json())

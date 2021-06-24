@@ -11,6 +11,7 @@ export default function() {
             async(data) => {
                 return data as ArbeidsrettetOppfolging
             },
+            { 'Nav-Consumer-Id': 'sykefravaer' }
         ),
     )
 }
