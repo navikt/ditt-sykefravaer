@@ -33,6 +33,12 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.syfoApiRoot}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
         (req, res, ctx) => res(ctx.json(persona.oppfolgingsplaner)))
 
+    mock.get(`${env.syfoApiRoot}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
+        (req, res, ctx) => res(ctx.json(persona.dialogmote)))
+
+    mock.get(`${env.syfoApiRoot}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
+        (req, res, ctx) => res(ctx.json(persona.dialogmoteBehov)))
+
     mock.get(`${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
         (req, res, ctx) => res(ctx.json(persona.sykmeldinger)))
 

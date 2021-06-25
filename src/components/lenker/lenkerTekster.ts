@@ -4,5 +4,6 @@ export const LenkerTekster = {
     'lenker.utbetaling': 'Utbetaling av sykepenger',
     'lenker.aktivitetsplan': 'Aktivitetsplan',
     'lenker.oppfolgingsplan': 'Oppfølgingsplan',
+    'lenker.dialogmoter': 'Dialogmøter',
 }
 
