@@ -22,6 +22,7 @@ const VelgArbeidssituasjon = ({ kanVelge, setVisning }: VelgArbeidssituasjonProp
                         name="velgArbeidssituasjon"
                         label={a.tittel}
                         value={a.verdi}
+                        defaultChecked={a.verdi === 'MED_ARBEIDSGIVER'}
                         onChange={() => {
                             /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                             setVisning(a.verdi as any)
