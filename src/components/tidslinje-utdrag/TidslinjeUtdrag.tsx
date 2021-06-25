@@ -202,20 +202,21 @@ const getNokkelBase = (visning: Visning, antallDager: number) => {
 }
 
 const TidslinjeUtdrag = () => {
-    const { data: sykmeldinger } = useSykmeldinger()
-    const { data: sykeforloep } = useSykeforloep()
-    const { data: sykeforloepMetadata } = { data: { erArbeidsrettetOppfolgingSykmeldtInngangAktiv: false } } // TODO: Hent
+    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
+    const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
     const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
     const [ antallDager, setAntallDager ] = useState<number>(0)
     const [ visning, setVisning ] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
-        setVisInnhold(skalViseUtdrag(sykmeldinger))
-        setAntallDager(getSykefravaerVarighet(sykeforloep, sykeforloepMetadata))
-        setVisning(getVisning(sykeforloep, sykmeldinger))
+        if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
+            setVisInnhold(skalViseUtdrag(sykmeldinger))
+            setAntallDager(getSykefravaerVarighet(sykeforloep))
+            setVisning(getVisning(sykeforloep, sykmeldinger))
+        }
         // eslint-disable-next-line
-    }, [ sykmeldinger, sykeforloep ])
+    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         switch (bildeNokkel) {
@@ -249,39 +250,37 @@ const TidslinjeUtdrag = () => {
     // TODO: Fix %ARBEIDSRETTETOPPFOLGING% i tekster
     // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
-        <div>
-            <Vis hvis={visInnhold}>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
-                    apen={true}
-                    className="tidslinjeutdrag__container"
-                >
-                    <VelgArbeidssituasjon
-                        kanVelge={getVisning() === 'VALGFRI'}
-                        setVisning={setVisning}
-                    />
+        <Vis hvis={visInnhold}>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
+                apen={true}
+                className="tidslinjeutdrag__container"
+            >
+                <VelgArbeidssituasjon
+                    kanVelge={getVisning() === 'VALGFRI'}
+                    setVisning={setVisning}
+                />
 
-                    <div className="tidslinjeutdrag">
-                        <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
-                        <div className="tidslinjeutdrag__intro">
-                            <Normaltekst className="tidslinjeutdrag__ingress">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                {parser(tekst((nokkelbase?.nokkel + '.ingress') as any))}
-                            </Normaltekst>
-                        </div>
+                <div className="tidslinjeutdrag">
+                    <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
+                    <div className="tidslinjeutdrag__intro">
+                        <Normaltekst className="tidslinjeutdrag__ingress">
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {parser(tekst((nokkelbase?.nokkel + '.ingress') as any))}
+                        </Normaltekst>
                     </div>
+                </div>
 
-                    <Normaltekst>
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {parser(tekst((nokkelbase?.nokkel + '.mer') as any))}
-                    </Normaltekst>
-                </Ekspanderbartpanel>
+                <Normaltekst>
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {parser(tekst((nokkelbase?.nokkel + '.mer') as any))}
+                </Normaltekst>
+            </Ekspanderbartpanel>
 
-                <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}>
-                    <Friskmelding />
-                </Vis>
+            <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}>
+                <Friskmelding />
             </Vis>
-        </div>
+        </Vis>
     )
 }
 
