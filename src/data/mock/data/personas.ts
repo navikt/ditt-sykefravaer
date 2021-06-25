@@ -38,7 +38,13 @@ export const enNySykmelding: Persona = {
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
-    sykeforloep: [ { oppfolgingsdato: dayjs().format('YYYY-MM-DD') } ],
+    sykeforloep: [ {
+        oppfolgingsdato: dayjs().format('YYYY-MM-DD'),
+        sykmeldinger: [ {
+            fom: dayjs().format('YYYY-MM-DD'),
+            tom: dayjs().add(12, 'days').format('YYYY-MM-DD')
+        } ]
+    } ],
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -111,5 +117,5 @@ export const defaultPersona: Persona = {
     } ],
     snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { underOppfolging: true },
-    sykeforloep: [ { oppfolgingsdato: '2021-03-01' } ],
+    sykeforloep: [],
 }

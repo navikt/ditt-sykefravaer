@@ -28,9 +28,7 @@ const commonPersona: Persona = {
     arbeidsrettetOppfolging: { underOppfolging: false },
     dialogmote: { status: 'AVBRUTT' },
     dialogmoteBehov: { visMotebehov: false },
-    sykeforloep: [ {
-        oppfolgingsdato: dayjs().subtract(4, 'months').format('YYYY-MM-DD')
-    } ],
+    sykeforloep: [],
 }
 
 export const enNyOppfolgingsplan = () => {

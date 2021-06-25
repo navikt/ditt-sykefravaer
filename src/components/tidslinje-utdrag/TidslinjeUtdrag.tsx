@@ -17,7 +17,7 @@ import SykmeldtHvaNaa from '../../grafikk/tidslinjeutdrag/sykmeldt-hva-naa.svg'
 import VurdertAktivitet from '../../grafikk/tidslinjeutdrag/vurdert-aktivitet.svg'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { Sykeforloep } from '../../types/sykeforloep'
+import { SimpleSykmelding, Sykeforloep } from '../../types/sykeforloep'
 import { Sykmelding } from '../../types/sykmelding'
 import { hentArbeidssituasjon, senesteTom } from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
@@ -95,6 +95,7 @@ const teksterUtenArbeidsgiver = [
     }
 ]
 
+// Henter startdato for nyeste sykeforløp
 const hentStartdatoFraSykeforloep = (sykeforloep?: Sykeforloep[]) => {
     if (!sykeforloep || sykeforloep.length === 0) {
         return undefined
@@ -107,16 +108,39 @@ const hentStartdatoFraSykeforloep = (sykeforloep?: Sykeforloep[]) => {
     return dayjs(startdato)
 }
 
+// Sjekker at bruker er syk nå og ikke har noen nye sykmeldinger
+const arbeidsrettetOppfolgingSykmeldtInngangAktiv = (startdato: dayjs.Dayjs, sykeforloep?: Sykeforloep[], alleSykmeldinger?: Sykmelding[]) => {
+    const iDag = dayjs()
+
+    const finnAktuelleSykmeldinger = (sykmeldinger: SimpleSykmelding[]) => {
+        return sykmeldinger.filter((s) =>
+            iDag >= dayjs(s.fom) && iDag <= dayjs(s.tom)
+        )
+    }
+
+    const aktueltSykeforloep = sykeforloep?.find((s) => dayjs(s.oppfolgingsdato) === startdato)
+    if (!aktueltSykeforloep) return false
+
+    const aktiveSykmeldinger = finnAktuelleSykmeldinger(aktueltSykeforloep.sykmeldinger)
+    if (!aktiveSykmeldinger) return false
+
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = aktiveSykmeldinger.length > 0 &&
+        alleSykmeldinger?.find((s) => s.sykmeldingStatus.statusEvent === 'APEN') === undefined &&
+        iDag.diff(startdato, 'weeks') >= 39 // TODO: Test
+
+    return erArbeidsrettetOppfolgingSykmeldtInngangAktiv
+}
+
+// Lengde på sykeforløpet, Tvinger antall dager hvis det er ny sykmelding eller ingen sykmelding som er aktive
 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-const getSykefravaerVarighet = (sykeforloep?: Sykeforloep[], sykeforloepMetadata?: any) => {
+const getSykefravaerVarighet = (sykeforloep?: Sykeforloep[], sykmeldinger?: Sykmelding[]) => {
     const TRETTINI_UKER = 7 * 39
     const TVING_MER_ENN_39_UKER = 275
     const TVING_MINDRE_ENN_39_UKER = 272
 
     const startdato = hentStartdatoFraSykeforloep(sykeforloep)
     if (!startdato) return 0
-    // Hentes i fra sykeforloepMetadata
-    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = sykeforloepMetadata?.erArbeidsrettetOppfolgingSykmeldtInngangAktiv
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = arbeidsrettetOppfolgingSykmeldtInngangAktiv(startdato, sykeforloep, sykmeldinger)
 
     const dagensDato = dayjs()
     const antallDager = dagensDato.diff(startdato, 'days') + 1   // TODO: Test at +1 er riktig
@@ -212,7 +236,7 @@ const TidslinjeUtdrag = () => {
     useEffect(() => {
         if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
             setVisInnhold(skalViseUtdrag(sykmeldinger))
-            setAntallDager(getSykefravaerVarighet(sykeforloep))
+            setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line
