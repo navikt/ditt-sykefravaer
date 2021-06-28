@@ -2,10 +2,10 @@ import Alertstripe from 'nav-frontend-alertstriper'
 import { Knapp } from 'nav-frontend-knapper'
 import Modal from 'nav-frontend-modal'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
-import React, { useState } from 'react'
+import React from 'react'
 
+import useAvkreftNarmesteLeder from '../../query-hooks/useAvkreftNarmesteLeder'
 import { NarmesteLeder } from '../../types/narmesteLeder'
-import env from '../../utils/environment'
 import Vis from '../Vis'
 
 interface BekreftFeilLederProps {
@@ -15,30 +15,8 @@ interface BekreftFeilLederProps {
     orgNavn: string
 }
 
-type NarmesteLederStatus = 'AKTIV' | 'AVKREFTET' | 'ERROR'
-
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const [ avkrefter, setAvkrefter ] = useState<boolean>(false)
-    const [ narmesteLederStatus, setNarmesteLederStatus ] = useState<NarmesteLederStatus>('AKTIV')
-
-    const avkreftLeder = () => {
-        setAvkrefter(true)
-
-        fetch(`${env.narmestelederUrl}/${narmesteLeder.orgnummer}/avkreft`, {
-            method: 'POST',
-            credentials: 'include',
-        }).then((res) => {
-            if (res.ok) {
-                setNarmesteLederStatus('AVKREFTET')
-            } else {
-                setNarmesteLederStatus('ERROR')
-            }
-        }).catch(() =>
-            setNarmesteLederStatus('ERROR')
-        ).finally(() =>
-            setAvkrefter(false)
-        )
-    }
+    const { mutate: avkreft, isIdle, isLoading, isSuccess, error } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -49,13 +27,13 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
         >
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
 
-            <Vis hvis={narmesteLederStatus === 'AVKREFTET'}
+            <Vis hvis={isSuccess}
                 render={() =>
                     <Normaltekst>Takk for oppdateringen!</Normaltekst>
                 }
             />
 
-            <Vis hvis={narmesteLederStatus === 'ERROR'}
+            <Vis hvis={error?.message}
                 render={() =>
                     <Alertstripe type="feil">
                         Beklager, det oppstod en feil! Vennligst prøv igjen senere.
@@ -63,7 +41,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 }
             />
 
-            <Vis hvis={narmesteLederStatus === 'AKTIV'}
+            <Vis hvis={isIdle}
                 render={() =>
                     <>
                         <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
@@ -73,8 +51,9 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
 
                         <div className="knapperad">
                             <Knapp type="fare"
-                                spinner={avkrefter}
-                                onClick={avkreftLeder}
+                                spinner={isLoading}
+                                disabled={isLoading}
+                                onClick={() => avkreft()}
                             >
                                 Ja, jeg er sikker
                             </Knapp>
