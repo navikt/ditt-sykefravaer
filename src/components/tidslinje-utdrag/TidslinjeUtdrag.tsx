@@ -146,45 +146,50 @@ const TidslinjeUtdrag = () => {
         }
     }
 
-    // TODO: Legg inn i hvis for VisV2
-    if (antallDager > 500) {
-        return null
-    }
-
     // TODO: Nå ligger tittel inne i Ekspanderbartpanel, intro tar da litt mindre plass og kan kanskje styles annerledes
     // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
-        <Vis hvis={visInnhold}>
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
-                apen={true}
-                className="tidslinjeutdrag__container"
-            >
-                <VelgArbeidssituasjon
-                    kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
-                    setVisning={setVisning}
-                />
-
-                <div className="tidslinjeutdrag">
-                    <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
-                    <div className="tidslinjeutdrag__intro">
-                        <div className="typo-normal">
-                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                            {parser(tekst((nokkelbase?.nokkel + '.ingress') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
-                        </div>
-                    </div>
-                </div>
-
-                <div className="typo-normal">
+        <Vis hvis={visInnhold && antallDager <= 500}
+            render={() =>
+                <>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {parser(tekst((nokkelbase?.nokkel + '.mer') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
-                </div>
-            </Ekspanderbartpanel>
+                    <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
+                        apen={true}
+                        className="tidslinjeutdrag__container"
+                    >
+                        <VelgArbeidssituasjon
+                            kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
+                            setVisning={setVisning}
+                        />
 
-            <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}>
-                <Friskmelding />
-            </Vis>
-        </Vis>
+                        <div className="tidslinjeutdrag">
+                            <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
+                            <div className="tidslinjeutdrag__intro">
+                                <div className="typo-normal">
+                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                        parser(tekst((nokkelbase?.nokkel + '.ingress') as any,
+                                            { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))
+                                    }
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="typo-normal">
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                parser(tekst((nokkelbase?.nokkel + '.mer') as any,
+                                    { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))
+                            }
+                        </div>
+                    </Ekspanderbartpanel>
+
+                    <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}
+                        render={() =>
+                            <Friskmelding />
+                        }
+                    />
+                </>
+            }
+        />
     )
 }
 

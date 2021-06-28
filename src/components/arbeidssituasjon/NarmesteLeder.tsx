@@ -30,34 +30,40 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         return null
     }
     return (
-        <Vis hvis={leder && orgNavn}>
-            <Normaltekst className="leder__informasjon">
-                Din nærmeste leder er <strong>{leder?.navn}</strong>.
-            </Normaltekst>
-            <div className="leder__handlinger">
-                <button className="lenke" onClick={() => toggleOpen()}>
-                    <Normaltekst>Meld fra om endring</Normaltekst>
-                </button>
-                <BekreftFeilLeder
-                    open={open}
-                    toggle={toggleOpen}
-                    narmesteLeder={leder}
-                    orgNavn={orgNavn}
-                />
-            </div>
-            <Vis hvis={leder.arbeidsgiverForskutterer !== null}>
-                <div className="leder__forskuttering">
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    <Normaltekst>{tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}` as any)}</Normaltekst>
-                    <Hjelpetekst>
-                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>
-                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</Normaltekst>
-                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</Normaltekst>
-                        <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</Normaltekst>
-                    </Hjelpetekst>
-                </div>
-            </Vis>
-        </Vis>
+        <Vis hvis={leder && orgNavn}
+            render={() =>
+                <>
+                    <Normaltekst className="leder__informasjon">
+                        Din nærmeste leder er <strong>{leder?.navn}</strong>.
+                    </Normaltekst>
+                    <div className="leder__handlinger">
+                        <button className="lenke" onClick={() => toggleOpen()}>
+                            <Normaltekst>Meld fra om endring</Normaltekst>
+                        </button>
+                        <BekreftFeilLeder
+                            open={open}
+                            toggle={toggleOpen}
+                            narmesteLeder={leder}
+                            orgNavn={orgNavn}
+                        />
+                    </div>
+                    <Vis hvis={leder.arbeidsgiverForskutterer !== null}
+                        render={() =>
+                            <div className="leder__forskuttering">
+                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                <Normaltekst>{tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}` as any)}</Normaltekst>
+                                <Hjelpetekst>
+                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>
+                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</Normaltekst>
+                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</Normaltekst>
+                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</Normaltekst>
+                                </Hjelpetekst>
+                            </div>
+                        }
+                    />
+                </>
+            }
+        />
     )
 }
 

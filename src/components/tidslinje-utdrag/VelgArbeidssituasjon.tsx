@@ -15,22 +15,24 @@ const VelgArbeidssituasjon = ({ kanVelge, setVisning }: VelgArbeidssituasjonProp
     } ]
 
     return (
-        <Vis hvis={kanVelge}>
-            <div className="radiofaner">
-                {alternativer.map((a, idx) =>
-                    <Radio key={idx}
-                        name="velgArbeidssituasjon"
-                        label={a.tittel}
-                        value={a.verdi}
-                        defaultChecked={a.verdi === 'MED_ARBEIDSGIVER'}
-                        onChange={() => {
-                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                            setVisning(a.verdi as any)
-                        }}
-                    />
-                )}
-            </div>
-        </Vis>
+        <Vis hvis={kanVelge}
+            render={() =>
+                <div className="radiofaner">
+                    {alternativer.map((a, idx) =>
+                        <Radio key={idx}
+                            name="velgArbeidssituasjon"
+                            label={a.tittel}
+                            value={a.verdi}
+                            defaultChecked={a.verdi === 'MED_ARBEIDSGIVER'}
+                            onChange={() => {
+                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                setVisning(a.verdi as any)
+                            }}
+                        />
+                    )}
+                </div>
+            }
+        />
     )
 }
 

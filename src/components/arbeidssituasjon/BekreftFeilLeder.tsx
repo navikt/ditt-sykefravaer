@@ -49,31 +49,42 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
         >
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
 
-            <Vis hvis={narmesteLederStatus === 'AVKREFTET'}>
-                <Normaltekst>Takk for oppdateringen!</Normaltekst>
-            </Vis>
-            <Vis hvis={narmesteLederStatus === 'ERROR'}>
-                <Alertstripe type="feil">
-                    Beklager, det oppstod en feil! Vennligst prøv igjen senere.
-                </Alertstripe>
-            </Vis>
-            <Vis hvis={narmesteLederStatus === 'AKTIV'}>
-                <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i <strong>{orgNavn}</strong>?</Normaltekst>
-                <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt det.</Normaltekst>
+            <Vis hvis={narmesteLederStatus === 'AVKREFTET'}
+                render={() =>
+                    <Normaltekst>Takk for oppdateringen!</Normaltekst>
+                }
+            />
 
-                <div className="knapperad">
-                    <Knapp
-                        type="fare"
-                        spinner={avkrefter}
-                        onClick={avkreftLeder}
-                    >
-                        Ja, jeg er sikker
-                    </Knapp>
-                    <button className="lenke" onClick={toggle}>
-                        <Normaltekst>Avbryt</Normaltekst>
-                    </button>
-                </div>
-            </Vis>
+            <Vis hvis={narmesteLederStatus === 'ERROR'}
+                render={() =>
+                    <Alertstripe type="feil">
+                        Beklager, det oppstod en feil! Vennligst prøv igjen senere.
+                    </Alertstripe>
+                }
+            />
+
+            <Vis hvis={narmesteLederStatus === 'AKTIV'}
+                render={() =>
+                    <>
+                        <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
+                        leder i <strong>{orgNavn}</strong>?</Normaltekst>
+                        <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
+                        de har valgt det.</Normaltekst>
+
+                        <div className="knapperad">
+                            <Knapp type="fare"
+                                spinner={avkrefter}
+                                onClick={avkreftLeder}
+                            >
+                                Ja, jeg er sikker
+                            </Knapp>
+                            <button className="lenke" onClick={toggle}>
+                                <Normaltekst>Avbryt</Normaltekst>
+                            </button>
+                        </div>
+                    </>
+                }
+            />
         </Modal>
     )
 }

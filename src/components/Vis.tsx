@@ -1,10 +1,15 @@
 import React from 'react'
 
-const Vis = (props: { hvis: undefined | null | boolean | string; children: React.ReactNode }) => {
-    return props.hvis === undefined || props.hvis === null || !props.hvis || props.hvis === ''
+interface VisProps {
+    hvis: undefined | null | boolean | string;
+    render: () => React.ReactNode;
+}
+
+const Vis = ({ hvis, render }: VisProps) => {
+    return hvis
+        ? render()
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        ? (null as any)
-        : props.children
+        : null as any
 }
 
 export default Vis

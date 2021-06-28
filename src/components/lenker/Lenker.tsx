@@ -30,29 +30,41 @@ const Lenker = () => {
     return (
         <section className="lenker">
             <Systemtittel tag="h2">Lenker</Systemtittel>
-            <Vis hvis={sykmeldinger && sykmeldinger.length > 0}>
-                <SykmeldingLenkepanel />
-            </Vis>
+            <Vis hvis={sykmeldinger && sykmeldinger.length > 0}
+                render={() =>
+                    <SykmeldingLenkepanel />
+                }
+            />
 
-            <Vis hvis={soknader && soknader.length > 0}>
-                <SoknadLenkepanel />
-            </Vis>
+            <Vis hvis={soknader && soknader.length > 0}
+                render={() =>
+                    <SoknadLenkepanel />
+                }
+            />
 
-            <Vis hvis={vedtak && vedtak.length > 0}>
-                <UtbetalingAvSykepengerLenkepanel />
-            </Vis>
+            <Vis hvis={vedtak && vedtak.length > 0}
+                render={() =>
+                    <UtbetalingAvSykepengerLenkepanel />
+                }
+            />
 
-            <Vis hvis={arbeidsrettetOppfolging?.underOppfolging}>
-                <Aktivitetsplan />
-            </Vis>
+            <Vis hvis={arbeidsrettetOppfolging?.underOppfolging}
+                render={() =>
+                    <Aktivitetsplan />
+                }
+            />
 
-            <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}>
-                <Oppfolgingsplan />
-            </Vis>
+            <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
+                render={() =>
+                    <Oppfolgingsplan />
+                }
+            />
 
-            <Vis hvis={dialogmoteBehov?.visMotebehov  || dialogmote !== null}>
-                <Dialogmote />
-            </Vis>
+            <Vis hvis={dialogmoteBehov?.visMotebehov  || dialogmote !== null}
+                render={() =>
+                    <Dialogmote />
+                }
+            />
 
         </section>
     )

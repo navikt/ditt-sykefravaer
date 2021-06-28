@@ -86,53 +86,54 @@ const Arbeidssituasjon = () => {
     }
 
     return (
-        <Vis
-            hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}>
-            <div className="landingspanel din-situasjon">
-                <header className="din-situasjon__header">
-                    <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
-                    <h2>{tekst('din-situasjon.tittel.2')}</h2>
-                    <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
-                </header>
-                <div className="arbeidssituasjon-panel">
-                    {
-                        arbeidsgivere.map((orgnummer, idx) => {
-                            return (
-                                <div className="situasjon__panel" key={idx}>
-                                    <div className={'situasjon'}>
-                                        <div className="situasjon__ikon">
-                                            <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
-                                                alt={tekst('din-situasjon.ARBEIDSTAKER')} />
-                                        </div>
-                                        <Arbeidsgiver orgnummer={orgnummer} />
-                                    </div>
-                                </div>
-                            )
-                        })
-                    }
-                    {
-                        arbeidssituasjoner.map((arbeidssituasjon, idx) => {
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
-                            return (
-                                <div className="situasjon__panel" key={idx}>
-                                    <div className={'situasjon'}>
-                                        <div className="situasjon__ikon">
-                                            {/* eslint-disable-next-line */}
-                                            <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
-                                                alt={arbeidssituasjonLedetekst} />
-                                        </div>
-                                        <div className="situasjon__innhold">
-                                            <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>
+        <Vis hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}
+            render={() =>
+                <div className="landingspanel din-situasjon">
+                    <header className="din-situasjon__header">
+                        <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
+                        <h2>{tekst('din-situasjon.tittel.2')}</h2>
+                        <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
+                    </header>
+                    <div className="arbeidssituasjon-panel">
+                        {
+                            arbeidsgivere.map((orgnummer, idx) => {
+                                return (
+                                    <div className="situasjon__panel" key={idx}>
+                                        <div className={'situasjon'}>
+                                            <div className="situasjon__ikon">
+                                                <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
+                                                    alt={tekst('din-situasjon.ARBEIDSTAKER')} />
+                                            </div>
+                                            <Arbeidsgiver orgnummer={orgnummer} />
                                         </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
+                                )
+                            })
+                        }
+                        {
+                            arbeidssituasjoner.map((arbeidssituasjon, idx) => {
+                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                                const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
+                                return (
+                                    <div className="situasjon__panel" key={idx}>
+                                        <div className={'situasjon'}>
+                                            <div className="situasjon__ikon">
+                                                {/* eslint-disable-next-line */}
+                                                 <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
+                                                    alt={arbeidssituasjonLedetekst} />
+                                            </div>
+                                            <div className="situasjon__innhold">
+                                                <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>
+                                            </div>
+                                        </div>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
-        </Vis>
+            }
+        />
     )
 }
 
