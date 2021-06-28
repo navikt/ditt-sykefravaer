@@ -22,6 +22,16 @@ describe('Tester tidslinjeutdrag', () => {
                 .should('have.attr', 'href', 'https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&configId=default&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false&download=true')
         })
 
+        cy.get('.friskmelding__bjorn')
+            .should('contain', 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.')
+            .contains('Jeg vil vite mer')
+            .click()
+        cy.get('.modal')
+            .should('contain', 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?')
+            .get('.lukknapp')
+            .click()
+
+
         cy.get('input[type=radio][value=UTEN_ARBEIDSGIVER]').click({ force: true })
         cy.get('.tidslinjeutdrag__container .ekspanderbartPanel__tittel')
             .contains('Når du er blitt syk')
@@ -36,6 +46,8 @@ describe('Tester tidslinjeutdrag', () => {
             cy.get('a').contains('Les mer om sykmelding og sykepenger')
                 .should('have.attr', 'href', 'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmeldt')
         })
+
+        cy.get('.friskmelding__bjorn').should('not.exist')
     })
 
     it('Syk i 22 uker', () => {
