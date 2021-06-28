@@ -2,7 +2,6 @@ import './tidlinje-utdrag.less'
 
 import parser from 'html-react-parser'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
-import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
@@ -162,24 +161,24 @@ const TidslinjeUtdrag = () => {
                 className="tidslinjeutdrag__container"
             >
                 <VelgArbeidssituasjon
-                    kanVelge={getVisning() === 'VALGFRI'}
+                    kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
                     setVisning={setVisning}
                 />
 
                 <div className="tidslinjeutdrag">
                     <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
                     <div className="tidslinjeutdrag__intro">
-                        <Normaltekst className="tidslinjeutdrag__ingress">
+                        <div className="typo-normal">
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                             {parser(tekst((nokkelbase?.nokkel + '.ingress') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
-                        </Normaltekst>
+                        </div>
                     </div>
                 </div>
 
-                <Normaltekst>
+                <div className="typo-normal">
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                     {parser(tekst((nokkelbase?.nokkel + '.mer') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
-                </Normaltekst>
+                </div>
             </Ekspanderbartpanel>
 
             <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}>
