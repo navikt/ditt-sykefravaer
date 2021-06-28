@@ -178,7 +178,7 @@ const TidslinjeUtdrag = () => {
 
                 <Normaltekst>
                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    {parser(tekst((nokkelbase?.nokkel + '.mer') as any))}
+                    {parser(tekst((nokkelbase?.nokkel + '.mer') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
                 </Normaltekst>
             </Ekspanderbartpanel>
 

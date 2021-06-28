@@ -4,10 +4,16 @@ import env from '../../utils/environment'
 import {
     enNyOppfolgingsplan,
     enNyTilGodkjenning,
-    toNyeOppfolgingsplaner, toTilGodkjenning
+    toNyeOppfolgingsplaner,
+    toTilGodkjenning,
 } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
+import {
+    langtidssykmeldt,
+    snartSlutt,
+    tvingMindreEnnTrettiniUker,
+} from './data/sykeforloepTestPersoner'
 
 const mock = FetchMock.configure({
     enableFallback: true,
@@ -67,6 +73,9 @@ const personas: StringFunctionMap = {
     'to-nye-oppfolgingsplaner': toNyeOppfolgingsplaner,
     'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
     'to-nye-oppfolgingsplaner-til-godkjenning': toTilGodkjenning,
+    'langtidssykmeldt': langtidssykmeldt,
+    'snart-slutt': snartSlutt,
+    'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
 }
 
 const testperson = url.searchParams.get('testperson')
