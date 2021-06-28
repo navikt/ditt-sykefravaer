@@ -153,7 +153,6 @@ const TidslinjeUtdrag = () => {
     }
 
     // TODO: Nå ligger tittel inne i Ekspanderbartpanel, intro tar da litt mindre plass og kan kanskje styles annerledes
-    // TODO: Fix %ARBEIDSRETTETOPPFOLGING% i tekster
     // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
         <Vis hvis={visInnhold}>
@@ -172,7 +171,7 @@ const TidslinjeUtdrag = () => {
                     <div className="tidslinjeutdrag__intro">
                         <Normaltekst className="tidslinjeutdrag__ingress">
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                            {parser(tekst((nokkelbase?.nokkel + '.ingress') as any))}
+                            {parser(tekst((nokkelbase?.nokkel + '.ingress') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
                         </Normaltekst>
                     </div>
                 </div>
