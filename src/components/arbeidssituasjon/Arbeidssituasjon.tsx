@@ -12,24 +12,15 @@ import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
-import { Periode, Sykmelding } from '../../types/sykmelding'
+import { Sykmelding } from '../../types/sykmelding'
+import { hentArbeidssituasjon, senesteTom } from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Arbeidsgiver from './Arbeidsgiver'
 
-const hentArbeidssituasjon = (sykmelding: Sykmelding) => {
-    return sykmelding.sykmeldingStatus.sporsmalOgSvarListe?.find(s => s.shortName === 'ARBEIDSSITUASJON')?.svar?.svar
-}
-
 const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: Sykmelding[]) => {
     const treMndSiden = dayjs().subtract(3, 'months')
-    const senesteTom = (perioder: Periode[]) => {
-        const nyeste = perioder
-            .sort((p1, p2) =>
-                dayjs(p1.tom).unix() - dayjs(p2.tom).unix()
-            )[ 0 ]
-        return dayjs(nyeste.tom)
-    }
+
     return sykmeldinger.filter((syk) =>
         senesteTom(syk.sykmeldingsperioder) > treMndSiden
     )

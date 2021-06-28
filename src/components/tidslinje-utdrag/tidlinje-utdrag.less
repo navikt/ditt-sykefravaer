@@ -3,6 +3,12 @@
 .tidslinjeutdrag__container {
     margin: 1rem 0 2rem;
 
+    .radiofaner {
+        .skjemaelement {
+            padding-bottom: 1rem;
+        }
+    }
+
     .tidslinjeutdrag {
         display: flex;
         flex-direction: column;
@@ -15,8 +21,25 @@
     }
 }
 
+.friskmelding__bjorn {
+    margin: 1rem 0 2rem;
+
+    button {
+        margin-top: 1rem;
+    }
+}
+
 @media (min-width: @screen-sm) {
     .tidslinjeutdrag__container {
+        .radiofaner {
+            display: flex;
+            justify-content: center;
+
+            .skjemaelement {
+                padding: 0 1rem 1rem;
+            }
+        }
+
         .tidslinjeutdrag {
             flex-direction: row-reverse;
             align-items: flex-start;

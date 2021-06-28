@@ -20,14 +20,15 @@ const commonPersona: Persona = {
         behandlingsutfall: { status: 'OK' },
         sykmeldingsperioder: [ {
             fom: dayjs().subtract(4, 'months').format('YYYY-MM-DD'),
-            tom: dayjs().subtract(3, 'months').format('YYYY-MM-DD')
+            tom: dayjs().subtract(3, 'months').format('YYYY-MM-DD'),
         } ],
     } ],
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     dialogmote: { status: 'AVBRUTT' },
-    dialogmoteBehov: { visMotebehov: false }
+    dialogmoteBehov: { visMotebehov: false },
+    sykeforloep: [],
 }
 
 export const enNyOppfolgingsplan = () => {

@@ -12,6 +12,7 @@ export interface Sykmelding {
         status: 'OK' | 'MANUAL_PROCESSING' | 'INVALID',
     };
     sykmeldingsperioder: Periode[];
+    syketilfelleStartDato?: string;
 }
 
 export interface SporsmalOgSvar {

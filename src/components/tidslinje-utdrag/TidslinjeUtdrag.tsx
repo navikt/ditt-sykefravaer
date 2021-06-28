@@ -2,8 +2,7 @@ import './tidlinje-utdrag.less'
 
 import parser from 'html-react-parser'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
-import { Normaltekst } from 'nav-frontend-typografi'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
 import Aktivitestplikt from '../../grafikk/tidslinjeutdrag/aktivitetsplikt.svg'
@@ -14,10 +13,19 @@ import Sluttfasen from '../../grafikk/tidslinjeutdrag/sluttfasen.svg'
 import SnakkMedArbeidsgiver from '../../grafikk/tidslinjeutdrag/snakk-med-arbeidsgiver.svg'
 import SykmeldtHvaNaa from '../../grafikk/tidslinjeutdrag/sykmeldt-hva-naa.svg'
 import VurdertAktivitet from '../../grafikk/tidslinjeutdrag/vurdert-aktivitet.svg'
+import useSykeforloep from '../../query-hooks/useSykeforloep'
+import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
+import Friskmelding from './Friskmelding'
+import {
+    getSykefravaerVarighet,
+    getVisning,
+    skalViseUtdrag
+} from './tidslinjeUtdragHjelefunksjoner'
+import VelgArbeidssituasjon from './VelgArbeidssituasjon'
 
-type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
+export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
 const teksterMedArbeidsgiver = [
     {
@@ -87,42 +95,35 @@ const teksterUtenArbeidsgiver = [
     }
 ]
 
+const getNokkelBase = (visning: Visning, antallDager: number) => {
+    const tekster = visning === 'UTEN_ARBEIDSGIVER'
+        ? teksterUtenArbeidsgiver
+        : teksterMedArbeidsgiver
+
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+    return tekster.find((t) =>
+        t.fom <= antallDager && t.tom >= antallDager
+    )
+}
+
 const TidslinjeUtdrag = () => {
+    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
+    const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
+    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
+    const [ antallDager, setAntallDager ] = useState<number>(0)
+    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
+    const nokkelbase = getNokkelBase(visning, antallDager)
 
-    const getSykefravaerVarighet = () => {
-        // Finn lengden på sykefraværet
-        // Skal ikke vise noe hvis dager er mer enn 500
-        // Sjekk TVING_MER_ENN_39_UKER
-        // Sjekk TVING_MINDRE_ENN_39_UKER
-        return 0
-    }
+    useEffect(() => {
+        if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
+            setVisInnhold(skalViseUtdrag(sykmeldinger))
+            setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
+            setVisning(getVisning(sykeforloep, sykmeldinger))
+        }
+        // eslint-disable-next-line
+    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
-    const skalViseUtdrag = () => {
-        // Skal bare vise hvis senestes tom er frem i tid eller ikke eldre enn 7 dager
-        return false
-    }
-
-    const getVisning = (): Visning => {
-        // !startdato VALGFRI
-        // harBareNyeSykmeldinger VALGFRI
-        // harBareSendteSykmeldinger MED_ARBEIDSGIVER
-        // harBareBekreftedeSykmeldinger UTEN_ARBEIDSGIVER
-        // default VALGFRI
-        return 'MED_ARBEIDSGIVER'
-    }
-
-    const getNokkelBase = (visning: Visning, antallDager: number) => {
-        const tekster = visning === 'UTEN_ARBEIDSGIVER'
-            ? teksterUtenArbeidsgiver
-            : teksterMedArbeidsgiver
-
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-        return tekster.find((t) =>
-            t.fom <= antallDager && t.tom >= antallDager
-        )!
-    }
-
-    const bildeNokkelTilBilde = (bildeNokkel: string) => {
+    const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         switch (bildeNokkel) {
             case 'sykmeldt-hva-naa.svg':
                 return SykmeldtHvaNaa
@@ -145,53 +146,45 @@ const TidslinjeUtdrag = () => {
         }
     }
 
-    const [ visInnhold, setVisInnhold ] = useState<boolean>(skalViseUtdrag())
-    const [ antallDager, setAntallDager ] = useState<number>(getSykefravaerVarighet())
-    const [ visning, setVisning ] = useState<Visning>(getVisning())
-    const nokkelbase = getNokkelBase(visning, antallDager)
+    // TODO: Legg inn i hvis for VisV2
+    if (antallDager > 500) {
+        return null
+    }
 
     // TODO: Nå ligger tittel inne i Ekspanderbartpanel, intro tar da litt mindre plass og kan kanskje styles annerledes
-    // TODO: Fix %ARBEIDSRETTETOPPFOLGING% i tekster
+    // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
-        <div>
-            {'Vis tidslinje utdrag: '}
-            <input type="radio" checked={visInnhold} onClick={() => setVisInnhold(!visInnhold)} />
+        <Vis hvis={visInnhold}>
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
+                apen={true}
+                className="tidslinjeutdrag__container"
+            >
+                <VelgArbeidssituasjon
+                    kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
+                    setVisning={setVisning}
+                />
 
-            <Vis hvis={visInnhold}>
-                {' Syk '}
-                <input type="number" defaultValue={antallDager}
-                    onChange={(e) => setAntallDager(Number(e.target.value))} />
-                {' dager '}
-                <select defaultValue={visning} onChange={(e) => {
-                    console.log('e', e) // eslint-disable-line
-                    setVisning(e.currentTarget.value as Visning)
-                }}>
-                    <option value="MED_ARBEIDSGIVER">MED_ARBEIDSGIVER</option>
-                    <option value="UTEN_ARBEIDSGIVER">UTEN_ARBEIDSGIVER</option>
-                    <option value="VALGFRI">VALGFRI</option>
-                </select>
-                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                <Ekspanderbartpanel tittel={tekst(nokkelbase.nokkel + '.tittel' as any)}
-                    apen={true}
-                    className="tidslinjeutdrag__container"
-                >
-                    <div className="tidslinjeutdrag">
-                        <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase.bilde)} />
-                        <div className="tidslinjeutdrag__intro">
-                            <Normaltekst className="tidslinjeutdrag__ingress">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                {parser(tekst((nokkelbase.nokkel + '.ingress') as any))}
-                            </Normaltekst>
+                <div className="tidslinjeutdrag">
+                    <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
+                    <div className="tidslinjeutdrag__intro">
+                        <div className="typo-normal">
+                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                            {parser(tekst((nokkelbase?.nokkel + '.ingress') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
                         </div>
                     </div>
+                </div>
 
-                    <Normaltekst>
-                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                        {parser(tekst((nokkelbase.nokkel + '.mer') as any))}
-                    </Normaltekst>
-                </Ekspanderbartpanel>
+                <div className="typo-normal">
+                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                    {parser(tekst((nokkelbase?.nokkel + '.mer') as any, { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))}
+                </div>
+            </Ekspanderbartpanel>
+
+            <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}>
+                <Friskmelding />
             </Vis>
-        </div>
+        </Vis>
     )
 }
 
