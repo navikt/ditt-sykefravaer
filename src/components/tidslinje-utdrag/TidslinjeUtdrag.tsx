@@ -168,7 +168,7 @@ const TidslinjeUtdrag = () => {
                                 <div className="typo-normal">
                                     {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                         parser(tekst((nokkelbase?.nokkel + '.ingress') as any,
-                                            { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))
+                                            { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                                     }
                                 </div>
                             </div>
@@ -177,7 +177,7 @@ const TidslinjeUtdrag = () => {
                         <div className="typo-normal">
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                 parser(tekst((nokkelbase?.nokkel + '.mer') as any,
-                                    { '%ARBEIDSRETTETOPPFOLGING%': '/snart-slutt-pa-sykepengene' }))
+                                    { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
                     </Ekspanderbartpanel>

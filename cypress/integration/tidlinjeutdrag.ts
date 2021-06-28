@@ -86,9 +86,9 @@ describe('Tester tidslinjeutdrag', () => {
             cy.contains('Det nærmer seg datoen da du ikke lenger kan få sykepenger. Sammen med arbeidsgiveren din eller en NAV-veileder kan du planlegge veien videre. Se hva du kan gjøre.')
             cy.contains('Blir du sykmeldt lenger enn 52 uker til sammen, har du ikke lenger rett til sykepenger. Du har ulike alternativer for å unngå å stå uten inntekt når sykepengene tar slutt. Se mer om hvordan du kan planlegge veien videre sammen med arbeidsgiveren din eller en NAV-veileder. Gå til alternativene.')
             cy.get('a').contains('Se hva du kan gjøre.')
-                .should('have.attr', 'href', '/snart-slutt-pa-sykepengene')
+                .should('have.attr', 'href', '/syk/sykefravaer/snart-slutt-pa-sykepengene')
             cy.get('a').contains('Gå til alternativene.')
-                .should('have.attr', 'href', '/snart-slutt-pa-sykepengene')
+                .should('have.attr', 'href', '/syk/sykefravaer/snart-slutt-pa-sykepengene')
         })
 
         cy.get('input[type=radio][value=UTEN_ARBEIDSGIVER]').click({ force: true })
@@ -98,9 +98,9 @@ describe('Tester tidslinjeutdrag', () => {
             cy.contains('Det nærmer seg datoen da du ikke lenger kan få sykepenger. Sammen med en NAV-veileder kan du planlegge veien videre. Se hva du kan gjøre.')
             cy.contains('Blir du sykmeldt lenger enn 52 uker til sammen, har du ikke lenger rett til sykepenger. Du har ulike alternativer for å unngå å stå uten inntekt når sykepengene tar slutt. Se mer om hvordan du kan planlegge veien videre sammen med en NAV-veileder. Gå til alternativene.')
             cy.get('a').contains('Se hva du kan gjøre.')
-                .should('have.attr', 'href', '/snart-slutt-pa-sykepengene')
+                .should('have.attr', 'href', '/syk/sykefravaer/snart-slutt-pa-sykepengene')
             cy.get('a').contains('Gå til alternativene.')
-                .should('have.attr', 'href', '/snart-slutt-pa-sykepengene')
+                .should('have.attr', 'href', '/syk/sykefravaer/snart-slutt-pa-sykepengene')
         })
     })
 
