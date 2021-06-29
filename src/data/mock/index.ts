@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import env from '../../utils/environment'
@@ -51,8 +52,18 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.narmestelederUrl}/user/sykmeldt/narmesteledere`,
         (req, res, ctx) => res(ctx.json(persona.narmesteledere)))
 
-    mock.post(`${env.narmestelederUrl}/:org/avkreft`,
-        () => Promise.resolve({ status: 200 }))
+    mock.post(`${env.narmestelederUrl}/:org/avkreft`, (req) => {
+        const idx = persona.narmesteledere.findIndex((nl) =>
+            nl.orgnummer === req.queryParams.org
+        )
+        const nl = persona.narmesteledere.splice(idx, 1)[0]
+        persona.narmesteledere.push({
+            ...nl,
+            aktivTom: dayjs().format('YYYY-MM-DD')
+        })
+
+        return Promise.resolve({ status: 200 })
+    })
 
     mock.get(`${env.flexGatewayRoot}/syfosoknad/api/sykeforloep`,
         (req, res, ctx) => res(ctx.json(persona.sykeforloep)))

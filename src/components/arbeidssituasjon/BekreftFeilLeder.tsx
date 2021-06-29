@@ -16,7 +16,7 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isIdle, isLoading, isSuccess, error } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    const { mutate: avkreft, isIdle, isLoading, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -27,13 +27,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
         >
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
 
-            <Vis hvis={isSuccess}
-                render={() =>
-                    <Normaltekst>Takk for oppdateringen!</Normaltekst>
-                }
-            />
-
-            <Vis hvis={error?.message}
+            <Vis hvis={isError}
                 render={() =>
                     <Alertstripe type="feil">
                         Beklager, det oppstod en feil! Vennligst prøv igjen senere.
@@ -41,7 +35,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 }
             />
 
-            <Vis hvis={isIdle}
+            <Vis hvis={isIdle || isLoading}
                 render={() =>
                     <>
                         <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste

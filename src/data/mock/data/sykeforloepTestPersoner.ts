@@ -29,7 +29,11 @@ const commonPersona = (): Persona => {
                 tom: iDag.format('YYYY-MM-DD'),
             } ],
         } ],
-        narmesteledere: [],
+        narmesteledere: [ {
+            navn: 'Albus Dumbledore',
+            orgnummer: '972674818',
+            arbeidsgiverForskutterer: true,
+        } ],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
         dialogmote: { status: 'AVBRUTT' },
