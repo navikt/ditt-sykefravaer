@@ -26,47 +26,62 @@ const Lenker = () => {
     const { data: dialogmote } = useDialogmoter()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
 
+    const anyLenker = () => [
+        arbeidsrettetOppfolging,
+        vedtak,
+        sykmeldinger,
+        soknader,
+        oppfolgingsplaner,
+        dialogmote,
+        dialogmoteBehov,
+    ].find((data) =>
+        data
+    ) !== undefined
 
     return (
-        <section className="lenker">
-            <Systemtittel tag="h2">Lenker</Systemtittel>
-            <Vis hvis={sykmeldinger && sykmeldinger.length > 0}
-                render={() =>
-                    <SykmeldingLenkepanel />
-                }
-            />
+        <Vis hvis={anyLenker()}
+            render={() =>
+                <section className="lenker">
+                    <Systemtittel tag="h2">Lenker</Systemtittel>
+                    <Vis hvis={sykmeldinger && sykmeldinger.length > 0}
+                        render={() =>
+                            <SykmeldingLenkepanel />
+                        }
+                    />
 
-            <Vis hvis={soknader && soknader.length > 0}
-                render={() =>
-                    <SoknadLenkepanel />
-                }
-            />
+                    <Vis hvis={soknader && soknader.length > 0}
+                        render={() =>
+                            <SoknadLenkepanel />
+                        }
+                    />
 
-            <Vis hvis={vedtak && vedtak.length > 0}
-                render={() =>
-                    <UtbetalingAvSykepengerLenkepanel />
-                }
-            />
+                    <Vis hvis={vedtak && vedtak.length > 0}
+                        render={() =>
+                            <UtbetalingAvSykepengerLenkepanel />
+                        }
+                    />
 
-            <Vis hvis={arbeidsrettetOppfolging?.underOppfolging}
-                render={() =>
-                    <Aktivitetsplan />
-                }
-            />
+                    <Vis hvis={arbeidsrettetOppfolging?.underOppfolging}
+                        render={() =>
+                            <Aktivitetsplan />
+                        }
+                    />
 
-            <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
-                render={() =>
-                    <Oppfolgingsplan />
-                }
-            />
+                    <Vis hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
+                        render={() =>
+                            <Oppfolgingsplan />
+                        }
+                    />
 
-            <Vis hvis={dialogmoteBehov?.visMotebehov  || dialogmote !== null}
-                render={() =>
-                    <Dialogmote />
-                }
-            />
+                    <Vis hvis={dialogmoteBehov?.visMotebehov || dialogmote !== undefined}
+                        render={() =>
+                            <Dialogmote />
+                        }
+                    />
 
-        </section>
+                </section>
+            }
+        />
     )
 }
 

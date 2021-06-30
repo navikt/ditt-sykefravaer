@@ -18,9 +18,13 @@ import {
 
 const mock = FetchMock.configure({
     enableFallback: true,
-    middleware: MiddlewareUtils.combine(
-        MiddlewareUtils.loggingMiddleware()
-    )
+    middleware: env.isOpplaering
+        ? MiddlewareUtils.combine(
+            MiddlewareUtils.delayMiddleware(1000),
+        )
+        : MiddlewareUtils.combine(
+            MiddlewareUtils.loggingMiddleware(),
+        )
 })
 
 

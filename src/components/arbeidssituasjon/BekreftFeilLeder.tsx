@@ -16,7 +16,7 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isIdle, isLoading, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    const { mutate: avkreft, isIdle, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -26,6 +26,12 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             onRequestClose={toggle}
         >
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
+
+            <Vis hvis={isSuccess}
+                render={() =>
+                    <Normaltekst>Takk for oppdateringen!</Normaltekst>
+                }
+            />
 
             <Vis hvis={isError}
                 render={() =>

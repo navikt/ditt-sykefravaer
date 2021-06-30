@@ -9,8 +9,9 @@ import Arbeidssituasjon from '../../components/arbeidssituasjon/Arbeidssituasjon
 import Banner from '../../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import { IngenSykmelding } from '../../components/ingen-sykmelding/IngenSykmelding'
-import Llenker from '../../components/lenker/Lenker'
+import Lenker from '../../components/lenker/Lenker'
 import Oppgaver from '../../components/oppgaver/Oppgaver'
+import QueryStatusPanel from '../../components/queryStatusPanel/QueryStatusPanel'
 import TidslinjeUtdrag from '../../components/tidslinje-utdrag/TidslinjeUtdrag'
 import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
@@ -35,11 +36,12 @@ const Forside = () => {
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
+                <QueryStatusPanel />
                 <IngenSykmelding />
                 <Oppgaver />
                 <TidslinjeUtdrag />
                 <Arbeidssituasjon />
-                <Llenker />
+                <Lenker />
                 <AlertStripeInfo>{tekst('forside.personverninfo')}</AlertStripeInfo>
             </div>
         </>
