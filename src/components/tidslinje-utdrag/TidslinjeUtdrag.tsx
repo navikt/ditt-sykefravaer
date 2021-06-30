@@ -1,7 +1,8 @@
 import './tidlinje-utdrag.less'
 
 import parser from 'html-react-parser'
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
+import Lesmerpanel from 'nav-frontend-lesmerpanel'
+import { Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
@@ -146,41 +147,43 @@ const TidslinjeUtdrag = () => {
         }
     }
 
-    // TODO: Nå ligger tittel inne i Ekspanderbartpanel, intro tar da litt mindre plass og kan kanskje styles annerledes
     // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
         <Vis hvis={visInnhold && antallDager <= 500}
             render={() =>
                 <>
-                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                    <Ekspanderbartpanel tittel={tekst(nokkelbase?.nokkel + '.tittel' as any)}
-                        apen={true}
+                    <Lesmerpanel
                         className="tidslinjeutdrag__container"
-                    >
-                        <VelgArbeidssituasjon
-                            kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
-                            setVisning={setVisning}
-                        />
+                        intro={
+                            <>
+                                <VelgArbeidssituasjon
+                                    kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
+                                    setVisning={setVisning}
+                                />
 
-                        <div className="tidslinjeutdrag">
-                            <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
-                            <div className="tidslinjeutdrag__intro">
-                                <div className="typo-normal">
-                                    {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                        parser(tekst((nokkelbase?.nokkel + '.ingress') as any,
-                                            { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
-                                    }
+                                <div className="tidslinjeutdrag">
+                                    <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
+                                    <div className="tidslinjeutdrag__intro">
+                                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+                                        <Undertittel>{tekst(nokkelbase?.nokkel + '.tittel' as any)}</Undertittel>
+                                        <div className="typo-normal">
+                                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                parser(tekst((nokkelbase?.nokkel + '.ingress') as any,
+                                                    { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
+                                            }
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-
+                            </>
+                        }
+                    >
                         <div className="typo-normal">
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                 parser(tekst((nokkelbase?.nokkel + '.mer') as any,
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
-                    </Ekspanderbartpanel>
+                    </Lesmerpanel>
 
                     <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}
                         render={() =>
