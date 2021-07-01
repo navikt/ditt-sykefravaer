@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 
+import { dialogmoteSkjema,enTomDialogmote } from './dialogmoter'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
@@ -10,8 +11,8 @@ export const heltFrisk: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
-    dialogmote: { status: 'AVBRUTT' },
-    dialogmoteBehov: { visMotebehov: false },
+    dialogmote: enTomDialogmote,
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
     sykmeldinger: [],
     narmesteledere: [],
     snartSluttSykepenger: false,
@@ -23,8 +24,8 @@ export const enNySykmelding: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
-    dialogmote: { status: 'AVBRUTT' },
-    dialogmoteBehov: { visMotebehov: false },
+    dialogmote: enTomDialogmote,
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
     sykmeldinger: [ {
         id: 'APEN',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -51,8 +52,8 @@ export const enAvvistSykmelding: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
-    dialogmote: { status: 'AVBRUTT' },
-    dialogmoteBehov: { visMotebehov: false },
+    dialogmote: enTomDialogmote,
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
     sykmeldinger: [ {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -70,8 +71,12 @@ export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
     oppfolgingsplaner: [ nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid ],
-    dialogmote: { status: 'BEKREFTET' },
-    dialogmoteBehov: { visMotebehov: true },
+    dialogmote: dialogmoteSkjema,
+    dialogmoteBehov: {
+        visMotebehov: true,
+        skjemaType: 'SVAR_BEHOV',
+        harMotebehov: false
+    },
     sykmeldinger: [ {
         id: 'SENDT',
         sykmeldingStatus: {
