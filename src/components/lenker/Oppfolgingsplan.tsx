@@ -1,5 +1,5 @@
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import environment from '../../utils/environment'
@@ -20,9 +20,12 @@ export default () => {
                     </g>
                 </svg>
             </div>
-            <Undertittel tag="h2">
-                {tekst('lenker.oppfolgingsplan')}
-            </Undertittel>
+            <div className="aktivitetsplan__tekst">
+                <Undertittel tag="h2">
+                    {tekst('lenker.oppfolgingsplan')}
+                </Undertittel>
+                <Normaltekst>{tekst('lenker.oppfolgingsplan.undertekst')}</Normaltekst>
+            </div>
         </LenkepanelBase>
     )
 }
