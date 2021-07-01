@@ -1,6 +1,7 @@
 import './snartslutt.less'
 
 import parser from 'html-react-parser'
+import  { AlertStripeSuksess } from 'nav-frontend-alertstriper'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
@@ -13,8 +14,10 @@ import { Link } from 'react-router-dom'
 import Banner from '../../components/banner/Banner'
 import Bjorn from '../../components/bjorn/Bjorn'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
+import Vis from '../../components/Vis'
 import { penger } from '../../grafikk/Penger'
 import { veilederDame } from '../../grafikk/VeilederDame'
+import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
 import env from '../../utils/environment'
 import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
@@ -25,6 +28,7 @@ const brodsmuler: Brodsmule[] = [
 
 const SnartSlutt = () => {
     const history = useHistory()
+    const { data: arbeidsrettetOppfolging } = useArbeidsrettetOppfolging()
 
     useEffect(() => {
         setBodyClass('snartslutt')
@@ -37,6 +41,7 @@ const SnartSlutt = () => {
     const handleNeiBtnClicked = () => {
         history.push('/')
     }
+
 
     return (
         <div>
@@ -124,16 +129,31 @@ const SnartSlutt = () => {
                     {tekst('snartslutt.veiledning')}
                 </Systemtittel>
 
-                <div className="knapperad">
-                    <Hovedknapp onClick={handleJaBtnClicked}>
-                        {tekst('snartslutt.veiledning.ja')}
-                    </Hovedknapp>
-                    <Knapp onClick={handleNeiBtnClicked}>
-                        {tekst('snartslutt.veiledning.nei')}
-                    </Knapp>
-                </div>
+                <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === true}
+                    render={() => {
+                        return <AlertStripeSuksess>
+                            <Normaltekst>{tekst('infoside-fo.alertstripe.tekst')}</Normaltekst>
+                            <a className="lenke" href={env.veienTilArbeidUrl}>
+                                {tekst('infoside-fo.alertstripe.knapp-tekst')}
+                            </a>
+                        </AlertStripeSuksess>
+                    }
+                    } />
 
-                <Link to="/" className="lenke">
+                <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === false}
+                    render={() =>
+                        <div className="knapperad">
+                            <Hovedknapp onClick={handleJaBtnClicked}>
+                                {tekst('snartslutt.veiledning.ja')}
+                            </Hovedknapp>
+                            <Knapp onClick={handleNeiBtnClicked}>
+                                {tekst('snartslutt.veiledning.nei')}
+                            </Knapp>
+                        </div>
+
+                    } />
+
+                <Link to="/" className="ekstra-topp-margin lenke">
                     <VenstreChevron />
                     <Normaltekst tag="span">Til hovedsiden Ditt sykefravaer</Normaltekst>
                 </Link>
