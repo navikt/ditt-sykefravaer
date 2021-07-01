@@ -1,7 +1,6 @@
 import './snartslutt.less'
 
 import parser from 'html-react-parser'
-import  { AlertStripeSuksess } from 'nav-frontend-alertstriper'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
@@ -129,16 +128,6 @@ const SnartSlutt = () => {
                     {tekst('snartslutt.veiledning')}
                 </Systemtittel>
 
-                <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === true}
-                    render={() => {
-                        return <AlertStripeSuksess>
-                            <Normaltekst>{tekst('infoside-fo.alertstripe.tekst')}</Normaltekst>
-                            <a className="lenke" href={env.veienTilArbeidUrl}>
-                                {tekst('infoside-fo.alertstripe.knapp-tekst')}
-                            </a>
-                        </AlertStripeSuksess>
-                    }
-                    } />
 
                 <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === false}
                     render={() =>
