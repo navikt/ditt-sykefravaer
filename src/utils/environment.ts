@@ -90,6 +90,11 @@ class Environment {
     get arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
+
+    get veienTilArbeidUrl() {
+        return this.env.VEIENTILARBEID_URL
+    }
+
 }
 
 const env = new Environment()

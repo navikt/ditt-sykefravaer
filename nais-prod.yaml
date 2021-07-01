@@ -68,3 +68,5 @@ spec:
       value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL
       value: "https://tjenester.nav.no/dialogmote/mote"
+    - name: VEIENTILARBEID_URL
+      value: "https://veientilarbeid.nav.no"
