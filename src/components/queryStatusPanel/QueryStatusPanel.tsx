@@ -10,7 +10,6 @@ import { useIsFetching, UseQueryResult } from 'react-query'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
-import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
@@ -43,10 +42,6 @@ const QueryStatusPanel = () => {
         query: useOppfolgingsplaner(),
         message: 'Kunne ikke hente oppfølgingsplaner'
     }
-    const dialogmoter: QueryOgFeilmelding = {
-        query: useDialogmoter(),
-        message: 'Kunne ikke hente dialogmøter'
-    }
     const dialogmoteBehov: QueryOgFeilmelding = {
         query: useDialogmoteBehov(),
         message: 'Kunne ikke sjekke behov for dialogmøte'
@@ -73,7 +68,6 @@ const QueryStatusPanel = () => {
         soknader,
         vedtak,
         oppfolgingsplaner,
-        dialogmoter,
         dialogmoteBehov,
         narmesteledere,
         trettiniUkersvarsel,
