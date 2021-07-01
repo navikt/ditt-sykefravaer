@@ -19,7 +19,4 @@ export const SnartsluttTekster = {
     'snartslutt.veiledning': 'Ønsker du mer veiledning fra NAV?',
     'snartslutt.veiledning.ja': 'Ja',
     'snartslutt.veiledning.nei': 'Nei',
-    'infoside-fo.alertstripe.tekst': 'Du har allerede bedt om mer veiledning fra NAV.',
-    'infoside-fo.alertstripe.knapp-tekst': 'Gå til oppfølging',
-
 }
