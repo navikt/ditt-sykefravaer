@@ -20,7 +20,7 @@ export default () => {
                 <Undertittel tag="h2">
                     {tekst('lenker.aktivitetsplan')}
                 </Undertittel>
-                <Normaltekst>For deg og NAV</Normaltekst>
+                <Normaltekst>{tekst('lenker.aktivitetsplan.undertekst')}</Normaltekst>
             </div>
         </LenkepanelBase>
     )
