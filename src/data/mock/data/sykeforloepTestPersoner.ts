@@ -34,6 +34,7 @@ const commonPersona = (): Persona => {
             navn: 'Albus Dumbledore',
             orgnummer: '972674818',
             arbeidsgiverForskutterer: true,
+            aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
         } ],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },

@@ -1,0 +1,78 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+
+.tidslinje {
+
+    .tidslinjeHendelse__rad {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        padding-bottom: 1rem;
+        position: relative;
+
+        &:first-child:before {
+            top: 50%;
+            height: 50%;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 12px;
+            height: 100%;
+            width: 1px;
+            background-color: @navGra40;
+        }
+
+        &:last-child:before {
+            top: 0;
+            height: 50%;
+        }
+
+        .tidslinjeHendelse__ikon {
+            position: relative;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            z-index: 10;
+
+            &.highlight {
+                // TODO
+                border-radius: 50%;
+                background-color: #A3E0F4;
+            }
+
+            img {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        .tidslinjeHendelse__tittel {
+            flex: 1;
+        }
+
+        .tidslinjeHendelse__innhold {
+            flex: 1;
+
+            img {
+                width: 100%;
+                max-width: 370px;
+                height: auto;
+                margin-bottom: 1rem;
+            }
+        }
+
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .tidslinje {
+        .tidslinjeHendelse__rad {
+            .tidslinjeHendelse__ikon {
+                margin-right: 1rem;
+            }
+        }
+    }
+}

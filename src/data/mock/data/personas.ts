@@ -119,8 +119,15 @@ export const defaultPersona: Persona = {
         navn: 'Albus Dumbledore',
         orgnummer: '972674818',
         arbeidsgiverForskutterer: true,
+        aktivFom: '2021-03-19'
     } ],
     snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { underOppfolging: true },
-    sykeforloep: [],
+    sykeforloep: [ {
+        oppfolgingsdato: '2021-03-01',
+        sykmeldinger: [
+            { fom: '2021-03-01', tom: '2021-03-12' },
+            { fom: '2021-03-15', tom: '2021-03-19' },
+        ]
+    } ],
 }
