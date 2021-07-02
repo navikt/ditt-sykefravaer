@@ -6,11 +6,15 @@ import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
+import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
+import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import environment from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
+import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
 import { skapSøknadOppgaver } from './soknadOppgaver'
@@ -45,12 +49,22 @@ const Oppgaver = () => {
     const { data: soknader } = useSoknader()
     const { data: snartSluttPaSykepengene } = use39ukersvarsel()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
+    const { data: dialogmoteBehov } = useDialogmoteBehov()
+    const { data: dialogmoteSvar } = useDialogmoter()
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, environment.oppfolgingsplanUrl)
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, environment.dialogmoteUrl)
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, environment.dialogmoteUrl)
 
-    const oppgaver = [ ...sykmeldingOppgaver, ...soknadOppgaver, ...oppfolgingsplanoppgaver ]
+    const oppgaver = [
+        ...sykmeldingOppgaver,
+        ...soknadOppgaver,
+        ...oppfolgingsplanoppgaver,
+        ...dialogmoteBehovOppgaver,
+        ...dialogmoteSvarOppgaver
+    ]
     if (snartSluttPaSykepengene) {
         oppgaver.push({
             tekst: tekst('oppgaver.snartslutt'),
