@@ -124,22 +124,23 @@ const SnartSlutt = () => {
                     </Normaltekst>
                 </Ekspanderbartpanel>
 
-                <Systemtittel tag="h2" className="subtittel">
-                    {tekst('snartslutt.veiledning')}
-                </Systemtittel>
-
 
                 <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === false}
                     render={() =>
-                        <div className="knapperad">
-                            <Hovedknapp onClick={handleJaBtnClicked}>
-                                {tekst('snartslutt.veiledning.ja')}
-                            </Hovedknapp>
-                            <Knapp onClick={handleNeiBtnClicked}>
-                                {tekst('snartslutt.veiledning.nei')}
-                            </Knapp>
-                        </div>
+                        <>
+                            <Systemtittel tag="h2" className="subtittel">
+                                {tekst('snartslutt.veiledning')}
+                            </Systemtittel>
 
+                            <div className="knapperad">
+                                <Hovedknapp onClick={handleJaBtnClicked}>
+                                    {tekst('snartslutt.veiledning.ja')}
+                                </Hovedknapp>
+                                <Knapp onClick={handleNeiBtnClicked}>
+                                    {tekst('snartslutt.veiledning.nei')}
+                                </Knapp>
+                            </div>
+                        </>
                     } />
 
                 <Link to="/" className="ekstra-topp-margin lenke">
