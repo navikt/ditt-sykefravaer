@@ -1,7 +1,7 @@
 import Popover, { PopoverOrientering } from 'nav-frontend-popover'
 import React, { useRef, useState } from 'react'
 
-import { personas } from '../../data/mock'
+import { personas } from '../../data/mock/testperson'
 import env from '../../utils/environment'
 import Vis from '../Vis'
 import personIkon from './person.svg'
