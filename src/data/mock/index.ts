@@ -80,7 +80,7 @@ export interface StringFunctionMap {
 }
 
 
-const personas: StringFunctionMap = {
+export const personas: StringFunctionMap = {
     'helt-frisk': () => heltFrisk,
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,

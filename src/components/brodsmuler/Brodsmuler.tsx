@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 
 import env from '../../utils/environment'
 import Vis from '../Vis'
-import personIkon from './person.svg'
+import Person from './Person'
 
 const LITEN = 768
 
@@ -90,7 +90,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
     return (
         <nav className="brodsmuler" ref={smulesti} aria-label="Du er her: ">
             <div className="limit">
-                <img src={personIkon} alt="Du" className="brodsmuler__ikon" />
+                <Person />
                 <Normaltekst tag="ul" className="brodsmuler__smuler">
                     <Vis hvis={skjerm <= LITEN}
                         render={() =>
