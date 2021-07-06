@@ -6,6 +6,7 @@ import { Route, Switch } from 'react-router-dom'
 
 import Forside from './pages/forside/Forside'
 import SnartSlutt from './pages/snart-slutt/SnartSlutt'
+import Tidslinjen from './pages/tidslinjen/Tidslinjen'
 
 export interface RouteParams {
     id: string;
@@ -27,6 +28,7 @@ const App = () => {
                 <Switch>
                     <Route exact={true} path="/" component={Forside} />
                     <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
+                    <Route path="/tidslinjen" component={Tidslinjen} />
                 </Switch>
             </main>
         </QueryClientProvider>

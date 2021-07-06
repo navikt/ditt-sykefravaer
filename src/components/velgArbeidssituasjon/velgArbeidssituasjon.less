@@ -1,0 +1,27 @@
+@import '../../../node_modules/nav-frontend-core/less/_variabler';
+
+.radiofaner {
+    display: flex;
+    flex-direction: column;
+
+    .radio {
+        display: flex;
+        margin: 0.5rem 0;
+
+        .hjelpetekst {
+            margin-left: 1rem;
+            align-self: center;
+        }
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .radiofaner {
+        flex-direction: row;
+        justify-content: center;
+
+        .radio {
+            margin: 1rem;
+        }
+    }
+}
