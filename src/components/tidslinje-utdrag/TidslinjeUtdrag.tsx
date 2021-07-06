@@ -17,10 +17,14 @@ import VurdertAktivitet from '../../grafikk/tidslinjeutdrag/vurdert-aktivitet.sv
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
+import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import { getSykefravaerVarighet, getVisning, skalViseUtdrag } from './tidslinjeUtdragHjelefunksjoner'
-import VelgArbeidssituasjon from './VelgArbeidssituasjon'
+import {
+    getSykefravaerVarighet,
+    getVisning,
+    skalViseUtdrag
+} from './tidslinjeUtdragHjelefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -154,6 +158,7 @@ const TidslinjeUtdrag = () => {
                                 <VelgArbeidssituasjon
                                     kanVelge={getVisning(sykeforloep, sykmeldinger) === 'VALGFRI'}
                                     setVisning={setVisning}
+                                    medHjelpetekst={false}
                                 />
 
                                 <div className="tidslinjeutdrag">
