@@ -2,19 +2,9 @@ import dayjs from 'dayjs'
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import env from '../../utils/environment'
-import {
-    enNyOppfolgingsplan,
-    enNyTilGodkjenning,
-    toNyeOppfolgingsplaner,
-    toTilGodkjenning,
-} from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
-import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
-import {
-    langtidssykmeldt,
-    snartSlutt,
-    tvingMindreEnnTrettiniUker,
-} from './data/sykeforloepTestPersoner'
+import { defaultPersona } from './data/personas'
+import { personas } from './testperson'
 
 const mock = FetchMock.configure({
     enableFallback: true,
@@ -74,24 +64,6 @@ function setUpMock(persona: Persona) {
 }
 
 const url = new URL(window.location.href)
-
-export interface StringFunctionMap {
-    [ index: string ]: () => Persona;
-}
-
-
-export const personas: StringFunctionMap = {
-    'helt-frisk': () => heltFrisk,
-    'en-ny-sykmelding': () => enNySykmelding,
-    'en-avvist-sykmelding': () => enAvvistSykmelding,
-    'en-ny-oppfolgingsplan': enNyOppfolgingsplan,
-    'to-nye-oppfolgingsplaner': toNyeOppfolgingsplaner,
-    'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
-    'to-nye-oppfolgingsplaner-til-godkjenning': toTilGodkjenning,
-    'langtidssykmeldt': langtidssykmeldt,
-    'snart-slutt': snartSlutt,
-    'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
-}
 
 const testperson = url.searchParams.get('testperson')
 if (testperson && Object.prototype.hasOwnProperty.call(personas, testperson)) {
