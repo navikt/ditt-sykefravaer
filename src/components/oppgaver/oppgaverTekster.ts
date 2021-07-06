@@ -15,4 +15,5 @@ export const OppgaverTekster = {
     'oppgaver.dialogmote.svar': 'Svar på NAVs spørsmål om dialogmøte',
     'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall': 'Lederen din har begynt på oppfølgingsplanen dere skal skrive sammen',
     'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall': 'Det er startet %ANTALL% oppfølgingsplaner du er en del av',
+    'oppgaver.aktivitetskrav': 'Bekreft at du kjenner aktivitetsplikten din',
 }

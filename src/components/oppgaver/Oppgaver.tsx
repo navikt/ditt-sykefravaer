@@ -20,7 +20,6 @@ import { Oppgave } from './oppgaveTyper'
 import { skapSøknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
-
 interface OppgaveProps {
     oppgaver: Oppgave[];
 }
@@ -65,6 +64,7 @@ const Oppgaver = () => {
         ...dialogmoteBehovOppgaver,
         ...dialogmoteSvarOppgaver
     ]
+
     if (snartSluttPaSykepengene) {
         oppgaver.push({
             tekst: tekst('oppgaver.snartslutt'),
@@ -72,6 +72,12 @@ const Oppgaver = () => {
             oppgavetype: 'advarsel'
         })
     }
+
+    oppgaver.push({
+        tekst: tekst('oppgaver.aktivitetskrav'),
+        lenke: '/aktivitetskrav',
+        oppgavetype: 'advarsel'
+    })
 
     return (
         <OppgaveLista oppgaver={oppgaver} />

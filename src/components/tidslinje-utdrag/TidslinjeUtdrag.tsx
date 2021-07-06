@@ -2,7 +2,7 @@ import './tidlinje-utdrag.less'
 
 import parser from 'html-react-parser'
 import Lesmerpanel from 'nav-frontend-lesmerpanel'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
@@ -19,11 +19,7 @@ import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import {
-    getSykefravaerVarighet,
-    getVisning,
-    skalViseUtdrag
-} from './tidslinjeUtdragHjelefunksjoner'
+import { getSykefravaerVarighet, getVisning, skalViseUtdrag } from './tidslinjeUtdragHjelefunksjoner'
 import VelgArbeidssituasjon from './VelgArbeidssituasjon'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
@@ -152,8 +148,7 @@ const TidslinjeUtdrag = () => {
         <Vis hvis={visInnhold && antallDager <= 500}
             render={() =>
                 <>
-                    <Lesmerpanel
-                        className="tidslinjeutdrag__container"
+                    <Lesmerpanel className="tidslinjeutdrag__container"
                         intro={
                             <>
                                 <VelgArbeidssituasjon
@@ -162,27 +157,36 @@ const TidslinjeUtdrag = () => {
                                 />
 
                                 <div className="tidslinjeutdrag">
-                                    <img className="tidslinjeutdrag__bilde" src={bildeNokkelTilBilde(nokkelbase?.bilde)} alt="" />
+                                    <img className="tidslinjeutdrag__bilde" alt=""
+                                        src={bildeNokkelTilBilde(nokkelbase?.bilde)}
+                                    />
                                     <div className="tidslinjeutdrag__intro">
-                                        {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                        <Undertittel>{tekst(nokkelbase?.nokkel + '.tittel' as any)}</Undertittel>
-                                        <div className="typo-normal">
+                                        <Undertittel>
+                                            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                tekst(nokkelbase?.nokkel + '.tittel' as any)
+                                            }
+                                        </Undertittel>
+                                        <Normaltekst tag="div">
                                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                                 parser(tekst((nokkelbase?.nokkel + '.ingress') as any,
-                                                    { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
+                                                    {
+                                                        '%ARBEIDSRETTETOPPFOLGING%':
+                                                            '/syk/sykefravaer/snart-slutt-pa-sykepengene'
+                                                    }
+                                                ))
                                             }
-                                        </div>
+                                        </Normaltekst>
                                     </div>
                                 </div>
                             </>
                         }
                     >
-                        <div className="typo-normal">
+                        <Normaltekst>
                             {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                 parser(tekst((nokkelbase?.nokkel + '.mer') as any,
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
-                        </div>
+                        </Normaltekst>
                     </Lesmerpanel>
 
                     <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}

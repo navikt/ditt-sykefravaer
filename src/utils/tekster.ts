@@ -4,6 +4,7 @@ import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykm
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
 import { TidslinjeUtdragTekster } from '../components/tidslinje-utdrag/tidslinjeUtdragTekster'
+import { AktivitetskravTekster } from '../pages/aktivitetskrav/aktivitetskravTekster'
 import { ForsideTekster } from '../pages/forside/forsideTekster'
 import { SnartsluttTekster } from '../pages/snart-slutt/snartsluttTekster'
 import { StringMap } from '../types/stringMap'
@@ -18,6 +19,7 @@ const tekster = {
     ...ingenSykmeldingTekster,
     ...ArbeidssituasjonTekster,
     ...TidslinjeUtdragTekster,
+    ...AktivitetskravTekster,
 }
 
 
@@ -29,7 +31,8 @@ type TekstKeys =
     keyof typeof ForsideTekster |
     keyof typeof SnartsluttTekster |
     keyof typeof ArbeidssituasjonTekster |
-    keyof typeof TidslinjeUtdragTekster
+    keyof typeof TidslinjeUtdragTekster |
+    keyof typeof AktivitetskravTekster
 
 export const byttTekstInnhold = (text: string, data: StringMap): string => {
     if (text === undefined || data === undefined) {

@@ -26,9 +26,11 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
     const toggleOpen = () => {
         setOpen(!open)
     }
+
     if (!leder || !orgNavn) {
         return null
     }
+
     return (
         <Vis hvis={leder && orgNavn}
             render={() =>
@@ -38,7 +40,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                     </Normaltekst>
                     <div className="leder__handlinger">
                         <button className="lenke" onClick={() => toggleOpen()}>
-                            <Normaltekst>Meld fra om endring</Normaltekst>
+                            <Normaltekst tag="span">Meld fra om endring</Normaltekst>
                         </button>
                         <BekreftFeilLeder
                             open={open}
@@ -50,8 +52,13 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                     <Vis hvis={leder.arbeidsgiverForskutterer !== null}
                         render={() =>
                             <div className="leder__forskuttering">
-                                {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                                <Normaltekst>{tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}` as any)}</Normaltekst>
+                                <Normaltekst>
+                                    {tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer
+                                        ? ''
+                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                        : '-ikke'}` as any)
+                                    }
+                                </Normaltekst>
                                 <Hjelpetekst>
                                     <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>
                                     <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</Normaltekst>

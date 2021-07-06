@@ -9,6 +9,7 @@ export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesok
     if (!soknader) {
         return []
     }
+
     const søknaderTilUtfylling = (s: Soknad) =>
         s.status === 'NY' ||
         s.status === 'UTKAST_TIL_KORRIGERING'

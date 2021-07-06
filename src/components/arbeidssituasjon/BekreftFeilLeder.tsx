@@ -44,10 +44,14 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             <Vis hvis={isIdle || isLoading}
                 render={() =>
                     <>
-                        <Normaltekst>Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
-                        leder i <strong>{orgNavn}</strong>?</Normaltekst>
-                        <Normaltekst>Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
-                        de har valgt det.</Normaltekst>
+                        <Normaltekst>
+                            Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
+                            leder i <strong>{orgNavn}</strong>?
+                        </Normaltekst>
+                        <Normaltekst>
+                            Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
+                            de har valgt det.
+                        </Normaltekst>
 
                         <div className="knapperad">
                             <Knapp type="fare"
