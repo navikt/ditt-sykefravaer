@@ -13,9 +13,9 @@ import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 interface HendelseTittelProps { tekstkey: string, type: HendelseType, startdato?: dayjs.Dayjs }
 export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProps) => {
 
-    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-    const titteltekst = tekst(tekstkey as any,
-        { '%DATO%': startdato ? startdato.format('D. MMMM YYYY') : '' }
+    const titteltekst = tekst(
+        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+        tekstkey as any, { '%DATO%': startdato ? startdato.format('D. MMMM YYYY') : '' }
     )
 
     return (

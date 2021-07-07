@@ -39,6 +39,7 @@ const Arbeidssituasjon = () => {
         const aktiveLedereOrgnummer = narmesteLedere
             .filter((nl) => !nl.aktivTom && nl.navn)
             .map((nl) => nl.orgnummer)
+
         const sykmeldingerMedAktivNaermesteLeder = sykmeldinger
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
             .filter((syk) => aktiveLedereOrgnummer.includes(syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''))
@@ -50,6 +51,7 @@ const Arbeidssituasjon = () => {
             ...sykmeldingerMedAktivNaermesteLeder,
             ...sykmeldingerFiltrertPaPeriode,
         ]
+
         const unikeArbeidsgiver = new Set(
             sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
                 .filter((syk) => syk.sykmeldingStatus.arbeidsgiver)
@@ -62,12 +64,10 @@ const Arbeidssituasjon = () => {
 
     const finnAktuelleArbeidssituasjoner = (): string[] => {
         const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
-        const arbeidssituasjoner = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
+        return selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
             .map((syk) => hentArbeidssituasjon(syk) || '')
             .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
-
-        return arbeidssituasjoner
     }
 
     const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
@@ -88,50 +88,43 @@ const Arbeidssituasjon = () => {
     return (
         <Vis hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}
             render={() =>
-                <div className="landingspanel din-situasjon">
+                <section className="landingspanel din-situasjon">
                     <header className="din-situasjon__header">
                         <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
                         <h2>{tekst('din-situasjon.tittel.2')}</h2>
                         <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
                     </header>
                     <div className="arbeidssituasjon-panel">
-                        {
-                            arbeidsgivere.map((orgnummer, idx) => {
-                                return (
-                                    <div className="situasjon__panel" key={idx}>
-                                        <div className={'situasjon'}>
-                                            <div className="situasjon__ikon">
-                                                <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
-                                                    alt={tekst('din-situasjon.ARBEIDSTAKER')} />
-                                            </div>
-                                            <Arbeidsgiver orgnummer={orgnummer} />
-                                        </div>
+                        {arbeidsgivere.map((orgnummer, idx) => {
+                            return (
+                                <div className="situasjon__panel" key={idx}>
+                                    <div className="situasjon__ikon">
+                                        <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
+                                            alt={tekst('din-situasjon.ARBEIDSTAKER')}
+                                        />
                                     </div>
-                                )
-                            })
-                        }
-                        {
-                            arbeidssituasjoner.map((arbeidssituasjon, idx) => {
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
-                                return (
-                                    <div className="situasjon__panel" key={idx}>
-                                        <div className={'situasjon'}>
-                                            <div className="situasjon__ikon">
-                                                {/* eslint-disable-next-line */}
-                                                 <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
-                                                    alt={arbeidssituasjonLedetekst} />
-                                            </div>
-                                            <div className="situasjon__innhold">
-                                                <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>
-                                            </div>
-                                        </div>
+                                    <Arbeidsgiver orgnummer={orgnummer} />
+                                </div>
+                            )
+                        })}
+                        {arbeidssituasjoner.map((arbeidssituasjon, idx) => {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
+                            return (
+                                <div className="situasjon__panel" key={idx}>
+                                    <div className="situasjon__ikon">
+                                        {/* eslint-disable-next-line */}
+                                        <img src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
+                                            alt={arbeidssituasjonLedetekst} />
                                     </div>
-                                )
-                            })
-                        }
+                                    <div className="situasjon__innhold">
+                                        <Normaltekst>{arbeidssituasjonLedetekst}</Normaltekst>
+                                    </div>
+                                </div>
+                            )
+                        })}
                     </div>
-                </div>
+                </section>
             }
         />
     )

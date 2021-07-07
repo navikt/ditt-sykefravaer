@@ -8,13 +8,15 @@ import { hentStartdatoFraSykeforloep } from '../tidslinje-utdrag/tidslinjeUtdrag
 import { HendelseBoble, HendelseTittel } from './Hendelse'
 import { leggTilTidshendelser } from './tidslinjenUtils'
 
-interface TidslinjeProps { visning: Visning }
+interface TidslinjeProps {
+    visning: Visning
+}
+
 export const Tidslinje = ({ visning }: TidslinjeProps) => {
     const { data: sykeforloep } = useSykeforloep()
     const { data: narmesteLedere } = useNarmesteledere()
 
     const startdato = hentStartdatoFraSykeforloep(sykeforloep)
-
     const hendelser: Hendelse[] = leggTilTidshendelser(visning, narmesteLedere, startdato)
 
     const skalViseNyNaermesteLederHendelse = (hendelse: Hendelse) => {
@@ -24,30 +26,24 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
 
     return (
         <div className="tidslinje">
-            {
-                hendelser
-                    .filter(skalViseNyNaermesteLederHendelse)
-                    .filter((h) =>
-                        h.type !== 'AKTIVITETSKRAV_VARSEL'
+            {hendelser
+                .filter(skalViseNyNaermesteLederHendelse)
+                .filter((h) =>
+                    h.type !== 'AKTIVITETSKRAV_VARSEL'
+                )
+                .map((hendelse, idx) => {
+                    if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
+                        return <HendelseBoble key={idx} hendelse={hendelse} />
+                    }
+                    return (
+                        <HendelseTittel
+                            key={idx}
+                            tekstkey={hendelse.tekstkey}
+                            type={hendelse.type}
+                            startdato={startdato}
+                        />
                     )
-                    .map((hendelse, idx) => {
-                        if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
-                            return (
-                                <HendelseBoble
-                                    key={idx}
-                                    hendelse={hendelse}
-                                />
-                            )
-                        }
-                        return (
-                            <HendelseTittel
-                                key={idx}
-                                tekstkey={hendelse.tekstkey}
-                                type={hendelse.type}
-                                startdato={startdato}
-                            />
-                        )
-                    })
+                })
             }
         </div>
     )

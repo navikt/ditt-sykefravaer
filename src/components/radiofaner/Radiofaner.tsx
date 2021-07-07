@@ -2,6 +2,7 @@ import './radiofaner.less'
 
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import React from 'react'
+
 import Vis from '../Vis'
 
 interface Alternativ {
@@ -12,16 +13,14 @@ interface Alternativ {
 
 interface RadiofaneProps {
     alternativer: Alternativ[];
-    changeHandler: () => void;
+    changeHandler: (sit: string) => void;
     valgtAlternativ: string;
-    className: string;
-    radioName: string;
 }
 
-const Radiofaner = ({ alternativer, valgtAlternativ, changeHandler, className, radioName }: RadiofaneProps) => {
+const Radiofaner = ({ alternativer, valgtAlternativ, changeHandler }: RadiofaneProps) => {
 
     return (
-        <ul className={`radiofaner ${className}`}>
+        <ul className="radiofaner">
             {alternativer.map((a, index) => {
                 const erValgt = a.verdi === valgtAlternativ
                 const divClassname = a.hjelpetekst ? 'medHjelpetekst' : ''
@@ -29,7 +28,7 @@ const Radiofaner = ({ alternativer, valgtAlternativ, changeHandler, className, r
                 return (
                     <li className="skjemaelement" key={index}>
                         <div className={divClassname}>
-                            <input type="radio" name={radioName}
+                            <input type="radio" name="arbeidssituasjon"
                                 className={`skjemaelement__input radioknapp js-${a.verdi}`}
                                 value={a.verdi}
                                 id={inputId}

@@ -92,7 +92,6 @@ const AktivitetskravVarsel = () => {
         }
     })
 
-
     return (
         <>
             <Alertstripe type="info" className="blokk">

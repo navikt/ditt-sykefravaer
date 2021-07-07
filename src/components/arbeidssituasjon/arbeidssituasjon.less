@@ -15,25 +15,22 @@
     }
 
     .situasjon__panel {
+        display: flex;
+        padding-top: 1rem;
         border-top: 1px solid @navGra40;
 
-        .situasjon {
-            display: flex;
-            padding-top: 1rem;
+        .situasjon__ikon {
+            padding: 0 1.5rem 0 0.7rem;
+        }
 
-            .situasjon__ikon {
-                padding: 0 1.5rem 0 0.7rem;
+        .situasjon__innhold {
+            .leder__informasjon {
+                margin-top: 0.5rem;
             }
 
-            .situasjon__innhold {
-                .leder__informasjon {
-                    margin-top: 0.5rem;
-                }
-
-                .leder__forskuttering {
-                    display: flex;
-                    margin-top: 1rem;
-                }
+            .leder__forskuttering {
+                display: flex;
+                margin-top: 1rem;
             }
         }
     }
