@@ -4,7 +4,7 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Route, Switch } from 'react-router-dom'
 
-import AktivitetsPlikt from './pages/AktivitetsPlikt'
+import AktivitetskravVarsel from './pages/aktivitetskrav/AktivitetskravVarsel'
 import Forside from './pages/forside/Forside'
 import SnartSlutt from './pages/snart-slutt/SnartSlutt'
 import Tidslinjen from './pages/tidslinjen/Tidslinjen'
@@ -28,7 +28,7 @@ const App = () => {
             <main id="maincontent" className="maincontent" role="main" tabIndex={-1}>
                 <Switch>
                     <Route exact={true} path="/" component={Forside} />
-                    <Route path="/aktivitetsplikt" component={AktivitetsPlikt} />
+                    <Route path="/aktivitetsplikt" component={AktivitetskravVarsel} />
                     <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
                     <Route path="/tidslinjen" component={Tidslinjen} />
                 </Switch>

@@ -7,7 +7,12 @@ import React, { Dispatch, SetStateAction } from 'react'
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
 import Vis from '../Vis'
 
-interface VelgArbeidssituasjonProps { kanVelge: boolean, setVisning: Dispatch<SetStateAction<Visning>>, medHjelpetekst: boolean }
+interface VelgArbeidssituasjonProps {
+    kanVelge: boolean,
+    setVisning: Dispatch<SetStateAction<Visning>>,
+    medHjelpetekst: boolean
+}
+
 const VelgArbeidssituasjon = ({ kanVelge, setVisning, medHjelpetekst }: VelgArbeidssituasjonProps) => {
     const alternativer = [ {
         tittel: 'Jeg har arbeidsgiver',

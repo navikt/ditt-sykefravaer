@@ -1,72 +1,46 @@
-import dayjs from 'dayjs'
+import './artikkel.less'
+
 import parser from 'html-react-parser'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
 
-import Radiofaner from '../../components/radiofaner/Radiofaner'
+import { Visning } from '../../components/tidslinje-utdrag/TidslinjeUtdrag'
+import VelgArbeidssituasjon from '../../components/velgArbeidssituasjon/VelgArbeidssituasjon'
+import Vis from '../../components/Vis'
 import { tekst } from '../../utils/tekster'
+import medArbeidsgiver from './med_arbeidsgiver.svg'
+import utenArbeidsgiver from './uten_arbeidsgiver.svg'
 
-enum Arbeidssituasjoner {
-    MED_ARBEIDSGIVER = 'MED_ARBEIDSGIVER',
-    UTEN_ARBEIDSGIVER = 'UTEN_ARBEIDSGIVER'
-}
-
-interface Arbeidssituasjon {
-    verdi: string;
-    tittel: string;
-}
-
-const alternativer: Arbeidssituasjon[] = [
-    {
-        verdi: Arbeidssituasjoner.MED_ARBEIDSGIVER,
-        tittel: 'Jeg har arbeidsgiver',
-    },
-    {
-        verdi: Arbeidssituasjoner.UTEN_ARBEIDSGIVER,
-        tittel: 'Jeg har ikke arbeidsgiver',
-    }
-]
-
-interface ArtikkelProps {
-    inntruffetdato: Date
-}
-
-const Artikkel = ({ inntruffetdato }: ArtikkelProps) => {
-    const [ arbeidssituasjon, setArbeidssituasjon ] = useState('')
+const Artikkel = () => {
+    const [ visning, setVisning ] = useState<Visning>('MED_ARBEIDSGIVER')
 
     return (
-        <article className="panel">
-            Artikkel {inntruffetdato}
+        <article className="artikkel">
             <header className="artikkel__header">
-                <div className="artikkel__meta">
-                    <Link to="/sykefravaer" className="tilbakelenke">Tilbake</Link>
-                    <Normaltekst className="artikkel__meta__dato">
-                        {dayjs(inntruffetdato).format('DD.MM.YYYY')}
-                    </Normaltekst>
-                </div>
                 <Undertittel className="artikkel__tittel">
                     {tekst('aktivitetskrav-varsel.tittel')}
                 </Undertittel>
-                <Radiofaner valgtAlternativ={arbeidssituasjon}
-                    changeHandler={(v) => {
-                        setArbeidssituasjon(v)
-                    }}
-                    alternativer={alternativer}
-                />
+                <VelgArbeidssituasjon kanVelge={true} setVisning={setVisning} medHjelpetekst={false} />
             </header>
             <Normaltekst className="artikkel__ingress">
                 {tekst('aktivitetskrav-varsel.ingress')}
             </Normaltekst>
             <div className="artikkel__bilde">
-                <img src={`${process.env.REACT_APP_CONTEXT_ROOT}/img/svg/aktivitetsvarsel_${arbeidssituasjon}.svg`}
-                    alt={`aktivitetskrav-varsel.alt.${arbeidssituasjon}`}
+                <Vis hvis={visning === 'MED_ARBEIDSGIVER'}
+                    render={() => (
+                        <img src={medArbeidsgiver} alt={tekst('aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER')} />
+                    )}
+                />
+                <Vis hvis={visning === 'UTEN_ARBEIDSGIVER'}
+                    render={() => (
+                        <img src={utenArbeidsgiver} alt={tekst('aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER')} />
+                    )}
                 />
             </div>
-            <Normaltekst className="artikkel__innhold">
+            <Normaltekst tag="div" className="artikkel__innhold">
                 {parser(
                     // eslint-disable-next-line
-                    tekst(`aktivitetskrav-varsel.innhold.${arbeidssituasjon}` as any)
+                    tekst(`aktivitetskrav-varsel.innhold.${visning}` as any)
                 )}
             </Normaltekst>
         </article>

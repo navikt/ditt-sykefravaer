@@ -1,7 +1,10 @@
 import dayjs from 'dayjs'
 import Alertstripe from 'nav-frontend-alertstriper'
+import { Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect, useRef, useState } from 'react'
 
+import Banner from '../../components/banner/Banner'
+import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import Vis from '../../components/Vis'
 import { tekst } from '../../utils/tekster'
 import Artikkel from './Artikkel'
@@ -14,6 +17,10 @@ export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING'
 export const AKTIVITETSKRAV_VARSEL = 'AKTIVITETSKRAV_VARSEL'
 export const AKTIVITETSKRAV_BEKREFTET = 'AKTIVITETSKRAV_BEKREFTET'
 export const NY_NAERMESTE_LEDER = 'NY_NAERMESTE_LEDER'
+
+const brodsmuler: Brodsmule[] = [
+    { tittel: 'Aktivitetsplikt', sti: '/aktivitetsplikt', erKlikkbar: false }
+]
 
 // eslint-disable-next-line
 const sorterHendelser = (a: any, b: any) => {
@@ -74,7 +81,7 @@ const AktivitetskravVarsel = () => {
         { id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2' }
     ]
 
-    useEffect(()=>{
+    useEffect(() => {
         setForrigeVisning(visning)
         setVisning(getAktivitetskravvisning(hendelser))
         // eslint-disable-next-line
@@ -82,9 +89,6 @@ const AktivitetskravVarsel = () => {
 
     // TODO: hente bekreftetdato fra "bekreftelseAvSisteAktivitetskrav.inntruffetdato"
     const bekreftetdato = new Date()
-
-    // TODO: hente varseldato fra "sisteAktivitetskrav.inntruffetdato"
-    const varseldato = new Date()
 
     useEffect(() => {
         if (visning === AKTIVITETSVARSELKVITTERING && forrigeVisning === NYTT_AKTIVITETSKRAVVARSEL) {
@@ -94,31 +98,43 @@ const AktivitetskravVarsel = () => {
 
     return (
         <>
-            <Alertstripe type="info" className="blokk">
-                {tekst('aktivitetskrav-varsel.info')}
-            </Alertstripe>
+            <Banner>
+                <Sidetittel className="sidebanner__tittel">
+                    {tekst('sidetittel.liste')}
+                </Sidetittel>
+            </Banner>
 
-            <div aria-live="polite" role="alert" ref={kvittering}>
-                <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
+            <Brodsmuler brodsmuler={brodsmuler} />
+
+            <div className="limit">
+
+                <Alertstripe type="info" className="blokk">
+                    {tekst('aktivitetskrav-varsel.info')}
+                </Alertstripe>
+
+                <div aria-live="polite" role="alert" ref={kvittering}>
+                    <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
+                        render={() => {
+                            return (
+                                <Alertstripe type="suksess" className="aktivitetskrav-kvittering">
+                                    {tekst('aktivitetskrav-varsel.kvittering', {
+                                        '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY'),
+                                    })}
+                                </Alertstripe>
+                            )
+                        }}
+                    />
+                </div>
+
+                <Artikkel />
+
+                <Vis hvis={visning !== AKTIVITETSVARSELKVITTERING}
                     render={() => {
-                        return (
-                            <Alertstripe type="suksess" className="aktivitetskrav-kvittering">
-                                {tekst('aktivitetskrav-varsel.kvittering', {
-                                    '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY'),
-                                })}
-                            </Alertstripe>
-                        )
+                        return <BekreftAktivitetskravSkjema />
                     }}
                 />
+
             </div>
-
-            <Artikkel inntruffetdato={varseldato} />
-
-            <Vis hvis={visning !== AKTIVITETSVARSELKVITTERING}
-                render={() => {
-                    return <BekreftAktivitetskravSkjema />
-                }}
-            />
         </>
     )
 }

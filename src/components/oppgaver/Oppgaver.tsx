@@ -75,7 +75,7 @@ const Oppgaver = () => {
 
     oppgaver.push({
         tekst: tekst('oppgaver.aktivitetskrav'),
-        lenke: '/aktivitetskrav',
+        lenke: '/syk/sykefravaer/aktivitetsplikt',
         oppgavetype: 'advarsel'
     })
 
