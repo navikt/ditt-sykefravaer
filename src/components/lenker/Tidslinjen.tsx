@@ -1,12 +1,21 @@
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
+import { useHistory } from 'react-router'
 
 import { tekst } from '../../utils/tekster'
 
 export default () => {
+    const history = useHistory()
+
     return (
-        <LenkepanelBase href={tekst('lenker.tidslinjen.url')} border={true}>
+        <LenkepanelBase border={true}
+            href={'tidslinjen'}
+            onClick={(e) => {
+                e.preventDefault()
+                history.push('tidslinjen')
+            }}
+        >
             <div className="lenkeikon">
                 <svg width="32" height="28" viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#3E3832" fill="none" fillRule="evenodd">
