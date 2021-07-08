@@ -61,6 +61,9 @@ function setUpMock(persona: Persona) {
 
     mock.get(`${env.flexGatewayRoot}/syfosoknad/api/sykeforloep`,
         (req, res, ctx) => res(ctx.json(persona.sykeforloep)))
+
+    mock.get(`${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/hendelser`,
+        (req, res, ctx) => res(ctx.json(persona.hendelser)))
 }
 
 const url = new URL(window.location.href)

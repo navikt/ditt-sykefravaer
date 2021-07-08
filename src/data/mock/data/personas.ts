@@ -18,6 +18,7 @@ export const heltFrisk: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
+    hendelser: [],
 }
 
 export const enNySykmelding: Persona = {
@@ -46,6 +47,7 @@ export const enNySykmelding: Persona = {
             tom: dayjs().add(12, 'days').format('YYYY-MM-DD')
         } ]
     } ],
+    hendelser: [],
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -65,6 +67,7 @@ export const enAvvistSykmelding: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
+    hendelser: [],
 }
 
 export const defaultPersona: Persona = {
@@ -130,4 +133,5 @@ export const defaultPersona: Persona = {
             { fom: '2021-03-15', tom: '2021-03-19' },
         ]
     } ],
+    hendelser: [],
 }

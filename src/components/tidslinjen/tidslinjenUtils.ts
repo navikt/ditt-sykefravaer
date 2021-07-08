@@ -16,7 +16,7 @@ import SirkelIkon from '../../grafikk/tidslinjen/sirkel.svg'
 import Sluttfasen from '../../grafikk/tidslinjen/sluttfasen-3.svg'
 import HvaNa from '../../grafikk/tidslinjen/sykmeldt-hva-naa.svg'
 import VarselIkon from '../../grafikk/tidslinjen/varsel.svg'
-import { Hendelse, HendelseType } from '../../types/hendelse'
+import { Hendelse, HendelseType, SimpleHendelse } from '../../types/hendelse'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
 
@@ -88,14 +88,19 @@ const leggTypePaaTekstnokkel = (hendelser: Hendelse[], type: Visning): Hendelse[
     })
 }
 
-export const leggTilTidshendelser = (visning: Visning, narmesteLedere?: NarmesteLeder[], startdato?: dayjs.Dayjs) => {
+export const leggTilTidshendelser = (
+    visning: Visning,
+    henteteHendelser?: SimpleHendelse[],
+    narmesteLedere?: NarmesteLeder[],
+    startdato?: dayjs.Dayjs,
+): Hendelse[] => {
 
     const startsdatoHendelse = (): Hendelse[] => {
         if (startdato) {
             return [ {
                 type: 'FØRSTE_SYKMELDINGSDAG',
                 tekstkey: 'tidslinje.forste-sykmeldingsdag',
-                inntruffetdato: startdato,
+                inntruffetdato: startdato.format('YYYY-MM-DD'),
                 antallDager: 0
             } ]
         } else {
@@ -244,7 +249,7 @@ export const leggTilTidshendelser = (visning: Visning, narmesteLedere?: Narmeste
                 return {
                     type: 'NY_NAERMESTE_LEDER',
                     tekstkey: 'tidslinje.ny-naermeste-leder',
-                    inntruffetdato: dayjs(nl.aktivFom),
+                    inntruffetdato: nl.aktivFom,
                     data: {
                         naermesteLeder: nl
                     }
@@ -254,20 +259,21 @@ export const leggTilTidshendelser = (visning: Visning, narmesteLedere?: Narmeste
         return leggTypePaaTekstnokkel(nlHendelser, visning)
     }
 
-    // TODO: Finn ut hvor vi kan få tak i disse hendelsene
-    // Denne blir filtrert bort så den vil aldri vise AKTIVITETSKRAV_VARSEL
-    const aktivitetsplanVarselHendelser = (): Hendelse[] => {
-        return [ {
-            type: 'AKTIVITETSKRAV_VARSEL',
-            tekstkey: 'tidslinje.aktivitetskrav-varsel',
-        } ]
-    }
-
     // TODO: Finnes det andre hendelser?
     // Alt annet vises som HendelseTittel
     // AKTIVITETSKRAV_BEKREFTET
     const andreHendelser = (): Hendelse[] => {
-        return []
+        if (!henteteHendelser) return []
+
+        return henteteHendelser.map((sh) => {
+            return {
+                inntruffetdato: sh.inntruffetdato,
+                type: sh.type,
+                antallDager: undefined,
+                tekstkey: 'Hent denne',
+                data: undefined
+            }
+        })
     }
 
     return sorterHendelser([
@@ -275,7 +281,6 @@ export const leggTilTidshendelser = (visning: Visning, narmesteLedere?: Narmeste
         ...statiskeUkeTittelHendelser(visning),
         ...statiskeUkeHendelser(visning),
         ...narmesteLedereHendelser(visning, narmesteLedere, startdato),
-        ...aktivitetsplanVarselHendelser(),
         ...andreHendelser(),
     ], startdato)
 }
