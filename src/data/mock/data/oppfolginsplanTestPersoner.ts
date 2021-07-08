@@ -30,6 +30,7 @@ const commonPersona: Persona = {
     dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
     sykeforloep: [],
+    hendelser: [],
 }
 
 export const enNyOppfolgingsplan = () => {

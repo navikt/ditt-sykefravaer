@@ -52,7 +52,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                 return <Normaltekst>
                     {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                         parser(tekst(`${hendelse.tekstkey}.tittel`  as any, {
-                            '%DATO%': hendelse.inntruffetdato?.format('D. MMMM YYYY') || '',
+                            '%DATO%': hendelse.inntruffetdato ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY') : '',
                         }))
                     }
                 </Normaltekst>
@@ -60,7 +60,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                 return <Normaltekst>
                     {// eslint-disable-next-line @typescript-eslint/no-explicit-any
                         parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
-                            '%DATO%': hendelse.inntruffetdato?.format('D. MMMM YYYY') || '',
+                            '%DATO%': hendelse.inntruffetdato ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY') : '',
                             '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, sykmeldinger) || '',
                             '%NAERMESTELEDER%': hendelse.data?.naermesteLeder.navn || '', }))
                     }
