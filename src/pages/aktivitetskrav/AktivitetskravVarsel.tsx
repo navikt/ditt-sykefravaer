@@ -19,7 +19,7 @@ export const AKTIVITETSKRAV_BEKREFTET = 'AKTIVITETSKRAV_BEKREFTET'
 export const NY_NAERMESTE_LEDER = 'NY_NAERMESTE_LEDER'
 
 const brodsmuler: Brodsmule[] = [
-    { tittel: 'Aktivitetsplikt', sti: '/aktivitetsplikt', erKlikkbar: false }
+    { tittel: 'Påminnelse om aktivitet', sti: '/aktivitetsplikt', erKlikkbar: false }
 ]
 
 // eslint-disable-next-line
