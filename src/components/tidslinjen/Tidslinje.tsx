@@ -31,7 +31,8 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
             {hendelser
                 .filter(skalViseNyNaermesteLederHendelse)
                 .filter((h) =>
-                    h.type !== 'AKTIVITETSKRAV_VARSEL'
+                    // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
+                    h.type !== 'AKTIVITETSKRAV_VARSEL' && h.type !== 'AKTIVITETSKRAV_BEKREFTET'
                 )
                 .map((hendelse, idx) => {
                     if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
