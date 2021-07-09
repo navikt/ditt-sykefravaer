@@ -1,15 +1,10 @@
-import {
-    enNyOppfolgingsplan,
-    enNyTilGodkjenning,
-    toNyeOppfolgingsplaner,
-    toTilGodkjenning
-} from './data/oppfolginsplanTestPersoner'
+import { enNyOppfolgingsplan, enNyTilGodkjenning, toNyeOppfolgingsplaner, toTilGodkjenning } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import { enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
 import { langtidssykmeldt, snartSlutt, tvingMindreEnnTrettiniUker } from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {
-    [ index: string ]: () => Persona;
+    [index: string]: () => Persona;
 }
 
 export const personas: StringFunctionMap = {

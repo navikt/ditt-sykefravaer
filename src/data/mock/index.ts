@@ -64,13 +64,18 @@ function setUpMock(persona: Persona) {
 
     mock.get(`${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/hendelser`,
         (req, res, ctx) => res(ctx.json(persona.hendelser)))
+
+    mock.post(`${env.syfoRestRoot}/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav`, () => {
+        persona.hendelser.push({ type: 'AKTIVITETSKRAV_BEKREFTET', inntruffetdato: dayjs().format('YYYY-MM-DD') })
+        return Promise.resolve({ status: 200 })
+    })
 }
 
 const url = new URL(window.location.href)
 
 const testperson = url.searchParams.get('testperson')
 if (testperson && Object.prototype.hasOwnProperty.call(personas, testperson)) {
-    setUpMock(personas[ testperson ]())
+    setUpMock(personas[testperson]())
 } else {
     setUpMock(defaultPersona)
 }

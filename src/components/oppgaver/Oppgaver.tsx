@@ -5,9 +5,11 @@ import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
+import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../pages/aktivitetskrav/AktivitetskravVarsel'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
+import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -50,6 +52,7 @@ const Oppgaver = () => {
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
     const { data: dialogmoteSvar } = useDialogmoter()
+    const { data: hendelser } = useHendelser()
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
@@ -73,11 +76,13 @@ const Oppgaver = () => {
         })
     }
 
-    oppgaver.push({
-        tekst: tekst('oppgaver.aktivitetskrav'),
-        lenke: '/syk/sykefravaer/aktivitetsplikt',
-        oppgavetype: 'advarsel'
-    })
+    if (hendelser && getAktivitetskravvisning(hendelser) === NYTT_AKTIVITETSKRAVVARSEL) {
+        oppgaver.push({
+            tekst: tekst('oppgaver.aktivitetskrav'),
+            lenke: '/syk/sykefravaer/aktivitetsplikt',
+            oppgavetype: 'advarsel'
+        })
+    }
 
     return (
         <OppgaveLista oppgaver={oppgaver} />

@@ -6,6 +6,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import Banner from '../../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import Vis from '../../components/Vis'
+import useHendelser from '../../query-hooks/useHendelser'
+import { SimpleHendelse } from '../../types/hendelse'
 import { tekst } from '../../utils/tekster'
 import Artikkel from './Artikkel'
 import BekreftAktivitetskravSkjema from './BekreftAktivitetskravSkjema'
@@ -16,47 +18,40 @@ export const AKTIVITETSVARSELKVITTERING = 'AKTIVITETSVARSELKVITTERING'
 
 export const AKTIVITETSKRAV_VARSEL = 'AKTIVITETSKRAV_VARSEL'
 export const AKTIVITETSKRAV_BEKREFTET = 'AKTIVITETSKRAV_BEKREFTET'
-export const NY_NAERMESTE_LEDER = 'NY_NAERMESTE_LEDER'
 
 const brodsmuler: Brodsmule[] = [
     { tittel: 'Påminnelse om aktivitet', sti: '/aktivitetsplikt', erKlikkbar: false }
 ]
 
-// eslint-disable-next-line
-const sorterHendelser = (a: any, b: any) => {
-    if (a.inntruffetdato.getTime() > b.inntruffetdato.getTime()) {
+const sorterHendelser = (a: SimpleHendelse, b: SimpleHendelse) => {
+    if (dayjs(a.inntruffetdato) > dayjs(b.inntruffetdato)) {
         return -1
     }
-    if (a.inntruffetdato.getTime() < b.inntruffetdato.getTime()) {
+    if (dayjs(a.inntruffetdato) < dayjs(b.inntruffetdato)) {
         return 1
     }
     return 0
 }
 
-// eslint-disable-next-line
-const getSisteAktivitetskrav = (hendelser: any) => {
-    return [ ...hendelser ]
+const getSisteAktivitetskrav = (hendelser: SimpleHendelse[]) => {
+    return hendelser
         .sort(sorterHendelser)
         .filter((h) => {
             return h.type === AKTIVITETSKRAV_VARSEL
         })[0]
 }
 
-// eslint-disable-next-line
-const getBekreftelseAvAktivitetskrav = (hendelser: any, aktivitetskrav: any) => {
+const getBekreftelseAvAktivitetskrav = (hendelser: SimpleHendelse[], aktivitetskrav: SimpleHendelse) => {
     return hendelser
-        // eslint-disable-next-line
-        .filter((h: any) => {
+        .filter((h: SimpleHendelse) => {
             return h.type === AKTIVITETSKRAV_BEKREFTET
         })
-        // eslint-disable-next-line
-        .filter((h: any) => {
-            return parseInt(h.ressursId, 10) === aktivitetskrav.id
+        .filter((h: SimpleHendelse) => {
+            return dayjs(h.inntruffetdato) >= dayjs(aktivitetskrav.inntruffetdato)
         })[0]
 }
 
-// eslint-disable-next-line
-export const getAktivitetskravvisning = (hendelser: any) => {
+export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
     const sisteAktivitetskrav = getSisteAktivitetskrav(hendelser)
     const bekreftelseAvSisteAktivitetskrav = getBekreftelseAvAktivitetskrav(hendelser, sisteAktivitetskrav)
 
@@ -70,22 +65,18 @@ export const getAktivitetskravvisning = (hendelser: any) => {
 }
 
 const AktivitetskravVarsel = () => {
+    const { data: hendelser, isFetching } = useHendelser()
     const [ forrigeVisning, setForrigeVisning ] = useState('')
     const [ visning, setVisning ] = useState('')
     const kvittering = useRef<HTMLDivElement>(null)
 
-    // TODO: hendelser må hentes fra backend
-    const hendelser = [
-        { id: 1, inntruffetdato: new Date('2017-08-02'), type: 'NY_NAERMESTE_LEDER' },
-        { id: 2, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_VARSEL', ressursId: '' },
-        { id: 3, inntruffetdato: new Date('2017-09-18'), type: 'AKTIVITETSKRAV_BEKREFTET', ressursId: '2' }
-    ]
-
     useEffect(() => {
-        setForrigeVisning(visning)
-        setVisning(getAktivitetskravvisning(hendelser))
+        if (!isFetching && hendelser) {
+            setForrigeVisning(visning)
+            setVisning(getAktivitetskravvisning(hendelser))
+        }
         // eslint-disable-next-line
-    }, [])
+    }, [ isFetching ])
 
     // TODO: hente bekreftetdato fra "bekreftelseAvSisteAktivitetskrav.inntruffetdato"
     const bekreftetdato = new Date()

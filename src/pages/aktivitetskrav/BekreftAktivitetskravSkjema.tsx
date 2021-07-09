@@ -1,33 +1,45 @@
-import React from 'react'
+import { Knapp } from 'nav-frontend-knapper'
+import { Normaltekst } from 'nav-frontend-typografi'
+import React, { SyntheticEvent, useState } from 'react'
+
+import Vis from '../../components/Vis'
+import useBekreftAktivitetskrav from '../../query-hooks/useBekreftAktivitetskrav'
+import { tekst } from '../../utils/tekster'
 
 const BekreftAktivitetskravSkjema = () => {
+    const [ check, setCheck ] = useState<boolean | undefined>(undefined)
+    const { mutate: bekreft, isLoading } = useBekreftAktivitetskrav()
+
+    const handleSubmit = (e: SyntheticEvent) => {
+        e.preventDefault()
+        if (check === true) bekreft()
+    }
+
     return (
-        <div>
-            BekreftAktivitetskravSkjema
+        <form onSubmit={handleSubmit}>
+            <div className="skjemaelement">
+                <input id="bekreftAktivitetskrav" type="checkbox"
+                    className="skjemaelement__input checkboks"
+                    onChange={(e) => setCheck(e.currentTarget.checked)}
+                />
+                <label className="skjemaelement__label" htmlFor="bekreftAktivitetskrav">
+                    <Normaltekst tag="span">{tekst('aktivitetskrav-varsel.bekreft-label')}</Normaltekst>
+                </label>
+                <Vis hvis={check === false}
+                    render={() =>
+                        <Normaltekst className="typo-feilmelding">
+                            {tekst('aktivitetskrav-varsel.bekreft-feilmelding')}
+                        </Normaltekst>
+                    }
+                />
+            </div>
 
-            {/*
-            <form onSubmit={handleSubmit(() => {
-                dispatch(bekreftAktivitetskrav());
-            })}>
-                <Feilstripe vis={bekreftFeilet} className="blokk" />
-                <div className="bekreftAktivitetskrav blokk">
-                    <Field
-                        name="bekreftAktivitetskrav"
-                        component={CheckboxSelvstendig}
-                        id="bekreftAktivitetskrav"
-                        label={getLedetekst('aktivitetskrav-varsel.bekreft-label', ledetekster)} />
-                </div>
-                <KoronaInformasjon />
-                <div className="knapperad">
-                    <button type="submit" className={`knapp${bekrefter ? ' knapp--spinner' : ''}`}>
-                        Bekreft
-                        { bekrefter && <span className="knapp__spinner" /> }
-                    </button>
-                </div>
-            </form>
-*/}
-
-        </div>
+            <div className="knapperad">
+                <Knapp type="hoved" spinner={isLoading}>
+                    BEKREFT
+                </Knapp>
+            </div>
+        </form>
     )
 }
 

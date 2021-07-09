@@ -64,6 +64,8 @@ spec:
       value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: SYFOAPI_ROOT
       value: "https://syfoapi.nav.no"
+    - name: SYFOREST_ROOT
+      value: "https://tjenester.nav.no/syforest"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL

@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import { dialogmoteSkjema,enTomDialogmote } from './dialogmoter'
+import { dialogmoteSkjema, enTomDialogmote } from './dialogmoter'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
@@ -133,5 +133,5 @@ export const defaultPersona: Persona = {
             { fom: '2021-03-15', tom: '2021-03-19' },
         ]
     } ],
-    hendelser: [],
+    hendelser: [ { type: 'AKTIVITETSKRAV_VARSEL', inntruffetdato: '2021-03-03' } ],
 }
