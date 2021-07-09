@@ -238,8 +238,6 @@ export const leggTilTidshendelser = (
         }
     }
 
-    // TODO: Vurder om denne skal hentes i fra hendelser
-    // Denne kommer egentlig i fra hendelser, men kan nå hentes i fra nl dataen
     const narmesteLedereHendelser = (visning: Visning, narmesteLedere?: NarmesteLeder[], startdato?: dayjs.Dayjs): Hendelse[] => {
         if (!narmesteLedere || !startdato) return []
 
@@ -259,28 +257,10 @@ export const leggTilTidshendelser = (
         return leggTypePaaTekstnokkel(nlHendelser, visning)
     }
 
-    // TODO: Finnes det andre hendelser?
-    // Alt annet vises som HendelseTittel
-    // AKTIVITETSKRAV_BEKREFTET
-    const andreHendelser = (): Hendelse[] => {
-        if (!henteteHendelser) return []
-
-        return henteteHendelser.map((sh) => {
-            return {
-                inntruffetdato: sh.inntruffetdato,
-                type: sh.type,
-                antallDager: undefined,
-                tekstkey: 'Hent denne',
-                data: undefined
-            }
-        })
-    }
-
     return sorterHendelser([
         ...startsdatoHendelse(),
         ...statiskeUkeTittelHendelser(visning),
         ...statiskeUkeHendelser(visning),
         ...narmesteLedereHendelser(visning, narmesteLedere, startdato),
-        ...andreHendelser(),
     ], startdato)
 }
