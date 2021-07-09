@@ -1,5 +1,6 @@
 import React from 'react'
 
+import useHendelser from '../../query-hooks/useHendelser'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import { Hendelse } from '../../types/hendelse'
@@ -15,9 +16,10 @@ interface TidslinjeProps {
 export const Tidslinje = ({ visning }: TidslinjeProps) => {
     const { data: sykeforloep } = useSykeforloep()
     const { data: narmesteLedere } = useNarmesteledere()
+    const { data: hentetHendelser } = useHendelser()
 
     const startdato = hentStartdatoFraSykeforloep(sykeforloep)
-    const hendelser: Hendelse[] = leggTilTidshendelser(visning, narmesteLedere, startdato)
+    const hendelser: Hendelse[] = leggTilTidshendelser(visning, hentetHendelser, narmesteLedere, startdato)
 
     const skalViseNyNaermesteLederHendelse = (hendelse: Hendelse) => {
         const ikkeVis = hendelse.type === 'NY_NAERMESTE_LEDER' && visning === 'UTEN_ARBEIDSGIVER'
@@ -29,7 +31,8 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
             {hendelser
                 .filter(skalViseNyNaermesteLederHendelse)
                 .filter((h) =>
-                    h.type !== 'AKTIVITETSKRAV_VARSEL'
+                    // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
+                    h.type !== 'AKTIVITETSKRAV_VARSEL' && h.type !== 'AKTIVITETSKRAV_BEKREFTET'
                 )
                 .map((hendelse, idx) => {
                     if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
