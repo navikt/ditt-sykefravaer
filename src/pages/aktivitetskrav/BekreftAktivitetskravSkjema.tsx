@@ -16,7 +16,7 @@ const BekreftAktivitetskravSkjema = () => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="bekreft-aktivitetskrav">
             <div className="skjemaelement">
                 <input id="bekreftAktivitetskrav" type="checkbox"
                     className="skjemaelement__input checkboks"

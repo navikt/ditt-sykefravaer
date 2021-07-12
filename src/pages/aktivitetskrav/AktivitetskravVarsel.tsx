@@ -1,3 +1,5 @@
+import './aktivitetskrav.less'
+
 import dayjs from 'dayjs'
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Sidetittel } from 'nav-frontend-typografi'
@@ -8,6 +10,7 @@ import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import Vis from '../../components/Vis'
 import useHendelser from '../../query-hooks/useHendelser'
 import { SimpleHendelse } from '../../types/hendelse'
+import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
 import Artikkel from './Artikkel'
 import BekreftAktivitetskravSkjema from './BekreftAktivitetskravSkjema'
@@ -69,6 +72,10 @@ const AktivitetskravVarsel = () => {
     const [ forrigeVisning, setForrigeVisning ] = useState('')
     const [ visning, setVisning ] = useState('')
     const kvittering = useRef<HTMLDivElement>(null)
+
+    useEffect(() => {
+        setBodyClass('aktivitetskrav')
+    }, [])
 
     useEffect(() => {
         if (!isFetching && hendelser) {

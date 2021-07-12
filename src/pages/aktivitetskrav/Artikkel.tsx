@@ -1,5 +1,3 @@
-import './artikkel.less'
-
 import parser from 'html-react-parser'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React, { useState } from 'react'
