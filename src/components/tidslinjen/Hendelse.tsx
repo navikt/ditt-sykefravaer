@@ -10,7 +10,12 @@ import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 
-interface HendelseTittelProps { tekstkey: string, type: HendelseType, startdato?: dayjs.Dayjs }
+interface HendelseTittelProps {
+    tekstkey: string,
+    type: HendelseType,
+    startdato?: dayjs.Dayjs
+}
+
 export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProps) => {
 
     const titteltekst = tekst(
@@ -30,7 +35,10 @@ export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProp
     )
 }
 
-interface HendelseBobleProp { hendelse: Hendelse }
+interface HendelseBobleProp {
+    hendelse: Hendelse
+}
+
 export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
     const { data: sykmeldinger } = useSykmeldinger()
 
@@ -49,22 +57,24 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
         // TODO: Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>
         switch (hendelse.type) {
             case 'AKTIVITETSKRAV_VARSEL':
-                return <Normaltekst>
-                    {// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        parser(tekst(`${hendelse.tekstkey}.tittel`  as any, {
-                            '%DATO%': hendelse.inntruffetdato ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY') : '',
-                        }))
-                    }
-                </Normaltekst>
+                return <Normaltekst>{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
+                        '%DATO%': hendelse.inntruffetdato
+                            ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
+                            : '',
+                    }))
+                }</Normaltekst>
+
             case 'NY_NAERMESTE_LEDER':
-                return <Normaltekst>
-                    {// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                        parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
-                            '%DATO%': hendelse.inntruffetdato ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY') : '',
-                            '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, sykmeldinger) || '',
-                            '%NAERMESTELEDER%': hendelse.data?.naermesteLeder.navn || '', }))
-                    }
-                </Normaltekst>
+                return <Normaltekst>{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
+                        '%DATO%': hendelse.inntruffetdato
+                            ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
+                            : '',
+                        '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, sykmeldinger) || '',
+                        '%NAERMESTELEDER%': hendelse.data?.naermesteLeder.navn || '',
+                    }))
+                }</Normaltekst>
             default:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 return <Normaltekst>{tekst(`${hendelse.tekstkey}.tittel` as any)}</Normaltekst>

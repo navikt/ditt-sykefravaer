@@ -1,9 +1,25 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 
 .tidslinjeutdrag__container {
-    margin: 1rem 0 2rem;
+    margin: 2rem 0;
     border: 1px solid @navGra60;
     border-radius: 4px;
+
+    .utdrag_tittel, .utdrag_ingress, .utdrag_mer {
+        font-family: 'Source Sans Pro', Arial, sans-serif;
+    }
+
+    .utdrag_ingress {
+        font-size: 18px;
+        line-height: 26px;
+        font-weight: 400;
+    }
+
+    .utdrag_mer {
+        font-size: 16px;
+        line-height: 22px;
+        font-weight: 400;
+    }
 
     .tidslinjeutdrag {
         display: flex;
@@ -17,7 +33,11 @@
     }
 
     .lesMerPanel__mer {
-        padding-top: 0;
+        padding-top: 0.5rem;
+    }
+
+    &.lesMerPanel {
+        padding: 0 1.4rem 1rem;
     }
 }
 

@@ -8,6 +8,7 @@ import React, { useEffect } from 'react'
 import Arbeidssituasjon from '../../components/arbeidssituasjon/Arbeidssituasjon'
 import Banner from '../../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
+import DetteHarSkjedd from '../../components/dette-har-skjedd/DetteHarSkjedd'
 import { IngenSykmelding } from '../../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../../components/lenker/Lenker'
 import Oppgaver from '../../components/oppgaver/Oppgaver'
@@ -42,7 +43,11 @@ const Forside = () => {
                 <TidslinjeUtdrag />
                 <Arbeidssituasjon />
                 <Lenker />
-                <AlertStripeInfo>{tekst('forside.personverninfo')}</AlertStripeInfo>
+                <DetteHarSkjedd />
+
+                <AlertStripeInfo className="personvern">
+                    {tekst('forside.personverninfo')}
+                </AlertStripeInfo>
             </div>
         </>
     )

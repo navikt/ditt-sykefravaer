@@ -58,9 +58,7 @@ const Tidslinjen = () => {
                     medHjelpetekst={true}   // TODO: Fix styling på mobil
                 />
 
-                <Tidslinje
-                    visning={visning}
-                />
+                <Tidslinje visning={visning} />
             </div>
         </div>
     )
