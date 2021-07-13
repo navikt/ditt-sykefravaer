@@ -111,12 +111,10 @@ const AktivitetskravVarsel = () => {
                 <Vis hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
-                            <>
-                                <AlertStripeAdvarsel>
-                                    <Undertittel>{tekst('aktivitetskrav-varsel.ingen-varsel.tittel')}</Undertittel>
-                                    <Normaltekst>{tekst('aktivitetskrav-varsel.ingen-varsel.melding')}</Normaltekst>
-                                </AlertStripeAdvarsel>
-                            </>
+                            <AlertStripeAdvarsel>
+                                <Undertittel>{tekst('aktivitetskrav-varsel.ingen-varsel.tittel')}</Undertittel>
+                                <Normaltekst>{tekst('aktivitetskrav-varsel.ingen-varsel.melding')}</Normaltekst>
+                            </AlertStripeAdvarsel>
                         )
                     }}
                 />

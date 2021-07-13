@@ -4,6 +4,7 @@ import parser from 'html-react-parser'
 import Lesmerpanel from 'nav-frontend-lesmerpanel'
 import { Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
 import Aktivitestplikt from '../../grafikk/tidslinjeutdrag/aktivitetsplikt.svg'
@@ -147,7 +148,6 @@ const TidslinjeUtdrag = () => {
         }
     }
 
-    // TODO: Når Tidslinjen er satt opp, lenke--tilTidslinje
     return (
         <Vis hvis={visInnhold && antallDager <= 500}
             render={() =>
@@ -193,6 +193,9 @@ const TidslinjeUtdrag = () => {
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
+                        <Link className="lenke lenke--tilTidslinje" to="tidslinjen">
+                            {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                        </Link>
                     </Lesmerpanel>
 
                     <Vis hvis={visning !== 'UTEN_ARBEIDSGIVER'}

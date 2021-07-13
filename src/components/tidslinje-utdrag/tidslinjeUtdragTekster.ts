@@ -56,4 +56,6 @@ export const TidslinjeUtdragTekster = {
     'friskmelding.info-tittel.helt': 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?',
     'friskmelding.info.delvis': '<ul><li>Ta kontakt med arbeidsgiveren din.</li><li>Du trenger ikke ny sykmelding fra legen.</li><li>Når du får søknaden om sykepenger til utfylling, skriver du inn hvor mye du har jobbet.</li></ul>',
     'friskmelding.info.helt': '<ul><li>Ta kontakt med arbeidsgiveren din.</li><li>Du trenger ikke si fra til legen eller spørre NAV.</li><li>Når du får søknaden om sykepenger til utfylling, skriver du inn datoen du begynte å jobbe igjen.</li></ul>',
+
+    'tidslinje.utdrag.lenke-til-tidslinje': 'Hva skjer videre i sykefraværet?',
 }
