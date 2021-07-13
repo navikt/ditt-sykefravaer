@@ -7,5 +7,9 @@ export const arbeidstaker100: Soknad = {
     'arbeidssituasjon': 'ARBEIDSTAKER',
 }
 
+export const arbeidstaker100Sendt: Soknad = {
+    ...arbeidstaker100,
+    status: 'SENDT'
+}
 
 export const soknader: Soknad[] = [ arbeidstaker100 ]

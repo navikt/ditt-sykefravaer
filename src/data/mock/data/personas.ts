@@ -4,6 +4,7 @@ import { dialogmoteSkjema, enTomDialogmote } from './dialogmoter'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
+import { nySykmelding, sendtSykmelding } from './sykmeldinger'
 import { vedtakMed100Grad } from './vedtak'
 
 
@@ -27,16 +28,7 @@ export const enNySykmelding: Persona = {
     oppfolgingsplaner: [],
     dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
-    sykmeldinger: [ {
-        id: 'APEN',
-        sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [ {
-            fom: dayjs().format('YYYY-MM-DD'),
-            tom: dayjs().add(12, 'days').format('YYYY-MM-DD'),
-        } ],
-        syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
-    } ],
+    sykmeldinger: [ nySykmelding ],
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
@@ -80,44 +72,38 @@ export const defaultPersona: Persona = {
         skjemaType: 'SVAR_BEHOV',
         harMotebehov: false
     },
-    sykmeldinger: [ {
-        id: 'SENDT',
-        sykmeldingStatus: {
-            statusEvent: 'SENDT',
-            arbeidsgiver: { orgnummer: '972674818', orgNavn: 'Hogwarts School of Witchcraft and Wizardry' }
-        },
-        behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [ { fom: '2021-03-01', tom: '2021-03-12' } ],
-        syketilfelleStartDato: '2021-03-01',
-    }, {
-        id: 'APEN',
-        sykmeldingStatus: {
-            statusEvent: 'BEKREFTET',
-            sporsmalOgSvarListe: [
-                {
-                    shortName: 'FORSIKRING',
-                    svar: { svarType: 'JA_NEI', svar: 'JA' }
-                },
-                {
-                    shortName: 'FRAVAER',
-                    svar: { svarType: 'JA_NEI', svar: 'NEI' }
-                },
-                {
-                    shortName: 'ARBEIDSSITUASJON',
-                    svar: { svarType: 'ARBEIDSSITUASJON', svar: 'FRILANSER' }
-                }
-            ]
-        },
-        behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [ { fom: '2021-03-15', tom: '2021-03-19' } ],
-        syketilfelleStartDato: '2021-03-01',
-    }, {
-        id: 'AVVIST',
-        sykmeldingStatus: { statusEvent: 'APEN' },
-        behandlingsutfall: { status: 'INVALID' },
-        sykmeldingsperioder: [ { fom: '2021-03-19', tom: '2021-03-19' } ],
-        syketilfelleStartDato: '2021-03-01',
-    } ],
+    sykmeldinger: [
+        sendtSykmelding,
+        {
+            id: 'APEN',
+            sykmeldingStatus: {
+                statusEvent: 'BEKREFTET',
+                sporsmalOgSvarListe: [
+                    {
+                        shortName: 'FORSIKRING',
+                        svar: { svarType: 'JA_NEI', svar: 'JA' }
+                    },
+                    {
+                        shortName: 'FRAVAER',
+                        svar: { svarType: 'JA_NEI', svar: 'NEI' }
+                    },
+                    {
+                        shortName: 'ARBEIDSSITUASJON',
+                        svar: { svarType: 'ARBEIDSSITUASJON', svar: 'FRILANSER' }
+                    }
+                ]
+            },
+            behandlingsutfall: { status: 'OK' },
+            sykmeldingsperioder: [ { fom: '2021-03-15', tom: '2021-03-19' } ],
+            syketilfelleStartDato: '2021-03-01',
+        }, {
+            id: 'AVVIST',
+            sykmeldingStatus: { statusEvent: 'APEN' },
+            behandlingsutfall: { status: 'INVALID' },
+            sykmeldingsperioder: [ { fom: '2021-03-19', tom: '2021-03-19' } ],
+            syketilfelleStartDato: '2021-03-01',
+        }
+    ],
     narmesteledere: [ {
         navn: 'Albus Dumbledore',
         orgnummer: '972674818',
