@@ -21,7 +21,7 @@ import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
 import {
-    //getSykefravaerVarighet,
+    getSykefravaerVarighet,
     getVisning,
     skalViseUtdrag
 } from './tidslinjeUtdragHjelefunksjoner'
@@ -118,8 +118,7 @@ const TidslinjeUtdrag = () => {
     useEffect(() => {
         if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
             setVisInnhold(skalViseUtdrag(sykmeldinger))
-            //setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
-            setAntallDager(25)
+            setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line

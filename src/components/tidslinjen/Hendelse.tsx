@@ -54,7 +54,6 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
     }
 
     const getTittel = (hendelse: Hendelse) => {
-        // TODO: Warning: validateDOMNesting(...): <p> cannot appear as a descendant of <p>
         switch (hendelse.type) {
             case 'AKTIVITETSKRAV_VARSEL':
                 return <Normaltekst>{// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -55,7 +55,7 @@ const Tidslinjen = () => {
                 <VelgArbeidssituasjon
                     kanVelge={true}
                     setVisning={setVisning}
-                    medHjelpetekst={true}   // TODO: Fix styling på mobil
+                    medHjelpetekst={true}
                 />
 
                 <Tidslinje visning={visning} />
