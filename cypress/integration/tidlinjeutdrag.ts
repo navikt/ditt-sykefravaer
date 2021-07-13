@@ -4,7 +4,7 @@ describe('Tester tidslinjeutdrag', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=en-ny-sykmelding')
 
         cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Åpne')
+            .contains('Les mer')
             .click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should('have.attr', 'checked')
@@ -56,7 +56,7 @@ describe('Tester tidslinjeutdrag', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=langtidssykmeldt')
 
         cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Åpne')
+            .contains('Les mer')
             .click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should('have.attr', 'checked')
@@ -84,7 +84,7 @@ describe('Tester tidslinjeutdrag', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
         cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Åpne')
+            .contains('Les mer')
             .click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should('have.attr', 'checked')
