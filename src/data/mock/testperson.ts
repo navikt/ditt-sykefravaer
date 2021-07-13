@@ -1,4 +1,7 @@
-import { etAktivitetskravBekreftet, etAktivitetskravVarsel } from './data/aktivitetskravPersonas'
+import {
+    etAktivitetskravVarsel,
+    toAktivitetskravBekreftet
+} from './data/aktivitetskravPersonas'
 import { enNyOppfolgingsplan, enNyTilGodkjenning, toNyeOppfolgingsplaner, toTilGodkjenning } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import { enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
@@ -20,5 +23,5 @@ export const personas: StringFunctionMap = {
     'snart-slutt': snartSlutt,
     'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
     'aktivitetskrav-varsel': etAktivitetskravVarsel,
-    'aktivitetskrav-bekreftet': etAktivitetskravBekreftet,
+    'aktivitetskrav-bekreftet': toAktivitetskravBekreftet,
 }

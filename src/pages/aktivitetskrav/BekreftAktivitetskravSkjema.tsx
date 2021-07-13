@@ -7,12 +7,14 @@ import useBekreftAktivitetskrav from '../../query-hooks/useBekreftAktivitetskrav
 import { tekst } from '../../utils/tekster'
 
 const BekreftAktivitetskravSkjema = () => {
-    const [ check, setCheck ] = useState<boolean | undefined>(undefined)
+    const [ check, setCheck ] = useState<boolean>(false)
+    const [ buttonClicked, setButtonClicked ] = useState<boolean>(false)
     const { mutate: bekreft, isLoading } = useBekreftAktivitetskrav()
 
     const handleSubmit = (e: SyntheticEvent) => {
         e.preventDefault()
-        if (check === true) bekreft()
+        setButtonClicked(true)
+        if (check) bekreft()
     }
 
     return (
@@ -25,7 +27,7 @@ const BekreftAktivitetskravSkjema = () => {
                 <label className="skjemaelement__label" htmlFor="bekreftAktivitetskrav">
                     <Normaltekst tag="span">{tekst('aktivitetskrav-varsel.bekreft-label')}</Normaltekst>
                 </label>
-                <Vis hvis={check === false}
+                <Vis hvis={!check && buttonClicked}
                     render={() =>
                         <Normaltekst className="typo-feilmelding">
                             {tekst('aktivitetskrav-varsel.bekreft-feilmelding')}

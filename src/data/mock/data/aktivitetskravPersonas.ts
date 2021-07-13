@@ -1,4 +1,8 @@
-import { aktivitetskravBekreftet, aktivitetskravVarsel } from './aktivitetsplikt'
+import {
+    aktivitetskravBekreftet,
+    aktivitetskravBekreftetMenIkkeNyest,
+    aktivitetskravVarsel
+} from './aktivitetsplikt'
 import { enTomDialogmote } from './dialogmoter'
 import { Persona } from './persona'
 
@@ -18,7 +22,7 @@ export const etAktivitetskravVarsel = (): Persona => {
     }
 }
 
-export const etAktivitetskravBekreftet = (): Persona => {
+export const toAktivitetskravBekreftet = (): Persona => {
     return {
         soknader: [],
         vedtak: [],
@@ -30,6 +34,10 @@ export const etAktivitetskravBekreftet = (): Persona => {
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
         sykeforloep: [],
-        hendelser: [ aktivitetskravVarsel, aktivitetskravBekreftet, aktivitetskravBekreftet ],
+        hendelser: [
+            aktivitetskravVarsel,
+            aktivitetskravBekreftetMenIkkeNyest,
+            aktivitetskravBekreftet
+        ],
     }
 }

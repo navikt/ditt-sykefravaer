@@ -1,5 +1,7 @@
 export const AktivitetskravTekster = {
-    'aktivitetskrav-varsel.info': 'Under korona-pandemien følger vi smittevernrådene fra myndighetene. Derfor vil vi ikke kreve aktiviteter av deg som kommer i konflikt med smittevernet.',
+    'aktivitetskrav-varsel.ingen-varsel.tittel': 'Du har ingen varsel om aktivitetsplikt',
+    'aktivitetskrav-varsel.ingen-varsel.melding': 'Hvis du får et slikt varsel, får du mer informasjon om aktivitetsplikten på denne siden.',
+    'aktivitetskrav-varsel.korona-info': 'Under korona-pandemien følger vi smittevernrådene fra myndighetene. Derfor vil vi ikke kreve aktiviteter av deg som kommer i konflikt med smittevernet.',
     'aktivitetskrav-varsel.kvittering': 'Du har bekreftet at du har lest om aktivitetsplikten %DATO%.',
     'aktivitetskrav-varsel.tittel': 'Påminnelse om aktivitet',
     'aktivitetskrav-varsel.ingress': 'Du har snart vært sykmeldt i åtte uker. NAV skal vurdere om du oppfyller aktivitetsplikten og om du fortsatt har rett til sykepenger.',

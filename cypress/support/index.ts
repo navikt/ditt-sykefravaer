@@ -12,5 +12,5 @@
 // You can read more here:
 // https://on.cypress.io/configuration
 // ***********************************************************
-/* eslint-disable no-undef */
+
 import './commands'

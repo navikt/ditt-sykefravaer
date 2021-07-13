@@ -5,7 +5,12 @@ export const aktivitetskravVarsel: SimpleHendelse = {
     'inntruffetdato': '2021-03-01',
 }
 
-export const aktivitetskravBekreftet: SimpleHendelse = {
+export const aktivitetskravBekreftetMenIkkeNyest: SimpleHendelse = {
     'type': 'AKTIVITETSKRAV_BEKREFTET',
     'inntruffetdato': '2021-03-02',
+}
+
+export const aktivitetskravBekreftet: SimpleHendelse = {
+    'type': 'AKTIVITETSKRAV_BEKREFTET',
+    'inntruffetdato': '2021-03-05',
 }

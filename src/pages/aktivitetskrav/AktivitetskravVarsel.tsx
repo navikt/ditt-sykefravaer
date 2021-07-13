@@ -1,9 +1,9 @@
 import './aktivitetskrav.less'
 
 import dayjs from 'dayjs'
-import Alertstripe from 'nav-frontend-alertstriper'
-import { Sidetittel } from 'nav-frontend-typografi'
-import React, { useEffect, useRef, useState } from 'react'
+import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
+import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'
+import React, { useEffect, useState } from 'react'
 
 import Banner from '../../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
@@ -27,21 +27,15 @@ const brodsmuler: Brodsmule[] = [
 ]
 
 const sorterHendelser = (a: SimpleHendelse, b: SimpleHendelse) => {
-    if (dayjs(a.inntruffetdato) > dayjs(b.inntruffetdato)) {
-        return -1
-    }
-    if (dayjs(a.inntruffetdato) < dayjs(b.inntruffetdato)) {
-        return 1
-    }
-    return 0
+    return dayjs(b.inntruffetdato).unix() - dayjs(a.inntruffetdato).unix()
 }
 
-const getSisteAktivitetskrav = (hendelser: SimpleHendelse[]) => {
+const getSisteAktivitetskravVarsel = (hendelser: SimpleHendelse[]) => {
     return hendelser
         .sort(sorterHendelser)
         .filter((h) => {
             return h.type === AKTIVITETSKRAV_VARSEL
-        })[0]
+        })[ 0 ]
 }
 
 const getBekreftelseAvAktivitetskrav = (hendelser: SimpleHendelse[], aktivitetskrav: SimpleHendelse) => {
@@ -51,17 +45,26 @@ const getBekreftelseAvAktivitetskrav = (hendelser: SimpleHendelse[], aktivitetsk
         })
         .filter((h: SimpleHendelse) => {
             return dayjs(h.inntruffetdato) >= dayjs(aktivitetskrav.inntruffetdato)
-        })[0]
+        })[ 0 ]
+}
+
+const getSisteAktivitetskrav = (hendelser: SimpleHendelse[]) => {
+    const sisteAktivitetskravVarsel = getSisteAktivitetskravVarsel(hendelser)
+    const bekreftelseAvSisteAktivitetskrav = getBekreftelseAvAktivitetskrav(hendelser, sisteAktivitetskravVarsel)
+
+    if (bekreftelseAvSisteAktivitetskrav) {
+        return bekreftelseAvSisteAktivitetskrav
+    }
+    return sisteAktivitetskravVarsel
 }
 
 export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
     const sisteAktivitetskrav = getSisteAktivitetskrav(hendelser)
-    const bekreftelseAvSisteAktivitetskrav = getBekreftelseAvAktivitetskrav(hendelser, sisteAktivitetskrav)
 
-    if (!sisteAktivitetskrav) {
+    if (sisteAktivitetskrav === undefined) {
         return INGEN_AKTIVITETSKRAVVARSEL
     }
-    if (bekreftelseAvSisteAktivitetskrav) {
+    if (sisteAktivitetskrav.type === 'AKTIVITETSKRAV_BEKREFTET') {
         return AKTIVITETSVARSELKVITTERING
     }
     return NYTT_AKTIVITETSKRAVVARSEL
@@ -69,9 +72,8 @@ export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
 
 const AktivitetskravVarsel = () => {
     const { data: hendelser, isFetching } = useHendelser()
-    const [ forrigeVisning, setForrigeVisning ] = useState('')
     const [ visning, setVisning ] = useState('')
-    const kvittering = useRef<HTMLDivElement>(null)
+    const [ bekreftetdato, setBekreftetdato ] = useState<string | undefined>()
 
     useEffect(() => {
         setBodyClass('aktivitetskrav')
@@ -79,20 +81,21 @@ const AktivitetskravVarsel = () => {
 
     useEffect(() => {
         if (!isFetching && hendelser) {
-            setForrigeVisning(visning)
             setVisning(getAktivitetskravvisning(hendelser))
+
+            const sisteAktivitetskrav = getSisteAktivitetskrav(hendelser)
+            if (sisteAktivitetskrav) {
+                setBekreftetdato(sisteAktivitetskrav.inntruffetdato)
+            }
         }
         // eslint-disable-next-line
     }, [ isFetching ])
 
-    // TODO: hente bekreftetdato fra "bekreftelseAvSisteAktivitetskrav.inntruffetdato"
-    const bekreftetdato = new Date()
-
     useEffect(() => {
-        if (visning === AKTIVITETSVARSELKVITTERING && forrigeVisning === NYTT_AKTIVITETSKRAVVARSEL) {
-            kvittering.current?.scrollTo({ top: 200 })
+        if (visning === AKTIVITETSVARSELKVITTERING) {
+            window.scrollTo({ top: 0 })
         }
-    })
+    }, [ visning ])
 
     return (
         <>
@@ -105,33 +108,55 @@ const AktivitetskravVarsel = () => {
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-
-                <Alertstripe type="info" className="blokk">
-                    {tekst('aktivitetskrav-varsel.info')}
-                </Alertstripe>
-
-                <div aria-live="polite" role="alert" ref={kvittering}>
-                    <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
-                        render={() => {
-                            return (
-                                <Alertstripe type="suksess" className="aktivitetskrav-kvittering">
-                                    {tekst('aktivitetskrav-varsel.kvittering', {
-                                        '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY'),
-                                    })}
-                                </Alertstripe>
-                            )
-                        }}
-                    />
-                </div>
-
-                <Artikkel />
-
-                <Vis hvis={visning !== AKTIVITETSVARSELKVITTERING}
+                <Vis hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
                     render={() => {
-                        return <BekreftAktivitetskravSkjema />
+                        return (
+                            <>
+                                <AlertStripeAdvarsel>
+                                    <Undertittel>{tekst('aktivitetskrav-varsel.ingen-varsel.tittel')}</Undertittel>
+                                    <Normaltekst>{tekst('aktivitetskrav-varsel.ingen-varsel.melding')}</Normaltekst>
+                                </AlertStripeAdvarsel>
+                            </>
+                        )
                     }}
                 />
 
+                <Vis hvis={visning === NYTT_AKTIVITETSKRAVVARSEL}
+                    render={() => {
+                        return (
+                            <>
+                                <Alertstripe type="info" className="blokk">
+                                    {tekst('aktivitetskrav-varsel.korona-info')}
+                                </Alertstripe>
+
+                                <Artikkel />
+                                <BekreftAktivitetskravSkjema />
+                            </>
+                        )
+                    }}
+                />
+
+                <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
+                    render={() => {
+                        return (
+                            <>
+                                <Alertstripe type="info" className="blokk">
+                                    {tekst('aktivitetskrav-varsel.korona-info')}
+                                </Alertstripe>
+
+                                <div aria-live="polite" role="alert">
+                                    <Alertstripe type="suksess" className="aktivitetskrav-kvittering">
+                                        {tekst('aktivitetskrav-varsel.kvittering', {
+                                            '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY'),
+                                        })}
+                                    </Alertstripe>
+                                </div>
+
+                                <Artikkel />
+                            </>
+                        )
+                    }}
+                />
             </div>
         </>
     )
