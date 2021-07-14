@@ -23,12 +23,21 @@ export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProp
         tekstkey as any, { '%DATO%': startdato ? startdato.format('D. MMMM YYYY') : '' }
     )
 
+    const erStart = tekstkey === 'tidslinje.sykefravaeret-starter' || tekstkey === 'tidslinje.forste-sykmeldingsdag'
+    let className = 'rad'
+    if (erStart) {
+        type = 'FØRSTE_SYKMELDINGSDAG'
+        className = 'rad start'
+    } else if (type === 'TID') {
+        className = 'rad tid'
+    }
+
     return (
-        <div className="tidslinjeHendelse tidslinjeHendelse__rad">
-            <div className="tidslinjeHendelse__ikon">
+        <div className={className}>
+            <div className="ikon">
                 <img src={tidslinjeIkon(type)} alt="" />
             </div>
-            <Normaltekst className="tidslinjeHendelse__tittel">
+            <Normaltekst className="tittel">
                 {titteltekst}
             </Normaltekst>
         </div>
@@ -56,7 +65,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
     const getTittel = (hendelse: Hendelse) => {
         switch (hendelse.type) {
             case 'AKTIVITETSKRAV_VARSEL':
-                return <Normaltekst>{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
                     parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
                         '%DATO%': hendelse.inntruffetdato
                             ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
@@ -65,7 +74,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                 }</Normaltekst>
 
             case 'NY_NAERMESTE_LEDER':
-                return <Normaltekst>{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
                     parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
                         '%DATO%': hendelse.inntruffetdato
                             ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
@@ -84,32 +93,26 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
         if (hendelse.type === 'NY_NAERMESTE_LEDER') {
             const aktivTom = hendelse.data?.naermesteLeder.aktivTom
 
-            return <Normaltekst>
-                {// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    parser(tekst(`${hendelse.tekstkey}.budskap` as any, {
-                        '%NAVN%': hendelse.data?.naermesteLeder.navn || '',
-                        '%STATUS%': aktivTom ? `opphørt den ${dayjs(aktivTom).format('D. MMMM YYYY')}` : 'aktiv',
-                    }))
-                }
+            return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+                parser(tekst(`${hendelse.tekstkey}.budskap` as any, {
+                    '%NAVN%': hendelse.data?.naermesteLeder.navn || '',
+                    '%STATUS%': aktivTom ? `opphørt den ${dayjs(aktivTom).format('D. MMMM YYYY')}` : 'aktiv',
+                }))
+            }
             </Normaltekst>
         }
 
-        return <Normaltekst>
-            {// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                parser(tekst(`${hendelse.tekstkey}.budskap` as any))
-            }
-        </Normaltekst>
+        return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
+            parser(tekst(`${hendelse.tekstkey}.budskap` as any))
+        }</Normaltekst>
     }
 
     return (
-        <div className="tidslinjeHendelse tidslinjeHendelse__rad">
-            <div className="tidslinjeHendelse__ikon">
+        <div className="rad">
+            <div className="ikon">
                 <img src={tidslinjeIkon(hendelse.type)} alt="" />
             </div>
-            <Ekspanderbartpanel
-                className="tidslinjeHendelse__innhold"
-                tittel={getTittel(hendelse)}
-            >
+            <Ekspanderbartpanel tittel={getTittel(hendelse)}>
                 <img alt="" src={hendelseIkon(hendelse)} />
                 {getBudskap(hendelse)}
             </Ekspanderbartpanel>
