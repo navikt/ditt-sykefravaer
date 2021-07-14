@@ -28,7 +28,7 @@ export default () => {
                     </g>
                 </svg>
             </div>
-            <Undertittel tag="h2">
+            <Undertittel tag="h3">
                 {tekst('lenker.tidslinjen')}
             </Undertittel>
         </LenkepanelBase>

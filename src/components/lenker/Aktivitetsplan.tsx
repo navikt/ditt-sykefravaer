@@ -17,7 +17,7 @@ export default () => {
                 </svg>
             </div>
             <div className="aktivitetsplan__tekst">
-                <Undertittel tag="h2">
+                <Undertittel tag="h3">
                     {tekst('lenker.aktivitetsplan')}
                 </Undertittel>
                 <Normaltekst>{tekst('lenker.aktivitetsplan.undertekst')}</Normaltekst>

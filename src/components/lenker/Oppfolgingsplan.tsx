@@ -21,7 +21,7 @@ export default () => {
                 </svg>
             </div>
             <div className="aktivitetsplan__tekst">
-                <Undertittel tag="h2">
+                <Undertittel tag="h3">
                     {tekst('lenker.oppfolgingsplan')}
                 </Undertittel>
                 <Normaltekst>{tekst('lenker.oppfolgingsplan.undertekst')}</Normaltekst>

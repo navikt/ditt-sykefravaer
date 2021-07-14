@@ -1,3 +1,4 @@
+import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import useHendelser from '../../query-hooks/useHendelser'
@@ -27,27 +28,31 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
     }
 
     return (
-        <div className="tidslinje">
-            {hendelser
-                .filter(skalViseNyNaermesteLederHendelse)
-                .filter((h) =>
-                    // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
-                    h.type !== 'AKTIVITETSKRAV_VARSEL' && h.type !== 'AKTIVITETSKRAV_BEKREFTET'
-                )
-                .map((hendelse, idx) => {
-                    if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
-                        return <HendelseBoble key={idx} hendelse={hendelse} />
-                    }
-                    return (
-                        <HendelseTittel
-                            key={idx}
-                            tekstkey={hendelse.tekstkey}
-                            type={hendelse.type}
-                            startdato={startdato}
-                        />
+        <div className="tidslinje__ytre">
+            <Systemtittel tag="h2">Tidslinje for sykefraværet</Systemtittel>
+
+            <div className="tidslinje">
+                {hendelser
+                    .filter(skalViseNyNaermesteLederHendelse)
+                    .filter((h) =>
+                        // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
+                        h.type !== 'AKTIVITETSKRAV_VARSEL' && h.type !== 'AKTIVITETSKRAV_BEKREFTET'
                     )
-                })
-            }
+                    .map((hendelse, idx) => {
+                        if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
+                            return <HendelseBoble key={idx} hendelse={hendelse} />
+                        }
+                        return (
+                            <HendelseTittel
+                                key={idx}
+                                tekstkey={hendelse.tekstkey}
+                                type={hendelse.type}
+                                startdato={startdato}
+                            />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

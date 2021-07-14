@@ -37,7 +37,7 @@ export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProp
             <div className="ikon">
                 <img src={tidslinjeIkon(type)} alt="" />
             </div>
-            <Normaltekst className="tittel">
+            <Normaltekst tag="h3" className="tittel">
                 {titteltekst}
             </Normaltekst>
         </div>
