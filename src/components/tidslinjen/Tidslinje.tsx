@@ -40,11 +40,11 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
                     )
                     .map((hendelse, idx) => {
                         if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
-                            return <HendelseBoble key={idx} hendelse={hendelse} />
+                            return <HendelseBoble key={idx + visning} hendelse={hendelse} />
                         }
                         return (
                             <HendelseTittel
-                                key={idx}
+                                key={idx + visning}
                                 tekstkey={hendelse.tekstkey}
                                 type={hendelse.type}
                                 startdato={startdato}
