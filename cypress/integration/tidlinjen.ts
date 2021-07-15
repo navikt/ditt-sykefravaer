@@ -13,9 +13,19 @@ describe('Tester tidslinjen', () => {
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/tidslinjen')
     })
 
+    it('Lenk til tidslinjen ligger sammen med lenker', () => {
+        cy.visit('http://localhost:8080/syk/sykefravaer')
+
+        cy.get('.lenker')
+            .contains('Hva skjer under sykefraværet?')
+            .click()
+
+        cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/tidslinjen')
+    })
+
     it('Jeg har arbeidsgiver', () => {
-        cy.get('.tidslinjeHendelse__rad')
-            .should('contain', 'Første sykmeldingsdag 6. januar 2021')
+        cy.get('.rad')
+            .should('contain', 'Første sykmeldingsdag 1. mars 2021')
             .should('contain', 'Når du er blitt syk')
             .should('contain', 'Snakk med arbeidsgiveren din')
             .should('contain', '4 uker')
@@ -27,9 +37,9 @@ describe('Tester tidslinjen', () => {
             .should('contain', 'Når du har vært sykmeldt lenge')
             .should('contain', 'Snart slutt på sykepengene')
 
-        cy.get('.tidslinjeHendelse__rad')
-            .should('contain', '23. juli 2021')
-            .contains('Sykmeldingsperioder AS har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.')
+        cy.get('.rad')
+            .should('contain', '19. mars 2021')
+            .contains('Hogwarts School of Witchcraft and Wizardry har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.')
             .click()
 
         cy.contains('Koblingen mellom deg og Albus Dumbledore er aktiv')
@@ -39,8 +49,8 @@ describe('Tester tidslinjen', () => {
         cy.contains('Jeg har ikke arbeidsgiver')
             .click()
 
-        cy.get('.tidslinjeHendelse__rad')
-            .should('contain', 'Første sykmeldingsdag 6. januar 2021')
+        cy.get('.rad')
+            .should('contain', 'Første sykmeldingsdag 1. mars 2021')
             .should('contain', 'Når du er blitt syk')
             .should('contain', 'Har du vurdert din mulighet for å være i aktivitet?')
             .should('contain', '8 uker')
@@ -50,7 +60,7 @@ describe('Tester tidslinjen', () => {
             .should('contain', '39 uker')
             .should('contain', 'Snart slutt på sykepengene')
 
-        cy.get('.tidslinjeHendelse__rad')
+        cy.get('.rad')
             .contains('Sykmeldingsperioder AS har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.')
             .should('not.exist')
     })
