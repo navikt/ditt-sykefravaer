@@ -2,7 +2,7 @@ import './arbeidssituasjon.less'
 
 import dayjs from 'dayjs'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import ArbeidsgiverIkon from '../../grafikk/arbeidsgiver.svg'
@@ -88,10 +88,10 @@ const Arbeidssituasjon = () => {
     return (
         <Vis hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}
             render={() =>
-                <section className="landingspanel din-situasjon">
+                <section className="din-situasjon">
                     <header className="din-situasjon__header">
                         <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
-                        <h2>{tekst('din-situasjon.tittel.2')}</h2>
+                        <Systemtittel tag="h2">{tekst('din-situasjon.tittel.2')}</Systemtittel>
                         <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
                     </header>
                     <div className="arbeidssituasjon-panel">

@@ -44,6 +44,11 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
         arbeidssituasjon: 'ARBEIDSTAKER',
         soknadstype: 'REISETILSKUDD',
         status: 'UTKAST_TIL_KORRIGERING'
+    }, {
+        id: '5',
+        arbeidssituasjon: 'ARBEIDSTAKER',
+        soknadstype: 'GRADERT_REISETILSKUDD',
+        status: 'NY'
     }
     ]
     const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
@@ -55,6 +60,11 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     {
         'lenke': 'http://soknad/soknader/4',
         'tekst': 'Du har en ny søknad om reisetilskudd',
+        oppgavetype: 'info',
+    },
+    {
+        'lenke': 'http://soknad/soknader/5',
+        'tekst': 'Du har en ny søknad om sykepenger med reisetilskudd',
         oppgavetype: 'info',
     }
     ])

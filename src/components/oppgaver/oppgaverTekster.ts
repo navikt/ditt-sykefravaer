@@ -3,6 +3,8 @@ export const OppgaverTekster = {
     'oppgaver.sykepengesoknad.flere': 'Du har %ANTALL% nye søknader om sykepenger',
     'oppgaver.reisetilskudd.enkel': 'Du har en ny søknad om reisetilskudd',
     'oppgaver.reisetilskudd.flere': 'Du har %ANTALL% nye søknader om reisetilskudd',
+    'oppgaver.gradert-reisetilskudd.enkel': 'Du har en ny søknad om sykepenger med reisetilskudd',
+    'oppgaver.gradert-reisetilskudd.flere': 'Du har %ANTALL% nye søknader om sykepenger med reisetilskudd',
     'oppgaver.sykmeldinger.en-sykmelding': 'Du har en ny sykmelding',
     'oppgaver.sykmeldinger.flere-sykmeldinger': 'Du har %ANTALL% nye sykmeldinger',
     'oppgaver.sykmeldinger.en-avvist-sykmelding': 'Du har en avvist sykmelding',

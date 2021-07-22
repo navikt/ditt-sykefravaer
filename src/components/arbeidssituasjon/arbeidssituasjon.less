@@ -1,16 +1,20 @@
 @import '../../../node_modules/nav-frontend-core/less/_variabler';
 @import '../../basic';
 
-.landingspanel.din-situasjon {
+.din-situasjon {
     border: 1px solid @navGra60;
     border-radius: 4px;
     padding: 0.4rem 1rem 1.4rem;
+    margin-top: 2rem;
 
     .din-situasjon__header {
         display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        padding: 0.3rem 0 0.6rem;
 
-        & > * {
-            margin-right: 1rem;
+        .typo-systemtittel {
+            margin-left: 1rem;
         }
     }
 

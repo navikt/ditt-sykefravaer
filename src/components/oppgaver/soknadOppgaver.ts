@@ -74,8 +74,35 @@ export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesok
         } ]
     }
 
+    const skapGraderteReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+        const soknadene = soknader
+            .filter(søknaderTilUtfylling)
+            .filter((s) => s.soknadstype === 'GRADERT_REISETILSKUDD')
+
+        if (soknadene.length === 0) {
+            return []
+        }
+
+        if (soknadene.length === 1) {
+            return [ {
+                tekst: tekst('oppgaver.gradert-reisetilskudd.enkel'),
+                lenke: `${sykepengesoknadUrl}/soknader/${soknadene[ 0 ].id}`,
+                oppgavetype: 'info'
+            } ]
+        }
+
+        return [ {
+            tekst: tekst('oppgaver.gradert-reisetilskudd.flere', {
+                '%ANTALL%': tallTilSpråk(soknadene.length),
+            }),
+            lenke: sykepengesoknadUrl,
+            oppgavetype: 'info'
+        } ]
+    }
+
     return [
         ...skapSykepengesoknadOppgaver(soknader, sykepengesoknadUrl),
-        ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl)
+        ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl),
+        ...skapGraderteReisetilskuddOppgaver(soknader, sykepengesoknadUrl),
     ]
 }

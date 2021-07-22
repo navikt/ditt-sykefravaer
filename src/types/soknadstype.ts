@@ -1,4 +1,3 @@
-
 export type Soknadstype =
     'SELVSTENDIGE_OG_FRILANSERE' |
     'OPPHOLD_UTLAND' |
@@ -6,5 +5,6 @@ export type Soknadstype =
     'REISETILSKUDD' |
     'ARBEIDSLEDIG' |
     'BEHANDLINGSDAGER' |
-    'ANNET_ARBEIDSFORHOLD'
+    'ANNET_ARBEIDSFORHOLD' |
+    'GRADERT_REISETILSKUDD'
 
