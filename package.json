@@ -69,6 +69,7 @@
     "@types/react-router-dom": "^5.1.8",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
+    "start-server-and-test": "^1.12.1",
     "cypress": "^8.0.0",
     "eslint": "^7.31.0",
     "eslint-config-react": "^1.1.7",
