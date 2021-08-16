@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.2.0",
-    "@navikt/fnrvalidator": "^1.1.4",
     "amplitude-js": "^8.3.1",
     "browserslist": ">=4.16.6",
     "classnames": "^2.3.1",
