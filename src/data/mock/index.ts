@@ -69,6 +69,10 @@ function setUpMock(persona: Persona) {
         persona.hendelser.push({ type: 'AKTIVITETSKRAV_BEKREFTET', inntruffetdato: dayjs().format('YYYY-MM-DD') })
         return Promise.resolve({ status: 200 })
     })
+
+    mock.get('https://www.nav.no/person/innloggingsstatus/auth', (req, res, ctx) =>
+        res(ctx.json({}))
+    )
 }
 
 const url = new URL(window.location.href)
