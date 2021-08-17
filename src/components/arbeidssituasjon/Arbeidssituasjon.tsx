@@ -64,10 +64,13 @@ const Arbeidssituasjon = () => {
 
     const finnAktuelleArbeidssituasjoner = (): string[] => {
         const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
-        return selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
-            .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
-            .map((syk) => hentArbeidssituasjon(syk) || '')
-            .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
+        const arbeidssituasjoner = new Set(
+            selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
+                .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
+                .map((syk) => hentArbeidssituasjon(syk) || '')
+                .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
+        )
+        return Array.from(arbeidssituasjoner)
     }
 
     const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
