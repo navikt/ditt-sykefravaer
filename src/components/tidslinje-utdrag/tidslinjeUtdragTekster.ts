@@ -1,6 +1,6 @@
 export const TidslinjeUtdragTekster = {
     // teksterMedArbeidsgiver
-    'tidslinje.utdrag.sykmeldt-hva-naa.med-arbeidsgiver.ingress': '<p>Du bestemmer selv om du vil bruke sykmeldingen eller avbryte den. Du kan også jobbe i kombinasjon med sykmelding. Det kommer an på hva sykdommen din tillater og hva det er praktisk mulig å få til på arbeidsplassen.</p>',
+    'tidslinje.utdrag.sykmeldt-hva-naa.med-arbeidsgiver.ingress': '<p>Husk at du kan jobbe i kombinasjon med sykmelding. Det kommer an på hva sykdommen din tillater og hva det er praktisk mulig å få til på arbeidsplassen.</p>',
     'tidslinje.utdrag.sykmeldt-hva-naa.med-arbeidsgiver.mer': '<p>Greit å vite: Arbeidsgiveren har plikt til å legge til rette for at du kan jobbe helt eller delvis selv om du er syk.</p><p>Husk at du alltid kan vurdere <a href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmelding-ulike-former/gradertsykemelding">gradert sykmelding</a>.</p><p>Vet du at fraværet blir kort, kan det være like greit med <a href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmelding-ulike-former/egenmelding">egenmelding</a>, så slipper du å gå til legen.</p><p>Les mer om <a href="https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmeldt">sykmelding og sykepenger</a> eller se filmen <a href="https://video.qbrick.com/play2/embed/player?accountId=763558&mediaId=B248D6CB&configId=default&pageStyling=adaptive&autoplay=false&repeat=false&sharing=false&download=true">Hva skjer etter at jeg har sendt sykmeldingen?</a></p>',
     'tidslinje.utdrag.sykmeldt-hva-naa.med-arbeidsgiver.tittel': 'Når du er blitt syk',
 
@@ -50,7 +50,7 @@ export const TidslinjeUtdragTekster = {
     'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2.tittel': 'Snart slutt på sykepengene',
 
     // Friskmelding
-    'friskmelding.bjorn': 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.',
+    'friskmelding.bjorn': 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du begynne å jobbe før sykmeldingen er over.',
     'friskmelding.bjorn-knapp': 'Jeg vil vite mer',
     'friskmelding.info-tittel.delvis': 'Kan du jobbe mer enn det sykmeldingen sier?',
     'friskmelding.info-tittel.helt': 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?',

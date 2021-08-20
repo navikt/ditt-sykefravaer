@@ -10,7 +10,7 @@ describe('Tester tidslinjeutdrag', () => {
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should('have.attr', 'checked')
         cy.get('.tidslinjeutdrag__container').within(() => {
             cy.contains('Når du er blitt syk')
-            cy.contains('Du bestemmer selv om du vil bruke sykmeldingen eller avbryte den. Du kan også jobbe i kombinasjon med sykmelding. Det kommer an på hva sykdommen din tillater og hva det er praktisk mulig å få til på arbeidsplassen.')
+            cy.contains('Husk at du kan jobbe i kombinasjon med sykmelding. Det kommer an på hva sykdommen din tillater og hva det er praktisk mulig å få til på arbeidsplassen.')
             cy.contains('Greit å vite: Arbeidsgiveren har plikt til å legge til rette for at du kan jobbe helt eller delvis selv om du er syk.')
             cy.contains('Husk at du alltid kan vurdere gradert sykmelding.')
             cy.contains('Vet du at fraværet blir kort, kan det være like greit med egenmelding, så slipper du å gå til legen.')
@@ -26,7 +26,7 @@ describe('Tester tidslinjeutdrag', () => {
         })
 
         cy.get('.friskmelding__bjorn')
-            .should('contain', 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.')
+            .should('contain', 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du begynne å jobbe før sykmeldingen er over.')
             .contains('Jeg vil vite mer')
             .click()
         cy.get('.modal')
