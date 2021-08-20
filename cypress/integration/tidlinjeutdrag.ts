@@ -26,7 +26,7 @@ describe('Tester tidslinjeutdrag', () => {
         })
 
         cy.get('.friskmelding__bjorn')
-            .should('contain', 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.')
+            .should('contain', 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du begynne å jobbe før sykmeldingen er over.')
             .contains('Jeg vil vite mer')
             .click()
         cy.get('.modal')

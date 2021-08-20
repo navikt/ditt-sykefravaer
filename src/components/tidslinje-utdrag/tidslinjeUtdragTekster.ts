@@ -50,7 +50,7 @@ export const TidslinjeUtdragTekster = {
     'tidslinje.utdrag.sluttfasen.uten-arbeidsgiver-2.tittel': 'Snart slutt på sykepengene',
 
     // Friskmelding
-    'friskmelding.bjorn': 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du avbryte sykmeldingen før den er helt over.',
+    'friskmelding.bjorn': 'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du begynne å jobbe før sykmeldingen er over.',
     'friskmelding.bjorn-knapp': 'Jeg vil vite mer',
     'friskmelding.info-tittel.delvis': 'Kan du jobbe mer enn det sykmeldingen sier?',
     'friskmelding.info-tittel.helt': 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?',
