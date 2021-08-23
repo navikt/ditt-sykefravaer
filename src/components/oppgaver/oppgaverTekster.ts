@@ -15,7 +15,7 @@ export const OppgaverTekster = {
     'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall': 'Du har %ANTALL% oppfølgingsplaner som venter på godkjenning av deg',
     'oppgaver.dialogmote.behov.entall': 'Du har en dialogmøte som venter på godkjenning av deg',
     'oppgaver.dialogmote.svar': 'Svar på NAVs spørsmål om dialogmøte',
-    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall': 'Lederen din har begynt på oppfølgingsplanen dere skal skrive sammen',
-    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall': 'Det er startet %ANTALL% oppfølgingsplaner du er en del av',
+    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall': 'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.',
+    'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall': 'Arbeidsgiverne dine har begynt på hver sin oppfølgingsplan. Du skal fylle ut din del.',
     'oppgaver.aktivitetskrav': 'Bekreft at du kjenner aktivitetsplikten',
 }
