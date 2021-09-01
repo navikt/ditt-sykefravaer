@@ -33,7 +33,7 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Systemtittel tag="h2">Oppgaver</Systemtittel>
+            <Systemtittel tag="h2" className={'hide-element'}>Oppgaver</Systemtittel>
             {oppgaveProps.oppgaver.map((v, idx) => {
                 return (
                     <Alertstripe type={v.oppgavetype} key={idx}>

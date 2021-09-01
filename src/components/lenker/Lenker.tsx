@@ -43,7 +43,7 @@ const Lenker = () => {
         <Vis hvis={anyLenker()}
             render={() =>
                 <section className="lenker">
-                    <Systemtittel tag="h2">Lenker</Systemtittel>
+                    <Systemtittel tag="h2" className={'hide-element'}>Lenker</Systemtittel>
                     <Vis hvis={sykmeldinger && sykmeldinger.length > 0}
                         render={() =>
                             <SykmeldingLenkepanel />
