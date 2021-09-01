@@ -15,7 +15,7 @@ it('Returnerer dialogmoteBehov oppgave når skjematype er SVAR_BEHOV', () => {
     const oppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, 'http://dialogmotebehov')
     expect(oppgaver).toEqual([ {
         lenke: 'http://dialogmotebehov',
-        tekst: 'Du har en dialogmøte som venter på godkjenning av deg',
+        tekst: 'Du har et dialogmøte som venter på godkjenning av deg',
         oppgavetype: 'info',
     } ])
 })
