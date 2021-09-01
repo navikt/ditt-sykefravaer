@@ -1,6 +1,5 @@
 import './arbeidssituasjon.less'
 
-import dayjs from 'dayjs'
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
@@ -12,20 +11,11 @@ import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
-import { Sykmelding } from '../../types/sykmelding'
-import { hentArbeidssituasjon, senesteTom } from '../../utils/sykmeldingerUtils'
+import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Arbeidsgiver from './Arbeidsgiver'
-
-const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: Sykmelding[]) => {
-    const treMndSiden = dayjs().subtract(3, 'months')
-
-    return sykmeldinger.filter((syk) =>
-        senesteTom(syk.sykmeldingsperioder) > treMndSiden
-    )
-}
-
+import { finnAktuelleArbeidsgivere } from './arbeidssituasjonHjelpefunksjoner'
 
 const Arbeidssituasjon = () => {
     const { data: narmesteLedere } = useNarmesteledere()
@@ -35,35 +25,12 @@ const Arbeidssituasjon = () => {
         return null
     }
 
-    const finnAktuelleArbeidsgivere = () => {
-        const aktiveLedereOrgnummer = narmesteLedere
-            .filter((nl) => !nl.aktivTom && nl.navn)
-            .map((nl) => nl.orgnummer)
+    const arbeidsgivere: string[] = finnAktuelleArbeidsgivere(
+        narmesteLedere,
+        sykmeldinger
+    )
 
-        const sykmeldingerMedAktivNaermesteLeder = sykmeldinger
-            .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
-            .filter((syk) => aktiveLedereOrgnummer.includes(syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''))
-
-        const sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
-            .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
-
-        const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] = [
-            ...sykmeldingerMedAktivNaermesteLeder,
-            ...sykmeldingerFiltrertPaPeriode,
-        ]
-
-        const unikeArbeidsgiver = new Set(
-            sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
-                .filter((syk) => syk.sykmeldingStatus.arbeidsgiver)
-                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                .map((syk) => syk.sykmeldingStatus.arbeidsgiver!.orgnummer)
-        )
-
-        return Array.from(unikeArbeidsgiver)
-    }
-
-    const finnAktuelleArbeidssituasjoner = (): string[] => {
-        const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
+    const finnAktuelleArbeidssituasjoner = (arbeidsgivere: string[]): string[] => {
         const arbeidssituasjoner = new Set(
             selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
                 .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
@@ -73,8 +40,7 @@ const Arbeidssituasjon = () => {
         return Array.from(arbeidssituasjoner)
     }
 
-    const arbeidsgivere: string[] = finnAktuelleArbeidsgivere()
-    const arbeidssituasjoner: string[] = finnAktuelleArbeidssituasjoner()
+    const arbeidssituasjoner: string[] = finnAktuelleArbeidssituasjoner(arbeidsgivere)
 
     const arbeidssituasjonTilIkon = (arbeidssituasjon: ArbeidssituasjonType) => {
         switch (arbeidssituasjon) {

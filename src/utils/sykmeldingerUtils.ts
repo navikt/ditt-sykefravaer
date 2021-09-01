@@ -33,3 +33,11 @@ export const senesteTom = (perioder: Periode[]) => {
         })[0]
     return dayjs(seneste)
 }
+
+export const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: Sykmelding[]) => {
+    const treMndSiden = dayjs().subtract(3, 'months')
+
+    return sykmeldinger.filter((syk) =>
+        senesteTom(syk.sykmeldingsperioder) > treMndSiden
+    )
+}

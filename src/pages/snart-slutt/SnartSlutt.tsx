@@ -10,13 +10,17 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 
+import { finnAktuelleArbeidsgivere } from '../../components/arbeidssituasjon/arbeidssituasjonHjelpefunksjoner'
 import Banner from '../../components/banner/Banner'
 import Bjorn from '../../components/bjorn/Bjorn'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import Vis from '../../components/Vis'
+import { dialog } from '../../grafikk/Dialog'
 import { penger } from '../../grafikk/Penger'
 import { veilederDame } from '../../grafikk/VeilederDame'
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
+import useNarmesteledere from '../../query-hooks/useNarmesteledere'
+import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import env from '../../utils/environment'
 import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
@@ -28,6 +32,12 @@ const brodsmuler: Brodsmule[] = [
 const SnartSlutt = () => {
     const history = useHistory()
     const { data: arbeidsrettetOppfolging } = useArbeidsrettetOppfolging()
+    const { data: narmesteLedere } = useNarmesteledere()
+    const { data: sykmeldinger } = useSykmeldinger()
+    const harArbeidgiver = finnAktuelleArbeidsgivere(
+        narmesteLedere,
+        sykmeldinger
+    ).length > 0
 
     useEffect(() => {
         setBodyClass('snartslutt')
@@ -61,14 +71,31 @@ const SnartSlutt = () => {
                     {tekst('snartslutt.hva_nå')}
                 </Systemtittel>
 
-                <Veilederpanel svg={veilederDame}>
-                    <Element tag="h3">
-                        {tekst('snartslutt.snakk_med.tittel')}
-                    </Element>
-                    <Normaltekst>
-                        {tekst('snartslutt.snakk_med.tekst')}
-                    </Normaltekst>
-                </Veilederpanel>
+                <Vis hvis={harArbeidgiver}
+                    render={() =>
+                        <Veilederpanel svg={veilederDame}>
+                            <Element tag="h3">
+                                {tekst('snartslutt.snakk_med.tittel')}
+                            </Element>
+                            <Normaltekst>
+                                {tekst('snartslutt.snakk_med.tekst')}
+                            </Normaltekst>
+                        </Veilederpanel>
+                    }
+                />
+
+                <Vis hvis={!harArbeidgiver}
+                    render={() =>
+                        <Veilederpanel svg={dialog}>
+                            <Element tag="h3">
+                                {tekst('snartslutt.aktivitetsplan.tittel')}
+                            </Element>
+                            <Normaltekst>
+                                {tekst('snartslutt.aktivitetsplan.tekst')}
+                            </Normaltekst>
+                        </Veilederpanel>
+                    }
+                />
 
                 <Veilederpanel svg={penger}>
                     <Element tag="h3">
@@ -83,16 +110,25 @@ const SnartSlutt = () => {
                     {tekst('snartslutt.andre')}
                 </Systemtittel>
 
-                <Ekspanderbartpanel className="byttjobb" tittel={
-                    <>
-                        <Systemtittel tag="h3">
-                            {tekst('snartslutt.bytt_jobb.tittel')}
-                        </Systemtittel>
-                        <Normaltekst>
-                            {tekst('snartslutt.snakk_med.tekst')}
-                        </Normaltekst>
-                    </>
-                }>
+                <Ekspanderbartpanel className="byttjobb"
+                    tittel={
+                        <>
+                            <Vis hvis={harArbeidgiver}
+                                render={() =>
+                                    <Systemtittel tag="h3">
+                                        {tekst('snartslutt.bytt_jobb.tittel')}
+                                    </Systemtittel>
+                                }
+                            />
+                            <Vis hvis={!harArbeidgiver}
+                                render={() =>
+                                    <Systemtittel tag="h3">
+                                        {tekst('snartslutt.finn_jobb.tittel')}
+                                    </Systemtittel>
+                                }
+                            />
+                        </>
+                    }>
                     <ul>
                         <Normaltekst tag="li">
                             {parser(tekst('snartslutt.bytt_jobb.liste.del1'))}
@@ -108,16 +144,31 @@ const SnartSlutt = () => {
                         <Systemtittel tag="h3">
                             {tekst('snartslutt.okonomien.tittel')}
                         </Systemtittel>
-                        <Normaltekst>
-                            {tekst('snartslutt.okonomien.tekst')}
-                        </Normaltekst>
+                        <Vis hvis={harArbeidgiver}
+                            render={() =>
+                                <Normaltekst>
+                                    {tekst('snartslutt.okonomien.tekst')}
+                                </Normaltekst>
+                            }
+                        />
+                        <Vis hvis={!harArbeidgiver}
+                            render={() =>
+                                <Normaltekst>
+                                    {tekst('snartslutt.okonomien.tekst2')}
+                                </Normaltekst>
+                            }
+                        />
                     </>
                 }>
+                    <Vis hvis={harArbeidgiver}
+                        render={() =>
+                            <Normaltekst>
+                                {tekst('snartslutt.okonomien.innhold.avsnitt1')}
+                            </Normaltekst>
+                        }
+                    />
                     <Normaltekst>
-                        {tekst('snartslutt.okonomien.innhold.avsnitt1')}
-                    </Normaltekst>
-                    <Normaltekst>
-                        {tekst('snartslutt.okonomien.innhold.avsnitt2')}
+                        {parser(tekst('snartslutt.okonomien.innhold.avsnitt2'))}
                     </Normaltekst>
                     <Normaltekst>
                         {tekst('snartslutt.okonomien.innhold.avsnitt3')}
@@ -141,7 +192,8 @@ const SnartSlutt = () => {
                                 </Knapp>
                             </div>
                         </>
-                    } />
+                    }
+                />
 
                 <Link to="/" className="ekstra-topp-margin lenke">
                     <VenstreChevron />
