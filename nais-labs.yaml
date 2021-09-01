@@ -10,6 +10,7 @@ spec:
   port: 8080
   ingresses:
     - "https://ditt-sykefravaer.labs.nais.io/"
+    - "https://sykefravaer.labs.nais.io/"
   liveness:
     path: internal/isAlive
   readiness:
