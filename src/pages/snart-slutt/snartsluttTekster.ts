@@ -18,7 +18,7 @@ export const SnartsluttTekster = {
     'snartslutt.okonomien.tekst': 'Det er bare sykepenger som erstatter inntekten din med 100 prosent. Du må derfor være forberedt på å gå ned i inntekt når sykepengene tar slutt.',
     'snartslutt.okonomien.tekst2': 'Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt. Dette må du i tilfelle søke om.',
     'snartslutt.okonomien.innhold.avsnitt1': 'Du kan ha rett til annen økonomisk støtte fra NAV hvis du ikke kan gå tilbake i jobb før sykepengene er slutt. Dette må du i tilfelle søke om.',
-    'snartslutt.okonomien.innhold.avsnitt2': 'Vær oppmerksom på at du ikke går automatisk over på arbeidsavklaringspenger, du må selv søke om det. Les mer på <a href="https://www.nav.no/etter-sykepenger" class="lenke" target="_blank" rel="noopener noreferrer">nav.no/etter-sykepenger</a>',
+    'snartslutt.okonomien.innhold.avsnitt2': 'Viktig å vite: Du går ikke automatisk over på arbeidsavklaringspenger, du må selv søke om det. Les mer på <a href="https://www.nav.no/etter-sykepenger" class="lenke" target="_blank" rel="noopener noreferrer">nav.no/etter-sykepenger</a>',
     'snartslutt.okonomien.innhold.avsnitt3': 'Undersøk også hvilke rettigheter du har hos forsikringsselskapet eller pensjonskassen du er medlem i. Det er ikke NAV som administrerer slike ordninger.',
     'snartslutt.veiledning': 'Ønsker du mer veiledning fra NAV?',
     'snartslutt.veiledning.ja': 'Ja',
