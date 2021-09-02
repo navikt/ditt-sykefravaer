@@ -1,4 +1,3 @@
-import Alertstripe from 'nav-frontend-alertstriper'
 import { Knapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React, { SyntheticEvent, useState } from 'react'
@@ -37,12 +36,8 @@ const BekreftAktivitetskravSkjema = () => {
                 />
             </div>
 
-            <Alertstripe type={'feil'}>
-                🤦‍♂️ Auda, vi har litt problemer med systemet for bekrefting av aktivitetskrav akkurat nå. Vennligst prøv igjen senere.
-            </Alertstripe>
-
             <div className="knapperad">
-                <Knapp type="hoved" spinner={isLoading} disabled={true}>
+                <Knapp type="hoved" spinner={isLoading}>
                     BEKREFT
                 </Knapp>
             </div>
