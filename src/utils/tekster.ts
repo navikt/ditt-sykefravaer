@@ -1,6 +1,5 @@
 import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
 import { BannerTekster } from '../components/banner/bannerTekster'
-import { DetteHarSkjeddTekster } from '../components/dette-har-skjedd/detteHarSkjeddTekster'
 import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykmeldingTekster'
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
@@ -23,7 +22,6 @@ const tekster = {
     ...TidslinjeUtdragTekster,
     ...TidslinjenTekster,
     ...AktivitetskravTekster,
-    ...DetteHarSkjeddTekster,
 }
 
 
@@ -37,8 +35,7 @@ type TekstKeys =
     keyof typeof ArbeidssituasjonTekster |
     keyof typeof TidslinjeUtdragTekster |
     keyof typeof AktivitetskravTekster |
-    keyof typeof TidslinjenTekster |
-    keyof typeof DetteHarSkjeddTekster
+    keyof typeof TidslinjenTekster
 
 export const byttTekstInnhold = (text: string, data: StringMap): string => {
     if (text === undefined || data === undefined) {
