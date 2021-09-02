@@ -65,7 +65,7 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/hendelser`,
         (req, res, ctx) => res(ctx.json(persona.hendelser)))
 
-    mock.post(`${env.syfoRestRoot}/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav`, () => {
+    mock.post(`${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`, () => {
         persona.hendelser.push({ type: 'AKTIVITETSKRAV_BEKREFTET', inntruffetdato: dayjs().format('YYYY-MM-DD') })
         return Promise.resolve({ status: 200 })
     })
