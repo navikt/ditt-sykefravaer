@@ -30,9 +30,9 @@ const getSvarsideModus = (dialogmote: DialogMote, deltakertype = 'Bruker') => {
     if (dialogmote.status === 'BEKREFTET' && ingenUbekreftetDialogmote) return 'BEKREFTET'
 
     // Alle alternativer er besvart:
-    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0 )[0]
+    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0)[ 0 ]
     const alleAlternativerErBesvart = dialogmote.alternativer.filter((alternativ: TidOgSted) => {
-        const svar = deltaker.svar.filter( svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[0]
+        const svar = deltaker.svar.filter(svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[ 0 ]
         return !brukerHarSvart(deltaker.svartidspunkt, svar.created)
     }).length === 0
     if (alleAlternativerErBesvart) return 'MOTESTATUS'

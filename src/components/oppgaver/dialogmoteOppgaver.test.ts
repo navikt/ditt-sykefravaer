@@ -42,20 +42,20 @@ const dialogmoteObject = (status: DialogmoteStatus): DialogMote => {
 }
 
 it('Returnerer ingen oppgaver når det ikke er dialogmøte', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(undefined, 'http://dialogmote')
+    const oppgaver = skapDialogmoteSvarOppgaver(undefined, 'http://tjenester.nav.no/dialogmote')
     expect(oppgaver).toEqual([])
 })
 
 it('Returnerer dialogmote oppgave når status er SKJEMA', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('SKJEMA'), 'http://dialogmote')
+    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('SKJEMA'), 'http://tjenester.nav.no/dialogmote')
     expect(oppgaver).toEqual([ {
-        lenke: 'http://dialogmote',
+        lenke: 'http://tjenester.nav.no/dialogmote',
         tekst: 'Svar på NAVs spørsmål om dialogmøte',
         oppgavetype: 'info',
     } ])
 })
 
 it('Returnerer ikke dialogmote oppgave når status ikke er SKJEMA', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('AVBRUTT'), 'http://dialogmote')
+    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('AVBRUTT'), 'http://tjenester.nav.no/dialogmote')
     expect(oppgaver).toEqual([])
 })

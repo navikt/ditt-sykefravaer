@@ -10,7 +10,7 @@ import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import useVedtak from '../../query-hooks/useVedtak'
 import Vis from '../Vis'
 import Aktivitetsplan from './Aktivitetsplan'
-import Dialogmote from './Dialogmote'
+import { DialogmoteLenke } from './Dialogmote'
 import Oppfolgingsplan from './Oppfolgingsplan'
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 import SoknadLenkepanel from './Soknader'
@@ -76,7 +76,7 @@ const Lenker = () => {
 
                     <Vis hvis={dialogmoteBehov?.visMotebehov || dialogmote !== undefined}
                         render={() =>
-                            <Dialogmote />
+                            <DialogmoteLenke visMotebehov={dialogmoteBehov?.visMotebehov} />
                         }
                     />
                     <Tidslinjen />

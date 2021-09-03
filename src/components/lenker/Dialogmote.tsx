@@ -5,9 +5,20 @@ import React from 'react'
 import environment from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
-export default () => {
+
+const hentMoteLandingssideUrl = (visMotebehov: boolean | undefined) => {
+    const moteVisning = visMotebehov ? '' : '/mote'
+    return environment.dialogmoteUrl + moteVisning
+}
+
+interface DialogmoteLenkeProps {
+    visMotebehov: undefined | boolean;
+}
+
+
+export function DialogmoteLenke(props: DialogmoteLenkeProps) {
     return (
-        <LenkepanelBase href={environment.dialogmoteUrl} border={true}>
+        <LenkepanelBase href={hentMoteLandingssideUrl(props.visMotebehov)} border={true}>
             <div className="lenkeikon">
                 <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#3E3832" fill="none" fillRule="evenodd">

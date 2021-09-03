@@ -20,7 +20,7 @@ export const dialogmoteSkjema: DialogMote = {
     'alternativer': [
         {
             'id': 1,
-            'tid': '10-01-2021',
+            'tid': '10-01-2030',
             'created': '01-01-2021',
             'sted': 'Hos mange',
             'valgt': false
@@ -64,7 +64,7 @@ export const dialogmoteSkjema: DialogMote = {
     ],
     'bekreftetAlternativ': {
         'id': 1,
-        'tid': '09-01-2021',
+        'tid': '09-01-2030',
         'created': '08-01-2021',
         'sted': 'Hos mange',
         'valgt': false

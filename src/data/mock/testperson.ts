@@ -4,7 +4,7 @@ import {
 } from './data/aktivitetskravPersonas'
 import { enNyOppfolgingsplan, enNyTilGodkjenning, toNyeOppfolgingsplaner, toTilGodkjenning } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
-import { enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
+import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
 import { langtidssykmeldt, snartSlutt, tvingMindreEnnTrettiniUker } from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {
@@ -12,6 +12,7 @@ export interface StringFunctionMap {
 }
 
 export const personas: StringFunctionMap = {
+    'default': () => defaultPersona,
     'helt-frisk': () => heltFrisk,
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,
