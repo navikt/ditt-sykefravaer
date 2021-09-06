@@ -7,6 +7,7 @@ import { Route, Switch } from 'react-router-dom'
 import AktivitetskravVarsel from './pages/aktivitetskrav/AktivitetskravVarsel'
 import Forside from './pages/forside/Forside'
 import SnartSlutt from './pages/snart-slutt/SnartSlutt'
+import { SykepengesoknadUtland } from './pages/sykepengesoknad-utland/SykepengesoknadUtland'
 import Tidslinjen from './pages/tidslinjen/Tidslinjen'
 
 export interface RouteParams {
@@ -31,6 +32,7 @@ const App = () => {
                     <Route path="/aktivitetsplikt" component={AktivitetskravVarsel} />
                     <Route path="/snart-slutt-pa-sykepengene" component={SnartSlutt} />
                     <Route path="/tidslinjen" component={Tidslinjen} />
+                    <Route path="/sykepengesoknad-utland" component={SykepengesoknadUtland} />
                 </Switch>
             </main>
         </QueryClientProvider>
