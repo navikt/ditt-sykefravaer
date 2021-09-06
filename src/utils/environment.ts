@@ -94,10 +94,6 @@ class Environment {
     get veienTilArbeidUrl() {
         return this.env.VEIENTILARBEID_URL
     }
-
-    get syfoRestRoot() {
-        return this.env.SYFOREST_ROOT
-    }
 }
 
 const env = new Environment()

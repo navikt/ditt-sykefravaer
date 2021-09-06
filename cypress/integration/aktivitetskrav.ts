@@ -1,4 +1,4 @@
-xdescribe('Tester aktivitetskrav', () => {
+describe('Tester aktivitetskrav', () => {
 
     it('Har aktivitetskrav varsel', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel')

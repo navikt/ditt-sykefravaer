@@ -8,7 +8,7 @@ export default function() {
 
     return useMutation<unknown, Error>(() =>
         Fetch.authenticatedPost(
-            `${env.syfoRestRoot}/sykefravaersoppfoelging/actions/bekreft-aktivitetskrav`
+            `${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`
         ), { onSuccess: () => queryClient.invalidateQueries('hendelser') }
     )
 }
