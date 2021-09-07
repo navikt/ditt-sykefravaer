@@ -11,8 +11,8 @@ spec:
   ingresses:
     - "https://www.nav.no/syk/sykefravaer"
   replicas:
-    min: 1
-    max: 2
+    min: 2
+    max: 3
     cpuThresholdPercentage: 50
   resources:
     limits:
