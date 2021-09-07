@@ -43,13 +43,21 @@ class Fetch {
                 )
             }
         }
+        // Sesjonen er utløpt
         if (res.status === 401) {
             window.location.href = this.loginServiceUrl
             logger.warn(`Session expired for request to ${url}`)
             throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
         }
+
         const textResponse = await res.text()
-        logger.error(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+        // Returnerer 404 når det ikke finnes møter, selv om kallet gikk fint
+        if (res.status === 404 && url.endsWith('/syfomoteadmin/api/bruker/arbeidstaker/moter/siste')) {
+            // skal ikke logge til frontendlogger
+        } else {
+            logger.error(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+        }
+
         if (res.status === 400) {
             throw new Error(textResponse)
         }
