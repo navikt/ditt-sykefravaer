@@ -34,6 +34,7 @@ const App = () => {
                     <Route path="/tidslinjen" component={Tidslinjen} />
                     <Route path="/sykepengesoknad-utland" component={RedirectSykepengesoknadUtland} />
                     <Route path="/sykmeldinger" component={RedirectSykmeldinger} />
+                    <Route path="*" component={Forside} />
                 </Switch>
             </main>
         </QueryClientProvider>
