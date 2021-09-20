@@ -31,7 +31,7 @@ spec:
     - name: AMPLITUDE_ENABLED
       value: "false"
     - name: SYKEPENGESOKNAD_URL
-      value: "https://sykepengesoknad.labs.nais.io"
+      value: "https://sykepengesoknad.labs.nais.io/syk/sykepengesoknad"
     - name: SPINNSYN_URL
       value: "https://sykepenger.labs.nais.io/syk/sykepenger"
     - name: SYKMELDING_URL
