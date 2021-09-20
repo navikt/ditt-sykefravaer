@@ -1,11 +1,13 @@
 export const LenkerTekster = {
     'lenker.soknader': 'Søknader',
+    'lenker.soknader.undertekst': 'fra deg',
     'lenker.sykmelding': 'Sykmeldinger',
-    'lenker.utbetaling': 'Utbetaling av sykepenger',
+    'lenker.utbetaling': 'Behandlede søknader',
+    'lenker.utbetaling.undertekst': 'fra NAV',
     'lenker.aktivitetsplan': 'Aktivitetsplan',
-    'lenker.aktivitetsplan.undertekst': 'For deg og NAV',
+    'lenker.aktivitetsplan.undertekst': 'for deg og NAV',
     'lenker.oppfolgingsplan': 'Oppfølgingsplaner',
-    'lenker.oppfolgingsplan.undertekst': 'For deg og Arbeidsgiveren din',
+    'lenker.oppfolgingsplan.undertekst': 'for deg og arbeidsgiveren din',
     'lenker.dialogmoter': 'Dialogmøter',
     'lenker.tidslinjen': 'Hva skjer under sykefraværet?',
 }
