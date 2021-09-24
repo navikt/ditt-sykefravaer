@@ -3,8 +3,6 @@ kind: "Application"
 metadata:
   name: ditt-sykefravaer
   namespace: flex
-  annotations:
-      nais.io/security-does-not-matter: "true"
   labels:
     team: flex
 spec:
@@ -36,8 +34,6 @@ spec:
       value: "https://loginservice.dev.nav.no/login"
     - name: MOCK_BACKEND
       value: "false"
-    - name: DECORATOR_URL
-      value: "https://dekoratoren.dev.nav.no"
     - name: ENVIRONMENT
       value: "q1"
     - name: DITTNAV_URL
@@ -72,3 +68,5 @@ spec:
       value: "https://tjenester-q1.nav.no/dialogmote"
     - name: VEIENTILARBEID_URL
       value: "https://veientilarbeid.dev.nav.no"
+    - name: DECORATOR_ENV
+      value: "dev"

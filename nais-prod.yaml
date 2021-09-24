@@ -34,8 +34,6 @@ spec:
       value: "https://loginservice.nav.no/login"
     - name: MOCK_BACKEND
       value: "false"
-    - name: DECORATOR_URL
-      value: "https://www.nav.no/dekoratoren"
     - name: ENVIRONMENT
       value: "prod"
     - name: DITTNAV_URL
@@ -70,3 +68,5 @@ spec:
       value: "https://tjenester.nav.no/dialogmote"
     - name: VEIENTILARBEID_URL
       value: "https://veientilarbeid.nav.no"
+    - name: DECORATOR_ENV
+      value: "prod"

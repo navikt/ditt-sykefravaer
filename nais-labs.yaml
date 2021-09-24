@@ -20,8 +20,6 @@ spec:
       value: "https://loginservice-q.nav.no/login"
     - name: MOCK_BACKEND
       value: "true"
-    - name: DECORATOR_URL
-      value: "https://www.nav.no/dekoratoren"
     - name: ENVIRONMENT
       value: "labs"
     - name: DITTNAV_URL
@@ -46,3 +44,5 @@ spec:
       value: "https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL
       value: "https://dialogmote.herokuapp.com/dialogmote"
+    - name: DECORATOR_ENV
+      value: "dev"

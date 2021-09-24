@@ -22,7 +22,7 @@ export interface Brodsmule {
 
 const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
     return [
-        { tittel: 'Ditt NAV', sti: env.dittNavUrl, erKlikkbar: true },
+        { tittel: 'Ditt NAV', sti: env.dittNavUrl(), erKlikkbar: true },
         { tittel: 'Ditt sykefravær', sti: '/', erKlikkbar: sykefravaerKlikkbar }
     ]
 }

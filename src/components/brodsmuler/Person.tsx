@@ -9,7 +9,7 @@ import personIkon from './person.svg'
 const Person = () => {
     const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
     const person = useRef<HTMLImageElement>(null)
-    const kanVelgePerson = (env.isMockBackend || env.isOpplaering)
+    const kanVelgePerson = (env.isMockBackend() || env.isOpplaering())
 
     if (kanVelgePerson) {
         person?.current?.addEventListener('click', () => {

@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<SimpleHendelse[], Error>('hendelser', () =>
         Fetch.authenticatedGet(
-            `${env.syfoApiRoot}/syfoservicestrangler/api/hendelse/hendelser`,
+            `${env.syfoApiRoot()}/syfoservicestrangler/api/hendelse/hendelser`,
             async(data) => {
                 return data as SimpleHendelse[]
             },

@@ -13,7 +13,7 @@ import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import environment from '../../utils/environment'
+import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
@@ -54,11 +54,11 @@ const Oppgaver = () => {
     const { data: dialogmoteSvar } = useDialogmoter()
     const { data: hendelser } = useHendelser()
 
-    const soknadOppgaver = skapSøknadOppgaver(soknader, environment.sykepengesoknadUrl)
-    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, environment.sykmeldingUrl)
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, environment.oppfolgingsplanUrl)
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, environment.dialogmoteUrl)
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, environment.dialogmoteUrl)
+    const soknadOppgaver = skapSøknadOppgaver(soknader, env.sykepengesoknadUrl())
+    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, env.sykmeldingUrl())
+    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, env.oppfolgingsplanUrl())
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, env.dialogmoteUrl())
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, env.dialogmoteUrl())
 
     const oppgaver = [
         ...sykmeldingOppgaver,

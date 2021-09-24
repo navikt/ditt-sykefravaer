@@ -1,101 +1,227 @@
-class Environment {
+interface EnvironmentInterface {
+    isMockBackend(): boolean
+    isDev(): boolean // TODO Brukes ikke
+    isQ1(): boolean
+    isOpplaering(): boolean
+    isProd(): boolean
+    amplitudeEnabled(): boolean // TODO Brukes ikke
+    amplitudeKey(): string // TODO Brukes ikke
+    sykmeldingerBackendProxyRoot(): string
+    flexGatewayRoot(): string
+    syfoApiRoot(): string
+    loginServiceUrl(): string
+    loginServiceRedirectUrl(): string
+    sykepengesoknadUrl(): string
+    spinnsynUrl(): string
+    sykmeldingUrl(): string
+    aktivitetsplanUrl(): string
+    oppfolgingsplanUrl(): string
+    dialogmoteUrl(): string
+    dittNavUrl(): string
+    frontendloggerRoot(): string
+    narmestelederUrl(): string
+    arbeidssokerregistreringUrl(): string
+    veienTilArbeidUrl(): string // TODO Brukes ikke
+}
 
+class Environment implements EnvironmentInterface {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     private env = (window as any)._env_;
 
-    get isDev() {
-        return this.env.ENVIRONMENT === 'dev'
-    }
-
-    get isQ1() {
-        return this.env.ENVIRONMENT === 'q1'
-    }
-
-    get isProd() {
-        return this.env.ENVIRONMENT === 'prod'
-    }
-
-    get sykmeldingerBackendProxyRoot() {
-        return this.env.SYKMELDINGER_BACKEND_PROXY_ROOT
-    }
-
-    get flexGatewayRoot() {
-        return this.env.FLEX_GATEWAY_ROOT
-    }
-
-    get syfoApiRoot() {
-        return this.env.SYFOAPI_ROOT
-    }
-
-    get isMockBackend() {
+    isMockBackend() {
         return this.env.MOCK_BACKEND === 'true'
     }
 
-    get isOpplaering() {
+    isDev() {
+        return this.env.ENVIRONMENT === 'dev'
+    }
+
+    isQ1() {
+        return this.env.ENVIRONMENT === 'q1'
+    }
+
+    isOpplaering() {
         return this.env.OPPLAERING === 'true'
     }
 
-    get loginServiceUrl() {
-        return this.env.LOGINSERVICE_URL
+    isProd() {
+        return this.env.ENVIRONMENT === 'prod'
     }
 
-    get loginServiceRedirectUrl() {
-        return this.env.LOGINSERVICE_REDIRECT_URL
-    }
-
-    get sykepengesoknadUrl() {
-        return this.env.SYKEPENGESOKNAD_URL
-    }
-
-    get spinnsynUrl() {
-        return this.env.SPINNSYN_URL
-    }
-
-    get sykmeldingUrl() {
-        return this.env.SYKMELDING_URL
-    }
-
-    get aktivitetsplanUrl() {
-        return this.env.AKTIVITETSPLAN_URL
-    }
-
-    get oppfolgingsplanUrl() {
-        return this.env.OPPFOLGINGSPLAN_URL
-    }
-
-    get dialogmoteUrl() {
-        return this.env.DIALOGMOTE_URL
-    }
-
-    get dittNavUrl() {
-        return this.env.DITTNAV_URL
-    }
-
-    get frontendloggerRoot() {
-        return this.env.FRONTENDLOGGER_ROOT
-    }
-
-    get amplitudeKey() {
-        return this.env.AMPLITUDE_KEY
-    }
-
-    get amplitudeEnabled() {
+    amplitudeEnabled() {
         return this.env.AMPLITUDE_ENABLED === 'true'
     }
 
-    get narmestelederUrl() {
+    amplitudeKey() {
+        return this.env.AMPLITUDE_KEY
+    }
+
+    sykmeldingerBackendProxyRoot() {
+        return this.env.SYKMELDINGER_BACKEND_PROXY_ROOT
+    }
+
+    flexGatewayRoot() {
+        return this.env.FLEX_GATEWAY_ROOT
+    }
+
+    syfoApiRoot() {
+        return this.env.SYFOAPI_ROOT
+    }
+
+    loginServiceUrl() {
+        return this.env.LOGINSERVICE_URL
+    }
+
+    loginServiceRedirectUrl() {
+        return this.env.LOGINSERVICE_REDIRECT_URL
+    }
+
+    sykepengesoknadUrl() {
+        return this.env.SYKEPENGESOKNAD_URL
+    }
+
+    spinnsynUrl() {
+        return this.env.SPINNSYN_URL
+    }
+
+    sykmeldingUrl() {
+        return this.env.SYKMELDING_URL
+    }
+
+    aktivitetsplanUrl() {
+        return this.env.AKTIVITETSPLAN_URL
+    }
+
+    oppfolgingsplanUrl() {
+        return this.env.OPPFOLGINGSPLAN_URL
+    }
+
+    dialogmoteUrl() {
+        return this.env.DIALOGMOTE_URL
+    }
+
+    dittNavUrl() {
+        return this.env.DITTNAV_URL
+    }
+
+    frontendloggerRoot() {
+        return this.env.FRONTENDLOGGER_ROOT
+    }
+
+    narmestelederUrl() {
         return this.env.NARMESTELEDER_URL
     }
 
-    get arbeidssokerregistreringUrl() {
+    arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
 
-    get veienTilArbeidUrl() {
+    veienTilArbeidUrl() {
         return this.env.VEIENTILARBEID_URL
     }
 }
 
-const env = new Environment()
+class MockEnvironment implements EnvironmentInterface {
+    isMockBackend() {
+        return true
+    }
+
+    isDev() {
+        return true
+    }
+
+    isQ1() {
+        return false
+    }
+
+    isOpplaering() {
+        return process.env.REACT_APP_OPPLAERING === 'true'
+    }
+
+    isProd() {
+        return false
+    }
+
+    amplitudeEnabled() {
+        return false
+    }
+
+    amplitudeKey() {
+        return ''
+    }
+
+    sykmeldingerBackendProxyRoot() {
+        return ''
+    }
+
+    flexGatewayRoot() {
+        return ''
+    }
+
+    syfoApiRoot() {
+        return ''
+    }
+
+    loginServiceUrl() {
+        return ''
+    }
+
+    loginServiceRedirectUrl() {
+        return ''
+    }
+
+    sykepengesoknadUrl() {
+        return ''
+    }
+
+    spinnsynUrl() {
+        return ''
+    }
+
+    sykmeldingUrl() {
+        return ''
+    }
+
+    aktivitetsplanUrl() {
+        return ''
+    }
+
+    oppfolgingsplanUrl() {
+        return ''
+    }
+
+    dialogmoteUrl() {
+        return ''
+    }
+
+    dittNavUrl() {
+        return ''
+    }
+
+    frontendloggerRoot() {
+        return ''
+    }
+
+    narmestelederUrl() {
+        return ''
+    }
+
+    arbeidssokerregistreringUrl() {
+        return ''
+    }
+
+    veienTilArbeidUrl() {
+        return ''
+    }
+}
+
+function hentEnvironment(): EnvironmentInterface {
+    if (process.env.NODE_ENV === 'development') {
+        return new MockEnvironment()
+    }
+    return new Environment()
+}
+
+const env = hentEnvironment()
 
 export default env

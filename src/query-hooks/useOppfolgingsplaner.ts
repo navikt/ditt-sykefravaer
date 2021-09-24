@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Oppfolgingsplan[], Error>('oppfolgingsplaner', () =>
         Fetch.authenticatedGet(
-            `${env.syfoApiRoot}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
+            `${env.syfoApiRoot()}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
             async(data) => {
                 return data as Oppfolgingsplan[]
             },

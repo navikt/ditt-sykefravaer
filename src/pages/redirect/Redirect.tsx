@@ -24,9 +24,9 @@ const Redirect = (props: RedirectProps) => {
 }
 
 export const RedirectSykepengesoknadUtland = () => {
-    return (<Redirect addresse={`${env.sykepengesoknadUrl}/sykepengesoknad-utland`} />)
+    return (<Redirect addresse={`${env.sykepengesoknadUrl()}/sykepengesoknad-utland`} />)
 }
 
 export const RedirectSykmeldinger = () => {
-    return (<Redirect addresse={`${env.sykmeldingUrl}`} />)
+    return (<Redirect addresse={`${env.sykmeldingUrl()}`} />)
 }

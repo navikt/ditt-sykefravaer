@@ -15,7 +15,7 @@ dayjs.locale({
     weekStart: 1,
 })
 
-if (env.isMockBackend) {
+if (env.isMockBackend()) {
     require('./data/mock')
 }
 
@@ -26,8 +26,8 @@ ReactDOM.render(
     , document.getElementById('root') as HTMLElement
 )
 
-if (env.isQ1 || env.isProd) {
-    const src = `${env.frontendloggerRoot}/frontendlogger/logger.js`
+if (env.isQ1() || env.isProd()) {
+    const src = `${env.frontendloggerRoot()}/frontendlogger/logger.js`
     const script = document.createElement('script')
     script.src = src
     script.async = true
