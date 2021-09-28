@@ -1,11 +1,8 @@
 interface EnvironmentInterface {
     isMockBackend(): boolean
-    isDev(): boolean // TODO Brukes ikke
     isQ1(): boolean
     isOpplaering(): boolean
     isProd(): boolean
-    amplitudeEnabled(): boolean // TODO Brukes ikke
-    amplitudeKey(): string // TODO Brukes ikke
     sykmeldingerBackendProxyRoot(): string
     flexGatewayRoot(): string
     syfoApiRoot(): string
@@ -21,7 +18,6 @@ interface EnvironmentInterface {
     frontendloggerRoot(): string
     narmestelederUrl(): string
     arbeidssokerregistreringUrl(): string
-    veienTilArbeidUrl(): string // TODO Brukes ikke
 }
 
 class Environment implements EnvironmentInterface {
@@ -30,10 +26,6 @@ class Environment implements EnvironmentInterface {
 
     isMockBackend() {
         return this.env.MOCK_BACKEND === 'true'
-    }
-
-    isDev() {
-        return this.env.ENVIRONMENT === 'dev'
     }
 
     isQ1() {
@@ -46,14 +38,6 @@ class Environment implements EnvironmentInterface {
 
     isProd() {
         return this.env.ENVIRONMENT === 'prod'
-    }
-
-    amplitudeEnabled() {
-        return this.env.AMPLITUDE_ENABLED === 'true'
-    }
-
-    amplitudeKey() {
-        return this.env.AMPLITUDE_KEY
     }
 
     sykmeldingerBackendProxyRoot() {
@@ -115,18 +99,10 @@ class Environment implements EnvironmentInterface {
     arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
-
-    veienTilArbeidUrl() {
-        return this.env.VEIENTILARBEID_URL
-    }
 }
 
 class MockEnvironment implements EnvironmentInterface {
     isMockBackend() {
-        return true
-    }
-
-    isDev() {
         return true
     }
 
@@ -140,14 +116,6 @@ class MockEnvironment implements EnvironmentInterface {
 
     isProd() {
         return false
-    }
-
-    amplitudeEnabled() {
-        return false
-    }
-
-    amplitudeKey() {
-        return ''
     }
 
     sykmeldingerBackendProxyRoot() {
@@ -207,10 +175,6 @@ class MockEnvironment implements EnvironmentInterface {
     }
 
     arbeidssokerregistreringUrl() {
-        return ''
-    }
-
-    veienTilArbeidUrl() {
         return ''
     }
 }

@@ -27,8 +27,6 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     res.send(`window._env_ = {
     MOCK_BACKEND: '${process.env.MOCK_BACKEND}',
     OPPLAERING: '${process.env.OPPLAERING}',
-    AMPLITUDE_ENABLED: '${process.env.AMPLITUDE_ENABLED}',
-    AMPLITUDE_KEY: '${process.env.AMPLITUDE_KEY}',
     SYKMELDINGER_BACKEND_PROXY_ROOT: '${process.env.SYKMELDINGER_BACKEND_PROXY_ROOT}',
     FLEX_GATEWAY_ROOT: '${process.env.FLEX_GATEWAY_ROOT}',
     SYFOAPI_ROOT: '${process.env.SYFOAPI_ROOT}',
@@ -43,8 +41,7 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     DITTNAV_URL: '${process.env.DITTNAV_URL}',
     FRONTENDLOGGER_ROOT: '${process.env.FRONTENDLOGGER_ROOT}',
     NARMESTELEDER_URL: '${process.env.NARMESTELEDER_URL}',
-    ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}',
-    VEIENTILARBEID_URL: '${process.env.VEIENTILARBEID_URL}'
+    ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}'
 }`)
 })
 

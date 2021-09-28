@@ -44,10 +44,6 @@ spec:
       value: "https://www.nav.no/syk/sykefravaer"
     - name: FRONTENDLOGGER_ROOT
       value: "https://tjenester.nav.no"
-    - name: AMPLITUDE_KEY
-      value: "d5b43a81941b61a3b06059197807a25a"
-    - name: AMPLITUDE_ENABLED
-      value: "true"
     - name: SYKEPENGESOKNAD_URL
       value: "https://www.nav.no/syk/sykepengesoknad"
     - name: SPINNSYN_URL
@@ -66,7 +62,5 @@ spec:
       value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL
       value: "https://tjenester.nav.no/dialogmote"
-    - name: VEIENTILARBEID_URL
-      value: "https://veientilarbeid.nav.no"
     - name: DECORATOR_ENV
       value: "prod"

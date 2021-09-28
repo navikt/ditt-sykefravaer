@@ -26,8 +26,6 @@ spec:
       value: "https://www.nav.no/person/dittnav"
     - name: OPPLAERING
       value: "true"
-    - name: AMPLITUDE_ENABLED
-      value: "false"
     - name: SYKEPENGESOKNAD_URL
       value: "https://sykepengesoknad.labs.nais.io/syk/sykepengesoknad"
     - name: SPINNSYN_URL
