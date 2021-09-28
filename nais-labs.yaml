@@ -6,7 +6,7 @@ metadata:
   labels:
     team: flex
 spec:
-  image: {{ image }}
+  image: { { image } }
   port: 8080
   ingresses:
     - "https://ditt-sykefravaer.labs.nais.io/"
@@ -16,16 +16,14 @@ spec:
   readiness:
     path: internal/isReady
   env:
-    - name: LOGINSERVICE_URL
-      value: "https://loginservice-q.nav.no/login"
     - name: MOCK_BACKEND
       value: "true"
     - name: ENVIRONMENT
       value: "labs"
-    - name: DITTNAV_URL
-      value: "https://www.nav.no/person/dittnav"
     - name: OPPLAERING
       value: "true"
+    - name: LOGINSERVICE_URL
+      value: "https://loginservice-q.nav.no/login"
     - name: SYKEPENGESOKNAD_URL
       value: "https://sykepengesoknad.labs.nais.io/syk/sykepengesoknad"
     - name: SPINNSYN_URL
@@ -34,13 +32,13 @@ spec:
       value: "https://sykmeldinger.labs.nais.io/syk/sykmeldinger"
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
-    - name: NARMESTELEDER_URL
-      value: "https://narmesteleder.dev.nav.no"
-    - name: ARBEIDSSOKERREGISTRERING_URL
-      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL
       value: "https://dialogmote.herokuapp.com/dialogmote"
+    - name: DITTNAV_URL
+      value: "https://www.nav.no/person/dittnav"
+    - name: ARBEIDSSOKERREGISTRERING_URL
+      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: DECORATOR_ENV
       value: "prod"

@@ -26,6 +26,7 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     disableCache(res)
     res.send(`window._env_ = {
     MOCK_BACKEND: '${process.env.MOCK_BACKEND}',
+    ENVIRONMENT: '${process.env.ENVIRONMENT}',
     OPPLAERING: '${process.env.OPPLAERING}',
     SYKMELDINGER_BACKEND_PROXY_ROOT: '${process.env.SYKMELDINGER_BACKEND_PROXY_ROOT}',
     FLEX_GATEWAY_ROOT: '${process.env.FLEX_GATEWAY_ROOT}',
