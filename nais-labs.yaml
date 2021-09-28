@@ -43,4 +43,4 @@ spec:
     - name: DIALOGMOTE_URL
       value: "https://dialogmote.herokuapp.com/dialogmote"
     - name: DECORATOR_ENV
-      value: "dev"
+      value: "prod"
