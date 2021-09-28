@@ -6,7 +6,7 @@ metadata:
   labels:
     team: flex
 spec:
-  image: { { image } }
+  image: {{image}}
   port: 8080
   ingresses:
     - "https://www-gcp.dev.nav.no/syk/sykefravaer"
