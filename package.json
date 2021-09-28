@@ -82,9 +82,8 @@
     "yet-another-fetch-mock": "^4.1.0"
   },
   "scripts": {
-    "start-opp": "NODE_ENV=development REACT_APP_OPPLAERING=true craco start",
     "start-mock": "NODE_ENV=development craco start",
-    "start": "echo TODO sett opp denne sånn at den går mot dc backend",
+    "start": "craco start",
     "build": "CI=true craco build",
     "test": "MOCK_BACKEND=true craco test",
     "cy:open": "cypress open",
