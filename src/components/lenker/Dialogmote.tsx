@@ -2,13 +2,13 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import environment from '../../utils/environment'
+import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
 
 const hentMoteLandingssideUrl = (visMotebehov: boolean | undefined) => {
     const moteVisning = visMotebehov ? '' : '/mote'
-    return environment.dialogmoteUrl + moteVisning
+    return env.dialogmoteUrl() + moteVisning
 }
 
 interface DialogmoteLenkeProps {

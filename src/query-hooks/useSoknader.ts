@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Soknad[], Error>('soknader', () =>
         Fetch.authenticatedGet(
-            `${env.flexGatewayRoot}/syfosoknad/api/soknader`,
+            `${env.flexGatewayRoot()}/syfosoknad/api/soknader`,
             async(data) => {
                 return data as Soknad[]
             },

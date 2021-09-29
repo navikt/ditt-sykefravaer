@@ -8,7 +8,7 @@ export default function(org: string) {
 
     return useMutation<unknown, Error>(() =>
         Fetch.authenticatedPost(
-            `${env.narmestelederUrl}/${org}/avkreft`
+            `${env.narmestelederUrl()}/${org}/avkreft`
         ), { onSuccess: () => queryClient.invalidateQueries('narmesteledere') }
     )
 }

@@ -6,7 +6,7 @@ metadata:
   labels:
     team: flex
 spec:
-  image: {{ image }}
+  image: {{image}}
   port: 8080
   ingresses:
     - "https://www.nav.no/syk/sykefravaer"
@@ -26,30 +26,22 @@ spec:
   readiness:
     path: internal/isReady
   env:
+    - name: MOCK_BACKEND
+      value: "false"
+    - name: ENVIRONMENT
+      value: "prod"
+    - name: OPPLAERING
+      value: "false"
     - name: SYKMELDINGER_BACKEND_PROXY_ROOT
       value: "https://sykmelding-gateway.nav.no/sykmeldinger-backend"
     - name: FLEX_GATEWAY_ROOT
       value: "https://flex-gateway.nav.no"
+    - name: SYFOAPI_ROOT
+      value: "https://syfoapi.nav.no"
     - name: LOGINSERVICE_URL
       value: "https://loginservice.nav.no/login"
-    - name: MOCK_BACKEND
-      value: "false"
-    - name: DECORATOR_URL
-      value: "https://www.nav.no/dekoratoren"
-    - name: ENVIRONMENT
-      value: "prod"
-    - name: DITTNAV_URL
-      value: "https://www.nav.no/person/dittnav"
-    - name: OPPLAERING
-      value: "false"
     - name: LOGINSERVICE_REDIRECT_URL
       value: "https://www.nav.no/syk/sykefravaer"
-    - name: FRONTENDLOGGER_ROOT
-      value: "https://tjenester.nav.no"
-    - name: AMPLITUDE_KEY
-      value: "d5b43a81941b61a3b06059197807a25a"
-    - name: AMPLITUDE_ENABLED
-      value: "true"
     - name: SYKEPENGESOKNAD_URL
       value: "https://www.nav.no/syk/sykepengesoknad"
     - name: SPINNSYN_URL
@@ -58,15 +50,17 @@ spec:
       value: "https://www.nav.no/syk/sykmeldinger"
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
-    - name: NARMESTELEDER_URL
-      value: "https://narmesteleder.nav.no"
-    - name: ARBEIDSSOKERREGISTRERING_URL
-      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
-    - name: SYFOAPI_ROOT
-      value: "https://syfoapi.nav.no"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
     - name: DIALOGMOTE_URL
       value: "https://tjenester.nav.no/dialogmote"
-    - name: VEIENTILARBEID_URL
-      value: "https://veientilarbeid.nav.no"
+    - name: DITTNAV_URL
+      value: "https://www.nav.no/person/dittnav"
+    - name: FRONTENDLOGGER_ROOT
+      value: "https://tjenester.nav.no"
+    - name: NARMESTELEDER_URL
+      value: "https://narmesteleder.nav.no"
+    - name: ARBEIDSSOKERREGISTRERING_URL
+      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
+    - name: DECORATOR_ENV
+      value: "prod"

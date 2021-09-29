@@ -3,7 +3,7 @@ import { logger } from './logger'
 
 
 export const hentLoginUrl = () => {
-    return `${env.loginServiceUrl}?redirect=${env.loginServiceRedirectUrl}`
+    return `${env.loginServiceUrl()}?redirect=${env.loginServiceRedirectUrl()}`
 }
 
 /**

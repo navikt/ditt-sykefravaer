@@ -44,7 +44,7 @@ const SnartSlutt = () => {
     }, [])
 
     const handleJaBtnClicked = () => {
-        window.location.href = env.arbeidssokerregistreringUrl
+        window.location.href = env.arbeidssokerregistreringUrl()
     }
 
     const handleNeiBtnClicked = () => {

@@ -1,24 +1,11 @@
-FROM nginx:alpine
+FROM node:16-alpine
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY /build /usr/share/nginx/html/syk/sykefravaer
-COPY demoside.html /usr/share/nginx/html/index.html
+ENV NODE_ENV production
 
+COPY server/dist/index.js .
 
-# Copy .env file and shell script to container
-WORKDIR /usr/share/nginx/html/syk/sykefravaer
-COPY ./env.sh .
-COPY ./process-index-html.sh .
-COPY .env .
+COPY /build ./build
 
-# Add bash
-RUN apk add --no-cache bash
-
-# Make our shell script executable
-RUN chmod +x env.sh
-RUN chmod +x process-index-html.sh
+CMD ["node", "index.js"]
 
 EXPOSE 8080
-
-
-CMD ["/bin/bash", "-c", "/usr/share/nginx/html/syk/sykefravaer/env.sh && /usr/share/nginx/html/syk/sykefravaer/process-index-html.sh && nginx -g \"daemon off;\""]

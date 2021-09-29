@@ -22,3 +22,7 @@ indent_size = 4
 [*.{scss,sass,less}]
 indent_style = space
 indent_size = 4
+
+[*.yaml]
+indent_style = space
+indent_size = 2

@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Sykmelding[], Error>('sykmeldinger', () =>
         Fetch.authenticatedGet(
-            `${env.sykmeldingerBackendProxyRoot}/api/v1/sykmeldinger`,
+            `${env.sykmeldingerBackendProxyRoot()}/api/v1/sykmeldinger`,
             async(maybeSykmeldinger) => {
                 return maybeSykmeldinger as Sykmelding[]
             },

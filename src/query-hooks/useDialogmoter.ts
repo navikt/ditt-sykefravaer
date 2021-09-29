@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<DialogMote, Error>('dialogmoter', () =>
         Fetch.authenticatedGet(
-            `${env.syfoApiRoot}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
+            `${env.syfoApiRoot()}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
             async(data) => {
                 return data as DialogMote
             },
