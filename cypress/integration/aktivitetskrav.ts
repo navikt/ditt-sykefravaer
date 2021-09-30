@@ -9,9 +9,6 @@ describe('Tester aktivitetskrav', () => {
 
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/aktivitetsplikt')
 
-        cy.get('.alertstripe--info')
-            .contains('Under korona-pandemien følger vi smittevernrådene fra myndighetene. Derfor vil vi ikke kreve aktiviteter av deg som kommer i konflikt med smittevernet.')
-
         cy.get('.artikkel')
             .should('contain', 'Du har snart vært sykmeldt i åtte uker. NAV skal vurdere om du oppfyller aktivitetsplikten og om du fortsatt har rett til sykepenger.')
             .should('contain', 'Det er viktig at du har god dialog med arbeidsgiveren din om hva som skal til for at du kan være noe i arbeid. Hvis dere ikke har hatt dialog, ta kontakt og be om en samtale.')
@@ -33,9 +30,6 @@ describe('Tester aktivitetskrav', () => {
     })
 
     it('Aktivitetskrav bekreftet kvittering', () => {
-        cy.get('.alertstripe--info')
-            .contains('Under korona-pandemien følger vi smittevernrådene fra myndighetene. Derfor vil vi ikke kreve aktiviteter av deg som kommer i konflikt med smittevernet.')
-
         cy.isInViewport('.alertstripe--suksess')
             .contains('Du har bekreftet at du har lest om aktivitetsplikten')
 

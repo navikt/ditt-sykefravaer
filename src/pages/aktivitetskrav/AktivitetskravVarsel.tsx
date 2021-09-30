@@ -123,10 +123,6 @@ const AktivitetskravVarsel = () => {
                     render={() => {
                         return (
                             <>
-                                <Alertstripe type="info" className="blokk">
-                                    {tekst('aktivitetskrav-varsel.korona-info')}
-                                </Alertstripe>
-
                                 <Artikkel />
                                 <BekreftAktivitetskravSkjema />
                             </>
@@ -138,10 +134,6 @@ const AktivitetskravVarsel = () => {
                     render={() => {
                         return (
                             <>
-                                <Alertstripe type="info" className="blokk">
-                                    {tekst('aktivitetskrav-varsel.korona-info')}
-                                </Alertstripe>
-
                                 <div aria-live="polite" role="alert">
                                     <Alertstripe type="suksess" className="aktivitetskrav-kvittering">
                                         {tekst('aktivitetskrav-varsel.kvittering', {
