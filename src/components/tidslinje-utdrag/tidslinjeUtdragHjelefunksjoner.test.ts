@@ -65,6 +65,9 @@ describe('Tidslinjeutdrag hjelpefunksjoner', () => {
 
         const sykeforloepToUker: Sykeforloep[] = [ { oppfolgingsdato: iDag.subtract(13, 'days').format('YYYY-MM-DD'), sykmeldinger: [] } ]
         expect(getSykefravaerVarighet(sykeforloepToUker, [])).toEqual(14)
+
+        const sykeforloepFremITid: Sykeforloep[] = [ { oppfolgingsdato: iDag.add(14, 'days').format('YYYY-MM-DD'), sykmeldinger: [] } ]
+        expect(getSykefravaerVarighet(sykeforloepFremITid, [])).toEqual(-12)
     })
 
     it('Skal tvinge varighet til 275 dager hvis det er mindre enn 13 uker igjen til maksdato', () => {
@@ -145,5 +148,22 @@ describe('Tidslinjeutdrag hjelpefunksjoner', () => {
         ]
         expect(hentStartdatoFraSykeforloep(sykeforloep)).toEqual(iDag.startOf('day'))
         expect(hentStartdatoFraSykeforloep(sykeforloep.reverse())).toEqual(iDag.startOf('day'))
+    })
+
+    it('Nyeste sykeforloep velges selv når det er frem i tid', () => {
+        const planlagtDagForOperasjon = iDag.add(10, 'days')
+
+        const sykeforloep: Sykeforloep[] = [
+            {
+                oppfolgingsdato: planlagtDagForOperasjon.format('YYYY-MM-DD'),
+                sykmeldinger: [],
+            },
+            {
+                oppfolgingsdato: iDag.subtract(20, 'days').format('YYYY-MM-DD'),
+                sykmeldinger: [],
+            },
+        ]
+        expect(hentStartdatoFraSykeforloep(sykeforloep)).toEqual(planlagtDagForOperasjon.startOf('day'))
+        expect(hentStartdatoFraSykeforloep(sykeforloep.reverse())).toEqual(planlagtDagForOperasjon.startOf('day'))
     })
 })

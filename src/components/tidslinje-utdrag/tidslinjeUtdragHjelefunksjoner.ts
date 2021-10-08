@@ -55,13 +55,16 @@ export const getSykefravaerVarighet = (sykeforloep?: Sykeforloep[], sykmeldinger
     const dagensDato = dayjs()
     const antallDager = dagensDato.diff(startdato, 'days') + 1
 
-    return antallDager > 500
-        ? antallDager
-        : erArbeidsrettetOppfolgingSykmeldtInngangAktiv
-            ? TVING_MER_ENN_39_UKER
-            : antallDager > TRETTINI_UKER && erArbeidsrettetOppfolgingSykmeldtInngangAktiv === false
-                ? TVING_MINDRE_ENN_39_UKER
-                : antallDager
+    if (antallDager > 500) {
+        return antallDager
+    }
+    if(erArbeidsrettetOppfolgingSykmeldtInngangAktiv) {
+        return TVING_MER_ENN_39_UKER
+    }
+    if(antallDager > TRETTINI_UKER && erArbeidsrettetOppfolgingSykmeldtInngangAktiv === false) {
+        return TVING_MINDRE_ENN_39_UKER
+    }
+    return antallDager
 }
 
 export const skalViseUtdrag = (sykmeldinger?: Sykmelding[]) => {
