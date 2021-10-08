@@ -31,7 +31,7 @@ export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
 const teksterMedArbeidsgiver = [
     {
-        fom: 0,
+        fom: Number.MIN_SAFE_INTEGER,
         tom: 16,
         nokkel: 'tidslinje.utdrag.sykmeldt-hva-naa.med-arbeidsgiver',
         bilde: 'sykmeldt-hva-naa.svg',
@@ -70,7 +70,7 @@ const teksterMedArbeidsgiver = [
 
 const teksterUtenArbeidsgiver = [
     {
-        fom: 0,
+        fom: Number.MIN_SAFE_INTEGER,
         tom: 16,
         nokkel: 'tidslinje.utdrag.sykmeldt-hva-naa.uten-arbeidsgiver',
         bilde: 'sykmeldt-hva-naa.svg',
