@@ -2,7 +2,6 @@ import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
-import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
@@ -25,7 +24,6 @@ const Lenker = () => {
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmote } = useDialogmoter()
-    const { data: dialogmoteBehov } = useDialogmoteBehov()
 
     const anyLenker = () => [
         arbeidsrettetOppfolging,
@@ -34,7 +32,6 @@ const Lenker = () => {
         soknader,
         oppfolgingsplaner,
         dialogmote,
-        dialogmoteBehov,
     ].find((data) =>
         data
     ) !== undefined
@@ -73,12 +70,7 @@ const Lenker = () => {
                             <Oppfolgingsplan />
                         }
                     />
-
-                    <Vis hvis={dialogmoteBehov?.visMotebehov || dialogmote !== undefined}
-                        render={() =>
-                            <DialogmoteLenke visMotebehov={dialogmoteBehov?.visMotebehov} />
-                        }
-                    />
+                    <DialogmoteLenke />
                     <Tidslinjen />
 
                 </section>
