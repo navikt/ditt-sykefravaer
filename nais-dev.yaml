@@ -56,6 +56,8 @@ spec:
       value: "https://tjenester-q1.nav.no/dialogmote"
     - name: DITTNAV_URL
       value: "https://www.dev.nav.no/person/dittnav/"
+    - name: SYKEPENGER_DOKUMENTER_URL
+      value: "https://tjenester-q1.nav.no/saksoversikt/tema/SYK"
     - name: FRONTENDLOGGER_ROOT
       value: "https://tjenester-q1.nav.no"
     - name: NARMESTELEDER_URL
