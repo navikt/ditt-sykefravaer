@@ -15,6 +15,7 @@ interface EnvironmentInterface {
     oppfolgingsplanUrl(): string
     dialogmoteUrl(): string
     dittNavUrl(): string
+    sykepengerDokumenterUrl(): string
     frontendloggerRoot(): string
     narmestelederUrl(): string
     arbeidssokerregistreringUrl(): string
@@ -86,6 +87,10 @@ class Environment implements EnvironmentInterface {
 
     dittNavUrl() {
         return this.env.DITTNAV_URL
+    }
+
+    sykepengerDokumenterUrl() {
+        return this.env.SYKEPENGER_DOKUMENTER_URL
     }
 
     frontendloggerRoot() {
@@ -163,6 +168,10 @@ class MockEnvironment implements EnvironmentInterface {
     }
 
     dittNavUrl() {
+        return ''
+    }
+
+    sykepengerDokumenterUrl() {
         return ''
     }
 

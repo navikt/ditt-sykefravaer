@@ -1,8 +1,10 @@
 import './forside.less'
 
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
+import { VenstreChevron } from 'nav-frontend-chevron'
+import Lenke from 'nav-frontend-lenker'
 import Modal from 'nav-frontend-modal'
-import { Sidetittel } from 'nav-frontend-typografi'
+import { Normaltekst,Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect } from 'react'
 
 import Arbeidssituasjon from '../../components/arbeidssituasjon/Arbeidssituasjon'
@@ -13,6 +15,7 @@ import Lenker from '../../components/lenker/Lenker'
 import Oppgaver from '../../components/oppgaver/Oppgaver'
 import QueryStatusPanel from '../../components/queryStatusPanel/QueryStatusPanel'
 import TidslinjeUtdrag from '../../components/tidslinje-utdrag/TidslinjeUtdrag'
+import env from '../../utils/environment'
 import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
 
@@ -46,6 +49,13 @@ const Forside = () => {
                 <AlertStripeInfo className="personvern">
                     {tekst('forside.personverninfo')}
                 </AlertStripeInfo>
+
+
+                <Lenke className="forside-lenke" href={env.sykepengerDokumenterUrl()}>
+                    <VenstreChevron />
+                    <Normaltekst tag="span">{tekst('forside.se-alle-dokumenter')}</Normaltekst>
+                </Lenke>
+
             </div>
         </>
     )
