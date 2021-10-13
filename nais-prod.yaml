@@ -57,7 +57,7 @@ spec:
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
     - name: SYKEPENGER_DOKUMENTER_URL
-      value: "https://tjenester.nav.no/saksoversikt/tema/SYK"
+      value: "https://tjenester.nav.no/saksoversikt/tema/SYK_SYM"
     - name: FRONTENDLOGGER_ROOT
       value: "https://tjenester.nav.no"
     - name: NARMESTELEDER_URL
