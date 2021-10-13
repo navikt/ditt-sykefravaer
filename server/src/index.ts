@@ -40,6 +40,7 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     OPPFOLGINGSPLAN_URL: '${process.env.OPPFOLGINGSPLAN_URL}',
     DIALOGMOTE_URL: '${process.env.DIALOGMOTE_URL}',
     DITTNAV_URL: '${process.env.DITTNAV_URL}',
+    SYKEPENGER_DOKUMENTER_URL: '${process.env.SYKEPENGER_DOKUMENTER_URL}',
     FRONTENDLOGGER_ROOT: '${process.env.FRONTENDLOGGER_ROOT}',
     NARMESTELEDER_URL: '${process.env.NARMESTELEDER_URL}',
     ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}'
