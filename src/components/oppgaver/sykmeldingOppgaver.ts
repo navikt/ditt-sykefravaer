@@ -1,12 +1,35 @@
+import dayjs from 'dayjs'
+
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
+function hentSykmeldingSluttdato(sykmelding: Sykmelding) {
+    if (sykmelding.sykmeldingsperioder.length == 0) {
+        return dayjs()
+    }
+    const tom = sykmelding.sykmeldingsperioder.reduce((acc, value) => {
+        if (dayjs(value.fom).isAfter(dayjs(acc.fom))) {
+            return value
+        }
+
+        return acc
+    }).tom
+    return dayjs(tom)
+}
+
 export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
     if (!sykmeldinger) {
         return []
     }
+
+    function erGammelSykmelding(sykmelding: Sykmelding) {
+        return hentSykmeldingSluttdato(sykmelding).isBefore(dayjs().subtract(3, 'months'))
+    }
+
+    const ikkeGamleSykmeldinger = sykmeldinger.filter(s => !erGammelSykmelding(s))
+
     const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
@@ -65,7 +88,7 @@ export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, s
     }
 
     return [
-        ...skapVanligeOppgaver(sykmeldinger, sykmeldingUrl),
-        ...skapAvvisteOppgaver(sykmeldinger, sykmeldingUrl)
+        ...skapVanligeOppgaver(ikkeGamleSykmeldinger, sykmeldingUrl),
+        ...skapAvvisteOppgaver(ikkeGamleSykmeldinger, sykmeldingUrl)
     ]
 }

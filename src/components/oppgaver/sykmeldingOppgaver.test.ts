@@ -1,5 +1,10 @@
+import dayjs from 'dayjs'
+
 import { Sykmelding } from '../../types/sykmelding'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
+
+const iDag = dayjs().format('MM-DD-YYYY')
+const iGår = dayjs().subtract(1, 'day').format('MM-DD-YYYY')
 
 it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
     const oppgaver = skapSykmeldingoppgaver([], 'http://sykmelding')
@@ -8,9 +13,15 @@ it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
 
 
 it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
+
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -29,7 +40,12 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -49,7 +65,12 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -58,7 +79,12 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
         }
     }, {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -78,7 +104,12 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
 it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'SENDT'
         },
@@ -94,7 +125,12 @@ it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
 it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -114,7 +150,12 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
 it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen ok', () => {
     const sykmeldinger: Sykmelding[] = [ {
         id: '123',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -123,7 +164,12 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         }
     }, {
         id: '12345',
-        sykmeldingsperioder: [],
+        sykmeldingsperioder: [
+            {
+                fom: iGår,
+                tom: iDag,
+            }
+        ],
         sykmeldingStatus: {
             statusEvent: 'APEN'
         },
@@ -141,4 +187,26 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         tekst: 'Du har en avvist sykmelding',
         oppgavetype: 'advarsel',
     } ])
+})
+
+
+it('Returnerer ingen oppgaver når sykmeldingen er eldre enn 3 måneder', () => {
+
+    const sykmeldinger: Sykmelding[] = [ {
+        id: '123',
+        sykmeldingsperioder: [
+            {
+                fom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
+                tom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
+            }
+        ],
+        sykmeldingStatus: {
+            statusEvent: 'APEN'
+        },
+        behandlingsutfall: {
+            status: 'OK'
+        }
+    } ]
+    const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
+    expect(oppgaver).toEqual([])
 })
