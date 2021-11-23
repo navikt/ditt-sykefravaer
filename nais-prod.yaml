@@ -51,9 +51,9 @@ spec:
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
     - name: OPPFOLGINGSPLAN_URL
-      value: "https://tjenester.nav.no/oppfolgingsplan/oppfolgingsplaner"
+      value: "https://www.nav.no/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
-      value: "https://tjenester.nav.no/dialogmote"
+      value: "https://www.nav.no/syk/dialogmote"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
     - name: SYKEPENGER_DOKUMENTER_URL
