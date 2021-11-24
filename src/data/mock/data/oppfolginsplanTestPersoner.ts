@@ -28,7 +28,7 @@ const commonPersona: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykeforloep: [],
     hendelser: [],
 }

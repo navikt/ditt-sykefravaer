@@ -4,7 +4,7 @@ import { Oppgave } from './oppgaveTyper'
 
 export const motebehovErUbesvart = (dialogmoteBehov: DialogmoteBehov) => {
     if (dialogmoteBehov.visMotebehov && dialogmoteBehov.skjemaType === 'SVAR_BEHOV') {
-        return !dialogmoteBehov.harMotebehov
+        return !dialogmoteBehov.motebehov
     }
     return false
 }

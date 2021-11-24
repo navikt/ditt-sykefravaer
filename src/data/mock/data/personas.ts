@@ -13,7 +13,7 @@ export const heltFrisk: Persona = {
     vedtak: [],
     oppfolgingsplaner: [],
     dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [],
     narmesteledere: [],
     snartSluttSykepenger: false,
@@ -27,7 +27,7 @@ export const enNySykmelding: Persona = {
     vedtak: [],
     oppfolgingsplaner: [],
     dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [ nySykmelding ],
     narmesteledere: [],
     snartSluttSykepenger: false,
@@ -47,7 +47,7 @@ export const enAvvistSykmelding: Persona = {
     vedtak: [],
     oppfolgingsplaner: [],
     dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, harMotebehov: false },
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [ {
         id: 'AVVIST',
         sykmeldingStatus: { statusEvent: 'APEN' },
@@ -70,7 +70,7 @@ export const defaultPersona: Persona = {
     dialogmoteBehov: {
         visMotebehov: true,
         skjemaType: 'SVAR_BEHOV',
-        harMotebehov: false
+        motebehov: null
     },
     sykmeldinger: [
         sendtSykmelding,
