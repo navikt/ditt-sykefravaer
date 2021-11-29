@@ -33,9 +33,9 @@ spec:
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
     - name: OPPFOLGINGSPLAN_URL
-      value: "https://oppfolgingsplan.herokuapp.com/oppfolgingsplan/oppfolgingsplaner"
+      value: "https://oppfolgingsplan.labs.nais.io/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
-      value: "https://dialogmote.herokuapp.com/dialogmote"
+      value: "https://dialogmote.labs.nais.io/syk/dialogmote"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
     - name: SYKEPENGER_DOKUMENTER_URL
