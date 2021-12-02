@@ -1,3 +1,4 @@
+import { Brev, BrevType } from '../../types/brev'
 import { DialogMote, DialogmoteStatus } from '../../types/dialogmote'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
 
@@ -37,25 +38,49 @@ const dialogmoteObject = (status: DialogmoteStatus): DialogMote => {
             ]
         } ],
         status: status
-
     }
 }
 
+const brevObject = (brevType: BrevType, createdAt: string): Brev[] => {
+    return [
+        {
+            uuid: 'mock-uuid',
+            deltakerUuid: 'mock-deltaker-uuid',
+            createdAt: createdAt,
+            brevType: brevType,
+            digitalt: true,
+            lestDato: null,
+            fritekst: 'Fri tekst',
+            sted: 'Videomøte på Teams',
+            tid: '2025-11-08T12:35:37.669+01:00',
+            videoLink: 'https://teams.microsoft.com/l/osv.osv.osv',
+            document: [],
+            virksomhetsnummer: '1234',
+    
+        }
+    ]
+}
+
 it('Returnerer ingen oppgaver når det ikke er dialogmøte', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(undefined, 'http://tjenester.nav.no/dialogmote')
+    const oppgaver = skapDialogmoteSvarOppgaver(undefined, undefined, 'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([])
 })
 
-it('Returnerer dialogmote oppgave når status er SKJEMA', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('SKJEMA'), 'http://tjenester.nav.no/dialogmote')
+it('Returnerer dialogmote oppgave når status er SKJEMA og brev var opprettet før møteplanlegger', () => {
+    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('SKJEMA'), brevObject(BrevType.ENDRING, '2019-11-08T12:35:37.669+01:00'),'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([ {
-        lenke: 'http://tjenester.nav.no/dialogmote',
+        lenke: 'https://www.nav.no/syk/dialogmote',
         tekst: 'Svar på NAVs spørsmål om dialogmøte',
         oppgavetype: 'info',
     } ])
 })
 
+it('Returnerer ikke dialogmote oppgave når status er SKJEMA og brev var opprettet etter møteplanlegger', () => {
+    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('SKJEMA'), brevObject(BrevType.ENDRING, '2022-11-08T12:35:37.669+01:00'),'https://www.nav.no/syk/dialogmote')
+    expect(oppgaver).toEqual([])
+})
+
 it('Returnerer ikke dialogmote oppgave når status ikke er SKJEMA', () => {
-    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('AVBRUTT'), 'http://tjenester.nav.no/dialogmote')
+    const oppgaver = skapDialogmoteSvarOppgaver(dialogmoteObject('AVBRUTT'), undefined, 'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([])
 })

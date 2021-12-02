@@ -1,5 +1,6 @@
 import dayjs from 'dayjs'
 
+import { brev } from './brev'
 import { dialogmoteSkjema, enTomDialogmote } from './dialogmoter'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
@@ -20,6 +21,7 @@ export const heltFrisk: Persona = {
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
     hendelser: [],
+    brev: [],
 }
 
 export const enNySykmelding: Persona = {
@@ -40,6 +42,7 @@ export const enNySykmelding: Persona = {
         } ]
     } ],
     hendelser: [],
+    brev: [],
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -60,6 +63,7 @@ export const enAvvistSykmelding: Persona = {
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
     hendelser: [],
+    brev:[],
 }
 
 export const defaultPersona: Persona = {
@@ -120,4 +124,5 @@ export const defaultPersona: Persona = {
         ]
     } ],
     hendelser: [ { type: 'AKTIVITETSKRAV_VARSEL', inntruffetdato: '2021-03-03' } ],
+    brev: brev
 }

@@ -1,4 +1,5 @@
 import { ArbeidsrettetOppfolging } from '../../../types/arbeidsrettetOppfolging'
+import { Brev } from '../../../types/brev'
 import { DialogMote } from '../../../types/dialogmote'
 import { DialogmoteBehov } from '../../../types/dialogmoteBehov'
 import { SimpleHendelse } from '../../../types/hendelse'
@@ -22,5 +23,6 @@ export interface Persona {
     dialogmoteBehov: DialogmoteBehov,
     sykeforloep: Sykeforloep[],
     hendelser: SimpleHendelse[],
+    brev: Brev[],
 }
 

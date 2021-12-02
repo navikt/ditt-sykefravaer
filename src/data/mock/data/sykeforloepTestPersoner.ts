@@ -42,6 +42,7 @@ const commonPersona = (): Persona => {
         dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
         sykeforloep: [],
         hendelser: [],
+        brev: [],
     }
 }
 
