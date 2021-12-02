@@ -1,6 +1,7 @@
 import express from 'express'
 import path from 'path'
 
+import { appProxy } from './appProxy'
 import { getHtmlWithDecorator } from './dekorator'
 import { logger } from './logger'
 
@@ -52,6 +53,8 @@ server.use(`${basePath}`, express.static(buildPath, { index: false }))
 server.get('/internal/isAlive|isReady', (req, res) =>
     res.sendStatus(200)
 )
+
+appProxy(server)
 
 server.use('*', (req, res) =>
     getHtmlWithDecorator(`${buildPath}/index.html`)
