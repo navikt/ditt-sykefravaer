@@ -37,7 +37,7 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.syfoApiRoot()}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
         (req, res, ctx) => res(ctx.json(persona.dialogmote)))
 
-    mock.get(`${env.isdialogmoteRoot()}/api/v1/arbeidstaker/brev`,
+    mock.get(`${env.loginServiceRedirectUrl()}/api/v1/arbeidstaker/brev`,
         (req, res, ctx) => res(ctx.json(persona.brev)))
 
     mock.get(`${env.syfoApiRoot()}/syfomotebehov/api/v2/arbeidstaker/motebehov`,

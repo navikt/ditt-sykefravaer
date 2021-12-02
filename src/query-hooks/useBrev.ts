@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Brev[], Error>('brev', () =>
         Fetch.authenticatedGet(
-            `${env.isdialogmoteRoot()}/api/v1/arbeidstaker/brev`, //TODO: URL, do we need proxy?
+            `${env.loginServiceRedirectUrl()}/api/v1/arbeidstaker/brev`, //TODO: URL, do we need proxy?
             async(data) => {
                 return data as Brev[]
             },
