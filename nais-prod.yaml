@@ -67,4 +67,4 @@ spec:
     - name: DECORATOR_ENV
       value: "prod"
     - name: ISDIALOGMOTE_ROOT
-      value: https://isdialogmote.nav.no
+      value: "https://isdialogmote.intern.nav.no"
