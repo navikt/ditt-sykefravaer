@@ -8,9 +8,9 @@ export const appProxy = (server) => {
         `${env.isdialogmoteRoot()}/api/v1/arbeidstaker/brev`,
         createProxyMiddleware({
             target: `${env.isdialogmoteRoot()}`,
-            // pathRewrite: {
-            //     '^/api/v1/arbeidstaker/brev': '/api/v1/arbeidstaker/brev',
-            // },
+            pathRewrite: {
+                '^/api/v1/arbeidstaker/brev': '/api/v1/arbeidstaker/brev',
+            },
             onError: (err, req, res) => {
                 res.statusCode = 500;
                 res.setHeader('Content-Type', 'application/json');
