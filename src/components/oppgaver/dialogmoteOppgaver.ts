@@ -31,9 +31,9 @@ const getSvarsideModus = (dialogmote: DialogMote, deltakertype = 'Bruker') => {
     if (dialogmote.status === 'BEKREFTET' && ingenUbekreftetDialogmote) return 'BEKREFTET'
 
     // Alle alternativer er besvart:
-    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0)[ 0 ]
+    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0)[0]
     const alleAlternativerErBesvart = dialogmote.alternativer.filter((alternativ: TidOgSted) => {
-        const svar = deltaker.svar.filter(svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[ 0 ]
+        const svar = deltaker.svar.filter(svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[0]
         return !brukerHarSvart(deltaker.svartidspunkt, svar.created)
     }).length === 0
     if (alleAlternativerErBesvart) return 'MOTESTATUS'
@@ -45,7 +45,7 @@ const getSvarsideModus = (dialogmote: DialogMote, deltakertype = 'Bruker') => {
 const isMoteplanleggerBruktEtterBrev = (dialogmoteSvar: DialogMote | undefined, brev: Brev[]): boolean => {
     const nyesteBrev = brev[0]
 
-    if (dialogmoteSvar && nyesteBrev && nyesteBrev.brevType !== BrevType.AVLYST) {
+    if (dialogmoteSvar && nyesteBrev && (nyesteBrev.brevType === BrevType.INNKALT || nyesteBrev.brevType === BrevType.ENDRING)) {
         const sistOpprettetBrevTidspunkt = new Date(nyesteBrev.createdAt)
         const sistOpprettetMoteplanleggerMoteTidspunkt = new Date(dialogmoteSvar.opprettetTidspunkt)
         return sistOpprettetMoteplanleggerMoteTidspunkt > sistOpprettetBrevTidspunkt
