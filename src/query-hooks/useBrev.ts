@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Brev[], Error>('brev', () =>
         Fetch.authenticatedGet(
-            `${env.flexGatewayRoot()}/api/v1/arbeidstaker/brev`,
+            `${env.flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,
             async(data) => {
                 return data as Brev[]
             },
