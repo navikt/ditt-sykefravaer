@@ -7,6 +7,7 @@ import React from 'react'
 
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../pages/aktivitetskrav/AktivitetskravVarsel'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
+import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useHendelser from '../../query-hooks/useHendelser'
@@ -15,6 +16,7 @@ import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
@@ -52,20 +54,23 @@ const Oppgaver = () => {
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
     const { data: dialogmoteSvar } = useDialogmoter()
+    const { data: brev } = useBrev()
     const { data: hendelser } = useHendelser()
+
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, env.sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, env.sykmeldingUrl())
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, env.oppfolgingsplanUrl())
     const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, env.dialogmoteUrl())
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, env.dialogmoteUrl())
-
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, env.dialogmoteUrl())
+    const brevOppgaver = skapBrevOppgaver(brev, env.dialogmoteUrl())
     const oppgaver = [
         ...sykmeldingOppgaver,
         ...soknadOppgaver,
         ...oppfolgingsplanoppgaver,
         ...dialogmoteBehovOppgaver,
-        ...dialogmoteSvarOppgaver
+        ...dialogmoteSvarOppgaver,
+        ...brevOppgaver
     ]
 
     if (snartSluttPaSykepengene) {

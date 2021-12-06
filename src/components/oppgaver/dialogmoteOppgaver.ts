@@ -1,3 +1,4 @@
+import { Brev, BrevType } from '../../types/brev'
 import { DialogMote, TidOgSted } from '../../types/dialogmote'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
@@ -30,9 +31,9 @@ const getSvarsideModus = (dialogmote: DialogMote, deltakertype = 'Bruker') => {
     if (dialogmote.status === 'BEKREFTET' && ingenUbekreftetDialogmote) return 'BEKREFTET'
 
     // Alle alternativer er besvart:
-    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0)[ 0 ]
+    const deltaker = dialogmote.deltakere.filter((deltaker) => deltaker.type === deltakertype ? 1 : 0)[0]
     const alleAlternativerErBesvart = dialogmote.alternativer.filter((alternativ: TidOgSted) => {
-        const svar = deltaker.svar.filter(svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[ 0 ]
+        const svar = deltaker.svar.filter(svaretsTidOgSted => svaretsTidOgSted.id === alternativ.id)[0]
         return !brukerHarSvart(deltaker.svartidspunkt, svar.created)
     }).length === 0
     if (alleAlternativerErBesvart) return 'MOTESTATUS'
@@ -41,11 +42,22 @@ const getSvarsideModus = (dialogmote: DialogMote, deltakertype = 'Bruker') => {
     return 'SKJEMA'
 }
 
-export const skapDialogmoteSvarOppgaver = (dialogmoteSvar: DialogMote | undefined, lenke: string) => {
+const isMoteplanleggerBruktEtterBrev = (dialogmoteSvar: DialogMote | undefined, brev: Brev[]): boolean => {
+    const nyesteBrev = brev[0]
+
+    if (dialogmoteSvar && nyesteBrev && (nyesteBrev.brevType === BrevType.INNKALT || nyesteBrev.brevType === BrevType.ENDRING)) {
+        const sistOpprettetBrevTidspunkt = new Date(nyesteBrev.createdAt)
+        const sistOpprettetMoteplanleggerMoteTidspunkt = new Date(dialogmoteSvar.opprettetTidspunkt)
+        return sistOpprettetMoteplanleggerMoteTidspunkt > sistOpprettetBrevTidspunkt
+    }
+    return true
+}
+
+export const skapDialogmoteSvarOppgaver = (dialogmoteSvar: DialogMote | undefined, brev: Brev[] | undefined, lenke: string) => {
     const oppgaver: Oppgave[] = []
     if (!dialogmoteSvar) return []
-    if (dialogmoteSvar && !erMotePassert(dialogmoteSvar)) {
-        if (getSvarsideModus(dialogmoteSvar) === 'SKJEMA') {
+    if (dialogmoteSvar && brev && !erMotePassert(dialogmoteSvar)) {
+        if (getSvarsideModus(dialogmoteSvar) === 'SKJEMA' && isMoteplanleggerBruktEtterBrev(dialogmoteSvar, brev)) {
             oppgaver.push({
                 tekst: tekst('oppgaver.dialogmote.svar'),
                 oppgavetype: 'info',
@@ -53,7 +65,6 @@ export const skapDialogmoteSvarOppgaver = (dialogmoteSvar: DialogMote | undefine
             })
         }
     }
-
     return oppgaver
 }
 

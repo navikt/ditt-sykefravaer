@@ -3,6 +3,7 @@ import {
     aktivitetskravBekreftetMenIkkeNyest,
     aktivitetskravVarsel
 } from './aktivitetsplikt'
+import { brev } from './brev'
 import { enTomDialogmote } from './dialogmoter'
 import { Persona } from './persona'
 import { arbeidstaker100Sendt } from './soknader'
@@ -21,6 +22,7 @@ export const etAktivitetskravVarsel = (): Persona => {
         arbeidsrettetOppfolging: { underOppfolging: false },
         sykeforloep: [],
         hendelser: [ aktivitetskravVarsel ],
+        brev:brev,
     }
 }
 
@@ -41,5 +43,6 @@ export const toAktivitetskravBekreftet = (): Persona => {
             aktivitetskravBekreftetMenIkkeNyest,
             aktivitetskravBekreftet
         ],
+        brev:brev,
     }
 }
