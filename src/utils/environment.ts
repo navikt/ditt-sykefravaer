@@ -19,7 +19,6 @@ interface EnvironmentInterface {
     frontendloggerRoot(): string
     narmestelederUrl(): string
     arbeidssokerregistreringUrl(): string
-    isdialogmoteRoot(): string
 }
 
 class Environment implements EnvironmentInterface {
@@ -105,10 +104,6 @@ class Environment implements EnvironmentInterface {
     arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
-
-    isdialogmoteRoot() {
-        return this.env.ISDIALOGMOTE_ROOT
-    }
 }
 
 class MockEnvironment implements EnvironmentInterface {
@@ -189,10 +184,6 @@ class MockEnvironment implements EnvironmentInterface {
     }
 
     arbeidssokerregistreringUrl() {
-        return ''
-    }
-
-    isdialogmoteRoot() {
         return ''
     }
 }

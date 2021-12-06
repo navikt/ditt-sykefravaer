@@ -44,7 +44,6 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     FRONTENDLOGGER_ROOT: '${process.env.FRONTENDLOGGER_ROOT}',
     NARMESTELEDER_URL: '${process.env.NARMESTELEDER_URL}',
     ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}',
-    ISDIALOGMOTE_ROOT: '${process.env.ISDIALOGMOTE_ROOT}',
 }`)
 })
 

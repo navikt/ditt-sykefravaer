@@ -66,5 +66,3 @@ spec:
       value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: DECORATOR_ENV
       value: "prod"
-    - name: ISDIALOGMOTE_ROOT
-      value: "https://isdialogmote.intern.nav.no"
