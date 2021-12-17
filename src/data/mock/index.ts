@@ -22,7 +22,7 @@ function setUpMock(persona: Persona) {
     mock.get(`${env.flexGatewayRoot()}/syfosoknad/api/soknader`,
         (req, res, ctx) => res(ctx.json(persona.soknader)))
 
-    mock.get(`${env.flexGatewayRoot()}/syfosoknad/api/syfosyketilfelle/39ukersvarsel`,
+    mock.get(`${env.syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`,
         (req, res, ctx) => res(ctx.json(persona.snartSluttSykepenger)))
 
     mock.get(`${env.flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,

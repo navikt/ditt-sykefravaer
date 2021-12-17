@@ -19,6 +19,8 @@ interface EnvironmentInterface {
     frontendloggerRoot(): string
     narmestelederUrl(): string
     arbeidssokerregistreringUrl(): string
+    amplitudeEnabled(): boolean
+    amplitudeKey(): string
 }
 
 class Environment implements EnvironmentInterface {
@@ -104,6 +106,14 @@ class Environment implements EnvironmentInterface {
     arbeidssokerregistreringUrl() {
         return this.env.ARBEIDSSOKERREGISTRERING_URL
     }
+
+    amplitudeKey() {
+        return this.env.AMPLITUDE_KEY
+    }
+
+    amplitudeEnabled() {
+        return this.env.AMPLITUDE_ENABLED === 'true'
+    }
 }
 
 class MockEnvironment implements EnvironmentInterface {
@@ -184,7 +194,15 @@ class MockEnvironment implements EnvironmentInterface {
     }
 
     arbeidssokerregistreringUrl() {
+        return 'https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true'
+    }
+
+    amplitudeKey() {
         return ''
+    }
+
+    amplitudeEnabled() {
+        return false
     }
 }
 
