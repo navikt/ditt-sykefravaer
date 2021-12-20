@@ -42,3 +42,5 @@ spec:
       value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: DECORATOR_ENV
       value: "prod"
+    - name: AMPLITUDE_ENABLED
+      value: "false"

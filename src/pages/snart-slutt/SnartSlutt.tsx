@@ -10,6 +10,7 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router'
 import { Link } from 'react-router-dom'
 
+import { logEvent } from '../../components/amplitude/amplitude'
 import { finnAktuelleArbeidsgivere } from '../../components/arbeidssituasjon/arbeidssituasjonHjelpefunksjoner'
 import Banner from '../../components/banner/Banner'
 import Bjorn from '../../components/bjorn/Bjorn'
@@ -43,11 +44,24 @@ const SnartSlutt = () => {
         setBodyClass('snartslutt')
     }, [])
 
+    const logSvar = (svar: 'JA' | 'NEI') => {
+        logEvent('Spørsmål svart',
+            {
+                sporsmal: tekst('snartslutt.veiledning'),
+                svar
+            })
+    }
+
     const handleJaBtnClicked = () => {
-        window.location.href = env.arbeidssokerregistreringUrl()
+        logSvar('JA')
+        // Må sikre at amplitude får logget ferdig
+        window.setTimeout(() => {
+            window.location.href = env.arbeidssokerregistreringUrl()
+        }, 200)
     }
 
     const handleNeiBtnClicked = () => {
+        logSvar('NEI')
         history.push('/')
     }
 

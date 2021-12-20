@@ -77,6 +77,7 @@ export const snartSlutt = () => {
             tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
         } ]
     } ]
+    person.arbeidsrettetOppfolging = { underOppfolging: false }
     person.snartSluttSykepenger = true
     return person
 }
