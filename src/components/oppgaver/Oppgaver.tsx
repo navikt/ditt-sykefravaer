@@ -1,5 +1,3 @@
-import './oppgaver.less'
-
 import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
@@ -14,7 +12,7 @@ import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import env from '../../utils/environment'
+import { sykepengesoknadUrl, sykmeldingUrl, oppfolgingsplanUrl, dialogmoteUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
@@ -58,12 +56,12 @@ const Oppgaver = () => {
     const { data: hendelser } = useHendelser()
 
 
-    const soknadOppgaver = skapSøknadOppgaver(soknader, env.sykepengesoknadUrl())
-    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, env.sykmeldingUrl())
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, env.oppfolgingsplanUrl())
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, env.dialogmoteUrl())
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, env.dialogmoteUrl())
-    const brevOppgaver = skapBrevOppgaver(brev, env.dialogmoteUrl())
+    const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
+    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
+    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, dialogmoteUrl())
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteUrl())
+    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
     const oppgaver = [
         ...sykmeldingOppgaver,
         ...soknadOppgaver,

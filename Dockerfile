@@ -2,10 +2,12 @@ FROM node:16-alpine
 
 ENV NODE_ENV production
 
-COPY server/dist/index.js .
+COPY /next.config.js ./
+COPY /.next ./.next
+COPY /public ./public
+COPY /node_modules ./node_modules
+COPY /package.json ./package.json
 
-COPY /build ./build
-
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
 
 EXPOSE 8080

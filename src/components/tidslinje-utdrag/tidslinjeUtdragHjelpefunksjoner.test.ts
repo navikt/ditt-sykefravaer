@@ -1,8 +1,9 @@
+import { expect } from '@jest/globals'
 import dayjs from 'dayjs'
 
 import { Sykeforloep } from '../../types/sykeforloep'
 import { Sykmelding } from '../../types/sykmelding'
-import { getSykefravaerVarighet, hentStartdatoFraSykeforloep, skalViseUtdrag } from './tidslinjeUtdragHjelefunksjoner'
+import { getSykefravaerVarighet, hentStartdatoFraSykeforloep, skalViseUtdrag } from './tidslinjeUtdragHjelpefunksjoner'
 
 describe('Tidslinjeutdrag hjelpefunksjoner', () => {
     const iDag = dayjs()

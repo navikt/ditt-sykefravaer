@@ -1,14 +1,14 @@
 import dayjs from 'dayjs'
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
-import env from '../../utils/environment'
+import { flexGatewayRoot, isOpplaering, narmestelederUrl,syfoApiRoot, sykmeldingerBackendProxyRoot } from '../../utils/environment'
 import { Persona } from './data/persona'
 import { defaultPersona } from './data/personas'
 import { personas } from './testperson'
 
 const mock = FetchMock.configure({
     enableFallback: true,
-    middleware: env.isOpplaering()
+    middleware: isOpplaering()
         ? MiddlewareUtils.combine(
             MiddlewareUtils.delayMiddleware(1000),
         )
@@ -17,39 +17,38 @@ const mock = FetchMock.configure({
         )
 })
 
-
 function setUpMock(persona: Persona) {
-    mock.get(`${env.flexGatewayRoot()}/syfosoknad/api/soknader`,
+    mock.get(`${flexGatewayRoot()}/syfosoknad/api/soknader`,
         (req, res, ctx) => res(ctx.json(persona.soknader)))
 
-    mock.get(`${env.syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`,
+    mock.get(`${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`,
         (req, res, ctx) => res(ctx.json(persona.snartSluttSykepenger)))
 
-    mock.get(`${env.flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,
+    mock.get(`${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,
         (req, res, ctx) => res(ctx.json(persona.arbeidsrettetOppfolging)))
 
-    mock.get(`${env.flexGatewayRoot()}/spinnsyn-backend/api/v2/vedtak`,
+    mock.get(`${flexGatewayRoot()}/spinnsyn-backend/api/v2/vedtak`,
         (req, res, ctx) => res(ctx.json(persona.vedtak)))
 
-    mock.get(`${env.syfoApiRoot()}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
+    mock.get(`${syfoApiRoot()}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
         (req, res, ctx) => res(ctx.json(persona.oppfolgingsplaner)))
 
-    mock.get(`${env.syfoApiRoot()}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
+    mock.get(`${syfoApiRoot()}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
         (req, res, ctx) => res(ctx.json(persona.dialogmote)))
 
-    mock.get(`${env.flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,
+    mock.get(`${flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,
         (req, res, ctx) => res(ctx.json(persona.brev)))
 
-    mock.get(`${env.syfoApiRoot()}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
+    mock.get(`${syfoApiRoot()}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
         (req, res, ctx) => res(ctx.json(persona.dialogmoteBehov)))
 
-    mock.get(`${env.sykmeldingerBackendProxyRoot()}/api/v1/sykmeldinger`,
+    mock.get(`${sykmeldingerBackendProxyRoot()}/api/v1/sykmeldinger`,
         (req, res, ctx) => res(ctx.json(persona.sykmeldinger)))
 
-    mock.get(`${env.narmestelederUrl()}/user/sykmeldt/narmesteledere`,
+    mock.get(`${narmestelederUrl()}/user/sykmeldt/narmesteledere`,
         (req, res, ctx) => res(ctx.json(persona.narmesteledere)))
 
-    mock.post(`${env.narmestelederUrl()}/:org/avkreft`, (req) => {
+    mock.post(`${narmestelederUrl()}/:org/avkreft`, (req) => {
         const idx = persona.narmesteledere.findIndex((nl) =>
             nl.orgnummer === req.queryParams.org
         )
@@ -62,13 +61,13 @@ function setUpMock(persona: Persona) {
         return Promise.resolve({ status: 200 })
     })
 
-    mock.get(`${env.flexGatewayRoot()}/syfosoknad/api/sykeforloep`,
+    mock.get(`${flexGatewayRoot()}/syfosoknad/api/sykeforloep`,
         (req, res, ctx) => res(ctx.json(persona.sykeforloep)))
 
-    mock.get(`${env.syfoApiRoot()}/syfoservicestrangler/api/hendelse/hendelser`,
+    mock.get(`${syfoApiRoot()}/syfoservicestrangler/api/hendelse/hendelser`,
         (req, res, ctx) => res(ctx.json(persona.hendelser)))
 
-    mock.post(`${env.syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`, () => {
+    mock.post(`${syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`, () => {
         persona.hendelser.push({ type: 'AKTIVITETSKRAV_BEKREFTET', inntruffetdato: dayjs().format('YYYY-MM-DD') })
         return Promise.resolve({ status: 200 })
     })

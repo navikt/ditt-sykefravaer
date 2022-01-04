@@ -6,8 +6,6 @@ import { Visning } from '../../components/tidslinje-utdrag/TidslinjeUtdrag'
 import VelgArbeidssituasjon from '../../components/velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../../components/Vis'
 import { tekst } from '../../utils/tekster'
-import medArbeidsgiver from './med_arbeidsgiver.svg'
-import utenArbeidsgiver from './uten_arbeidsgiver.svg'
 
 const Artikkel = () => {
     const [ visning, setVisning ] = useState<Visning>('MED_ARBEIDSGIVER')
@@ -26,12 +24,16 @@ const Artikkel = () => {
             <div className="artikkel__bilde">
                 <Vis hvis={visning === 'MED_ARBEIDSGIVER'}
                     render={() => (
-                        <img src={medArbeidsgiver} alt={tekst('aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER')} />
+                        <img src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
+                            alt={tekst('aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER')}
+                        />
                     )}
                 />
                 <Vis hvis={visning === 'UTEN_ARBEIDSGIVER'}
                     render={() => (
-                        <img src={utenArbeidsgiver} alt={tekst('aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER')} />
+                        <img src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
+                            alt={tekst('aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER')}
+                        />
                     )}
                 />
             </div>

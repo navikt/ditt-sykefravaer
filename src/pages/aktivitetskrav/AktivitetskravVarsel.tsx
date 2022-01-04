@@ -1,5 +1,3 @@
-import './aktivitetskrav.less'
-
 import dayjs from 'dayjs'
 import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'

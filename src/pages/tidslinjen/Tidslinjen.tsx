@@ -1,12 +1,10 @@
-import './tidslinjen.less'
-
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import Banner from '../../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../../components/brodsmuler/Brodsmuler'
 import { Visning } from '../../components/tidslinje-utdrag/TidslinjeUtdrag'
-import { getVisning } from '../../components/tidslinje-utdrag/tidslinjeUtdragHjelefunksjoner'
+import { getVisning } from '../../components/tidslinje-utdrag/tidslinjeUtdragHjelpefunksjoner'
 import { Tidslinje } from '../../components/tidslinjen/Tidslinje'
 import VelgArbeidssituasjon from '../../components/velgArbeidssituasjon/VelgArbeidssituasjon'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
