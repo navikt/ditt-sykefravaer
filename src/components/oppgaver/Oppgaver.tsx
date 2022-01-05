@@ -12,7 +12,7 @@ import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { sykepengesoknadUrl, sykmeldingUrl, oppfolgingsplanUrl, dialogmoteUrl } from '../../utils/environment'
+import { dialogmoteUrl,oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
@@ -23,7 +23,7 @@ import { skapSøknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 interface OppgaveProps {
-    oppgaver: Oppgave[];
+    oppgaver: Oppgave[]
 }
 
 const OppgaveLista = (oppgaveProps: OppgaveProps) => {
