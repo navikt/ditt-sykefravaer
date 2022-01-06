@@ -5,7 +5,6 @@ import { getOboAccessToken } from '../../auth/getOboAccessToken'
 import { ErrorMedStatus } from '../../server-utils/ErrorMedStatus'
 import { logger } from '../../utils/logger'
 
-
 const handler = async(req: NextApiRequest, res: NextApiResponse) => {
     if (req.method !== 'GET') {
         return res.status(404).json('Må være GET')
@@ -17,7 +16,6 @@ const handler = async(req: NextApiRequest, res: NextApiResponse) => {
         await getOboAccessToken(accessToken, 'https://graph.microsoft.com/.default'),
         await getAzureAdAccessToken('api://dev-fss.flex.flex-fss-proxy/.default'),
     ])
-
 
     const response = await fetch('https://flex-fss-proxy.dev-fss-pub.nais.io/modiacontextholder/api/context/aktivbruker', {
         method: 'GET',

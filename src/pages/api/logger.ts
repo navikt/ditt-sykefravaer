@@ -8,6 +8,8 @@ const handler = (req: NextApiRequest, res: NextApiResponse): void => {
 
     rest.messages.forEach((msg) => {
         const log = typeof msg === 'string' ? { msg } : msg
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any,@typescript-eslint/ban-ts-comment
+        // @ts-ignore
         logger[ level.label ]({ ...log, isFrontend: true, x_userAgent: req.headers[ 'user-agent' ] })
     })
 
