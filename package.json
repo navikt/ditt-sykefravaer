@@ -62,8 +62,8 @@
     "typescript": "~4.3.5"
   },
   "devDependencies": {
-    "@cypress/webpack-preprocessor": "^5.10.0",
     "@bahmutov/add-typescript-to-cypress": "^2.1.2",
+    "@cypress/webpack-preprocessor": "^5.10.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.0.0",
     "@types/amplitude-js": "^8.0.1",
