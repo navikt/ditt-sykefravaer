@@ -1,7 +1,18 @@
 import getConfig from 'next/config'
 
-const { publicRuntimeConfig } = getConfig()
+const { publicRuntimeConfig, serverRuntimeConfig } = getConfig()
 
+export const isDev = () => {
+    return publicRuntimeConfig.environment === 'dev'
+}
+
+export const isQ1 = () => {
+    return publicRuntimeConfig.environment === 'q1'
+}
+
+export function isProd() {
+    return publicRuntimeConfig.environment === 'prod'
+}
 
 export function flexGatewayRoot() {
     return publicRuntimeConfig.flexGatewayRoot
@@ -16,11 +27,15 @@ export function isOpplaering() {
 }
 
 export function loginServiceUrl() {
-    return publicRuntimeConfig.loginserviceUrl
+    return serverRuntimeConfig.loginserviceUrl
 }
 
 export function loginServiceRedirectUrl() {
-    return publicRuntimeConfig.loginServiceRedirectUrl
+    return serverRuntimeConfig.loginServiceRedirectUrl
+}
+
+export function sykefravaerUrl() {
+    return publicRuntimeConfig.sykefravaerUrl
 }
 
 export function dittNavUrl() {
