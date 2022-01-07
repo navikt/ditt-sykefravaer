@@ -1,80 +1,209 @@
-import getConfig from 'next/config'
-
-const { publicRuntimeConfig } = getConfig()
-
-
-export function flexGatewayRoot() {
-    return publicRuntimeConfig.flexGatewayRoot
+interface EnvironmentInterface {
+    isMockBackend(): boolean
+    isQ1(): boolean
+    isOpplaering(): boolean
+    isProd(): boolean
+    sykmeldingerBackendProxyRoot(): string
+    flexGatewayRoot(): string
+    syfoApiRoot(): string
+    loginServiceUrl(): string
+    loginServiceRedirectUrl(): string
+    sykepengesoknadUrl(): string
+    spinnsynUrl(): string
+    sykmeldingUrl(): string
+    aktivitetsplanUrl(): string
+    oppfolgingsplanUrl(): string
+    dialogmoteUrl(): string
+    dittNavUrl(): string
+    frontendloggerRoot(): string
+    narmestelederUrl(): string
+    arbeidssokerregistreringUrl(): string
+    amplitudeEnabled(): boolean
+    amplitudeKey(): string
 }
 
-export function isMockBackend() {
-    return publicRuntimeConfig.mockBackend === 'true'
+class Environment implements EnvironmentInterface {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    private env = (window as any)._env_;
+
+    isMockBackend() {
+        return this.env.MOCK_BACKEND === 'true'
+    }
+
+    isQ1() {
+        return this.env.ENVIRONMENT === 'q1'
+    }
+
+    isOpplaering() {
+        return this.env.OPPLAERING === 'true'
+    }
+
+    isProd() {
+        return this.env.ENVIRONMENT === 'prod'
+    }
+
+    sykmeldingerBackendProxyRoot() {
+        return this.env.SYKMELDINGER_BACKEND_PROXY_ROOT
+    }
+
+    flexGatewayRoot() {
+        return this.env.FLEX_GATEWAY_ROOT
+    }
+
+    syfoApiRoot() {
+        return this.env.SYFOAPI_ROOT
+    }
+
+    loginServiceUrl() {
+        return this.env.LOGINSERVICE_URL
+    }
+
+    loginServiceRedirectUrl() {
+        return this.env.LOGINSERVICE_REDIRECT_URL
+    }
+
+    sykepengesoknadUrl() {
+        return this.env.SYKEPENGESOKNAD_URL
+    }
+
+    spinnsynUrl() {
+        return this.env.SPINNSYN_URL
+    }
+
+    sykmeldingUrl() {
+        return this.env.SYKMELDING_URL
+    }
+
+    aktivitetsplanUrl() {
+        return this.env.AKTIVITETSPLAN_URL
+    }
+
+    oppfolgingsplanUrl() {
+        return this.env.OPPFOLGINGSPLAN_URL
+    }
+
+    dialogmoteUrl() {
+        return this.env.DIALOGMOTE_URL
+    }
+
+    dittNavUrl() {
+        return this.env.DITTNAV_URL
+    }
+
+    frontendloggerRoot() {
+        return this.env.FRONTENDLOGGER_ROOT
+    }
+
+    narmestelederUrl() {
+        return this.env.NARMESTELEDER_URL
+    }
+
+    arbeidssokerregistreringUrl() {
+        return this.env.ARBEIDSSOKERREGISTRERING_URL
+    }
+
+    amplitudeKey() {
+        return this.env.AMPLITUDE_KEY
+    }
+
+    amplitudeEnabled() {
+        return this.env.AMPLITUDE_ENABLED === 'true'
+    }
 }
 
-export function isOpplaering() {
-    return publicRuntimeConfig.opplaering === 'true'
+class MockEnvironment implements EnvironmentInterface {
+    isMockBackend() {
+        return true
+    }
+
+    isQ1() {
+        return false
+    }
+
+    isOpplaering() {
+        return process.env.REACT_APP_OPPLAERING === 'true'
+    }
+
+    isProd() {
+        return false
+    }
+
+    sykmeldingerBackendProxyRoot() {
+        return ''
+    }
+
+    flexGatewayRoot() {
+        return ''
+    }
+
+    syfoApiRoot() {
+        return ''
+    }
+
+    loginServiceUrl() {
+        return ''
+    }
+
+    loginServiceRedirectUrl() {
+        return ''
+    }
+
+    sykepengesoknadUrl() {
+        return ''
+    }
+
+    spinnsynUrl() {
+        return ''
+    }
+
+    sykmeldingUrl() {
+        return ''
+    }
+
+    aktivitetsplanUrl() {
+        return ''
+    }
+
+    oppfolgingsplanUrl() {
+        return ''
+    }
+
+    dialogmoteUrl() {
+        return ''
+    }
+
+    dittNavUrl() {
+        return ''
+    }
+
+    frontendloggerRoot() {
+        return ''
+    }
+
+    narmestelederUrl() {
+        return ''
+    }
+
+    arbeidssokerregistreringUrl() {
+        return 'https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true'
+    }
+
+    amplitudeKey() {
+        return ''
+    }
+
+    amplitudeEnabled() {
+        return false
+    }
 }
 
-export function loginServiceUrl() {
-    return publicRuntimeConfig.loginserviceUrl
+function hentEnvironment(): EnvironmentInterface {
+    if (process.env.NODE_ENV === 'development') {
+        return new MockEnvironment()
+    }
+    return new Environment()
 }
 
-export function loginServiceRedirectUrl() {
-    return publicRuntimeConfig.loginServiceRedirectUrl
-}
+const env = hentEnvironment()
 
-export function dittNavUrl() {
-    return publicRuntimeConfig.dittNavUrl
-}
-
-export function amplitudeKey() {
-    return publicRuntimeConfig.amplitudeKey
-}
-
-export function amplitudeEnabled() {
-    return publicRuntimeConfig.amplitudeEnabled === 'true'
-}
-
-export function spinnsynFrontendInterne() {
-    return publicRuntimeConfig.spinnsynFrontendInterne === 'true'
-}
-
-export function sykmeldingerBackendProxyRoot() {
-    return publicRuntimeConfig.sykmeldingerBackendProxyRoot
-}
-
-export function syfoApiRoot() {
-    return publicRuntimeConfig.syfoApiRoot
-}
-
-export function sykepengesoknadUrl() {
-    return publicRuntimeConfig.sykepengesoknadUrl
-}
-
-export function spinnsynUrl() {
-    return publicRuntimeConfig.spinnsynUrl
-}
-
-export function sykmeldingUrl() {
-    return publicRuntimeConfig.sykmeldingUrl
-}
-
-export function aktivitetsplanUrl() {
-    return publicRuntimeConfig.aktivitetsplanUrl
-}
-
-export function oppfolgingsplanUrl() {
-    return publicRuntimeConfig.oppfolgingsplanUrl
-}
-
-export function dialogmoteUrl() {
-    return publicRuntimeConfig.dialogmoteUrl
-}
-
-export function narmestelederUrl() {
-    return publicRuntimeConfig.narmestelederUrl
-}
-
-export function arbeidssokerregistreringUrl() {
-    return publicRuntimeConfig.arbeidssokerregistreringUrl
-}
+export default env

@@ -1,8 +1,11 @@
+import './oppgaver.less'
+
 import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
+import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../pages/aktivitetskrav/AktivitetskravVarsel'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
@@ -11,9 +14,8 @@ import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { dialogmoteUrl,oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
+import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravVarsel'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
@@ -23,7 +25,7 @@ import { skapSøknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 interface OppgaveProps {
-    oppgaver: Oppgave[]
+    oppgaver: Oppgave[];
 }
 
 const OppgaveLista = (oppgaveProps: OppgaveProps) => {
@@ -56,12 +58,12 @@ const Oppgaver = () => {
     const { data: hendelser } = useHendelser()
 
 
-    const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
-    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, dialogmoteUrl())
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteUrl())
-    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
+    const soknadOppgaver = skapSøknadOppgaver(soknader, env.sykepengesoknadUrl())
+    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, env.sykmeldingUrl())
+    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, env.oppfolgingsplanUrl())
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, env.dialogmoteUrl())
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, env.dialogmoteUrl())
+    const brevOppgaver = skapBrevOppgaver(brev, env.dialogmoteUrl())
     const oppgaver = [
         ...sykmeldingOppgaver,
         ...soknadOppgaver,

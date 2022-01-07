@@ -1,8 +1,9 @@
-import { loginServiceRedirectUrl, loginServiceUrl } from './environment'
+import env from './environment'
 import { logger } from './logger'
 
+
 export const hentLoginUrl = () => {
-    return `${loginServiceUrl()}?redirect=${loginServiceRedirectUrl()}`
+    return `${env.loginServiceUrl()}?redirect=${env.loginServiceRedirectUrl()}`
 }
 
 /**

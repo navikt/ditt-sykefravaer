@@ -12,9 +12,9 @@ spec:
     - "https://ditt-sykefravaer.labs.nais.io/"
     - "https://sykefravaer.labs.nais.io/"
   liveness:
-      path: syk/sykefravaer/api/isAlive
+    path: internal/isAlive
   readiness:
-      path: syk/sykefravaer/api/isReady
+    path: internal/isReady
   env:
     - name: MOCK_BACKEND
       value: "true"

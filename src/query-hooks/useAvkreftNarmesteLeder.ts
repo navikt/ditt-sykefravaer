@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import { narmestelederUrl } from '../utils/environment'
+import env from '../utils/environment'
 import Fetch from '../utils/fetch'
 
 export default function(org: string) {
@@ -8,7 +8,7 @@ export default function(org: string) {
 
     return useMutation<unknown, Error>(() =>
         Fetch.authenticatedPost(
-            `${narmestelederUrl()}/${org}/avkreft`
+            `${env.narmestelederUrl()}/${org}/avkreft`
         ), { onSuccess: () => queryClient.invalidateQueries('narmesteledere') }
     )
 }

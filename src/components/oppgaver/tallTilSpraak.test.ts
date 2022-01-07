@@ -1,5 +1,3 @@
-import { expect } from '@jest/globals'
-
 import { tallTilSpråk } from './tallTilSpraak'
 
 it('Språk er riktig', () => {

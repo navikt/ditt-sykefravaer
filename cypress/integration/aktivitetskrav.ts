@@ -50,5 +50,3 @@ describe('Tester aktivitetskrav', () => {
             .contains('Du har ingen varsel om aktivitetsplikt')
     })
 })
-
-export {}

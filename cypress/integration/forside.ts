@@ -1,4 +1,6 @@
+
 describe('Tester visning av forside', () => {
+
 
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer')
@@ -8,5 +10,3 @@ describe('Tester visning av forside', () => {
         cy.url().should('equal', 'http://localhost:8080/syk/sykefravaer')
     })
 })
-
-export {}

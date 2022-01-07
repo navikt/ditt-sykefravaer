@@ -1,3 +1,4 @@
+
 describe('Tester narmesteledere', () => {
 
     it('Har narmesteleder og kan avkrefte den', () => {
@@ -20,5 +21,3 @@ describe('Tester narmesteledere', () => {
             .should('not.contain', 'Din nærmeste leder')
     })
 })
-
-export {}

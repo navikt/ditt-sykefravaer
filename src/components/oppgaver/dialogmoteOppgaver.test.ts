@@ -1,5 +1,3 @@
-import { expect } from '@jest/globals'
-
 import { Brev, BrevType } from '../../types/brev'
 import { DialogMote, DialogmoteStatus } from '../../types/dialogmote'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
@@ -58,7 +56,7 @@ const brevObject = (brevType: BrevType, createdAt: string): Brev[] => {
             videoLink: 'https://teams.microsoft.com/l/osv.osv.osv',
             document: [],
             virksomhetsnummer: '1234',
-
+    
         }
     ]
 }

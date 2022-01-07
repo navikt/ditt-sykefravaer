@@ -2,12 +2,12 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { sykepengesoknadUrl } from '../../utils/environment'
+import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
 const SoknadLenkepanel = () => {
     return (
-        <LenkepanelBase href={sykepengesoknadUrl()} border={true}>
+        <LenkepanelBase href={env.sykepengesoknadUrl()} border={true}>
             <div className="lenkeikon soknader">
                 <svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path fillRule="evenodd" clipRule="evenodd"

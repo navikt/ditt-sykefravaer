@@ -1,3 +1,5 @@
+import './QueryStatusPanel.less'
+
 import Alertstripe from 'nav-frontend-alertstriper'
 import { Knapp } from 'nav-frontend-knapper'
 import NavFrontendSpinner from 'nav-frontend-spinner'

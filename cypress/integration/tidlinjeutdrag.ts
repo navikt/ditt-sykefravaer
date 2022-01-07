@@ -122,5 +122,3 @@ describe('Tester tidslinjeutdrag', () => {
             .contains('Har du og veilederen laget en plan?')
     })
 })
-
-export {}

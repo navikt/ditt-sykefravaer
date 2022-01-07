@@ -20,5 +20,3 @@ describe('Tester oppfølgingsplan oppgaver', () => {
         cy.get('.oppgaver > .alertstripe').contains('Du har to oppfølgingsplaner som venter på godkjenning av deg')
     })
 })
-
-export {}

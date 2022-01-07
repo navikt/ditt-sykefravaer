@@ -3,7 +3,6 @@
 # tools
 .idea
 *.iml
-.next
 
 # dependencies
 /node_modules
