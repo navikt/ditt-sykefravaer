@@ -65,5 +65,3 @@ describe('Tester tidslinjen', () => {
             .should('not.exist')
     })
 })
-
-export {}

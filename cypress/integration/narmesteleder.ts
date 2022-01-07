@@ -20,5 +20,3 @@ describe('Tester narmesteledere', () => {
             .should('not.contain', 'Din nærmeste leder')
     })
 })
-
-export {}

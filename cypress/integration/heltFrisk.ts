@@ -14,5 +14,3 @@ describe('Tester helt frisk person', () => {
         cy.get('.nav-veilederpanel__content > a').should('have.attr', 'href', 'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/papirsykmelding')
     })
 })
-
-export {}
