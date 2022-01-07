@@ -6,11 +6,11 @@ import React from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
 
-import AktivitetskravVarsel from './components/aktivitetskrav/AktivitetskravVarsel'
-import Forside from './components/forside/Forside'
-import { RedirectSykepengesoknadUtland, RedirectSykmeldinger } from './components/redirect/Redirect'
-import SnartSlutt from './components/snart-slutt/SnartSlutt'
-import Tidslinjen from './components/tidslinjen/Tidslinjen'
+import AktivitetskravVarsel from './pages/aktivitetskrav/AktivitetskravVarsel'
+import Forside from './pages/forside/Forside'
+import { RedirectSykepengesoknadUtland, RedirectSykmeldinger } from './pages/redirect/Redirect'
+import SnartSlutt from './pages/snart-slutt/SnartSlutt'
+import Tidslinjen from './pages/tidslinjen/Tidslinjen'
 import { isMockBackend } from './utils/environment'
 
 export interface RouteParams {

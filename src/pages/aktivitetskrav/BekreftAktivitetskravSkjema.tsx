@@ -2,9 +2,9 @@ import { Knapp } from 'nav-frontend-knapper'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React, { SyntheticEvent, useState } from 'react'
 
+import Vis from '../../components/Vis'
 import useBekreftAktivitetskrav from '../../query-hooks/useBekreftAktivitetskrav'
 import { tekst } from '../../utils/tekster'
-import Vis from '../Vis'
 
 const BekreftAktivitetskravSkjema = () => {
     const [ check, setCheck ] = useState<boolean>(false)
