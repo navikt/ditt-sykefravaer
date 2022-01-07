@@ -1,7 +1,13 @@
+import './arbeidssituasjon.less'
+
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
 import React from 'react'
 
+import ArbeidsgiverIkon from '../../grafikk/arbeidsgiver.svg'
+import ArbeidssituasjonIkon from '../../grafikk/arbeidssituasjon.svg'
+import SelvstendigFrilanserIkon from '../../grafikk/id-kort.svg'
+import AnnenArbeidssituasjonIkon from '../../grafikk/skilt.svg'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
@@ -39,12 +45,12 @@ const Arbeidssituasjon = () => {
     const arbeidssituasjonTilIkon = (arbeidssituasjon: ArbeidssituasjonType) => {
         switch (arbeidssituasjon) {
             case 'ARBEIDSTAKER':
-                return '/syk/sykefravaer/static/arbeidsgiver.svg'
+                return ArbeidsgiverIkon
             case 'NAERINGSDRIVENDE':
             case 'FRILANSER':
-                return '/syk/sykefravaer/static/id-kort.svg'
+                return SelvstendigFrilanserIkon
             default:
-                return '/syk/sykefravaer/static/skilt.svg'
+                return AnnenArbeidssituasjonIkon
         }
     }
 
@@ -53,7 +59,7 @@ const Arbeidssituasjon = () => {
             render={() =>
                 <section className="din-situasjon">
                     <header className="din-situasjon__header">
-                        <img src="/syk/sykefravaer/static/arbeidssituasjon.svg" alt="Arbeidssituasjon" />
+                        <img src={ArbeidssituasjonIkon} alt="Arbeidssituasjon" />
                         <Systemtittel tag="h2">{tekst('din-situasjon.tittel.2')}</Systemtittel>
                         <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
                     </header>

@@ -1,3 +1,5 @@
+import './snartslutt.less'
+
 import parser from 'html-react-parser'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
@@ -20,7 +22,7 @@ import { veilederDame } from '../../grafikk/VeilederDame'
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { arbeidssokerregistreringUrl } from '../../utils/environment'
+import env from '../../utils/environment'
 import setBodyClass from '../../utils/setBodyClass'
 import { tekst } from '../../utils/tekster'
 
@@ -54,7 +56,7 @@ const SnartSlutt = () => {
         logSvar('JA')
         // Må sikre at amplitude får logget ferdig
         window.setTimeout(() => {
-            window.location.href = arbeidssokerregistreringUrl()
+            window.location.href = env.arbeidssokerregistreringUrl()
         }, 200)
     }
 

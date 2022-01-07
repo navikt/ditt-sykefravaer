@@ -1,3 +1,5 @@
+import './forside.less'
+
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import Modal from 'nav-frontend-modal'
 import { Sidetittel } from 'nav-frontend-typografi'

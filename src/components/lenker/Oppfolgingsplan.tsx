@@ -2,12 +2,12 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { oppfolgingsplanUrl } from '../../utils/environment'
+import env from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
 export default () => {
     return (
-        <LenkepanelBase href={oppfolgingsplanUrl()} border={true}>
+        <LenkepanelBase href={env.oppfolgingsplanUrl()} border={true}>
             <div className="lenkeikon">
                 <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#000" fill="none" fillRule="evenodd" strokeLinejoin="round">

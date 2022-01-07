@@ -1,25 +1,28 @@
+import './brodsmuler.less'
+
 import { OppChevron } from 'nav-frontend-chevron'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import { dittNavUrl } from '../../utils/environment'
+import env from '../../utils/environment'
 import Vis from '../Vis'
 import Person from './Person'
 
 const LITEN = 768
 
 export interface Brodsmule {
-    sti: string
-    tittel: string
-    mobilTittel?: string
-    erKlikkbar?: boolean
+    sti: string;
+    tittel: string;
+    mobilTittel?: string;
+    erKlikkbar?: boolean;
 }
+
 
 const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
     return [
-        { tittel: 'Ditt NAV', sti: dittNavUrl(), erKlikkbar: true },
+        { tittel: 'Ditt NAV', sti: env.dittNavUrl(), erKlikkbar: true },
         { tittel: 'Ditt sykefravær', sti: '/', erKlikkbar: sykefravaerKlikkbar }
     ]
 }

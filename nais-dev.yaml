@@ -22,9 +22,9 @@ spec:
       cpu: 100m
       memory: 64Mi
   liveness:
-      path: syk/sykefravaer/api/isAlive
+    path: internal/isAlive
   readiness:
-      path: syk/sykefravaer/api/isReady
+    path: internal/isReady
   env:
     - name: MOCK_BACKEND
       value: "false"

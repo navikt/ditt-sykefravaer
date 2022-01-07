@@ -6,7 +6,7 @@ import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import { Hendelse } from '../../types/hendelse'
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
-import { hentStartdatoFraSykeforloep } from '../tidslinje-utdrag/tidslinjeUtdragHjelpefunksjoner'
+import { hentStartdatoFraSykeforloep } from '../tidslinje-utdrag/tidslinjeUtdragHjelefunksjoner'
 import { HendelseBoble, HendelseTittel } from './Hendelse'
 import { leggTilTidshendelser } from './tidslinjenUtils'
 

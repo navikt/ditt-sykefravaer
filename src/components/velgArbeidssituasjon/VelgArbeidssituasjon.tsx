@@ -1,3 +1,5 @@
+import './velgArbeidssituasjon.less'
+
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Radio } from 'nav-frontend-skjema'
 import React, { Dispatch, SetStateAction } from 'react'

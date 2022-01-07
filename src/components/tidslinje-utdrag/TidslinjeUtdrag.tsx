@@ -1,18 +1,20 @@
+import './tidlinje-utdrag.less'
+
 import parser from 'html-react-parser'
 import Lesmerpanel from 'nav-frontend-lesmerpanel'
 import { Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Aktivitetsplan from '../../../public/static/tidslinjeutdrag/aktivitetsplan.svg'
-import Aktivitestplikt from '../../../public/static/tidslinjeutdrag/aktivitetsplikt.svg'
-import DialogmoteMedArbeidsgiver from '../../../public/static/tidslinjeutdrag/dialogmote-med-arbeidsgiver.svg'
-import DialogmoteMedNav from '../../../public/static/tidslinjeutdrag/dialogmote-med-nav.svg'
-import Langtidssykmeldt from '../../../public/static/tidslinjeutdrag/langtidssykmeldt.svg'
-import Sluttfasen from '../../../public/static/tidslinjeutdrag/sluttfasen.svg'
-import SnakkMedArbeidsgiver from '../../../public/static/tidslinjeutdrag/snakk-med-arbeidsgiver.svg'
-import SykmeldtHvaNaa from '../../../public/static/tidslinjeutdrag/sykmeldt-hva-naa.svg'
-import VurdertAktivitet from '../../../public/static/tidslinjeutdrag/vurdert-aktivitet.svg'
+import Aktivitetsplan from '../../grafikk/tidslinjeutdrag/aktivitetsplan.svg'
+import Aktivitestplikt from '../../grafikk/tidslinjeutdrag/aktivitetsplikt.svg'
+import DialogmoteMedArbeidsgiver from '../../grafikk/tidslinjeutdrag/dialogmote-med-arbeidsgiver.svg'
+import DialogmoteMedNav from '../../grafikk/tidslinjeutdrag/dialogmote-med-nav.svg'
+import Langtidssykmeldt from '../../grafikk/tidslinjeutdrag/langtidssykmeldt.svg'
+import Sluttfasen from '../../grafikk/tidslinjeutdrag/sluttfasen.svg'
+import SnakkMedArbeidsgiver from '../../grafikk/tidslinjeutdrag/snakk-med-arbeidsgiver.svg'
+import SykmeldtHvaNaa from '../../grafikk/tidslinjeutdrag/sykmeldt-hva-naa.svg'
+import VurdertAktivitet from '../../grafikk/tidslinjeutdrag/vurdert-aktivitet.svg'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
@@ -23,7 +25,7 @@ import {
     getSykefravaerVarighet,
     getVisning,
     skalViseUtdrag
-} from './tidslinjeUtdragHjelpefunksjoner'
+} from './tidslinjeUtdragHjelefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 

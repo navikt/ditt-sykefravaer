@@ -35,12 +35,13 @@ jobs:
           path: VERSION.txt
       - name: Install npm dependencies
         run: npm ci
+      - name: Install server npm dependencies
+        run: npm ci
+        working-directory: server
       - name: Run lint
         run: npm run lint
       - name: Run tests
-        run: npm run test:ci
-      - name: Build application
-        run: npm run build
+        run: CI=true npm run test
       - name: Setup kernel for react native, increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - name: Run cypress
@@ -48,13 +49,28 @@ jobs:
         with:
           install: false
           record: false
-          start: npm run start-ingen-dekorator
-          wait-on: http://localhost:8080/syk/sykefravaer/api/isAlive
+          start: npm run start-mock
+          wait-on: http://localhost:8080
       - uses: actions/upload-artifact@v1
         if: ${{ always() }}
         with:
           name: cypress-screenshots
           path: cypress/screenshots
+      - name: Build application
+        run: npm run build
+      - name: Build server
+        run: npm run build
+        working-directory: server
+      - name: Upload sources with sourcemaps
+        if: github.ref == 'refs/heads/master'
+        uses: actions/upload-artifact@v1
+        with:
+          name: sources-with-sourcemaps
+          path: build/static
+      - name: Slett sourcemaps
+        run: |
+          rm ./build/static/js/*.map
+          rm ./build/static/css/*.map
       - name: Docker login
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
