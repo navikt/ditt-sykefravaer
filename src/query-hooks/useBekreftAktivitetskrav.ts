@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import env from '../utils/environment'
+import { syfoApiRoot } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
 export default function() {
@@ -8,7 +8,7 @@ export default function() {
 
     return useMutation<unknown, Error>(() =>
         Fetch.authenticatedPost(
-            `${env.syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`
+            `${syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`
         ), { onSuccess: () => queryClient.invalidateQueries('hendelser') }
     )
 }

@@ -1,6 +1,7 @@
+import { expect } from '@jest/globals'
+
 import { Soknad } from '../../types/soknad'
 import { skapSøknadOppgaver } from './soknadOppgaver'
-
 
 it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
     const oppgaver = skapSøknadOppgaver([], 'http://soknad')

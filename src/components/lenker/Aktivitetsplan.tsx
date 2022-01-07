@@ -2,12 +2,12 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import env from '../../utils/environment'
+import { aktivitetsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
 export default () => {
     return (
-        <LenkepanelBase href={env.aktivitetsplanUrl()} border={true}>
+        <LenkepanelBase href={aktivitetsplanUrl()} border={true}>
             <div className="lenkeikon">
                 <svg width="32" height="30" viewBox="0 0 32 30" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#3E3832" fill="none" fillRule="evenodd" strokeLinecap="round" strokeLinejoin="round">

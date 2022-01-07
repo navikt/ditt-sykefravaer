@@ -1,3 +1,5 @@
+import { expect } from '@jest/globals'
+
 import { Brev, BrevType } from '../../types/brev'
 import { skapBrevOppgaver } from './brevOppgaver'
 
