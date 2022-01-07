@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from 'react-query'
 
-import { flexGatewayRoot } from '../utils/environment'
+import { narmestelederUrl } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
 export default function(org: string) {
@@ -8,7 +8,7 @@ export default function(org: string) {
 
     return useMutation<unknown, Error>(() =>
         Fetch.authenticatedPost(
-            `${flexGatewayRoot()}/${org}/avkreft`
+            `${narmestelederUrl()}/${org}/avkreft`
         ), { onSuccess: () => queryClient.invalidateQueries('narmesteledere') }
     )
 }

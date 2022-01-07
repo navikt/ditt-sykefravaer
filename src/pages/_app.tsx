@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <>
             <Head>
-                <title>Svar på søknader</title>
+                <title>Ditt sykefravær</title>
                 <meta name="robots" content="noindex" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
