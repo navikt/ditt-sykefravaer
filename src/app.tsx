@@ -40,7 +40,6 @@ const App = () => {
         <BrowserRouter basename="/syk/sykefravaer">
             <QueryClientProvider client={queryClient}>
                 <main id="maincontent" className="maincontent" role="main" tabIndex={-1}>
-                    <h2>heei</h2>
                     <Switch>
                         <Route exact={true} path="/" component={Forside} />
                         <Route path="/aktivitetsplikt" component={AktivitetskravVarsel} />
