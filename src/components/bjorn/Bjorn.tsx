@@ -1,5 +1,3 @@
-import './bjorn.less'
-
 import cls from 'classnames'
 import parser from 'html-react-parser'
 import { Normaltekst } from 'nav-frontend-typografi'

@@ -1,3 +1,5 @@
+import { expect } from '@jest/globals'
+
 import { DialogmoteBehov } from '../../types/dialogmoteBehov'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 
