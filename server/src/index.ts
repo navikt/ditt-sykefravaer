@@ -42,7 +42,9 @@ server.get(`${basePath}/env-config-server.js`, (req, res) => {
     DITTNAV_URL: '${process.env.DITTNAV_URL}',
     FRONTENDLOGGER_ROOT: '${process.env.FRONTENDLOGGER_ROOT}',
     NARMESTELEDER_URL: '${process.env.NARMESTELEDER_URL}',
-    ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}'
+    ARBEIDSSOKERREGISTRERING_URL: '${process.env.ARBEIDSSOKERREGISTRERING_URL}',
+    AMPLITUDE_KEY: '${process.env.AMPLITUDE_KEY}',
+    AMPLITUDE_ENABLED: '${process.env.AMPLITUDE_ENABLED}'
 }`)
 })
 
