@@ -1,21 +1,20 @@
 import { AmplitudeClient } from 'amplitude-js'
 
-import env from '../../utils/environment'
+import { amplitudeEnabled, amplitudeKey } from '../../utils/environment'
 
 interface AmplitudeInstance {
     logEvent: (eventName: string, data?: Record<string, string>) => void
 }
 
-
 let amplitudeInstance: AmplitudeInstance | undefined
 
 const getLogEventFunction = (): AmplitudeInstance => {
-    if (window && env.amplitudeEnabled()) {
+    if (window && amplitudeEnabled()) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const amplitudeJs = require('amplitude-js')
         const amplitudeInstance: AmplitudeClient = amplitudeJs.getInstance()
         amplitudeInstance.init(
-            env.amplitudeKey(), undefined, {
+            amplitudeKey(), undefined, {
                 apiEndpoint: 'amplitude.nav.no/collect',
                 saveEvents: false,
                 includeUtm: true,

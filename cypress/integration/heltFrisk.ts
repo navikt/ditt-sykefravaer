@@ -1,6 +1,5 @@
 describe('Tester helt frisk person', () => {
 
-
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=helt-frisk')
     })
@@ -15,3 +14,5 @@ describe('Tester helt frisk person', () => {
         cy.get('.nav-veilederpanel__content > a').should('have.attr', 'href', 'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/papirsykmelding')
     })
 })
+
+export {}
