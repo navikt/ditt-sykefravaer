@@ -13,7 +13,7 @@ const getLogEventFunction = (): AmplitudeInstance => {
     if (window && env.amplitudeEnabled()) {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const amplitudeJs = require('amplitude-js')
-        const amplitudeInstance: AmplitudeClient = amplitudeJs.default.getInstance()
+        const amplitudeInstance: AmplitudeClient = amplitudeJs.getInstance()
         amplitudeInstance.init(
             env.amplitudeKey(), undefined, {
                 apiEndpoint: 'amplitude.nav.no/collect',
