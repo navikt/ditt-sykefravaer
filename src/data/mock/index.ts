@@ -61,7 +61,7 @@ function setUpMock(persona: Persona) {
         return Promise.resolve({ status: 200 })
     })
 
-    mock.get(`${flexGatewayRoot()}/syfosoknad/api/sykeforloep`,
+    mock.get(`${flexGatewayRoot()}/flex-syketilfelle/api/bruker/v1/sykeforloep`,
         (req, res, ctx) => res(ctx.json(persona.sykeforloep)))
 
     mock.get(`${syfoApiRoot()}/syfoservicestrangler/api/hendelse/hendelser`,
