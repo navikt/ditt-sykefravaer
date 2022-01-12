@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function() {
     return useQuery<Sykeforloep[], Error>('sykeforloep', () =>
         Fetch.authenticatedGet(
-            `${flexGatewayRoot()}/syfosoknad/api/sykeforloep`,
+            `${flexGatewayRoot()}/flex-syketilfelle/api/bruker/v1/sykeforloep`,
             async(data) => {
                 return data as Sykeforloep[]
             },
