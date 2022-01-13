@@ -50,7 +50,7 @@ const QueryStatusPanel = () => {
     }
     const trettiniUkersvarsel: QueryOgFeilmelding = {
         query: use39ukersvarsel(),
-        message: 'Kunne ikke hente lengde på sykeforløp'
+        message: 'Kunne ikke hente varsler om slutt på sykepenger'
     }
     const arbeidsrettetOppfolging: QueryOgFeilmelding = {
         query: useArbeidsrettetOppfolging(),
