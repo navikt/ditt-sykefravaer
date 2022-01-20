@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
+import { sykepengesoknadUrl, sykmeldingUrl } from '../utils/environment'
 
 interface RedirectProps {
     addresse: string
 }
 
-const Redirect = (props: RedirectProps) => {
+const SykepengesoknadUtland = (props: RedirectProps) => {
 
     useEffect(() => {
         window.location.href = props.addresse
@@ -23,9 +23,9 @@ const Redirect = (props: RedirectProps) => {
 }
 
 export const RedirectSykepengesoknadUtland = () => {
-    return (<Redirect addresse={`${sykepengesoknadUrl()}/sykepengesoknad-utland`} />)
+    return (<SykepengesoknadUtland addresse={`${sykepengesoknadUrl()}/sykepengesoknad-utland`} />)
 }
 
 export const RedirectSykmeldinger = () => {
-    return (<Redirect addresse={`${sykmeldingUrl()}`} />)
+    return (<SykepengesoknadUtland addresse={`${sykmeldingUrl()}`} />)
 }

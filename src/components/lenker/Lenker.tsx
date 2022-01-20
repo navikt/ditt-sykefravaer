@@ -1,5 +1,5 @@
 import { Systemtittel } from 'nav-frontend-typografi'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
@@ -18,6 +18,8 @@ import Tidslinjen from './Tidslinjen'
 import UtbetalingAvSykepengerLenkepanel from './Utbetaling'
 
 const Lenker = () => {
+    const [ lenker, setLenker ] = useState<boolean>()
+
     const { data: arbeidsrettetOppfolging } = useArbeidsrettetOppfolging()
     const { data: vedtak } = useVedtak()
     const { data: sykmeldinger } = useSykmeldinger()
@@ -25,19 +27,23 @@ const Lenker = () => {
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmote } = useDialogmoter()
 
-    const anyLenker = () => [
-        arbeidsrettetOppfolging,
-        vedtak,
-        sykmeldinger,
-        soknader,
-        oppfolgingsplaner,
-        dialogmote,
-    ].find((data) =>
-        data
-    ) !== undefined
+    useEffect(() => {
+        const anyLenker = () => [
+            arbeidsrettetOppfolging,
+            vedtak,
+            sykmeldinger,
+            soknader,
+            oppfolgingsplaner,
+            dialogmote,
+        ].find((data) =>
+            data
+        ) !== undefined
+        setLenker(anyLenker())
+
+    }, [ arbeidsrettetOppfolging, dialogmote, oppfolgingsplaner, soknader, sykmeldinger, vedtak ])
 
     return (
-        <Vis hvis={anyLenker()}
+        <Vis hvis={lenker}
             render={() =>
                 <section className="lenker">
                     <Systemtittel tag="h2" className={'hide-element'}>Lenker</Systemtittel>

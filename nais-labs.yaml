@@ -20,6 +20,10 @@ spec:
       value: "true"
     - name: ENVIRONMENT
       value: "labs"
+    - name: FLEX_GATEWAY_ROOT
+      value: "https://flex-gateway.labs.nais.io"
+    - name: SYFOAPI_ROOT
+      value: "https://syfoapi.labs.nais.io"
     - name: OPPLAERING
       value: "true"
     - name: LOGINSERVICE_URL

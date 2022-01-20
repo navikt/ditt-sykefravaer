@@ -1,8 +1,10 @@
 import parser from 'html-react-parser'
 import Lesmerpanel from 'nav-frontend-lesmerpanel'
 import { Undertittel } from 'nav-frontend-typografi'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -10,11 +12,7 @@ import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import {
-    getSykefravaerVarighet,
-    getVisning,
-    skalViseUtdrag
-} from './tidslinjeUtdragHjelpefunksjoner'
+import { getSykefravaerVarighet, getVisning, skalViseUtdrag } from './tidslinjeUtdragHjelpefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -100,10 +98,13 @@ const getNokkelBase = (visning: Visning, antallDager: number) => {
 const TidslinjeUtdrag = () => {
     const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
     const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
+
     const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
     const [ antallDager, setAntallDager ] = useState<number>(0)
     const [ visning, setVisning ] = useState<Visning>('VALGFRI')
+
     const nokkelbase = getNokkelBase(visning, antallDager)
+    const router = useRouter()
 
     useEffect(() => {
         if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
@@ -133,7 +134,7 @@ const TidslinjeUtdrag = () => {
                                 />
 
                                 <div className="tidslinjeutdrag">
-                                    <img className="tidslinjeutdrag__bilde" alt=""
+                                    <Image className="tidslinjeutdrag__bilde" alt="" width={24} height={24}
                                         src={bildeNokkelTilBilde(nokkelbase?.bilde)}
                                     />
                                     <div className="tidslinjeutdrag__intro">
@@ -163,8 +164,14 @@ const TidslinjeUtdrag = () => {
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
-                        <Link className="lenke lenke--tilTidslinje" to="tidslinjen">
-                            {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                        <Link href="tidslinjen">
+                            <a className="lenke lenke--tilTidslinje" onClick={e => {
+                                e.preventDefault()
+                                router.push('tidslinjen')
+                            }
+                            }>
+                                {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                            </a>
                         </Link>
                     </Lesmerpanel>
 

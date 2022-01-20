@@ -1,19 +1,19 @@
 import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Undertittel } from 'nav-frontend-typografi'
+import { useRouter } from 'next/router'
 import React from 'react'
-import { useHistory } from 'react-router'
 
 import { tekst } from '../../utils/tekster'
 
 export default () => {
-    const history = useHistory()
+    const router = useRouter()
 
     return (
         <LenkepanelBase border={true}
             href={'tidslinjen'}
             onClick={(e) => {
                 e.preventDefault()
-                history.push('tidslinjen')
+                router.push('tidslinjen')
             }}
         >
             <div className="lenkeikon">

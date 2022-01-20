@@ -1,8 +1,9 @@
 import Alertstripe from 'nav-frontend-alertstriper'
 import Lenke from 'nav-frontend-lenker'
 import { Systemtittel } from 'nav-frontend-typografi'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
+import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../../pages/aktivitetsplikt'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
@@ -12,6 +13,7 @@ import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
+import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravVarsel'
 import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
@@ -27,15 +29,15 @@ interface OppgaveProps {
     oppgaver: Oppgave[]
 }
 
-const OppgaveLista = (oppgaveProps: OppgaveProps) => {
-    if (oppgaveProps.oppgaver.length === 0) {
+const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
+    if (oppgaver && oppgaver.length === 0) {
         return null
     }
 
     return (
         <section className="oppgaver">
             <Systemtittel tag="h2" className={'hide-element'}>Oppgaver</Systemtittel>
-            {oppgaveProps.oppgaver.map((v, idx) => {
+            {oppgaver.map((v, idx) => {
                 return (
                     <Alertstripe type={v.oppgavetype} key={idx}>
                         <Lenke href={v.lenke}>{v.tekst}</Lenke>
@@ -46,7 +48,9 @@ const OppgaveLista = (oppgaveProps: OppgaveProps) => {
     )
 }
 
-const Oppgaver = () => {
+function Oppgaver() {
+    const [ oppgaver, setOppgaver ] = useState<Oppgave[]>([])
+
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: snartSluttPaSykepengene } = use39ukersvarsel()
@@ -55,44 +59,49 @@ const Oppgaver = () => {
     const { data: dialogmoteSvar } = useDialogmoter()
     const { data: brev } = useBrev()
     const { data: hendelser } = useHendelser()
-
     const { svarMotebehovUrl, dialogmoteLandingUrl } = useDialogmotePaths()
 
+    useEffect(() => {
+        const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
+        const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
+        const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
+        const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, svarMotebehovUrl)
+        const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteLandingUrl)
+        const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
 
-    const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
-    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, svarMotebehovUrl)
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteLandingUrl)
-    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
-    const oppgaver = [
-        ...sykmeldingOppgaver,
-        ...soknadOppgaver,
-        ...oppfolgingsplanoppgaver,
-        ...dialogmoteBehovOppgaver,
-        ...dialogmoteSvarOppgaver,
-        ...brevOppgaver
-    ]
+        const tasks = [
+            ...sykmeldingOppgaver,
+            ...soknadOppgaver,
+            ...oppfolgingsplanoppgaver,
+            ...dialogmoteBehovOppgaver,
+            ...dialogmoteSvarOppgaver,
+            ...brevOppgaver
+        ]
 
-    if (snartSluttPaSykepengene) {
-        oppgaver.push({
-            tekst: tekst('oppgaver.snartslutt'),
-            lenke: tekst('oppgaver.snartslutt.url'),
-            oppgavetype: 'advarsel'
-        })
-    }
+        if (snartSluttPaSykepengene) {
+            tasks.push({
+                tekst: tekst('oppgaver.snartslutt'),
+                lenke: tekst('oppgaver.snartslutt.url'),
+                oppgavetype: 'advarsel'
+            })
+        }
 
-    if (hendelser && getAktivitetskravvisning(hendelser) === NYTT_AKTIVITETSKRAVVARSEL) {
-        oppgaver.push({
-            tekst: tekst('oppgaver.aktivitetskrav'),
-            lenke: '/syk/sykefravaer/aktivitetsplikt',
-            oppgavetype: 'advarsel'
-        })
-    }
+        if (hendelser && getAktivitetskravvisning(hendelser) === NYTT_AKTIVITETSKRAVVARSEL) {
+            tasks.push({
+                tekst: tekst('oppgaver.aktivitetskrav'),
+                lenke: '/syk/sykefravaer/aktivitetsplikt',
+                oppgavetype: 'advarsel'
+            })
+        }
 
-    return (
-        <OppgaveLista oppgaver={oppgaver} />
-    )
+        setOppgaver(tasks)
+
+    }, [
+        brev, dialogmoteBehov, dialogmoteSvar, hendelser, oppfolgingsplaner,
+        snartSluttPaSykepengene, soknader, sykmeldinger
+    ])
+
+    return <OppgaveLista oppgaver={oppgaver!} />
 }
 
 export default Oppgaver

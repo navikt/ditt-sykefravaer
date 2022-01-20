@@ -44,7 +44,9 @@ class Fetch {
         }
         // Sesjonen er utløpt
         if (res.status === 401) {
-            window.location.href = this.loginServiceUrl
+            if (process.browser) {
+                window.location.href = this.loginServiceUrl
+            }
             throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
         }
 
@@ -85,7 +87,9 @@ class Fetch {
             return textResponse
         }
         if (res.status === 401) {
-            window.location.href = this.loginServiceUrl
+            if (process.browser) {
+                window.location.href = this.loginServiceUrl
+            }
             throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
         }
         logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)

@@ -1,5 +1,6 @@
 import Hjelpetekst from 'nav-frontend-hjelpetekst'
 import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import Image from 'next/image'
 import React from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -57,7 +58,9 @@ const Arbeidssituasjon = () => {
             render={() =>
                 <section className="din-situasjon">
                     <header className="din-situasjon__header">
-                        <img src="/syk/sykefravaer/static/arbeidssituasjon.svg" alt="Arbeidssituasjon" />
+                        <Image src="/syk/sykefravaer/static/arbeidssituasjon.svg"
+                            width={40} height={40} alt="Arbeidssituasjon"
+                        />
                         <Systemtittel tag="h2">{tekst('din-situasjon.tittel.2')}</Systemtittel>
                         <Hjelpetekst>{tekst('din-situasjon.hjelpetekst.tekst')}</Hjelpetekst>
                     </header>
@@ -66,8 +69,8 @@ const Arbeidssituasjon = () => {
                             return (
                                 <div className="situasjon__panel" key={idx}>
                                     <div className="situasjon__ikon">
-                                        <img src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
-                                            alt={tekst('din-situasjon.ARBEIDSTAKER')}
+                                        <Image src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
+                                            width={24} height={24} alt={tekst('din-situasjon.ARBEIDSTAKER')}
                                         />
                                     </div>
                                     <Arbeidsgiver orgnummer={orgnummer} />

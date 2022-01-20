@@ -22,6 +22,7 @@ import type { AppProps as NextAppProps } from 'next/app'
 import Head from 'next/head'
 import React, { PropsWithChildren, useState } from 'react'
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import { isMockBackend } from '../utils/environment'
 
 interface AppProps extends Omit<NextAppProps, 'pageProps'> {
     pageProps: PropsWithChildren<unknown> & {
@@ -33,6 +34,10 @@ dayjs.locale({
     ...nb,
     weekStart: 1,
 })
+
+if (process.browser && isMockBackend()) {
+    require('../data/mock')
+}
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
 
