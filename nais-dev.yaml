@@ -68,3 +68,5 @@ spec:
       value: "7a887ba3e5a07c755526c6591810101a"
     - name: AMPLITUDE_ENABLED
       value: "true"
+    - name: ASSET_PREFIX
+      value: "https://flex-static-files.dev.nav.no/sykefravaer"
