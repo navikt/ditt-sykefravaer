@@ -27,6 +27,10 @@ const Arbeidssituasjon = () => {
     const finnAktuelleArbeidssituasjoner = (arbeidsgivere: string[]): string[] => {
         const arbeidssituasjoner = new Set(
             selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
+                .filter((s) =>
+                    s.behandlingsutfall.status === 'OK' ||
+                    s.behandlingsutfall.status === 'MANUAL_PROCESSING'
+                )
                 .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
                 .map((syk) => hentArbeidssituasjon(syk) || '')
                 .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
