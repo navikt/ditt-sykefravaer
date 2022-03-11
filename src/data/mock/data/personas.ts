@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
 import { brev } from './brev'
-import { dialogmoteSkjema, enTomDialogmote } from './dialogmoter'
+import { enTomDialogmote } from './dialogmoter'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
@@ -70,12 +70,8 @@ export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [ vedtakMed100Grad ],
     oppfolgingsplaner: [ nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid ],
-    dialogmote: dialogmoteSkjema,
-    dialogmoteBehov: {
-        visMotebehov: true,
-        skjemaType: 'SVAR_BEHOV',
-        motebehov: null
-    },
+    dialogmote: enTomDialogmote,
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [
         sendtSykmelding,
         {
