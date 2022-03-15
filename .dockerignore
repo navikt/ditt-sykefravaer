@@ -1,0 +1,9 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# Don't copy node_modules
+node_modules
+# Ignore common folders that we do not need
+.next
+.idea
+.github
+.vscode
