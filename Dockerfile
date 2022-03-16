@@ -1,31 +1,12 @@
-FROM node:16-alpine AS build-env
-
-ENV NEXT_TELEMETRY_DISABLED 1
-
-COPY . /app
-WORKDIR /app
-
-COPY /package.json ./
-
-RUN apk update && apk add bash
-
-RUN npm install
-
-COPY . .
-
-RUN npm run build
-
-FROM gcr.io/distroless/nodejs:16 AS runner
-
-WORKDIR /app
+FROM gcr.io/distroless/nodejs@sha256:6b2a243b543dbdb919977ceb43c7f7bf090ce66f02d1f12780fe52037f1bdc15
 
 ENV NODE_ENV production
-ENV PORT 8080
-ENV NEXT_TELEMETRY_DISABLED 1
 
-COPY --from=build-env /app/next.config.js ./
-COPY --from=build-env /app/public ./public
-COPY --from=build-env /app/.next ./.next
-COPY --from=build-env /app/node_modules ./node_modules
+COPY /next.config.js ./
+COPY /.next ./.next
+COPY /public ./public
+COPY /node_modules ./node_modules
+
+ENV PORT=8080
 
 CMD ["./node_modules/next/dist/bin/next", "start"]
