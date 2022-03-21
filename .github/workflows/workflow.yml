@@ -80,10 +80,12 @@ jobs:
             parent: false
             destination: flex-static-files-prod/sykefravaer/_next/static
       - name: Docker login
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev-')  || startsWith(github.ref, 'refs/heads/labs-')
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
       - name: Bygg og push Docker image
+        if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev-')  || startsWith(github.ref, 'refs/heads/labs-')
         run: |
             docker build . -f Dockerfile -t ${IMAGE}
             docker push ${IMAGE}
