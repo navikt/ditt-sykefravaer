@@ -2,12 +2,14 @@ import { LenkepanelBase } from 'nav-frontend-lenkepanel'
 import { Undertittel } from 'nav-frontend-typografi'
 import React from 'react'
 
-import { dialogmoteUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+import { useDialogmoteUrl } from '../NavigationHooks/useDialogmoteUrl'
 
 export function DialogmoteLenke() {
+    const dialogmoteUrl = useDialogmoteUrl()
+
     return (
-        <LenkepanelBase href={dialogmoteUrl()} border={true}>
+        <LenkepanelBase href={dialogmoteUrl} border={true}>
             <div className="lenkeikon">
                 <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="#3E3832" fill="none" fillRule="evenodd">

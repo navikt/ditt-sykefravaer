@@ -71,6 +71,10 @@ export function dialogmoteUrl() {
     return publicRuntimeConfig.dialogmoteUrl
 }
 
+export function newDialogmoteUrl() {
+    return publicRuntimeConfig.newDialogmoteUrl
+}
+
 export function narmestelederUrl() {
     return publicRuntimeConfig.narmestelederUrl
 }

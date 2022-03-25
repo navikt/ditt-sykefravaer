@@ -35,6 +35,7 @@ module.exports = withLess({
         aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
         oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
         dialogmoteUrl: process.env.DIALOGMOTE_URL,
+        newDialogmoteUrl: process.env.NEW_DIALOGMOTE_URL,
         narmestelederUrl: process.env.NARMESTELEDER_URL,
         arbeidssokerregistreringUrl: process.env.ARBEIDSSOKERREGISTRERING_URL
     },
