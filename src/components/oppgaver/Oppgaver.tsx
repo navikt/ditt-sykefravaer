@@ -14,7 +14,7 @@ import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravVarsel'
-import { useDialogmoteUrl } from '../NavigationHooks/useDialogmoteUrl'
+import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
@@ -56,15 +56,15 @@ const Oppgaver = () => {
     const { data: brev } = useBrev()
     const { data: hendelser } = useHendelser()
 
-    const dialogmoteUrl = useDialogmoteUrl()
+    const { svarMotebehovUrl, dialogmoteLandingUrl } = useDialogmotePaths()
 
 
     const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, dialogmoteUrl)
-    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteUrl)
-    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl)
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, svarMotebehovUrl)
+    const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(dialogmoteSvar, brev, dialogmoteLandingUrl)
+    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
     const oppgaver = [
         ...sykmeldingOppgaver,
         ...soknadOppgaver,

@@ -12,7 +12,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.innkalling'),
                 oppgavetype: 'advarsel',
-                lenke: `${lenke}/moteinnkallelse`
+                lenke: lenke
             })
             return oppgaver
         }
@@ -20,7 +20,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.endring'),
                 oppgavetype: 'advarsel',
-                lenke: `${lenke}/moteinnkallelse`
+                lenke: lenke
             })
             return oppgaver
         }
@@ -28,7 +28,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.referat'),
                 oppgavetype: 'info',
-                lenke: `${lenke}/referat`
+                lenke: lenke
             })
             return oppgaver
         }
@@ -36,7 +36,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.avlysning'),
                 oppgavetype: 'info',
-                lenke: `${lenke}/moteinnkallelse`
+                lenke: lenke
             })
             return oppgaver
         }
