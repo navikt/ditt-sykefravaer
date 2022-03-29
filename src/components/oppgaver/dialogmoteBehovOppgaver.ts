@@ -9,13 +9,13 @@ export const motebehovErUbesvart = (dialogmoteBehov: DialogmoteBehov) => {
     return false
 }
 
-export const skapDialogmoteBehovOppgaver = (dialogmoteBehov: DialogmoteBehov | undefined, dialogmoteRoot: string) => {
+export const skapDialogmoteBehovOppgaver = (dialogmoteBehov: DialogmoteBehov | undefined, motebehovUrl: string) => {
     if (!dialogmoteBehov || !motebehovErUbesvart(dialogmoteBehov)) return []
     const oppgaver: Oppgave[] = []
     oppgaver.push({
         tekst: tekst('oppgaver.dialogmote.nyttMotebehovVarsel'),
         oppgavetype: 'info',
-        lenke: `${dialogmoteRoot}/behov`
+        lenke: motebehovUrl
     })
 
     return oppgaver

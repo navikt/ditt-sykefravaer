@@ -27,7 +27,7 @@ it('Returnerer dialogmoteBehov oppgave når skjematype er SVAR_BEHOV', () => {
         skjemaType: 'SVAR_BEHOV',
         motebehov: null
     }
-    const oppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, 'http://tjenester.nav.no/dialogmote')
+    const oppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, 'http://tjenester.nav.no/dialogmote/behov')
     expect(oppgaver).toEqual([ {
         lenke: 'http://tjenester.nav.no/dialogmote/behov',
         tekst: 'Du har en ny forespørsel om behov for dialogmøte',

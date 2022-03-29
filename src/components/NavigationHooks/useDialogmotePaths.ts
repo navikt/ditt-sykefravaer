@@ -8,12 +8,23 @@ const hasUpcomingMoteplanleggerAlternativ = (moteplanlegger: DialogMote): boolea
     return moteplanlegger.alternativer?.filter(alternativ => new Date(alternativ.tid) > today).length > 0
 }
 
-export const useDialogmoteUrl = () => {
+interface DialogmotePaths {
+    dialogmoteLandingUrl: string,
+    svarMotebehovUrl: string
+}
+
+export const useDialogmotePaths = (): DialogmotePaths => {
     const moteplanleggerQuery = useDialogmoter()
 
     if (moteplanleggerQuery.data && hasUpcomingMoteplanleggerAlternativ(moteplanleggerQuery.data)) {
-        return dialogmoteUrl()
+        return {
+            dialogmoteLandingUrl: `${dialogmoteUrl()}`,
+            svarMotebehovUrl: `${dialogmoteUrl()}/behov`
+        }
     }
 
-    return newDialogmoteUrl()
+    return {
+        dialogmoteLandingUrl: `${newDialogmoteUrl()}`,
+        svarMotebehovUrl: `${newDialogmoteUrl()}/motebehov/svar`
+    }
 }

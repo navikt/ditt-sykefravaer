@@ -30,7 +30,7 @@ it('Returnerer ingen brev oppgaver når det ikke er brev', () => {
 it('Returnerer endring brev advarsel oppgave når status er \'NYTT_TID_STED\' og lestDato ikke er satt', () => {
     const oppgaver = skapBrevOppgaver(brevObject(BrevType.ENDRING, '2021-11-08T12:35:37.669+01:00', null),'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([ {
-        lenke: 'https://www.nav.no/syk/dialogmote/moteinnkallelse',
+        lenke: 'https://www.nav.no/syk/dialogmote',
         tekst: 'Du har mottatt et brev om endret dialogmøte',
         oppgavetype: 'advarsel',
     } ])
@@ -39,7 +39,7 @@ it('Returnerer endring brev advarsel oppgave når status er \'NYTT_TID_STED\' og
 it('Returnerer referat brev info oppgave når status er \'REFERAT\' og lestDato ikke er satt', () => {
     const oppgaver = skapBrevOppgaver(brevObject(BrevType.REFERAT, '2021-11-08T12:35:37.669+01:00', null),'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([ {
-        lenke: 'https://www.nav.no/syk/dialogmote/referat',
+        lenke: 'https://www.nav.no/syk/dialogmote',
         tekst: 'Du har mottatt et referat fra dialogmøte',
         oppgavetype: 'info',
     } ])
