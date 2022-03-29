@@ -54,6 +54,8 @@ spec:
       value: "https://www-gcp.dev.nav.no/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
       value: "https://www-gcp.dev.nav.no/syk/dialogmote"
+    - name: NEW_DIALOGMOTE_URL
+      value: "https://www-gcp.dev.nav.no/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.dev.nav.no/person/dittnav/"
     - name: FRONTENDLOGGER_ROOT
