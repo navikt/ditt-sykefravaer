@@ -45,6 +45,15 @@ it('Returnerer referat brev info oppgave når status er \'REFERAT\' og lestDato 
     } ])
 })
 
+it('Returnerer referat brev info oppgave når status er \'REFERAT_ENDRET\' og lestDato ikke er satt', () => {
+    const oppgaver = skapBrevOppgaver(brevObject(BrevType.REFERAT_ENDRET, '2021-11-08T12:35:37.669+01:00', null),'https://www.nav.no/syk/dialogmote')
+    expect(oppgaver).toEqual([ {
+        lenke: 'https://www.nav.no/syk/dialogmote',
+        tekst: 'Du har mottatt et referat fra dialogmøte',
+        oppgavetype: 'info',
+    } ])
+})
+
 it('Returnerer ingen brev oppgaver når status er \'NYTT_TID_STED\' og lestDato er satt', () => {
     const oppgaver = skapBrevOppgaver(brevObject(BrevType.ENDRING, '2021-11-08T12:35:37.669+01:00', '2021-11-01T12:35:37.669+01:00'),'https://www.nav.no/syk/dialogmote')
     expect(oppgaver).toEqual([])

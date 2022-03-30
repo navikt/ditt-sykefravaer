@@ -24,7 +24,8 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             })
             return oppgaver
         }
-        case BrevType.REFERAT: {
+        case BrevType.REFERAT:
+        case BrevType.REFERAT_ENDRET: {
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.referat'),
                 oppgavetype: 'info',
