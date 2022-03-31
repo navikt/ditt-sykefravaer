@@ -4,15 +4,6 @@ import { Undertittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-import Aktivitetsplan from '../../../public/static/tidslinjeutdrag/aktivitetsplan.svg'
-import Aktivitestplikt from '../../../public/static/tidslinjeutdrag/aktivitetsplikt.svg'
-import DialogmoteMedArbeidsgiver from '../../../public/static/tidslinjeutdrag/dialogmote-med-arbeidsgiver.svg'
-import DialogmoteMedNav from '../../../public/static/tidslinjeutdrag/dialogmote-med-nav.svg'
-import Langtidssykmeldt from '../../../public/static/tidslinjeutdrag/langtidssykmeldt.svg'
-import Sluttfasen from '../../../public/static/tidslinjeutdrag/sluttfasen.svg'
-import SnakkMedArbeidsgiver from '../../../public/static/tidslinjeutdrag/snakk-med-arbeidsgiver.svg'
-import SykmeldtHvaNaa from '../../../public/static/tidslinjeutdrag/sykmeldt-hva-naa.svg'
-import VurdertAktivitet from '../../../public/static/tidslinjeutdrag/vurdert-aktivitet.svg'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
@@ -124,26 +115,7 @@ const TidslinjeUtdrag = () => {
     }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
-        switch (bildeNokkel) {
-            case 'sykmeldt-hva-naa.svg':
-                return SykmeldtHvaNaa
-            case 'snakk-med-arbeidsgiver.svg':
-                return SnakkMedArbeidsgiver
-            case 'dialogmote-med-arbeidsgiver.svg':
-                return DialogmoteMedArbeidsgiver
-            case 'aktivitetsplikt.svg':
-                return Aktivitestplikt
-            case 'dialogmote-med-nav.svg':
-                return DialogmoteMedNav
-            case 'langtidssykmeldt.svg':
-                return Langtidssykmeldt
-            case 'sluttfasen.svg':
-                return Sluttfasen
-            case 'vurdert-aktivitet.svg':
-                return VurdertAktivitet
-            case 'aktivitetsplan.svg':
-                return Aktivitetsplan
-        }
+        return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
     }
 
     return (
