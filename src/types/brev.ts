@@ -24,4 +24,5 @@ export enum BrevType {
     AVLYST= 'AVLYST',
     ENDRING='NYTT_TID_STED',
     REFERAT= 'REFERAT',
+    REFERAT_ENDRET= 'REFERAT_ENDRET',
 }
