@@ -24,7 +24,7 @@ export const hendelseIkon = (hendelse: Hendelse) => {
         case 'tidslinje.sykmeldt-hva-naa.UTEN_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa__modia.MED_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa__modia.UTEN_ARBEIDSGIVER':
-            return '/syk/sykefravaer//static/tidslinjen/sykmeldt-hva-naa.svg'
+            return '/syk/sykefravaer/static/tidslinjen/sykmeldt-hva-naa.svg'
         case 'tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER':
             return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen4uker.svg'
         case 'tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER':
