@@ -1,21 +1,5 @@
 import dayjs from 'dayjs'
 
-import Innen4UkerMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/innen4uker.svg'
-import Innen7UkerMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/innen7uker.svg'
-import Innen8UkerMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/innen8uker.svg'
-import Innen26UkerMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/innen26uker.svg'
-import Innen39UkerMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/innen39uker.svg'
-import AktivitetskravMedArbeidsgiver from '../../../public/static/tidslinjen/hendelse/med-arbeidsgiver/varsel_aktivitetskrav.svg'
-import Innen8UkerUtenArbeidsgiver from '../../../public/static/tidslinjen/hendelse/uten-arbeidsgiver/innen8uker-4.svg'
-import Innen12UkerUtenArbeidsgiver from '../../../public/static/tidslinjen/hendelse/uten-arbeidsgiver/innen12uker.svg'
-import Innen39UkerUtenArbeidsgiver from '../../../public/static/tidslinjen/hendelse/uten-arbeidsgiver/innen39uker.svg'
-import AktivitetskravUtenArbeidsgiver from '../../../public/static/tidslinjen/hendelse/uten-arbeidsgiver/varsel_aktivitetskrav.svg'
-import KlokkeIkon from '../../../public/static/tidslinjen/klokke.svg'
-import PlasterIkon from '../../../public/static/tidslinjen/plaster.svg'
-import SirkelIkon from '../../../public/static/tidslinjen/sirkel.svg'
-import Sluttfasen from '../../../public/static/tidslinjen/sluttfasen-3.svg'
-import HvaNa from '../../../public/static/tidslinjen/sykmeldt-hva-naa.svg'
-import VarselIkon from '../../../public/static/tidslinjen/varsel.svg'
 import { Hendelse, HendelseType, SimpleHendelse } from '../../types/hendelse'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
@@ -23,14 +7,14 @@ import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
 export const tidslinjeIkon = (type: HendelseType) => {
     switch (type) {
         case 'FØRSTE_SYKMELDINGSDAG':
-            return PlasterIkon
+            return '/syk/sykefravaer/static/tidslinjen/plaster.svg'
         case 'AKTIVITETSKRAV_VARSEL':
-            return VarselIkon
+            return '/syk/sykefravaer/static/tidslinjen/varsel.svg'
         case 'TITTEL':
         case 'TID':
-            return KlokkeIkon
+            return '/syk/sykefravaer/static/tidslinjen/klokke.svg'
         default:
-            return SirkelIkon
+            return '/syk/sykefravaer/static/tidslinjen/sirkel.svg'
     }
 }
 
@@ -40,30 +24,30 @@ export const hendelseIkon = (hendelse: Hendelse) => {
         case 'tidslinje.sykmeldt-hva-naa.UTEN_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa__modia.MED_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa__modia.UTEN_ARBEIDSGIVER':
-            return HvaNa
+            return '/syk/sykefravaer//static/tidslinjen/sykmeldt-hva-naa.svg'
         case 'tidslinje.snakk-med-arbeidsgiver.MED_ARBEIDSGIVER':
-            return Innen4UkerMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen4uker.svg'
         case 'tidslinje.dialogmote-arbeidsgiver.MED_ARBEIDSGIVER':
-            return Innen7UkerMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen7uker.svg'
         case 'tidslinje.aktivitetskrav.MED_ARBEIDSGIVER':
-            return Innen8UkerMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen8uker.svg'
         case 'tidslinje.dialogmote-nav.MED_ARBEIDSGIVER':
-            return Innen26UkerMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen26uker.svg'
         case 'tidslinje.langtidssykmeldt.MED_ARBEIDSGIVER':
-            return Innen39UkerMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/innen39uker.svg'
         case 'tidslinje.mulighet-for-aktivitet.UTEN_ARBEIDSGIVER':
-            return Innen8UkerUtenArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/uten-arbeidsgiver/innen8uker-4.svg'
         case 'tidslinje.snakk-med-nav.UTEN_ARBEIDSGIVER':
-            return Innen12UkerUtenArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/uten-arbeidsgiver/innen12uker.svg'
         case 'tidslinje.aktivitetsplan.UTEN_ARBEIDSGIVER':
-            return Innen39UkerUtenArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/uten-arbeidsgiver/innen39uker.svg'
         case 'tidslinje.aktivitetskrav-varsel.UTEN_ARBEIDSGIVER':
-            return AktivitetskravUtenArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/uten-arbeidsgiver/varsel_aktivitetskrav.svg'
         case 'tidslinje.aktivitetskrav-varsel.MED_ARBEIDSGIVER':
-            return AktivitetskravMedArbeidsgiver
+            return '/syk/sykefravaer/static/tidslinjen/hendelse/med-arbeidsgiver/varsel_aktivitetskrav.svg'
         case 'tidslinje.sluttfasen.MED_ARBEIDSGIVER':
         case 'tidslinje.sluttfasen.UTEN_ARBEIDSGIVER':
-            return Sluttfasen
+            return '/syk/sykefravaer/static/tidslinjen/sluttfasen-3.svg'
     }
 }
 
