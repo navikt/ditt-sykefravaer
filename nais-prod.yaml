@@ -58,8 +58,6 @@ spec:
       value: "https://www.nav.no/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
-    - name: FRONTENDLOGGER_ROOT
-      value: "https://tjenester.nav.no"
     - name: NARMESTELEDER_URL
       value: "https://narmesteleder.nav.no"
     - name: ARBEIDSSOKERREGISTRERING_URL
