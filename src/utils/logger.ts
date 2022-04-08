@@ -1,45 +1,35 @@
-import safeStringify from 'fast-safe-stringify'
+import pino from 'pino'
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const frontendlogger = (window as any).frontendlogger
+const getFrontendLogger = (): pino.Logger =>
+    pino({
+        browser: {
+            transmit: {
+                send: async(level, logEvent) => {
+                    try {
+                        await fetch('/syk/sykepenger/api/logger', {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(logEvent),
+                        })
+                    } catch (e) {
+                        // eslint-disable-next-line no-console
+                        console.warn(e)
+                        // eslint-disable-next-line no-console
+                        console.warn('Unable to log to backend', logEvent)
+                    }
+                },
+            },
+        },
+    })
 
-// Grafana - Metrikk
-export const event = (arg: Record<string, unknown>): void => {
-    frontendlogger.event(arg)
-}
+const createBackendLogger = (): pino.Logger =>
+    pino({
+        timestamp: pino.stdTimeFunctions.isoTime,
+        formatters: {
+            level: (label) => {
+                return { level: label.toUpperCase() }
+            },
+        },
+    })
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const msgToString = (msg: string, arg?: any): string => {
-    if (arg) {
-        if(arg.stack){
-            return `${msg} - ${safeStringify(arg.stack)}`
-        }
-        return `${msg} - ${safeStringify(arg)}`
-    }
-    return msg
-}
-
-// Kibana - Warning
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const warn = (msg: string, arg?: any): void => {
-    frontendlogger.warn(msgToString(msg, arg))
-}
-
-// Kibana - Info
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const info = (msg: string, arg?: any): void => {
-    frontendlogger.info(msgToString(msg, arg))
-}
-
-// Kibana - Error
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const error = (msg: string, arg?: any): void => {
-    frontendlogger.error(msgToString(msg, arg))
-}
-
-export const logger = {
-    event,
-    error,
-    warn,
-    info,
-}
+export const logger = typeof window !== 'undefined' ? getFrontendLogger() : createBackendLogger()
