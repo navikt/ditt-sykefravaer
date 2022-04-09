@@ -6,7 +6,7 @@ const getFrontendLogger = (): pino.Logger =>
             transmit: {
                 send: async(level, logEvent) => {
                     try {
-                        await fetch('/syk/sykepenger/api/logger', {
+                        await fetch('/syk/sykefravaer/api/logger', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify(logEvent),
