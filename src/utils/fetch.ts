@@ -30,12 +30,12 @@ class Fetch {
                 return await cb(await res.json())
             } catch (error) {
                 if (error instanceof TypeError) {
-                    logger.error('oops', {
+                    logger.warn('oops', {
                         message: `${error.name}: ${error.message}`,
                         stack: error.stack,
                     })
                 } else {
-                    logger.error({ ...error, message: 'Unnamed error occured' })
+                    logger.warn({ ...error, message: 'Unnamed error occured' })
                 }
                 throw new Error(
                     'Beklager! En uventet feil har oppstått. Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.',
@@ -55,7 +55,7 @@ class Fetch {
         } else if (res.status === 403 && url.endsWith('/veilarboppfolging/api/oppfolging')) {
             // skal ikke logge
         } else {
-            logger.error(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+            logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
         }
 
         if (res.status === 400) {
@@ -88,7 +88,7 @@ class Fetch {
             window.location.href = this.loginServiceUrl
             throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
         }
-        logger.error(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+        logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
         if (res.status === 400) {
             throw new Error(textResponse)
         }
