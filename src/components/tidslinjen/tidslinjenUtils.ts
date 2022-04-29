@@ -19,7 +19,7 @@ export const tidslinjeIkon = (type: HendelseType) => {
     }
 }
 
-export const hendelseIkon = (hendelse: Hendelse): string => {
+export const hendelseIkon = (hendelse: Hendelse): string | undefined => {
     switch (hendelse.tekstkey) {
         case 'tidslinje.sykmeldt-hva-naa.MED_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa.UTEN_ARBEIDSGIVER':
@@ -49,11 +49,8 @@ export const hendelseIkon = (hendelse: Hendelse): string => {
         case 'tidslinje.sluttfasen.MED_ARBEIDSGIVER':
         case 'tidslinje.sluttfasen.UTEN_ARBEIDSGIVER':
             return '/syk/sykefravaer/static/tidslinjen/sluttfasen-3.svg'
-        default:
-            logger.error(`Manglende bilde key ${hendelse.tekstkey}`)
-            throw Error(`Manglende bilde key ${hendelse.tekstkey}`)
-
     }
+    return undefined
 }
 
 const hentAntallDager = (hendelse: Hendelse, startdato?: dayjs.Dayjs) => {

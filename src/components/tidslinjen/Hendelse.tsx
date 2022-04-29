@@ -9,6 +9,7 @@ import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { Hendelse, HendelseType } from '../../types/hendelse'
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
+import Vis from '../Vis'
 import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 
 interface HendelseTittelProps {
@@ -110,20 +111,20 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
 
         return (
             <Normaltekst tag="div">
-                {// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    parser(tekst(`${hendelse.tekstkey}.budskap` as any))
-                }
+                {parser(tekst(`${hendelse.tekstkey}.budskap` as any))}
             </Normaltekst>
         )
     }
 
+    const hendelseIkonet = hendelseIkon(hendelse)
     return (
         <div className="rad">
             <div className="ikon">
                 <Image src={tidslinjeIkon(hendelse.type)} alt="" width={24} height={24} />
             </div>
             <Ekspanderbartpanel tittel={getTittel(hendelse)}>
-                <Image alt="" src={hendelseIkon(hendelse)} width={24} height={24} />
+                <Vis hvis={hendelseIkonet} render={() => <Image alt="" src={hendelseIkonet!} width={240} height={200} /> //TODO størrelsen!!
+                } />
                 {getBudskap(hendelse)}
             </Ekspanderbartpanel>
         </div>

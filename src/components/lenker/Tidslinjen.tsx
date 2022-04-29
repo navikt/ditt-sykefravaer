@@ -10,10 +10,10 @@ const Tidslinjen = () => {
 
     return (
         <LenkepanelBase border={true}
-            href={'tidslinjen'}
+            href={'sykefravaer/tidslinjen'}
             onClick={(e) => {
                 e.preventDefault()
-                router.push('tidslinjen')
+                router.push('/tidslinjen')
             }}
         >
             <div className="lenkeikon">

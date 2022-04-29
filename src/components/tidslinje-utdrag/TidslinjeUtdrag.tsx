@@ -164,12 +164,8 @@ const TidslinjeUtdrag = () => {
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
-                        <Link href="tidslinjen">
-                            <a className="lenke lenke--tilTidslinje" onClick={e => {
-                                e.preventDefault()
-                                router.push('tidslinjen')
-                            }
-                            }>
+                        <Link href="/tidslinjen">
+                            <a className="lenke lenke--tilTidslinje">
                                 {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
                             </a>
                         </Link>
