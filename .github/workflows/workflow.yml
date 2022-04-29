@@ -2,6 +2,7 @@ name: Push
 on: push
 env:
   APP: ditt-sykefravaer
+  branchname: ${{ github.ref_name }}
 jobs:
   build-and-publish:
     name: Bygg, test og push Docker image
@@ -95,6 +96,7 @@ jobs:
     name: Deploy to dev-gcp
     needs: build-and-publish
     runs-on: ubuntu-latest
+    concurrency: deploy-to-dev-gcp
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
@@ -115,6 +117,7 @@ jobs:
     name: Deploy to prod-gcp
     needs: build-and-publish
     runs-on: ubuntu-latest
+    concurrency: deploy-to-prod-gcp
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
@@ -131,10 +134,11 @@ jobs:
           RESOURCE: nais-prod.yaml
 
   deploy-to-labs-gcp:
-    if: github.ref == 'refs/heads/master' || startsWith(github.ref, 'refs/heads/dev-')
+    if: github.ref == 'refs/heads/master'
     name: Deploy to labs-gcp (Demo)
     needs: build-and-publish
     runs-on: ubuntu-latest
+    concurrency: deploy-to-labs-gcp
     steps:
       - uses: actions/checkout@v1
       - uses: actions/download-artifact@v1
@@ -150,25 +154,34 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: nais-labs.yaml
 
-  tag-image-as-latest:
-    if: github.ref == 'refs/heads/master'
-    name: Tag dockerimage as latest
-    runs-on: ubuntu-latest
+
+  deploy-branch-to-labs-gcp:
+    if: startsWith(github.ref, 'refs/heads/labs-')
+    name: Deploy branch to labs-gcp (Demo)
     needs: build-and-publish
+    runs-on: ubuntu-latest
     steps:
-      - name: Last ned versjon
-        uses: actions/download-artifact@v1
+      - uses: actions/checkout@v1
+      - uses: actions/download-artifact@v1
         with:
           name: VERSION.txt
           path: .
       - run: echo "VERSION=`cat VERSION.txt`" >> $GITHUB_ENV
       - run: echo "IMAGE=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:$VERSION" >> $GITHUB_ENV
-      - run: echo "LATEST=docker.pkg.github.com/${GITHUB_REPOSITORY}/$APP:latest" >> $GITHUB_ENV
-      - name: Tag and push docker image
+      - name: Deploy to labs-gcp
+        uses: nais/deploy/actions/deploy@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          docker login docker.pkg.github.com -u ${GITHUB_REPOSITORY} -p ${GITHUB_TOKEN}
-          docker pull ${IMAGE}
-          docker tag ${IMAGE} ${LATEST}
-          docker push ${LATEST}
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          CLUSTER: labs-gcp
+          RESOURCE: nais-labs-branch.yaml
+          VAR: appname=${{ env.branchname }},replicas=1,branchState=alive
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: flex-labs-deploy
+          SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+          SLACK_MESSAGE: 'Ny versjon ute i labs :rocket: https://ditt-sykefravaer-${{ env.branchname }}.labs.nais.io/syk/sykefravaer'
+          SLACK_TITLE: ${{ env.branchname }}
+          SLACK_USERNAME: Labs deploy
+          SLACK_ICON: ":lab_coat:"
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
