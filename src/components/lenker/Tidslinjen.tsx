@@ -5,7 +5,7 @@ import { useHistory } from 'react-router'
 
 import { tekst } from '../../utils/tekster'
 
-export default () => {
+const Tidslinjen = () => {
     const history = useHistory()
 
     return (
@@ -34,4 +34,6 @@ export default () => {
         </LenkepanelBase>
     )
 }
+
+export default Tidslinjen
 

@@ -4,7 +4,7 @@ import { Brev } from '../types/brev'
 import { flexGatewayRoot } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
-export default function() {
+export default function UseBrev() {
     return useQuery<Brev[], Error>('brev', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,

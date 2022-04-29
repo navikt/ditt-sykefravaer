@@ -3,7 +3,7 @@ import { useMutation, useQueryClient } from 'react-query'
 import { narmestelederUrl } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
-export default function(org: string) {
+export default function UseAvkreftNarmesteLeder(org: string) {
     const queryClient = useQueryClient()
 
     return useMutation<unknown, Error>(() =>
