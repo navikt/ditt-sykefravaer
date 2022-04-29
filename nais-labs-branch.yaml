@@ -1,0 +1,51 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: {{appname}}
+  namespace: flex
+  labels:
+    team: flex
+    branchState: {{ branchState }}
+spec:
+  image: {{ image }}
+  port: 8080
+  ingresses:
+    - "https://ditt-sykefravaer-{{appname}}.labs.nais.io/"
+  replicas:
+    min: {{ replicas }}
+    max: {{ replicas }}
+  liveness:
+    path: syk/sykefravaer/api/isAlive
+  readiness:
+    path: syk/sykefravaer/api/isReady
+  env:
+    - name: MOCK_BACKEND
+      value: "true"
+    - name: ENVIRONMENT
+      value: "labs"
+    - name: OPPLAERING
+      value: "true"
+    - name: LOGINSERVICE_URL
+      value: "https://loginservice-q.nav.no/login"
+    - name: SYKEPENGESOKNAD_URL
+      value: "https://sykepengesoknad.labs.nais.io/syk/sykepengesoknad"
+    - name: SPINNSYN_URL
+      value: "https://sykepenger.labs.nais.io/syk/sykepenger"
+    - name: SYKMELDING_URL
+      value: "https://sykmeldinger.labs.nais.io/syk/sykmeldinger"
+    - name: AKTIVITETSPLAN_URL
+      value: "https://aktivitetsplan.nav.no/"
+    - name: OPPFOLGINGSPLAN_URL
+      value: "https://oppfolgingsplan.labs.nais.io/syk/oppfolgingsplan"
+    - name: DIALOGMOTE_URL
+      value: "https://dialogmote.labs.nais.io/syk/dialogmote"
+    - name: NEW_DIALOGMOTE_URL
+      value: "https://dialogmoter.labs.nais.io/syk/dialogmoter/sykmeldt"
+    - name: DITTNAV_URL
+      value: "https://www.nav.no/person/dittnav"
+    - name: ARBEIDSSOKERREGISTRERING_URL
+      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
+    - name: DECORATOR_ENV
+      value: "prod"
+    - name: AMPLITUDE_ENABLED
+      value: "false"
