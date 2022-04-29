@@ -2,9 +2,9 @@ import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import NarmesteLeder from './NarmesteLeder'
-import { Sykmelding } from '../../types/sykmelding'
 
 interface ArbeidsgiverProps {
     orgnummer: string

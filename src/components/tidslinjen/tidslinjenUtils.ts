@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 
 import { Hendelse, HendelseType, SimpleHendelse } from '../../types/hendelse'
 import { NarmesteLeder } from '../../types/narmesteLeder'
+import { logger } from '../../utils/logger'
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
 
 export const tidslinjeIkon = (type: HendelseType) => {
@@ -18,7 +19,7 @@ export const tidslinjeIkon = (type: HendelseType) => {
     }
 }
 
-export const hendelseIkon = (hendelse: Hendelse) => {
+export const hendelseIkon = (hendelse: Hendelse): string => {
     switch (hendelse.tekstkey) {
         case 'tidslinje.sykmeldt-hva-naa.MED_ARBEIDSGIVER':
         case 'tidslinje.sykmeldt-hva-naa.UTEN_ARBEIDSGIVER':
@@ -48,6 +49,10 @@ export const hendelseIkon = (hendelse: Hendelse) => {
         case 'tidslinje.sluttfasen.MED_ARBEIDSGIVER':
         case 'tidslinje.sluttfasen.UTEN_ARBEIDSGIVER':
             return '/syk/sykefravaer/static/tidslinjen/sluttfasen-3.svg'
+        default:
+            logger.error(`Manglende bilde key ${hendelse.tekstkey}`)
+            throw Error(`Manglende bilde key ${hendelse.tekstkey}`)
+
     }
 }
 

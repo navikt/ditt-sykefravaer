@@ -13,9 +13,7 @@ import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
-import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import { getAktivitetskravvisning, NYTT_AKTIVITETSKRAVVARSEL } from '../aktivitetskrav/AktivitetskravVarsel'
 import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
@@ -96,10 +94,7 @@ function Oppgaver() {
 
         setOppgaver(tasks)
 
-    }, [
-        brev, dialogmoteBehov, dialogmoteSvar, hendelser, oppfolgingsplaner,
-        snartSluttPaSykepengene, soknader, sykmeldinger
-    ])
+    }, [ brev, dialogmoteBehov, dialogmoteLandingUrl, dialogmoteSvar, hendelser, oppfolgingsplaner, snartSluttPaSykepengene, soknader, svarMotebehovUrl, sykmeldinger ])
 
     return <OppgaveLista oppgaver={oppgaver!} />
 }

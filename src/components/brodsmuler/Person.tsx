@@ -5,6 +5,7 @@ import { personas } from '../../data/mock/testperson'
 import { isMockBackend, isOpplaering } from '../../utils/environment'
 import Vis from '../Vis'
 
+
 const Person = () => {
     const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
     const person = useRef<HTMLImageElement>(null)
