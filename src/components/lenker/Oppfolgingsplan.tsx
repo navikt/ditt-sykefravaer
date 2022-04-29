@@ -5,7 +5,7 @@ import React from 'react'
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
-export default () => {
+const Oppfolgingsplan = () => {
     return (
         <LenkepanelBase href={oppfolgingsplanUrl()} border={true}>
             <div className="lenkeikon">
@@ -29,4 +29,6 @@ export default () => {
         </LenkepanelBase>
     )
 }
+
+export default Oppfolgingsplan
 
