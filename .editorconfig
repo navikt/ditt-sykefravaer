@@ -15,14 +15,10 @@ trim_trailing_whitespace = false
 indent_style = space
 indent_size = 2
 
-[{.eslintrc,.scss-lint.yml}]
-indent_style = space
-indent_size = 4
-
 [*.{scss,sass,less}]
 indent_style = space
 indent_size = 4
 
-[*.yaml]
+[{*.yaml,*.yml}]
 indent_style = space
 indent_size = 2
