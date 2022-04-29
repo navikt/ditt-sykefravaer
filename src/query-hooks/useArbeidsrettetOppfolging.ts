@@ -4,7 +4,7 @@ import { ArbeidsrettetOppfolging } from '../types/arbeidsrettetOppfolging'
 import { flexGatewayRoot } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
-export default function() {
+export default function UseArbeidsrettetOppfolging() {
     return useQuery<ArbeidsrettetOppfolging, Error>('arbeidsrettetOppfolging', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,

@@ -29,3 +29,5 @@ export const RedirectSykepengesoknadUtland = () => {
 export const RedirectSykmeldinger = () => {
     return (<SykepengesoknadUtland addresse={`${sykmeldingUrl()}`} />)
 }
+
+export default SykepengesoknadUtland

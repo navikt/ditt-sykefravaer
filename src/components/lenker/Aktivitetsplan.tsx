@@ -5,7 +5,7 @@ import React from 'react'
 import { aktivitetsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
-export default () => {
+const Aktivitetsplan = () => {
     return (
         <LenkepanelBase href={aktivitetsplanUrl()} border={true}>
             <div className="lenkeikon">
@@ -25,4 +25,6 @@ export default () => {
         </LenkepanelBase>
     )
 }
+
+export default Aktivitetsplan
 

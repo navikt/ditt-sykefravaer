@@ -59,7 +59,8 @@ function Oppgaver() {
     const { data: hendelser } = useHendelser()
     const { svarMotebehovUrl, dialogmoteLandingUrl } = useDialogmotePaths()
 
-    useEffect(() => {
+
+    function hentOppgaver() {
         const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
         const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
         const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
@@ -94,7 +95,9 @@ function Oppgaver() {
 
         setOppgaver(tasks)
 
-    }, [ brev, dialogmoteBehov, dialogmoteLandingUrl, dialogmoteSvar, hendelser, oppfolgingsplaner, snartSluttPaSykepengene, soknader, svarMotebehovUrl, sykmeldinger ])
+    }
+
+    useEffect(hentOppgaver, [ brev, dialogmoteBehov, dialogmoteLandingUrl, dialogmoteSvar, hendelser, oppfolgingsplaner, snartSluttPaSykepengene, soknader, svarMotebehovUrl, sykmeldinger ])
 
     return <OppgaveLista oppgaver={oppgaver!} />
 }

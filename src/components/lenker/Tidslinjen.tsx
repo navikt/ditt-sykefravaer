@@ -5,7 +5,7 @@ import React from 'react'
 
 import { tekst } from '../../utils/tekster'
 
-export default () => {
+const Tidslinjen = () => {
     const router = useRouter()
 
     return (
@@ -34,4 +34,6 @@ export default () => {
         </LenkepanelBase>
     )
 }
+
+export default Tidslinjen
 
