@@ -1,26 +1,27 @@
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import Modal from 'nav-frontend-modal'
 import { Sidetittel } from 'nav-frontend-typografi'
+import { GetServerSideProps } from 'next'
 import React, { useEffect } from 'react'
 
-import setBodyClass from '../../utils/setBodyClass'
-import { tekst } from '../../utils/tekster'
-import Arbeidssituasjon from '../arbeidssituasjon/Arbeidssituasjon'
-import Banner from '../banner/Banner'
-import Brodsmuler, { Brodsmule } from '../brodsmuler/Brodsmuler'
-import { IngenSykmelding } from '../ingen-sykmelding/IngenSykmelding'
-import Lenker from '../lenker/Lenker'
-import Oppgaver from '../oppgaver/Oppgaver'
-import QueryStatusPanel from '../queryStatusPanel/QueryStatusPanel'
-import TidslinjeUtdrag from '../tidslinje-utdrag/TidslinjeUtdrag'
+import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
+import Banner from '../components/banner/Banner'
+import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
+import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
+import Lenker from '../components/lenker/Lenker'
+import Oppgaver from '../components/oppgaver/Oppgaver'
+import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
+import TidslinjeUtdrag from '../components/tidslinje-utdrag/TidslinjeUtdrag'
+import { setBodyClass } from '../utils/setBodyClass'
+import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = []
 
-const Forside = () => {
+const Index = () => {
 
     useEffect(() => {
         setBodyClass('forside')
-        Modal.setAppElement('#maincontent')
+        Modal.setAppElement('#root')
     }, [])
 
     return (
@@ -44,10 +45,16 @@ const Forside = () => {
                 <AlertStripeInfo className="personvern">
                     {tekst('forside.personverninfo')}
                 </AlertStripeInfo>
-
             </div>
         </>
     )
 }
 
-export default Forside
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
+}
+
+export default Index

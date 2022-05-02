@@ -1,17 +1,18 @@
 import dayjs from 'dayjs'
 import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'
+import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
-import useHendelser from '../../query-hooks/useHendelser'
-import { SimpleHendelse } from '../../types/hendelse'
-import setBodyClass from '../../utils/setBodyClass'
-import { tekst } from '../../utils/tekster'
-import Banner from '../banner/Banner'
-import Brodsmuler, { Brodsmule } from '../brodsmuler/Brodsmuler'
-import Vis from '../Vis'
-import Artikkel from './Artikkel'
-import BekreftAktivitetskravSkjema from './BekreftAktivitetskravSkjema'
+import Artikkel from '../components/aktivitetskrav/Artikkel'
+import BekreftAktivitetskravSkjema from '../components/aktivitetskrav/BekreftAktivitetskravSkjema'
+import Banner from '../components/banner/Banner'
+import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
+import Vis from '../components/Vis'
+import useHendelser from '../query-hooks/useHendelser'
+import { SimpleHendelse } from '../types/hendelse'
+import { setBodyClass } from '../utils/setBodyClass'
+import { tekst } from '../utils/tekster'
 
 export const INGEN_AKTIVITETSKRAVVARSEL = 'INGEN_AKTIVITETSKRAVVARSEL'
 export const NYTT_AKTIVITETSKRAVVARSEL = 'NYTT_AKTIVITETSKRAVVARSEL'
@@ -68,7 +69,7 @@ export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
     return NYTT_AKTIVITETSKRAVVARSEL
 }
 
-const AktivitetskravVarsel = () => {
+const Aktivitetsplikt = () => {
     const { data: hendelser, isFetching } = useHendelser()
     const [ visning, setVisning ] = useState('')
     const [ bekreftetdato, setBekreftetdato ] = useState<string | undefined>()
@@ -149,5 +150,10 @@ const AktivitetskravVarsel = () => {
         </>
     )
 }
-
-export default AktivitetskravVarsel
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
+}
+export default Aktivitetsplikt

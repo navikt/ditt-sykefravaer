@@ -4,43 +4,51 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
 import { Element, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi'
 import Veilederpanel from 'nav-frontend-veilederpanel'
-import React, { useEffect } from 'react'
-import { useHistory } from 'react-router'
-import { Link } from 'react-router-dom'
+import { GetServerSideProps } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 
-import { dialog } from '../../grafikk/Dialog'
-import { penger } from '../../grafikk/Penger'
-import { veilederDame } from '../../grafikk/VeilederDame'
-import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
-import useNarmesteledere from '../../query-hooks/useNarmesteledere'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { arbeidssokerregistreringUrl } from '../../utils/environment'
-import setBodyClass from '../../utils/setBodyClass'
-import { tekst } from '../../utils/tekster'
-import { logEvent } from '../amplitude/amplitude'
-import { finnAktuelleArbeidsgivere } from '../arbeidssituasjon/arbeidssituasjonHjelpefunksjoner'
-import Banner from '../banner/Banner'
-import Bjorn from '../bjorn/Bjorn'
-import Brodsmuler, { Brodsmule } from '../brodsmuler/Brodsmuler'
-import Vis from '../Vis'
+import { logEvent } from '../components/amplitude/amplitude'
+import { finnAktuelleArbeidsgivere } from '../components/arbeidssituasjon/arbeidssituasjonHjelpefunksjoner'
+import Banner from '../components/banner/Banner'
+import Bjorn from '../components/bjorn/Bjorn'
+import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
+import Vis from '../components/Vis'
+import { dialog } from '../grafikk/Dialog'
+import { penger } from '../grafikk/Penger'
+import { veilederDame } from '../grafikk/VeilederDame'
+import useArbeidsrettetOppfolging from '../query-hooks/useArbeidsrettetOppfolging'
+import useNarmesteledere from '../query-hooks/useNarmesteledere'
+import useSykmeldinger from '../query-hooks/useSykmeldinger'
+import { arbeidssokerregistreringUrl } from '../utils/environment'
+import { setBodyClass } from '../utils/setBodyClass'
+import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = [
     { tittel: 'Snart slutt på sykepengene', sti: '/snart-slutt-pa-sykepengene', erKlikkbar: false }
 ]
 
-const SnartSlutt = () => {
-    const history = useHistory()
-    const { data: arbeidsrettetOppfolging } = useArbeidsrettetOppfolging()
+const SnartSluttPaSykepengene = () => {
+    const router = useRouter()
+    const [ harArbeidsgiver, setHarArbeidsgiver ] = useState<boolean>()
+    const [ arbeidsrettetOppfolging, setArbeidsrettetOppfolging ] = useState<any>()
+
+    const { data: oppfolging } = useArbeidsrettetOppfolging()
     const { data: narmesteLedere } = useNarmesteledere()
     const { data: sykmeldinger } = useSykmeldinger()
-    const harArbeidgiver = finnAktuelleArbeidsgivere(
-        narmesteLedere,
-        sykmeldinger
-    ).length > 0
 
     useEffect(() => {
         setBodyClass('snartslutt')
-    }, [])
+
+        const arbeidsgivere = finnAktuelleArbeidsgivere(
+            narmesteLedere,
+            sykmeldinger
+        )
+        setHarArbeidsgiver(arbeidsgivere.length > 0)
+        setArbeidsrettetOppfolging(oppfolging)
+
+    }, [ narmesteLedere, oppfolging, sykmeldinger ])
 
     const logSvar = (svar: 'JA' | 'NEI') => {
         logEvent('Spørsmål svart',
@@ -60,9 +68,8 @@ const SnartSlutt = () => {
 
     const handleNeiBtnClicked = () => {
         logSvar('NEI')
-        history.push('/')
+        router.push('/')
     }
-
 
     return (
         <div>
@@ -83,7 +90,7 @@ const SnartSlutt = () => {
                     {tekst('snartslutt.hva_nå')}
                 </Systemtittel>
 
-                <Vis hvis={harArbeidgiver}
+                <Vis hvis={harArbeidsgiver}
                     render={() =>
                         <Veilederpanel svg={veilederDame}>
                             <Element tag="h3">
@@ -96,7 +103,7 @@ const SnartSlutt = () => {
                     }
                 />
 
-                <Vis hvis={!harArbeidgiver}
+                <Vis hvis={!harArbeidsgiver}
                     render={() =>
                         <Veilederpanel svg={dialog}>
                             <Element tag="h3">
@@ -125,14 +132,14 @@ const SnartSlutt = () => {
                 <Ekspanderbartpanel className="byttjobb"
                     tittel={
                         <>
-                            <Vis hvis={harArbeidgiver}
+                            <Vis hvis={harArbeidsgiver}
                                 render={() =>
                                     <Systemtittel tag="h3">
                                         {tekst('snartslutt.bytt_jobb.tittel')}
                                     </Systemtittel>
                                 }
                             />
-                            <Vis hvis={!harArbeidgiver}
+                            <Vis hvis={!harArbeidsgiver}
                                 render={() =>
                                     <Systemtittel tag="h3">
                                         {tekst('snartslutt.finn_jobb.tittel')}
@@ -156,14 +163,14 @@ const SnartSlutt = () => {
                         <Systemtittel tag="h3">
                             {tekst('snartslutt.okonomien.tittel')}
                         </Systemtittel>
-                        <Vis hvis={harArbeidgiver}
+                        <Vis hvis={harArbeidsgiver}
                             render={() =>
                                 <Normaltekst>
                                     {tekst('snartslutt.okonomien.tekst')}
                                 </Normaltekst>
                             }
                         />
-                        <Vis hvis={!harArbeidgiver}
+                        <Vis hvis={!harArbeidsgiver}
                             render={() =>
                                 <Normaltekst>
                                     {tekst('snartslutt.okonomien.tekst2')}
@@ -172,7 +179,7 @@ const SnartSlutt = () => {
                         />
                     </>
                 }>
-                    <Vis hvis={harArbeidgiver}
+                    <Vis hvis={harArbeidsgiver}
                         render={() =>
                             <Normaltekst>
                                 {tekst('snartslutt.okonomien.innhold.avsnitt1')}
@@ -207,13 +214,25 @@ const SnartSlutt = () => {
                     }
                 />
 
-                <Link to="/" className="ekstra-topp-margin lenke">
-                    <VenstreChevron />
-                    <Normaltekst tag="span">Til hovedsiden Ditt sykefravaer</Normaltekst>
+                <Link href="/">
+                    <a className="ekstra-topp-margin lenke" onClick={(e) => {
+                        e.preventDefault()
+                        router.push('/')
+                    }}>
+                        <VenstreChevron />
+                        <Normaltekst tag="span">Til hovedsiden Ditt sykefravaer</Normaltekst>
+                    </a>
                 </Link>
             </div>
         </div>
     )
 }
 
-export default SnartSlutt
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
+}
+
+export default SnartSluttPaSykepengene

@@ -1,8 +1,8 @@
 import parser from 'html-react-parser'
 import Lesmerpanel from 'nav-frontend-lesmerpanel'
 import { Undertittel } from 'nav-frontend-typografi'
+import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -163,8 +163,10 @@ const TidslinjeUtdrag = () => {
                                     { '%ARBEIDSRETTETOPPFOLGING%': '/syk/sykefravaer/snart-slutt-pa-sykepengene' }))
                             }
                         </div>
-                        <Link className="lenke lenke--tilTidslinje" to="tidslinjen">
-                            {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                        <Link href="/tidslinjen">
+                            <a className="lenke lenke--tilTidslinje">
+                                {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                            </a>
                         </Link>
                     </Lesmerpanel>
 

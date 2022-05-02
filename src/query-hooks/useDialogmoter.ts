@@ -12,6 +12,7 @@ export default function UseDialogmoter() {
                 return data as DialogMote
             },
         ),
+    { retry: false }
     )
 }
 
