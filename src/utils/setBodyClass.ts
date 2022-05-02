@@ -1,4 +1,4 @@
-export default (name: string) => {
+export const setBodyClass = (name: string) => {
     if (document.body.className !== '') {
         document.body.setAttribute('class', '')
     }

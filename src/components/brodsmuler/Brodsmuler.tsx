@@ -1,8 +1,9 @@
 import { OppChevron } from 'nav-frontend-chevron'
 import Lenke from 'nav-frontend-lenker'
 import { Normaltekst } from 'nav-frontend-typografi'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
 
 import { dittNavUrl } from '../../utils/environment'
 import Vis from '../Vis'
@@ -26,11 +27,17 @@ const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
 
 const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
     const erEkstern = sti && (sti.startsWith('https://') || sti.startsWith('http://'))
+    const router = useRouter()
+
+    const klikker = (e: any, sti: string) => {
+        e.preventDefault()
+        router.push(sti)
+    }
 
     const link = erEkstern
         ? <Lenke href={sti}>{tittel}</Lenke>
         : sti
-            ? <Link to={sti} className="lenke">{tittel}</Link>
+            ? <Link href={sti}><a className="lenke" onClick={e => klikker(e, sti)}>{tittel}</a></Link>
             : <span>{tittel}</span>
 
     if (!erKlikkbar) {
@@ -58,17 +65,21 @@ interface BrodsmulerProps {
 
 const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
     const [ synlige, setSynlige ] = useState<Brodsmule[]>([])
-    const [ skjerm, setSkjerm ] = useState<number>(window.innerWidth)
+    const [ skjerm, setSkjerm ] = useState<number>()
     const smulesti = useRef<HTMLElement>(null)
     const sykefravaerKlikkbar = brodsmuler.length > 0
 
     brodsmuler = faste(sykefravaerKlikkbar).concat(brodsmuler)
 
     useEffect(() => {
+        setSkjerm(window.innerWidth)
+    }, [])
+
+    useEffect(() => {
         window.addEventListener('resize', () => {
             setSkjerm(window.innerWidth)
         })
-        setSynlige(skjerm <= LITEN ? [ brodsmuler[ brodsmuler.length - 1 ] ] : brodsmuler)
+        setSynlige(skjerm! <= LITEN ? [ brodsmuler[ brodsmuler.length - 1 ] ] : brodsmuler)
         // eslint-disable-next-line
     }, [skjerm])
 
@@ -87,7 +98,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
             <div className="limit">
                 <Person />
                 <Normaltekst tag="ul" className="brodsmuler__smuler">
-                    <Vis hvis={skjerm <= LITEN}
+                    <Vis hvis={skjerm! <= LITEN}
                         render={() =>
                             <li className="smule">
                                 <button
@@ -109,7 +120,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                             <BrodsmuleBit key={index}
                                 sti={smule.sti}
                                 tittel={
-                                    skjerm <= LITEN && smule.mobilTittel && !smulesti.current?.classList.contains('apen')
+                                    skjerm! <= LITEN && smule.mobilTittel && !smulesti.current?.classList.contains('apen')
                                         ? smule.mobilTittel
                                         : smule.tittel
                                 }

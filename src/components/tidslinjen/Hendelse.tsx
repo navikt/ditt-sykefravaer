@@ -2,12 +2,13 @@ import dayjs from 'dayjs'
 import parser from 'html-react-parser'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Normaltekst } from 'nav-frontend-typografi'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { Hendelse, HendelseType } from '../../types/hendelse'
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
+import Vis from '../Vis'
 import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 
 interface HendelseTittelProps {
@@ -49,12 +50,17 @@ interface HendelseBobleProp {
 }
 
 export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
+    const [ meldinger, setMeldinger ] = useState<Sykmelding[]>([])
     const { data: sykmeldinger } = useSykmeldinger()
 
-    const finnOrgNavn = (org?: string, sykmeldinger?: Sykmelding[]) => {
+    useEffect(() => {
+        setMeldinger(sykmeldinger!)
+    }, [ sykmeldinger ])
+
+    const finnOrgNavn = (org?: string, meldinger?: Sykmelding[]) => {
         if (!org) return undefined
 
-        return sykmeldinger
+        return meldinger
             ?.find((syk) =>
                 syk.sykmeldingStatus.arbeidsgiver?.orgnummer === org &&
                 syk.sykmeldingStatus.arbeidsgiver?.orgNavn
@@ -79,7 +85,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                         '%DATO%': hendelse.inntruffetdato
                             ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
                             : '',
-                        '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, sykmeldinger) || '',
+                        '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, meldinger) || '',
                         '%NAERMESTELEDER%': hendelse.data?.naermesteLeder.navn || '',
                     }))
                 }</Normaltekst>

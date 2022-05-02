@@ -1,5 +1,6 @@
+import { Dayjs } from 'dayjs'
 import { Systemtittel } from 'nav-frontend-typografi'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import useHendelser from '../../query-hooks/useHendelser'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -15,12 +16,19 @@ interface TidslinjeProps {
 }
 
 export const Tidslinje = ({ visning }: TidslinjeProps) => {
+    const [ startdato, setStartdato ] = useState<Dayjs>()
+    const [ events, setEvents ] = useState<Hendelse[]>([])
+
     const { data: sykeforloep } = useSykeforloep()
     const { data: narmesteLedere } = useNarmesteledere()
     const { data: hentetHendelser } = useHendelser()
 
-    const startdato = hentStartdatoFraSykeforloep(sykeforloep)
-    const hendelser: Hendelse[] = leggTilTidshendelser(visning, hentetHendelser, narmesteLedere, startdato)
+    useEffect(() => {
+        const start = hentStartdatoFraSykeforloep(sykeforloep)
+        const hendelser: Hendelse[] = leggTilTidshendelser(visning, hentetHendelser, narmesteLedere, start)
+        setStartdato(start)
+        setEvents(hendelser)
+    }, [ hentetHendelser, narmesteLedere, sykeforloep, visning ])
 
     const skalViseNyNaermesteLederHendelse = (hendelse: Hendelse) => {
         const ikkeVis = hendelse.type === 'NY_NAERMESTE_LEDER' && visning === 'UTEN_ARBEIDSGIVER'
@@ -32,7 +40,7 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
             <Systemtittel tag="h2">Tidslinje for sykefraværet</Systemtittel>
 
             <div className="tidslinje">
-                {hendelser
+                {events
                     .filter(skalViseNyNaermesteLederHendelse)
                     .filter((h) =>
                         // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
