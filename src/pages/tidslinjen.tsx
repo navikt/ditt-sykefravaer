@@ -1,4 +1,5 @@
 import { Normaltekst, Sidetittel } from 'nav-frontend-typografi'
+import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
 import Banner from '../components/banner/Banner'
@@ -60,6 +61,13 @@ const Tidslinjen = () => {
             </div>
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
 }
 
 export default Tidslinjen

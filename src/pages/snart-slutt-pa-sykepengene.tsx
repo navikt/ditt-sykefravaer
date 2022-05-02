@@ -4,6 +4,7 @@ import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
 import { Element, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi'
 import Veilederpanel from 'nav-frontend-veilederpanel'
+import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -60,11 +61,9 @@ const SnartSluttPaSykepengene = () => {
     const handleJaBtnClicked = () => {
         logSvar('JA')
         // Må sikre at amplitude får logget ferdig
-        if (process.browser) {
-            window.setTimeout(() => {
-                window.location.href = arbeidssokerregistreringUrl()
-            }, 200)
-        }
+        window.setTimeout(() => {
+            window.location.href = arbeidssokerregistreringUrl()
+        }, 200)
     }
 
     const handleNeiBtnClicked = () => {
@@ -227,6 +226,13 @@ const SnartSluttPaSykepengene = () => {
             </div>
         </div>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
 }
 
 export default SnartSluttPaSykepengene

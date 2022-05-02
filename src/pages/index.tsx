@@ -1,6 +1,7 @@
 import { AlertStripeInfo } from 'nav-frontend-alertstriper'
 import Modal from 'nav-frontend-modal'
 import { Sidetittel } from 'nav-frontend-typografi'
+import { GetServerSideProps } from 'next'
 import React, { useEffect } from 'react'
 
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
@@ -47,6 +48,13 @@ const Index = () => {
             </div>
         </>
     )
+}
+
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
 }
 
 export default Index

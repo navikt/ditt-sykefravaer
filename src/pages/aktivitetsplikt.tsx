@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
 import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'
+import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
 import Artikkel from '../components/aktivitetskrav/Artikkel'
@@ -149,5 +150,10 @@ const Aktivitetsplikt = () => {
         </>
     )
 }
-
+export const getServerSideProps: GetServerSideProps = async() => {
+    // Disable static rendring
+    return {
+        props: {},
+    }
+}
 export default Aktivitetsplikt
