@@ -11,4 +11,3 @@ export const LenkerTekster = {
     'lenker.dialogmoter': 'Dialogmøter',
     'lenker.tidslinjen': 'Hva skjer under sykefraværet?',
 }
-

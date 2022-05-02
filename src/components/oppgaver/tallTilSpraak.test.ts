@@ -20,4 +20,3 @@ it('Språk er riktig', () => {
     expect(tallTilSpråk(13)).toEqual('13')
     expect(tallTilSpråk(14)).toEqual('14')
 })
-

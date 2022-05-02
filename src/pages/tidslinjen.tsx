@@ -14,13 +14,19 @@ import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = [
-    { tittel: 'Hva skjer under sykefraværet?', sti: '/tidslinjen', erKlikkbar: false }
+    {
+        tittel: 'Hva skjer under sykefraværet?',
+        sti: '/tidslinjen',
+        erKlikkbar: false,
+    },
 ]
 
 const Tidslinjen = () => {
-    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
-    const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
-    const [ visning, setVisning ] = useState<Visning>('MED_ARBEIDSGIVER')
+    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } =
+        useSykmeldinger()
+    const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
+        useSykeforloep()
+    const [visning, setVisning] = useState<Visning>('MED_ARBEIDSGIVER')
 
     useEffect(() => {
         setBodyClass('tidslinjen')
@@ -28,13 +34,16 @@ const Tidslinjen = () => {
 
     useEffect(() => {
         if (!sykmeldingerIsLoading && !sykeforloepIsLoading) {
-            const arbeidssituasjon: Visning = getVisning(sykeforloep, sykmeldinger)
+            const arbeidssituasjon: Visning = getVisning(
+                sykeforloep,
+                sykmeldinger
+            )
             if (arbeidssituasjon !== 'VALGFRI') {
                 setVisning(arbeidssituasjon)
             }
         }
         // eslint-disable-next-line
-    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
+    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
 
     return (
         <div>
@@ -47,9 +56,7 @@ const Tidslinjen = () => {
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-                <Normaltekst>
-                    {tekst('tidslinje.introtekst')}
-                </Normaltekst>
+                <Normaltekst>{tekst('tidslinje.introtekst')}</Normaltekst>
 
                 <VelgArbeidssituasjon
                     kanVelge={true}
@@ -63,7 +70,7 @@ const Tidslinjen = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async () => {
     // Disable static rendring
     return {
         props: {},

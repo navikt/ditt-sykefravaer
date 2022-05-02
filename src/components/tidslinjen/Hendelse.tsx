@@ -12,19 +12,25 @@ import Vis from '../Vis'
 import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 
 interface HendelseTittelProps {
-    tekstkey: string,
-    type: HendelseType,
+    tekstkey: string
+    type: HendelseType
     startdato?: dayjs.Dayjs
 }
 
-export const HendelseTittel = ({ tekstkey, type, startdato }: HendelseTittelProps) => {
-
+export const HendelseTittel = ({
+    tekstkey,
+    type,
+    startdato,
+}: HendelseTittelProps) => {
     const titteltekst = tekst(
         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-        tekstkey as any, { '%DATO%': startdato ? startdato.format('D. MMMM YYYY') : '' }
+        tekstkey as any,
+        { '%DATO%': startdato ? startdato.format('D. MMMM YYYY') : '' }
     )
 
-    const erStart = tekstkey === 'tidslinje.sykefravaeret-starter' || tekstkey === 'tidslinje.forste-sykmeldingsdag'
+    const erStart =
+        tekstkey === 'tidslinje.sykefravaeret-starter' ||
+        tekstkey === 'tidslinje.forste-sykmeldingsdag'
     let className = 'rad'
     if (erStart) {
         type = 'FØRSTE_SYKMELDINGSDAG'
@@ -50,48 +56,76 @@ interface HendelseBobleProp {
 }
 
 export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
-    const [ meldinger, setMeldinger ] = useState<Sykmelding[]>([])
+    const [meldinger, setMeldinger] = useState<Sykmelding[]>([])
     const { data: sykmeldinger } = useSykmeldinger()
 
     useEffect(() => {
         setMeldinger(sykmeldinger!)
-    }, [ sykmeldinger ])
+    }, [sykmeldinger])
 
     const finnOrgNavn = (org?: string, meldinger?: Sykmelding[]) => {
         if (!org) return undefined
 
-        return meldinger
-            ?.find((syk) =>
+        return meldinger?.find(
+            (syk) =>
                 syk.sykmeldingStatus.arbeidsgiver?.orgnummer === org &&
                 syk.sykmeldingStatus.arbeidsgiver?.orgNavn
-            )
-            ?.sykmeldingStatus.arbeidsgiver?.orgNavn
+        )?.sykmeldingStatus.arbeidsgiver?.orgNavn
     }
 
     const getTittel = (hendelse: Hendelse) => {
         switch (hendelse.type) {
             case 'AKTIVITETSKRAV_VARSEL':
-                return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
-                        '%DATO%': hendelse.inntruffetdato
-                            ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
-                            : '',
-                    }))
-                }</Normaltekst>
+                return (
+                    <Normaltekst tag="div">
+                        {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            parser(
+                                tekst(`${hendelse.tekstkey}.tittel` as any, {
+                                    '%DATO%': hendelse.inntruffetdato
+                                        ? dayjs(hendelse.inntruffetdato).format(
+                                              'D. MMMM YYYY'
+                                          )
+                                        : '',
+                                })
+                            )
+                        }
+                    </Normaltekst>
+                )
 
             case 'NY_NAERMESTE_LEDER':
-                return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                    parser(tekst(`${hendelse.tekstkey}.tittel` as any, {
-                        '%DATO%': hendelse.inntruffetdato
-                            ? dayjs(hendelse.inntruffetdato).format('D. MMMM YYYY')
-                            : '',
-                        '%ARBEIDSGIVER%': finnOrgNavn(hendelse.data?.naermesteLeder.orgnummer, meldinger) || '',
-                        '%NAERMESTELEDER%': hendelse.data?.naermesteLeder.navn || '',
-                    }))
-                }</Normaltekst>
+                return (
+                    <Normaltekst tag="div">
+                        {
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            parser(
+                                tekst(`${hendelse.tekstkey}.tittel` as any, {
+                                    '%DATO%': hendelse.inntruffetdato
+                                        ? dayjs(hendelse.inntruffetdato).format(
+                                              'D. MMMM YYYY'
+                                          )
+                                        : '',
+                                    '%ARBEIDSGIVER%':
+                                        finnOrgNavn(
+                                            hendelse.data?.naermesteLeder
+                                                .orgnummer,
+                                            meldinger
+                                        ) || '',
+                                    '%NAERMESTELEDER%':
+                                        hendelse.data?.naermesteLeder.navn ||
+                                        '',
+                                })
+                            )
+                        }
+                    </Normaltekst>
+                )
             default:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                return <Normaltekst>{tekst(`${hendelse.tekstkey}.tittel` as any)}</Normaltekst>
+                return (
+                    <Normaltekst>
+                        {tekst(`${hendelse.tekstkey}.tittel` as any)}
+                    </Normaltekst>
+                )
         }
     }
 
@@ -99,18 +133,34 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
         if (hendelse.type === 'NY_NAERMESTE_LEDER') {
             const aktivTom = hendelse.data?.naermesteLeder.aktivTom
 
-            return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
-                parser(tekst(`${hendelse.tekstkey}.budskap` as any, {
-                    '%NAVN%': hendelse.data?.naermesteLeder.navn || '',
-                    '%STATUS%': aktivTom ? `opphørt den ${dayjs(aktivTom).format('D. MMMM YYYY')}` : 'aktiv',
-                }))
-            }
-            </Normaltekst>
+            return (
+                <Normaltekst tag="div">
+                    {
+                        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                        parser(
+                            tekst(`${hendelse.tekstkey}.budskap` as any, {
+                                '%NAVN%':
+                                    hendelse.data?.naermesteLeder.navn || '',
+                                '%STATUS%': aktivTom
+                                    ? `opphørt den ${dayjs(aktivTom).format(
+                                          'D. MMMM YYYY'
+                                      )}`
+                                    : 'aktiv',
+                            })
+                        )
+                    }
+                </Normaltekst>
+            )
         }
 
-        return <Normaltekst tag="div">{// eslint-disable-next-line @typescript-eslint/no-explicit-any
-            parser(tekst(`${hendelse.tekstkey}.budskap` as any))
-        }</Normaltekst>
+        return (
+            <Normaltekst tag="div">
+                {
+                    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                    parser(tekst(`${hendelse.tekstkey}.budskap` as any))
+                }
+            </Normaltekst>
+        )
     }
 
     return (

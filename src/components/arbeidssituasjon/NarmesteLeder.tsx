@@ -8,19 +8,22 @@ import Vis from '../Vis'
 import BekreftFeilLeder from './BekreftFeilLeder'
 
 interface NaermesteLederContainerProps {
-    orgnummer: string,
+    orgnummer: string
     orgNavn?: string
 }
 
-const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
+const NarmesteLeder = ({
+    orgnummer,
+    orgNavn,
+}: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const [ open, setOpen ] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     if (!narmesteLedere) {
         return null
     }
     const leder = narmesteLedere
-        .filter((nl) => !nl.aktivTom && nl.navn)    // Aktiv og har navn på leder
+        .filter((nl) => !nl.aktivTom && nl.navn) // Aktiv og har navn på leder
         .find((nl) => nl.orgnummer === orgnummer)
 
     const toggleOpen = () => {
@@ -32,15 +35,18 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
     }
 
     return (
-        <Vis hvis={leder && orgNavn}
-            render={() =>
+        <Vis
+            hvis={leder && orgNavn}
+            render={() => (
                 <>
                     <Normaltekst className="leder__informasjon">
                         Din nærmeste leder er <strong>{leder?.navn}</strong>.
                     </Normaltekst>
                     <div className="leder__handlinger">
                         <button className="lenke" onClick={() => toggleOpen()}>
-                            <Normaltekst tag="span">Meld fra om endring</Normaltekst>
+                            <Normaltekst tag="span">
+                                Meld fra om endring
+                            </Normaltekst>
                         </button>
                         <BekreftFeilLeder
                             open={open}
@@ -49,27 +55,47 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                             orgNavn={orgNavn}
                         />
                     </div>
-                    <Vis hvis={leder.arbeidsgiverForskutterer !== null}
-                        render={() =>
+                    <Vis
+                        hvis={leder.arbeidsgiverForskutterer !== null}
+                        render={() => (
                             <div className="leder__forskuttering">
                                 <Normaltekst>
-                                    {tekst(`din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer
-                                        ? ''
-                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                        : '-ikke'}` as any)
-                                    }
+                                    {tekst(
+                                        `din-situasjon.arbeidsgiver-forskutterer${
+                                            leder?.arbeidsgiverForskutterer
+                                                ? ''
+                                                : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                  '-ikke'
+                                        }` as any
+                                    )}
                                 </Normaltekst>
                                 <Hjelpetekst>
-                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</Normaltekst>
-                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</Normaltekst>
-                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</Normaltekst>
-                                    <Normaltekst>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</Normaltekst>
+                                    <Normaltekst>
+                                        {tekst(
+                                            'din-situasjon.forskuttering.hjelpetekst.tekst1'
+                                        )}
+                                    </Normaltekst>
+                                    <Normaltekst>
+                                        {tekst(
+                                            'din-situasjon.forskuttering.hjelpetekst.tekst2'
+                                        )}
+                                    </Normaltekst>
+                                    <Normaltekst>
+                                        {tekst(
+                                            'din-situasjon.forskuttering.hjelpetekst.tekst3'
+                                        )}
+                                    </Normaltekst>
+                                    <Normaltekst>
+                                        {tekst(
+                                            'din-situasjon.forskuttering.hjelpetekst.tekst4'
+                                        )}
+                                    </Normaltekst>
                                 </Hjelpetekst>
                             </div>
-                        }
+                        )}
                     />
                 </>
-            }
+            )}
         />
     )
 }

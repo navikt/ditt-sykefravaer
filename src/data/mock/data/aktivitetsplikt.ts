@@ -1,16 +1,16 @@
 import { SimpleHendelse } from '../../../types/hendelse'
 
 export const aktivitetskravVarsel: SimpleHendelse = {
-    'type': 'AKTIVITETSKRAV_VARSEL',
-    'inntruffetdato': '2021-03-01',
+    type: 'AKTIVITETSKRAV_VARSEL',
+    inntruffetdato: '2021-03-01',
 }
 
 export const aktivitetskravBekreftetMenIkkeNyest: SimpleHendelse = {
-    'type': 'AKTIVITETSKRAV_BEKREFTET',
-    'inntruffetdato': '2021-03-02',
+    type: 'AKTIVITETSKRAV_BEKREFTET',
+    inntruffetdato: '2021-03-02',
 }
 
 export const aktivitetskravBekreftet: SimpleHendelse = {
-    'type': 'AKTIVITETSKRAV_BEKREFTET',
-    'inntruffetdato': '2021-03-05',
+    type: 'AKTIVITETSKRAV_BEKREFTET',
+    inntruffetdato: '2021-03-05',
 }

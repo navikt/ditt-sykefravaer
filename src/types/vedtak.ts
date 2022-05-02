@@ -1,7 +1,7 @@
 export interface RSVedtakWrapper {
     id: string
-    lest: boolean;
-    lestDato?: string;
-    opprettet: string;
+    lest: boolean
+    lestDato?: string
+    opprettet: string
     annullert: boolean
 }

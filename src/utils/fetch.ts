@@ -10,7 +10,7 @@ export const hentLoginUrl = () => {
  * Redirects to Login Service if any request contains a 401 response.
  */
 class Fetch {
-    static loginServiceUrl = hentLoginUrl();
+    static loginServiceUrl = hentLoginUrl()
 
     /**
      * Make a GET request for the specified resource
@@ -20,10 +20,14 @@ class Fetch {
      * @param {HeadersInit} headers - Headers
      * @return {Promise<T>} The data
      */
-    static async authenticatedGet<T>(url: string, cb: (data: unknown) => Promise<T>, headers?: HeadersInit): Promise<T> {
+    static async authenticatedGet<T>(
+        url: string,
+        cb: (data: unknown) => Promise<T>,
+        headers?: HeadersInit
+    ): Promise<T> {
         const res = await fetch(url, {
             credentials: 'include',
-            headers: headers
+            headers: headers,
         })
         if (res.ok) {
             try {
@@ -38,30 +42,42 @@ class Fetch {
                     logger.warn({ ...error, message: 'Unnamed error occured' })
                 }
                 throw new Error(
-                    'Beklager! En uventet feil har oppstått. Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.',
+                    'Beklager! En uventet feil har oppstått. Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.'
                 )
             }
         }
         // Sesjonen er utløpt
         if (res.status === 401) {
             window.location.href = this.loginServiceUrl
-            throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
+            throw new Error(
+                'Sesjonen er utløpt. Vi videresender deg til innloggingssiden.'
+            )
         }
 
         const textResponse = await res.text()
         // Returnerer 404 når det ikke finnes møter, selv om kallet gikk fint
-        if (res.status === 404 && url.endsWith('/syfomoteadmin/api/bruker/arbeidstaker/moter/siste')) {
+        if (
+            res.status === 404 &&
+            url.endsWith('/syfomoteadmin/api/bruker/arbeidstaker/moter/siste')
+        ) {
             // skal ikke logge
-        } else if (res.status === 403 && url.endsWith('/veilarboppfolging/api/oppfolging')) {
+        } else if (
+            res.status === 403 &&
+            url.endsWith('/veilarboppfolging/api/oppfolging')
+        ) {
             // skal ikke logge
         } else {
-            logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+            logger.warn(
+                `Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`
+            )
         }
 
         if (res.status === 400) {
             throw new Error(textResponse)
         }
-        throw new Error('Vi har problemer med baksystemene for øyeblikket. Vennligst prøv igjen senere.')
+        throw new Error(
+            'Vi har problemer med baksystemene for øyeblikket. Vennligst prøv igjen senere.'
+        )
     }
 
     /**
@@ -86,13 +102,19 @@ class Fetch {
         }
         if (res.status === 401) {
             window.location.href = this.loginServiceUrl
-            throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
+            throw new Error(
+                'Sesjonen er utløpt. Vi videresender deg til innloggingssiden.'
+            )
         }
-        logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
+        logger.warn(
+            `Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`
+        )
         if (res.status === 400) {
             throw new Error(textResponse)
         }
-        throw new Error('Vi har problemer med baksystemene for øyeblikket. Vennligst prøv igjen senere.')
+        throw new Error(
+            'Vi har problemer med baksystemene for øyeblikket. Vennligst prøv igjen senere.'
+        )
     }
 }
 

@@ -5,4 +5,3 @@ it('Kopierer json', () => {
     const kopi = jsonDeepCopy(original)
     expect(original).toEqual(kopi)
 })
-

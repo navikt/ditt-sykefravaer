@@ -8,38 +8,53 @@ const iDag = dayjs()
 
 const commonPersona = (): Persona => {
     return {
-        soknader: [ arbeidstaker100 ],
+        soknader: [arbeidstaker100],
         oppfolgingsplaner: [],
         vedtak: [],
-        sykmeldinger: [ {
-            id: 'SENDT',
-            sykmeldingStatus: {
-                arbeidsgiver: {
-                    orgnummer: '972674818',
-                    orgNavn: 'Sykmeldingsperioder AS'
+        sykmeldinger: [
+            {
+                id: 'SENDT',
+                sykmeldingStatus: {
+                    arbeidsgiver: {
+                        orgnummer: '972674818',
+                        orgNavn: 'Sykmeldingsperioder AS',
+                    },
+                    statusEvent: 'SENDT',
+                    sporsmalOgSvarListe: [
+                        {
+                            shortName: 'ARBEIDSSITUASJON',
+                            svar: {
+                                svarType: 'ARBEIDSSITUASJON',
+                                svar: 'ARBEIDSTAKER',
+                            },
+                        },
+                    ],
                 },
-                statusEvent: 'SENDT',
-                sporsmalOgSvarListe: [ {
-                    shortName: 'ARBEIDSSITUASJON',
-                    svar: { svarType: 'ARBEIDSSITUASJON', svar: 'ARBEIDSTAKER', }
-                } ]
+                behandlingsutfall: { status: 'OK' },
+                sykmeldingsperioder: [
+                    {
+                        fom: iDag.format('YYYY-MM-DD'),
+                        tom: iDag.format('YYYY-MM-DD'),
+                    },
+                ],
             },
-            behandlingsutfall: { status: 'OK' },
-            sykmeldingsperioder: [ {
-                fom: iDag.format('YYYY-MM-DD'),
-                tom: iDag.format('YYYY-MM-DD'),
-            } ],
-        } ],
-        narmesteledere: [ {
-            navn: 'Albus Dumbledore',
-            orgnummer: '972674818',
-            arbeidsgiverForskutterer: true,
-            aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
-        } ],
+        ],
+        narmesteledere: [
+            {
+                navn: 'Albus Dumbledore',
+                orgnummer: '972674818',
+                arbeidsgiverForskutterer: true,
+                aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
+            },
+        ],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
         dialogmote: enTomDialogmote,
-        dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+        dialogmoteBehov: {
+            visMotebehov: false,
+            skjemaType: null,
+            motebehov: null,
+        },
         sykeforloep: [],
         hendelser: [],
         brev: [],
@@ -53,13 +68,17 @@ export const langtidssykmeldt = () => {
         fom: tjuesjuUker.format('YYYY-MM-DD'),
         tom: iDag.format('YYYY-MM-DD'),
     }
-    person.sykeforloep = [ {
-        oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-        sykmeldinger: [ {
-            fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-            tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
-        } ]
-    } ]
+    person.sykeforloep = [
+        {
+            oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
+            sykmeldinger: [
+                {
+                    fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
+                    tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
+                },
+            ],
+        },
+    ]
     return person
 }
 
@@ -70,13 +89,17 @@ export const snartSlutt = () => {
         fom: førtitoUker.format('YYYY-MM-DD'),
         tom: iDag.format('YYYY-MM-DD'),
     }
-    person.sykeforloep = [ {
-        oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-        sykmeldinger: [ {
-            fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-            tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
-        } ]
-    } ]
+    person.sykeforloep = [
+        {
+            oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
+            sykmeldinger: [
+                {
+                    fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
+                    tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
+                },
+            ],
+        },
+    ]
     person.arbeidsrettetOppfolging = { underOppfolging: false }
     person.snartSluttSykepenger = true
     return person
@@ -89,13 +112,15 @@ export const tvingMindreEnnTrettiniUker = () => {
         ...commonPersona().sykmeldinger[0],
         ...{
             sykmeldingStatus: {
-                statusEvent: 'APEN'
+                statusEvent: 'APEN',
             },
-            sykmeldingsperioder: [ {
-                fom: iDag.format('YYYY-MM-DD'),
-                tom: iDag.format('YYYY-MM-DD'),
-            } ],
-        }
+            sykmeldingsperioder: [
+                {
+                    fom: iDag.format('YYYY-MM-DD'),
+                    tom: iDag.format('YYYY-MM-DD'),
+                },
+            ],
+        },
     })
     person.sykeforloep[0].sykmeldinger.push({
         fom: iDag.format('YYYY-MM-DD'),

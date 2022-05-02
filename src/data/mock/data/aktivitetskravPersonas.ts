@@ -1,7 +1,7 @@
 import {
     aktivitetskravBekreftet,
     aktivitetskravBekreftetMenIkkeNyest,
-    aktivitetskravVarsel
+    aktivitetskravVarsel,
 } from './aktivitetsplikt'
 import { brev } from './brev'
 import { enTomDialogmote } from './dialogmoter'
@@ -11,29 +11,37 @@ import { sendtSykmelding } from './sykmeldinger'
 
 export const etAktivitetskravVarsel = (): Persona => {
     return {
-        soknader: [ arbeidstaker100Sendt ],
+        soknader: [arbeidstaker100Sendt],
         vedtak: [],
         oppfolgingsplaner: [],
         dialogmote: enTomDialogmote,
-        dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-        sykmeldinger: [ sendtSykmelding ],
+        dialogmoteBehov: {
+            visMotebehov: false,
+            skjemaType: null,
+            motebehov: null,
+        },
+        sykmeldinger: [sendtSykmelding],
         narmesteledere: [],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
         sykeforloep: [],
-        hendelser: [ aktivitetskravVarsel ],
-        brev:brev,
+        hendelser: [aktivitetskravVarsel],
+        brev: brev,
     }
 }
 
 export const toAktivitetskravBekreftet = (): Persona => {
     return {
-        soknader: [ arbeidstaker100Sendt ],
+        soknader: [arbeidstaker100Sendt],
         vedtak: [],
         oppfolgingsplaner: [],
         dialogmote: enTomDialogmote,
-        dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-        sykmeldinger: [ sendtSykmelding ],
+        dialogmoteBehov: {
+            visMotebehov: false,
+            skjemaType: null,
+            motebehov: null,
+        },
+        sykmeldinger: [sendtSykmelding],
         narmesteledere: [],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
@@ -41,8 +49,8 @@ export const toAktivitetskravBekreftet = (): Persona => {
         hendelser: [
             aktivitetskravVarsel,
             aktivitetskravBekreftetMenIkkeNyest,
-            aktivitetskravBekreftet
+            aktivitetskravBekreftet,
         ],
-        brev:brev,
+        brev: brev,
     }
 }

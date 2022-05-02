@@ -16,8 +16,8 @@ interface TidslinjeProps {
 }
 
 export const Tidslinje = ({ visning }: TidslinjeProps) => {
-    const [ startdato, setStartdato ] = useState<Dayjs>()
-    const [ events, setEvents ] = useState<Hendelse[]>([])
+    const [startdato, setStartdato] = useState<Dayjs>()
+    const [events, setEvents] = useState<Hendelse[]>([])
 
     const { data: sykeforloep } = useSykeforloep()
     const { data: narmesteLedere } = useNarmesteledere()
@@ -25,13 +25,20 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
 
     useEffect(() => {
         const start = hentStartdatoFraSykeforloep(sykeforloep)
-        const hendelser: Hendelse[] = leggTilTidshendelser(visning, hentetHendelser, narmesteLedere, start)
+        const hendelser: Hendelse[] = leggTilTidshendelser(
+            visning,
+            hentetHendelser,
+            narmesteLedere,
+            start
+        )
         setStartdato(start)
         setEvents(hendelser)
-    }, [ hentetHendelser, narmesteLedere, sykeforloep, visning ])
+    }, [hentetHendelser, narmesteLedere, sykeforloep, visning])
 
     const skalViseNyNaermesteLederHendelse = (hendelse: Hendelse) => {
-        const ikkeVis = hendelse.type === 'NY_NAERMESTE_LEDER' && visning === 'UTEN_ARBEIDSGIVER'
+        const ikkeVis =
+            hendelse.type === 'NY_NAERMESTE_LEDER' &&
+            visning === 'UTEN_ARBEIDSGIVER'
         return !ikkeVis
     }
 
@@ -42,13 +49,23 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
             <div className="tidslinje">
                 {events
                     .filter(skalViseNyNaermesteLederHendelse)
-                    .filter((h) =>
-                        // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
-                        h.type !== 'AKTIVITETSKRAV_VARSEL' && h.type !== 'AKTIVITETSKRAV_BEKREFTET'
+                    .filter(
+                        (h) =>
+                            // Tidligere ble AKTIVITETSKRAV_BEKREFTET hentet og lagt i en annen state
+                            h.type !== 'AKTIVITETSKRAV_VARSEL' &&
+                            h.type !== 'AKTIVITETSKRAV_BEKREFTET'
                     )
                     .map((hendelse, idx) => {
-                        if (hendelse.type === 'BOBLE' || hendelse.type === 'NY_NAERMESTE_LEDER') {
-                            return <HendelseBoble key={idx + visning} hendelse={hendelse} />
+                        if (
+                            hendelse.type === 'BOBLE' ||
+                            hendelse.type === 'NY_NAERMESTE_LEDER'
+                        ) {
+                            return (
+                                <HendelseBoble
+                                    key={idx + visning}
+                                    hendelse={hendelse}
+                                />
+                            )
                         }
                         return (
                             <HendelseTittel
@@ -58,8 +75,7 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
                                 startdato={startdato}
                             />
                         )
-                    })
-                }
+                    })}
             </div>
         </div>
     )

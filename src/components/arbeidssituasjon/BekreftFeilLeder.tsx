@@ -9,14 +9,25 @@ import { NarmesteLeder } from '../../types/narmesteLeder'
 import Vis from '../Vis'
 
 interface BekreftFeilLederProps {
-    open: boolean,
-    toggle: () => void,
-    narmesteLeder: NarmesteLeder,
+    open: boolean
+    toggle: () => void
+    narmesteLeder: NarmesteLeder
     orgNavn: string
 }
 
-const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isIdle, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+const BekreftFeilLeder = ({
+    open,
+    toggle,
+    narmesteLeder,
+    orgNavn,
+}: BekreftFeilLederProps) => {
+    const {
+        mutate: avkreft,
+        isIdle,
+        isLoading,
+        isSuccess,
+        isError,
+    } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -27,34 +38,41 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
         >
             <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
 
-            <Vis hvis={isSuccess}
-                render={() =>
+            <Vis
+                hvis={isSuccess}
+                render={() => (
                     <Normaltekst>Takk for oppdateringen!</Normaltekst>
-                }
+                )}
             />
 
-            <Vis hvis={isError}
-                render={() =>
+            <Vis
+                hvis={isError}
+                render={() => (
                     <Alertstripe type="feil">
-                        Beklager, det oppstod en feil! Vennligst prøv igjen senere.
+                        Beklager, det oppstod en feil! Vennligst prøv igjen
+                        senere.
                     </Alertstripe>
-                }
+                )}
             />
 
-            <Vis hvis={isIdle || isLoading}
-                render={() =>
+            <Vis
+                hvis={isIdle || isLoading}
+                render={() => (
                     <>
                         <Normaltekst>
-                            Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
-                            leder i <strong>{orgNavn}</strong>?
+                            Er du sikker på at du vil fjerne{' '}
+                            <strong>{narmesteLeder.navn}</strong> som din
+                            nærmeste leder i <strong>{orgNavn}</strong>?
                         </Normaltekst>
                         <Normaltekst>
-                            Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
-                            de har valgt det.
+                            Hvis du er usikker på om navnet er riktig, bør du
+                            spørre arbeidsgiveren din om hvorfor de har valgt
+                            det.
                         </Normaltekst>
 
                         <div className="knapperad">
-                            <Knapp type="fare"
+                            <Knapp
+                                type="fare"
                                 spinner={isLoading}
                                 disabled={isLoading}
                                 onClick={() => avkreft()}
@@ -66,7 +84,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                             </button>
                         </div>
                     </>
-                }
+                )}
             />
         </Modal>
     )

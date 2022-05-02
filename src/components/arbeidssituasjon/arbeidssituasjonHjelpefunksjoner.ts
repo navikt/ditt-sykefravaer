@@ -2,7 +2,10 @@ import { NarmesteLeder } from '../../types/narmesteLeder'
 import { Sykmelding } from '../../types/sykmelding'
 import { selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/sykmeldingerUtils'
 
-export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykmeldinger?: Sykmelding[]) => {
+export const finnAktuelleArbeidsgivere = (
+    narmesteLedere?: NarmesteLeder[],
+    sykmeldinger?: Sykmelding[]
+) => {
     let aktiveLedereOrgnummer: string[] = []
     let sykmeldingerMedAktivNaermesteLeder: Sykmelding[] = []
     let sykmeldingerFiltrertPaPeriode: Sykmelding[] = []
@@ -15,16 +18,22 @@ export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykm
     if (sykmeldinger) {
         sykmeldingerMedAktivNaermesteLeder = sykmeldinger
             .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
-            .filter((syk) => aktiveLedereOrgnummer.includes(syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''))
+            .filter((syk) =>
+                aktiveLedereOrgnummer.includes(
+                    syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''
+                )
+            )
 
-        sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
-            .filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
+        sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(
+            sykmeldinger
+        ).filter((syk) => syk.sykmeldingStatus.statusEvent === 'SENDT')
     }
 
-    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] = [
-        ...sykmeldingerMedAktivNaermesteLeder,
-        ...sykmeldingerFiltrertPaPeriode,
-    ]
+    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] =
+        [
+            ...sykmeldingerMedAktivNaermesteLeder,
+            ...sykmeldingerFiltrertPaPeriode,
+        ]
 
     const unikeArbeidsgiver = new Set(
         sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel

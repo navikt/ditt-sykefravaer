@@ -21,7 +21,12 @@ import nb from 'dayjs/locale/nb'
 import type { AppProps as NextAppProps } from 'next/app'
 import Head from 'next/head'
 import React, { PropsWithChildren, useState } from 'react'
-import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'react-query'
+import {
+    DehydratedState,
+    Hydrate,
+    QueryClient,
+    QueryClientProvider,
+} from 'react-query'
 
 import { isMockBackend } from '../utils/environment'
 
@@ -41,8 +46,7 @@ if (process.browser && isMockBackend()) {
 }
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-
-    const [ queryClient ] = useState(
+    const [queryClient] = useState(
         () =>
             new QueryClient({
                 defaultOptions: {
@@ -53,7 +57,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                         refetchOnWindowFocus: false,
                     },
                 },
-            }),
+            })
     )
 
     return (
@@ -61,12 +65,17 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             <Head>
                 <title>Ditt sykefravær</title>
                 <meta name="robots" content="noindex" />
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
             </Head>
             <QueryClientProvider client={queryClient}>
                 <Hydrate state={pageProps.dehydratedState}>
                     <div className="pagewrapper">
-                        <div id="root"><Component {...pageProps} /></div>
+                        <div id="root">
+                            <Component {...pageProps} />
+                        </div>
                     </div>
                 </Hydrate>
             </QueryClientProvider>

@@ -2,7 +2,6 @@ import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
 
-
 export function flexGatewayRoot() {
     return publicRuntimeConfig.flexGatewayRoot
 }

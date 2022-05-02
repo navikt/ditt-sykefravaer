@@ -1,9 +1,9 @@
 export interface Sykeforloep {
-    oppfolgingsdato: string;
+    oppfolgingsdato: string
     sykmeldinger: SimpleSykmelding[]
 }
 
 export interface SimpleSykmelding {
-    fom: string;
-    tom: string;
+    fom: string
+    tom: string
 }

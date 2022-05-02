@@ -1,3 +1,3 @@
 export interface ArbeidsrettetOppfolging {
-    underOppfolging: boolean;
+    underOppfolging: boolean
 }

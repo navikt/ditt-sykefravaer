@@ -8,10 +8,9 @@ export default function UseSoknader() {
     return useQuery<Soknad[], Error>('soknader', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/syfosoknad/api/soknader`,
-            async(data) => {
+            async (data) => {
                 return data as Soknad[]
-            },
-        ),
+            }
+        )
     )
 }
-

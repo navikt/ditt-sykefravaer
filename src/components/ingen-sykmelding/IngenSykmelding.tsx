@@ -6,7 +6,6 @@ import { veileder } from '../../grafikk/Veileder'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
-
 export const IngenSykmelding = () => {
     const { data: sykmeldinger } = useSykmeldinger()
 
@@ -20,4 +19,3 @@ export const IngenSykmelding = () => {
         </Veilederpanel>
     )
 }
-

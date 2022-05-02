@@ -8,10 +8,9 @@ export default function UseDialogmoteBehov() {
     return useQuery<DialogmoteBehov, Error>('dialogmoteBehov', () =>
         Fetch.authenticatedGet(
             `${syfoApiRoot()}/syfomotebehov/api/v2/arbeidstaker/motebehov`,
-            async(data) => {
+            async (data) => {
                 return data as DialogmoteBehov
-            },
-        ),
+            }
+        )
     )
 }
-

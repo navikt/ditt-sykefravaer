@@ -6,26 +6,35 @@ import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
 import Vis from '../Vis'
 
 interface VelgArbeidssituasjonProps {
-    kanVelge: boolean,
-    setVisning: Dispatch<SetStateAction<Visning>>,
+    kanVelge: boolean
+    setVisning: Dispatch<SetStateAction<Visning>>
     medHjelpetekst: boolean
 }
 
-const VelgArbeidssituasjon = ({ kanVelge, setVisning, medHjelpetekst }: VelgArbeidssituasjonProps) => {
-    const alternativer = [ {
-        tittel: 'Jeg har arbeidsgiver',
-        verdi: 'MED_ARBEIDSGIVER',
-    }, {
-        tittel: 'Jeg har ikke arbeidsgiver',
-        verdi: 'UTEN_ARBEIDSGIVER',
-        hjelpetekst: 'Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig.'
-    } ]
+const VelgArbeidssituasjon = ({
+    kanVelge,
+    setVisning,
+    medHjelpetekst,
+}: VelgArbeidssituasjonProps) => {
+    const alternativer = [
+        {
+            tittel: 'Jeg har arbeidsgiver',
+            verdi: 'MED_ARBEIDSGIVER',
+        },
+        {
+            tittel: 'Jeg har ikke arbeidsgiver',
+            verdi: 'UTEN_ARBEIDSGIVER',
+            hjelpetekst:
+                'Velg «Jeg har ikke arbeidsgiver» dersom du er for eks. selvstendig næringsdrivende, frilanser eller arbeidsledig.',
+        },
+    ]
 
     return (
-        <Vis hvis={kanVelge}
-            render={() =>
+        <Vis
+            hvis={kanVelge}
+            render={() => (
                 <div className="radiofaner">
-                    {alternativer.map((a, idx) =>
+                    {alternativer.map((a, idx) => (
                         <div key={idx} className="radio">
                             <Radio
                                 name="velgArbeidssituasjon"
@@ -33,19 +42,20 @@ const VelgArbeidssituasjon = ({ kanVelge, setVisning, medHjelpetekst }: VelgArbe
                                 value={a.verdi}
                                 defaultChecked={a.verdi === 'MED_ARBEIDSGIVER'}
                                 onChange={() => {
-                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                     setVisning(a.verdi as any)
                                 }}
                             />
-                            <Vis hvis={medHjelpetekst && a.hjelpetekst}
-                                render={() =>
+                            <Vis
+                                hvis={medHjelpetekst && a.hjelpetekst}
+                                render={() => (
                                     <Hjelpetekst>{a.hjelpetekst}</Hjelpetekst>
-                                }
+                                )}
                             />
                         </div>
-                    )}
+                    ))}
                 </div>
-            }
+            )}
         />
     )
 }

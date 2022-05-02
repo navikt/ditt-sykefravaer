@@ -9,7 +9,8 @@ const Tidslinjen = () => {
     const router = useRouter()
 
     return (
-        <LenkepanelBase border={true}
+        <LenkepanelBase
+            border={true}
             href={'sykefravaer/tidslinjen'}
             onClick={(e) => {
                 e.preventDefault()
@@ -17,7 +18,12 @@ const Tidslinjen = () => {
             }}
         >
             <div className="lenkeikon">
-                <svg width="32" height="28" viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg">
+                <svg
+                    width="32"
+                    height="28"
+                    viewBox="0 0 32 28"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
                     <g stroke="#3E3832" fill="none" fillRule="evenodd">
                         <circle cx="3.351" cy="3.429" r="2.667" />
                         <path d="M11.443 3.333H31.35" />
@@ -28,12 +34,9 @@ const Tidslinjen = () => {
                     </g>
                 </svg>
             </div>
-            <Undertittel tag="h3">
-                {tekst('lenker.tidslinjen')}
-            </Undertittel>
+            <Undertittel tag="h3">{tekst('lenker.tidslinjen')}</Undertittel>
         </LenkepanelBase>
     )
 }
 
 export default Tidslinjen
-

@@ -8,10 +8,9 @@ export default function UseOppfolgingsplaner() {
     return useQuery<Oppfolgingsplan[], Error>('oppfolgingsplaner', () =>
         Fetch.authenticatedGet(
             `${syfoApiRoot()}/syfooppfolgingsplanservice/api/arbeidstaker/oppfolgingsplaner`,
-            async(data) => {
+            async (data) => {
                 return data as Oppfolgingsplan[]
-            },
-        ),
+            }
+        )
     )
 }
-

@@ -8,14 +8,14 @@ import BjornBildeLiten from './BjornBildeLiten'
 import BjornBildeStor from './BjornBildeStor'
 
 interface BjornProps {
-    bildeAlt?: string;
-    nokkel?: string;
-    children?: React.ReactElement;
-    hvit?: boolean;
-    stor?: boolean;
-    vertikal?: boolean;
-    ekstraMarginTop?: boolean;
-    className?: string;
+    bildeAlt?: string
+    nokkel?: string
+    children?: React.ReactElement
+    hvit?: boolean
+    stor?: boolean
+    vertikal?: boolean
+    ekstraMarginTop?: boolean
+    className?: string
 }
 
 export const Bjorn = ({
@@ -26,9 +26,8 @@ export const Bjorn = ({
     stor = false,
     vertikal = false,
     ekstraMarginTop = false,
-    className = ''
+    className = '',
 }: BjornProps) => {
-
     const classNames = cls(`hjelpeboble ${className}`, {
         'hjelpeboble--horisontal': !vertikal,
         'hjelpeboble--margin--top': ekstraMarginTop,
@@ -54,7 +53,11 @@ export const Bjorn = ({
         <div className={classNames}>
             <div className={bobleClassNames}>
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {nokkel !== undefined ? <Normaltekst>{parser(tekst(nokkel as any))}</Normaltekst> : children}
+                {nokkel !== undefined ? (
+                    <Normaltekst>{parser(tekst(nokkel as any))}</Normaltekst>
+                ) : (
+                    children
+                )}
             </div>
             <div className={bildeClassNames}>
                 <Bilde alt={bildeAlt} />

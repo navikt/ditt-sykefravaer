@@ -17,8 +17,8 @@ import useVedtak from '../../query-hooks/useVedtak'
 import Vis from '../Vis'
 
 interface QueryOgFeilmelding {
-    query: UseQueryResult;
-    message: string;
+    query: UseQueryResult
+    message: string
 }
 
 const QueryStatusPanel = () => {
@@ -26,39 +26,39 @@ const QueryStatusPanel = () => {
 
     const sykmeldinger: QueryOgFeilmelding = {
         query: useSykmeldinger(),
-        message: 'Kunne ikke hente dine sykmeldinger'
+        message: 'Kunne ikke hente dine sykmeldinger',
     }
     const soknader: QueryOgFeilmelding = {
         query: useSoknader(),
-        message: 'Kunne ikke hente dine søknader'
+        message: 'Kunne ikke hente dine søknader',
     }
     const vedtak: QueryOgFeilmelding = {
         query: useVedtak(),
-        message: 'Kunne ikke hente dine vedtak'
+        message: 'Kunne ikke hente dine vedtak',
     }
     const oppfolgingsplaner: QueryOgFeilmelding = {
         query: useOppfolgingsplaner(),
-        message: 'Kunne ikke hente oppfølgingsplaner'
+        message: 'Kunne ikke hente oppfølgingsplaner',
     }
     const dialogmoteBehov: QueryOgFeilmelding = {
         query: useDialogmoteBehov(),
-        message: 'Kunne ikke sjekke behov for dialogmøte'
+        message: 'Kunne ikke sjekke behov for dialogmøte',
     }
     const narmesteledere: QueryOgFeilmelding = {
         query: useNarmesteledere(),
-        message: 'Kunne ikke hente din nærmeste leder'
+        message: 'Kunne ikke hente din nærmeste leder',
     }
     const trettiniUkersvarsel: QueryOgFeilmelding = {
         query: use39ukersvarsel(),
-        message: 'Kunne ikke hente varsler om slutt på sykepenger'
+        message: 'Kunne ikke hente varsler om slutt på sykepenger',
     }
     const arbeidsrettetOppfolging: QueryOgFeilmelding = {
         query: useArbeidsrettetOppfolging(),
-        message: 'Kunne ikke hente arbeidsrettet oppfølging'
+        message: 'Kunne ikke hente arbeidsrettet oppfølging',
     }
     const sykeforloep: QueryOgFeilmelding = {
         query: useSykeforloep(),
-        message: 'Kunne ikke hente ditt siste sykeforløp'
+        message: 'Kunne ikke hente ditt siste sykeforløp',
     }
 
     const errorQueries = [
@@ -71,41 +71,43 @@ const QueryStatusPanel = () => {
         trettiniUkersvarsel,
         arbeidsrettetOppfolging,
         sykeforloep,
-    ].filter((a) =>
-        a.query.isError
-    )
+    ].filter((a) => a.query.isError)
 
     return (
         <>
-            <Vis hvis={isFetching > 0}
-                render={() =>
+            <Vis
+                hvis={isFetching > 0}
+                render={() => (
                     <div className="query-status-panel">
                         <Undertittel>Henter ditt sykefravær</Undertittel>
                         <NavFrontendSpinner />
                     </div>
-                }
+                )}
             />
-            <Vis hvis={errorQueries.length > 0}
-                render={() =>
-                    <Alertstripe type="advarsel" className="query-status-error" >
+            <Vis
+                hvis={errorQueries.length > 0}
+                render={() => (
+                    <Alertstripe type="advarsel" className="query-status-error">
                         <strong>Ai ai ai!</strong>
-                        <span> Vi har problemer med noen av baksystemene nå. </span>
+                        <span>
+                            {' '}
+                            Vi har problemer med noen av baksystemene nå.{' '}
+                        </span>
                         <ul>
-                            {errorQueries.map((e, idx) =>
-                                <li key={idx}>
-                                    {e.message}
-                                </li>
-                            )}
+                            {errorQueries.map((e, idx) => (
+                                <li key={idx}>{e.message}</li>
+                            ))}
                         </ul>
 
-                        <Knapp onClick={() => {
-                            errorQueries.forEach((a) => a.query.refetch())
-                        }}
+                        <Knapp
+                            onClick={() => {
+                                errorQueries.forEach((a) => a.query.refetch())
+                            }}
                         >
                             Hent på nytt
                         </Knapp>
                     </Alertstripe>
-                }
+                )}
             />
         </>
     )

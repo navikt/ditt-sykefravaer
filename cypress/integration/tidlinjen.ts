@@ -1,26 +1,30 @@
 describe('Tester tidslinjen', () => {
-
     it('Lenk til tidslinjen ligger i tidslinjeutdrag', () => {
-        cy.visit('http://localhost:8080/syk/sykefravaer/?testperson=langtidssykmeldt')
+        cy.visit(
+            'http://localhost:8080/syk/sykefravaer/?testperson=langtidssykmeldt'
+        )
 
         cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
             .contains('Les mer')
             .click()
 
-        cy.get('.lenke--tilTidslinje')
-            .click()
+        cy.get('.lenke--tilTidslinje').click()
 
-        cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/tidslinjen')
+        cy.url().should(
+            'contain',
+            'http://localhost:8080/syk/sykefravaer/tidslinjen'
+        )
     })
 
     it('Lenk til tidslinjen ligger sammen med lenker', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer')
 
-        cy.get('.lenker')
-            .contains('Hva skjer under sykefraværet?')
-            .click()
+        cy.get('.lenker').contains('Hva skjer under sykefraværet?').click()
 
-        cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/tidslinjen')
+        cy.url().should(
+            'contain',
+            'http://localhost:8080/syk/sykefravaer/tidslinjen'
+        )
     })
 
     it('Jeg har arbeidsgiver', () => {
@@ -39,29 +43,38 @@ describe('Tester tidslinjen', () => {
 
         cy.get('.rad')
             .should('contain', '19. mars 2021')
-            .contains('Hogwarts School of Witchcraft and Wizardry har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.')
+            .contains(
+                'Hogwarts School of Witchcraft and Wizardry har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.'
+            )
             .click()
 
         cy.contains('Koblingen mellom deg og Albus Dumbledore er aktiv')
     })
 
     it('Jeg har ikke arbeidsgiver', () => {
-        cy.contains('Jeg har ikke arbeidsgiver')
-            .click()
+        cy.contains('Jeg har ikke arbeidsgiver').click()
 
         cy.get('.rad')
             .should('contain', 'Første sykmeldingsdag 1. mars 2021')
             .should('contain', 'Når du er blitt syk')
-            .should('contain', 'Har du vurdert din mulighet for å være i aktivitet?')
+            .should(
+                'contain',
+                'Har du vurdert din mulighet for å være i aktivitet?'
+            )
             .should('contain', '8 uker')
-            .should('contain', 'Har du snakket med en veileder på NAV-kontoret?')
+            .should(
+                'contain',
+                'Har du snakket med en veileder på NAV-kontoret?'
+            )
             .should('contain', '12 uker')
             .should('contain', 'Har du og veilederen laget en plan?')
             .should('contain', '39 uker')
             .should('contain', 'Snart slutt på sykepengene')
 
         cy.get('.rad')
-            .contains('Sykmeldingsperioder AS har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.')
+            .contains(
+                'Sykmeldingsperioder AS har oppgitt Albus Dumbledore som din nærmeste leder med personalansvar.'
+            )
             .should('not.exist')
     })
 })

@@ -12,202 +12,221 @@ it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
     expect(oppgaver).toEqual([])
 })
 
-
 it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
-
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'OK',
+            },
         },
-        behandlingsutfall: {
-            status: 'OK'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
-    expect(oppgaver).toEqual([ {
-        lenke: 'http://sykmelding/123',
-        tekst: 'Du har en ny sykmelding',
-        oppgavetype: 'info',
-    } ])
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://sykmelding/123',
+            tekst: 'Du har en ny sykmelding',
+            oppgavetype: 'info',
+        },
+    ])
 })
 
 it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'MANUAL_PROCESSING',
+            },
         },
-        behandlingsutfall: {
-            status: 'MANUAL_PROCESSING'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
-    expect(oppgaver).toEqual([ {
-        lenke: 'http://sykmelding/123',
-        tekst: 'Du har en ny sykmelding',
-        oppgavetype: 'info',
-    } ])
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://sykmelding/123',
+            tekst: 'Du har en ny sykmelding',
+            oppgavetype: 'info',
+        },
+    ])
 })
-
 
 it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok', () => {
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'MANUAL_PROCESSING',
+            },
         },
-        behandlingsutfall: {
-            status: 'MANUAL_PROCESSING'
-        }
-    }, {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'OK',
+            },
         },
-        behandlingsutfall: {
-            status: 'OK'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
-    expect(oppgaver).toEqual([ {
-        lenke: 'http://sykmelding',
-        tekst: 'Du har to nye sykmeldinger',
-        oppgavetype: 'info',
-    } ])
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://sykmelding',
+            tekst: 'Du har to nye sykmeldinger',
+            oppgavetype: 'info',
+        },
+    ])
 })
 
-
 it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'SENDT'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'SENDT',
+            },
+            behandlingsutfall: {
+                status: 'OK',
+            },
         },
-        behandlingsutfall: {
-            status: 'OK'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
     expect(oppgaver).toEqual([])
 })
 
-
 it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'INVALID',
+            },
         },
-        behandlingsutfall: {
-            status: 'INVALID'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
-    expect(oppgaver).toEqual([ {
-        lenke: 'http://sykmelding/123',
-        tekst: 'Du har en avvist sykmelding',
-        oppgavetype: 'advarsel',
-    } ])
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://sykmelding/123',
+            tekst: 'Du har en avvist sykmelding',
+            oppgavetype: 'advarsel',
+        },
+    ])
 })
-
 
 it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen ok', () => {
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'INVALID',
+            },
         },
-        behandlingsutfall: {
-            status: 'INVALID'
-        }
-    }, {
-        id: '12345',
-        sykmeldingsperioder: [
-            {
-                fom: iGår,
-                tom: iDag,
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+        {
+            id: '12345',
+            sykmeldingsperioder: [
+                {
+                    fom: iGår,
+                    tom: iDag,
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'OK',
+            },
         },
-        behandlingsutfall: {
-            status: 'OK'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
-    expect(oppgaver).toEqual([ {
-        lenke: 'http://sykmelding/12345',
-        tekst: 'Du har en ny sykmelding',
-        oppgavetype: 'info',
-    }, {
-        lenke: 'http://sykmelding/123',
-        tekst: 'Du har en avvist sykmelding',
-        oppgavetype: 'advarsel',
-    } ])
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://sykmelding/12345',
+            tekst: 'Du har en ny sykmelding',
+            oppgavetype: 'info',
+        },
+        {
+            lenke: 'http://sykmelding/123',
+            tekst: 'Du har en avvist sykmelding',
+            oppgavetype: 'advarsel',
+        },
+    ])
 })
 
-
 it('Returnerer ingen oppgaver når sykmeldingen er eldre enn 3 måneder', () => {
-
-    const sykmeldinger: Sykmelding[] = [ {
-        id: '123',
-        sykmeldingsperioder: [
-            {
-                fom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
-                tom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
-            }
-        ],
-        sykmeldingStatus: {
-            statusEvent: 'APEN'
+    const sykmeldinger: Sykmelding[] = [
+        {
+            id: '123',
+            sykmeldingsperioder: [
+                {
+                    fom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
+                    tom: dayjs().subtract(3, 'months').format('MM-DD-YYYY'),
+                },
+            ],
+            sykmeldingStatus: {
+                statusEvent: 'APEN',
+            },
+            behandlingsutfall: {
+                status: 'OK',
+            },
         },
-        behandlingsutfall: {
-            status: 'OK'
-        }
-    } ]
+    ]
     const oppgaver = skapSykmeldingoppgaver(sykmeldinger, 'http://sykmelding')
     expect(oppgaver).toEqual([])
 })

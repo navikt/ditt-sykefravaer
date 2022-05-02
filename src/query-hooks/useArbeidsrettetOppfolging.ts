@@ -5,14 +5,15 @@ import { flexGatewayRoot } from '../utils/environment'
 import Fetch from '../utils/fetch'
 
 export default function UseArbeidsrettetOppfolging() {
-    return useQuery<ArbeidsrettetOppfolging, Error>('arbeidsrettetOppfolging', () =>
-        Fetch.authenticatedGet(
-            `${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,
-            async(data) => {
-                return data as ArbeidsrettetOppfolging
-            },
-            { 'Nav-Consumer-Id': 'sykefravaer' }
-        ),
+    return useQuery<ArbeidsrettetOppfolging, Error>(
+        'arbeidsrettetOppfolging',
+        () =>
+            Fetch.authenticatedGet(
+                `${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,
+                async (data) => {
+                    return data as ArbeidsrettetOppfolging
+                },
+                { 'Nav-Consumer-Id': 'sykefravaer' }
+            )
     )
 }
-

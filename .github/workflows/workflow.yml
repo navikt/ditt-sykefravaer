@@ -36,6 +36,8 @@ jobs:
           path: VERSION.txt
       - name: Install npm dependencies
         run: npm ci
+      - name: Run prettier
+        run: npm run prettier:check
       - name: Run lint
         run: npm run lint
       - name: Run tests
@@ -154,7 +156,6 @@ jobs:
           CLUSTER: labs-gcp
           RESOURCE: nais-labs.yaml
 
-
   deploy-branch-to-labs-gcp:
     if: startsWith(github.ref, 'refs/heads/labs-')
     name: Deploy branch to labs-gcp (Demo)
@@ -183,5 +184,5 @@ jobs:
           SLACK_MESSAGE: 'Ny versjon ute i labs :rocket: https://ditt-sykefravaer-${{ env.branchname }}.labs.nais.io/syk/sykefravaer'
           SLACK_TITLE: ${{ env.branchname }}
           SLACK_USERNAME: Labs deploy
-          SLACK_ICON: ":lab_coat:"
+          SLACK_ICON: ':lab_coat:'
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}

@@ -2,7 +2,12 @@ import parser from 'html-react-parser'
 import { VenstreChevron } from 'nav-frontend-chevron'
 import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
 import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
-import { Element, Normaltekst, Sidetittel, Systemtittel } from 'nav-frontend-typografi'
+import {
+    Element,
+    Normaltekst,
+    Sidetittel,
+    Systemtittel,
+} from 'nav-frontend-typografi'
 import Veilederpanel from 'nav-frontend-veilederpanel'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
@@ -26,13 +31,18 @@ import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = [
-    { tittel: 'Snart slutt på sykepengene', sti: '/snart-slutt-pa-sykepengene', erKlikkbar: false }
+    {
+        tittel: 'Snart slutt på sykepengene',
+        sti: '/snart-slutt-pa-sykepengene',
+        erKlikkbar: false,
+    },
 ]
 
 const SnartSluttPaSykepengene = () => {
     const router = useRouter()
-    const [ harArbeidsgiver, setHarArbeidsgiver ] = useState<boolean>()
-    const [ arbeidsrettetOppfolging, setArbeidsrettetOppfolging ] = useState<any>()
+    const [harArbeidsgiver, setHarArbeidsgiver] = useState<boolean>()
+    const [arbeidsrettetOppfolging, setArbeidsrettetOppfolging] =
+        useState<any>()
 
     const { data: oppfolging } = useArbeidsrettetOppfolging()
     const { data: narmesteLedere } = useNarmesteledere()
@@ -47,15 +57,13 @@ const SnartSluttPaSykepengene = () => {
         )
         setHarArbeidsgiver(arbeidsgivere.length > 0)
         setArbeidsrettetOppfolging(oppfolging)
-
-    }, [ narmesteLedere, oppfolging, sykmeldinger ])
+    }, [narmesteLedere, oppfolging, sykmeldinger])
 
     const logSvar = (svar: 'JA' | 'NEI') => {
-        logEvent('Spørsmål svart',
-            {
-                sporsmal: tekst('snartslutt.veiledning'),
-                svar
-            })
+        logEvent('Spørsmål svart', {
+            sporsmal: tekst('snartslutt.veiledning'),
+            svar,
+        })
     }
 
     const handleJaBtnClicked = () => {
@@ -90,8 +98,9 @@ const SnartSluttPaSykepengene = () => {
                     {tekst('snartslutt.hva_nå')}
                 </Systemtittel>
 
-                <Vis hvis={harArbeidsgiver}
-                    render={() =>
+                <Vis
+                    hvis={harArbeidsgiver}
+                    render={() => (
                         <Veilederpanel svg={veilederDame}>
                             <Element tag="h3">
                                 {tekst('snartslutt.snakk_med.tittel')}
@@ -100,11 +109,12 @@ const SnartSluttPaSykepengene = () => {
                                 {tekst('snartslutt.snakk_med.tekst')}
                             </Normaltekst>
                         </Veilederpanel>
-                    }
+                    )}
                 />
 
-                <Vis hvis={!harArbeidsgiver}
-                    render={() =>
+                <Vis
+                    hvis={!harArbeidsgiver}
+                    render={() => (
                         <Veilederpanel svg={dialog}>
                             <Element tag="h3">
                                 {tekst('snartslutt.aktivitetsplan.tittel')}
@@ -113,7 +123,7 @@ const SnartSluttPaSykepengene = () => {
                                 {tekst('snartslutt.aktivitetsplan.tekst')}
                             </Normaltekst>
                         </Veilederpanel>
-                    }
+                    )}
                 />
 
                 <Veilederpanel svg={penger}>
@@ -129,25 +139,29 @@ const SnartSluttPaSykepengene = () => {
                     {tekst('snartslutt.andre')}
                 </Systemtittel>
 
-                <Ekspanderbartpanel className="byttjobb"
+                <Ekspanderbartpanel
+                    className="byttjobb"
                     tittel={
                         <>
-                            <Vis hvis={harArbeidsgiver}
-                                render={() =>
+                            <Vis
+                                hvis={harArbeidsgiver}
+                                render={() => (
                                     <Systemtittel tag="h3">
                                         {tekst('snartslutt.bytt_jobb.tittel')}
                                     </Systemtittel>
-                                }
+                                )}
                             />
-                            <Vis hvis={!harArbeidsgiver}
-                                render={() =>
+                            <Vis
+                                hvis={!harArbeidsgiver}
+                                render={() => (
                                     <Systemtittel tag="h3">
                                         {tekst('snartslutt.finn_jobb.tittel')}
                                     </Systemtittel>
-                                }
+                                )}
                             />
                         </>
-                    }>
+                    }
+                >
                     <ul>
                         <Normaltekst tag="li">
                             {parser(tekst('snartslutt.bytt_jobb.liste.del1'))}
@@ -158,33 +172,39 @@ const SnartSluttPaSykepengene = () => {
                     </ul>
                 </Ekspanderbartpanel>
 
-                <Ekspanderbartpanel className="okonomien" tittel={
-                    <>
-                        <Systemtittel tag="h3">
-                            {tekst('snartslutt.okonomien.tittel')}
-                        </Systemtittel>
-                        <Vis hvis={harArbeidsgiver}
-                            render={() =>
-                                <Normaltekst>
-                                    {tekst('snartslutt.okonomien.tekst')}
-                                </Normaltekst>
-                            }
-                        />
-                        <Vis hvis={!harArbeidsgiver}
-                            render={() =>
-                                <Normaltekst>
-                                    {tekst('snartslutt.okonomien.tekst2')}
-                                </Normaltekst>
-                            }
-                        />
-                    </>
-                }>
-                    <Vis hvis={harArbeidsgiver}
-                        render={() =>
+                <Ekspanderbartpanel
+                    className="okonomien"
+                    tittel={
+                        <>
+                            <Systemtittel tag="h3">
+                                {tekst('snartslutt.okonomien.tittel')}
+                            </Systemtittel>
+                            <Vis
+                                hvis={harArbeidsgiver}
+                                render={() => (
+                                    <Normaltekst>
+                                        {tekst('snartslutt.okonomien.tekst')}
+                                    </Normaltekst>
+                                )}
+                            />
+                            <Vis
+                                hvis={!harArbeidsgiver}
+                                render={() => (
+                                    <Normaltekst>
+                                        {tekst('snartslutt.okonomien.tekst2')}
+                                    </Normaltekst>
+                                )}
+                            />
+                        </>
+                    }
+                >
+                    <Vis
+                        hvis={harArbeidsgiver}
+                        render={() => (
                             <Normaltekst>
                                 {tekst('snartslutt.okonomien.innhold.avsnitt1')}
                             </Normaltekst>
-                        }
+                        )}
                     />
                     <Normaltekst>
                         {parser(tekst('snartslutt.okonomien.innhold.avsnitt2'))}
@@ -194,9 +214,9 @@ const SnartSluttPaSykepengene = () => {
                     </Normaltekst>
                 </Ekspanderbartpanel>
 
-
-                <Vis hvis={arbeidsrettetOppfolging?.underOppfolging === false}
-                    render={() =>
+                <Vis
+                    hvis={arbeidsrettetOppfolging?.underOppfolging === false}
+                    render={() => (
                         <>
                             <Systemtittel tag="h2" className="subtittel">
                                 {tekst('snartslutt.veiledning')}
@@ -211,16 +231,21 @@ const SnartSluttPaSykepengene = () => {
                                 </Knapp>
                             </div>
                         </>
-                    }
+                    )}
                 />
 
                 <Link href="/">
-                    <a className="ekstra-topp-margin lenke" onClick={(e) => {
-                        e.preventDefault()
-                        router.push('/')
-                    }}>
+                    <a
+                        className="ekstra-topp-margin lenke"
+                        onClick={(e) => {
+                            e.preventDefault()
+                            router.push('/')
+                        }}
+                    >
                         <VenstreChevron />
-                        <Normaltekst tag="span">Til hovedsiden Ditt sykefravaer</Normaltekst>
+                        <Normaltekst tag="span">
+                            Til hovedsiden Ditt sykefravaer
+                        </Normaltekst>
                     </a>
                 </Link>
             </div>
@@ -228,7 +253,7 @@ const SnartSluttPaSykepengene = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async () => {
     // Disable static rendring
     return {
         props: {},

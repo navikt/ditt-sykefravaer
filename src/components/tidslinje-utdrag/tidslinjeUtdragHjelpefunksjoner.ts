@@ -11,46 +11,65 @@ export const hentStartdatoFraSykeforloep = (sykeforloep?: Sykeforloep[]) => {
         return undefined
     }
 
-    const startdato = sykeforloep.sort((s1, s2) =>
-        dayjs(s2.oppfolgingsdato).unix() - dayjs(s1.oppfolgingsdato).unix()
+    const startdato = sykeforloep.sort(
+        (s1, s2) =>
+            dayjs(s2.oppfolgingsdato).unix() - dayjs(s1.oppfolgingsdato).unix()
     )[0].oppfolgingsdato
 
     return dayjs(startdato)
 }
 
 // Sjekker at bruker er syk nå og ikke har noen nye sykmeldinger
-export const arbeidsrettetOppfolgingSykmeldtInngangAktiv = (startdato: dayjs.Dayjs, sykeforloep?: Sykeforloep[], alleSykmeldinger?: Sykmelding[]) => {
+export const arbeidsrettetOppfolgingSykmeldtInngangAktiv = (
+    startdato: dayjs.Dayjs,
+    sykeforloep?: Sykeforloep[],
+    alleSykmeldinger?: Sykmelding[]
+) => {
     const iDag = dayjs()
 
     const finnAktuelleSykmeldinger = (sykmeldinger: SimpleSykmelding[]) => {
-        return sykmeldinger.filter((s) =>
-            iDag >= dayjs(s.fom) && iDag <= dayjs(s.tom).endOf('day')
+        return sykmeldinger.filter(
+            (s) => iDag >= dayjs(s.fom) && iDag <= dayjs(s.tom).endOf('day')
         )
     }
 
-    const aktueltSykeforloep = sykeforloep?.find((s) => dayjs(s.oppfolgingsdato).diff(startdato, 'days') === 0)
+    const aktueltSykeforloep = sykeforloep?.find(
+        (s) => dayjs(s.oppfolgingsdato).diff(startdato, 'days') === 0
+    )
     if (!aktueltSykeforloep) return false
 
-    const aktiveSykmeldinger = finnAktuelleSykmeldinger(aktueltSykeforloep.sykmeldinger)
+    const aktiveSykmeldinger = finnAktuelleSykmeldinger(
+        aktueltSykeforloep.sykmeldinger
+    )
     if (!aktiveSykmeldinger) return false
 
-
-    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = aktiveSykmeldinger.length > 0 &&
-        alleSykmeldinger?.find((s) => s.sykmeldingStatus.statusEvent === 'APEN') === undefined &&
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv =
+        aktiveSykmeldinger.length > 0 &&
+        alleSykmeldinger?.find(
+            (s) => s.sykmeldingStatus.statusEvent === 'APEN'
+        ) === undefined &&
         iDag.diff(startdato, 'weeks') >= 39
 
     return erArbeidsrettetOppfolgingSykmeldtInngangAktiv
 }
 
 // Lengde på sykeforløpet, Tvinger antall dager hvis det er ny sykmelding eller ingen sykmelding som er aktive
-export const getSykefravaerVarighet = (sykeforloep?: Sykeforloep[], sykmeldinger?: Sykmelding[]) => {
+export const getSykefravaerVarighet = (
+    sykeforloep?: Sykeforloep[],
+    sykmeldinger?: Sykmelding[]
+) => {
     const TRETTINI_UKER = 7 * 39
     const TVING_MER_ENN_39_UKER = 275
     const TVING_MINDRE_ENN_39_UKER = 272
 
     const startdato = hentStartdatoFraSykeforloep(sykeforloep)
     if (!startdato) return 0
-    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv = arbeidsrettetOppfolgingSykmeldtInngangAktiv(startdato, sykeforloep, sykmeldinger)
+    const erArbeidsrettetOppfolgingSykmeldtInngangAktiv =
+        arbeidsrettetOppfolgingSykmeldtInngangAktiv(
+            startdato,
+            sykeforloep,
+            sykmeldinger
+        )
 
     const dagensDato = dayjs()
     const antallDager = dagensDato.diff(startdato, 'days') + 1
@@ -58,10 +77,13 @@ export const getSykefravaerVarighet = (sykeforloep?: Sykeforloep[], sykmeldinger
     if (antallDager > 500) {
         return antallDager
     }
-    if(erArbeidsrettetOppfolgingSykmeldtInngangAktiv) {
+    if (erArbeidsrettetOppfolgingSykmeldtInngangAktiv) {
         return TVING_MER_ENN_39_UKER
     }
-    if(antallDager > TRETTINI_UKER && erArbeidsrettetOppfolgingSykmeldtInngangAktiv === false) {
+    if (
+        antallDager > TRETTINI_UKER &&
+        erArbeidsrettetOppfolgingSykmeldtInngangAktiv === false
+    ) {
         return TVING_MINDRE_ENN_39_UKER
     }
     return antallDager
@@ -75,50 +97,66 @@ export const skalViseUtdrag = (sykmeldinger?: Sykmelding[]) => {
         return false
     }
 
-    return sykmeldinger
-        .filter((s) => {
-            const tom = senesteTom(s.sykmeldingsperioder)
-            return dayjs().unix() - tom.unix() < SJU_DAGER
-        })
-        .filter((s) =>
-            [ 'APEN', 'BEKREFTET', 'SENDT' ].includes(s.sykmeldingStatus.statusEvent)
-        ).length > 0
+    return (
+        sykmeldinger
+            .filter((s) => {
+                const tom = senesteTom(s.sykmeldingsperioder)
+                return dayjs().unix() - tom.unix() < SJU_DAGER
+            })
+            .filter((s) =>
+                ['APEN', 'BEKREFTET', 'SENDT'].includes(
+                    s.sykmeldingStatus.statusEvent
+                )
+            ).length > 0
+    )
 }
 
-export const getVisning = (sykeforloep?: Sykeforloep[], sykmeldinger?: Sykmelding[]): Visning => {
+export const getVisning = (
+    sykeforloep?: Sykeforloep[],
+    sykmeldinger?: Sykmelding[]
+): Visning => {
     const startdato = hentStartdatoFraSykeforloep(sykeforloep)
     if (!startdato || !sykmeldinger) {
         return 'VALGFRI'
     }
 
-    const sykmeldingerForDetteSykeforloepet = sykmeldinger.filter((s) =>
-        dayjs(s.syketilfelleStartDato).diff(startdato, 'days') === 0
+    const sykmeldingerForDetteSykeforloepet = sykmeldinger.filter(
+        (s) => dayjs(s.syketilfelleStartDato).diff(startdato, 'days') === 0
     )
 
-    const sykmeldingerForDetteSykeforloepetSomIkkeErNye = sykmeldingerForDetteSykeforloepet.filter((s) => {
-        return s.sykmeldingStatus.statusEvent !== 'APEN'
-    })
+    const sykmeldingerForDetteSykeforloepetSomIkkeErNye =
+        sykmeldingerForDetteSykeforloepet.filter((s) => {
+            return s.sykmeldingStatus.statusEvent !== 'APEN'
+        })
 
-    const harBareNyeSykmeldinger = sykmeldingerForDetteSykeforloepet.filter((s) => {
-        return s.sykmeldingStatus.statusEvent === 'APEN'
-    }).length === sykmeldingerForDetteSykeforloepet.length
+    const harBareNyeSykmeldinger =
+        sykmeldingerForDetteSykeforloepet.filter((s) => {
+            return s.sykmeldingStatus.statusEvent === 'APEN'
+        }).length === sykmeldingerForDetteSykeforloepet.length
 
     if (harBareNyeSykmeldinger) {
         return 'VALGFRI'
     }
 
-    const harBareSendteSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) =>
-        s.sykmeldingStatus.statusEvent === 'SENDT' ||
-        (s.sykmeldingStatus.statusEvent === 'BEKREFTET' && hentArbeidssituasjon(s) === 'ARBEIDSTAKER')
-    ).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length
+    const harBareSendteSykmeldinger =
+        sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter(
+            (s) =>
+                s.sykmeldingStatus.statusEvent === 'SENDT' ||
+                (s.sykmeldingStatus.statusEvent === 'BEKREFTET' &&
+                    hentArbeidssituasjon(s) === 'ARBEIDSTAKER')
+        ).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length
 
     if (harBareSendteSykmeldinger) {
         return 'MED_ARBEIDSGIVER'
     }
 
-    const harBareBekreftedeSykmeldinger = sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
-        return s.sykmeldingStatus.statusEvent === 'BEKREFTET' && hentArbeidssituasjon(s) !== 'ARBEIDSTAKER'
-    }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length
+    const harBareBekreftedeSykmeldinger =
+        sykmeldingerForDetteSykeforloepetSomIkkeErNye.filter((s) => {
+            return (
+                s.sykmeldingStatus.statusEvent === 'BEKREFTET' &&
+                hentArbeidssituasjon(s) !== 'ARBEIDSTAKER'
+            )
+        }).length === sykmeldingerForDetteSykeforloepetSomIkkeErNye.length
 
     if (harBareBekreftedeSykmeldinger) {
         return 'UTEN_ARBEIDSGIVER'

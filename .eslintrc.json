@@ -8,7 +8,8 @@
         "react",
         "@typescript-eslint",
         "simple-import-sort",
-        "react-hooks"
+        "react-hooks",
+        "prettier"
     ],
     "env": {
         "browser": true,
@@ -17,7 +18,6 @@
         "node": true
     },
     "rules": {
-        "@typescript-eslint/indent": ["error", 4],
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/explicit-function-return-type": 0,
         "@typescript-eslint/no-non-null-assertion": 0,
@@ -33,7 +33,6 @@
         "no-useless-escape": 0,
         "react/display-name": 0,
         "arrow-body-style": "off",
-        "array-bracket-spacing": [2, "always"],
         "object-curly-spacing": [2, "always"],
         "quotes": [2, "single", { "avoidEscape": true }],
         "semi": ["error", "never"],
@@ -43,9 +42,8 @@
         "import/order": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "error",
-        "space-before-function-paren": [2, "never"],
-        "switch-colon-spacing": [2, {"after": true, "before": false}],
-        "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1}],
+        "switch-colon-spacing": [2, { "after": true, "before": false }],
+        "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 1 }],
         "react/jsx-tag-spacing": 2,
         "jsx-quotes": [2, "prefer-double"]
     },

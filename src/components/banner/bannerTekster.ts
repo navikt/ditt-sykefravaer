@@ -3,4 +3,3 @@ export const BannerTekster = {
     'sidetittel.snartslutt': 'Snart slutt på sykepengene',
     'sidetittel.tidslinje': 'Hva skjer under sykefraværet?',
 }
-

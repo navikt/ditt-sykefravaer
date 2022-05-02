@@ -8,10 +8,9 @@ export default function UseHendelser() {
     return useQuery<SimpleHendelse[], Error>('hendelser', () =>
         Fetch.authenticatedGet(
             `${syfoApiRoot()}/syfoservicestrangler/api/hendelse/hendelser`,
-            async(data) => {
+            async (data) => {
                 return data as SimpleHendelse[]
-            },
-        ),
+            }
+        )
     )
 }
-

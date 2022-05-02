@@ -6,9 +6,11 @@ import Fetch from '../utils/fetch'
 export default function UseBekreftAktivitetskrav() {
     const queryClient = useQueryClient()
 
-    return useMutation<unknown, Error>(() =>
-        Fetch.authenticatedPost(
-            `${syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`
-        ), { onSuccess: () => queryClient.invalidateQueries('hendelser') }
+    return useMutation<unknown, Error>(
+        () =>
+            Fetch.authenticatedPost(
+                `${syfoApiRoot()}/syfoservicestrangler/api/hendelse/bekreft-aktivitetskrav`
+            ),
+        { onSuccess: () => queryClient.invalidateQueries('hendelser') }
     )
 }
