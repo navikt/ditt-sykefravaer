@@ -8,10 +8,9 @@ export default function UseSykmeldinger() {
     return useQuery<Sykmelding[], Error>('sykmeldinger', () =>
         Fetch.authenticatedGet(
             `${sykmeldingerBackendProxyRoot()}/api/v1/sykmeldinger`,
-            async(maybeSykmeldinger) => {
+            async (maybeSykmeldinger) => {
                 return maybeSykmeldinger as Sykmelding[]
-            },
-        ),
+            }
+        )
     )
 }
-

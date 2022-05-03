@@ -8,10 +8,9 @@ export default function UseSykeforloep() {
     return useQuery<Sykeforloep[], Error>('sykeforloep', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/flex-syketilfelle/api/bruker/v1/sykeforloep`,
-            async(data) => {
+            async (data) => {
                 return data as Sykeforloep[]
-            },
-        ),
+            }
+        )
     )
 }
-

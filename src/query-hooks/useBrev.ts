@@ -8,9 +8,9 @@ export default function UseBrev() {
     return useQuery<Brev[], Error>('brev', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,
-            async(data) => {
+            async (data) => {
                 return data as Brev[]
-            },
-        ),
+            }
+        )
     )
 }

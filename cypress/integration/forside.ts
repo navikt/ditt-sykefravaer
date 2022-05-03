@@ -1,5 +1,4 @@
 describe('Tester visning av forside', () => {
-
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer')
     })

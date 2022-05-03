@@ -18,7 +18,6 @@ import { tekst } from '../utils/tekster'
 const brodsmuler: Brodsmule[] = []
 
 const Index = () => {
-
     useEffect(() => {
         setBodyClass('forside')
         Modal.setAppElement('#root')
@@ -50,7 +49,7 @@ const Index = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async () => {
     // Disable static rendring
     return {
         props: {},

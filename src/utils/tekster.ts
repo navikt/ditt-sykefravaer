@@ -24,18 +24,17 @@ const tekster = {
     ...AktivitetskravTekster,
 }
 
-
 type TekstKeys =
-    keyof typeof BannerTekster |
-    keyof typeof LenkerTekster |
-    keyof typeof OppgaverTekster |
-    keyof typeof ingenSykmeldingTekster |
-    keyof typeof ForsideTekster |
-    keyof typeof SnartsluttTekster |
-    keyof typeof ArbeidssituasjonTekster |
-    keyof typeof TidslinjeUtdragTekster |
-    keyof typeof AktivitetskravTekster |
-    keyof typeof TidslinjenTekster
+    | keyof typeof BannerTekster
+    | keyof typeof LenkerTekster
+    | keyof typeof OppgaverTekster
+    | keyof typeof ingenSykmeldingTekster
+    | keyof typeof ForsideTekster
+    | keyof typeof SnartsluttTekster
+    | keyof typeof ArbeidssituasjonTekster
+    | keyof typeof TidslinjeUtdragTekster
+    | keyof typeof AktivitetskravTekster
+    | keyof typeof TidslinjenTekster
 
 export const byttTekstInnhold = (text: string, data: StringMap): string => {
     if (text === undefined || data === undefined) {
@@ -44,13 +43,13 @@ export const byttTekstInnhold = (text: string, data: StringMap): string => {
     let newtext = text
     Object.keys(data).forEach((key) => {
         const regex = new RegExp(key, 'g')
-        newtext = newtext.replace(regex, data[ key ])
+        newtext = newtext.replace(regex, data[key])
     })
     return newtext
 }
 
 export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
-    const verdi = tekster[ tekst ]
+    const verdi = tekster[tekst]
     // Generiskfeilmelding har ingen tekst
     if (!verdi === undefined && !tekst.includes('soknad.feilmelding')) {
         // eslint-disable-next-line no-console
@@ -66,5 +65,3 @@ export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
     }
     return verdi
 }
-
-

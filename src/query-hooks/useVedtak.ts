@@ -8,10 +8,9 @@ export default function UseVedtak() {
     return useQuery<RSVedtakWrapper[], Error>('vedtak', () =>
         Fetch.authenticatedGet(
             `${flexGatewayRoot()}/spinnsyn-backend/api/v2/vedtak`,
-            async(data) => {
+            async (data) => {
                 return data as RSVedtakWrapper[]
-            },
-        ),
+            }
+        )
     )
 }
-

@@ -11,20 +11,19 @@ interface ArbeidsgiverProps {
 }
 
 const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const [ meldinger, setMeldinger ] = useState<Sykmelding[]>()
-    const [ navn, setNavn ] = useState<string>('')
+    const [meldinger, setMeldinger] = useState<Sykmelding[]>()
+    const [navn, setNavn] = useState<string>('')
     const { data: sykmeldinger } = useSykmeldinger()
 
     useEffect(() => {
-        const orgNavn = sykmeldinger!
-            .find((syk) =>
+        const orgNavn = sykmeldinger!.find(
+            (syk) =>
                 syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
                 syk.sykmeldingStatus.arbeidsgiver?.orgNavn
-            )
-            ?.sykmeldingStatus.arbeidsgiver?.orgNavn
+        )?.sykmeldingStatus.arbeidsgiver?.orgNavn
         setNavn(orgNavn!)
         setMeldinger(sykmeldinger!)
-    }, [ orgnummer, sykmeldinger ])
+    }, [orgnummer, sykmeldinger])
 
     if (!meldinger) return null
 

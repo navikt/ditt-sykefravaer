@@ -13,11 +13,11 @@ npm run start-mock
 ```
 
 ## Kjør lokalt i docker-compose
-Endre image i flex-docker-compose fra: 
+Endre image i flex-docker-compose fra:
 ```
 image: "docker.pkg.github.com/navikt/ditt-sykefravaer/ditt-sykefravaer:latest"
 ``` 
-Til: 
+Til:
 ```
 image: "ditt-sykefravaer:latest"
 ```

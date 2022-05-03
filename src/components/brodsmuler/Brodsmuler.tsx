@@ -21,12 +21,17 @@ export interface Brodsmule {
 const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
     return [
         { tittel: 'Ditt NAV', sti: dittNavUrl(), erKlikkbar: true },
-        { tittel: 'Ditt sykefravær', sti: '/', erKlikkbar: sykefravaerKlikkbar }
+        {
+            tittel: 'Ditt sykefravær',
+            sti: '/',
+            erKlikkbar: sykefravaerKlikkbar,
+        },
     ]
 }
 
 const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
-    const erEkstern = sti && (sti.startsWith('https://') || sti.startsWith('http://'))
+    const erEkstern =
+        sti && (sti.startsWith('https://') || sti.startsWith('http://'))
     const router = useRouter()
 
     const klikker = (e: any, sti: string) => {
@@ -34,11 +39,17 @@ const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
         router.push(sti)
     }
 
-    const link = erEkstern
-        ? <Lenke href={sti}>{tittel}</Lenke>
-        : sti
-            ? <Link href={sti}><a className="lenke" onClick={e => klikker(e, sti)}>{tittel}</a></Link>
-            : <span>{tittel}</span>
+    const link = erEkstern ? (
+        <Lenke href={sti}>{tittel}</Lenke>
+    ) : sti ? (
+        <Link href={sti}>
+            <a className="lenke" onClick={(e) => klikker(e, sti)}>
+                {tittel}
+            </a>
+        </Link>
+    ) : (
+        <span>{tittel}</span>
+    )
 
     if (!erKlikkbar) {
         return (
@@ -48,9 +59,7 @@ const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
             </li>
         )
     } else if (erKlikkbar) {
-        return (
-            <li className="smule">{link}</li>
-        )
+        return <li className="smule">{link}</li>
     }
     return (
         <li className="smule">
@@ -60,12 +69,12 @@ const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
 }
 
 interface BrodsmulerProps {
-    brodsmuler: Brodsmule[];
+    brodsmuler: Brodsmule[]
 }
 
 const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
-    const [ synlige, setSynlige ] = useState<Brodsmule[]>([])
-    const [ skjerm, setSkjerm ] = useState<number>()
+    const [synlige, setSynlige] = useState<Brodsmule[]>([])
+    const [skjerm, setSkjerm] = useState<number>()
     const smulesti = useRef<HTMLElement>(null)
     const sykefravaerKlikkbar = brodsmuler.length > 0
 
@@ -79,13 +88,15 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
         window.addEventListener('resize', () => {
             setSkjerm(window.innerWidth)
         })
-        setSynlige(skjerm! <= LITEN ? [ brodsmuler[ brodsmuler.length - 1 ] ] : brodsmuler)
+        setSynlige(
+            skjerm! <= LITEN ? [brodsmuler[brodsmuler.length - 1]] : brodsmuler
+        )
         // eslint-disable-next-line
     }, [skjerm])
 
     const toggleSynlige = () => {
         if (synlige.length === brodsmuler.length) {
-            setSynlige([ brodsmuler[ brodsmuler.length - 1 ] ])
+            setSynlige([brodsmuler[brodsmuler.length - 1]])
             smulesti.current?.classList.remove('apen')
         } else {
             setSynlige(brodsmuler)
@@ -98,29 +109,36 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
             <div className="limit">
                 <Person />
                 <Normaltekst tag="ul" className="brodsmuler__smuler">
-                    <Vis hvis={skjerm! <= LITEN}
-                        render={() =>
+                    <Vis
+                        hvis={skjerm! <= LITEN}
+                        render={() => (
                             <li className="smule">
                                 <button
                                     aria-label={
                                         synlige.length === brodsmuler.length
                                             ? 'Vis redusert brødsmulesti'
-                                            : 'Vis hele brødsmulestien'}
+                                            : 'Vis hele brødsmulestien'
+                                    }
                                     className="js-toggle"
                                     onClick={toggleSynlige}
                                 >
-                                ...
+                                    ...
                                 </button>
                             </li>
-                        }
+                        )}
                     />
 
                     {synlige.map((smule, index) => {
                         return (
-                            <BrodsmuleBit key={index}
+                            <BrodsmuleBit
+                                key={index}
                                 sti={smule.sti}
                                 tittel={
-                                    skjerm! <= LITEN && smule.mobilTittel && !smulesti.current?.classList.contains('apen')
+                                    skjerm! <= LITEN &&
+                                    smule.mobilTittel &&
+                                    !smulesti.current?.classList.contains(
+                                        'apen'
+                                    )
                                         ? smule.mobilTittel
                                         : smule.tittel
                                 }
@@ -133,7 +151,8 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                     aria-label={
                         synlige.length === brodsmuler.length
                             ? 'Vis redusert brødsmulesti'
-                            : 'Vis hele brødsmulestien'}
+                            : 'Vis hele brødsmulestien'
+                    }
                     className="js-toggle"
                     onClick={toggleSynlige}
                 >

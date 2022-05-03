@@ -1,5 +1,5 @@
 export class ErrorMedStatus extends Error {
-    private status: number;
+    private status: number
 
     constructor(message: string, status: number) {
         super(message)

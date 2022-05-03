@@ -1,18 +1,32 @@
 import {
     etAktivitetskravVarsel,
-    toAktivitetskravBekreftet
+    toAktivitetskravBekreftet,
 } from './data/aktivitetskravPersonas'
-import { enNyOppfolgingsplan, enNyTilGodkjenning, toNyeOppfolgingsplaner, toTilGodkjenning } from './data/oppfolginsplanTestPersoner'
+import {
+    enNyOppfolgingsplan,
+    enNyTilGodkjenning,
+    toNyeOppfolgingsplaner,
+    toTilGodkjenning,
+} from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
-import { defaultPersona, enAvvistSykmelding, enNySykmelding, heltFrisk } from './data/personas'
-import { langtidssykmeldt, snartSlutt, tvingMindreEnnTrettiniUker } from './data/sykeforloepTestPersoner'
+import {
+    defaultPersona,
+    enAvvistSykmelding,
+    enNySykmelding,
+    heltFrisk,
+} from './data/personas'
+import {
+    langtidssykmeldt,
+    snartSlutt,
+    tvingMindreEnnTrettiniUker,
+} from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {
-    [index: string]: () => Persona;
+    [index: string]: () => Persona
 }
 
 export const personas: StringFunctionMap = {
-    'default': () => defaultPersona,
+    default: () => defaultPersona,
     'helt-frisk': () => heltFrisk,
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,
@@ -20,7 +34,7 @@ export const personas: StringFunctionMap = {
     'to-nye-oppfolgingsplaner': toNyeOppfolgingsplaner,
     'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
     'to-nye-oppfolgingsplaner-til-godkjenning': toTilGodkjenning,
-    'langtidssykmeldt': langtidssykmeldt,
+    langtidssykmeldt: langtidssykmeldt,
     'snart-slutt': snartSlutt,
     'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
     'aktivitetskrav-varsel': etAktivitetskravVarsel,

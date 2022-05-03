@@ -3,19 +3,25 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
 
 export const motebehovErUbesvart = (dialogmoteBehov: DialogmoteBehov) => {
-    if (dialogmoteBehov.visMotebehov && dialogmoteBehov.skjemaType === 'SVAR_BEHOV') {
+    if (
+        dialogmoteBehov.visMotebehov &&
+        dialogmoteBehov.skjemaType === 'SVAR_BEHOV'
+    ) {
         return !dialogmoteBehov.motebehov
     }
     return false
 }
 
-export const skapDialogmoteBehovOppgaver = (dialogmoteBehov: DialogmoteBehov | undefined, motebehovUrl: string) => {
+export const skapDialogmoteBehovOppgaver = (
+    dialogmoteBehov: DialogmoteBehov | undefined,
+    motebehovUrl: string
+) => {
     if (!dialogmoteBehov || !motebehovErUbesvart(dialogmoteBehov)) return []
     const oppgaver: Oppgave[] = []
     oppgaver.push({
         tekst: tekst('oppgaver.dialogmote.nyttMotebehovVarsel'),
         oppgavetype: 'info',
-        lenke: motebehovUrl
+        lenke: motebehovUrl,
     })
 
     return oppgaver

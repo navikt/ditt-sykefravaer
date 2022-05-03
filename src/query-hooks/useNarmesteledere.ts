@@ -8,10 +8,9 @@ export default function UseNarmesteledere() {
     return useQuery<NarmesteLeder[], Error>('narmesteledere', () =>
         Fetch.authenticatedGet(
             `${narmestelederUrl()}/user/sykmeldt/narmesteledere`,
-            async(data) => {
+            async (data) => {
                 return data as NarmesteLeder[]
-            },
-        ),
+            }
+        )
     )
 }
-

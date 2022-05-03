@@ -1,3 +1,3 @@
 export interface StringMap {
-    [index: string]: string;
+    [index: string]: string
 }

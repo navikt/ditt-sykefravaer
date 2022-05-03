@@ -19,23 +19,34 @@ function hentSykmeldingSluttdato(sykmelding: Sykmelding) {
     return dayjs(tom)
 }
 
-export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
+export const skapSykmeldingoppgaver = (
+    sykmeldinger: Sykmelding[] | undefined,
+    sykmeldingUrl: string
+): Oppgave[] => {
     if (!sykmeldinger) {
         return []
     }
 
     function erGammelSykmelding(sykmelding: Sykmelding) {
-        return hentSykmeldingSluttdato(sykmelding).isBefore(dayjs().subtract(3, 'months'))
+        return hentSykmeldingSluttdato(sykmelding).isBefore(
+            dayjs().subtract(3, 'months')
+        )
     }
 
-    const ikkeGamleSykmeldinger = sykmeldinger.filter(s => !erGammelSykmelding(s))
+    const ikkeGamleSykmeldinger = sykmeldinger.filter(
+        (s) => !erGammelSykmelding(s)
+    )
 
-    const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapVanligeOppgaver = (
+        sykmeldinger: Sykmelding[],
+        sykmeldingUrl: string
+    ): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
-            .filter((s) =>
-                s.behandlingsutfall.status === 'OK' ||
-                s.behandlingsutfall.status === 'MANUAL_PROCESSING'
+            .filter(
+                (s) =>
+                    s.behandlingsutfall.status === 'OK' ||
+                    s.behandlingsutfall.status === 'MANUAL_PROCESSING'
             )
 
         if (sykmeldingene.length === 0) {
@@ -43,24 +54,30 @@ export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, s
         }
 
         if (sykmeldingene.length === 1) {
-            return [ {
-                tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
-                lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
-                oppgavetype: 'info'
-            } ]
+            return [
+                {
+                    tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
+                    lenke: `${sykmeldingUrl}/${sykmeldingene[0].id}`,
+                    oppgavetype: 'info',
+                },
+            ]
         }
 
-        return [ {
-            tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
-                '%ANTALL%': tallTilSpråk(sykmeldingene.length),
-            }),
-            lenke: sykmeldingUrl,
-            oppgavetype: 'info',
-
-        } ]
+        return [
+            {
+                tekst: tekst('oppgaver.sykmeldinger.flere-sykmeldinger', {
+                    '%ANTALL%': tallTilSpråk(sykmeldingene.length),
+                }),
+                lenke: sykmeldingUrl,
+                oppgavetype: 'info',
+            },
+        ]
     }
 
-    const skapAvvisteOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapAvvisteOppgaver = (
+        sykmeldinger: Sykmelding[],
+        sykmeldingUrl: string
+    ): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'INVALID')
@@ -70,25 +87,31 @@ export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, s
         }
 
         if (sykmeldingene.length === 1) {
-            return [ {
-                tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
-                lenke: `${sykmeldingUrl}/${sykmeldingene[ 0 ].id}`,
-                oppgavetype: 'advarsel',
-
-            } ]
+            return [
+                {
+                    tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
+                    lenke: `${sykmeldingUrl}/${sykmeldingene[0].id}`,
+                    oppgavetype: 'advarsel',
+                },
+            ]
         }
 
-        return [ {
-            tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
-                '%ANTALL%': tallTilSpråk(sykmeldingene.length),
-            }),
-            lenke: sykmeldingUrl,
-            oppgavetype: 'advarsel',
-        } ]
+        return [
+            {
+                tekst: tekst(
+                    'oppgaver.sykmeldinger.flere-avviste-sykmeldinger',
+                    {
+                        '%ANTALL%': tallTilSpråk(sykmeldingene.length),
+                    }
+                ),
+                lenke: sykmeldingUrl,
+                oppgavetype: 'advarsel',
+            },
+        ]
     }
 
     return [
         ...skapVanligeOppgaver(ikkeGamleSykmeldinger, sykmeldingUrl),
-        ...skapAvvisteOppgaver(ikkeGamleSykmeldinger, sykmeldingUrl)
+        ...skapAvvisteOppgaver(ikkeGamleSykmeldinger, sykmeldingUrl),
     ]
 }

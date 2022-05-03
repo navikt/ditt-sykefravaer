@@ -2,8 +2,10 @@ import { Brev, BrevType } from '../../types/brev'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
 
-
-export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppgave[] => {
+export const skapBrevOppgaver = (
+    brev: Brev[] | undefined,
+    lenke: string
+): Oppgave[] => {
     const oppgaver: Oppgave[] = []
     if (!brev) return []
     const nyesteUlestBrev = !brev[0]?.lestDato ? brev[0] : null
@@ -12,7 +14,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.innkalling'),
                 oppgavetype: 'advarsel',
-                lenke: lenke
+                lenke: lenke,
             })
             return oppgaver
         }
@@ -20,7 +22,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.endring'),
                 oppgavetype: 'advarsel',
-                lenke: lenke
+                lenke: lenke,
             })
             return oppgaver
         }
@@ -29,7 +31,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.referat'),
                 oppgavetype: 'info',
-                lenke: lenke
+                lenke: lenke,
             })
             return oppgaver
         }
@@ -37,7 +39,7 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.avlysning'),
                 oppgavetype: 'info',
-                lenke: lenke
+                lenke: lenke,
             })
             return oppgaver
         }
@@ -46,5 +48,3 @@ export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppga
         }
     }
 }
-
-

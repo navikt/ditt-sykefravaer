@@ -7,8 +7,8 @@ import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 
 const BekreftAktivitetskravSkjema = () => {
-    const [ check, setCheck ] = useState<boolean>(false)
-    const [ buttonClicked, setButtonClicked ] = useState<boolean>(false)
+    const [check, setCheck] = useState<boolean>(false)
+    const [buttonClicked, setButtonClicked] = useState<boolean>(false)
     const { mutate: bekreft, isLoading } = useBekreftAktivitetskrav()
 
     const handleSubmit = (e: SyntheticEvent) => {
@@ -20,19 +20,27 @@ const BekreftAktivitetskravSkjema = () => {
     return (
         <form onSubmit={handleSubmit} className="bekreft-aktivitetskrav">
             <div className="skjemaelement">
-                <input id="bekreftAktivitetskrav" type="checkbox"
+                <input
+                    id="bekreftAktivitetskrav"
+                    type="checkbox"
                     className="skjemaelement__input checkboks"
                     onChange={(e) => setCheck(e.currentTarget.checked)}
                 />
-                <label className="skjemaelement__label" htmlFor="bekreftAktivitetskrav">
-                    <Normaltekst tag="span">{tekst('aktivitetskrav-varsel.bekreft-label')}</Normaltekst>
+                <label
+                    className="skjemaelement__label"
+                    htmlFor="bekreftAktivitetskrav"
+                >
+                    <Normaltekst tag="span">
+                        {tekst('aktivitetskrav-varsel.bekreft-label')}
+                    </Normaltekst>
                 </label>
-                <Vis hvis={!check && buttonClicked}
-                    render={() =>
+                <Vis
+                    hvis={!check && buttonClicked}
+                    render={() => (
                         <Normaltekst className="typo-feilmelding">
                             {tekst('aktivitetskrav-varsel.bekreft-feilmelding')}
                         </Normaltekst>
-                    }
+                    )}
                 />
             </div>
 

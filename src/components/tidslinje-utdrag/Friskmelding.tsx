@@ -8,7 +8,7 @@ import { tekst } from '../../utils/tekster'
 import Bjorn from '../bjorn/Bjorn'
 
 const Friskmelding = () => {
-    const [ open, setOpen ] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     return (
         <>
@@ -26,11 +26,19 @@ const Friskmelding = () => {
                 contentLabel="Friskmelding"
                 onRequestClose={() => setOpen(!open)}
             >
-                <Undertittel>{tekst('friskmelding.info-tittel.helt')}</Undertittel>
-                <Normaltekst>{parser(tekst('friskmelding.info.helt'))}</Normaltekst>
+                <Undertittel>
+                    {tekst('friskmelding.info-tittel.helt')}
+                </Undertittel>
+                <Normaltekst>
+                    {parser(tekst('friskmelding.info.helt'))}
+                </Normaltekst>
 
-                <Undertittel>{tekst('friskmelding.info-tittel.delvis')}</Undertittel>
-                <Normaltekst>{parser(tekst('friskmelding.info.delvis'))}</Normaltekst>
+                <Undertittel>
+                    {tekst('friskmelding.info-tittel.delvis')}
+                </Undertittel>
+                <Normaltekst>
+                    {parser(tekst('friskmelding.info.delvis'))}
+                </Normaltekst>
             </Modal>
         </>
     )

@@ -4,7 +4,7 @@ const getFrontendLogger = (): pino.Logger =>
     pino({
         browser: {
             transmit: {
-                send: async(level, logEvent) => {
+                send: async (level, logEvent) => {
                     try {
                         await fetch('/syk/sykefravaer/api/logger', {
                             method: 'POST',
@@ -32,4 +32,5 @@ const createBackendLogger = (): pino.Logger =>
         },
     })
 
-export const logger = typeof window !== 'undefined' ? getFrontendLogger() : createBackendLogger()
+export const logger =
+    typeof window !== 'undefined' ? getFrontendLogger() : createBackendLogger()

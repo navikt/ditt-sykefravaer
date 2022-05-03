@@ -8,7 +8,7 @@ import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 
 const Artikkel = () => {
-    const [ visning, setVisning ] = useState<Visning>('MED_ARBEIDSGIVER')
+    const [visning, setVisning] = useState<Visning>('MED_ARBEIDSGIVER')
 
     return (
         <article className="artikkel">
@@ -16,23 +16,35 @@ const Artikkel = () => {
                 <Undertittel className="artikkel__tittel">
                     {tekst('aktivitetskrav-varsel.tittel')}
                 </Undertittel>
-                <VelgArbeidssituasjon kanVelge={true} setVisning={setVisning} medHjelpetekst={false} />
+                <VelgArbeidssituasjon
+                    kanVelge={true}
+                    setVisning={setVisning}
+                    medHjelpetekst={false}
+                />
             </header>
             <Normaltekst className="artikkel__ingress">
                 {tekst('aktivitetskrav-varsel.ingress')}
             </Normaltekst>
             <div className="artikkel__bilde">
-                <Vis hvis={visning === 'MED_ARBEIDSGIVER'}
+                <Vis
+                    hvis={visning === 'MED_ARBEIDSGIVER'}
                     render={() => (
-                        <img src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
-                            alt={tekst('aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER')}
+                        <img
+                            src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
+                            alt={tekst(
+                                'aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER'
+                            )}
                         />
                     )}
                 />
-                <Vis hvis={visning === 'UTEN_ARBEIDSGIVER'}
+                <Vis
+                    hvis={visning === 'UTEN_ARBEIDSGIVER'}
                     render={() => (
-                        <img src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
-                            alt={tekst('aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER')}
+                        <img
+                            src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
+                            alt={tekst(
+                                'aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER'
+                            )}
                         />
                     )}
                 />

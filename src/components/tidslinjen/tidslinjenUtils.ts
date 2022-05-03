@@ -59,12 +59,18 @@ const hentAntallDager = (hendelse: Hendelse, startdato?: dayjs.Dayjs) => {
 
 const sorterHendelser = (hendelser: Hendelse[], startdato?: dayjs.Dayjs) => {
     return hendelser.sort((a, b) => {
-        return (a.antallDager || hentAntallDager(a, startdato)) - (b.antallDager || hentAntallDager(b, startdato))
+        return (
+            (a.antallDager || hentAntallDager(a, startdato)) -
+            (b.antallDager || hentAntallDager(b, startdato))
+        )
     })
 }
 
 // TODO: Kanskje mer oversiktelig å hardkode disse inn i koden
-const leggTypePaaTekstnokkel = (hendelser: Hendelse[], type: Visning): Hendelse[] => {
+const leggTypePaaTekstnokkel = (
+    hendelser: Hendelse[],
+    type: Visning
+): Hendelse[] => {
     return hendelser.map((hendelse) => {
         return Object.assign({}, hendelse, {
             tekstkey: `${hendelse.tekstkey}.${type}`,
@@ -76,34 +82,36 @@ export const leggTilTidshendelser = (
     visning: Visning,
     henteteHendelser?: SimpleHendelse[],
     narmesteLedere?: NarmesteLeder[],
-    startdato?: dayjs.Dayjs,
+    startdato?: dayjs.Dayjs
 ): Hendelse[] => {
-
     const startsdatoHendelse = (): Hendelse[] => {
         if (startdato) {
-            return [ {
-                type: 'FØRSTE_SYKMELDINGSDAG',
-                tekstkey: 'tidslinje.forste-sykmeldingsdag',
-                inntruffetdato: startdato.format('YYYY-MM-DD'),
-                antallDager: 0
-            } ]
+            return [
+                {
+                    type: 'FØRSTE_SYKMELDINGSDAG',
+                    tekstkey: 'tidslinje.forste-sykmeldingsdag',
+                    inntruffetdato: startdato.format('YYYY-MM-DD'),
+                    antallDager: 0,
+                },
+            ]
         } else {
-            return [ {
-                type: 'TITTEL',
-                tekstkey: 'tidslinje.sykefravaeret-starter',
-                antallDager: 0
-            } ]
+            return [
+                {
+                    type: 'TITTEL',
+                    tekstkey: 'tidslinje.sykefravaeret-starter',
+                    antallDager: 0,
+                },
+            ]
         }
     }
 
     const statiskeUkeTittelHendelser = (visning: Visning): Hendelse[] => {
-        const uker = (visning === 'UTEN_ARBEIDSGIVER')
-            ? [ 8, 12, 39 ]
-            : [ 4, 7, 17, 26, 39 ]
+        const uker =
+            visning === 'UTEN_ARBEIDSGIVER' ? [8, 12, 39] : [4, 7, 17, 26, 39]
 
         return uker.map((uke) => {
             return {
-                antallDager: (uke * 7),
+                antallDager: uke * 7,
                 type: 'TID',
                 tekstkey: `tidslinje.antall-uker.${uke}`,
             }
@@ -111,11 +119,10 @@ export const leggTilTidshendelser = (
     }
 
     const statiskeUkeHendelser = (visning: Visning): Hendelse[] => {
-
         const aktivitetsplan = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 39) - 1,
+                antallDager: 7 * 39 - 1,
                 tekstkey: 'tidslinje.aktivitetsplan',
             }
         }
@@ -131,7 +138,7 @@ export const leggTilTidshendelser = (
         const forberedelseDialogmoteArbeidsgiver = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 7) - 1,
+                antallDager: 7 * 7 - 1,
                 tekstkey: 'tidslinje.dialogmote-arbeidsgiver',
             }
         }
@@ -139,7 +146,7 @@ export const leggTilTidshendelser = (
         const forberedelseDialogmoteNav = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 26) - 1,
+                antallDager: 7 * 26 - 1,
                 tekstkey: 'tidslinje.dialogmote-nav',
             }
         }
@@ -147,7 +154,7 @@ export const leggTilTidshendelser = (
         const langtidssykmeldt = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 39) - 1,
+                antallDager: 7 * 39 - 1,
                 tekstkey: 'tidslinje.langtidssykmeldt',
             }
         }
@@ -155,7 +162,7 @@ export const leggTilTidshendelser = (
         const navVurdereKravOmAktivitet = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 8) - 1,
+                antallDager: 7 * 8 - 1,
                 tekstkey: 'tidslinje.aktivitetskrav',
             }
         }
@@ -163,7 +170,7 @@ export const leggTilTidshendelser = (
         const snakkMedArbeidsgiver = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 4) - 1,
+                antallDager: 7 * 4 - 1,
                 tekstkey: 'tidslinje.snakk-med-arbeidsgiver',
             }
         }
@@ -171,7 +178,7 @@ export const leggTilTidshendelser = (
         const snakkMedNav = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 12) - 1,
+                antallDager: 7 * 12 - 1,
                 tekstkey: 'tidslinje.snakk-med-nav',
             }
         }
@@ -179,7 +186,7 @@ export const leggTilTidshendelser = (
         const sluttfasenAvSykefravaeret = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 52) - 1,
+                antallDager: 7 * 52 - 1,
                 tekstkey: 'tidslinje.sluttfasen',
             }
         }
@@ -187,11 +194,10 @@ export const leggTilTidshendelser = (
         const mulighetForAktivitetUtenArbeidsgiver = (): Hendelse => {
             return {
                 type: 'BOBLE',
-                antallDager: (7 * 8) - 1,
+                antallDager: 7 * 8 - 1,
                 tekstkey: 'tidslinje.mulighet-for-aktivitet',
             }
         }
-
 
         const hentHendelserMedArbeidsgiver = (): Hendelse[] => {
             return [
@@ -216,13 +222,23 @@ export const leggTilTidshendelser = (
         }
 
         if (visning === 'MED_ARBEIDSGIVER') {
-            return leggTypePaaTekstnokkel(hentHendelserMedArbeidsgiver(), visning)
+            return leggTypePaaTekstnokkel(
+                hentHendelserMedArbeidsgiver(),
+                visning
+            )
         } else {
-            return leggTypePaaTekstnokkel(hentHendelserUtenArbeidsgiver(), visning)
+            return leggTypePaaTekstnokkel(
+                hentHendelserUtenArbeidsgiver(),
+                visning
+            )
         }
     }
 
-    const narmesteLedereHendelser = (visning: Visning, narmesteLedere?: NarmesteLeder[], startdato?: dayjs.Dayjs): Hendelse[] => {
+    const narmesteLedereHendelser = (
+        visning: Visning,
+        narmesteLedere?: NarmesteLeder[],
+        startdato?: dayjs.Dayjs
+    ): Hendelse[] => {
         if (!narmesteLedere || !startdato) return []
 
         const nlHendelser: Hendelse[] = narmesteLedere
@@ -233,18 +249,21 @@ export const leggTilTidshendelser = (
                     tekstkey: 'tidslinje.ny-naermeste-leder',
                     inntruffetdato: nl.aktivFom,
                     data: {
-                        naermesteLeder: nl
-                    }
+                        naermesteLeder: nl,
+                    },
                 }
             })
 
         return leggTypePaaTekstnokkel(nlHendelser, visning)
     }
 
-    return sorterHendelser([
-        ...startsdatoHendelse(),
-        ...statiskeUkeTittelHendelser(visning),
-        ...statiskeUkeHendelser(visning),
-        ...narmesteLedereHendelser(visning, narmesteLedere, startdato),
-    ], startdato)
+    return sorterHendelser(
+        [
+            ...startsdatoHendelse(),
+            ...statiskeUkeTittelHendelser(visning),
+            ...statiskeUkeHendelser(visning),
+            ...narmesteLedereHendelser(visning, narmesteLedere, startdato),
+        ],
+        startdato
+    )
 }

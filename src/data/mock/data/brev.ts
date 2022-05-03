@@ -1,21 +1,20 @@
 import { Brev, BrevType } from '../../../types/brev'
 
-
 const documenter = [
     {
         type: 'PARAGRAPH',
         title: 'Møtetidspunkt',
-        texts: [ '20. mai 2025, Storgata 4' ],
+        texts: ['20. mai 2025, Storgata 4'],
     },
     {
         type: 'PARAGRAPH',
         title: 'Møtested',
-        texts: [ 'Videomøte på Teams' ],
+        texts: ['Videomøte på Teams'],
     },
     {
         type: 'LINK',
         title: 'Lenke til videomøte',
-        texts: [ 'https://teams.microsoft.com/l/osv.osv.osv' ],
+        texts: ['https://teams.microsoft.com/l/osv.osv.osv'],
     },
     {
         type: 'PARAGRAPH',
@@ -44,7 +43,13 @@ const documenter = [
     },
     {
         type: 'PARAGRAPH',
-        texts: [ 'Med hilsen', 'NAV Staden', 'Kari Saksbehandler', 'kari@nav.no', '99998888' ],
+        texts: [
+            'Med hilsen',
+            'NAV Staden',
+            'Kari Saksbehandler',
+            'kari@nav.no',
+            '99998888',
+        ],
     },
 ]
 
@@ -63,5 +68,4 @@ const innkallelse: Brev = {
     virksomhetsnummer: '1234',
 }
 
-
-export const brev:Brev[] = [ innkallelse ]
+export const brev: Brev[] = [innkallelse]
