@@ -1,14 +1,6 @@
+import { Back } from '@navikt/ds-icons'
+import { Accordion, BodyShort, Button, GuidePanel, Heading, Label } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import { VenstreChevron } from 'nav-frontend-chevron'
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
-import { Hovedknapp, Knapp } from 'nav-frontend-knapper'
-import {
-    Element,
-    Normaltekst,
-    Sidetittel,
-    Systemtittel,
-} from 'nav-frontend-typografi'
-import Veilederpanel from 'nav-frontend-veilederpanel'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -40,9 +32,8 @@ const brodsmuler: Brodsmule[] = [
 
 const SnartSluttPaSykepengene = () => {
     const router = useRouter()
-    const [harArbeidsgiver, setHarArbeidsgiver] = useState<boolean>()
-    const [arbeidsrettetOppfolging, setArbeidsrettetOppfolging] =
-        useState<any>()
+    const [ harArbeidsgiver, setHarArbeidsgiver ] = useState<boolean>()
+    const [ arbeidsrettetOppfolging, setArbeidsrettetOppfolging ] = useState<any>()
 
     const { data: oppfolging } = useArbeidsrettetOppfolging()
     const { data: narmesteLedere } = useNarmesteledere()
@@ -57,7 +48,7 @@ const SnartSluttPaSykepengene = () => {
         )
         setHarArbeidsgiver(arbeidsgivere.length > 0)
         setArbeidsrettetOppfolging(oppfolging)
-    }, [narmesteLedere, oppfolging, sykmeldinger])
+    }, [ narmesteLedere, oppfolging, sykmeldinger ])
 
     const logSvar = (svar: 'JA' | 'NEI') => {
         logEvent('Spørsmål svart', {
@@ -80,180 +71,172 @@ const SnartSluttPaSykepengene = () => {
     }
 
     return (
-        <div>
+        <>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" level="1" className="sidebanner__tittel">
                     {tekst('sidetittel.snartslutt')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
                 <Bjorn>
-                    <Normaltekst>{tekst('snartslutt.bjorntekst')}</Normaltekst>
+                    <BodyShort>{tekst('snartslutt.bjorntekst')}</BodyShort>
                 </Bjorn>
 
-                <Systemtittel tag="h2" className="subtittel">
+                <Heading size="medium" level="2" className="subtittel">
                     {tekst('snartslutt.hva_nå')}
-                </Systemtittel>
+                </Heading>
 
-                <Vis
-                    hvis={harArbeidsgiver}
+                <Vis hvis={harArbeidsgiver}
                     render={() => (
-                        <Veilederpanel svg={veilederDame}>
-                            <Element tag="h3">
+                        <GuidePanel illustration={veilederDame}>
+                            <Label as="h3">
                                 {tekst('snartslutt.snakk_med.tittel')}
-                            </Element>
-                            <Normaltekst>
+                            </Label>
+                            <BodyShort>
                                 {tekst('snartslutt.snakk_med.tekst')}
-                            </Normaltekst>
-                        </Veilederpanel>
+                            </BodyShort>
+                        </GuidePanel>
                     )}
                 />
 
-                <Vis
-                    hvis={!harArbeidsgiver}
+                <Vis hvis={!harArbeidsgiver}
                     render={() => (
-                        <Veilederpanel svg={dialog}>
-                            <Element tag="h3">
+                        <GuidePanel illustration={dialog}>
+                            <Label as="h3">
                                 {tekst('snartslutt.aktivitetsplan.tittel')}
-                            </Element>
-                            <Normaltekst>
+                            </Label>
+                            <BodyShort>
                                 {tekst('snartslutt.aktivitetsplan.tekst')}
-                            </Normaltekst>
-                        </Veilederpanel>
+                            </BodyShort>
+                        </GuidePanel>
                     )}
                 />
 
-                <Veilederpanel svg={penger}>
-                    <Element tag="h3">
+                <GuidePanel illustration={penger}>
+                    <Label as="h3">
                         {tekst('snartslutt.planlegg.tittel')}
-                    </Element>
-                    <Normaltekst>
+                    </Label>
+                    <BodyShort>
                         {tekst('snartslutt.planlegg.tekst')}
-                    </Normaltekst>
-                </Veilederpanel>
+                    </BodyShort>
+                </GuidePanel>
 
-                <Systemtittel tag="h2" className="subtittel">
+                <Heading size="medium" level="2" className="subtittel">
                     {tekst('snartslutt.andre')}
-                </Systemtittel>
+                </Heading>
 
-                <Ekspanderbartpanel
-                    className="byttjobb"
-                    tittel={
-                        <>
-                            <Vis
-                                hvis={harArbeidsgiver}
+                <Accordion>
+                    <Accordion.Item className="byttjobb">
+                        <Accordion.Header>
+                            <Vis hvis={harArbeidsgiver}
                                 render={() => (
-                                    <Systemtittel tag="h3">
+                                    <Heading size="small" level="3">
                                         {tekst('snartslutt.bytt_jobb.tittel')}
-                                    </Systemtittel>
+                                    </Heading>
                                 )}
                             />
-                            <Vis
-                                hvis={!harArbeidsgiver}
+                            <Vis hvis={!harArbeidsgiver}
                                 render={() => (
-                                    <Systemtittel tag="h3">
+                                    <Heading size="small" level="3">
                                         {tekst('snartslutt.finn_jobb.tittel')}
-                                    </Systemtittel>
+                                    </Heading>
                                 )}
                             />
-                        </>
-                    }
-                >
-                    <ul>
-                        <Normaltekst tag="li">
-                            {parser(tekst('snartslutt.bytt_jobb.liste.del1'))}
-                        </Normaltekst>
-                        <Normaltekst tag="li">
-                            {parser(tekst('snartslutt.bytt_jobb.liste.del2'))}
-                        </Normaltekst>
-                    </ul>
-                </Ekspanderbartpanel>
+                        </Accordion.Header>
 
-                <Ekspanderbartpanel
-                    className="okonomien"
-                    tittel={
-                        <>
-                            <Systemtittel tag="h3">
+                        <Accordion.Content>
+                            <ul>
+                                <BodyShort as="li">
+                                    {parser(tekst('snartslutt.bytt_jobb.liste.del1'))}
+                                </BodyShort>
+                                <BodyShort as="li">
+                                    {parser(tekst('snartslutt.bytt_jobb.liste.del2'))}
+                                </BodyShort>
+                            </ul>
+                        </Accordion.Content>
+                    </Accordion.Item>
+
+                    <Accordion.Item className="okonomien">
+                        <Accordion.Header>
+                            <Heading size="small" level="3">
                                 {tekst('snartslutt.okonomien.tittel')}
-                            </Systemtittel>
-                            <Vis
-                                hvis={harArbeidsgiver}
+                            </Heading>
+                        </Accordion.Header>
+
+                        <Accordion.Content>
+                            <Vis hvis={harArbeidsgiver}
                                 render={() => (
-                                    <Normaltekst>
+                                    <BodyShort>
                                         {tekst('snartslutt.okonomien.tekst')}
-                                    </Normaltekst>
+                                    </BodyShort>
                                 )}
                             />
-                            <Vis
-                                hvis={!harArbeidsgiver}
+                            <Vis hvis={!harArbeidsgiver}
                                 render={() => (
-                                    <Normaltekst>
+                                    <BodyShort>
                                         {tekst('snartslutt.okonomien.tekst2')}
-                                    </Normaltekst>
+                                    </BodyShort>
                                 )}
                             />
-                        </>
-                    }
-                >
-                    <Vis
-                        hvis={harArbeidsgiver}
-                        render={() => (
-                            <Normaltekst>
-                                {tekst('snartslutt.okonomien.innhold.avsnitt1')}
-                            </Normaltekst>
-                        )}
-                    />
-                    <Normaltekst>
-                        {parser(tekst('snartslutt.okonomien.innhold.avsnitt2'))}
-                    </Normaltekst>
-                    <Normaltekst>
-                        {tekst('snartslutt.okonomien.innhold.avsnitt3')}
-                    </Normaltekst>
-                </Ekspanderbartpanel>
+                            <Vis hvis={harArbeidsgiver}
+                                render={() => (
+                                    <BodyShort>
+                                        {tekst('snartslutt.okonomien.innhold.avsnitt1')}
+                                    </BodyShort>
+                                )}
+                            />
+                            <BodyShort>
+                                {parser(tekst('snartslutt.okonomien.innhold.avsnitt2'))}
+                            </BodyShort>
+                            <BodyShort>
+                                {tekst('snartslutt.okonomien.innhold.avsnitt3')}
+                            </BodyShort>
+                        </Accordion.Content>
+                    </Accordion.Item>
+                </Accordion>
 
                 <Vis
                     hvis={arbeidsrettetOppfolging?.underOppfolging === false}
                     render={() => (
                         <>
-                            <Systemtittel tag="h2" className="subtittel">
+                            <Heading size="medium" level="2" className="subtittel">
                                 {tekst('snartslutt.veiledning')}
-                            </Systemtittel>
+                            </Heading>
 
                             <div className="knapperad">
-                                <Hovedknapp onClick={handleJaBtnClicked}>
+                                <Button variant="primary" onClick={handleJaBtnClicked}>
                                     {tekst('snartslutt.veiledning.ja')}
-                                </Hovedknapp>
-                                <Knapp onClick={handleNeiBtnClicked}>
+                                </Button>
+                                <Button onClick={handleNeiBtnClicked}>
                                     {tekst('snartslutt.veiledning.nei')}
-                                </Knapp>
+                                </Button>
                             </div>
                         </>
                     )}
                 />
 
                 <Link href="/">
-                    <a
-                        className="ekstra-topp-margin lenke"
+                    <a className="navds-link"
                         onClick={(e) => {
                             e.preventDefault()
                             router.push('/')
                         }}
                     >
-                        <VenstreChevron />
-                        <Normaltekst tag="span">
+                        <Back className="tilbake-pil" />
+                        <BodyShort as="span">
                             Til hovedsiden Ditt sykefravaer
-                        </Normaltekst>
+                        </BodyShort>
                     </a>
                 </Link>
             </div>
-        </div>
+        </>
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async() => {
     // Disable static rendring
     return {
         props: {},

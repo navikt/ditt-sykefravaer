@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { sykmeldingUrl } from '../../utils/environment'
@@ -7,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 
 const SykmeldingLenkepanel = () => {
     return (
-        <LenkepanelBase href={sykmeldingUrl()} border={true}>
+        <LinkPanel href={sykmeldingUrl()} border={true}>
             <div className="lenkeikon sykmelding">
                 <svg
                     width="40"
@@ -24,8 +23,8 @@ const SykmeldingLenkepanel = () => {
                     />
                 </svg>
             </div>
-            <Undertittel tag="h3">{tekst('lenker.sykmelding')}</Undertittel>
-        </LenkepanelBase>
+            <Heading size="small" level="3">{tekst('lenker.sykmelding')}</Heading>
+        </LinkPanel>
     )
 }
 

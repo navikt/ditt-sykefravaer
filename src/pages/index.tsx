@@ -1,6 +1,4 @@
-import { AlertStripeInfo } from 'nav-frontend-alertstriper'
-import Modal from 'nav-frontend-modal'
-import { Sidetittel } from 'nav-frontend-typografi'
+import { Alert, Heading, Modal } from '@navikt/ds-react'
 import { GetServerSideProps } from 'next'
 import React, { useEffect } from 'react'
 
@@ -20,15 +18,18 @@ const brodsmuler: Brodsmule[] = []
 const Index = () => {
     useEffect(() => {
         setBodyClass('forside')
+
+        // eslint-disable-next-line
+        // @ts-ignore
         Modal.setAppElement('#root')
     }, [])
 
     return (
         <>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" level="1" className="sidebanner__tittel">
                     {tekst('sidetittel.liste')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
@@ -41,9 +42,9 @@ const Index = () => {
                 <Arbeidssituasjon />
                 <Lenker />
 
-                <AlertStripeInfo className="personvern">
+                <Alert variant="info" className="personvern">
                     {tekst('forside.personverninfo')}
-                </AlertStripeInfo>
+                </Alert>
             </div>
         </>
     )

@@ -1,7 +1,4 @@
-import Alertstripe from 'nav-frontend-alertstriper'
-import { Knapp } from 'nav-frontend-knapper'
-import Modal from 'nav-frontend-modal'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { Alert, BodyLong, BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
 import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../query-hooks/useAvkreftNarmesteLeder'
@@ -16,11 +13,11 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({
-    open,
-    toggle,
-    narmesteLeder,
-    orgNavn,
-}: BekreftFeilLederProps) => {
+      open,
+      toggle,
+      narmesteLeder,
+      orgNavn,
+    }: BekreftFeilLederProps) => {
     const {
         mutate: avkreft,
         isIdle,
@@ -30,62 +27,56 @@ const BekreftFeilLeder = ({
     } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
-        <Modal
-            isOpen={open}
-            closeButton={true}
-            contentLabel="Modal"
-            onRequestClose={toggle}
-        >
-            <Undertittel tag="h2">Endre nærmeste leder</Undertittel>
+        <Modal open={open} closeButton={true} onClose={toggle}>
+            <Modal.Content>
+                <Heading spacing size="small" level="2">Endre nærmeste leder</Heading>
 
-            <Vis
-                hvis={isSuccess}
-                render={() => (
-                    <Normaltekst>Takk for oppdateringen!</Normaltekst>
-                )}
-            />
+                <Vis hvis={isSuccess}
+                    render={() => (
+                        <BodyShort>Takk for oppdateringen!</BodyShort>
+                    )}
+                />
 
-            <Vis
-                hvis={isError}
-                render={() => (
-                    <Alertstripe type="feil">
-                        Beklager, det oppstod en feil! Vennligst prøv igjen
-                        senere.
-                    </Alertstripe>
-                )}
-            />
+                <Vis hvis={isError}
+                    render={() => (
+                        <Alert variant="error">
+                            Beklager, det oppstod en feil! Vennligst prøv igjen
+                            senere.
+                        </Alert>
+                    )}
+                />
 
-            <Vis
-                hvis={isIdle || isLoading}
-                render={() => (
-                    <>
-                        <Normaltekst>
+                <Vis hvis={isIdle || isLoading}
+                    render={() => (
+                        <>
+                        <BodyLong spacing>
                             Er du sikker på at du vil fjerne{' '}
                             <strong>{narmesteLeder.navn}</strong> som din
                             nærmeste leder i <strong>{orgNavn}</strong>?
-                        </Normaltekst>
-                        <Normaltekst>
+                        </BodyLong>
+                        <BodyLong spacing>
                             Hvis du er usikker på om navnet er riktig, bør du
                             spørre arbeidsgiveren din om hvorfor de har valgt
                             det.
-                        </Normaltekst>
+                        </BodyLong>
 
                         <div className="knapperad">
-                            <Knapp
-                                type="fare"
-                                spinner={isLoading}
+                            <Button
+                                variant="danger"
+                                loading={isLoading}
                                 disabled={isLoading}
                                 onClick={() => avkreft()}
                             >
                                 Ja, jeg er sikker
-                            </Knapp>
+                            </Button>
                             <button className="lenke" onClick={toggle}>
-                                <Normaltekst>Avbryt</Normaltekst>
+                                <BodyShort>Avbryt</BodyShort>
                             </button>
                         </div>
                     </>
-                )}
-            />
+                    )}
+                />
+            </Modal.Content>
         </Modal>
     )
 }

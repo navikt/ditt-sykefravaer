@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { spinnsynUrl } from '../../utils/environment'
@@ -7,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 
 const UtbetalingAvSykepengerLenkepanel = () => {
     return (
-        <LenkepanelBase href={spinnsynUrl()} border={true}>
+        <LinkPanel href={spinnsynUrl()} border={true}>
             <div className="lenkeikon utbetaling">
                 <svg
                     width="37"
@@ -25,12 +24,12 @@ const UtbetalingAvSykepengerLenkepanel = () => {
                 </svg>
             </div>
             <div className="bred-tekst-lenkepanel">
-                <Undertittel tag="h3">{tekst('lenker.utbetaling')}</Undertittel>
-                <Normaltekst>
+                <Heading size="small" level="3">{tekst('lenker.utbetaling')}</Heading>
+                <BodyShort>
                     {tekst('lenker.utbetaling.undertekst')}
-                </Normaltekst>
+                </BodyShort>
             </div>
-        </LenkepanelBase>
+        </LinkPanel>
     )
 }
 

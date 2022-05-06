@@ -1,5 +1,5 @@
+import { BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
 import React, { useState } from 'react'
 
 import { tekst } from '../../utils/tekster'
@@ -13,35 +13,31 @@ const Artikkel = () => {
     return (
         <article className="artikkel">
             <header className="artikkel__header">
-                <Undertittel className="artikkel__tittel">
+                <Heading size="small" className="artikkel__tittel">
                     {tekst('aktivitetskrav-varsel.tittel')}
-                </Undertittel>
+                </Heading>
                 <VelgArbeidssituasjon
                     kanVelge={true}
                     setVisning={setVisning}
                     medHjelpetekst={false}
                 />
             </header>
-            <Normaltekst className="artikkel__ingress">
+            <BodyShort className="artikkel__ingress">
                 {tekst('aktivitetskrav-varsel.ingress')}
-            </Normaltekst>
+            </BodyShort>
             <div className="artikkel__bilde">
-                <Vis
-                    hvis={visning === 'MED_ARBEIDSGIVER'}
+                <Vis hvis={visning === 'MED_ARBEIDSGIVER'}
                     render={() => (
-                        <img
-                            src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
+                        <img src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
                             alt={tekst(
                                 'aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER'
                             )}
                         />
                     )}
                 />
-                <Vis
-                    hvis={visning === 'UTEN_ARBEIDSGIVER'}
+                <Vis hvis={visning === 'UTEN_ARBEIDSGIVER'}
                     render={() => (
-                        <img
-                            src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
+                        <img src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
                             alt={tekst(
                                 'aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER'
                             )}
@@ -49,12 +45,12 @@ const Artikkel = () => {
                     )}
                 />
             </div>
-            <Normaltekst tag="div" className="artikkel__innhold">
+            <BodyLong className="artikkel__innhold">
                 {parser(
                     // eslint-disable-next-line
                     tekst(`aktivitetskrav-varsel.innhold.${visning}` as any)
                 )}
-            </Normaltekst>
+            </BodyLong>
         </article>
     )
 }

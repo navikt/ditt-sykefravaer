@@ -1,4 +1,4 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
 @import '../basic';
 
 .lenker {
@@ -8,22 +8,27 @@
         width: 80%;
     }
 
-    .typo-systemtittel {
+    .navds-heading__medium {
         margin-bottom: 1rem;
     }
 
-    .lenkepanel {
-        justify-content: flex-start;
+    .navds-link-panel {
+        justify-content: space-between;
         margin-bottom: 0.5rem;
 
-        .typo-undertittel {
+        .navds-link-panel__content {
+            display: flex;
+            align-items: center;
+        }
+
+        .navds-heading__small {
             width: 80%;
         }
 
         .lenkeikon {
             display: flex;
             align-items: center;
-            background-color: @navLysBlaLighten80;
+            background-color: @navds-global-color-lightblue-100;
             border-radius: 4px 0 0 4px;
             margin: -1rem 1.4rem -1rem -1rem;
             padding: 8px;
@@ -44,12 +49,13 @@
 
 @media (min-width: @screen-sm) {
     .lenker {
-        .lenkepanel {
-            .typo-undertittel {
+        .navds-link-panel {
+            .navds-heading__small {
                 width: 80%;
             }
 
             .lenkeikon {
+                min-width: 4rem;
                 width: 4rem;
                 padding: 1rem;
 

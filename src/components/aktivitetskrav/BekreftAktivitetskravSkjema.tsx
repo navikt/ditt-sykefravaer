@@ -1,5 +1,4 @@
-import { Knapp } from 'nav-frontend-knapper'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyShort, Button } from '@navikt/ds-react'
 import React, { SyntheticEvent, useState } from 'react'
 
 import useBekreftAktivitetskrav from '../../query-hooks/useBekreftAktivitetskrav'
@@ -19,35 +18,34 @@ const BekreftAktivitetskravSkjema = () => {
 
     return (
         <form onSubmit={handleSubmit} className="bekreft-aktivitetskrav">
-            <div className="skjemaelement">
+            <div className="navds-checkbox navds-checkbox--medium">
                 <input
                     id="bekreftAktivitetskrav"
                     type="checkbox"
-                    className="skjemaelement__input checkboks"
+                    className="navds-checkbox__input"
                     onChange={(e) => setCheck(e.currentTarget.checked)}
                 />
                 <label
-                    className="skjemaelement__label"
+                    className="navds-checkbox__label"
                     htmlFor="bekreftAktivitetskrav"
                 >
-                    <Normaltekst tag="span">
+                    <BodyShort as="span">
                         {tekst('aktivitetskrav-varsel.bekreft-label')}
-                    </Normaltekst>
+                    </BodyShort>
                 </label>
-                <Vis
-                    hvis={!check && buttonClicked}
+                <Vis hvis={!check && buttonClicked}
                     render={() => (
-                        <Normaltekst className="typo-feilmelding">
+                        <BodyShort className="typo-feilmelding">
                             {tekst('aktivitetskrav-varsel.bekreft-feilmelding')}
-                        </Normaltekst>
+                        </BodyShort>
                     )}
                 />
             </div>
 
             <div className="knapperad">
-                <Knapp type="hoved" spinner={isLoading}>
+                <Button variant="primary" loading={isLoading}>
                     BEKREFT
-                </Knapp>
+                </Button>
             </div>
         </form>
     )

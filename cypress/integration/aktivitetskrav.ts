@@ -4,7 +4,7 @@ describe('Tester aktivitetskrav', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel'
         )
 
-        cy.get('.oppgaver > .alertstripe')
+        cy.get('.oppgaver > .navds-alert')
             .contains('Bekreft at du kjenner aktivitetsplikten')
             .click()
 
@@ -25,7 +25,7 @@ describe('Tester aktivitetskrav', () => {
     })
 
     it('Bekrefter aktivitetskrav', () => {
-        cy.get('.knapp--hoved').contains('BEKREFT').click()
+        cy.get('.navds-button--primary').contains('BEKREFT').click()
 
         cy.get('.typo-feilmelding').contains(
             'Du må bekrefte at du har lest all informasjonen du har fått.'
@@ -35,15 +35,15 @@ describe('Tester aktivitetskrav', () => {
             .contains('Jeg har lest om aktivitetsplikten')
             .click()
 
-        cy.get('.knapp--hoved').click()
+        cy.get('.navds-button--primary').click()
     })
 
     it('Aktivitetskrav bekreftet kvittering', () => {
-        cy.isInViewport('.alertstripe--suksess').contains(
+        cy.isInViewport('.navds-alert--success').contains(
             'Du har bekreftet at du har lest om aktivitetsplikten'
         )
 
-        cy.get('.knapp--hoved').should('not.exist')
+        cy.get('.navds-button--primary').should('not.exist')
     })
 
     it('Aktivitetskrav bekreftet viser alltid bekreftelse av nyeste', () => {
@@ -51,7 +51,7 @@ describe('Tester aktivitetskrav', () => {
             'http://localhost:8080/syk/sykefravaer/aktivitetsplikt?testperson=aktivitetskrav-bekreftet'
         )
 
-        cy.get('.alertstripe--suksess').contains(
+        cy.get('.navds-alert--success').contains(
             'Du har bekreftet at du har lest om aktivitetsplikten 05.03.2021.'
         )
     })
@@ -61,7 +61,7 @@ describe('Tester aktivitetskrav', () => {
             'http://localhost:8080/syk/sykefravaer/aktivitetsplikt?testperson=helt-frisk'
         )
 
-        cy.get('.alertstripe--advarsel').contains(
+        cy.get('.navds-alert--warning').contains(
             'Du har ingen varsel om aktivitetsplikt'
         )
     })

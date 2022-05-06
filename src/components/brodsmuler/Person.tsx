@@ -1,4 +1,4 @@
-import Popover, { PopoverOrientering } from 'nav-frontend-popover'
+import { Popover } from '@navikt/ds-react'
 import React, { useRef, useState } from 'react'
 
 import { personas } from '../../data/mock/testperson'
@@ -6,7 +6,7 @@ import { isMockBackend, isOpplaering } from '../../utils/environment'
 import Vis from '../Vis'
 
 const Person = () => {
-    const [visInnhold, setVisInnhold] = useState<boolean>(false)
+    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
     const person = useRef<HTMLImageElement>(null)
     const kanVelgePerson = isMockBackend() || isOpplaering()
 
@@ -18,8 +18,7 @@ const Person = () => {
 
     return (
         <>
-            <img
-                src="/syk/sykefravaer/static/person.svg"
+            <img src="/syk/sykefravaer/static/person.svg"
                 alt="Du"
                 className="brodsmuler__ikon"
                 ref={person}
@@ -28,17 +27,20 @@ const Person = () => {
                 hvis={kanVelgePerson && visInnhold}
                 render={() => (
                     <Popover
-                        ankerEl={person.current as HTMLElement}
-                        orientering={PopoverOrientering.Under}
-                        onRequestClose={() => setVisInnhold(false)}
+                        open={true}
+                        anchorEl={person.current as HTMLElement}
+                        placement="bottom"
+                        onClose={() => setVisInnhold(false)}
                     >
-                        <ul style={{ minWidth: 190 }}>
-                            {Object.keys(personas).map((p, idx) => (
-                                <li key={idx}>
-                                    <a href={`?testperson=${p}`}>{p}</a>
-                                </li>
-                            ))}
-                        </ul>
+                        <Popover.Content>
+                            <ul style={{ minWidth: 190 }}>
+                                {Object.keys(personas).map((p, idx) => (
+                                    <li key={idx}>
+                                        <a href={`?testperson=${p}`}>{p}</a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </Popover.Content>
                     </Popover>
                 )}
             />
