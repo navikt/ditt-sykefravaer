@@ -1,4 +1,4 @@
-import { Systemtittel } from 'nav-frontend-typografi'
+import { Heading } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
@@ -52,9 +52,9 @@ const Lenker = () => {
             hvis={lenker}
             render={() => (
                 <section className="lenker">
-                    <Systemtittel tag="h2" className={'hide-element'}>
+                    <Heading size="medium" level="2" className="hide-element">
                         Lenker
-                    </Systemtittel>
+                    </Heading>
                     <Vis
                         hvis={sykmeldinger && sykmeldinger.length > 0}
                         render={() => <SykmeldingLenkepanel />}

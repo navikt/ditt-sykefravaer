@@ -1,6 +1,5 @@
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
-import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'
 import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
@@ -81,8 +80,8 @@ export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
 
 const Aktivitetsplikt = () => {
     const { data: hendelser, isFetching } = useHendelser()
-    const [visning, setVisning] = useState('')
-    const [bekreftetdato, setBekreftetdato] = useState<string | undefined>()
+    const [ visning, setVisning ] = useState('')
+    const [ bekreftetdato, setBekreftetdato ] = useState<string | undefined>()
 
     useEffect(() => {
         setBodyClass('aktivitetskrav')
@@ -98,47 +97,41 @@ const Aktivitetsplikt = () => {
             }
         }
         // eslint-disable-next-line
-    }, [isFetching])
+    }, [ isFetching ])
 
     useEffect(() => {
         if (visning === AKTIVITETSVARSELKVITTERING) {
             window.scrollTo({ top: 0 })
         }
-    }, [visning])
+    }, [ visning ])
 
     return (
         <>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" level="1" className="sidebanner__tittel">
                     {tekst('sidetittel.liste')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-                <Vis
-                    hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
+                <Vis hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
-                            <AlertStripeAdvarsel>
-                                <Undertittel>
-                                    {tekst(
-                                        'aktivitetskrav-varsel.ingen-varsel.tittel'
-                                    )}
-                                </Undertittel>
-                                <Normaltekst>
-                                    {tekst(
-                                        'aktivitetskrav-varsel.ingen-varsel.melding'
-                                    )}
-                                </Normaltekst>
-                            </AlertStripeAdvarsel>
+                            <Alert variant="warning">
+                                <Heading size="small">
+                                    {tekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                                </Heading>
+                                <BodyShort>
+                                    {tekst('aktivitetskrav-varsel.ingen-varsel.melding')}
+                                </BodyShort>
+                            </Alert>
                         )
                     }}
                 />
 
-                <Vis
-                    hvis={visning === NYTT_AKTIVITETSKRAVVARSEL}
+                <Vis hvis={visning === NYTT_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
                             <>
@@ -149,26 +142,17 @@ const Aktivitetsplikt = () => {
                     }}
                 />
 
-                <Vis
-                    hvis={visning === AKTIVITETSVARSELKVITTERING}
+                <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
                     render={() => {
                         return (
                             <>
                                 <div aria-live="polite" role="alert">
-                                    <Alertstripe
-                                        type="suksess"
-                                        className="aktivitetskrav-kvittering"
-                                    >
+                                    <Alert variant="success" className="aktivitetskrav-kvittering">
                                         {tekst(
                                             'aktivitetskrav-varsel.kvittering',
-                                            {
-                                                '%DATO%':
-                                                    dayjs(bekreftetdato).format(
-                                                        'DD.MM.YYYY'
-                                                    ),
-                                            }
+                                            { '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY') }
                                         )}
-                                    </Alertstripe>
+                                    </Alert>
                                 </div>
 
                                 <Artikkel />
@@ -180,7 +164,7 @@ const Aktivitetsplikt = () => {
         </>
     )
 }
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps: GetServerSideProps = async() => {
     // Disable static rendring
     return {
         props: {},

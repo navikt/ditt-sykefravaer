@@ -1,7 +1,8 @@
-@import 'node_modules/nav-frontend-core/less/_variabler';
+@import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
+@import '../basic';
 
 .tidslinje__ytre {
-    .typo-systemtittel {
+    .navds-heading__medium {
         margin: 1rem 0 2rem;
     }
 
@@ -12,7 +13,7 @@
             padding-bottom: 1rem;
             position: relative;
 
-            .ikon + .typo-normal {
+            .ikon + .navds-body-short {
                 font-weight: bold;
             }
 
@@ -28,7 +29,7 @@
                 margin-top: -6px;
                 height: 100%;
                 width: 1px;
-                background-color: @navGra40;
+                background-color: @navds-global-color-gray-400;
             }
 
             &:last-child:before {
@@ -45,7 +46,7 @@
 
                 &.highlight {
                     border-radius: 50%;
-                    background-color: @navLysBlaLighten60;
+                    background-color: @navds-global-color-blue-50;
                 }
 
                 img {
@@ -60,7 +61,7 @@
 
             .ekspanderbartPanel {
                 flex: 1;
-                background-color: @navLysGra;
+                background-color: @navds-global-color-gray-200;
 
                 img {
                     width: 100%;
@@ -72,7 +73,7 @@
                 &__tittel {
                     padding-right: 0.7rem;
 
-                    .typo-normal {
+                    .navds-body-short {
                         h3 {
                             font-size: 16px;
                             font-weight: 600;
@@ -93,7 +94,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
-                    background-color: @navLysBlaLighten60;
+                    background-color: @navds-global-color-blue-50;
                     border-radius: 50%;
                     margin: 0 1rem 0 -3px;
                     width: 24px;

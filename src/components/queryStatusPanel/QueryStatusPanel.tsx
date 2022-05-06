@@ -1,7 +1,4 @@
-import Alertstripe from 'nav-frontend-alertstriper'
-import { Knapp } from 'nav-frontend-knapper'
-import NavFrontendSpinner from 'nav-frontend-spinner'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
 import React from 'react'
 import { useIsFetching, UseQueryResult } from 'react-query'
 
@@ -75,19 +72,17 @@ const QueryStatusPanel = () => {
 
     return (
         <>
-            <Vis
-                hvis={isFetching > 0}
+            <Vis hvis={isFetching > 0}
                 render={() => (
                     <div className="query-status-panel">
-                        <Undertittel>Henter ditt sykefravær</Undertittel>
-                        <NavFrontendSpinner />
+                        <Heading size="small">Henter ditt sykefravær</Heading>
+                        <Loader />
                     </div>
                 )}
             />
-            <Vis
-                hvis={errorQueries.length > 0}
+            <Vis hvis={errorQueries.length > 0}
                 render={() => (
-                    <Alertstripe type="advarsel" className="query-status-error">
+                    <Alert variant="warning" className="query-status-error">
                         <strong>Ai ai ai!</strong>
                         <span>
                             {' '}
@@ -99,14 +94,14 @@ const QueryStatusPanel = () => {
                             ))}
                         </ul>
 
-                        <Knapp
+                        <Button
                             onClick={() => {
                                 errorQueries.forEach((a) => a.query.refetch())
                             }}
                         >
                             Hent på nytt
-                        </Knapp>
-                    </Alertstripe>
+                        </Button>
+                    </Alert>
                 )}
             />
         </>

@@ -1,4 +1,4 @@
-@import '../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../node_modules/@navikt/ds-tokens/dist/tokens';
 @import './basic';
 
 * {
@@ -7,7 +7,7 @@
 
 body {
     margin: 0;
-    color: @navMorkGra;
+    color: @navds-global-color-gray-800;
 }
 
 html,
@@ -15,7 +15,7 @@ body,
 #app-root {
     height: 100%;
 
-    .spinner {
+    .navds-loader {
         display: block;
         margin: 0 auto;
     }
@@ -42,49 +42,27 @@ body,
     }
 
     .limit {
-        background-color: @white;
+        background-color: @navds-global-color-white;
         padding-top: 1rem;
     }
 }
 
-.vekk {
-    line-height: 0;
-    color: transparent;
-    font-size: 0;
-    width: 0;
-    height: 0;
-}
-
 a {
-    color: @navBla;
+    color: @navds-semantic-color-interaction-primary;
 }
 
-.fade-enter {
-    opacity: 0.01;
-
-    &.fade-enter-active {
-        opacity: 1;
-        transition: opacity 300ms ease-in;
-    }
-}
-
-.fade-exit {
-    opacity: 1;
-
-    &.fade-exit-active {
-        opacity: 0.01;
-        transition: opacity 300ms ease-in;
-    }
-}
-
-.navno-dekorator .login-knapp.knapp--standard {
+.navno-dekorator .login-knapp.navds-button--secondary {
     min-height: auto;
     font-size: 1rem;
     padding: 0.2rem 0.7rem;
 }
 
-.modal {
-    width: 400px;
+.navds-modal {
+    width: 440px;
+
+    .navds-modal__button {
+        margin-top: -6px;
+    }
 
     section {
         h2 {
@@ -94,30 +72,30 @@ a {
         > p {
             margin-top: 1rem;
         }
+    }
 
-        .knapperad {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 0 1rem;
+    .knapperad {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0.5rem 0 1rem;
 
-            > * {
-                margin: 0.5rem 0;
-            }
+        > * {
+            margin: 0.5rem 0;
         }
     }
 }
 
-.lenke {
+button.lenke {
+    background: 0;
+    color: @navds-semantic-color-interaction-primary;
+    text-decoration: underline;
     border: 0;
     padding: 0;
-}
 
-@media (min-width: @screen-sm) {
-    .limit {
-        width: @desktopLimitWidth;
-        margin: 0 auto;
-        padding: 2rem 5rem 3.5rem;
+    &:hover {
+        text-decoration: none;
+        cursor: pointer;
     }
 }
 
@@ -130,4 +108,12 @@ a {
     padding: 0;
     position: absolute;
     width: 1px;
+}
+
+@media (min-width: @screen-sm) {
+    .limit {
+        width: @desktopLimitWidth;
+        margin: 0 auto;
+        padding: 2rem 5rem 3.5rem;
+    }
 }

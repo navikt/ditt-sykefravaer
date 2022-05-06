@@ -1,5 +1,5 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Link } from '@navikt/ds-icons'
+import { BodyLong, BodyShort, HelpText } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -13,11 +13,11 @@ interface NaermesteLederContainerProps {
 }
 
 const NarmesteLeder = ({
-    orgnummer,
-    orgNavn,
-}: NaermesteLederContainerProps) => {
+                           orgnummer,
+                           orgNavn,
+                       }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const [open, setOpen] = useState<boolean>(false)
+    const [ open, setOpen ] = useState<boolean>(false)
 
     if (!narmesteLedere) {
         return null
@@ -39,14 +39,14 @@ const NarmesteLeder = ({
             hvis={leder && orgNavn}
             render={() => (
                 <>
-                    <Normaltekst className="leder__informasjon">
+                    <BodyShort className="leder__informasjon">
                         Din nærmeste leder er <strong>{leder?.navn}</strong>.
-                    </Normaltekst>
+                    </BodyShort>
                     <div className="leder__handlinger">
                         <button className="lenke" onClick={() => toggleOpen()}>
-                            <Normaltekst tag="span">
+                            <BodyShort as="span">
                                 Meld fra om endring
-                            </Normaltekst>
+                            </BodyShort>
                         </button>
                         <BekreftFeilLeder
                             open={open}
@@ -59,38 +59,30 @@ const NarmesteLeder = ({
                         hvis={leder.arbeidsgiverForskutterer !== null}
                         render={() => (
                             <div className="leder__forskuttering">
-                                <Normaltekst>
+                                <BodyShort>
                                     {tekst(
                                         `din-situasjon.arbeidsgiver-forskutterer${
                                             leder?.arbeidsgiverForskutterer
                                                 ? ''
                                                 : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                  '-ikke'
+                                                '-ikke'
                                         }` as any
                                     )}
-                                </Normaltekst>
-                                <Hjelpetekst>
-                                    <Normaltekst>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst1'
-                                        )}
-                                    </Normaltekst>
-                                    <Normaltekst>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst2'
-                                        )}
-                                    </Normaltekst>
-                                    <Normaltekst>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst3'
-                                        )}
-                                    </Normaltekst>
-                                    <Normaltekst>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst4'
-                                        )}
-                                    </Normaltekst>
-                                </Hjelpetekst>
+                                </BodyShort>
+                                <HelpText>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}
+                                    </BodyLong>
+                                </HelpText>
                             </div>
                         )}
                     />

@@ -1,3 +1,4 @@
+import { expect } from '@jest/globals'
 import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../types/sykmelding'
@@ -9,7 +10,7 @@ it('Returnerer false hvis ingenting er fetchet', () => {
 })
 
 it('Returnerer true hvis undefined sykmeldinger men oppfølgingsplaner', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [{ id: 1 }])
+    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [{ id: 1 } as any])
     expect(skalVise).toEqual(true)
 })
 

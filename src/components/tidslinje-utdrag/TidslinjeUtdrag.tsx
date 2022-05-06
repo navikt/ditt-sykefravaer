@@ -1,6 +1,5 @@
+import { Accordion, Heading } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import Lesmerpanel from 'nav-frontend-lesmerpanel'
-import { Undertittel } from 'nav-frontend-typografi'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -11,11 +10,7 @@ import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import {
-    getSykefravaerVarighet,
-    getVisning,
-    skalViseUtdrag,
-} from './tidslinjeUtdragHjelpefunksjoner'
+import { getSykefravaerVarighet, getVisning, skalViseUtdrag, } from './tidslinjeUtdragHjelpefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -112,9 +107,9 @@ const TidslinjeUtdrag = () => {
         useSykmeldinger()
     const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
         useSykeforloep()
-    const [visInnhold, setVisInnhold] = useState<boolean>(false)
-    const [antallDager, setAntallDager] = useState<number>(0)
-    const [visning, setVisning] = useState<Visning>('VALGFRI')
+    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
+    const [ antallDager, setAntallDager ] = useState<number>(0)
+    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -124,22 +119,22 @@ const TidslinjeUtdrag = () => {
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line
-    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
+    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
     }
 
     return (
-        <Vis
-            hvis={visInnhold && antallDager <= 500}
+        <Vis hvis={visInnhold && antallDager <= 500}
             render={() => (
                 <>
-                    <Lesmerpanel
-                        className="tidslinjeutdrag__container"
-                        apneTekst="Les mer"
-                        intro={
-                            <>
+                    <Accordion>
+                        <Accordion.Item className="tidslinjeutdrag__container">
+                            <Accordion.Header>
+                                Les mer
+                            </Accordion.Header>
+                            <Accordion.Content>
                                 <VelgArbeidssituasjon
                                     kanVelge={
                                         getVisning(
@@ -152,18 +147,14 @@ const TidslinjeUtdrag = () => {
                                 />
 
                                 <div className="tidslinjeutdrag">
-                                    <img
-                                        className="tidslinjeutdrag__bilde"
+                                    <img className="tidslinjeutdrag__bilde"
                                         alt=""
                                         src={bildeNokkelTilBilde(
                                             nokkelbase?.bilde
                                         )}
                                     />
                                     <div className="tidslinjeutdrag__intro">
-                                        <Undertittel
-                                            tag="h2"
-                                            className="utdrag_tittel"
-                                        >
+                                        <Heading size="small" level="2" className="utdrag_tittel">
                                             {
                                                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                                 tekst(
@@ -171,7 +162,7 @@ const TidslinjeUtdrag = () => {
                                                         '.tittel') as any
                                                 )
                                             }
-                                        </Undertittel>
+                                        </Heading>
                                         <div className="utdrag_ingress">
                                             {
                                                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -189,29 +180,28 @@ const TidslinjeUtdrag = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </>
-                        }
-                    >
-                        <div className="utdrag_mer">
-                            {
-                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                parser(
-                                    tekst(
-                                        (nokkelbase?.nokkel + '.mer') as any,
-                                        {
-                                            '%ARBEIDSRETTETOPPFOLGING%':
-                                                snartSluttUrl(),
-                                        }
-                                    )
-                                )
-                            }
-                        </div>
-                        <Link href="/tidslinjen">
-                            <a className="lenke lenke--tilTidslinje">
-                                {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
-                            </a>
-                        </Link>
-                    </Lesmerpanel>
+                                <div className="utdrag_mer">
+                                    {
+                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                        parser(
+                                            tekst(
+                                                (nokkelbase?.nokkel + '.mer') as any,
+                                                {
+                                                    '%ARBEIDSRETTETOPPFOLGING%':
+                                                        snartSluttUrl(),
+                                                }
+                                            )
+                                        )
+                                    }
+                                </div>
+                                <Link href="/tidslinjen">
+                                    <a className="navds-link lenke--tilTidslinje">
+                                        {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                                    </a>
+                                </Link>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
 
                     <Vis
                         hvis={visning !== 'UTEN_ARBEIDSGIVER'}
