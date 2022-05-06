@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { aktivitetsplanUrl } from '../../utils/environment'
@@ -7,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 
 const Aktivitetsplan = () => {
     return (
-        <LenkepanelBase href={aktivitetsplanUrl()} border={true}>
+        <LinkPanel href={aktivitetsplanUrl()} border={true}>
             <div className="lenkeikon">
                 <svg
                     width="32"
@@ -28,14 +27,14 @@ const Aktivitetsplan = () => {
                 </svg>
             </div>
             <div>
-                <Undertittel tag="h3">
+                <Heading size="small" level="3">
                     {tekst('lenker.aktivitetsplan')}
-                </Undertittel>
-                <Normaltekst>
+                </Heading>
+                <BodyShort>
                     {tekst('lenker.aktivitetsplan.undertekst')}
-                </Normaltekst>
+                </BodyShort>
             </div>
-        </LenkepanelBase>
+        </LinkPanel>
     )
 }
 

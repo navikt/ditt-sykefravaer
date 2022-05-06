@@ -1,5 +1,5 @@
+import { Heading } from '@navikt/ds-react'
 import { Dayjs } from 'dayjs'
-import { Systemtittel } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import useHendelser from '../../query-hooks/useHendelser'
@@ -44,7 +44,9 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
 
     return (
         <div className="tidslinje__ytre">
-            <Systemtittel tag="h2">Tidslinje for sykefraværet</Systemtittel>
+            <Heading size="medium" level="2">
+                Tidslinje for sykefraværet
+            </Heading>
 
             <div className="tidslinje">
                 {events

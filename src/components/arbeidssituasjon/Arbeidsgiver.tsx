@@ -1,4 +1,4 @@
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyShort } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -29,7 +29,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
 
     return (
         <div className="situasjon__innhold">
-            <Normaltekst>{tekst('din-situasjon.ansatt') + navn}</Normaltekst>
+            <BodyShort>{tekst('din-situasjon.ansatt') + navn}</BodyShort>
             <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
         </div>
     )

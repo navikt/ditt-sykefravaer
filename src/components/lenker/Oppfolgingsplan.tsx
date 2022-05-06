@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { oppfolgingsplanUrl } from '../../utils/environment'
@@ -7,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 
 const Oppfolgingsplan = () => {
     return (
-        <LenkepanelBase href={oppfolgingsplanUrl()} border={true}>
+        <LinkPanel href={oppfolgingsplanUrl()} border={true}>
             <div className="lenkeikon">
                 <svg
                     width="32"
@@ -30,14 +29,14 @@ const Oppfolgingsplan = () => {
                 </svg>
             </div>
             <div>
-                <Undertittel tag="h3">
+                <Heading size="small" level="3">
                     {tekst('lenker.oppfolgingsplan')}
-                </Undertittel>
-                <Normaltekst>
+                </Heading>
+                <BodyShort>
                     {tekst('lenker.oppfolgingsplan.undertekst')}
-                </Normaltekst>
+                </BodyShort>
             </div>
-        </LenkepanelBase>
+        </LinkPanel>
     )
 }
 

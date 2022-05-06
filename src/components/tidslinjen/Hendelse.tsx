@@ -1,14 +1,12 @@
+import { Accordion, BodyShort, Heading } from '@navikt/ds-react'
 import dayjs from 'dayjs'
 import parser from 'html-react-parser'
-import Ekspanderbartpanel from 'nav-frontend-ekspanderbartpanel'
-import { Normaltekst } from 'nav-frontend-typografi'
 import React, { useEffect, useState } from 'react'
 
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { Hendelse, HendelseType } from '../../types/hendelse'
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
-import Vis from '../Vis'
 import { hendelseIkon, tidslinjeIkon } from './tidslinjenUtils'
 
 interface HendelseTittelProps {
@@ -44,9 +42,9 @@ export const HendelseTittel = ({
             <div className="ikon">
                 <img src={tidslinjeIkon(type)} alt="" />
             </div>
-            <Normaltekst tag="h3" className="tittel">
+            <Heading size="small" level="3" className="tittel">
                 {titteltekst}
-            </Normaltekst>
+            </Heading>
         </div>
     )
 }
@@ -77,7 +75,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
         switch (hendelse.type) {
             case 'AKTIVITETSKRAV_VARSEL':
                 return (
-                    <Normaltekst tag="div">
+                    <BodyShort as="div">
                         {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             parser(
@@ -90,12 +88,12 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                                 })
                             )
                         }
-                    </Normaltekst>
+                    </BodyShort>
                 )
 
             case 'NY_NAERMESTE_LEDER':
                 return (
-                    <Normaltekst tag="div">
+                    <BodyShort as="div">
                         {
                             // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             parser(
@@ -117,14 +115,14 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                                 })
                             )
                         }
-                    </Normaltekst>
+                    </BodyShort>
                 )
             default:
                 // eslint-disable-next-line @typescript-eslint/no-explicit-any
                 return (
-                    <Normaltekst>
+                    <BodyShort>
                         {tekst(`${hendelse.tekstkey}.tittel` as any)}
-                    </Normaltekst>
+                    </BodyShort>
                 )
         }
     }
@@ -134,7 +132,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
             const aktivTom = hendelse.data?.naermesteLeder.aktivTom
 
             return (
-                <Normaltekst tag="div">
+                <BodyShort as="div">
                     {
                         // eslint-disable-next-line @typescript-eslint/no-explicit-any
                         parser(
@@ -149,17 +147,17 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                             })
                         )
                     }
-                </Normaltekst>
+                </BodyShort>
             )
         }
 
         return (
-            <Normaltekst tag="div">
+            <BodyShort as="div">
                 {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     parser(tekst(`${hendelse.tekstkey}.budskap` as any))
                 }
-            </Normaltekst>
+            </BodyShort>
         )
     }
 
@@ -168,10 +166,24 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
             <div className="ikon">
                 <img src={tidslinjeIkon(hendelse.type)} alt="" />
             </div>
-            <Ekspanderbartpanel tittel={getTittel(hendelse)}>
-                <img alt="" src={hendelseIkon(hendelse)} />
-                {getBudskap(hendelse)}
-            </Ekspanderbartpanel>
+            <Accordion>
+                <Accordion.Item>
+                    <Accordion.Header>{getTittel(hendelse)}</Accordion.Header>
+                    <Accordion.Content>
+                        <img alt="" src={hendelseIkon(hendelse)} />
+                        {getBudskap(hendelse)}
+                    </Accordion.Content>
+                </Accordion.Item>
+            </Accordion>
+            <Accordion>
+                <Accordion.Item>
+                    <Accordion.Header>{getTittel(hendelse)}</Accordion.Header>
+                    <Accordion.Content>
+                        <img alt="" src={hendelseIkon(hendelse)} />
+                        {getBudskap(hendelse)}
+                    </Accordion.Content>
+                </Accordion.Item>
+            </Accordion>
         </div>
     )
 }

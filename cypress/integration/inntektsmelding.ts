@@ -4,7 +4,8 @@ describe('Tester inntektsmelding', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel'
         )
 
-        cy.get('.oppgaver > .alertstripe')
+        cy.get('.oppgaver > .navds-alert')
+            .should('have.length', 3)
             .contains('Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS')
             .click()
 

@@ -1,7 +1,6 @@
+import { Back } from '@navikt/ds-icons'
 import { BodyLong, Heading } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-//TODO: Bytte ut chevron i samme sleng som i resten av appen
-import { VenstreChevron } from 'nav-frontend-chevron'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -22,13 +21,14 @@ const brodsmuler: Brodsmule[] = [
 
 const Inntektsmelding = () => {
     const router = useRouter()
+
     useEffect(() => {
         setBodyClass('inntektsmelding')
     }, [])
 
     //TODO: hent arbeidsgivernavnet fra inntektsmeldingen
     return (
-        <div>
+        <>
             <Banner>
                 <Heading size="xlarge" className="sidebanner__tittel">
                     {tekst('inntektsmelding.side-tittel-manglende')}
@@ -76,14 +76,14 @@ const Inntektsmelding = () => {
                             router.push('/')
                         }}
                     >
-                        <VenstreChevron />
+                        <Back />
                         <BodyLong as="span">
                             {tekst('sidetittel.liste')}
                         </BodyLong>
                     </a>
                 </Link>
             </div>
-        </div>
+        </>
     )
 }
 

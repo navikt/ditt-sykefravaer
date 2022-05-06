@@ -1,5 +1,4 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Radio } from 'nav-frontend-skjema'
+import { HelpText } from '@navikt/ds-react'
 import React, { Dispatch, SetStateAction } from 'react'
 
 import { Visning } from '../tidslinje-utdrag/TidslinjeUtdrag'
@@ -35,10 +34,15 @@ const VelgArbeidssituasjon = ({
             render={() => (
                 <div className="radiofaner">
                     {alternativer.map((a, idx) => (
-                        <div key={idx} className="radio">
-                            <Radio
+                        <div
+                            key={idx}
+                            className="navds-radio navds-radio--medium"
+                        >
+                            <input
+                                type="radio"
                                 name="velgArbeidssituasjon"
-                                label={a.tittel}
+                                id={'velg-arb-sit' + idx}
+                                className="navds-radio__input"
                                 value={a.verdi}
                                 defaultChecked={a.verdi === 'MED_ARBEIDSGIVER'}
                                 onChange={() => {
@@ -46,10 +50,17 @@ const VelgArbeidssituasjon = ({
                                     setVisning(a.verdi as any)
                                 }}
                             />
+                            <label
+                                className="navds-radio__label"
+                                htmlFor={'velg-arb-sit' + idx}
+                            >
+                                {a.tittel}
+                            </label>
+
                             <Vis
                                 hvis={medHjelpetekst && a.hjelpetekst}
                                 render={() => (
-                                    <Hjelpetekst>{a.hjelpetekst}</Hjelpetekst>
+                                    <HelpText>{a.hjelpetekst}</HelpText>
                                 )}
                             />
                         </div>

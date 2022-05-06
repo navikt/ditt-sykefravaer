@@ -91,7 +91,7 @@ export const skapSykmeldingoppgaver = (
                 {
                     tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
                     lenke: `${sykmeldingUrl}/${sykmeldingene[0].id}`,
-                    oppgavetype: 'advarsel',
+                    oppgavetype: 'warning',
                 },
             ]
         }
@@ -105,7 +105,7 @@ export const skapSykmeldingoppgaver = (
                     }
                 ),
                 lenke: sykmeldingUrl,
-                oppgavetype: 'advarsel',
+                oppgavetype: 'warning',
             },
         ]
     }

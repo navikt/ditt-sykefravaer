@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { tekst } from '../../utils/tekster'
@@ -9,7 +8,7 @@ export function DialogmoteLenke() {
     const { dialogmoteLandingUrl } = useDialogmotePaths()
 
     return (
-        <LenkepanelBase href={dialogmoteLandingUrl} border={true}>
+        <LinkPanel href={dialogmoteLandingUrl} border={true}>
             <div className="lenkeikon">
                 <svg
                     width="32"
@@ -23,7 +22,9 @@ export function DialogmoteLenke() {
                     </g>
                 </svg>
             </div>
-            <Undertittel tag="h3">{tekst('lenker.dialogmoter')}</Undertittel>
-        </LenkepanelBase>
+            <Heading size="small" level="3">
+                {tekst('lenker.dialogmoter')}
+            </Heading>
+        </LinkPanel>
     )
 }

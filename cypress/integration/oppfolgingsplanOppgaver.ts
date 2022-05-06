@@ -3,7 +3,7 @@ describe('Tester oppfølgingsplan oppgaver', () => {
         cy.visit(
             'http://localhost:8080/syk/sykefravaer?testperson=en-ny-oppfolgingsplan'
         )
-        cy.get('.oppgaver > .alertstripe').contains(
+        cy.get('.oppgaver > .navds-alert').contains(
             'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.'
         )
     })
@@ -12,7 +12,7 @@ describe('Tester oppfølgingsplan oppgaver', () => {
         cy.visit(
             'http://localhost:8080/syk/sykefravaer?testperson=to-nye-oppfolgingsplaner'
         )
-        cy.get('.oppgaver > .alertstripe').contains(
+        cy.get('.oppgaver > .navds-alert').contains(
             'Arbeidsgiverne dine har begynt på hver sin oppfølgingsplan. Du skal fylle ut din del.'
         )
     })
@@ -21,7 +21,7 @@ describe('Tester oppfølgingsplan oppgaver', () => {
         cy.visit(
             'http://localhost:8080/syk/sykefravaer?testperson=en-ny-oppfolgingsplan-til-godkjenning'
         )
-        cy.get('.oppgaver > .alertstripe').contains(
+        cy.get('.oppgaver > .navds-alert').contains(
             'Du har en oppfølgingsplan som venter på godkjenning av deg'
         )
     })
@@ -30,7 +30,7 @@ describe('Tester oppfølgingsplan oppgaver', () => {
         cy.visit(
             'http://localhost:8080/syk/sykefravaer?testperson=to-nye-oppfolgingsplaner-til-godkjenning'
         )
-        cy.get('.oppgaver > .alertstripe').contains(
+        cy.get('.oppgaver > .navds-alert').contains(
             'Du har to oppfølgingsplaner som venter på godkjenning av deg'
         )
     })

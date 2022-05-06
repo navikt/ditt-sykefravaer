@@ -1,5 +1,5 @@
+import { GuidePanel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import Veilederpanel from 'nav-frontend-veilederpanel'
 import React from 'react'
 
 import { veileder } from '../../grafikk/Veileder'
@@ -14,8 +14,8 @@ export const IngenSykmelding = () => {
     }
 
     return (
-        <Veilederpanel svg={veileder}>
+        <GuidePanel illustration={veileder}>
             {parser(tekst('ingen.sykmelding'))}
-        </Veilederpanel>
+        </GuidePanel>
     )
 }

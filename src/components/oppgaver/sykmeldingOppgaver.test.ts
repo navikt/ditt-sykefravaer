@@ -156,7 +156,7 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en avvist sykmelding',
-            oppgavetype: 'advarsel',
+            oppgavetype: 'warning',
         },
     ])
 })
@@ -204,7 +204,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en avvist sykmelding',
-            oppgavetype: 'advarsel',
+            oppgavetype: 'warning',
         },
     ])
 })

@@ -1,13 +1,15 @@
-@import '../../../node_modules/nav-frontend-core/less/core';
+@import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
 @import '../basic';
+
+@headerFarge: #d1eff9;
 
 .sidebanner {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: @navLysBlaLighten60;
-    padding: 1.4rem 0;
+    background-color: @headerFarge;
+    padding: 1.2rem 0;
 
     .sidebanner__tittel {
         text-align: center;
