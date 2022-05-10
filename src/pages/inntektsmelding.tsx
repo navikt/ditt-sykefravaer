@@ -1,12 +1,7 @@
-import { BodyLong } from '@navikt/ds-react'
+import { BodyLong, Heading } from '@navikt/ds-react'
 import parser from 'html-react-parser'
+//TODO: Bytte ut chevron i samme sleng som i resten av appen
 import { VenstreChevron } from 'nav-frontend-chevron'
-import {
-    Normaltekst,
-    Sidetittel,
-    Systemtittel,
-    Undertittel,
-} from 'nav-frontend-typografi'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -35,19 +30,19 @@ const Inntektsmelding = () => {
     return (
         <div>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" className="sidebanner__tittel">
                     {tekst('inntektsmelding.side-tittel-manglende')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-                <Systemtittel tag="h2">
+                <Heading size="medium">
                     {tekst('inntektsmelding.side-tittel', {
                         '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
                     })}
-                </Systemtittel>
+                </Heading>
 
                 <BodyLong spacing className="forklaring-bodylong">
                     {parser(
@@ -61,9 +56,9 @@ const Inntektsmelding = () => {
                     )}
                 </BodyLong>
 
-                <Undertittel>
+                <Heading size="small">
                     {tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}
-                </Undertittel>
+                </Heading>
 
                 <BodyLong spacing className="forklaring-bodylong">
                     {parser(
@@ -82,7 +77,7 @@ const Inntektsmelding = () => {
                         }}
                     >
                         <VenstreChevron />
-                        <Normaltekst tag="span">Ditt sykefravær</Normaltekst>
+                        <BodyLong as="span">{'sidetittel.liste'}</BodyLong>
                     </a>
                 </Link>
             </div>
