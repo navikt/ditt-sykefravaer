@@ -4,7 +4,7 @@ describe('Tester aktivitetskrav', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel'
         )
 
-        cy.get('.oppgaver > .alertstripe')
+        cy.get('.oppgaver')
             .contains('Bekreft at du kjenner aktivitetsplikten')
             .click()
 
