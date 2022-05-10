@@ -1,7 +1,7 @@
 describe('Tester inntektsmelding', () => {
     it('Har inntektsmelding varsel og riktig innhold', () => {
         cy.visit(
-            'http://localhost:8080/syk/sykefravaer?testperson=en-manglende-inntektsmelding'
+            'http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel'
         )
 
         cy.get('.oppgaver > .alertstripe')

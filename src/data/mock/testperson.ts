@@ -12,7 +12,6 @@ import { Persona } from './data/persona'
 import {
     defaultPersona,
     enAvvistSykmelding,
-    enManglendeInntektsmelding,
     enNySykmelding,
     heltFrisk,
 } from './data/personas'
@@ -31,7 +30,6 @@ export const personas: StringFunctionMap = {
     'helt-frisk': () => heltFrisk,
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,
-    'en-manglende-inntektsmelding': () => enManglendeInntektsmelding,
     'en-ny-oppfolgingsplan': enNyOppfolgingsplan,
     'to-nye-oppfolgingsplaner': toNyeOppfolgingsplaner,
     'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,

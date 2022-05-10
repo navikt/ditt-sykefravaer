@@ -76,29 +76,6 @@ export const enAvvistSykmelding: Persona = {
     brev: [],
 }
 
-export const enManglendeInntektsmelding: Persona = {
-    soknader: [],
-    vedtak: [],
-    oppfolgingsplaner: [],
-    dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-    sykmeldinger: [
-        {
-            id: 'AVVIST',
-            sykmeldingStatus: { statusEvent: 'APEN' },
-            behandlingsutfall: { status: 'INVALID' },
-            sykmeldingsperioder: [{ fom: '2021-03-01', tom: '2021-03-12' }],
-            syketilfelleStartDato: '2021-03-01',
-        },
-    ],
-    narmesteledere: [],
-    snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false },
-    sykeforloep: [],
-    hendelser: [],
-    brev: [],
-}
-
 export const defaultPersona: Persona = {
     soknader: soknader,
     vedtak: [vedtakMed100Grad],
