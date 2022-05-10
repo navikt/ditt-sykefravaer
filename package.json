@@ -112,7 +112,8 @@
     "prettier:check": "prettier --check .",
     "lint": "eslint --ext=ts,tsx src cypress",
     "lint:fix": "eslint --ext=ts,tsx src cypress --fix",
-    "postinstall": "./scripts/strip-less"
+    "postinstall": "./scripts/strip-less",
+    "format": "npm run prettier:write && npm run lint:fix"
   },
   "eslintConfig": {
     "extends": "react-app"

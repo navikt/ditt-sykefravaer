@@ -49,3 +49,5 @@ spec:
       value: "prod"
     - name: AMPLITUDE_ENABLED
       value: "false"
+    - name: BACKEND_SOKNAD_APP
+      value: "syfosoknad"

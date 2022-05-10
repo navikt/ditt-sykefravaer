@@ -81,3 +81,7 @@ export function narmestelederUrl() {
 export function arbeidssokerregistreringUrl() {
     return publicRuntimeConfig.arbeidssokerregistreringUrl
 }
+
+export function backendSoknadApp() {
+    return publicRuntimeConfig.backendSoknadApp
+}
