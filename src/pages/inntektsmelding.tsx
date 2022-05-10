@@ -77,7 +77,7 @@ const Inntektsmelding = () => {
                         }}
                     >
                         <VenstreChevron />
-                        <BodyLong as="span">{'sidetittel.liste'}</BodyLong>
+                        <BodyLong as="span">{tekst('sidetittel.liste')}</BodyLong>
                     </a>
                 </Link>
             </div>
