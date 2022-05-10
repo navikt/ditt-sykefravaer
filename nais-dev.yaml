@@ -70,3 +70,5 @@ spec:
       value: "true"
     - name: ASSET_PREFIX
       value: "https://flex-static-files.dev.nav.no/sykefravaer"
+    - name: BACKEND_SOKNAD_APP
+      value: "syfosoknad"
