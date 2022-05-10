@@ -25,6 +25,7 @@ import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
+import { skapInntektsmeldingOppgave } from './inntektsmeldingBeskjed'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
 import { skapSøknadOppgaver } from './soknadOppgaver'
@@ -92,6 +93,9 @@ function Oppgaver() {
             dialogmoteLandingUrl
         )
         const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
+        const inntektsmeldingOppgaver = skapInntektsmeldingOppgave(
+            '/syk/sykefravaer/inntektsmelding'
+        )
 
         const tasks = [
             ...sykmeldingOppgaver,
@@ -100,6 +104,7 @@ function Oppgaver() {
             ...dialogmoteBehovOppgaver,
             ...dialogmoteSvarOppgaver,
             ...brevOppgaver,
+            ...inntektsmeldingOppgaver,
         ]
 
         if (snartSluttPaSykepengene) {

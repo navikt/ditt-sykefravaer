@@ -1,0 +1,15 @@
+import { tekst } from '../../utils/tekster'
+import { Oppgave } from './oppgaveTyper'
+
+export const skapInntektsmeldingOppgave = (lenke: string): Oppgave[] => {
+    const oppgaver: Oppgave[] = []
+    //TODO: logikk for visning av inntektsmeldingoppgave
+    oppgaver.push({
+        tekst: tekst('oppgaver.inntektsmelding', {
+            '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
+        }),
+        oppgavetype: 'info',
+        lenke,
+    })
+    return oppgaver
+}

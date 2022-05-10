@@ -15,6 +15,7 @@ import '../components/aktivitetskrav/aktivitetskrav.less'
 import '../components/forside/forside.less'
 import '../components/snart-slutt/snartslutt.less'
 import '../components/tidslinjen/tidslinjen.less'
+import '../components/inntektsmelding/inntektsmelding.less'
 
 import dayjs from 'dayjs'
 import nb from 'dayjs/locale/nb'
