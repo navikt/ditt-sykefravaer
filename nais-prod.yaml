@@ -60,8 +60,6 @@ spec:
       value: "https://www.nav.no/person/dittnav"
     - name: NARMESTELEDER_URL
       value: "https://narmesteleder.nav.no"
-    - name: ARBEIDSSOKERREGISTRERING_URL
-      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: DECORATOR_ENV
       value: "prod"
     - name: AMPLITUDE_KEY
@@ -72,3 +70,5 @@ spec:
       value: "https://flex-static-files.nav.no/sykefravaer"
     - name: BACKEND_SOKNAD_APP
       value: "syfosoknad"
+    - name: SNART_SLUTT_URL
+      value: "https://www.nav.no/syk/info/snart-slutt-pa-sykepengene"

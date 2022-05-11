@@ -92,7 +92,7 @@ module.exports = withLess({
         dialogmoteUrl: process.env.DIALOGMOTE_URL,
         newDialogmoteUrl: process.env.NEW_DIALOGMOTE_URL,
         narmestelederUrl: process.env.NARMESTELEDER_URL,
-        arbeidssokerregistreringUrl: process.env.ARBEIDSSOKERREGISTRERING_URL,
         backendSoknadApp: process.env.BACKEND_SOKNAD_APP,
+        snartSluttUrl: process.env.SNART_SLUTT_URL,
     },
 })

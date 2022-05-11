@@ -17,6 +17,7 @@ import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import {
     oppfolgingsplanUrl,
+    snartSluttUrl,
     sykepengesoknadUrl,
     sykmeldingUrl,
 } from '../../utils/environment'
@@ -110,7 +111,7 @@ function Oppgaver() {
         if (snartSluttPaSykepengene) {
             tasks.push({
                 tekst: tekst('oppgaver.snartslutt'),
-                lenke: tekst('oppgaver.snartslutt.url'),
+                lenke: snartSluttUrl(),
                 oppgavetype: 'advarsel',
             })
         }

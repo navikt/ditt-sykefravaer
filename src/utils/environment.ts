@@ -78,10 +78,10 @@ export function narmestelederUrl() {
     return publicRuntimeConfig.narmestelederUrl
 }
 
-export function arbeidssokerregistreringUrl() {
-    return publicRuntimeConfig.arbeidssokerregistreringUrl
-}
-
 export function backendSoknadApp() {
     return publicRuntimeConfig.backendSoknadApp
+}
+
+export function snartSluttUrl() {
+    return publicRuntimeConfig.snartSluttUrl
 }
