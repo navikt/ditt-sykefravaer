@@ -186,14 +186,14 @@ describe('Tester tidslinjeutdrag', () => {
                 .should(
                     'have.attr',
                     'href',
-                    '/syk/sykefravaer/snart-slutt-pa-sykepengene'
+                    'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene'
                 )
             cy.get('a')
                 .contains('Gå til alternativene.')
                 .should(
                     'have.attr',
                     'href',
-                    '/syk/sykefravaer/snart-slutt-pa-sykepengene'
+                    'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene'
                 )
         })
 
@@ -213,14 +213,14 @@ describe('Tester tidslinjeutdrag', () => {
                 .should(
                     'have.attr',
                     'href',
-                    '/syk/sykefravaer/snart-slutt-pa-sykepengene'
+                    'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene'
                 )
             cy.get('a')
                 .contains('Gå til alternativene.')
                 .should(
                     'have.attr',
                     'href',
-                    '/syk/sykefravaer/snart-slutt-pa-sykepengene'
+                    'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene'
                 )
         })
     })

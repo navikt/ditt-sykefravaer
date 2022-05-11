@@ -6,7 +6,6 @@ import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykm
 import { InntektsmeldingTekster } from '../components/inntektsmelding/inntektsmeldingTekster'
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
-import { SnartsluttTekster } from '../components/snart-slutt/snartsluttTekster'
 import { TidslinjeUtdragTekster } from '../components/tidslinje-utdrag/tidslinjeUtdragTekster'
 import { TidslinjenTekster } from '../components/tidslinjen/tidslinjenTekster'
 import { StringMap } from '../types/stringMap'
@@ -16,7 +15,6 @@ const tekster = {
     ...BannerTekster,
     ...LenkerTekster,
     ...ForsideTekster,
-    ...SnartsluttTekster,
     ...OppgaverTekster,
     ...ingenSykmeldingTekster,
     ...ArbeidssituasjonTekster,
@@ -32,7 +30,6 @@ type TekstKeys =
     | keyof typeof OppgaverTekster
     | keyof typeof ingenSykmeldingTekster
     | keyof typeof ForsideTekster
-    | keyof typeof SnartsluttTekster
     | keyof typeof ArbeidssituasjonTekster
     | keyof typeof TidslinjeUtdragTekster
     | keyof typeof AktivitetskravTekster

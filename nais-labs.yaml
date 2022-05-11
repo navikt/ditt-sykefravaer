@@ -40,11 +40,11 @@ spec:
       value: "https://dialogmoter.labs.nais.io/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
-    - name: ARBEIDSSOKERREGISTRERING_URL
-      value: "https://arbeidssokerregistrering.nav.no/start?fraSykefravaer=true"
     - name: DECORATOR_ENV
       value: "prod"
     - name: AMPLITUDE_ENABLED
       value: "false"
     - name: BACKEND_SOKNAD_APP
       value: "syfosoknad"
+    - name: SNART_SLUTT_URL
+      value: "https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene"

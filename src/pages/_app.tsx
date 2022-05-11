@@ -13,7 +13,6 @@ import '../components/tidslinje-utdrag/tidlinje-utdrag.less'
 import '../components/velgArbeidssituasjon/velgArbeidssituasjon.less'
 import '../components/aktivitetskrav/aktivitetskrav.less'
 import '../components/forside/forside.less'
-import '../components/snart-slutt/snartslutt.less'
 import '../components/tidslinjen/tidslinjen.less'
 import '../components/inntektsmelding/inntektsmelding.less'
 

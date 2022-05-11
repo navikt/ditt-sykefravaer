@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import { snartSluttUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
@@ -180,7 +181,7 @@ const TidslinjeUtdrag = () => {
                                                             '.ingress') as any,
                                                         {
                                                             '%ARBEIDSRETTETOPPFOLGING%':
-                                                                '/syk/sykefravaer/snart-slutt-pa-sykepengene',
+                                                                snartSluttUrl(),
                                                         }
                                                     )
                                                 )
@@ -199,7 +200,7 @@ const TidslinjeUtdrag = () => {
                                         (nokkelbase?.nokkel + '.mer') as any,
                                         {
                                             '%ARBEIDSRETTETOPPFOLGING%':
-                                                '/syk/sykefravaer/snart-slutt-pa-sykepengene',
+                                                snartSluttUrl(),
                                         }
                                     )
                                 )
