@@ -44,7 +44,9 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
 
     return (
         <div className="tidslinje__ytre">
-            <Heading size="medium" level="2">Tidslinje for sykefraværet</Heading>
+            <Heading size="medium" level="2">
+                Tidslinje for sykefraværet
+            </Heading>
 
             <div className="tidslinje">
                 {events

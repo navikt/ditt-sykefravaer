@@ -10,7 +10,9 @@ it('Returnerer false hvis ingenting er fetchet', () => {
 })
 
 it('Returnerer true hvis undefined sykmeldinger men oppfølgingsplaner', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [{ id: 1 } as any])
+    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [
+        { id: 1 } as any,
+    ])
     expect(skalVise).toEqual(true)
 })
 

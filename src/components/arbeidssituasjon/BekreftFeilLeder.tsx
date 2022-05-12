@@ -1,4 +1,11 @@
-import { Alert, BodyLong, BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
+import {
+    Alert,
+    BodyLong,
+    BodyShort,
+    Button,
+    Heading,
+    Modal,
+} from '@navikt/ds-react'
 import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../query-hooks/useAvkreftNarmesteLeder'
@@ -13,11 +20,11 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({
-      open,
-      toggle,
-      narmesteLeder,
-      orgNavn,
-    }: BekreftFeilLederProps) => {
+    open,
+    toggle,
+    narmesteLeder,
+    orgNavn,
+}: BekreftFeilLederProps) => {
     const {
         mutate: avkreft,
         isIdle,
@@ -29,15 +36,19 @@ const BekreftFeilLeder = ({
     return (
         <Modal open={open} closeButton={true} onClose={toggle}>
             <Modal.Content>
-                <Heading spacing size="small" level="2">Endre nærmeste leder</Heading>
+                <Heading spacing size="small" level="2">
+                    Endre nærmeste leder
+                </Heading>
 
-                <Vis hvis={isSuccess}
+                <Vis
+                    hvis={isSuccess}
                     render={() => (
                         <BodyShort>Takk for oppdateringen!</BodyShort>
                     )}
                 />
 
-                <Vis hvis={isError}
+                <Vis
+                    hvis={isError}
                     render={() => (
                         <Alert variant="error">
                             Beklager, det oppstod en feil! Vennligst prøv igjen
@@ -46,34 +57,35 @@ const BekreftFeilLeder = ({
                     )}
                 />
 
-                <Vis hvis={isIdle || isLoading}
+                <Vis
+                    hvis={isIdle || isLoading}
                     render={() => (
                         <>
-                        <BodyLong spacing>
-                            Er du sikker på at du vil fjerne{' '}
-                            <strong>{narmesteLeder.navn}</strong> som din
-                            nærmeste leder i <strong>{orgNavn}</strong>?
-                        </BodyLong>
-                        <BodyLong spacing>
-                            Hvis du er usikker på om navnet er riktig, bør du
-                            spørre arbeidsgiveren din om hvorfor de har valgt
-                            det.
-                        </BodyLong>
+                            <BodyLong spacing>
+                                Er du sikker på at du vil fjerne{' '}
+                                <strong>{narmesteLeder.navn}</strong> som din
+                                nærmeste leder i <strong>{orgNavn}</strong>?
+                            </BodyLong>
+                            <BodyLong spacing>
+                                Hvis du er usikker på om navnet er riktig, bør
+                                du spørre arbeidsgiveren din om hvorfor de har
+                                valgt det.
+                            </BodyLong>
 
-                        <div className="knapperad">
-                            <Button
-                                variant="danger"
-                                loading={isLoading}
-                                disabled={isLoading}
-                                onClick={() => avkreft()}
-                            >
-                                Ja, jeg er sikker
-                            </Button>
-                            <button className="lenke" onClick={toggle}>
-                                <BodyShort>Avbryt</BodyShort>
-                            </button>
-                        </div>
-                    </>
+                            <div className="knapperad">
+                                <Button
+                                    variant="danger"
+                                    loading={isLoading}
+                                    disabled={isLoading}
+                                    onClick={() => avkreft()}
+                                >
+                                    Ja, jeg er sikker
+                                </Button>
+                                <button className="lenke" onClick={toggle}>
+                                    <BodyShort>Avbryt</BodyShort>
+                                </button>
+                            </div>
+                        </>
                     )}
                 />
             </Modal.Content>

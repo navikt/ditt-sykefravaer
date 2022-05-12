@@ -23,7 +23,9 @@ const SykmeldingLenkepanel = () => {
                     />
                 </svg>
             </div>
-            <Heading size="small" level="3">{tekst('lenker.sykmelding')}</Heading>
+            <Heading size="small" level="3">
+                {tekst('lenker.sykmelding')}
+            </Heading>
         </LinkPanel>
     )
 }

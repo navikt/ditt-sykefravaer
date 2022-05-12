@@ -10,7 +10,11 @@ import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import { getSykefravaerVarighet, getVisning, skalViseUtdrag, } from './tidslinjeUtdragHjelpefunksjoner'
+import {
+    getSykefravaerVarighet,
+    getVisning,
+    skalViseUtdrag,
+} from './tidslinjeUtdragHjelpefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -107,9 +111,9 @@ const TidslinjeUtdrag = () => {
         useSykmeldinger()
     const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
         useSykeforloep()
-    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
-    const [ antallDager, setAntallDager ] = useState<number>(0)
-    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
+    const [visInnhold, setVisInnhold] = useState<boolean>(false)
+    const [antallDager, setAntallDager] = useState<number>(0)
+    const [visning, setVisning] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -119,21 +123,20 @@ const TidslinjeUtdrag = () => {
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line
-    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
+    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
     }
 
     return (
-        <Vis hvis={visInnhold && antallDager <= 500}
+        <Vis
+            hvis={visInnhold && antallDager <= 500}
             render={() => (
                 <>
                     <Accordion>
                         <Accordion.Item className="tidslinjeutdrag__container">
-                            <Accordion.Header>
-                                Les mer
-                            </Accordion.Header>
+                            <Accordion.Header>Les mer</Accordion.Header>
                             <Accordion.Content>
                                 <VelgArbeidssituasjon
                                     kanVelge={
@@ -147,14 +150,19 @@ const TidslinjeUtdrag = () => {
                                 />
 
                                 <div className="tidslinjeutdrag">
-                                    <img className="tidslinjeutdrag__bilde"
+                                    <img
+                                        className="tidslinjeutdrag__bilde"
                                         alt=""
                                         src={bildeNokkelTilBilde(
                                             nokkelbase?.bilde
                                         )}
                                     />
                                     <div className="tidslinjeutdrag__intro">
-                                        <Heading size="small" level="2" className="utdrag_tittel">
+                                        <Heading
+                                            size="small"
+                                            level="2"
+                                            className="utdrag_tittel"
+                                        >
                                             {
                                                 /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                                 tekst(
@@ -185,7 +193,8 @@ const TidslinjeUtdrag = () => {
                                         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                         parser(
                                             tekst(
-                                                (nokkelbase?.nokkel + '.mer') as any,
+                                                (nokkelbase?.nokkel +
+                                                    '.mer') as any,
                                                 {
                                                     '%ARBEIDSRETTETOPPFOLGING%':
                                                         snartSluttUrl(),
@@ -196,7 +205,9 @@ const TidslinjeUtdrag = () => {
                                 </div>
                                 <Link href="/tidslinjen">
                                     <a className="navds-link lenke--tilTidslinje">
-                                        {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
+                                        {tekst(
+                                            'tidslinje.utdrag.lenke-til-tidslinje'
+                                        )}
                                     </a>
                                 </Link>
                             </Accordion.Content>

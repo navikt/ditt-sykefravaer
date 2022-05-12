@@ -6,7 +6,7 @@ import { isMockBackend, isOpplaering } from '../../utils/environment'
 import Vis from '../Vis'
 
 const Person = () => {
-    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
+    const [visInnhold, setVisInnhold] = useState<boolean>(false)
     const person = useRef<HTMLImageElement>(null)
     const kanVelgePerson = isMockBackend() || isOpplaering()
 
@@ -18,7 +18,8 @@ const Person = () => {
 
     return (
         <>
-            <img src="/syk/sykefravaer/static/person.svg"
+            <img
+                src="/syk/sykefravaer/static/person.svg"
                 alt="Du"
                 className="brodsmuler__ikon"
                 ref={person}

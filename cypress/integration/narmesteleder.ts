@@ -14,7 +14,7 @@ describe('Tester narmesteledere', () => {
             .contains('Meld fra om endring')
             .click()
 
-        cy.get('.modal')
+        cy.get('.navds-modal')
             .should('contain', 'Endre nærmeste leder')
             .contains('Ja, jeg er sikker')
             .click()

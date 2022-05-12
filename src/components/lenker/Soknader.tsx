@@ -23,7 +23,9 @@ const SoknadLenkepanel = () => {
                     />
                 </svg>
             </div>
-            <Heading size="small" level="3">{tekst('lenker.soknader')}</Heading>
+            <Heading size="small" level="3">
+                {tekst('lenker.soknader')}
+            </Heading>
             <BodyShort>fra deg</BodyShort>
         </LinkPanel>
     )

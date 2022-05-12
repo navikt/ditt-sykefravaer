@@ -26,18 +26,22 @@ const Artikkel = () => {
                 {tekst('aktivitetskrav-varsel.ingress')}
             </BodyShort>
             <div className="artikkel__bilde">
-                <Vis hvis={visning === 'MED_ARBEIDSGIVER'}
+                <Vis
+                    hvis={visning === 'MED_ARBEIDSGIVER'}
                     render={() => (
-                        <img src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
+                        <img
+                            src="/syk/sykefravaer/static/med_arbeidsgiver.svg"
                             alt={tekst(
                                 'aktivitetskrav-varsel.alt.MED_ARBEIDSGIVER'
                             )}
                         />
                     )}
                 />
-                <Vis hvis={visning === 'UTEN_ARBEIDSGIVER'}
+                <Vis
+                    hvis={visning === 'UTEN_ARBEIDSGIVER'}
                     render={() => (
-                        <img src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
+                        <img
+                            src="/syk/sykefravaer/static/uten_arbeidsgiver.svg"
                             alt={tekst(
                                 'aktivitetskrav-varsel.alt.UTEN_ARBEIDSGIVER'
                             )}

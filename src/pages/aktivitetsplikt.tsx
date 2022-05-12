@@ -80,8 +80,8 @@ export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
 
 const Aktivitetsplikt = () => {
     const { data: hendelser, isFetching } = useHendelser()
-    const [ visning, setVisning ] = useState('')
-    const [ bekreftetdato, setBekreftetdato ] = useState<string | undefined>()
+    const [visning, setVisning] = useState('')
+    const [bekreftetdato, setBekreftetdato] = useState<string | undefined>()
 
     useEffect(() => {
         setBodyClass('aktivitetskrav')
@@ -97,13 +97,13 @@ const Aktivitetsplikt = () => {
             }
         }
         // eslint-disable-next-line
-    }, [ isFetching ])
+    }, [isFetching])
 
     useEffect(() => {
         if (visning === AKTIVITETSVARSELKVITTERING) {
             window.scrollTo({ top: 0 })
         }
-    }, [ visning ])
+    }, [visning])
 
     return (
         <>
@@ -116,22 +116,28 @@ const Aktivitetsplikt = () => {
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-                <Vis hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
+                <Vis
+                    hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
                             <Alert variant="warning">
                                 <Heading size="small">
-                                    {tekst('aktivitetskrav-varsel.ingen-varsel.tittel')}
+                                    {tekst(
+                                        'aktivitetskrav-varsel.ingen-varsel.tittel'
+                                    )}
                                 </Heading>
                                 <BodyShort>
-                                    {tekst('aktivitetskrav-varsel.ingen-varsel.melding')}
+                                    {tekst(
+                                        'aktivitetskrav-varsel.ingen-varsel.melding'
+                                    )}
                                 </BodyShort>
                             </Alert>
                         )
                     }}
                 />
 
-                <Vis hvis={visning === NYTT_AKTIVITETSKRAVVARSEL}
+                <Vis
+                    hvis={visning === NYTT_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
                             <>
@@ -142,15 +148,24 @@ const Aktivitetsplikt = () => {
                     }}
                 />
 
-                <Vis hvis={visning === AKTIVITETSVARSELKVITTERING}
+                <Vis
+                    hvis={visning === AKTIVITETSVARSELKVITTERING}
                     render={() => {
                         return (
                             <>
                                 <div aria-live="polite" role="alert">
-                                    <Alert variant="success" className="aktivitetskrav-kvittering">
+                                    <Alert
+                                        variant="success"
+                                        className="aktivitetskrav-kvittering"
+                                    >
                                         {tekst(
                                             'aktivitetskrav-varsel.kvittering',
-                                            { '%DATO%': dayjs(bekreftetdato).format('DD.MM.YYYY') }
+                                            {
+                                                '%DATO%':
+                                                    dayjs(bekreftetdato).format(
+                                                        'DD.MM.YYYY'
+                                                    ),
+                                            }
                                         )}
                                     </Alert>
                                 </div>
@@ -164,7 +179,7 @@ const Aktivitetsplikt = () => {
         </>
     )
 }
-export const getServerSideProps: GetServerSideProps = async() => {
+export const getServerSideProps: GetServerSideProps = async () => {
     // Disable static rendring
     return {
         props: {},

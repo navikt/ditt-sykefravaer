@@ -31,7 +31,7 @@ describe('Tester aktivitetskrav', () => {
             'Du må bekrefte at du har lest all informasjonen du har fått.'
         )
 
-        cy.get('.skjemaelement__label[for=bekreftAktivitetskrav]')
+        cy.get('.navds-checkbox__label[for=bekreftAktivitetskrav]')
             .contains('Jeg har lest om aktivitetsplikten')
             .click()
 

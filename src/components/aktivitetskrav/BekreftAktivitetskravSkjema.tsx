@@ -33,7 +33,8 @@ const BekreftAktivitetskravSkjema = () => {
                         {tekst('aktivitetskrav-varsel.bekreft-label')}
                     </BodyShort>
                 </label>
-                <Vis hvis={!check && buttonClicked}
+                <Vis
+                    hvis={!check && buttonClicked}
                     render={() => (
                         <BodyShort className="typo-feilmelding">
                             {tekst('aktivitetskrav-varsel.bekreft-feilmelding')}

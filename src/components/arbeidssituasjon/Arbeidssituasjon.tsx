@@ -4,7 +4,10 @@ import React from 'react'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
-import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder, } from '../../utils/sykmeldingerUtils'
+import {
+    hentArbeidssituasjon,
+    selectSykmeldingerYngreEnnTreMaaneder,
+} from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Arbeidsgiver from './Arbeidsgiver'
@@ -74,7 +77,10 @@ const Arbeidssituasjon = () => {
             render={() => (
                 <section className="din-situasjon">
                     <header className="din-situasjon__header">
-                        <img src="/syk/sykefravaer/static/arbeidssituasjon.svg" alt="Arbeidssituasjon" />
+                        <img
+                            src="/syk/sykefravaer/static/arbeidssituasjon.svg"
+                            alt="Arbeidssituasjon"
+                        />
                         <Heading size="medium" level="2">
                             {tekst('din-situasjon.tittel.2')}
                         </Heading>
@@ -87,9 +93,10 @@ const Arbeidssituasjon = () => {
                             return (
                                 <div className="situasjon__panel" key={idx}>
                                     <div className="situasjon__ikon">
-                                        <img src={arbeidssituasjonTilIkon(
-                                            'ARBEIDSTAKER'
-                                        )}
+                                        <img
+                                            src={arbeidssituasjonTilIkon(
+                                                'ARBEIDSTAKER'
+                                            )}
                                             alt={tekst(
                                                 'din-situasjon.ARBEIDSTAKER'
                                             )}
@@ -108,9 +115,10 @@ const Arbeidssituasjon = () => {
                                 <div className="situasjon__panel" key={idx}>
                                     <div className="situasjon__ikon">
                                         {/* eslint-disable-next-line */}
-                                        <img src={arbeidssituasjonTilIkon(
-                                            arbeidssituasjon as any
-                                        )}
+                                        <img
+                                            src={arbeidssituasjonTilIkon(
+                                                arbeidssituasjon as any
+                                            )}
                                             alt={arbeidssituasjonLedetekst}
                                         />
                                     </div>

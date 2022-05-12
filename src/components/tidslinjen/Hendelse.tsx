@@ -16,10 +16,10 @@ interface HendelseTittelProps {
 }
 
 export const HendelseTittel = ({
-                                   tekstkey,
-                                   type,
-                                   startdato,
-                               }: HendelseTittelProps) => {
+    tekstkey,
+    type,
+    startdato,
+}: HendelseTittelProps) => {
     const titteltekst = tekst(
         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
         tekstkey as any,
@@ -54,12 +54,12 @@ interface HendelseBobleProp {
 }
 
 export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
-    const [ meldinger, setMeldinger ] = useState<Sykmelding[]>([])
+    const [meldinger, setMeldinger] = useState<Sykmelding[]>([])
     const { data: sykmeldinger } = useSykmeldinger()
 
     useEffect(() => {
         setMeldinger(sykmeldinger!)
-    }, [ sykmeldinger ])
+    }, [sykmeldinger])
 
     const finnOrgNavn = (org?: string, meldinger?: Sykmelding[]) => {
         if (!org) return undefined
@@ -82,8 +82,8 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                                 tekst(`${hendelse.tekstkey}.tittel` as any, {
                                     '%DATO%': hendelse.inntruffetdato
                                         ? dayjs(hendelse.inntruffetdato).format(
-                                            'D. MMMM YYYY'
-                                        )
+                                              'D. MMMM YYYY'
+                                          )
                                         : '',
                                 })
                             )
@@ -100,8 +100,8 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                                 tekst(`${hendelse.tekstkey}.tittel` as any, {
                                     '%DATO%': hendelse.inntruffetdato
                                         ? dayjs(hendelse.inntruffetdato).format(
-                                            'D. MMMM YYYY'
-                                        )
+                                              'D. MMMM YYYY'
+                                          )
                                         : '',
                                     '%ARBEIDSGIVER%':
                                         finnOrgNavn(
@@ -141,8 +141,8 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                                     hendelse.data?.naermesteLeder.navn || '',
                                 '%STATUS%': aktivTom
                                     ? `opphørt den ${dayjs(aktivTom).format(
-                                        'D. MMMM YYYY'
-                                    )}`
+                                          'D. MMMM YYYY'
+                                      )}`
                                     : 'aktiv',
                             })
                         )
@@ -168,9 +168,7 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
             </div>
             <Accordion>
                 <Accordion.Item>
-                    <Accordion.Header>
-                        {getTittel(hendelse)}
-                    </Accordion.Header>
+                    <Accordion.Header>{getTittel(hendelse)}</Accordion.Header>
                     <Accordion.Content>
                         <img alt="" src={hendelseIkon(hendelse)} />
                         {getBudskap(hendelse)}
