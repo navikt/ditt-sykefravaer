@@ -1,4 +1,4 @@
-import { Accordion, Heading } from '@navikt/ds-react'
+import { BodyShort, Heading, Ingress, Panel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -10,11 +10,7 @@ import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import {
-    getSykefravaerVarighet,
-    getVisning,
-    skalViseUtdrag,
-} from './tidslinjeUtdragHjelpefunksjoner'
+import { getSykefravaerVarighet, getVisning, skalViseUtdrag, } from './tidslinjeUtdragHjelpefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -107,13 +103,12 @@ const getNokkelBase = (visning: Visning, antallDager: number) => {
 }
 
 const TidslinjeUtdrag = () => {
-    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } =
-        useSykmeldinger()
-    const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
-        useSykeforloep()
-    const [visInnhold, setVisInnhold] = useState<boolean>(false)
-    const [antallDager, setAntallDager] = useState<number>(0)
-    const [visning, setVisning] = useState<Visning>('VALGFRI')
+    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
+    const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
+    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
+    const [ antallDager, setAntallDager ] = useState<number>(0)
+    const [ apen, setApen ] = useState<boolean>(false)
+    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -122,8 +117,11 @@ const TidslinjeUtdrag = () => {
             setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
+        setTimeout(() => {
+            'Lukk'
+        }, 300)
         // eslint-disable-next-line
-    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
+    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
@@ -134,89 +132,92 @@ const TidslinjeUtdrag = () => {
             hvis={visInnhold && antallDager <= 500}
             render={() => (
                 <>
-                    <Accordion>
-                        <Accordion.Item className="tidslinjeutdrag__container">
-                            <Accordion.Header>
-                                <div className="tidslinje__header">
-                                    <VelgArbeidssituasjon
-                                        kanVelge={
-                                            getVisning(
-                                                sykeforloep,
-                                                sykmeldinger
-                                            ) === 'VALGFRI'
-                                        }
-                                        setVisning={setVisning}
-                                        medHjelpetekst={false}
-                                    />
+                    <Panel border className="tidslinjeutdrag__container">
+                        <div className="tidslinje__header">
+                            <VelgArbeidssituasjon
+                                kanVelge={
+                                    getVisning(
+                                        sykeforloep,
+                                        sykmeldinger
+                                    ) === 'VALGFRI'
+                                }
+                                setVisning={setVisning}
+                                medHjelpetekst={false}
+                            />
 
-                                    <div className="tidslinjeutdrag">
-                                        <img
-                                            className="tidslinjeutdrag__bilde"
-                                            alt=""
-                                            src={bildeNokkelTilBilde(
-                                                nokkelbase?.bilde
-                                            )}
-                                        />
-                                        <div className="tidslinjeutdrag__intro">
-                                            <Heading
-                                                size="small"
-                                                level="2"
-                                                className="utdrag_tittel"
-                                            >
-                                                {
-                                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                    tekst(
-                                                        (nokkelbase?.nokkel +
-                                                            '.tittel') as any
-                                                    )
-                                                }
-                                            </Heading>
-                                            <div className="utdrag_ingress">
-                                                {
-                                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                    parser(
-                                                        tekst(
-                                                            (nokkelbase?.nokkel +
-                                                                '.ingress') as any,
-                                                            {
-                                                                '%ARBEIDSRETTETOPPFOLGING%':
-                                                                    snartSluttUrl(),
-                                                            }
-                                                        )
-                                                    )
-                                                }
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </Accordion.Header>
-
-                            <Accordion.Content>
-                                <div className="utdrag_mer">
-                                    {
-                                        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                        parser(
+                            <div className="tidslinjeutdrag">
+                                <img
+                                    className="tidslinjeutdrag__bilde"
+                                    alt=""
+                                    src={bildeNokkelTilBilde(
+                                        nokkelbase?.bilde
+                                    )}
+                                />
+                                <div className="tidslinjeutdrag__intro">
+                                    <Heading
+                                        size="small"
+                                        level="2"
+                                        className="utdrag_tittel"
+                                    >
+                                        {
+                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                             tekst(
                                                 (nokkelbase?.nokkel +
-                                                    '.mer') as any,
-                                                {
-                                                    '%ARBEIDSRETTETOPPFOLGING%':
-                                                        snartSluttUrl(),
-                                                }
+                                                    '.tittel') as any
                                             )
-                                        )
-                                    }
+                                        }
+                                    </Heading>
+                                    <Ingress>
+                                        {
+                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                            parser(
+                                                tekst(
+                                                    (nokkelbase?.nokkel +
+                                                        '.ingress') as any,
+                                                    {
+                                                        '%ARBEIDSRETTETOPPFOLGING%':
+                                                            snartSluttUrl(),
+                                                    }
+                                                )
+                                            )
+                                        }
+                                    </Ingress>
                                 </div>
-                                <Link href="/tidslinjen">
-                                    <a className="navds-link lenke--tilTidslinje">
-                                        {tekst(
-                                            'tidslinje.utdrag.lenke-til-tidslinje'
-                                        )}
-                                    </a>
-                                </Link>
-                            </Accordion.Content>
-                        </Accordion.Item>
-                    </Accordion>
+                            </div>
+                        </div>
+
+                        <div className={(apen ? ' apnet' : ' lukket')}>
+                            <BodyShort>
+                                {
+                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                    parser(
+                                        tekst(
+                                            (nokkelbase?.nokkel +
+                                                '.mer') as any,
+                                            {
+                                                '%ARBEIDSRETTETOPPFOLGING%':
+                                                    snartSluttUrl(),
+                                            }
+                                        )
+                                    )
+                                }
+                            </BodyShort>
+                            <Link href="/tidslinjen">
+                                <a className="navds-link lenke--tilTidslinje">
+                                    {tekst(
+                                        'tidslinje.utdrag.lenke-til-tidslinje'
+                                    )}
+                                </a>
+                            </Link>
+                        </div>
+
+                        <div className="knapperad">
+                            <button className="lenke" onClick={() => setApen(!apen)}>
+                                {apen ? 'Lukk' : 'Les mer'}
+                            </button>
+                        </div>
+
+                    </Panel>
 
                     <Vis
                         hvis={visning !== 'UTEN_ARBEIDSGIVER'}
