@@ -4,7 +4,7 @@ describe('Tester tidslinjen', () => {
             'http://localhost:8080/syk/sykefravaer/?testperson=langtidssykmeldt'
         )
 
-        cy.get('.tidslinjeutdrag__container .navds-accordion__header').click()
+        cy.get('.tidslinjeutdrag__container .knapperad button').click()
 
         cy.get('.lenke--tilTidslinje').click()
 
