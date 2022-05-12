@@ -10,7 +10,11 @@ import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
 import Friskmelding from './Friskmelding'
-import { getSykefravaerVarighet, getVisning, skalViseUtdrag, } from './tidslinjeUtdragHjelpefunksjoner'
+import {
+    getSykefravaerVarighet,
+    getVisning,
+    skalViseUtdrag,
+} from './tidslinjeUtdragHjelpefunksjoner'
 
 export type Visning = 'MED_ARBEIDSGIVER' | 'UTEN_ARBEIDSGIVER' | 'VALGFRI'
 
@@ -103,12 +107,14 @@ const getNokkelBase = (visning: Visning, antallDager: number) => {
 }
 
 const TidslinjeUtdrag = () => {
-    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } = useSykmeldinger()
-    const { data: sykeforloep, isLoading: sykeforloepIsLoading } = useSykeforloep()
-    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
-    const [ antallDager, setAntallDager ] = useState<number>(0)
-    const [ apen, setApen ] = useState<boolean>(false)
-    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
+    const { data: sykmeldinger, isLoading: sykmeldingerIsLoading } =
+        useSykmeldinger()
+    const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
+        useSykeforloep()
+    const [visInnhold, setVisInnhold] = useState<boolean>(false)
+    const [antallDager, setAntallDager] = useState<number>(0)
+    const [apen, setApen] = useState<boolean>(false)
+    const [visning, setVisning] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -121,7 +127,7 @@ const TidslinjeUtdrag = () => {
             'Lukk'
         }, 300)
         // eslint-disable-next-line
-    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
+    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
@@ -136,10 +142,8 @@ const TidslinjeUtdrag = () => {
                         <div className="tidslinje__header">
                             <VelgArbeidssituasjon
                                 kanVelge={
-                                    getVisning(
-                                        sykeforloep,
-                                        sykmeldinger
-                                    ) === 'VALGFRI'
+                                    getVisning(sykeforloep, sykmeldinger) ===
+                                    'VALGFRI'
                                 }
                                 setVisning={setVisning}
                                 medHjelpetekst={false}
@@ -149,9 +153,7 @@ const TidslinjeUtdrag = () => {
                                 <img
                                     className="tidslinjeutdrag__bilde"
                                     alt=""
-                                    src={bildeNokkelTilBilde(
-                                        nokkelbase?.bilde
-                                    )}
+                                    src={bildeNokkelTilBilde(nokkelbase?.bilde)}
                                 />
                                 <div className="tidslinjeutdrag__intro">
                                     <Heading
@@ -186,7 +188,7 @@ const TidslinjeUtdrag = () => {
                             </div>
                         </div>
 
-                        <div className={(apen ? ' apnet' : ' lukket')}>
+                        <div className={apen ? ' apnet' : ' lukket'}>
                             <BodyShort>
                                 {
                                     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
@@ -212,11 +214,13 @@ const TidslinjeUtdrag = () => {
                         </div>
 
                         <div className="knapperad">
-                            <button className="lenke" onClick={() => setApen(!apen)}>
+                            <button
+                                className="lenke"
+                                onClick={() => setApen(!apen)}
+                            >
                                 {apen ? 'Lukk' : 'Les mer'}
                             </button>
                         </div>
-
                     </Panel>
 
                     <Vis
