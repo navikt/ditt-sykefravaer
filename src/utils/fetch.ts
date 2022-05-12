@@ -32,7 +32,7 @@ class Fetch {
         if (res.ok) {
             try {
                 return await cb(await res.json())
-            } catch (error) {
+            } catch (error: any) {
                 if (error instanceof TypeError) {
                     logger.warn('oops', {
                         message: `${error.name}: ${error.message}`,
