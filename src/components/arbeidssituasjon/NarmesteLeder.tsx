@@ -17,7 +17,7 @@ const NarmesteLeder = ({
     orgNavn,
 }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const [open, setOpen] = useState<boolean>(false)
+    const [ open, setOpen ] = useState<boolean>(false)
 
     if (!narmesteLedere) {
         return null
@@ -44,7 +44,9 @@ const NarmesteLeder = ({
                     </BodyShort>
                     <div className="leder__handlinger">
                         <button className="lenke" onClick={() => toggleOpen()}>
-                            <BodyShort as="span">Meld fra om endring</BodyShort>
+                            <BodyShort as="span">
+                                Meld fra om endring
+                            </BodyShort>
                         </button>
                         <BekreftFeilLeder
                             open={open}
@@ -63,9 +65,24 @@ const NarmesteLeder = ({
                                             leder?.arbeidsgiverForskutterer
                                                 ? ''
                                                 : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                  '-ikke'
+                                                '-ikke'
                                         }` as any
                                     )}
+                                </BodyShort>
+                                <HelpText>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}
+                                    </BodyLong>
+                                    <BodyLong>
+                                        {tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}
+                                    </BodyLong>
+                                </HelpText>
                                 </BodyShort>
                                 <HelpText>
                                     <BodyLong>

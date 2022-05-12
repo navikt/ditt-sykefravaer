@@ -80,8 +80,8 @@ export const getAktivitetskravvisning = (hendelser: SimpleHendelse[]) => {
 
 const Aktivitetsplikt = () => {
     const { data: hendelser, isFetching } = useHendelser()
-    const [visning, setVisning] = useState('')
-    const [bekreftetdato, setBekreftetdato] = useState<string | undefined>()
+    const [ visning, setVisning ] = useState('')
+    const [ bekreftetdato, setBekreftetdato ] = useState<string | undefined>()
 
     useEffect(() => {
         setBodyClass('aktivitetskrav')
@@ -97,13 +97,13 @@ const Aktivitetsplikt = () => {
             }
         }
         // eslint-disable-next-line
-    }, [isFetching])
+    }, [ isFetching ])
 
     useEffect(() => {
         if (visning === AKTIVITETSVARSELKVITTERING) {
             window.scrollTo({ top: 0 })
         }
-    }, [visning])
+    }, [ visning ])
 
     return (
         <>

@@ -29,8 +29,7 @@ const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
 }
 
 const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
-    const erEkstern =
-        sti && (sti.startsWith('https://') || sti.startsWith('http://'))
+    const erEkstern = sti && (sti.startsWith('https://') || sti.startsWith('http://'))
     const router = useRouter()
 
     const klikker = (e: any, sti: string) => {

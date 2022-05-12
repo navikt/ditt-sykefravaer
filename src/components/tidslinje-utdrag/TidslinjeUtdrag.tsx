@@ -111,9 +111,9 @@ const TidslinjeUtdrag = () => {
         useSykmeldinger()
     const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
         useSykeforloep()
-    const [visInnhold, setVisInnhold] = useState<boolean>(false)
-    const [antallDager, setAntallDager] = useState<number>(0)
-    const [visning, setVisning] = useState<Visning>('VALGFRI')
+    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
+    const [ antallDager, setAntallDager ] = useState<number>(0)
+    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -123,7 +123,7 @@ const TidslinjeUtdrag = () => {
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line
-    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
+    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
