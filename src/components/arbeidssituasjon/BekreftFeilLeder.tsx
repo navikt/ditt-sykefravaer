@@ -20,11 +20,11 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({
-      open,
-      toggle,
-      narmesteLeder,
-      orgNavn,
-    }: BekreftFeilLederProps) => {
+    open,
+    toggle,
+    narmesteLeder,
+    orgNavn,
+}: BekreftFeilLederProps) => {
     const {
         mutate: avkreft,
         isIdle,

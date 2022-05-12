@@ -72,7 +72,8 @@ const QueryStatusPanel = () => {
 
     return (
         <>
-            <Vis hvis={isFetching > 0}
+            <Vis
+                hvis={isFetching > 0}
                 render={() => (
                     <div className="query-status-panel">
                         <Heading size="small">Henter ditt sykefravær</Heading>
@@ -80,7 +81,8 @@ const QueryStatusPanel = () => {
                     </div>
                 )}
             />
-            <Vis hvis={errorQueries.length > 0}
+            <Vis
+                hvis={errorQueries.length > 0}
                 render={() => (
                     <Alert variant="warning" className="query-status-error">
                         <strong>Ai ai ai!</strong>

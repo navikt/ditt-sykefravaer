@@ -57,7 +57,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 }
 
 function Oppgaver() {
-    const [ oppgaver, setOppgaver ] = useState<Oppgave[]>([])
+    const [oppgaver, setOppgaver] = useState<Oppgave[]>([])
 
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()

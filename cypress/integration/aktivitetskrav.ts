@@ -4,7 +4,8 @@ describe('Tester aktivitetskrav', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=aktivitetskrav-varsel'
         )
 
-        cy.get('.oppgaver > .navds-alert')
+        cy.get('.oppgaver .navds-alert__wrapper .navds-link')
+            .should('have.length', 3)
             .contains('Bekreft at du kjenner aktivitetsplikten')
             .click()
 

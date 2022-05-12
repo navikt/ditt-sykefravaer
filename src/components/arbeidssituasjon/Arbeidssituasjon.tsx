@@ -4,7 +4,10 @@ import React from 'react'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
-import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder, } from '../../utils/sykmeldingerUtils'
+import {
+    hentArbeidssituasjon,
+    selectSykmeldingerYngreEnnTreMaaneder,
+} from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Arbeidsgiver from './Arbeidsgiver'

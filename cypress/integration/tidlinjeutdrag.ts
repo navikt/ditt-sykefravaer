@@ -4,9 +4,7 @@ describe('Tester tidslinjeutdrag', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=en-ny-sykmelding'
         )
 
-        cy.get('.tidslinjeutdrag__container .navds-accordion__header')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .navds-accordion__header').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',
@@ -112,9 +110,7 @@ describe('Tester tidslinjeutdrag', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=langtidssykmeldt'
         )
 
-        cy.get('.tidslinjeutdrag__container .navds-accordion__header')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .navds-accordion__header').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',
@@ -165,9 +161,7 @@ describe('Tester tidslinjeutdrag', () => {
     it('Syk i 42 uker', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
-        cy.get('.tidslinjeutdrag__container .navds-accordion__header')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .navds-accordion__header').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',

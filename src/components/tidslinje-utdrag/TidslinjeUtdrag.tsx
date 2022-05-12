@@ -111,9 +111,9 @@ const TidslinjeUtdrag = () => {
         useSykmeldinger()
     const { data: sykeforloep, isLoading: sykeforloepIsLoading } =
         useSykeforloep()
-    const [ visInnhold, setVisInnhold ] = useState<boolean>(false)
-    const [ antallDager, setAntallDager ] = useState<number>(0)
-    const [ visning, setVisning ] = useState<Visning>('VALGFRI')
+    const [visInnhold, setVisInnhold] = useState<boolean>(false)
+    const [antallDager, setAntallDager] = useState<number>(0)
+    const [visning, setVisning] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
     useEffect(() => {
@@ -123,7 +123,7 @@ const TidslinjeUtdrag = () => {
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
         // eslint-disable-next-line
-    }, [ sykmeldingerIsLoading, sykeforloepIsLoading ])
+    }, [sykmeldingerIsLoading, sykeforloepIsLoading])
 
     const bildeNokkelTilBilde = (bildeNokkel?: string) => {
         return `/syk/sykefravaer/static/tidslinjeutdrag/${bildeNokkel}`
@@ -136,58 +136,62 @@ const TidslinjeUtdrag = () => {
                 <>
                     <Accordion>
                         <Accordion.Item className="tidslinjeutdrag__container">
-                            <Accordion.Header>Les mer</Accordion.Header>
-                            <Accordion.Content>
-                                <VelgArbeidssituasjon
-                                    kanVelge={
-                                        getVisning(
-                                            sykeforloep,
-                                            sykmeldinger
-                                        ) === 'VALGFRI'
-                                    }
-                                    setVisning={setVisning}
-                                    medHjelpetekst={false}
-                                />
-
-                                <div className="tidslinjeutdrag">
-                                    <img
-                                        className="tidslinjeutdrag__bilde"
-                                        alt=""
-                                        src={bildeNokkelTilBilde(
-                                            nokkelbase?.bilde
-                                        )}
+                            <Accordion.Header>
+                                <div className="tidslinje__header">
+                                    <VelgArbeidssituasjon
+                                        kanVelge={
+                                            getVisning(
+                                                sykeforloep,
+                                                sykmeldinger
+                                            ) === 'VALGFRI'
+                                        }
+                                        setVisning={setVisning}
+                                        medHjelpetekst={false}
                                     />
-                                    <div className="tidslinjeutdrag__intro">
-                                        <Heading
-                                            size="small"
-                                            level="2"
-                                            className="utdrag_tittel"
-                                        >
-                                            {
-                                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                tekst(
-                                                    (nokkelbase?.nokkel +
-                                                        '.tittel') as any
-                                                )
-                                            }
-                                        </Heading>
-                                        <div className="utdrag_ingress">
-                                            {
-                                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                parser(
+
+                                    <div className="tidslinjeutdrag">
+                                        <img
+                                            className="tidslinjeutdrag__bilde"
+                                            alt=""
+                                            src={bildeNokkelTilBilde(
+                                                nokkelbase?.bilde
+                                            )}
+                                        />
+                                        <div className="tidslinjeutdrag__intro">
+                                            <Heading
+                                                size="small"
+                                                level="2"
+                                                className="utdrag_tittel"
+                                            >
+                                                {
+                                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                                     tekst(
                                                         (nokkelbase?.nokkel +
-                                                            '.ingress') as any,
-                                                        {
-                                                            '%ARBEIDSRETTETOPPFOLGING%':
-                                                                snartSluttUrl(),
-                                                        }
+                                                            '.tittel') as any
                                                     )
-                                                )
-                                            }
+                                                }
+                                            </Heading>
+                                            <div className="utdrag_ingress">
+                                                {
+                                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                    parser(
+                                                        tekst(
+                                                            (nokkelbase?.nokkel +
+                                                                '.ingress') as any,
+                                                            {
+                                                                '%ARBEIDSRETTETOPPFOLGING%':
+                                                                    snartSluttUrl(),
+                                                            }
+                                                        )
+                                                    )
+                                                }
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                            </Accordion.Header>
+
+                            <Accordion.Content>
                                 <div className="utdrag_mer">
                                     {
                                         /* eslint-disable-next-line @typescript-eslint/no-explicit-any */

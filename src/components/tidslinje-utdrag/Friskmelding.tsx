@@ -6,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 import Bjorn from '../bjorn/Bjorn'
 
 const Friskmelding = () => {
-    const [ open, setOpen ] = useState<boolean>(false)
+    const [open, setOpen] = useState<boolean>(false)
 
     return (
         <>
