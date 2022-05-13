@@ -27,7 +27,9 @@ const UtbetalingAvSykepengerLenkepanel = () => {
                 <Heading size="small" level="3">
                     {tekst('lenker.utbetaling')}
                 </Heading>
-                <BodyShort>{tekst('lenker.utbetaling.undertekst')}</BodyShort>
+                <BodyShort>
+                    {tekst('lenker.utbetaling.undertekst')}
+                </BodyShort>
             </div>
         </LinkPanel>
     )
