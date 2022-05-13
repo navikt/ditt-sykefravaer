@@ -175,15 +175,6 @@ export const HendelseBoble = ({ hendelse }: HendelseBobleProp) => {
                     </Accordion.Content>
                 </Accordion.Item>
             </Accordion>
-            <Accordion>
-                <Accordion.Item>
-                    <Accordion.Header>{getTittel(hendelse)}</Accordion.Header>
-                    <Accordion.Content>
-                        <img alt="" src={hendelseIkon(hendelse)} />
-                        {getBudskap(hendelse)}
-                    </Accordion.Content>
-                </Accordion.Item>
-            </Accordion>
         </div>
     )
 }

@@ -89,29 +89,6 @@ const NarmesteLeder = ({
                                         )}
                                     </BodyLong>
                                 </HelpText>
-
-                                <HelpText>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst1'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst2'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst3'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst4'
-                                        )}
-                                    </BodyLong>
-                                </HelpText>
                             </div>
                         )}
                     />
