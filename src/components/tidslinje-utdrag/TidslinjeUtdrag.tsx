@@ -1,6 +1,5 @@
+import { BodyShort, Heading, Ingress, Panel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import Lesmerpanel from 'nav-frontend-lesmerpanel'
-import { Undertittel } from 'nav-frontend-typografi'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
@@ -114,6 +113,7 @@ const TidslinjeUtdrag = () => {
         useSykeforloep()
     const [visInnhold, setVisInnhold] = useState<boolean>(false)
     const [antallDager, setAntallDager] = useState<number>(0)
+    const [apen, setApen] = useState<boolean>(false)
     const [visning, setVisning] = useState<Visning>('VALGFRI')
     const nokkelbase = getNokkelBase(visning, antallDager)
 
@@ -123,6 +123,9 @@ const TidslinjeUtdrag = () => {
             setAntallDager(getSykefravaerVarighet(sykeforloep, sykmeldinger))
             setVisning(getVisning(sykeforloep, sykmeldinger))
         }
+        setTimeout(() => {
+            'Lukk'
+        }, 300)
         // eslint-disable-next-line
     }, [sykmeldingerIsLoading, sykeforloepIsLoading])
 
@@ -135,83 +138,90 @@ const TidslinjeUtdrag = () => {
             hvis={visInnhold && antallDager <= 500}
             render={() => (
                 <>
-                    <Lesmerpanel
-                        className="tidslinjeutdrag__container"
-                        apneTekst="Les mer"
-                        intro={
-                            <>
-                                <VelgArbeidssituasjon
-                                    kanVelge={
-                                        getVisning(
-                                            sykeforloep,
-                                            sykmeldinger
-                                        ) === 'VALGFRI'
-                                    }
-                                    setVisning={setVisning}
-                                    medHjelpetekst={false}
-                                />
+                    <Panel border className="tidslinjeutdrag__container">
+                        <div className="tidslinje__header">
+                            <VelgArbeidssituasjon
+                                kanVelge={
+                                    getVisning(sykeforloep, sykmeldinger) ===
+                                    'VALGFRI'
+                                }
+                                setVisning={setVisning}
+                                medHjelpetekst={false}
+                            />
 
-                                <div className="tidslinjeutdrag">
-                                    <img
-                                        className="tidslinjeutdrag__bilde"
-                                        alt=""
-                                        src={bildeNokkelTilBilde(
-                                            nokkelbase?.bilde
-                                        )}
-                                    />
-                                    <div className="tidslinjeutdrag__intro">
-                                        <Undertittel
-                                            tag="h2"
-                                            className="utdrag_tittel"
-                                        >
-                                            {
-                                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                            <div className="tidslinjeutdrag">
+                                <img
+                                    className="tidslinjeutdrag__bilde"
+                                    alt=""
+                                    src={bildeNokkelTilBilde(nokkelbase?.bilde)}
+                                />
+                                <div className="tidslinjeutdrag__intro">
+                                    <Heading
+                                        size="small"
+                                        level="2"
+                                        className="utdrag_tittel"
+                                    >
+                                        {
+                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                            tekst(
+                                                (nokkelbase?.nokkel +
+                                                    '.tittel') as any
+                                            )
+                                        }
+                                    </Heading>
+                                    <Ingress>
+                                        {
+                                            /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                            parser(
                                                 tekst(
                                                     (nokkelbase?.nokkel +
-                                                        '.tittel') as any
+                                                        '.ingress') as any,
+                                                    {
+                                                        '%ARBEIDSRETTETOPPFOLGING%':
+                                                            snartSluttUrl(),
+                                                    }
                                                 )
-                                            }
-                                        </Undertittel>
-                                        <div className="utdrag_ingress">
-                                            {
-                                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                parser(
-                                                    tekst(
-                                                        (nokkelbase?.nokkel +
-                                                            '.ingress') as any,
-                                                        {
-                                                            '%ARBEIDSRETTETOPPFOLGING%':
-                                                                snartSluttUrl(),
-                                                        }
-                                                    )
-                                                )
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
-                            </>
-                        }
-                    >
-                        <div className="utdrag_mer">
-                            {
-                                /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                parser(
-                                    tekst(
-                                        (nokkelbase?.nokkel + '.mer') as any,
-                                        {
-                                            '%ARBEIDSRETTETOPPFOLGING%':
-                                                snartSluttUrl(),
+                                            )
                                         }
-                                    )
-                                )
-                            }
+                                    </Ingress>
+                                </div>
+                            </div>
                         </div>
-                        <Link href="/tidslinjen">
-                            <a className="lenke lenke--tilTidslinje">
-                                {tekst('tidslinje.utdrag.lenke-til-tidslinje')}
-                            </a>
-                        </Link>
-                    </Lesmerpanel>
+
+                        <div className={apen ? ' apnet' : ' lukket'}>
+                            <BodyShort>
+                                {
+                                    /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                    parser(
+                                        tekst(
+                                            (nokkelbase?.nokkel +
+                                                '.mer') as any,
+                                            {
+                                                '%ARBEIDSRETTETOPPFOLGING%':
+                                                    snartSluttUrl(),
+                                            }
+                                        )
+                                    )
+                                }
+                            </BodyShort>
+                            <Link href="/tidslinjen">
+                                <a className="navds-link lenke--tilTidslinje">
+                                    {tekst(
+                                        'tidslinje.utdrag.lenke-til-tidslinje'
+                                    )}
+                                </a>
+                            </Link>
+                        </div>
+
+                        <div className="knapperad">
+                            <button
+                                className="lenke"
+                                onClick={() => setApen(!apen)}
+                            >
+                                {apen ? 'Lukk' : 'Les mer'}
+                            </button>
+                        </div>
+                    </Panel>
 
                     <Vis
                         hvis={visning !== 'UTEN_ARBEIDSGIVER'}

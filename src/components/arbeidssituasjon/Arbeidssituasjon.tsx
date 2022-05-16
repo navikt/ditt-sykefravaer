@@ -1,5 +1,4 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Normaltekst, Systemtittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading, HelpText } from '@navikt/ds-react'
 import React from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -82,12 +81,12 @@ const Arbeidssituasjon = () => {
                             src="/syk/sykefravaer/static/arbeidssituasjon.svg"
                             alt="Arbeidssituasjon"
                         />
-                        <Systemtittel tag="h2">
+                        <Heading size="medium" level="2">
                             {tekst('din-situasjon.tittel.2')}
-                        </Systemtittel>
-                        <Hjelpetekst>
+                        </Heading>
+                        <HelpText>
                             {tekst('din-situasjon.hjelpetekst.tekst')}
-                        </Hjelpetekst>
+                        </HelpText>
                     </header>
                     <div className="arbeidssituasjon-panel">
                         {arbeidsgivere.map((orgnummer, idx) => {
@@ -124,9 +123,9 @@ const Arbeidssituasjon = () => {
                                         />
                                     </div>
                                     <div className="situasjon__innhold">
-                                        <Normaltekst>
+                                        <BodyShort>
                                             {arbeidssituasjonLedetekst}
-                                        </Normaltekst>
+                                        </BodyShort>
                                     </div>
                                 </div>
                             )

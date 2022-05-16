@@ -1,6 +1,5 @@
-import Alertstripe from 'nav-frontend-alertstriper'
-import Lenke from 'nav-frontend-lenker'
-import { Systemtittel } from 'nav-frontend-typografi'
+import { Alert, Heading } from '@navikt/ds-react'
+import { Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import {
@@ -43,14 +42,14 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Systemtittel tag="h2" className={'hide-element'}>
+            <Heading size="medium" level="2" className="hide-element">
                 Oppgaver
-            </Systemtittel>
+            </Heading>
             {oppgaver.map((v, idx) => {
                 return (
-                    <Alertstripe type={v.oppgavetype} key={idx}>
+                    <Alert variant={v.oppgavetype} key={idx}>
                         <Lenke href={v.lenke}>{v.tekst}</Lenke>
-                    </Alertstripe>
+                    </Alert>
                 )
             })}
         </section>
@@ -112,7 +111,7 @@ function Oppgaver() {
             tasks.push({
                 tekst: tekst('oppgaver.snartslutt'),
                 lenke: snartSluttUrl(),
-                oppgavetype: 'advarsel',
+                oppgavetype: 'warning',
             })
         }
 
@@ -123,7 +122,7 @@ function Oppgaver() {
             tasks.push({
                 tekst: tekst('oppgaver.aktivitetskrav'),
                 lenke: '/syk/sykefravaer/aktivitetsplikt',
-                oppgavetype: 'advarsel',
+                oppgavetype: 'warning',
             })
         }
 

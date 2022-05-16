@@ -13,7 +13,7 @@ export const Redirect = (props: RedirectProps) => {
         <div>
             <h1>Du blir sendt videre...</h1>
             <p>
-                <a href={props.addresse} className="lenke">
+                <a href={props.addresse} className="navds-link">
                     Gå videre!
                 </a>
             </p>

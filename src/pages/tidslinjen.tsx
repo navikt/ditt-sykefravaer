@@ -1,4 +1,4 @@
-import { Normaltekst, Sidetittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading } from '@navikt/ds-react'
 import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
@@ -48,15 +48,15 @@ const Tidslinjen = () => {
     return (
         <div>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" level="1" className="sidebanner__tittel">
                     {tekst('sidetittel.tidslinje')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
 
             <div className="limit">
-                <Normaltekst>{tekst('tidslinje.introtekst')}</Normaltekst>
+                <BodyShort>{tekst('tidslinje.introtekst')}</BodyShort>
 
                 <VelgArbeidssituasjon
                     kanVelge={true}

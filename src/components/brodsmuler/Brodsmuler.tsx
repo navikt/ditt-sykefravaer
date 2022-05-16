@@ -1,6 +1,5 @@
-import { OppChevron } from 'nav-frontend-chevron'
-import Lenke from 'nav-frontend-lenker'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { Collapse } from '@navikt/ds-icons'
+import { BodyShort, Link as Lenke } from '@navikt/ds-react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -43,7 +42,7 @@ const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
         <Lenke href={sti}>{tittel}</Lenke>
     ) : sti ? (
         <Link href={sti}>
-            <a className="lenke" onClick={(e) => klikker(e, sti)}>
+            <a className="navds-link" onClick={(e) => klikker(e, sti)}>
                 {tittel}
             </a>
         </Link>
@@ -108,7 +107,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
         <nav className="brodsmuler" ref={smulesti} aria-label="Du er her: ">
             <div className="limit">
                 <Person />
-                <Normaltekst tag="ul" className="brodsmuler__smuler">
+                <BodyShort as="ul" className="brodsmuler__smuler">
                     <Vis
                         hvis={skjerm! <= LITEN}
                         render={() => (
@@ -146,7 +145,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                             />
                         )
                     })}
-                </Normaltekst>
+                </BodyShort>
                 <button
                     aria-label={
                         synlige.length === brodsmuler.length
@@ -156,7 +155,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                     className="js-toggle"
                     onClick={toggleSynlige}
                 >
-                    <OppChevron />
+                    <Collapse className="opp-pil" />
                 </button>
             </div>
         </nav>

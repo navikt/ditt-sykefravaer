@@ -13,7 +13,7 @@ export const skapBrevOppgaver = (
         case BrevType.INNKALT: {
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.innkalling'),
-                oppgavetype: 'advarsel',
+                oppgavetype: 'warning',
                 lenke: lenke,
             })
             return oppgaver
@@ -21,7 +21,7 @@ export const skapBrevOppgaver = (
         case BrevType.ENDRING: {
             oppgaver.push({
                 tekst: tekst('oppgaver.brev.endring'),
-                oppgavetype: 'advarsel',
+                oppgavetype: 'warning',
                 lenke: lenke,
             })
             return oppgaver

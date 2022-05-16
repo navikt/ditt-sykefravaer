@@ -1,6 +1,6 @@
+import { BodyShort } from '@navikt/ds-react'
 import cls from 'classnames'
 import parser from 'html-react-parser'
-import { Normaltekst } from 'nav-frontend-typografi'
 import React from 'react'
 
 import { tekst } from '../../utils/tekster'
@@ -54,7 +54,7 @@ export const Bjorn = ({
             <div className={bobleClassNames}>
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
                 {nokkel !== undefined ? (
-                    <Normaltekst>{parser(tekst(nokkel as any))}</Normaltekst>
+                    <BodyShort>{parser(tekst(nokkel as any))}</BodyShort>
                 ) : (
                     children
                 )}

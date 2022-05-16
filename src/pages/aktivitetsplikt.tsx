@@ -1,6 +1,5 @@
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import dayjs from 'dayjs'
-import Alertstripe, { AlertStripeAdvarsel } from 'nav-frontend-alertstriper'
-import { Normaltekst, Sidetittel, Undertittel } from 'nav-frontend-typografi'
 import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
@@ -109,9 +108,9 @@ const Aktivitetsplikt = () => {
     return (
         <>
             <Banner>
-                <Sidetittel className="sidebanner__tittel">
+                <Heading size="xlarge" level="1" className="sidebanner__tittel">
                     {tekst('sidetittel.liste')}
-                </Sidetittel>
+                </Heading>
             </Banner>
 
             <Brodsmuler brodsmuler={brodsmuler} />
@@ -121,18 +120,18 @@ const Aktivitetsplikt = () => {
                     hvis={visning === INGEN_AKTIVITETSKRAVVARSEL}
                     render={() => {
                         return (
-                            <AlertStripeAdvarsel>
-                                <Undertittel>
+                            <Alert variant="warning">
+                                <Heading size="small">
                                     {tekst(
                                         'aktivitetskrav-varsel.ingen-varsel.tittel'
                                     )}
-                                </Undertittel>
-                                <Normaltekst>
+                                </Heading>
+                                <BodyShort>
                                     {tekst(
                                         'aktivitetskrav-varsel.ingen-varsel.melding'
                                     )}
-                                </Normaltekst>
-                            </AlertStripeAdvarsel>
+                                </BodyShort>
+                            </Alert>
                         )
                     }}
                 />
@@ -155,8 +154,8 @@ const Aktivitetsplikt = () => {
                         return (
                             <>
                                 <div aria-live="polite" role="alert">
-                                    <Alertstripe
-                                        type="suksess"
+                                    <Alert
+                                        variant="success"
                                         className="aktivitetskrav-kvittering"
                                     >
                                         {tekst(
@@ -168,7 +167,7 @@ const Aktivitetsplikt = () => {
                                                     ),
                                             }
                                         )}
-                                    </Alertstripe>
+                                    </Alert>
                                 </div>
 
                                 <Artikkel />

@@ -1,5 +1,4 @@
-import Hjelpetekst from 'nav-frontend-hjelpetekst'
-import { Normaltekst } from 'nav-frontend-typografi'
+import { BodyLong, BodyShort, HelpText } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -39,14 +38,12 @@ const NarmesteLeder = ({
             hvis={leder && orgNavn}
             render={() => (
                 <>
-                    <Normaltekst className="leder__informasjon">
+                    <BodyShort className="leder__informasjon">
                         Din nærmeste leder er <strong>{leder?.navn}</strong>.
-                    </Normaltekst>
+                    </BodyShort>
                     <div className="leder__handlinger">
                         <button className="lenke" onClick={() => toggleOpen()}>
-                            <Normaltekst tag="span">
-                                Meld fra om endring
-                            </Normaltekst>
+                            <BodyShort as="span">Meld fra om endring</BodyShort>
                         </button>
                         <BekreftFeilLeder
                             open={open}
@@ -59,7 +56,7 @@ const NarmesteLeder = ({
                         hvis={leder.arbeidsgiverForskutterer !== null}
                         render={() => (
                             <div className="leder__forskuttering">
-                                <Normaltekst>
+                                <BodyShort>
                                     {tekst(
                                         `din-situasjon.arbeidsgiver-forskutterer${
                                             leder?.arbeidsgiverForskutterer
@@ -68,29 +65,30 @@ const NarmesteLeder = ({
                                                   '-ikke'
                                         }` as any
                                     )}
-                                </Normaltekst>
-                                <Hjelpetekst>
-                                    <Normaltekst>
+                                </BodyShort>
+
+                                <HelpText>
+                                    <BodyLong>
                                         {tekst(
                                             'din-situasjon.forskuttering.hjelpetekst.tekst1'
                                         )}
-                                    </Normaltekst>
-                                    <Normaltekst>
+                                    </BodyLong>
+                                    <BodyLong>
                                         {tekst(
                                             'din-situasjon.forskuttering.hjelpetekst.tekst2'
                                         )}
-                                    </Normaltekst>
-                                    <Normaltekst>
+                                    </BodyLong>
+                                    <BodyLong>
                                         {tekst(
                                             'din-situasjon.forskuttering.hjelpetekst.tekst3'
                                         )}
-                                    </Normaltekst>
-                                    <Normaltekst>
+                                    </BodyLong>
+                                    <BodyLong>
                                         {tekst(
                                             'din-situasjon.forskuttering.hjelpetekst.tekst4'
                                         )}
-                                    </Normaltekst>
-                                </Hjelpetekst>
+                                    </BodyLong>
+                                </HelpText>
                             </div>
                         )}
                     />

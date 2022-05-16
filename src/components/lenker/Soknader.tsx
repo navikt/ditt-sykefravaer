@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Normaltekst, Undertittel } from 'nav-frontend-typografi'
+import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
 import { sykepengesoknadUrl } from '../../utils/environment'
@@ -7,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 
 const SoknadLenkepanel = () => {
     return (
-        <LenkepanelBase href={sykepengesoknadUrl()} border={true}>
+        <LinkPanel href={sykepengesoknadUrl()} border={true}>
             <div className="lenkeikon soknader">
                 <svg
                     width="35"
@@ -24,11 +23,13 @@ const SoknadLenkepanel = () => {
                     />
                 </svg>
             </div>
-            <div>
-                <Undertittel tag="h3">{tekst('lenker.soknader')}</Undertittel>
-                <Normaltekst>fra deg</Normaltekst>
+            <div className="bred-tekst-lenkepanel">
+                <Heading size="small" level="3">
+                    {tekst('lenker.soknader')}
+                </Heading>
+                <BodyShort>{tekst('lenker.soknader.undertekst')}</BodyShort>
             </div>
-        </LenkepanelBase>
+        </LinkPanel>
     )
 }
 

@@ -12,7 +12,7 @@ describe('Tester helt frisk person', () => {
         cy.contains(
             'Har du fått sykmeldingen på papir, kan du vente noen dager, så vil du finne den her.'
         )
-        cy.get('.nav-veilederpanel__content > a').should(
+        cy.get('.navds-guide-panel__content > a').should(
             'have.attr',
             'href',
             'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/papirsykmelding'

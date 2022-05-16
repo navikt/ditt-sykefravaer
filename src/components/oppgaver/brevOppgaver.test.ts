@@ -43,7 +43,7 @@ it("Returnerer endring brev advarsel oppgave når status er 'NYTT_TID_STED' og l
         {
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et brev om endret dialogmøte',
-            oppgavetype: 'advarsel',
+            oppgavetype: 'warning',
         },
     ])
 })

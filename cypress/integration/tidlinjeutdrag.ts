@@ -4,9 +4,7 @@ describe('Tester tidslinjeutdrag', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=en-ny-sykmelding'
         )
 
-        cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .knapperad button').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',
@@ -64,12 +62,12 @@ describe('Tester tidslinjeutdrag', () => {
             )
             .contains('Jeg vil vite mer')
             .click()
-        cy.get('.modal')
+        cy.get('.navds-modal')
             .should(
                 'contain',
                 'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?'
             )
-            .get('.lukknapp')
+            .get('.navds-modal__button')
             .click()
 
         cy.get('input[type=radio][value=UTEN_ARBEIDSGIVER]').click({
@@ -112,9 +110,7 @@ describe('Tester tidslinjeutdrag', () => {
             'http://localhost:8080/syk/sykefravaer?testperson=langtidssykmeldt'
         )
 
-        cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .knapperad button').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',
@@ -165,9 +161,7 @@ describe('Tester tidslinjeutdrag', () => {
     it('Syk i 42 uker', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
-        cy.get('.tidslinjeutdrag__container .lesMerPanel__toggle')
-            .contains('Les mer')
-            .click()
+        cy.get('.tidslinjeutdrag__container .knapperad button').click()
 
         cy.get('input[type=radio][value=MED_ARBEIDSGIVER]').should(
             'have.attr',

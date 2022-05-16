@@ -1,15 +1,16 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
+@import '../basic';
 
 .radiofaner {
     display: flex;
     flex-direction: column;
     margin: 1rem 0;
 
-    .radio {
+    .navds-radio {
         display: flex;
-        margin: 0.35rem 0;
+        margin: 0.35rem 2rem 0 0;
 
-        .hjelpetekst {
+        .navds-help-text {
             margin-left: 1rem;
             align-self: center;
         }
@@ -21,9 +22,5 @@
         flex-direction: row;
         justify-content: center;
         margin: 0.5rem 0;
-
-        .radio {
-            margin: 1rem;
-        }
     }
 }

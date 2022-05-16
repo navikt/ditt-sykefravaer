@@ -1,5 +1,4 @@
-import { LenkepanelBase } from 'nav-frontend-lenkepanel'
-import { Undertittel } from 'nav-frontend-typografi'
+import { Heading, LinkPanel } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
 import React from 'react'
 
@@ -9,9 +8,9 @@ const Tidslinjen = () => {
     const router = useRouter()
 
     return (
-        <LenkepanelBase
+        <LinkPanel
             border={true}
-            href={'sykefravaer/tidslinjen'}
+            href="sykefravaer/tidslinjen"
             onClick={(e) => {
                 e.preventDefault()
                 router.push('/tidslinjen')
@@ -34,8 +33,10 @@ const Tidslinjen = () => {
                     </g>
                 </svg>
             </div>
-            <Undertittel tag="h3">{tekst('lenker.tidslinjen')}</Undertittel>
-        </LenkepanelBase>
+            <Heading size="small" level="3">
+                {tekst('lenker.tidslinjen')}
+            </Heading>
+        </LinkPanel>
     )
 }
 

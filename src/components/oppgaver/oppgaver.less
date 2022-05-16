@@ -1,14 +1,22 @@
-@import '../../../node_modules/nav-frontend-core/less/_variabler';
+@import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
 
 .oppgaver {
     padding-bottom: 2rem;
-    border-bottom: 1px solid @navGra40;
+    border-bottom: 1px solid @navds-global-color-gray-400;
 
-    .typo-systemtittel {
+    .navds-heading__medium {
         margin-bottom: 1rem;
     }
 
-    .alertstripe {
+    .navds-alert {
         margin-top: 0.5rem;
+
+        .navds-alert__wrapper .navds-link {
+            color: @navds-semantic-color-text;
+
+            &:focus {
+                color: @navds-global-color-white;
+            }
+        }
     }
 }
