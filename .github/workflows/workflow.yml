@@ -44,6 +44,12 @@ jobs:
         run: npm run test:ci
       - name: Build application
         run: npm run build
+        env:
+          ENABLE_SENTRY: true
+          SENTRY_URL: https://sentry.gc.nav.no/
+          SENTRY_ORG: nav
+          SENTRY_PROJECT: ditt-sykefravaer
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
       - name: Setup kernel for react native, increase watchers
         run: echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
       - name: Run cypress
