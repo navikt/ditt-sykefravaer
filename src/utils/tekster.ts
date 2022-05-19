@@ -1,4 +1,3 @@
-import { AktivitetskravTekster } from '../components/aktivitetskrav/aktivitetskravTekster'
 import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
 import { BannerTekster } from '../components/banner/bannerTekster'
 import { ForsideTekster } from '../components/forside/forsideTekster'
@@ -20,7 +19,6 @@ const tekster = {
     ...ArbeidssituasjonTekster,
     ...TidslinjeUtdragTekster,
     ...TidslinjenTekster,
-    ...AktivitetskravTekster,
     ...InntektsmeldingTekster,
 }
 
@@ -32,7 +30,6 @@ type TekstKeys =
     | keyof typeof ForsideTekster
     | keyof typeof ArbeidssituasjonTekster
     | keyof typeof TidslinjeUtdragTekster
-    | keyof typeof AktivitetskravTekster
     | keyof typeof TidslinjenTekster
     | keyof typeof InntektsmeldingTekster
 

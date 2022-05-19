@@ -24,7 +24,6 @@ export const heltFrisk: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
-    hendelser: [],
     brev: [],
 }
 
@@ -49,7 +48,6 @@ export const enNySykmelding: Persona = {
             ],
         },
     ],
-    hendelser: [],
     brev: [],
 }
 
@@ -72,7 +70,6 @@ export const enAvvistSykmelding: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     sykeforloep: [],
-    hendelser: [],
     brev: [],
 }
 
@@ -141,9 +138,6 @@ export const defaultPersona: Persona = {
                 { fom: '2021-03-15', tom: '2021-03-19' },
             ],
         },
-    ],
-    hendelser: [
-        { type: 'AKTIVITETSKRAV_VARSEL', inntruffetdato: '2021-03-03' },
     ],
     brev: brev,
 }

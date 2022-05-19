@@ -56,7 +56,6 @@ const commonPersona = (): Persona => {
             motebehov: null,
         },
         sykeforloep: [],
-        hendelser: [],
         brev: [],
     }
 }
