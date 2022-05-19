@@ -2,7 +2,6 @@ import { Heading } from '@navikt/ds-react'
 import { Dayjs } from 'dayjs'
 import React, { useEffect, useState } from 'react'
 
-import useHendelser from '../../query-hooks/useHendelser'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykeforloep from '../../query-hooks/useSykeforloep'
 import { Hendelse } from '../../types/hendelse'
@@ -21,19 +20,17 @@ export const Tidslinje = ({ visning }: TidslinjeProps) => {
 
     const { data: sykeforloep } = useSykeforloep()
     const { data: narmesteLedere } = useNarmesteledere()
-    const { data: hentetHendelser } = useHendelser()
 
     useEffect(() => {
         const start = hentStartdatoFraSykeforloep(sykeforloep)
         const hendelser: Hendelse[] = leggTilTidshendelser(
             visning,
-            hentetHendelser,
             narmesteLedere,
             start
         )
         setStartdato(start)
         setEvents(hendelser)
-    }, [hentetHendelser, narmesteLedere, sykeforloep, visning])
+    }, [narmesteLedere, sykeforloep, visning])
 
     const skalViseNyNaermesteLederHendelse = (hendelse: Hendelse) => {
         const ikkeVis =

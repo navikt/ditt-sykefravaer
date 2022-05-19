@@ -80,7 +80,6 @@ const leggTypePaaTekstnokkel = (
 
 export const leggTilTidshendelser = (
     visning: Visning,
-    henteteHendelser?: SimpleHendelse[],
     narmesteLedere?: NarmesteLeder[],
     startdato?: dayjs.Dayjs
 ): Hendelse[] => {

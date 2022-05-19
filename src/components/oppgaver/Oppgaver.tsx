@@ -2,15 +2,10 @@ import { Alert, Heading } from '@navikt/ds-react'
 import { Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import {
-    getAktivitetskravvisning,
-    NYTT_AKTIVITETSKRAVVARSEL,
-} from '../../pages/aktivitetsplikt'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
-import useHendelser from '../../query-hooks/useHendelser'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -66,7 +61,6 @@ function Oppgaver() {
     const { data: dialogmoteBehov } = useDialogmoteBehov()
     const { data: dialogmoteSvar } = useDialogmoter()
     const { data: brev } = useBrev()
-    const { data: hendelser } = useHendelser()
     const { svarMotebehovUrl, dialogmoteLandingUrl } = useDialogmotePaths()
 
     function hentOppgaver() {
@@ -115,17 +109,6 @@ function Oppgaver() {
             })
         }
 
-        if (
-            hendelser &&
-            getAktivitetskravvisning(hendelser) === NYTT_AKTIVITETSKRAVVARSEL
-        ) {
-            tasks.push({
-                tekst: tekst('oppgaver.aktivitetskrav'),
-                lenke: '/syk/sykefravaer/aktivitetsplikt',
-                oppgavetype: 'warning',
-            })
-        }
-
         setOppgaver(tasks)
     }
 
@@ -134,7 +117,6 @@ function Oppgaver() {
         dialogmoteBehov,
         dialogmoteLandingUrl,
         dialogmoteSvar,
-        hendelser,
         oppfolgingsplaner,
         snartSluttPaSykepengene,
         soknader,

@@ -1,8 +1,4 @@
 import {
-    etAktivitetskravVarsel,
-    toAktivitetskravBekreftet,
-} from './data/aktivitetskravPersonas'
-import {
     enNyOppfolgingsplan,
     enNyTilGodkjenning,
     toNyeOppfolgingsplaner,
@@ -37,6 +33,4 @@ export const personas: StringFunctionMap = {
     langtidssykmeldt: langtidssykmeldt,
     'snart-slutt': snartSlutt,
     'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
-    'aktivitetskrav-varsel': etAktivitetskravVarsel,
-    'aktivitetskrav-bekreftet': toAktivitetskravBekreftet,
 }

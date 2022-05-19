@@ -1,7 +1,6 @@
 import '../style/global.css'
 import '../components/basic.less'
 import '../components/app.less'
-import '../components/aktivitetskrav/aktivitetskrav.less'
 import '../components/arbeidssituasjon/arbeidssituasjon.less'
 import '../components/banner/banner.less'
 import '../components/bjorn/bjorn.less'

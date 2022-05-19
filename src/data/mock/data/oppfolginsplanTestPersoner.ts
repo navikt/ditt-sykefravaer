@@ -34,7 +34,6 @@ const commonPersona: Persona = {
     dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykeforloep: [],
-    hendelser: [],
     brev: [],
 }
 
