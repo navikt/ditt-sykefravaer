@@ -69,6 +69,6 @@ spec:
     - name: ASSET_PREFIX
       value: "https://flex-static-files.nav.no/sykefravaer"
     - name: BACKEND_SOKNAD_APP
-      value: "syfosoknad"
+      value: "sykepengesoknad-backend"
     - name: SNART_SLUTT_URL
       value: "https://www.nav.no/syk/info/snart-slutt-pa-sykepengene"
