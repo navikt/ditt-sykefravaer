@@ -43,7 +43,6 @@ it("Returnerer endring brev advarsel oppgave når status er 'NYTT_TID_STED' og l
         {
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et brev om endret dialogmøte',
-            oppgavetype: 'warning',
         },
     ])
 })
@@ -57,7 +56,6 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT' og lestDato ik
         {
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et referat fra dialogmøte',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -75,7 +73,6 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT_ENDRET' og lest
         {
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et referat fra dialogmøte',
-            oppgavetype: 'info',
         },
     ])
 })

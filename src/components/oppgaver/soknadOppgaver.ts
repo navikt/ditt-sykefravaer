@@ -40,7 +40,6 @@ export const skapSøknadOppgaver = (
                 {
                     tekst: tekst('oppgaver.sykepengesoknad.enkel'),
                     lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                    oppgavetype: 'info',
                 },
             ]
         }
@@ -51,7 +50,6 @@ export const skapSøknadOppgaver = (
                     '%ANTALL%': tallTilSpråk(soknadene.length),
                 }),
                 lenke: sykepengesoknadUrl,
-                oppgavetype: 'info',
             },
         ]
     }
@@ -73,7 +71,6 @@ export const skapSøknadOppgaver = (
                 {
                     tekst: tekst('oppgaver.reisetilskudd.enkel'),
                     lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                    oppgavetype: 'info',
                 },
             ]
         }
@@ -84,7 +81,6 @@ export const skapSøknadOppgaver = (
                     '%ANTALL%': tallTilSpråk(soknadene.length),
                 }),
                 lenke: sykepengesoknadUrl,
-                oppgavetype: 'info',
             },
         ]
     }
@@ -106,7 +102,6 @@ export const skapSøknadOppgaver = (
                 {
                     tekst: tekst('oppgaver.gradert-reisetilskudd.enkel'),
                     lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                    oppgavetype: 'info',
                 },
             ]
         }
@@ -117,7 +112,6 @@ export const skapSøknadOppgaver = (
                     '%ANTALL%': tallTilSpråk(soknadene.length),
                 }),
                 lenke: sykepengesoknadUrl,
-                oppgavetype: 'info',
             },
         ]
     }

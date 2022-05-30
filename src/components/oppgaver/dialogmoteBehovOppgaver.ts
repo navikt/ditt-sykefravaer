@@ -20,7 +20,6 @@ export const skapDialogmoteBehovOppgaver = (
     const oppgaver: Oppgave[] = []
     oppgaver.push({
         tekst: tekst('oppgaver.dialogmote.nyttMotebehovVarsel'),
-        oppgavetype: 'info',
         lenke: motebehovUrl,
     })
 

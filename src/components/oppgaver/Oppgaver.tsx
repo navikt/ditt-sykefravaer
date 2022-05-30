@@ -42,7 +42,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
             </Heading>
             {oppgaver.map((v, idx) => {
                 return (
-                    <Alert variant={v.oppgavetype} key={idx}>
+                    <Alert variant="info" key={idx}>
                         <Lenke href={v.lenke}>{v.tekst}</Lenke>
                     </Alert>
                 )
@@ -105,7 +105,6 @@ function Oppgaver() {
             tasks.push({
                 tekst: tekst('oppgaver.snartslutt'),
                 lenke: snartSluttUrl(),
-                oppgavetype: 'warning',
             })
         }
 

@@ -40,7 +40,6 @@ it('Returnerer dialogmoteBehov oppgave når skjematype er SVAR_BEHOV', () => {
         {
             lenke: 'http://tjenester.nav.no/dialogmote/behov',
             tekst: 'Du har en ny forespørsel om behov for dialogmøte',
-            oppgavetype: 'info',
         },
     ])
 })

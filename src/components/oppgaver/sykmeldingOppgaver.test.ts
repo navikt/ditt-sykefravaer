@@ -35,7 +35,6 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en ny sykmelding',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -63,7 +62,6 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en ny sykmelding',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -106,7 +104,6 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
         {
             lenke: 'http://sykmelding',
             tekst: 'Du har to nye sykmeldinger',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -156,7 +153,6 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en avvist sykmelding',
-            oppgavetype: 'warning',
         },
     ])
 })
@@ -199,12 +195,10 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
         {
             lenke: 'http://sykmelding/12345',
             tekst: 'Du har en ny sykmelding',
-            oppgavetype: 'info',
         },
         {
             lenke: 'http://sykmelding/123',
             tekst: 'Du har en avvist sykmelding',
-            oppgavetype: 'warning',
         },
     ])
 })

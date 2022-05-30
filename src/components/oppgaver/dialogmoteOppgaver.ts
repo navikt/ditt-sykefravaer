@@ -93,7 +93,6 @@ export const skapDialogmoteSvarOppgaver = (
         ) {
             oppgaver.push({
                 tekst: tekst('oppgaver.dialogmote.svar'),
-                oppgavetype: 'info',
                 lenke,
             })
         }
