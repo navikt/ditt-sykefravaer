@@ -1,7 +1,7 @@
 describe('Tester snart slutt oppgave ', () => {
     it('Har riktig lenke', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
-        cy.get('.oppgaver > .navds-alert--warning')
+        cy.get('.oppgaver > :nth-child(4)')
             .contains('Snart slutt på sykepengene')
             .should(
                 'have.attr',

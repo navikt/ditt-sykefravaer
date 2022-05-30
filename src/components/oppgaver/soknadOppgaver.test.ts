@@ -22,7 +22,6 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
         {
             lenke: 'http://soknad/soknader/123',
             tekst: 'Du har en ny søknad om sykepenger',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -65,17 +64,14 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
         {
             lenke: 'http://soknad',
             tekst: 'Du har tre nye søknader om sykepenger',
-            oppgavetype: 'info',
         },
         {
             lenke: 'http://soknad/soknader/4',
             tekst: 'Du har en ny søknad om reisetilskudd',
-            oppgavetype: 'info',
         },
         {
             lenke: 'http://soknad/soknader/5',
             tekst: 'Du har en ny søknad om sykepenger med reisetilskudd',
-            oppgavetype: 'info',
         },
     ])
 })
@@ -94,7 +90,6 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
         {
             lenke: 'http://soknad/soknader/123',
             tekst: 'Du har en ny søknad om reisetilskudd',
-            oppgavetype: 'info',
         },
     ])
 })

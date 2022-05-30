@@ -10,7 +10,6 @@ export const skapInntektsmeldingOppgave = (lenke: string): Oppgave[] => {
             tekst: tekst('oppgaver.inntektsmelding', {
                 '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
             }),
-            oppgavetype: 'info',
             lenke,
         })
     }

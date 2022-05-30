@@ -92,7 +92,6 @@ export const skapOppfolgingsplanOppgaver = (
     function leggTilOppgave(tekst: string) {
         oppgaver.push({
             tekst,
-            oppgavetype: 'info',
             lenke,
         })
     }

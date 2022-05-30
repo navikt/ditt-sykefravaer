@@ -85,7 +85,6 @@ it('Returnerer dialogmote oppgave når status er SKJEMA og brev var opprettet f�
         {
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Svar på NAVs spørsmål om dialogmøte',
-            oppgavetype: 'info',
         },
     ])
 })

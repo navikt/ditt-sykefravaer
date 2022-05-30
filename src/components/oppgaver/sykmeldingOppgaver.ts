@@ -58,7 +58,6 @@ export const skapSykmeldingoppgaver = (
                 {
                     tekst: tekst('oppgaver.sykmeldinger.en-sykmelding'),
                     lenke: `${sykmeldingUrl}/${sykmeldingene[0].id}`,
-                    oppgavetype: 'info',
                 },
             ]
         }
@@ -69,7 +68,6 @@ export const skapSykmeldingoppgaver = (
                     '%ANTALL%': tallTilSpråk(sykmeldingene.length),
                 }),
                 lenke: sykmeldingUrl,
-                oppgavetype: 'info',
             },
         ]
     }
@@ -91,7 +89,6 @@ export const skapSykmeldingoppgaver = (
                 {
                     tekst: tekst('oppgaver.sykmeldinger.en-avvist-sykmelding'),
                     lenke: `${sykmeldingUrl}/${sykmeldingene[0].id}`,
-                    oppgavetype: 'warning',
                 },
             ]
         }
@@ -105,7 +102,6 @@ export const skapSykmeldingoppgaver = (
                     }
                 ),
                 lenke: sykmeldingUrl,
-                oppgavetype: 'warning',
             },
         ]
     }
