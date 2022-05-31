@@ -20,7 +20,7 @@ describe('Tester inntektsmelding', () => {
             .should(
                 'contain',
                 'Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. ' +
-                'Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
+                    'Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
             )
     })
 })
