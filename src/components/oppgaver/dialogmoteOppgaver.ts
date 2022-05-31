@@ -92,6 +92,7 @@ export const skapDialogmoteSvarOppgaver = (
             isMoteplanleggerBruktEtterBrev(dialogmoteSvar, brev)
         ) {
             oppgaver.push({
+                type: 'info',
                 tekst: tekst('oppgaver.dialogmote.svar'),
                 lenke,
             })
