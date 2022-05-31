@@ -91,7 +91,6 @@ module.exports = withPlugins(
             opplaering: process.env.OPPLAERING,
             sykefravaerUrl: process.env.SYKEFRAVAER_URL,
             dittNavUrl: process.env.DITTNAV_URL,
-            amplitudeKey: process.env.AMPLITUDE_KEY,
             amplitudeEnabled: process.env.AMPLITUDE_ENABLED,
             environment: process.env.ENVIRONMENT,
             spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,

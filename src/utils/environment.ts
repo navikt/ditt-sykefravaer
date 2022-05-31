@@ -26,16 +26,8 @@ export function dittNavUrl() {
     return publicRuntimeConfig.dittNavUrl
 }
 
-export function amplitudeKey() {
-    return publicRuntimeConfig.amplitudeKey
-}
-
 export function amplitudeEnabled() {
     return publicRuntimeConfig.amplitudeEnabled === 'true'
-}
-
-export function spinnsynFrontendInterne() {
-    return publicRuntimeConfig.spinnsynFrontendInterne === 'true'
 }
 
 export function sykmeldingerBackendProxyRoot() {
