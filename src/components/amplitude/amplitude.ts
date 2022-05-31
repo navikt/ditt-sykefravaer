@@ -1,6 +1,6 @@
 import { AmplitudeClient } from 'amplitude-js'
 
-import { amplitudeEnabled, amplitudeKey } from '../../utils/environment'
+import { amplitudeEnabled } from '../../utils/environment'
 
 interface AmplitudeInstance {
     logEvent: (eventName: string, data?: Record<string, string>) => void
@@ -13,20 +13,13 @@ const getLogEventFunction = (): AmplitudeInstance => {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const amplitudeJs = require('amplitude-js')
         const amplitudeInstance: AmplitudeClient = amplitudeJs.getInstance()
-        amplitudeInstance.init(amplitudeKey(), undefined, {
-            apiEndpoint: 'amplitude.nav.no/collect',
+        amplitudeInstance.init('default', '', {
+            apiEndpoint: 'amplitude.nav.no/collect-auto',
             saveEvents: false,
             includeUtm: true,
-            batchEvents: false,
             includeReferrer: true,
-            trackingOptions: {
-                city: false,
-                ip_address: false,
-                version_name: false,
-                region: false,
-                country: false,
-                dma: false,
-            },
+            platform: window.location.toString(),
+            batchEvents: false,
         })
         return amplitudeInstance
     } else {
@@ -43,8 +36,10 @@ const getLogEventFunction = (): AmplitudeInstance => {
     }
 }
 
+export type validEventNames = 'navigere' //Bruk kun navn fra taksonomien
+
 export const logEvent = (
-    eventName: string,
+    eventName: validEventNames,
     eventProperties: Record<string, string>
 ) => {
     if (window) {
