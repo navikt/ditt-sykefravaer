@@ -42,7 +42,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
             </Heading>
             {oppgaver.map((v, idx) => {
                 return (
-                    <Alert variant="info" key={idx}>
+                    <Alert variant={v.type} key={idx}>
                         <Lenke href={v.lenke}>{v.tekst}</Lenke>
                     </Alert>
                 )
@@ -103,6 +103,7 @@ function Oppgaver() {
 
         if (snartSluttPaSykepengene) {
             tasks.push({
+                type: 'info',
                 tekst: tekst('oppgaver.snartslutt'),
                 lenke: snartSluttUrl(),
             })
