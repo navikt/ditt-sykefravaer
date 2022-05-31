@@ -41,6 +41,7 @@ it("Returnerer endring brev advarsel oppgave når status er 'NYTT_TID_STED' og l
     )
     expect(oppgaver).toEqual([
         {
+            type: 'info',
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et brev om endret dialogmøte',
         },
@@ -54,6 +55,7 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT' og lestDato ik
     )
     expect(oppgaver).toEqual([
         {
+            type: 'info',
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et referat fra dialogmøte',
         },
@@ -71,6 +73,7 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT_ENDRET' og lest
     )
     expect(oppgaver).toEqual([
         {
+            type: 'info',
             lenke: 'https://www.nav.no/syk/dialogmote',
             tekst: 'Du har mottatt et referat fra dialogmøte',
         },
