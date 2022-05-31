@@ -12,7 +12,6 @@ export const skapBrevOppgaver = (
     switch (nyesteUlestBrev?.brevType) {
         case BrevType.INNKALT: {
             oppgaver.push({
-                type: 'info',
                 tekst: tekst('oppgaver.brev.innkalling'),
                 lenke: lenke,
             })
@@ -20,7 +19,6 @@ export const skapBrevOppgaver = (
         }
         case BrevType.ENDRING: {
             oppgaver.push({
-                type: 'info',
                 tekst: tekst('oppgaver.brev.endring'),
                 lenke: lenke,
             })
@@ -29,7 +27,6 @@ export const skapBrevOppgaver = (
         case BrevType.REFERAT:
         case BrevType.REFERAT_ENDRET: {
             oppgaver.push({
-                type: 'info',
                 tekst: tekst('oppgaver.brev.referat'),
                 lenke: lenke,
             })
@@ -37,7 +34,6 @@ export const skapBrevOppgaver = (
         }
         case BrevType.AVLYST: {
             oppgaver.push({
-                type: 'info',
                 tekst: tekst('oppgaver.brev.avlysning'),
                 lenke: lenke,
             })

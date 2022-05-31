@@ -19,7 +19,6 @@ export const skapDialogmoteBehovOppgaver = (
     if (!dialogmoteBehov || !motebehovErUbesvart(dialogmoteBehov)) return []
     const oppgaver: Oppgave[] = []
     oppgaver.push({
-        type: 'info',
         tekst: tekst('oppgaver.dialogmote.nyttMotebehovVarsel'),
         lenke: motebehovUrl,
     })

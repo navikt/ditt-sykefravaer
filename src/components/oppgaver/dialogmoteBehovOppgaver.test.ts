@@ -38,7 +38,6 @@ it('Returnerer dialogmoteBehov oppgave når skjematype er SVAR_BEHOV', () => {
     )
     expect(oppgaver).toEqual([
         {
-            type: 'info',
             lenke: 'http://tjenester.nav.no/dialogmote/behov',
             tekst: 'Du har en ny forespørsel om behov for dialogmøte',
         },
