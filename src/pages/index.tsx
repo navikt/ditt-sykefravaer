@@ -1,7 +1,7 @@
 import { Alert, Heading, Modal } from '@navikt/ds-react'
-import { GetServerSideProps } from 'next'
 import React, { useEffect } from 'react'
 
+import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
 import Banner from '../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
@@ -50,11 +50,6 @@ const Index = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // Disable static rendring
-    return {
-        props: {},
-    }
-}
+export const getServerSideProps = beskyttetSideUtenProps
 
 export default Index

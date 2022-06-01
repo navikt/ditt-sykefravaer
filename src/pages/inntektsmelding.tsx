@@ -1,11 +1,11 @@
 import { Back } from '@navikt/ds-icons'
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
-import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
+import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Banner from '../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
 import { setBodyClass } from '../utils/setBodyClass'
@@ -107,11 +107,6 @@ const Inntektsmelding = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // Disable static rendring
-    return {
-        props: {},
-    }
-}
+export const getServerSideProps = beskyttetSideUtenProps
 
 export default Inntektsmelding
