@@ -1,5 +1,5 @@
 import { Back } from '@navikt/ds-icons'
-import { BodyLong, Heading } from '@navikt/ds-react'
+import { BodyLong, Heading, Panel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
@@ -13,7 +13,7 @@ import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = [
     {
-        tittel: 'Inntektsmelding',
+        tittel: 'Manglende inntektsmelding',
         sti: '/inntektsmelding',
         erKlikkbar: false,
     },
@@ -50,33 +50,53 @@ const Inntektsmelding = () => {
                     )}
                 </BodyLong>
 
-                <BodyLong spacing className="forklaring-bodylong">
-                    {parser(
-                        tekst('inntektsmelding.soknaden-kan-ikke-behandles')
-                    )}
-                </BodyLong>
+                <Panel className="tekstbakgrunn">
+                    <Heading size="small">
+                        {tekst(
+                            'inntektsmelding.soknaden-kan-ikke-behandles.tittel'
+                        )}
+                    </Heading>
+                    <BodyLong>
+                        {parser(
+                            tekst('inntektsmelding.soknaden-kan-ikke-behandles')
+                        )}
+                    </BodyLong>
+                </Panel>
 
-                <Heading size="small">
-                    {tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}
-                </Heading>
+                <Panel className="tekstbakgrunn">
+                    <Heading size="small">
+                        {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
+                    </Heading>
+                    <BodyLong spacing>
+                        {parser(tekst('inntekstmelding.hvorfor.varsler.vi1'))}
+                    </BodyLong>
+                    <BodyLong>
+                        {parser(tekst('inntekstmelding.hvorfor.varsler.vi2'))}
+                    </BodyLong>
+                </Panel>
 
-                <BodyLong spacing className="forklaring-bodylong">
-                    {parser(
-                        tekst(
+                <Panel className="tekstbakgrunn">
+                    <Heading size="small">
+                        {tekst(
+                            'inntektsmelding.hva-er-inntekysmeldingen-tittel'
+                        )}
+                    </Heading>
+                    <BodyLong>
+                        {tekst(
                             'inntektsmelding.hva-er-inntekysmeldingen-forklaring'
-                        )
-                    )}
-                </BodyLong>
+                        )}
+                    </BodyLong>
+                </Panel>
 
                 <Link href="/">
                     <a
-                        className="ekstra-topp-margin lenke"
+                        className="lenke"
                         onClick={(e) => {
                             e.preventDefault()
                             router.push('/')
                         }}
                     >
-                        <Back />
+                        <Back style={{ marginBottom: '-4px' }} />
                         <BodyLong as="span">
                             {tekst('sidetittel.liste')}
                         </BodyLong>
