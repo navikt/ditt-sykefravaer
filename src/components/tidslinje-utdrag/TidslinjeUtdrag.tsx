@@ -1,4 +1,4 @@
-import { BodyShort, Heading, Ingress, Panel } from '@navikt/ds-react'
+import { BodyLong, Heading, Ingress, Panel } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
@@ -189,7 +189,7 @@ const TidslinjeUtdrag = () => {
                         </div>
 
                         <div className={apen ? ' apnet' : ' lukket'}>
-                            <BodyShort>
+                            <BodyLong>
                                 {
                                     /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                     parser(
@@ -203,7 +203,7 @@ const TidslinjeUtdrag = () => {
                                         )
                                     )
                                 }
-                            </BodyShort>
+                            </BodyLong>
                             <Link href="/tidslinjen">
                                 <a className="navds-link lenke--tilTidslinje">
                                     {tekst(
