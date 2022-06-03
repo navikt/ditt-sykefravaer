@@ -1,5 +1,5 @@
 export interface Oppgave {
-    type?: 'info' | 'success'
+    type?: 'info' | 'warning' | 'success' | 'error'
     tekst: string
-    lenke: string
+    lenke?: string
 }

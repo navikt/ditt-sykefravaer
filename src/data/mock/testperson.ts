@@ -1,4 +1,8 @@
 import {
+    manglerInntektsmelding,
+    mottattInntektsmelding,
+} from './data/inntektsmeldingTestPersoner'
+import {
     enNyOppfolgingsplan,
     enNyTilGodkjenning,
     toNyeOppfolgingsplaner,
@@ -6,10 +10,10 @@ import {
 } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import {
+    commonPersona,
     defaultPersona,
     enAvvistSykmelding,
     enNySykmelding,
-    heltFrisk,
 } from './data/personas'
 import {
     langtidssykmeldt,
@@ -23,7 +27,7 @@ export interface StringFunctionMap {
 
 export const personas: StringFunctionMap = {
     default: () => defaultPersona,
-    'helt-frisk': () => heltFrisk,
+    'helt-frisk': () => commonPersona(),
     'en-ny-sykmelding': () => enNySykmelding,
     'en-avvist-sykmelding': () => enAvvistSykmelding,
     'en-ny-oppfolgingsplan': enNyOppfolgingsplan,
@@ -33,4 +37,6 @@ export const personas: StringFunctionMap = {
     langtidssykmeldt: langtidssykmeldt,
     'snart-slutt': snartSlutt,
     'tving-mindre-enn-trettini-uker': tvingMindreEnnTrettiniUker,
+    'mangler-inntektsmelding': () => manglerInntektsmelding(),
+    'mottatt-inntektsmelding': () => mottattInntektsmelding(),
 }

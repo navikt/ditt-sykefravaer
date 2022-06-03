@@ -5,6 +5,7 @@ import { enTomDialogmote } from './dialogmoter'
 import { Persona } from './persona'
 
 const commonPersona: Persona = {
+    meldinger: [],
     soknader: [],
     oppfolgingsplaner: [],
     vedtak: [],

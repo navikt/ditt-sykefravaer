@@ -6,6 +6,7 @@ import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useDialogmoter from '../../query-hooks/useDialogmoter'
+import useMeldinger from '../../query-hooks/useMeldinger'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -20,7 +21,7 @@ import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
-import { skapInntektsmeldingOppgave } from './inntektsmeldingBeskjed'
+import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
 import { skapSøknadOppgaver } from './soknadOppgaver'
@@ -41,9 +42,16 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
                 Oppgaver
             </Heading>
             {oppgaver.map((v, idx) => {
+                if (v.lenke) {
+                    return (
+                        <Alert variant={!v.type ? 'info' : v.type} key={idx}>
+                            <Lenke href={v.lenke}>{v.tekst}</Lenke>
+                        </Alert>
+                    )
+                }
                 return (
                     <Alert variant={!v.type ? 'info' : v.type} key={idx}>
-                        <Lenke href={v.lenke}>{v.tekst}</Lenke>
+                        {v.tekst}
                     </Alert>
                 )
             })}
@@ -54,6 +62,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 function Oppgaver() {
     const [oppgaver, setOppgaver] = useState<Oppgave[]>([])
 
+    const { data: meldinger } = useMeldinger()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: snartSluttPaSykepengene } = use39ukersvarsel()
@@ -87,9 +96,7 @@ function Oppgaver() {
             dialogmoteLandingUrl
         )
         const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
-        const inntektsmeldingOppgaver = skapInntektsmeldingOppgave(
-            '/syk/sykefravaer/inntektsmelding'
-        )
+        const meldingerOppgaver = skapMeldinger(meldinger)
 
         const tasks = [
             ...sykmeldingOppgaver,
@@ -98,7 +105,7 @@ function Oppgaver() {
             ...dialogmoteBehovOppgaver,
             ...dialogmoteSvarOppgaver,
             ...brevOppgaver,
-            ...inntektsmeldingOppgaver,
+            ...meldingerOppgaver,
         ]
 
         if (snartSluttPaSykepengene) {
@@ -121,6 +128,7 @@ function Oppgaver() {
         soknader,
         svarMotebehovUrl,
         sykmeldinger,
+        meldinger,
     ])
 
     return <OppgaveLista oppgaver={oppgaver!} />

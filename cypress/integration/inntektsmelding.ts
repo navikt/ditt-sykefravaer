@@ -1,9 +1,11 @@
 describe('Tester inntektsmelding', () => {
     it('Har inntektsmelding varsel og riktig innhold', () => {
-        cy.visit('http://localhost:8080/syk/sykefravaer')
+        cy.visit(
+            'http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding'
+        )
 
         cy.get('.oppgaver > .navds-alert')
-            .should('have.length', 5)
+            .should('have.length', 1)
             .contains('Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS')
             .click()
 

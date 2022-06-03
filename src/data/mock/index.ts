@@ -21,6 +21,10 @@ const mock = FetchMock.configure({
 })
 
 function setUpMock(persona: Persona) {
+    mock.get('/syk/sykefravaer/api/v1/meldinger', (req, res, ctx) =>
+        res(ctx.json(persona.meldinger))
+    )
+
     mock.get(
         `${flexGatewayRoot()}/${backendSoknadApp()}/api/soknader`,
         (req, res, ctx) => res(ctx.json(persona.soknader))

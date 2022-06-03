@@ -9,26 +9,34 @@ import {
     utdatert,
 } from './oppfolgingsplaner'
 import { Persona } from './persona'
-import { soknader } from './soknader'
+import { arbeidstaker100, soknader } from './soknader'
 import { nySykmelding, sendtSykmelding } from './sykmeldinger'
 import { vedtakMed100Grad } from './vedtak'
 
-export const heltFrisk: Persona = {
-    soknader: [],
-    vedtak: [],
-    oppfolgingsplaner: [],
-    dialogmote: enTomDialogmote,
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-    sykmeldinger: [],
-    narmesteledere: [],
-    snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false },
-    sykeforloep: [],
-    brev: [],
+export const commonPersona = (): Persona => {
+    return {
+        meldinger: [],
+        soknader: [],
+        oppfolgingsplaner: [],
+        vedtak: [],
+        sykmeldinger: [],
+        narmesteledere: [],
+        snartSluttSykepenger: false,
+        arbeidsrettetOppfolging: { underOppfolging: false },
+        dialogmote: enTomDialogmote,
+        dialogmoteBehov: {
+            visMotebehov: false,
+            skjemaType: null,
+            motebehov: null,
+        },
+        sykeforloep: [],
+        brev: [],
+    }
 }
 
 export const enNySykmelding: Persona = {
     soknader: [],
+    meldinger: [],
     vedtak: [],
     oppfolgingsplaner: [],
     dialogmote: enTomDialogmote,
@@ -55,6 +63,7 @@ export const enAvvistSykmelding: Persona = {
     soknader: [],
     vedtak: [],
     oppfolgingsplaner: [],
+    meldinger: [],
     dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [
@@ -75,6 +84,7 @@ export const enAvvistSykmelding: Persona = {
 
 export const defaultPersona: Persona = {
     soknader: soknader,
+    meldinger: [],
     vedtak: [vedtakMed100Grad],
     oppfolgingsplaner: [
         nyUnderArbeid,

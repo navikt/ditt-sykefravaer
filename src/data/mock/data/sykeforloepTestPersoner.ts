@@ -8,6 +8,7 @@ const iDag = dayjs()
 
 const commonPersona = (): Persona => {
     return {
+        meldinger: [],
         soknader: [arbeidstaker100],
         oppfolgingsplaner: [],
         vedtak: [],
