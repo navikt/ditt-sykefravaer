@@ -26,7 +26,6 @@ const Inntektsmelding = () => {
         setBodyClass('inntektsmelding')
     }, [])
 
-    //TODO: hent arbeidsgivernavnet fra inntektsmeldingen
     return (
         <>
             <Banner>
