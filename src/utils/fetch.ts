@@ -1,17 +1,10 @@
-import { loginServiceRedirectUrl, loginServiceUrl } from './environment'
 import { logger } from './logger'
-
-export const hentLoginUrl = () => {
-    return `${loginServiceUrl()}?redirect=${loginServiceRedirectUrl()}`
-}
 
 /**
  * Class with utility functions for working with fetch.
  * Redirects to Login Service if any request contains a 401 response.
  */
 class Fetch {
-    static loginServiceUrl = hentLoginUrl()
-
     /**
      * Make a GET request for the specified resource
      * Redirects to Login Service if request contains a 401 response.
@@ -48,7 +41,7 @@ class Fetch {
         }
         // Sesjonen er utløpt
         if (res.status === 401) {
-            window.location.href = this.loginServiceUrl
+            window.location.href = '/syk/sykefravaer' //Lar SSR authen fikse alt
             throw new Error(
                 'Sesjonen er utløpt. Vi videresender deg til innloggingssiden.'
             )
@@ -101,7 +94,7 @@ class Fetch {
             return textResponse
         }
         if (res.status === 401) {
-            window.location.href = this.loginServiceUrl
+            window.location.href = '/syk/sykefravaer' //Lar SSR authen fikse alt
             throw new Error(
                 'Sesjonen er utløpt. Vi videresender deg til innloggingssiden.'
             )

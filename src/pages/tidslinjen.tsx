@@ -1,7 +1,7 @@
 import { BodyShort, Heading } from '@navikt/ds-react'
-import { GetServerSideProps } from 'next'
 import React, { useEffect, useState } from 'react'
 
+import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Banner from '../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
 import { Visning } from '../components/tidslinje-utdrag/TidslinjeUtdrag'
@@ -70,11 +70,6 @@ const Tidslinjen = () => {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // Disable static rendring
-    return {
-        props: {},
-    }
-}
+export const getServerSideProps = beskyttetSideUtenProps
 
 export default Tidslinjen

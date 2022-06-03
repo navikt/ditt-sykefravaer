@@ -77,15 +77,22 @@ module.exports = withPlugins(
             decoratorEnv: process.env.DECORATOR_ENV,
             decoratorUrl: process.env.DECORATOR_URL,
             noDecorator: process.env.NO_DECORATOR,
-        },
-        publicRuntimeConfig: {
-            // Will be available on both server and client
             loginserviceUrl: process.env.LOGINSERVICE_URL,
             loginServiceRedirectUrl: process.env.LOGINSERVICE_REDIRECT_URL,
             loginserviceIdportenDiscoveryUrl:
                 process.env.LOGINSERVICE_IDPORTEN_DISCOVERY_URL,
             loginserviceIdportenAudience:
                 process.env.LOGINSERVICE_IDPORTEN_AUDIENCE,
+            tokenXWellKnownUrl: process.env.TOKEN_X_WELL_KNOWN_URL,
+            tokenXPrivateJwk: process.env.TOKEN_X_PRIVATE_JWK,
+            tokenXClientId: process.env.TOKEN_X_CLIENT_ID,
+            idportenClientId: process.env.IDPORTEN_CLIENT_ID,
+            idportenWellKnownUrl: process.env.IDPORTEN_WELL_KNOWN_URL,
+            dittSykefravaerBackendClientId:
+                process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
+        },
+        publicRuntimeConfig: {
+            // Will be available on both server and client
             flexGatewayRoot: process.env.FLEX_GATEWAY_ROOT,
             mockBackend: process.env.MOCK_BACKEND,
             opplaering: process.env.OPPLAERING,
