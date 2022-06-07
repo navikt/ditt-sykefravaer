@@ -90,6 +90,7 @@ module.exports = withPlugins(
             idportenWellKnownUrl: process.env.IDPORTEN_WELL_KNOWN_URL,
             dittSykefravaerBackendClientId:
                 process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
+            spinnsynBackendClientId: process.env.SPINNSYN_BACKEND_CLIENT_ID,
         },
         publicRuntimeConfig: {
             // Will be available on both server and client

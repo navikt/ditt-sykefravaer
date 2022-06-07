@@ -40,9 +40,8 @@ function setUpMock(persona: Persona) {
         (req, res, ctx) => res(ctx.json(persona.arbeidsrettetOppfolging))
     )
 
-    mock.get(
-        `${flexGatewayRoot()}/spinnsyn-backend/api/v2/vedtak`,
-        (req, res, ctx) => res(ctx.json(persona.vedtak))
+    mock.get('/syk/sykefravaer/api/v1/vedtak', (req, res, ctx) =>
+        res(ctx.json(persona.vedtak))
     )
 
     mock.get(
