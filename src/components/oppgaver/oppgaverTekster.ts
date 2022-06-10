@@ -30,7 +30,7 @@ export const OppgaverTekster = {
         'Arbeidsgiverne dine har begynt på hver sin oppfølgingsplan. Du skal fylle ut din del.',
     'oppgaver.aktivitetskrav': 'Bekreft at du kjenner aktivitetsplikten',
     'oppgaver.brev.innkalling':
-        'Du har mottatt et brev om innkalling til dialogmøte',
+        'Du er innkalt til dialogmøte - vi trenger svaret ditt',
     'oppgaver.brev.endring': 'Du har mottatt et brev om endret dialogmøte',
     'oppgaver.brev.referat': 'Du har mottatt et referat fra dialogmøte',
     'oppgaver.brev.avlysning': 'Du har mottatt et brev om avlyst dialogmøte',
