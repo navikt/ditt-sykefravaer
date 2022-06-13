@@ -54,7 +54,6 @@
     "eslint-plugin-simple-import-sort": "^7.0.0",
     "jest": "^28.0.3",
     "jest-environment-jsdom": "^28.0.2",
-    "jest-environment-jsdom-fifteen": "^1.0.2",
     "jest-react-hooks-shallow": "^1.5.1",
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
