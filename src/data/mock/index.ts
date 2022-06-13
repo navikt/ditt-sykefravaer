@@ -7,7 +7,7 @@ import {
     isOpplaering,
     narmestelederUrl,
     syfoApiRoot,
-    sykmeldingerBackendRoot,
+    sykmeldingerBackendProxyRoot,
 } from '../../utils/environment'
 import { Persona } from './data/persona'
 import { defaultPersona } from './data/personas'
@@ -65,7 +65,7 @@ function setUpMock(persona: Persona) {
     )
 
     mock.get(
-        `${sykmeldingerBackendRoot()}/api/v1/sykmeldinger`,
+        `${sykmeldingerBackendProxyRoot()}/api/v1/sykmeldinger`,
         (req, res, ctx) => res(ctx.json(persona.sykmeldinger))
     )
 
