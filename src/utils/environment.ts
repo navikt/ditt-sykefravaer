@@ -30,8 +30,8 @@ export function amplitudeEnabled() {
     return publicRuntimeConfig.amplitudeEnabled === 'true'
 }
 
-export function sykmeldingerBackendProxyRoot() {
-    return publicRuntimeConfig.sykmeldingerBackendProxyRoot
+export function sykmeldingerBackendRoot() {
+    return publicRuntimeConfig.sykmeldingerBackendRoot
 }
 
 export function syfoApiRoot() {
