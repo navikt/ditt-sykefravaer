@@ -9,7 +9,6 @@ import { snartSluttUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import VelgArbeidssituasjon from '../velgArbeidssituasjon/VelgArbeidssituasjon'
 import Vis from '../Vis'
-import Friskmelding from './Friskmelding'
 import {
     getSykefravaerVarighet,
     getVisning,
@@ -222,11 +221,6 @@ const TidslinjeUtdrag = () => {
                             </button>
                         </div>
                     </Panel>
-
-                    <Vis
-                        hvis={visning !== 'UTEN_ARBEIDSGIVER'}
-                        render={() => <Friskmelding />}
-                    />
                 </>
             )}
         />
