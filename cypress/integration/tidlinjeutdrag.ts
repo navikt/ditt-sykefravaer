@@ -55,21 +55,6 @@ describe('Tester tidslinjeutdrag', () => {
                 )
         })
 
-        cy.get('.friskmelding__bjorn')
-            .should(
-                'contain',
-                'Hei, et lite tips: Har det blitt lettere for deg å komme tilbake til jobb, kan du begynne å jobbe før sykmeldingen er over.'
-            )
-            .contains('Jeg vil vite mer')
-            .click()
-        cy.get('.navds-modal')
-            .should(
-                'contain',
-                'Trenger du ikke være sykmeldt lenger og vil tilbake til jobb?'
-            )
-            .get('.navds-modal__button')
-            .click()
-
         cy.get('input[type=radio][value=UTEN_ARBEIDSGIVER]').click({
             force: true,
         })
@@ -101,8 +86,6 @@ describe('Tester tidslinjeutdrag', () => {
                     'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/sykmeldt'
                 )
         })
-
-        cy.get('.friskmelding__bjorn').should('not.exist')
     })
 
     it('Syk i 22 uker', () => {
