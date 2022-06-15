@@ -25,6 +25,10 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.meldinger))
     )
 
+    mock.post('/syk/sykefravaer/api/v1/meldinger/:id/lukk', (req, res, ctx) =>
+        res(ctx.json({ lukket: 'ok' }))
+    )
+
     mock.get(
         `${flexGatewayRoot()}/${backendSoknadApp()}/api/soknader`,
         (req, res, ctx) => res(ctx.json(persona.soknader))

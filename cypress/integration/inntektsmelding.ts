@@ -25,6 +25,20 @@ describe('Tester inntektsmelding', () => {
                     'Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
             )
     })
+
+    it(' Inntektsmelding varsel kan lukkes', () => {
+        cy.visit(
+            'http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding'
+        )
+
+        cy.get('.oppgaver > .navds-alert')
+            .should('have.length', 1)
+            .contains('Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS')
+
+        cy.get('.oppgaver > .navds-alert').get('.navds-button').click()
+
+        cy.get('.oppgaver > .navds-alert').should('have.length', 0)
+    })
 })
 
 export {}

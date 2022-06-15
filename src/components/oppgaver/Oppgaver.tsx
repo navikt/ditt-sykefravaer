@@ -1,5 +1,5 @@
-import { Alert, Heading } from '@navikt/ds-react'
-import { Link as Lenke } from '@navikt/ds-react'
+import { Close } from '@navikt/ds-icons'
+import { Alert, Button, Heading, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
@@ -16,6 +16,8 @@ import {
     sykepengesoknadUrl,
     sykmeldingUrl,
 } from '../../utils/environment'
+import Fetch from '../../utils/fetch'
+import { logger } from '../../utils/logger'
 import { tekst } from '../../utils/tekster'
 import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
@@ -26,6 +28,54 @@ import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
 import { skapSøknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
+
+interface EnkeltOppgaveAlertProps {
+    oppgave: Oppgave
+}
+
+const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
+    const [vises, setVises] = useState<boolean>(true)
+    if (!vises) {
+        return null
+    }
+
+    const lukkeknapp = () => (
+        <Button
+            variant={'secondary'}
+            style={{ marginLeft: '1em' }}
+            size={'small'}
+            onClick={() => {
+                setVises(false)
+                if (oppgave.id) {
+                    Fetch.authenticatedPost(
+                        `/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`
+                    ).catch((e) =>
+                        logger.warn('Feil ved merking av melding som lest', e)
+                    )
+                }
+            }}
+        >
+            <Close title={'Lukk'} />
+        </Button>
+    )
+
+    return (
+        <Alert variant={!oppgave.type ? 'info' : oppgave.type}>
+            {oppgave.opprettet && (
+                <span style={{ color: '#A0A0A0' }}>
+                    {oppgave.opprettet.format('DD.MM.YYYY:') + ' '}
+                </span>
+            )}
+            {oppgave.lenke && (
+                <Lenke style={{ display: 'inline' }} href={oppgave.lenke}>
+                    {oppgave.tekst}
+                </Lenke>
+            )}
+            {!oppgave.lenke && oppgave.tekst}
+            {oppgave.lukkbar && lukkeknapp()}
+        </Alert>
+    )
+}
 
 interface OppgaveProps {
     oppgaver: Oppgave[]
@@ -41,20 +91,9 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
             <Heading size="medium" level="2" className="hide-element">
                 Oppgaver
             </Heading>
-            {oppgaver.map((v, idx) => {
-                if (v.lenke) {
-                    return (
-                        <Alert variant={!v.type ? 'info' : v.type} key={idx}>
-                            <Lenke href={v.lenke}>{v.tekst}</Lenke>
-                        </Alert>
-                    )
-                }
-                return (
-                    <Alert variant={!v.type ? 'info' : v.type} key={idx}>
-                        {v.tekst}
-                    </Alert>
-                )
-            })}
+            {oppgaver.map((v, idx) => (
+                <EnkeltOppgaveAlert oppgave={v} key={idx}></EnkeltOppgaveAlert>
+            ))}
         </section>
     )
 }

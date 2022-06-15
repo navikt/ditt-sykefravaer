@@ -34,8 +34,4 @@ export const OppgaverTekster = {
     'oppgaver.brev.endring': 'Du har mottatt et brev om endret dialogmøte',
     'oppgaver.brev.referat': 'Du har mottatt et referat fra dialogmøte',
     'oppgaver.brev.avlysning': 'Du har mottatt et brev om avlyst dialogmøte',
-    'oppgaver.inntektsmelding.mangler':
-        'Vi mangler inntektsmeldingen fra %ARBEIDSGIVER% for sykefravær f.o.m. %STARTDATO%',
-    'oppgaver.inntektsmelding':
-        'Vi har mottatt inntektsmeldingen fra %ARBEIDSGIVER% for sykefravær f.o.m %STARTDATO%',
 }
