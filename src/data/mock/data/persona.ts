@@ -1,6 +1,5 @@
 import { ArbeidsrettetOppfolging } from '../../../types/arbeidsrettetOppfolging'
 import { Brev } from '../../../types/brev'
-import { DialogMote } from '../../../types/dialogmote'
 import { DialogmoteBehov } from '../../../types/dialogmoteBehov'
 import { Melding } from '../../../types/melding'
 import { NarmesteLeder } from '../../../types/narmesteLeder'
@@ -18,7 +17,6 @@ export interface Persona {
     snartSluttSykepenger: boolean
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     oppfolgingsplaner: Oppfolgingsplan[]
-    dialogmote: DialogMote
     dialogmoteBehov: DialogmoteBehov
     sykeforloep: Sykeforloep[]
     brev: Brev[]

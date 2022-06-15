@@ -5,12 +5,12 @@ import React, { useEffect, useState } from 'react'
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
-import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useMeldinger from '../../query-hooks/useMeldinger'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import {
+    newDialogmoteUrl,
     oppfolgingsplanUrl,
     snartSluttUrl,
     sykepengesoknadUrl,
@@ -19,10 +19,8 @@ import {
 import Fetch from '../../utils/fetch'
 import { logger } from '../../utils/logger'
 import { tekst } from '../../utils/tekster'
-import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
-import { skapDialogmoteSvarOppgaver } from './dialogmoteOppgaver'
 import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
@@ -107,9 +105,7 @@ function Oppgaver() {
     const { data: snartSluttPaSykepengene } = use39ukersvarsel()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
-    const { data: dialogmoteSvar } = useDialogmoter()
     const { data: brev } = useBrev()
-    const { svarMotebehovUrl, dialogmoteLandingUrl } = useDialogmotePaths()
 
     function hentOppgaver() {
         const soknadOppgaver = skapSøknadOppgaver(
@@ -127,14 +123,10 @@ function Oppgaver() {
         )
         const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(
             dialogmoteBehov,
-            svarMotebehovUrl
+            `${newDialogmoteUrl()}/motebehov/svar`
         )
-        const dialogmoteSvarOppgaver = skapDialogmoteSvarOppgaver(
-            dialogmoteSvar,
-            brev,
-            dialogmoteLandingUrl
-        )
-        const brevOppgaver = skapBrevOppgaver(brev, dialogmoteLandingUrl)
+
+        const brevOppgaver = skapBrevOppgaver(brev, newDialogmoteUrl())
         const meldingerOppgaver = skapMeldinger(meldinger)
 
         const tasks = [
@@ -142,7 +134,6 @@ function Oppgaver() {
             ...soknadOppgaver,
             ...oppfolgingsplanoppgaver,
             ...dialogmoteBehovOppgaver,
-            ...dialogmoteSvarOppgaver,
             ...brevOppgaver,
             ...meldingerOppgaver,
         ]
@@ -160,12 +151,9 @@ function Oppgaver() {
     useEffect(hentOppgaver, [
         brev,
         dialogmoteBehov,
-        dialogmoteLandingUrl,
-        dialogmoteSvar,
         oppfolgingsplaner,
         snartSluttPaSykepengene,
         soknader,
-        svarMotebehovUrl,
         sykmeldinger,
         meldinger,
     ])

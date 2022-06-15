@@ -2,7 +2,6 @@ import { Heading } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
-import useDialogmoter from '../../query-hooks/useDialogmoter'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
@@ -25,7 +24,6 @@ const Lenker = () => {
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
-    const { data: dialogmote } = useDialogmoter()
 
     useEffect(() => {
         const anyLenker = () =>
@@ -35,12 +33,10 @@ const Lenker = () => {
                 sykmeldinger,
                 soknader,
                 oppfolgingsplaner,
-                dialogmote,
             ].find((data) => data) !== undefined
         setLenker(anyLenker())
     }, [
         arbeidsrettetOppfolging,
-        dialogmote,
         oppfolgingsplaner,
         soknader,
         sykmeldinger,
