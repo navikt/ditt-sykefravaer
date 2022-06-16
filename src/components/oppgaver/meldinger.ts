@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 import { Melding } from '../../types/melding'
 import { Oppgave } from './oppgaveTyper'
 
@@ -6,11 +8,14 @@ export const skapMeldinger = (meldinger: Melding[] | undefined): Oppgave[] => {
         return []
     }
 
-    return meldinger.map((m) => {
+    return meldinger.map((m): Oppgave => {
         return {
             lenke: m.lenke,
             tekst: m.tekst,
             type: m.variant,
-        } as Oppgave
+            lukkbar: m.lukkbar,
+            id: m.uuid,
+            opprettet: dayjs(m.opprettet),
+        }
     })
 }
