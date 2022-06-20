@@ -26,14 +26,16 @@ describe('Tester inntektsmelding', () => {
             )
     })
 
-    it(' Inntektsmelding varsel kan lukkes', () => {
+    it('Mottatt inntektsmelding varsel kan lukkes', () => {
         cy.visit(
-            'http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding'
+            'http://localhost:8080/syk/sykefravaer?testperson=mottatt-inntektsmelding'
         )
 
         cy.get('.oppgaver > .navds-alert')
             .should('have.length', 1)
-            .contains('Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS')
+            .contains(
+                ' Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefravær f.o.m 15. mars 2022.'
+            )
 
         cy.get('.oppgaver > .navds-alert').get('.navds-button').click()
 

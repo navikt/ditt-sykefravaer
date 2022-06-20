@@ -7,9 +7,9 @@ export const manglerInntektsmelding = () => {
         {
             uuid: '123456y7',
             tekst: 'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS',
-            lenke: 'http://localhost:8080/syk/sykefravaer/inntektsmelding',
+            lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
-            lukkbar: true,
+            lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ]
