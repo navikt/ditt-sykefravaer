@@ -54,11 +54,6 @@ function setUpMock(persona: Persona) {
     )
 
     mock.get(
-        `${syfoApiRoot()}/syfomoteadmin/api/bruker/arbeidstaker/moter/siste`,
-        (req, res, ctx) => res(ctx.json(persona.dialogmote))
-    )
-
-    mock.get(
         `${flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`,
         (req, res, ctx) => res(ctx.json(persona.brev))
     )

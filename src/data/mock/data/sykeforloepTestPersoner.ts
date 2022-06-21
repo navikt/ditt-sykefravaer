@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
 
-import { enTomDialogmote } from './dialogmoter'
 import { Persona } from './persona'
 import { arbeidstaker100 } from './soknader'
 
@@ -50,7 +49,6 @@ const commonPersona = (): Persona => {
         ],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
-        dialogmote: enTomDialogmote,
         dialogmoteBehov: {
             visMotebehov: false,
             skjemaType: null,

@@ -1,14 +1,12 @@
 import { Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
+import { dialogmoteUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import { useDialogmotePaths } from '../NavigationHooks/useDialogmotePaths'
 
 export function DialogmoteLenke() {
-    const { dialogmoteLandingUrl } = useDialogmotePaths()
-
     return (
-        <LinkPanel href={dialogmoteLandingUrl} border={true}>
+        <LinkPanel href={dialogmoteUrl()} border={true}>
             <div className="lenkeikon">
                 <svg
                     width="32"

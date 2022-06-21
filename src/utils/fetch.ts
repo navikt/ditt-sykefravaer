@@ -48,13 +48,8 @@ class Fetch {
         }
 
         const textResponse = await res.text()
-        // Returnerer 404 når det ikke finnes møter, selv om kallet gikk fint
+
         if (
-            res.status === 404 &&
-            url.endsWith('/syfomoteadmin/api/bruker/arbeidstaker/moter/siste')
-        ) {
-            // skal ikke logge
-        } else if (
             res.status === 403 &&
             url.endsWith('/veilarboppfolging/api/oppfolging')
         ) {

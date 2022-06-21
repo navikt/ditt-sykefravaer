@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 
 import { brev } from './brev'
-import { enTomDialogmote } from './dialogmoter'
 import {
     avbrutt,
     avventendeUnderArbeid,
@@ -9,7 +8,7 @@ import {
     utdatert,
 } from './oppfolgingsplaner'
 import { Persona } from './persona'
-import { arbeidstaker100, soknader } from './soknader'
+import { soknader } from './soknader'
 import { nySykmelding, sendtSykmelding } from './sykmeldinger'
 import { vedtakMed100Grad } from './vedtak'
 
@@ -23,7 +22,6 @@ export const commonPersona = (): Persona => {
         narmesteledere: [],
         snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { underOppfolging: false },
-        dialogmote: enTomDialogmote,
         dialogmoteBehov: {
             visMotebehov: false,
             skjemaType: null,
@@ -39,7 +37,6 @@ export const enNySykmelding: Persona = {
     meldinger: [],
     vedtak: [],
     oppfolgingsplaner: [],
-    dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [nySykmelding],
     narmesteledere: [],
@@ -64,7 +61,6 @@ export const enAvvistSykmelding: Persona = {
     vedtak: [],
     oppfolgingsplaner: [],
     meldinger: [],
-    dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [
         {
@@ -92,7 +88,6 @@ export const defaultPersona: Persona = {
         avbrutt,
         avventendeUnderArbeid,
     ],
-    dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [
         sendtSykmelding,

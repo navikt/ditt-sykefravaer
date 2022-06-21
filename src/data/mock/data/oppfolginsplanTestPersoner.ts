@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 
 import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
-import { enTomDialogmote } from './dialogmoter'
 import { Persona } from './persona'
 
 const commonPersona: Persona = {
@@ -32,7 +31,6 @@ const commonPersona: Persona = {
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
-    dialogmote: enTomDialogmote,
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykeforloep: [],
     brev: [],
