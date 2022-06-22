@@ -38,8 +38,6 @@ spec:
     - name: OPPFOLGINGSPLAN_URL
       value: "https://oppfolgingsplan.labs.nais.io/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
-      value: "https://dialogmote.labs.nais.io/syk/dialogmote"
-    - name: NEW_DIALOGMOTE_URL
       value: "https://dialogmoter.labs.nais.io/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"

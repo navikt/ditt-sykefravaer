@@ -67,8 +67,6 @@ spec:
     - name: OPPFOLGINGSPLAN_URL
       value: "https://www.nav.no/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
-      value: "https://www.nav.no/syk/dialogmote"
-    - name: NEW_DIALOGMOTE_URL
       value: "https://www.nav.no/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"

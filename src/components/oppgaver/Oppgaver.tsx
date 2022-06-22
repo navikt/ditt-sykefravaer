@@ -10,7 +10,7 @@ import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import {
-    newDialogmoteUrl,
+    dialogmoteUrl,
     oppfolgingsplanUrl,
     snartSluttUrl,
     sykepengesoknadUrl,
@@ -123,10 +123,10 @@ function Oppgaver() {
         )
         const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(
             dialogmoteBehov,
-            `${newDialogmoteUrl()}/motebehov/svar`
+            `${dialogmoteUrl()}/motebehov/svar`
         )
 
-        const brevOppgaver = skapBrevOppgaver(brev, newDialogmoteUrl())
+        const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
         const meldingerOppgaver = skapMeldinger(meldinger)
 
         const tasks = [
