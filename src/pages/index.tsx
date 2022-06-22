@@ -41,10 +41,6 @@ const Index = () => {
                 <TidslinjeUtdrag />
                 <Arbeidssituasjon />
                 <Lenker />
-
-                <Alert variant="info" className="personvern">
-                    {tekst('forside.personverninfo')}
-                </Alert>
             </div>
         </>
     )
