@@ -8,11 +8,18 @@
     .navds-alert {
         margin-top: 0.5rem;
 
-        .navds-alert__wrapper .navds-link {
-            color: @navds-semantic-color-text;
+        .navds-alert__wrapper {
+            display: flex;
+            align-items: center;
 
-            &:focus {
-                color: @navds-global-color-white;
+            .oppgave-tekst {
+                .navds-link {
+                    color: @navds-semantic-color-text;
+
+                    &:focus {
+                        color: @navds-global-color-white;
+                    }
+                }
             }
         }
     }
