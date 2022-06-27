@@ -32,7 +32,6 @@ const commonPersona: Persona = {
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-    sykeforloep: [],
     brev: [],
 }
 

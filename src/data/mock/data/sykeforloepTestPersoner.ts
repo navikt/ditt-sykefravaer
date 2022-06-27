@@ -54,30 +54,8 @@ const commonPersona = (): Persona => {
             skjemaType: null,
             motebehov: null,
         },
-        sykeforloep: [],
         brev: [],
     }
-}
-
-export const langtidssykmeldt = () => {
-    const tjuesjuUker = iDag.subtract(188, 'days')
-    const person = commonPersona()
-    person.sykmeldinger[0].sykmeldingsperioder[0] = {
-        fom: tjuesjuUker.format('YYYY-MM-DD'),
-        tom: iDag.format('YYYY-MM-DD'),
-    }
-    person.sykeforloep = [
-        {
-            oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-            sykmeldinger: [
-                {
-                    fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-                    tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
-                },
-            ],
-        },
-    ]
-    return person
 }
 
 export const snartSlutt = () => {
@@ -87,42 +65,8 @@ export const snartSlutt = () => {
         fom: førtitoUker.format('YYYY-MM-DD'),
         tom: iDag.format('YYYY-MM-DD'),
     }
-    person.sykeforloep = [
-        {
-            oppfolgingsdato: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-            sykmeldinger: [
-                {
-                    fom: person.sykmeldinger[0].sykmeldingsperioder[0].fom,
-                    tom: person.sykmeldinger[0].sykmeldingsperioder[0].tom,
-                },
-            ],
-        },
-    ]
+
     person.arbeidsrettetOppfolging = { underOppfolging: false }
     person.snartSluttSykepenger = true
-    return person
-}
-
-export const tvingMindreEnnTrettiniUker = () => {
-    const person = snartSlutt()
-
-    person.sykmeldinger.push({
-        ...commonPersona().sykmeldinger[0],
-        ...{
-            sykmeldingStatus: {
-                statusEvent: 'APEN',
-            },
-            sykmeldingsperioder: [
-                {
-                    fom: iDag.format('YYYY-MM-DD'),
-                    tom: iDag.format('YYYY-MM-DD'),
-                },
-            ],
-        },
-    })
-    person.sykeforloep[0].sykmeldinger.push({
-        fom: iDag.format('YYYY-MM-DD'),
-        tom: iDag.format('YYYY-MM-DD'),
-    })
     return person
 }
