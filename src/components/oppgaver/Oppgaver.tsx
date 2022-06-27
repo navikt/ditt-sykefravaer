@@ -19,6 +19,7 @@ import {
 import Fetch from '../../utils/fetch'
 import { logger } from '../../utils/logger'
 import { tekst } from '../../utils/tekster'
+import { logEvent } from '../amplitude/amplitude'
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
@@ -33,6 +34,15 @@ interface EnkeltOppgaveAlertProps {
 
 const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
     const [vises, setVises] = useState<boolean>(true)
+
+    useEffect(() => {
+        logEvent('alert vist', {
+            tekst: oppgave.meldingType ?? oppgave.tekst,
+            variant: oppgave.type ?? 'info',
+            komponent: 'ditt sykefravær oppgave',
+        })
+    }, [oppgave.meldingType, oppgave.tekst, oppgave.type])
+
     if (!vises) {
         return null
     }
@@ -44,6 +54,12 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
             size={'small'}
             onClick={() => {
                 setVises(false)
+                logEvent('knapp klikket', {
+                    tekst: 'close ikon',
+                    alerttekst: oppgave.meldingType ?? oppgave.tekst,
+                    variant: oppgave.type ?? 'info',
+                    komponent: 'ditt sykefravær oppgave',
+                })
                 if (oppgave.id) {
                     Fetch.authenticatedPost(
                         `/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`
@@ -58,7 +74,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
     )
 
     return (
-        <Alert variant={!oppgave.type ? 'info' : oppgave.type}>
+        <Alert variant={oppgave.type ?? 'info'}>
             <div className="oppgave-tekst">
                 {oppgave.opprettet && (
                     <span style={{ color: '#A0A0A0' }}>
@@ -66,7 +82,22 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                     </span>
                 )}
                 {oppgave.lenke && (
-                    <Lenke href={oppgave.lenke}>{oppgave.tekst}</Lenke>
+                    <Lenke
+                        href={oppgave.lenke}
+                        onClick={(e) => {
+                            e.preventDefault()
+                            logEvent('navigere', {
+                                destinasjon: oppgave.lenke!,
+                                lenketekst:
+                                    oppgave.meldingType ?? oppgave.tekst,
+                                variant: oppgave.type ?? 'info',
+                                komponent: 'ditt sykefravær oppgave',
+                            })
+                            window.location.href = oppgave.lenke!
+                        }}
+                    >
+                        {oppgave.tekst}
+                    </Lenke>
                 )}
                 {!oppgave.lenke && oppgave.tekst}
             </div>
@@ -90,7 +121,10 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
                 Oppgaver
             </Heading>
             {oppgaver.map((v, idx) => (
-                <EnkeltOppgaveAlert oppgave={v} key={idx}></EnkeltOppgaveAlert>
+                <EnkeltOppgaveAlert
+                    oppgave={v}
+                    key={v.tekst}
+                ></EnkeltOppgaveAlert>
             ))}
         </section>
     )
