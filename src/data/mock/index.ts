@@ -87,11 +87,6 @@ function setUpMock(persona: Persona) {
     })
 
     mock.get(
-        `${flexGatewayRoot()}/flex-syketilfelle/api/bruker/v1/sykeforloep`,
-        (req, res, ctx) => res(ctx.json(persona.sykeforloep))
-    )
-
-    mock.get(
         'https://www.nav.no/person/innloggingsstatus/auth',
         (req, res, ctx) => res(ctx.json({}))
     )

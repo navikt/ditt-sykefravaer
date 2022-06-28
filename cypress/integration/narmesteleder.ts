@@ -1,8 +1,6 @@
 describe('Tester narmesteledere', () => {
     it('Har narmesteleder og kan avkrefte den', () => {
-        cy.visit(
-            'http://localhost:8080/syk/sykefravaer?testperson=langtidssykmeldt'
-        )
+        cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
         cy.get('.arbeidssituasjon-panel .situasjon__panel')
             .should('contain', 'Ansatt i Sykmeldingsperioder AS')
