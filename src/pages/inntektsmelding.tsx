@@ -95,7 +95,10 @@ const Inntektsmelding = () => {
                             router.push('/')
                         }}
                     >
-                        <Back style={{ marginBottom: '-4px' }} />
+                        <Back
+                            style={{ marginBottom: '-4px' }}
+                            title={'Til ditt sykefravær'}
+                        />
                         <BodyLong as="span">
                             {tekst('sidetittel.liste')}
                         </BodyLong>

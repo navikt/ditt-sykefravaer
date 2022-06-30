@@ -1,6 +1,8 @@
 describe('Tester narmesteledere', () => {
     it('Har narmesteleder og kan avkrefte den', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
+        cy.injectAxe()
+        cy.checkA11y()
 
         cy.get('.arbeidssituasjon-panel .situasjon__panel')
             .should('contain', 'Ansatt i Sykmeldingsperioder AS')
@@ -11,6 +13,7 @@ describe('Tester narmesteledere', () => {
             )
             .contains('Meld fra om endring')
             .click()
+        cy.checkA11y()
 
         cy.get('.navds-modal')
             .should('contain', 'Endre nærmeste leder')
@@ -20,6 +23,7 @@ describe('Tester narmesteledere', () => {
         cy.get('.arbeidssituasjon-panel .situasjon__panel')
             .should('contain', 'Ansatt i Sykmeldingsperioder AS')
             .should('not.contain', 'Din nærmeste leder')
+        cy.checkA11y()
     })
 })
 

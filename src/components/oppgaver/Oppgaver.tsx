@@ -77,9 +77,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
         <Alert variant={oppgave.type ?? 'info'}>
             <div className="oppgave-tekst">
                 {oppgave.opprettet && (
-                    <span style={{ color: '#A0A0A0' }}>
-                        {oppgave.opprettet.format('DD.MM.YYYY:') + ' '}
-                    </span>
+                    <span>{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</span>
                 )}
                 {oppgave.lenke && (
                     <Lenke

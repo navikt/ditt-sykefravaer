@@ -34,9 +34,14 @@ const BekreftFeilLeder = ({
     } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
-        <Modal open={open} closeButton={true} onClose={toggle}>
+        <Modal
+            open={open}
+            closeButton={true}
+            onClose={toggle}
+            aria-label="Endre nærmeste leder"
+        >
             <Modal.Content>
-                <Heading spacing size="small" level="2">
+                <Heading spacing size="small" level="1">
                     Endre nærmeste leder
                 </Heading>
 
