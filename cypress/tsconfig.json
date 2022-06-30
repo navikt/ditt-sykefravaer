@@ -4,6 +4,6 @@
     "compilerOptions": {
         "noEmit": false,
         "isolatedModules": false,
-        "types": ["cypress"]
+        "types": ["cypress", "cypress-axe"]
     }
 }

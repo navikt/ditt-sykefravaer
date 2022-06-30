@@ -59,7 +59,9 @@ class MyDocument extends Document<Props> {
                 <Head>{showDecorator && <Decorator.Styles />}</Head>
                 <body>
                     {showDecorator && <Decorator.Header />}
-                    <Main />
+                    <main role="main">
+                        <Main />
+                    </main>
                     {showDecorator && (
                         <>
                             <Decorator.Footer />
