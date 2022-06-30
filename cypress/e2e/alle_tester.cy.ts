@@ -1,0 +1,6 @@
+import './forside.cy'
+import './heltFrisk.cy'
+import './inntektsmelding.cy'
+import './narmesteleder.cy'
+import './oppfolgingsplanOppgaver.cy'
+import './snartSluttOppgave.cy'
