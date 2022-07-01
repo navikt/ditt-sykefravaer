@@ -9,4 +9,5 @@ export const LenkerTekster = {
     'lenker.oppfolgingsplan': 'Oppfølgingsplaner ',
     'lenker.oppfolgingsplan.undertekst': 'for deg og arbeidsgiveren din',
     'lenker.dialogmoter': 'Dialogmøter ',
+    'lenker.tidslinjen': 'Hva skjer under sykefraværet? ',
 }

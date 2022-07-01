@@ -1,4 +1,4 @@
-import { Heading, Modal } from '@navikt/ds-react'
+import { Alert, Heading, Modal } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
@@ -9,6 +9,7 @@ import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../components/lenker/Lenker'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
+import TidslinjeUtdrag from '../components/tidslinje-utdrag/TidslinjeUtdrag'
 import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
@@ -37,6 +38,7 @@ const Index = () => {
                 <QueryStatusPanel />
                 <IngenSykmelding />
                 <Oppgaver />
+                <TidslinjeUtdrag />
                 <Arbeidssituasjon />
                 <Lenker />
             </div>

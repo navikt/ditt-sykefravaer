@@ -5,6 +5,7 @@ import { Melding } from '../../../types/melding'
 import { NarmesteLeder } from '../../../types/narmesteLeder'
 import { Oppfolgingsplan } from '../../../types/oppfolgingsplan'
 import { Soknad } from '../../../types/soknad'
+import { Sykeforloep } from '../../../types/sykeforloep'
 import { Sykmelding } from '../../../types/sykmelding'
 import { RSVedtakWrapper } from '../../../types/vedtak'
 
@@ -17,6 +18,7 @@ export interface Persona {
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     oppfolgingsplaner: Oppfolgingsplan[]
     dialogmoteBehov: DialogmoteBehov
+    sykeforloep: Sykeforloep[]
     brev: Brev[]
     meldinger: Melding[]
 }

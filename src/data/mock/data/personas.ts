@@ -27,6 +27,7 @@ export const commonPersona = (): Persona => {
             skjemaType: null,
             motebehov: null,
         },
+        sykeforloep: [],
         brev: [],
     }
 }
@@ -41,6 +42,17 @@ export const enNySykmelding: Persona = {
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
+    sykeforloep: [
+        {
+            oppfolgingsdato: dayjs().format('YYYY-MM-DD'),
+            sykmeldinger: [
+                {
+                    fom: dayjs().format('YYYY-MM-DD'),
+                    tom: dayjs().add(12, 'days').format('YYYY-MM-DD'),
+                },
+            ],
+        },
+    ],
     brev: [],
 }
 
@@ -62,6 +74,7 @@ export const enAvvistSykmelding: Persona = {
     narmesteledere: [],
     snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { underOppfolging: false },
+    sykeforloep: [],
     brev: [],
 }
 
@@ -122,5 +135,14 @@ export const defaultPersona: Persona = {
     ],
     snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { underOppfolging: true },
+    sykeforloep: [
+        {
+            oppfolgingsdato: '2021-03-01',
+            sykmeldinger: [
+                { fom: '2021-03-01', tom: '2021-03-12' },
+                { fom: '2021-03-15', tom: '2021-03-19' },
+            ],
+        },
+    ],
     brev: brev,
 }

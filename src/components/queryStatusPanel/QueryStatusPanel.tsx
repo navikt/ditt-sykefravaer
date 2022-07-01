@@ -8,6 +8,7 @@ import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
+import useSykeforloep from '../../query-hooks/useSykeforloep'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import useVedtak from '../../query-hooks/useVedtak'
 import Vis from '../Vis'
@@ -52,6 +53,10 @@ const QueryStatusPanel = () => {
         query: useArbeidsrettetOppfolging(),
         message: 'Kunne ikke hente arbeidsrettet oppfølging',
     }
+    const sykeforloep: QueryOgFeilmelding = {
+        query: useSykeforloep(),
+        message: 'Kunne ikke hente ditt siste sykeforløp',
+    }
 
     const errorQueries = [
         sykmeldinger,
@@ -62,6 +67,7 @@ const QueryStatusPanel = () => {
         narmesteledere,
         trettiniUkersvarsel,
         arbeidsrettetOppfolging,
+        sykeforloep,
     ].filter((a) => a.query.isError)
 
     return (

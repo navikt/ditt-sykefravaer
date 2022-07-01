@@ -13,6 +13,7 @@ import Oppfolgingsplan from './Oppfolgingsplan'
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 import SoknadLenkepanel from './Soknader'
 import SykmeldingLenkepanel from './Sykmelding'
+import Tidslinjen from './Tidslinjen'
 import UtbetalingAvSykepengerLenkepanel from './Utbetaling'
 
 const Lenker = () => {
@@ -78,6 +79,7 @@ const Lenker = () => {
                         render={() => <Oppfolgingsplan />}
                     />
                     <DialogmoteLenke />
+                    <Tidslinjen />
                 </section>
             )}
         />
