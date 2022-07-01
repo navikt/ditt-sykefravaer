@@ -6,7 +6,7 @@ export const manglerInntektsmelding = () => {
     person.meldinger = [
         {
             uuid: '123456y7',
-            tekst: 'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS',
+            tekst: 'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefravær f.o.m. 1. juni 2022.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
