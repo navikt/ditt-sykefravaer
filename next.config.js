@@ -91,6 +91,8 @@ module.exports = withPlugins(
             dittSykefravaerBackendClientId:
                 process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
             spinnsynBackendClientId: process.env.SPINNSYN_BACKEND_CLIENT_ID,
+            sykmeldinerBackendClientId:
+                process.env.SYKMELDINGER_BACKEND_CLIENT_ID,
         },
         publicRuntimeConfig: {
             // Will be available on both server and client
@@ -102,7 +104,6 @@ module.exports = withPlugins(
             amplitudeEnabled: process.env.AMPLITUDE_ENABLED,
             environment: process.env.ENVIRONMENT,
             spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,
-            sykmeldingerBackendRoot: process.env.SYKMELDINGER_BACKEND_ROOT,
             syfoApiRoot: process.env.SYFOAPI_ROOT,
             sykepengesoknadUrl: process.env.SYKEPENGESOKNAD_URL,
             spinnsynUrl: process.env.SPINNSYN_URL,
