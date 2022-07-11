@@ -7,7 +7,9 @@ describe('Tester inntektsmelding', () => {
 
         cy.get('.oppgaver > .navds-alert')
             .should('have.length', 1)
-            .contains('Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefravær f.o.m. 1. juni 2022.')
+            .contains(
+                'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefravær f.o.m. 1. juni 2022.'
+            )
             .click()
 
         cy.url().should(
