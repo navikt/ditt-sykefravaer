@@ -5,7 +5,6 @@ import {
     backendSoknadApp,
     flexGatewayRoot,
     isOpplaering,
-    narmestelederUrl,
     syfoApiRoot,
 } from '../../utils/environment'
 import { Persona } from './data/persona'
@@ -66,12 +65,11 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.sykmeldinger))
     )
 
-    mock.get(
-        `${narmestelederUrl()}/user/sykmeldt/narmesteledere`,
-        (req, res, ctx) => res(ctx.json(persona.narmesteledere))
+    mock.get('/syk/sykefravaer/api/v1/narmesteledere', (req, res, ctx) =>
+        res(ctx.json(persona.narmesteledere))
     )
 
-    mock.post(`${narmestelederUrl()}/:org/avkreft`, (req) => {
+    mock.post('/syk/sykefravaer/api/v1/narmesteledere/:org/avkreft', (req) => {
         const idx = persona.narmesteledere.findIndex(
             (nl) => nl.orgnummer === req.queryParams.org
         )
