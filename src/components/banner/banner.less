@@ -1,17 +1,41 @@
 @import '../../../node_modules/@navikt/ds-tokens/dist/tokens';
 @import '../basic';
 
-@headerFarge: #d1eff9;
-
 .sidebanner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background-color: @headerFarge;
-    padding: 1.2rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 3px solid @navds-global-color-blue-400;
+
+    .limit {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-end;
+        flex-direction: row;
+        padding: 0.7rem 0 1.5rem;
+    }
 
     .sidebanner__tittel {
-        text-align: center;
+        margin-left: 1rem;
+    }
+}
+
+@media (min-width: @screen-sm) {
+    .sidebanner {
+        margin-bottom: 2rem;
+
+        .limit {
+            padding: 1.5rem 5rem 3rem;
+
+            img {
+                display: inline;
+            }
+        }
+
+        .sidebanner__tittel {
+            text-align: left;
+        }
+
+        .sidebanner__subtittel {
+            display: block;
+        }
     }
 }
