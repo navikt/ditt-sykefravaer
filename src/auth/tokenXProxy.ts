@@ -8,6 +8,7 @@ interface Opts {
     req: NextApiRequest
     clientId: string
     method: 'GET' | 'POST'
+    noResponse?: boolean
 }
 
 export const tokenXProxy = async (opts: Opts) => {
@@ -24,6 +25,9 @@ export const tokenXProxy = async (opts: Opts) => {
 
     if (response.status != 200) {
         throw new ErrorMedStatus(`Ikke 200 svar fra ${opts.url}`, 500)
+    }
+    if (opts.noResponse) {
+        return
     }
     return response.json()
 }

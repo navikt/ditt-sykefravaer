@@ -10,6 +10,13 @@ export default function UseAvkreftNarmesteLeder(org: string) {
             Fetch.authenticatedPost(
                 `/syk/sykefravaer/api/v1/narmesteledere/${org}/avkreft`
             ),
-        { onSuccess: () => queryClient.invalidateQueries('narmesteledere') }
+        {
+            onSuccess: () => {
+                setTimeout(
+                    () => queryClient.invalidateQueries('narmesteledere'),
+                    200
+                )
+            },
+        }
     )
 }

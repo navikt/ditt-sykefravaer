@@ -13,6 +13,7 @@ const handler = beskyttetApi(
             method: 'POST',
             req: req,
             clientId: serverRuntimeConfig.narmestelederClientId,
+            noResponse: true,
         })
 
         res.status(200).json({ ok: 'ok' })
