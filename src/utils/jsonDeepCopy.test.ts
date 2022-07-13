@@ -1,3 +1,5 @@
+import { expect } from '@jest/globals'
+
 import { jsonDeepCopy } from './jsonDeepCopy'
 
 it('Kopierer json', () => {
