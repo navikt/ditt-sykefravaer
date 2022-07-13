@@ -37,6 +37,10 @@ spec:
       rules:
         - application: ditt-sykefravaer-backend
         - application: spinnsyn-backend
+        - application: sykmeldinger-backend
+          namespace: teamsykmelding
+        - application: narmesteleder
+          namespace: teamsykmelding
   envFrom:
     - configmap: loginservice-idporten
   env:
@@ -46,8 +50,6 @@ spec:
       value: "prod"
     - name: OPPLAERING
       value: "false"
-    - name: SYKMELDINGER_BACKEND_ROOT
-      value: "https://sykmeldinger-backend.nav.no"
     - name: FLEX_GATEWAY_ROOT
       value: "https://flex-gateway.nav.no"
     - name: SYFOAPI_ROOT
@@ -70,8 +72,6 @@ spec:
       value: "https://www.nav.no/syk/dialogmoter/sykmeldt"
     - name: DITTNAV_URL
       value: "https://www.nav.no/person/dittnav"
-    - name: NARMESTELEDER_URL
-      value: "https://narmesteleder.nav.no"
     - name: DECORATOR_ENV
       value: "prod"
     - name: AMPLITUDE_ENABLED
@@ -86,3 +86,7 @@ spec:
       value: "prod-gcp:flex:ditt-sykefravaer-backend"
     - name: SPINNSYN_BACKEND_CLIENT_ID
       value: "prod-gcp:flex:spinnsyn-backend"
+    - name: SYKMELDINGER_BACKEND_CLIENT_ID
+      value: "prod-gcp:teamsykmelding:sykmeldinger-backend"
+    - name: NARMESTELEDER_CLIENT_ID
+      value: "prod-gcp:teamsykmelding:narmesteleder"

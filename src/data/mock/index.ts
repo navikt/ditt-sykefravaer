@@ -5,9 +5,7 @@ import {
     backendSoknadApp,
     flexGatewayRoot,
     isOpplaering,
-    narmestelederUrl,
     syfoApiRoot,
-    sykmeldingerBackendRoot,
 } from '../../utils/environment'
 import { Persona } from './data/persona'
 import { defaultPersona } from './data/personas'
@@ -63,17 +61,15 @@ function setUpMock(persona: Persona) {
         (req, res, ctx) => res(ctx.json(persona.dialogmoteBehov))
     )
 
-    mock.get(
-        `${sykmeldingerBackendRoot()}/api/v1/sykmeldinger`,
-        (req, res, ctx) => res(ctx.json(persona.sykmeldinger))
+    mock.get('/syk/sykefravaer/api/v1/sykmeldinger', (req, res, ctx) =>
+        res(ctx.json(persona.sykmeldinger))
     )
 
-    mock.get(
-        `${narmestelederUrl()}/user/sykmeldt/narmesteledere`,
-        (req, res, ctx) => res(ctx.json(persona.narmesteledere))
+    mock.get('/syk/sykefravaer/api/v1/narmesteledere', (req, res, ctx) =>
+        res(ctx.json(persona.narmesteledere))
     )
 
-    mock.post(`${narmestelederUrl()}/:org/avkreft`, (req) => {
+    mock.post('/syk/sykefravaer/api/v1/narmesteledere/:org/avkreft', (req) => {
         const idx = persona.narmesteledere.findIndex(
             (nl) => nl.orgnummer === req.queryParams.org
         )

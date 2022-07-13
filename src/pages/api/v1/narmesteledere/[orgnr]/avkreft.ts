@@ -9,10 +9,10 @@ const { serverRuntimeConfig } = getConfig()
 const handler = beskyttetApi(
     async (req: NextApiRequest, res: NextApiResponse): Promise<void> => {
         await tokenXProxy({
-            url: `http://ditt-sykefravaer-backend/api/v1/meldinger/${req.query.id}/lukk`,
+            url: `http://narmesteleder.teamsykmelding/v2/${req.query.orgnr}/avkreft`,
             method: 'POST',
             req: req,
-            clientId: serverRuntimeConfig.dittSykefravaerBackendClientId,
+            clientId: serverRuntimeConfig.narmestelederClientId,
             noResponse: true,
         })
 

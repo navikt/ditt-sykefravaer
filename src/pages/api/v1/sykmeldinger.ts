@@ -8,14 +8,14 @@ const { serverRuntimeConfig } = getConfig()
 
 const handler = beskyttetApi(
     async (req: NextApiRequest, res: NextApiResponse) => {
-        const vedtak = await tokenXProxy({
-            url: 'http://spinnsyn-backend/api/v3/vedtak',
+        const sykmeldinger = await tokenXProxy({
+            url: 'http://sykmeldinger-backend.teamsykmelding/api/v2/sykmeldinger',
             method: 'GET',
             req: req,
-            clientId: serverRuntimeConfig.spinnsynBackendClientId,
+            clientId: serverRuntimeConfig.sykmeldingerBackendClientId,
         })
 
-        res.status(200).json(vedtak)
+        res.status(200).json(sykmeldinger)
     }
 )
 
