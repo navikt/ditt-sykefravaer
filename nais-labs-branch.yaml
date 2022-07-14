@@ -45,7 +45,5 @@ spec:
       value: "prod"
     - name: AMPLITUDE_ENABLED
       value: "false"
-    - name: BACKEND_SOKNAD_APP
-      value: "syfosoknad"
     - name: SNART_SLUTT_URL
       value: "https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene"

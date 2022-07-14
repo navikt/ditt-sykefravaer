@@ -93,6 +93,8 @@ module.exports = withPlugins(
             spinnsynBackendClientId: process.env.SPINNSYN_BACKEND_CLIENT_ID,
             sykmeldingerBackendClientId:
                 process.env.SYKMELDINGER_BACKEND_CLIENT_ID,
+            sykepengesoknadBackendClientId:
+                process.env.SYKEPENGESOKNAD_BACKEND_CLIENT_ID,
             narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
         },
         publicRuntimeConfig: {

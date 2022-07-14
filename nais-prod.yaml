@@ -36,6 +36,7 @@ spec:
     outbound:
       rules:
         - application: ditt-sykefravaer-backend
+        - application: sykepengesoknad-backend
         - application: spinnsyn-backend
         - application: sykmeldinger-backend
           namespace: teamsykmelding
@@ -78,8 +79,6 @@ spec:
       value: "true"
     - name: ASSET_PREFIX
       value: "https://flex-static-files.nav.no/sykefravaer"
-    - name: BACKEND_SOKNAD_APP
-      value: "sykepengesoknad-backend"
     - name: SNART_SLUTT_URL
       value: "https://www.nav.no/syk/info/snart-slutt-pa-sykepengene"
     - name: DITT_SYKEFRAVAER_BACKEND_CLIENT_ID
@@ -90,3 +89,5 @@ spec:
       value: "prod-gcp:teamsykmelding:sykmeldinger-backend"
     - name: NARMESTELEDER_CLIENT_ID
       value: "prod-gcp:teamsykmelding:narmesteleder"
+    - name: SYKEPENGESOKNAD_BACKEND_CLIENT_ID
+      value: "prod-gcp:flex:sykepengesoknad-backend"
