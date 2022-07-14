@@ -2,7 +2,6 @@ import dayjs from 'dayjs'
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
 import {
-    backendSoknadApp,
     flexGatewayRoot,
     isOpplaering,
     syfoApiRoot,
@@ -27,9 +26,8 @@ function setUpMock(persona: Persona) {
         res(ctx.json({ lukket: 'ok' }))
     )
 
-    mock.get(
-        `${flexGatewayRoot()}/${backendSoknadApp()}/api/soknader`,
-        (req, res, ctx) => res(ctx.json(persona.soknader))
+    mock.get('/syk/sykefravaer/api/v1/soknader', (req, res, ctx) =>
+        res(ctx.json(persona.soknader))
     )
 
     mock.get(

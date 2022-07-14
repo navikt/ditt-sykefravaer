@@ -58,10 +58,6 @@ export function dialogmoteUrl() {
     return publicRuntimeConfig.dialogmoteUrl
 }
 
-export function backendSoknadApp() {
-    return publicRuntimeConfig.backendSoknadApp
-}
-
 export function snartSluttUrl() {
     return publicRuntimeConfig.snartSluttUrl
 }
