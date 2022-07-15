@@ -32,7 +32,9 @@ class Fetch {
                         stack: error.stack,
                     })
                 } else {
-                    logger.warn({ ...error, message: 'Unnamed error occured' })
+                    logger.warn({
+                        message: `${error.name}: ${error.message} ved kall til ${url}`,
+                    })
                 }
                 throw new Error(
                     'Beklager! En uventet feil har oppstått. Sannsynligvis jobber vi med saken allerede, men ta kontakt med oss hvis det ikke har løst seg til i morgen.'
