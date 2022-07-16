@@ -27,13 +27,13 @@ class Fetch {
                 return await cb(await res.json())
             } catch (error: any) {
                 if (error instanceof TypeError) {
-                    logger.warn('oops', {
-                        message: `${error.name}: ${error.message}`,
+                    logger.warn({
+                        message: `${error.name}: ${error.message} ved GET ${url}`,
                         stack: error.stack,
                     })
                 } else {
                     logger.warn({
-                        message: `${error.name}: ${error.message} ved kall til ${url}`,
+                        message: `${error.name}: ${error.message} ved GET ${url}`,
                     })
                 }
                 throw new Error(
