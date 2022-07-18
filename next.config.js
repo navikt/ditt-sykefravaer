@@ -67,7 +67,7 @@ module.exports = withPlugins(
                     headers: cspHeader,
                 },
                 {
-                    source: '/:path*',
+                    source: '/api/:path*',
                     headers: [
                         {
                             key: 'Cache-Control',
