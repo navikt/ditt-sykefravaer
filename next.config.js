@@ -66,12 +66,20 @@ module.exports = withPlugins(
                     source: '/:path*',
                     headers: cspHeader,
                 },
+                {
+                    source: '/:path*',
+                    headers: [
+                        {
+                            key: 'Cache-Control',
+                            value: 'private, no-cache, no-store, max-age=0, must-revalidate',
+                        },
+                    ],
+                },
             ]
         },
         basePath: '/syk/sykefravaer',
         lessLoaderOptions: {},
         assetPrefix: process.env.ASSET_PREFIX || '',
-        generateEtags: false, //Disabler etag i pages
         serverRuntimeConfig: {
             // Will only be available on the server side
             decoratorEnv: process.env.DECORATOR_ENV,
