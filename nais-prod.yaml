@@ -29,9 +29,9 @@ spec:
       cpu: 200m
       memory: 100Mi
   liveness:
-    path: syk/sykefravaer/api/isAlive
+    path: syk/sykefravaer/api/internal/isAlive
   readiness:
-    path: syk/sykefravaer/api/isReady
+    path: syk/sykefravaer/api/internal/isReady
   accessPolicy:
     outbound:
       rules:

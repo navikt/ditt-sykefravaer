@@ -65,7 +65,7 @@ jobs:
           record: false
           config-file: cypress.config.ts
           start: npm run start-ingen-dekorator
-          wait-on: http://localhost:8080/syk/sykefravaer/api/isAlive
+          wait-on: http://localhost:8080/syk/sykefravaer/api/internal/isAlive
       - uses: actions/upload-artifact@v1
         if: ${{ always() }}
         with:
