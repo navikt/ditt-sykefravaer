@@ -13,7 +13,7 @@ spec:
   replicas:
     min: 2
     max: 3
-    cpuThresholdPercentage: 50
+    cpuThresholdPercentage: 20
   tokenx:
     enabled: true
   idporten:
@@ -27,11 +27,13 @@ spec:
       memory: 400Mi
     requests:
       cpu: 200m
-      memory: 100Mi
+      memory: 250Mi
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
+    initialDelay: 15
   readiness:
     path: syk/sykefravaer/api/internal/isReady
+    initialDelay: 15
   prometheus:
     enabled: true
     path: /syk/sykefravaer/api/internal/prometheus

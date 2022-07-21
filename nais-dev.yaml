@@ -30,8 +30,10 @@ spec:
       level: Level4
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
+    initialDelay: 15
   readiness:
     path: syk/sykefravaer/api/internal/isReady
+    initialDelay: 15
   prometheus:
     enabled: true
     path: /syk/sykefravaer/api/internal/prometheus
