@@ -28,7 +28,7 @@ class Fetch {
             } catch (error: any) {
                 if (error instanceof TypeError) {
                     logger.warn({
-                        message: `${error.name}: ${error.message} ved GET ${url}`,
+                        message: `${error.name}: ${error.message}. Status ${res.status} ved GET ${url}`,
                         stack: error.stack,
                     })
                 } else {
