@@ -23,11 +23,11 @@ spec:
       level: Level4
   resources:
     limits:
-      cpu: 400m
-      memory: 400Mi
+      cpu: 500m
+      memory: 500Mi
     requests:
-      cpu: 200m
-      memory: 250Mi
+      cpu: 400m
+      memory: 300Mi
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
     initialDelay: 15
