@@ -1,5 +1,5 @@
 import { Close } from '@navikt/ds-icons'
-import { Alert, Button, Heading, Link as Lenke } from '@navikt/ds-react'
+import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
@@ -77,7 +77,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
         <Alert variant={oppgave.type ?? 'info'}>
             <div className="oppgave-tekst">
                 {oppgave.opprettet && (
-                    <span>{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</span>
+                    <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>
                 )}
                 {oppgave.lenke && (
                     <Lenke
@@ -119,10 +119,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
                 Oppgaver
             </Heading>
             {oppgaver.map((v, idx) => (
-                <EnkeltOppgaveAlert
-                    oppgave={v}
-                    key={v.tekst}
-                ></EnkeltOppgaveAlert>
+                <EnkeltOppgaveAlert oppgave={v} key={v.tekst} />
             ))}
         </section>
     )
