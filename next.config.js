@@ -103,6 +103,8 @@ module.exports = withPlugins(
             sykepengesoknadBackendClientId:
                 process.env.SYKEPENGESOKNAD_BACKEND_CLIENT_ID,
             narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
+            isdialogmoteClientId: process.env.ISDIALOGMOTE_CLIENT_ID,
+            syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,
         },
         publicRuntimeConfig: {
             // Will be available on both server and client
