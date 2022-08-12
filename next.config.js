@@ -105,6 +105,7 @@ module.exports = withPlugins(
             narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
             isdialogmoteClientId: process.env.ISDIALOGMOTE_CLIENT_ID,
             syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,
+            syfomotebehovUrl: process.env.SYFOMOTEBEHOV_URL,
         },
         publicRuntimeConfig: {
             // Will be available on both server and client

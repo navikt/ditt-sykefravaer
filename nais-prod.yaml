@@ -103,4 +103,6 @@ spec:
     - name: ISDIALOGMOTE_CLIENT_ID
       value: "prod-gcp:teamsykefravr:isdialogmote"
     - name: SYFOMOTEBEHOV_CLIENT_ID
-      value: "54f7befe-1d6b-45de-a718-a47de79c4239"
+      value: "prod-fss:team-esyfo:syfomotebehov"
+    - name: SYFOMOTEBEHOV_URL
+      value: "https://syfomotebehov.prod-fss-pub.nais.io"

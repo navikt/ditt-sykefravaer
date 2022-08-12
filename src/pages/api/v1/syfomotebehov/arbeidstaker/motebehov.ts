@@ -9,7 +9,7 @@ const { serverRuntimeConfig } = getConfig()
 const handler = beskyttetApi(
     async (req: NextApiRequest, res: NextApiResponse) => {
         const motebehov = await tokenXProxy({
-            url: 'http://syfomotebehov.team-esyfo/api/v3/arbeidstaker/motebehov',
+            url: `${serverRuntimeConfig.syfomotebehovUrl}/syfomotebehov/api/v3/arbeidstaker/motebehov`,
             method: 'GET',
             req: req,
             clientId: serverRuntimeConfig.syfomotebehovClientId,
