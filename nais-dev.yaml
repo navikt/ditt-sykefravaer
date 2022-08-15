@@ -47,6 +47,10 @@ spec:
           namespace: teamsykmelding
         - application: narmesteleder
           namespace: teamsykmelding
+        - application: isdialogmote
+          namespace: teamsykefravr
+        - application: syfomotebehov
+          namespace: team-esyfo
   envFrom:
     - configmap: loginservice-idporten
   env:
@@ -96,3 +100,9 @@ spec:
       value: "dev-gcp:teamsykmelding:narmesteleder"
     - name: SYKEPENGESOKNAD_BACKEND_CLIENT_ID
       value: "dev-gcp:flex:sykepengesoknad-backend"
+    - name: ISDIALOGMOTE_CLIENT_ID
+      value: "dev-gcp:teamsykefravr:isdialogmote"
+    - name: SYFOMOTEBEHOV_CLIENT_ID
+      value: "dev-fss:team-esyfo:syfomotebehov"
+    - name: SYFOMOTEBEHOV_URL
+      value: "https://syfomotebehov.dev-fss-pub.nais.io"
