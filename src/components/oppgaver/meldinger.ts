@@ -14,6 +14,7 @@ export const skapMeldinger = (meldinger: Melding[] | undefined): Oppgave[] => {
             tekst: m.tekst,
             type: m.variant,
             lukkbar: m.lukkbar,
+            meldingType: m.meldingType,
             id: m.uuid,
             opprettet: dayjs(m.opprettet),
         }
