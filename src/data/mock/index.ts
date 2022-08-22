@@ -34,11 +34,9 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.oppfolgingsplaner))
     )
 
-    mock.get(`${flexGatewayRoot()}/isdialogmote/api/v1/arbeidstaker/brev`, (req, res, ctx) =>
-        res(ctx.json(persona.brev))
-    )
+    mock.get('/syk/sykefravaer/api/v1/isdialogmote/arbeidstaker/brev', (req, res, ctx) => res(ctx.json(persona.brev)))
 
-    mock.get(`${syfoApiRoot()}/syfomotebehov/api/v2/arbeidstaker/motebehov`, (req, res, ctx) =>
+    mock.get('/syk/sykefravaer/api/v1/syfomotebehov/arbeidstaker/motebehov', (req, res, ctx) =>
         res(ctx.json(persona.dialogmoteBehov))
     )
 
