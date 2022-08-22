@@ -23,7 +23,7 @@ export const mottattInntektsmelding = () => {
     person.meldinger = [
         {
             uuid: '123456y7',
-            tekst: 'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefravær f.o.m 15. mars 2022.',
+            tekst: 'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
             variant: 'success',
             meldingType: 'mottatt inntektsmelding',
             lukkbar: true,
