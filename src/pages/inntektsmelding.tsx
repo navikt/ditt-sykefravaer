@@ -44,47 +44,23 @@ const Inntektsmelding = () => {
                 </Heading>
 
                 <BodyLong spacing className="forklaring-bodylong">
-                    {parser(
-                        tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed')
-                    )}
+                    {parser(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
                 </BodyLong>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">
-                        {tekst(
-                            'inntektsmelding.soknaden-kan-ikke-behandles.tittel'
-                        )}
-                    </Heading>
-                    <BodyLong>
-                        {parser(
-                            tekst('inntektsmelding.soknaden-kan-ikke-behandles')
-                        )}
-                    </BodyLong>
+                    <Heading size="small">{tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}</Heading>
+                    <BodyLong>{parser(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">
-                        {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
-                    </Heading>
-                    <BodyLong spacing>
-                        {parser(tekst('inntekstmelding.hvorfor.varsler.vi1'))}
-                    </BodyLong>
-                    <BodyLong>
-                        {parser(tekst('inntekstmelding.hvorfor.varsler.vi2'))}
-                    </BodyLong>
+                    <Heading size="small">{tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}</Heading>
+                    <BodyLong spacing>{parser(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
+                    <BodyLong>{parser(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">
-                        {tekst(
-                            'inntektsmelding.hva-er-inntekysmeldingen-tittel'
-                        )}
-                    </Heading>
-                    <BodyLong>
-                        {tekst(
-                            'inntektsmelding.hva-er-inntekysmeldingen-forklaring'
-                        )}
-                    </BodyLong>
+                    <Heading size="small">{tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}</Heading>
+                    <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
                 </Panel>
 
                 <Link href="/">
@@ -95,13 +71,8 @@ const Inntektsmelding = () => {
                             router.push('/')
                         }}
                     >
-                        <Back
-                            style={{ marginBottom: '-4px' }}
-                            title={'Til ditt sykefravær'}
-                        />
-                        <BodyLong as="span">
-                            {tekst('sidetittel.liste')}
-                        </BodyLong>
+                        <Back style={{ marginBottom: '-4px' }} title={'Til ditt sykefravær'} />
+                        <BodyLong as="span">{tekst('sidetittel.liste')}</BodyLong>
                     </a>
                 </Link>
             </div>

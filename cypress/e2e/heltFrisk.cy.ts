@@ -10,9 +10,7 @@ describe('Tester helt frisk person', () => {
 
     it('Har veildertekst om papirsykmelding', () => {
         cy.contains('Du har ingen digital sykmelding.')
-        cy.contains(
-            'Har du fått sykmeldingen på papir, kan du vente noen dager, så vil du finne den her.'
-        )
+        cy.contains('Har du fått sykmeldingen på papir, kan du vente noen dager, så vil du finne den her.')
         cy.get('.navds-guide-panel__content > a').should(
             'have.attr',
             'href',

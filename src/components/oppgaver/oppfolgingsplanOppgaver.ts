@@ -15,10 +15,7 @@ const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (
             return (
                 oppfolgingsdialog.virksomhet.virksomhetsnummer ===
                     sykmelding.sykmeldingStatus.arbeidsgiver?.orgnummer &&
-                erSykmeldingGyldigForOppfolgingMedGrensedato(
-                    sykmelding,
-                    dagensDato
-                )
+                erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato)
             )
         }).length > 0
     )
@@ -34,43 +31,29 @@ const idAlleredeFunnet = (planer: Oppfolgingsplan[], id: number) => {
 
 const finnNyesteGodkjenning = (godkjenninger: Godkjenning[]) => {
     return godkjenninger.sort((g1, g2) => {
-        return (
-            new Date(g2.godkjenningsTidspunkt).getTime() -
-            new Date(g1.godkjenningsTidspunkt).getTime()
-        )
+        return new Date(g2.godkjenningsTidspunkt).getTime() - new Date(g1.godkjenningsTidspunkt).getTime()
     })[0]
 }
 
-const prosseserPlaner = (
-    oppfolgingsdialoger: Oppfolgingsplan[],
-    sykmeldinger: Sykmelding[]
-) => {
-    const oppfolgingdialogerKnyttetTilGyldigSykmelding =
-        oppfolgingsdialoger.filter((plan) => {
-            return erOppfolgingsdialogKnyttetTilGyldigSykmelding(
-                plan,
-                sykmeldinger
-            )
-        })
-    const avventendeGodkjenninger =
-        oppfolgingdialogerKnyttetTilGyldigSykmelding.filter((plan) => {
-            return (
-                plan.godkjenninger.length > 0 &&
-                plan.arbeidstaker.fnr !==
-                    finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr &&
-                finnNyesteGodkjenning(plan.godkjenninger).godkjent
-            )
-        })
-    const nyePlaner = oppfolgingdialogerKnyttetTilGyldigSykmelding.filter(
-        (plan) => {
-            return (
-                plan.arbeidstaker.sistInnlogget === null &&
-                plan.status === 'UNDER_ARBEID' &&
-                plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr &&
-                !idAlleredeFunnet(avventendeGodkjenninger, plan.id)
-            )
-        }
-    )
+const prosseserPlaner = (oppfolgingsdialoger: Oppfolgingsplan[], sykmeldinger: Sykmelding[]) => {
+    const oppfolgingdialogerKnyttetTilGyldigSykmelding = oppfolgingsdialoger.filter((plan) => {
+        return erOppfolgingsdialogKnyttetTilGyldigSykmelding(plan, sykmeldinger)
+    })
+    const avventendeGodkjenninger = oppfolgingdialogerKnyttetTilGyldigSykmelding.filter((plan) => {
+        return (
+            plan.godkjenninger.length > 0 &&
+            plan.arbeidstaker.fnr !== finnNyesteGodkjenning(plan.godkjenninger).godkjentAv.fnr &&
+            finnNyesteGodkjenning(plan.godkjenninger).godkjent
+        )
+    })
+    const nyePlaner = oppfolgingdialogerKnyttetTilGyldigSykmelding.filter((plan) => {
+        return (
+            plan.arbeidstaker.sistInnlogget === null &&
+            plan.status === 'UNDER_ARBEID' &&
+            plan.sistEndretAv.fnr !== plan.arbeidstaker.fnr &&
+            !idAlleredeFunnet(avventendeGodkjenninger, plan.id)
+        )
+    })
 
     return {
         nyePlaner: nyePlaner.length,
@@ -97,9 +80,7 @@ export const skapOppfolgingsplanOppgaver = (
     }
 
     if (planer.nyePlaner === 1) {
-        leggTilOppgave(
-            tekst('oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall')
-        )
+        leggTilOppgave(tekst('oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall'))
     }
     if (planer.nyePlaner > 1) {
         leggTilOppgave(
@@ -109,18 +90,13 @@ export const skapOppfolgingsplanOppgaver = (
         )
     }
     if (planer.avventendeGodkjenninger === 1) {
-        leggTilOppgave(
-            tekst('oppgaver.oppfoelgingsplan.avventendegodkjenninger.entall')
-        )
+        leggTilOppgave(tekst('oppgaver.oppfoelgingsplan.avventendegodkjenninger.entall'))
     }
     if (planer.avventendeGodkjenninger > 1) {
         leggTilOppgave(
-            tekst(
-                'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall',
-                {
-                    '%ANTALL%': tallTilSpråk(planer.avventendeGodkjenninger),
-                }
-            )
+            tekst('oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall', {
+                '%ANTALL%': tallTilSpråk(planer.avventendeGodkjenninger),
+            })
         )
     }
     return oppgaver

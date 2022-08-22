@@ -3,23 +3,15 @@ import { NextPageContext } from 'next'
 
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
-import {
-    isMockBackend,
-    loginServiceRedirectUrl,
-    loginServiceUrl,
-} from '../utils/environment'
+import { isMockBackend, loginServiceRedirectUrl, loginServiceUrl } from '../utils/environment'
 import { logger } from '../utils/logger'
 import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 import { validerLoginserviceToken } from './verifyLoginserviceAccessToken'
 
-type PageHandler = (
-    context: NextPageContext
-) => void | Promise<GetServerSidePropsPrefetchResult>
+type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePropsPrefetchResult>
 
 function beskyttetSide(handler: PageHandler) {
-    return async function withBearerTokenHandler(
-        context: NextPageContext
-    ): Promise<ReturnType<typeof handler>> {
+    return async function withBearerTokenHandler(context: NextPageContext): Promise<ReturnType<typeof handler>> {
         if (isMockBackend()) {
             return handler(context)
         }
@@ -27,9 +19,7 @@ function beskyttetSide(handler: PageHandler) {
         const request = context.req
 
         if (request == null) {
-            throw new Error(
-                'Context is missing request. This should not happen'
-            )
+            throw new Error('Context is missing request. This should not happen')
         }
         const cleanPath = cleanPathForMetric(request.url)
         if (shouldLogMetricForPath(cleanPath)) {
@@ -64,8 +54,7 @@ function beskyttetSide(handler: PageHandler) {
                 permanent: false,
             },
         }
-        const bearerToken: string | null | undefined =
-            request.headers['authorization']
+        const bearerToken: string | null | undefined = request.headers['authorization']
         if (!bearerToken) {
             if (shouldLogMetricForPath(cleanPath)) {
                 metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
@@ -85,10 +74,8 @@ function beskyttetSide(handler: PageHandler) {
     }
 }
 
-export const beskyttetSideUtenProps = beskyttetSide(
-    async (ctx): Promise<GetServerSidePropsPrefetchResult> => {
-        return {
-            props: {},
-        }
+export const beskyttetSideUtenProps = beskyttetSide(async (ctx): Promise<GetServerSidePropsPrefetchResult> => {
+    return {
+        props: {},
     }
-)
+})

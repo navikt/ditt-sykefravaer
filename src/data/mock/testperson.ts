@@ -1,7 +1,4 @@
-import {
-    manglerInntektsmelding,
-    mottattInntektsmelding,
-} from './data/inntektsmeldingTestPersoner'
+import { manglerInntektsmelding, mottattInntektsmelding } from './data/inntektsmeldingTestPersoner'
 import {
     enNyOppfolgingsplan,
     enNyTilGodkjenning,
@@ -9,12 +6,7 @@ import {
     toTilGodkjenning,
 } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
-import {
-    commonPersona,
-    defaultPersona,
-    enAvvistSykmelding,
-    enNySykmelding,
-} from './data/personas'
+import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding } from './data/personas'
 import { snartSlutt } from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {

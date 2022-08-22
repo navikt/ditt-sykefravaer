@@ -80,10 +80,7 @@ const QueryStatusPanel = () => {
                 render={() => (
                     <Alert variant="warning" className="query-status-error">
                         <strong>Ai ai ai!</strong>
-                        <span>
-                            {' '}
-                            Vi har problemer med noen av baksystemene nå.{' '}
-                        </span>
+                        <span> Vi har problemer med noen av baksystemene nå. </span>
                         <ul>
                             {errorQueries.map((e, idx) => (
                                 <li key={idx}>{e.message}</li>

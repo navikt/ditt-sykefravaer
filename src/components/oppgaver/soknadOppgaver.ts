@@ -4,21 +4,14 @@ import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
-export const skapSøknadOppgaver = (
-    soknader: Soknad[] | undefined,
-    sykepengesoknadUrl: string
-): Oppgave[] => {
+export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesoknadUrl: string): Oppgave[] => {
     if (!soknader) {
         return []
     }
 
-    const søknaderTilUtfylling = (s: Soknad) =>
-        s.status === 'NY' || s.status === 'UTKAST_TIL_KORRIGERING'
+    const søknaderTilUtfylling = (s: Soknad) => s.status === 'NY' || s.status === 'UTKAST_TIL_KORRIGERING'
 
-    const skapSykepengesoknadOppgaver = (
-        soknader: Soknad[],
-        sykepengesoknadUrl: string
-    ): Oppgave[] => {
+    const skapSykepengesoknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
         const vanligeSoknader: Soknadstype[] = [
             'ARBEIDSTAKERE',
             'ARBEIDSLEDIG',
@@ -27,9 +20,7 @@ export const skapSøknadOppgaver = (
             'SELVSTENDIGE_OG_FRILANSERE',
         ]
 
-        const soknadene = soknader
-            .filter(søknaderTilUtfylling)
-            .filter((s) => vanligeSoknader.includes(s.soknadstype))
+        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => vanligeSoknader.includes(s.soknadstype))
 
         if (soknadene.length === 0) {
             return []
@@ -54,13 +45,8 @@ export const skapSøknadOppgaver = (
         ]
     }
 
-    const skapReisetilskuddOppgaver = (
-        soknader: Soknad[],
-        sykepengesoknadUrl: string
-    ): Oppgave[] => {
-        const soknadene = soknader
-            .filter(søknaderTilUtfylling)
-            .filter((s) => s.soknadstype === 'REISETILSKUDD')
+    const skapReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => s.soknadstype === 'REISETILSKUDD')
 
         if (soknadene.length === 0) {
             return []
@@ -85,13 +71,8 @@ export const skapSøknadOppgaver = (
         ]
     }
 
-    const skapGraderteReisetilskuddOppgaver = (
-        soknader: Soknad[],
-        sykepengesoknadUrl: string
-    ): Oppgave[] => {
-        const soknadene = soknader
-            .filter(søknaderTilUtfylling)
-            .filter((s) => s.soknadstype === 'GRADERT_REISETILSKUDD')
+    const skapGraderteReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
+        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => s.soknadstype === 'GRADERT_REISETILSKUDD')
 
         if (soknadene.length === 0) {
             return []

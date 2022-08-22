@@ -1,12 +1,7 @@
 import dayjs from 'dayjs'
 
 import { brev } from './brev'
-import {
-    avbrutt,
-    avventendeUnderArbeid,
-    nyUnderArbeid,
-    utdatert,
-} from './oppfolgingsplaner'
+import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
 import { nySykmelding, sendtSykmelding } from './sykmeldinger'
@@ -69,12 +64,7 @@ export const defaultPersona: Persona = {
     soknader: soknader,
     meldinger: [],
     vedtak: [vedtakMed100Grad],
-    oppfolgingsplaner: [
-        nyUnderArbeid,
-        utdatert,
-        avbrutt,
-        avventendeUnderArbeid,
-    ],
+    oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [
         sendtSykmelding,

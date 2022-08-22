@@ -12,12 +12,7 @@ const csp = {
         'https://nav.psplugin.com',
         'https://ta-survey-v2.herokuapp.com',
     ],
-    'img-src': [
-        "'self'",
-        'data:',
-        'https://*.nav.no',
-        'https://www.google-analytics.com',
-    ],
+    'img-src': ["'self'", 'data:', 'https://*.nav.no', 'https://www.google-analytics.com'],
     'font-src': ["'self'", 'data:', 'https://*.psplugin.com'],
     'frame-src': ["'self'", 'data:', 'https://vars.hotjar.com'],
     'worker-src': ['blob:', '*.nais.io'],
@@ -86,22 +81,17 @@ module.exports = withPlugins(
             noDecorator: process.env.NO_DECORATOR,
             loginserviceUrl: process.env.LOGINSERVICE_URL,
             loginServiceRedirectUrl: process.env.LOGINSERVICE_REDIRECT_URL,
-            loginserviceIdportenDiscoveryUrl:
-                process.env.LOGINSERVICE_IDPORTEN_DISCOVERY_URL,
-            loginserviceIdportenAudience:
-                process.env.LOGINSERVICE_IDPORTEN_AUDIENCE,
+            loginserviceIdportenDiscoveryUrl: process.env.LOGINSERVICE_IDPORTEN_DISCOVERY_URL,
+            loginserviceIdportenAudience: process.env.LOGINSERVICE_IDPORTEN_AUDIENCE,
             tokenXWellKnownUrl: process.env.TOKEN_X_WELL_KNOWN_URL,
             tokenXPrivateJwk: process.env.TOKEN_X_PRIVATE_JWK,
             tokenXClientId: process.env.TOKEN_X_CLIENT_ID,
             idportenClientId: process.env.IDPORTEN_CLIENT_ID,
             idportenWellKnownUrl: process.env.IDPORTEN_WELL_KNOWN_URL,
-            dittSykefravaerBackendClientId:
-                process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
+            dittSykefravaerBackendClientId: process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
             spinnsynBackendClientId: process.env.SPINNSYN_BACKEND_CLIENT_ID,
-            sykmeldingerBackendClientId:
-                process.env.SYKMELDINGER_BACKEND_CLIENT_ID,
-            sykepengesoknadBackendClientId:
-                process.env.SYKEPENGESOKNAD_BACKEND_CLIENT_ID,
+            sykmeldingerBackendClientId: process.env.SYKMELDINGER_BACKEND_CLIENT_ID,
+            sykepengesoknadBackendClientId: process.env.SYKEPENGESOKNAD_BACKEND_CLIENT_ID,
             narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
             isdialogmoteClientId: process.env.ISDIALOGMOTE_CLIENT_ID,
             syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,

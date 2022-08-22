@@ -26,21 +26,10 @@ const Lenker = () => {
 
     useEffect(() => {
         const anyLenker = () =>
-            [
-                arbeidsrettetOppfolging,
-                vedtak,
-                sykmeldinger,
-                soknader,
-                oppfolgingsplaner,
-            ].find((data) => data) !== undefined
+            [arbeidsrettetOppfolging, vedtak, sykmeldinger, soknader, oppfolgingsplaner].find((data) => data) !==
+            undefined
         setLenker(anyLenker())
-    }, [
-        arbeidsrettetOppfolging,
-        oppfolgingsplaner,
-        soknader,
-        sykmeldinger,
-        vedtak,
-    ])
+    }, [arbeidsrettetOppfolging, oppfolgingsplaner, soknader, sykmeldinger, vedtak])
 
     return (
         <Vis
@@ -50,31 +39,16 @@ const Lenker = () => {
                     <Heading size="medium" level="2" className="hide-element">
                         Lenker
                     </Heading>
-                    <Vis
-                        hvis={sykmeldinger && sykmeldinger.length > 0}
-                        render={() => <SykmeldingLenkepanel />}
-                    />
+                    <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
+
+                    <Vis hvis={soknader && soknader.length > 0} render={() => <SoknadLenkepanel />} />
+
+                    <Vis hvis={vedtak && vedtak.length > 0} render={() => <UtbetalingAvSykepengerLenkepanel />} />
+
+                    <Vis hvis={arbeidsrettetOppfolging?.underOppfolging} render={() => <Aktivitetsplan />} />
 
                     <Vis
-                        hvis={soknader && soknader.length > 0}
-                        render={() => <SoknadLenkepanel />}
-                    />
-
-                    <Vis
-                        hvis={vedtak && vedtak.length > 0}
-                        render={() => <UtbetalingAvSykepengerLenkepanel />}
-                    />
-
-                    <Vis
-                        hvis={arbeidsrettetOppfolging?.underOppfolging}
-                        render={() => <Aktivitetsplan />}
-                    />
-
-                    <Vis
-                        hvis={skalViseOppfoelgingsplanLenke(
-                            sykmeldinger,
-                            oppfolgingsplaner
-                        )}
+                        hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
                         render={() => <Oppfolgingsplan />}
                     />
                     <DialogmoteLenke />

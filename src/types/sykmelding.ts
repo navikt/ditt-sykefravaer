@@ -20,12 +20,7 @@ export interface SporsmalOgSvar {
         svar: string
         svarType: 'ARBEIDSSITUASJON' | 'PERIODER' | 'JA_NEI'
     }
-    shortName?:
-        | 'ARBEIDSSITUASJON'
-        | 'NY_NARMESTE_LEDER'
-        | 'FRAVAER'
-        | 'PERIODE'
-        | 'FORSIKRING'
+    shortName?: 'ARBEIDSSITUASJON' | 'NY_NARMESTE_LEDER' | 'FRAVAER' | 'PERIODE' | 'FORSIKRING'
 }
 
 export interface Periode {

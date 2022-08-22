@@ -1,16 +1,6 @@
 {
-    "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "eslint:recommended",
-        "plugin:react/recommended"
-    ],
-    "plugins": [
-        "react",
-        "@typescript-eslint",
-        "simple-import-sort",
-        "react-hooks",
-        "prettier"
-    ],
+    "extends": ["plugin:@typescript-eslint/recommended", "eslint:recommended", "plugin:react/recommended"],
+    "plugins": ["react", "@typescript-eslint", "simple-import-sort", "react-hooks", "prettier"],
     "env": {
         "browser": true,
         "jest": true,

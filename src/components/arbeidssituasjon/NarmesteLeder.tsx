@@ -11,10 +11,7 @@ interface NaermesteLederContainerProps {
     orgNavn?: string
 }
 
-const NarmesteLeder = ({
-    orgnummer,
-    orgNavn,
-}: NaermesteLederContainerProps) => {
+const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
     const [open, setOpen] = useState<boolean>(false)
 
@@ -45,12 +42,7 @@ const NarmesteLeder = ({
                         <button className="lenke" onClick={() => toggleOpen()}>
                             <BodyShort as="span">Meld fra om endring</BodyShort>
                         </button>
-                        <BekreftFeilLeder
-                            open={open}
-                            toggle={toggleOpen}
-                            narmesteLeder={leder}
-                            orgNavn={orgNavn}
-                        />
+                        <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
                     </div>
                     <Vis
                         hvis={leder.arbeidsgiverForskutterer !== null}
@@ -68,26 +60,10 @@ const NarmesteLeder = ({
                                 </BodyShort>
 
                                 <HelpText>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst1'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst2'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst3'
-                                        )}
-                                    </BodyLong>
-                                    <BodyLong>
-                                        {tekst(
-                                            'din-situasjon.forskuttering.hjelpetekst.tekst4'
-                                        )}
-                                    </BodyLong>
+                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</BodyLong>
+                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</BodyLong>
+                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</BodyLong>
+                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</BodyLong>
                                 </HelpText>
                             </div>
                         )}

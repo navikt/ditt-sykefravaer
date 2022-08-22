@@ -5,11 +5,8 @@ import Fetch from '../utils/fetch'
 
 export default function Use39ukersvarsel() {
     return useQuery<boolean, Error>('39ukersvarsel', () =>
-        Fetch.authenticatedGet(
-            `${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`,
-            async (data) => {
-                return data as boolean
-            }
-        )
+        Fetch.authenticatedGet(`${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`, async (data) => {
+            return data as boolean
+        })
     )
 }

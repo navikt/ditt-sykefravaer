@@ -24,10 +24,7 @@ export const tokenXProxy = async (opts: Opts) => {
     })
 
     if (response.status != 200) {
-        throw new ErrorMedStatus(
-            `Ikke 200 svar fra ${opts.url}, men ${response.status}`,
-            500
-        )
+        throw new ErrorMedStatus(`Ikke 200 svar fra ${opts.url}, men ${response.status}`, 500)
     }
     if (opts.noResponse) {
         return

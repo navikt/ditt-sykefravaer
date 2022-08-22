@@ -29,8 +29,7 @@ const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
 }
 
 const BrodsmuleBit = ({ sti, tittel, erKlikkbar }: Brodsmule) => {
-    const erEkstern =
-        sti && (sti.startsWith('https://') || sti.startsWith('http://'))
+    const erEkstern = sti && (sti.startsWith('https://') || sti.startsWith('http://'))
     const router = useRouter()
 
     const klikker = (e: any, sti: string) => {
@@ -87,9 +86,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
         window.addEventListener('resize', () => {
             setSkjerm(window.innerWidth)
         })
-        setSynlige(
-            skjerm! <= LITEN ? [brodsmuler[brodsmuler.length - 1]] : brodsmuler
-        )
+        setSynlige(skjerm! <= LITEN ? [brodsmuler[brodsmuler.length - 1]] : brodsmuler)
         // eslint-disable-next-line
     }, [skjerm])
 
@@ -135,9 +132,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                                 tittel={
                                     skjerm! <= LITEN &&
                                     smule.mobilTittel &&
-                                    !smulesti.current?.classList.contains(
-                                        'apen'
-                                    )
+                                    !smulesti.current?.classList.contains('apen')
                                         ? smule.mobilTittel
                                         : smule.tittel
                                 }
@@ -148,9 +143,7 @@ const Brodsmuler = ({ brodsmuler }: BrodsmulerProps) => {
                 </BodyShort>
                 <button
                     aria-label={
-                        synlige.length === brodsmuler.length
-                            ? 'Vis redusert brødsmulesti'
-                            : 'Vis hele brødsmulestien'
+                        synlige.length === brodsmuler.length ? 'Vis redusert brødsmulesti' : 'Vis hele brødsmulestien'
                     }
                     className="js-toggle"
                     onClick={toggleSynlige}

@@ -18,12 +18,7 @@ const Person = () => {
 
     return (
         <>
-            <img
-                src="/syk/sykefravaer/static/person.svg"
-                alt="Du"
-                className="brodsmuler__ikon"
-                ref={person}
-            />
+            <img src="/syk/sykefravaer/static/person.svg" alt="Du" className="brodsmuler__ikon" ref={person} />
             <Vis
                 hvis={kanVelgePerson && visInnhold}
                 render={() => (

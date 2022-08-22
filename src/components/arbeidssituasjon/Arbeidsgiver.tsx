@@ -18,8 +18,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
     useEffect(() => {
         const orgNavn = sykmeldinger!.find(
             (syk) =>
-                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
-                syk.sykmeldingStatus.arbeidsgiver?.orgNavn
+                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer && syk.sykmeldingStatus.arbeidsgiver?.orgNavn
         )?.sykmeldingStatus.arbeidsgiver?.orgNavn
         setNavn(orgNavn!)
         setMeldinger(sykmeldinger!)

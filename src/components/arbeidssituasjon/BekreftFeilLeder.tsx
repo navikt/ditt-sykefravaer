@@ -1,11 +1,4 @@
-import {
-    Alert,
-    BodyLong,
-    BodyShort,
-    Button,
-    Heading,
-    Modal,
-} from '@navikt/ds-react'
+import { Alert, BodyLong, BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
 import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../query-hooks/useAvkreftNarmesteLeder'
@@ -19,46 +12,22 @@ interface BekreftFeilLederProps {
     orgNavn: string
 }
 
-const BekreftFeilLeder = ({
-    open,
-    toggle,
-    narmesteLeder,
-    orgNavn,
-}: BekreftFeilLederProps) => {
-    const {
-        mutate: avkreft,
-        isIdle,
-        isLoading,
-        isSuccess,
-        isError,
-    } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
+    const { mutate: avkreft, isIdle, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
-        <Modal
-            open={open}
-            closeButton={true}
-            onClose={toggle}
-            aria-label="Endre nærmeste leder"
-        >
+        <Modal open={open} closeButton={true} onClose={toggle} aria-label="Endre nærmeste leder">
             <Modal.Content>
                 <Heading spacing size="small" level="1">
                     Endre nærmeste leder
                 </Heading>
 
-                <Vis
-                    hvis={isSuccess}
-                    render={() => (
-                        <BodyShort>Takk for oppdateringen!</BodyShort>
-                    )}
-                />
+                <Vis hvis={isSuccess} render={() => <BodyShort>Takk for oppdateringen!</BodyShort>} />
 
                 <Vis
                     hvis={isError}
                     render={() => (
-                        <Alert variant="error">
-                            Beklager, det oppstod en feil! Vennligst prøv igjen
-                            senere.
-                        </Alert>
+                        <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>
                     )}
                 />
 
@@ -67,14 +36,12 @@ const BekreftFeilLeder = ({
                     render={() => (
                         <>
                             <BodyLong spacing>
-                                Er du sikker på at du vil fjerne{' '}
-                                <strong>{narmesteLeder.navn}</strong> som din
-                                nærmeste leder i <strong>{orgNavn}</strong>?
+                                Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
+                                leder i <strong>{orgNavn}</strong>?
                             </BodyLong>
                             <BodyLong spacing>
-                                Hvis du er usikker på om navnet er riktig, bør
-                                du spørre arbeidsgiveren din om hvorfor de har
-                                valgt det.
+                                Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
+                                de har valgt det.
                             </BodyLong>
 
                             <div className="knapperad">

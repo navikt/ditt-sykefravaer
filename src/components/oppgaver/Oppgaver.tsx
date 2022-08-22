@@ -1,11 +1,5 @@
 import { Close } from '@navikt/ds-icons'
-import {
-    Alert,
-    BodyShort,
-    Button,
-    Heading,
-    Link as Lenke,
-} from '@navikt/ds-react'
+import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
@@ -67,9 +61,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                     komponent: 'ditt sykefravær oppgave',
                 })
                 if (oppgave.id) {
-                    Fetch.authenticatedPost(
-                        `/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`
-                    ).catch((e) =>
+                    Fetch.authenticatedPost(`/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`).catch((e) =>
                         logger.warn('Feil ved merking av melding som lest', e)
                     )
                 }
@@ -82,11 +74,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
     return (
         <Alert variant={oppgave.type ?? 'info'}>
             <div className="oppgave-tekst">
-                {oppgave.opprettet && (
-                    <BodyShort as="span">
-                        {oppgave.opprettet.format('DD.MM.YYYY:') + ' '}
-                    </BodyShort>
-                )}
+                {oppgave.opprettet && <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>}
                 {oppgave.lenke && (
                     <Lenke
                         href={oppgave.lenke}
@@ -94,8 +82,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                             e.preventDefault()
                             logEvent('navigere', {
                                 destinasjon: oppgave.lenke!,
-                                lenketekst:
-                                    oppgave.meldingType ?? oppgave.tekst,
+                                lenketekst: oppgave.meldingType ?? oppgave.tekst,
                                 variant: oppgave.type ?? 'info',
                                 komponent: 'ditt sykefravær oppgave',
                             })
@@ -145,14 +132,8 @@ function Oppgaver() {
     const { data: brev } = useBrev()
 
     function hentOppgaver() {
-        const soknadOppgaver = skapSøknadOppgaver(
-            soknader,
-            sykepengesoknadUrl()
-        )
-        const sykmeldingOppgaver = skapSykmeldingoppgaver(
-            sykmeldinger,
-            sykmeldingUrl()
-        )
+        const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
+        const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
         const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(
             oppfolgingsplaner,
             sykmeldinger,

@@ -2,9 +2,7 @@ import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { Sykmelding } from '../../types/sykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
 
-const sykmeldtHarGyldigSykmelding = (
-    sykmeldinger: Sykmelding[] | undefined
-): boolean => {
+const sykmeldtHarGyldigSykmelding = (sykmeldinger: Sykmelding[] | undefined): boolean => {
     const tomGrenseDato = new Date()
     if (!sykmeldinger) {
         return false
@@ -12,22 +10,15 @@ const sykmeldtHarGyldigSykmelding = (
     return (
         sykmeldinger
             .filter((sykmelding) => {
-                return (
-                    sykmelding.sykmeldingStatus.arbeidsgiver?.orgnummer !== null
-                )
+                return sykmelding.sykmeldingStatus.arbeidsgiver?.orgnummer !== null
             })
             .filter((sykmelding) => {
-                return erSykmeldingGyldigForOppfolgingMedGrensedato(
-                    sykmelding,
-                    tomGrenseDato
-                )
+                return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato)
             }).length > 0
     )
 }
 
-const sykmeldtHarOppfolgingsplan = (
-    oppfolgingsplaner: Oppfolgingsplan[] | undefined
-): boolean => {
+const sykmeldtHarOppfolgingsplan = (oppfolgingsplaner: Oppfolgingsplan[] | undefined): boolean => {
     if (!oppfolgingsplaner) {
         return false
     }
@@ -38,8 +29,5 @@ export const skalViseOppfoelgingsplanLenke = (
     sykmeldinger: Sykmelding[] | undefined,
     oppfolgingsplaner: Oppfolgingsplan[] | undefined
 ): boolean => {
-    return (
-        sykmeldtHarGyldigSykmelding(sykmeldinger) ||
-        sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
-    )
+    return sykmeldtHarGyldigSykmelding(sykmeldinger) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
 }

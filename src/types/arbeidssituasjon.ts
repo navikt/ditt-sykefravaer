@@ -1,6 +1,1 @@
-export type ArbeidssituasjonType =
-    | 'NAERINGSDRIVENDE'
-    | 'FRILANSER'
-    | 'ARBEIDSTAKER'
-    | 'ARBEIDSLEDIG'
-    | 'ANNET'
+export type ArbeidssituasjonType = 'NAERINGSDRIVENDE' | 'FRILANSER' | 'ARBEIDSTAKER' | 'ARBEIDSLEDIG' | 'ANNET'

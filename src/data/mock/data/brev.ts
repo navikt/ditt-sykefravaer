@@ -43,13 +43,7 @@ const documenter = [
     },
     {
         type: 'PARAGRAPH',
-        texts: [
-            'Med hilsen',
-            'NAV Staden',
-            'Kari Saksbehandler',
-            'kari@nav.no',
-            '99998888',
-        ],
+        texts: ['Med hilsen', 'NAV Staden', 'Kari Saksbehandler', 'kari@nav.no', '99998888'],
     },
 ]
 

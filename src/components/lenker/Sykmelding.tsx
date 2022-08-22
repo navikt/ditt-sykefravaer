@@ -6,13 +6,7 @@ import { FellesLenkepanel } from './FellesLenkepanel'
 
 const SykmeldingLenkepanel = () => {
     const ikon = (
-        <svg
-            width="40"
-            height="41"
-            viewBox="0 0 40 41"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        >
+        <svg width="40" height="41" viewBox="0 0 40 41" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
                 fillRule="evenodd"
                 clipRule="evenodd"
@@ -22,13 +16,7 @@ const SykmeldingLenkepanel = () => {
         </svg>
     )
 
-    return (
-        <FellesLenkepanel
-            ikon={ikon}
-            url={sykmeldingUrl()}
-            tekst={tekst('lenker.sykmelding')}
-        />
-    )
+    return <FellesLenkepanel ikon={ikon} url={sykmeldingUrl()} tekst={tekst('lenker.sykmelding')} />
 }
 
 export default SykmeldingLenkepanel

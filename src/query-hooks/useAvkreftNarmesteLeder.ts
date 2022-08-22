@@ -6,16 +6,10 @@ export default function UseAvkreftNarmesteLeder(org: string) {
     const queryClient = useQueryClient()
 
     return useMutation<unknown, Error>(
-        () =>
-            Fetch.authenticatedPost(
-                `/syk/sykefravaer/api/v1/narmesteledere/${org}/avkreft`
-            ),
+        () => Fetch.authenticatedPost(`/syk/sykefravaer/api/v1/narmesteledere/${org}/avkreft`),
         {
             onSuccess: () => {
-                setTimeout(
-                    () => queryClient.invalidateQueries('narmesteledere'),
-                    200
-                )
+                setTimeout(() => queryClient.invalidateQueries('narmesteledere'), 200)
             },
         }
     )

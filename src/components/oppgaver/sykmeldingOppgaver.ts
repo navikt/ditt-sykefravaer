@@ -19,35 +19,21 @@ function hentSykmeldingSluttdato(sykmelding: Sykmelding) {
     return dayjs(tom)
 }
 
-export const skapSykmeldingoppgaver = (
-    sykmeldinger: Sykmelding[] | undefined,
-    sykmeldingUrl: string
-): Oppgave[] => {
+export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
     if (!sykmeldinger) {
         return []
     }
 
     function erGammelSykmelding(sykmelding: Sykmelding) {
-        return hentSykmeldingSluttdato(sykmelding).isBefore(
-            dayjs().subtract(3, 'months')
-        )
+        return hentSykmeldingSluttdato(sykmelding).isBefore(dayjs().subtract(3, 'months'))
     }
 
-    const ikkeGamleSykmeldinger = sykmeldinger.filter(
-        (s) => !erGammelSykmelding(s)
-    )
+    const ikkeGamleSykmeldinger = sykmeldinger.filter((s) => !erGammelSykmelding(s))
 
-    const skapVanligeOppgaver = (
-        sykmeldinger: Sykmelding[],
-        sykmeldingUrl: string
-    ): Oppgave[] => {
+    const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
-            .filter(
-                (s) =>
-                    s.behandlingsutfall.status === 'OK' ||
-                    s.behandlingsutfall.status === 'MANUAL_PROCESSING'
-            )
+            .filter((s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status === 'MANUAL_PROCESSING')
 
         if (sykmeldingene.length === 0) {
             return []
@@ -72,10 +58,7 @@ export const skapSykmeldingoppgaver = (
         ]
     }
 
-    const skapAvvisteOppgaver = (
-        sykmeldinger: Sykmelding[],
-        sykmeldingUrl: string
-    ): Oppgave[] => {
+    const skapAvvisteOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'INVALID')
@@ -95,12 +78,9 @@ export const skapSykmeldingoppgaver = (
 
         return [
             {
-                tekst: tekst(
-                    'oppgaver.sykmeldinger.flere-avviste-sykmeldinger',
-                    {
-                        '%ANTALL%': tallTilSpråk(sykmeldingene.length),
-                    }
-                ),
+                tekst: tekst('oppgaver.sykmeldinger.flere-avviste-sykmeldinger', {
+                    '%ANTALL%': tallTilSpråk(sykmeldingene.length),
+                }),
                 lenke: sykmeldingUrl,
             },
         ]

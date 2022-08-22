@@ -13,9 +13,5 @@ export const IngenSykmelding = () => {
         return null
     }
 
-    return (
-        <GuidePanel illustration={veileder}>
-            {parser(tekst('ingen.sykmelding'))}
-        </GuidePanel>
-    )
+    return <GuidePanel illustration={veileder}>{parser(tekst('ingen.sykmelding'))}</GuidePanel>
 }

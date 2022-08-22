@@ -2,10 +2,7 @@ import { Brev, BrevType } from '../../types/brev'
 import { tekst } from '../../utils/tekster'
 import { Oppgave } from './oppgaveTyper'
 
-export const skapBrevOppgaver = (
-    brev: Brev[] | undefined,
-    lenke: string
-): Oppgave[] => {
+export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppgave[] => {
     const oppgaver: Oppgave[] = []
     if (!brev) return []
     const nyesteUlestBrev = !brev[0]?.lestDato ? brev[0] : null

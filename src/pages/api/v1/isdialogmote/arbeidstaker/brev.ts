@@ -6,17 +6,15 @@ import { tokenXProxy } from '../../../../../auth/tokenXProxy'
 
 const { serverRuntimeConfig } = getConfig()
 
-const handler = beskyttetApi(
-    async (req: NextApiRequest, res: NextApiResponse) => {
-        const brev = await tokenXProxy({
-            url: 'http://isdialogmote.teamsykefravr/api/v2/arbeidstaker/brev',
-            method: 'GET',
-            req: req,
-            clientId: serverRuntimeConfig.isdialogmoteClientId,
-        })
+const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
+    const brev = await tokenXProxy({
+        url: 'http://isdialogmote.teamsykefravr/api/v2/arbeidstaker/brev',
+        method: 'GET',
+        req: req,
+        clientId: serverRuntimeConfig.isdialogmoteClientId,
+    })
 
-        res.status(200).json(brev)
-    }
-)
+    res.status(200).json(brev)
+})
 
 export default handler
