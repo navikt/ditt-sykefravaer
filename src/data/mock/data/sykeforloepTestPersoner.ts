@@ -48,7 +48,7 @@ const commonPersona = (): Persona => {
             },
         ],
         snartSluttSykepenger: false,
-        arbeidsrettetOppfolging: { underOppfolging: false },
+        arbeidsrettetOppfolging: { erUnderOppfolging: false },
         dialogmoteBehov: {
             visMotebehov: false,
             skjemaType: null,
@@ -66,7 +66,7 @@ export const snartSlutt = () => {
         tom: iDag.format('YYYY-MM-DD'),
     }
 
-    person.arbeidsrettetOppfolging = { underOppfolging: false }
+    person.arbeidsrettetOppfolging = { erUnderOppfolging: false }
     person.snartSluttSykepenger = true
     return person
 }

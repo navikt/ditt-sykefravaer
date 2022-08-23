@@ -30,7 +30,7 @@ const commonPersona: Persona = {
     ],
     narmesteledere: [],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false },
+    arbeidsrettetOppfolging: { erUnderOppfolging: false },
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     brev: [],
 }
