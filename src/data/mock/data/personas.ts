@@ -16,7 +16,7 @@ export const commonPersona = (): Persona => {
         sykmeldinger: [],
         narmesteledere: [],
         snartSluttSykepenger: false,
-        arbeidsrettetOppfolging: { underOppfolging: false },
+        arbeidsrettetOppfolging: { erUnderOppfolging: false },
         dialogmoteBehov: {
             visMotebehov: false,
             skjemaType: null,
@@ -35,7 +35,7 @@ export const enNySykmelding: Persona = {
     sykmeldinger: [nySykmelding],
     narmesteledere: [],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false },
+    arbeidsrettetOppfolging: { erUnderOppfolging: false },
     brev: [],
 }
 
@@ -56,7 +56,7 @@ export const enAvvistSykmelding: Persona = {
     ],
     narmesteledere: [],
     snartSluttSykepenger: false,
-    arbeidsrettetOppfolging: { underOppfolging: false },
+    arbeidsrettetOppfolging: { erUnderOppfolging: false },
     brev: [],
 }
 
@@ -111,6 +111,6 @@ export const defaultPersona: Persona = {
         },
     ],
     snartSluttSykepenger: true,
-    arbeidsrettetOppfolging: { underOppfolging: true },
+    arbeidsrettetOppfolging: { erUnderOppfolging: true },
     brev: brev,
 }

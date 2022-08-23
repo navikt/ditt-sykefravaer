@@ -45,7 +45,7 @@ const Lenker = () => {
 
                     <Vis hvis={vedtak && vedtak.length > 0} render={() => <UtbetalingAvSykepengerLenkepanel />} />
 
-                    <Vis hvis={arbeidsrettetOppfolging?.underOppfolging} render={() => <Aktivitetsplan />} />
+                    <Vis hvis={arbeidsrettetOppfolging?.erUnderOppfolging} render={() => <Aktivitetsplan />} />
 
                     <Vis
                         hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}

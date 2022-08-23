@@ -24,7 +24,7 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.snartSluttSykepenger))
     )
 
-    mock.get(`${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`, (req, res, ctx) =>
+    mock.get(`${flexGatewayRoot()}/veilarboppfolging/api/v2/oppfolging`, (req, res, ctx) =>
         res(ctx.json(persona.arbeidsrettetOppfolging))
     )
 

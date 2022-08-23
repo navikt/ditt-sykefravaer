@@ -7,7 +7,7 @@ import Fetch from '../utils/fetch'
 export default function UseArbeidsrettetOppfolging() {
     return useQuery<ArbeidsrettetOppfolging, Error>('arbeidsrettetOppfolging', () =>
         Fetch.authenticatedGet(
-            `${flexGatewayRoot()}/veilarboppfolging/api/oppfolging`,
+            `${flexGatewayRoot()}/veilarboppfolging/api/v2/oppfolging`,
             async (data) => {
                 return data as ArbeidsrettetOppfolging
             },
