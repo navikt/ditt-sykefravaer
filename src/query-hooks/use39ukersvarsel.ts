@@ -1,12 +1,10 @@
 import { useQuery } from 'react-query'
 
 import { syfoApiRoot } from '../utils/environment'
-import Fetch from '../utils/fetch'
+import { fetchJson } from '../utils/fetch'
 
 export default function Use39ukersvarsel() {
     return useQuery<boolean, Error>('39ukersvarsel', () =>
-        Fetch.authenticatedGet(`${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`, async (data) => {
-            return data as boolean
-        })
+        fetchJson(`${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`, { credentials: 'include' }, true)
     )
 }
