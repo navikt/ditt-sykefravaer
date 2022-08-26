@@ -58,7 +58,7 @@ async function fetchMedRequestId(url: string, optionsInn?: RequestInit, skipRequ
     } catch (e: any) {
         // Logger x_request_id i stedet for x-request-id for å matche logging fra
         // ingress-controller og sykepengesoknad-backend.
-        logger.warn(`${e.message} Kall til url: ${url} med x_request_id: ${uuid} feilet ved fetch kall.`, e)
+        logger.warn(`${e.message} Kall til url: ${url} med x_request_id: ${uuid} feilet ved fetch kall.`)
         throw e
     }
 }
