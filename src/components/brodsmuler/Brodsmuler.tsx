@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { dittNavUrl } from '../../utils/environment'
+import { minSideUrl } from '../../utils/environment'
 import Vis from '../Vis'
 import Person from './Person'
 
@@ -19,7 +19,7 @@ export interface Brodsmule {
 
 const faste = (sykefravaerKlikkbar: boolean): Brodsmule[] => {
     return [
-        { tittel: 'Ditt NAV', sti: dittNavUrl(), erKlikkbar: true },
+        { tittel: 'Min side', sti: minSideUrl(), erKlikkbar: true },
         {
             tittel: 'Ditt sykefravær',
             sti: '/',

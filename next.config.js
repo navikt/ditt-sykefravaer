@@ -103,7 +103,7 @@ module.exports = withPlugins(
             mockBackend: process.env.MOCK_BACKEND,
             opplaering: process.env.OPPLAERING,
             sykefravaerUrl: process.env.SYKEFRAVAER_URL,
-            dittNavUrl: process.env.DITTNAV_URL,
+            minSideUrl: process.env.MINSIDE_URL,
             amplitudeEnabled: process.env.AMPLITUDE_ENABLED,
             environment: process.env.ENVIRONMENT,
             spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,
