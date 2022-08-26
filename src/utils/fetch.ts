@@ -46,6 +46,7 @@ async function fetchMedRequestId(url: string, optionsInn?: RequestInit, skipRequ
     if (!skipRequestId) {
         options.headers = options.headers ? { ...options.headers, 'x-request-id': uuid } : { 'x-request-id': uuid }
     }
+    options.cache = 'no-store'
 
     try {
         // fetch() kaster exception for nettverksfeil, men ikke HTTP-statuskoder.
@@ -57,7 +58,7 @@ async function fetchMedRequestId(url: string, optionsInn?: RequestInit, skipRequ
     } catch (e: any) {
         // Logger x_request_id i stedet for x-request-id for å matche logging fra
         // ingress-controller og sykepengesoknad-backend.
-        logger.error(`Kall til url: ${url} med x_request_id: ${uuid} feilet ved fetch kall.`, e)
+        logger.warn(`${e.message} Kall til url: ${url} med x_request_id: ${uuid} feilet ved fetch kall.`, e)
         throw e
     }
 }
@@ -81,10 +82,9 @@ export async function fetchJson(url: string, options?: RequestInit, skipRequestI
     }
     try {
         return await fetchMedRequestSvar.res.json()
-    } catch (e) {
-        logger.error(
-            `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved json() kall.`,
-            e
+    } catch (e: any) {
+        logger.warn(
+            `${e.message}, Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved json() kall. Status: ${fetchMedRequestSvar.res.status}`
         )
         throw e
     }
