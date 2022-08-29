@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 import FetchMock, { MiddlewareUtils } from 'yet-another-fetch-mock'
 
-import { flexGatewayRoot, isOpplaering, syfoApiRoot } from '../../utils/environment'
+import { isOpplaering, syfoApiRoot } from '../../utils/environment'
 import { Persona } from './data/persona'
 import { defaultPersona } from './data/personas'
 import { personas } from './testperson'
@@ -24,7 +24,7 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.snartSluttSykepenger))
     )
 
-    mock.get(`${flexGatewayRoot()}/veilarboppfolging/api/v2/oppfolging`, (req, res, ctx) =>
+    mock.get('/syk/sykefravaer/api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging', (req, res, ctx) =>
         res(ctx.json(persona.arbeidsrettetOppfolging))
     )
 

@@ -2,10 +2,6 @@ import getConfig from 'next/config'
 
 const { publicRuntimeConfig, serverRuntimeConfig } = getConfig()
 
-export function flexGatewayRoot() {
-    return publicRuntimeConfig.flexGatewayRoot
-}
-
 export function isMockBackend() {
     return publicRuntimeConfig.mockBackend === 'true'
 }
