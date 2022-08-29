@@ -60,8 +60,6 @@ spec:
       value: "prod"
     - name: OPPLAERING
       value: "false"
-    - name: FLEX_GATEWAY_ROOT
-      value: "https://flex-gateway.nav.no"
     - name: SYFOAPI_ROOT
       value: "https://syfoapi-sky.nav.no"
     - name: LOGINSERVICE_URL

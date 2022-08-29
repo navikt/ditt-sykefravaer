@@ -101,7 +101,6 @@ module.exports = withPlugins(
         },
         publicRuntimeConfig: {
             // Will be available on both server and client
-            flexGatewayRoot: process.env.FLEX_GATEWAY_ROOT,
             mockBackend: process.env.MOCK_BACKEND,
             opplaering: process.env.OPPLAERING,
             sykefravaerUrl: process.env.SYKEFRAVAER_URL,
@@ -116,7 +115,6 @@ module.exports = withPlugins(
             aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
             oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
             dialogmoteUrl: process.env.DIALOGMOTE_URL,
-            backendSoknadApp: process.env.BACKEND_SOKNAD_APP,
             snartSluttUrl: process.env.SNART_SLUTT_URL,
         },
     }
