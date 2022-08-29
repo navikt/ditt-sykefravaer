@@ -106,3 +106,7 @@ spec:
       value: "dev-fss:team-esyfo:syfomotebehov"
     - name: SYFOMOTEBEHOV_URL
       value: "https://syfomotebehov.dev-fss-pub.nais.io"
+    - name: VEILARBOPPFOLGING_HOST
+      value: "veilarboppfolging.dev-fss-pub.nais.io"
+    - name: VEILARBOPPFOLGING_CLIENT_ID
+      value: "dev-fss:pto:veilarboppfolging"
