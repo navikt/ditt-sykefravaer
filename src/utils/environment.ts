@@ -18,8 +18,8 @@ export function loginServiceRedirectUrl() {
     return serverRuntimeConfig.loginServiceRedirectUrl
 }
 
-export function dittNavUrl() {
-    return publicRuntimeConfig.dittNavUrl
+export function minSideUrl() {
+    return publicRuntimeConfig.minSideUrl
 }
 
 export function amplitudeEnabled() {

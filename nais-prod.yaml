@@ -78,8 +78,8 @@ spec:
       value: "https://www.nav.no/syk/oppfolgingsplan"
     - name: DIALOGMOTE_URL
       value: "https://www.nav.no/syk/dialogmoter/sykmeldt"
-    - name: DITTNAV_URL
-      value: "https://www.nav.no/person/dittnav"
+    - name: MINSIDE_URL
+      value: "https://www.nav.no/minside"
     - name: DECORATOR_ENV
       value: "prod"
     - name: AMPLITUDE_ENABLED
