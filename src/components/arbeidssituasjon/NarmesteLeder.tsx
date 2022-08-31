@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, HelpText } from '@navikt/ds-react'
+import { BodyShort } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -58,13 +58,6 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                                         }` as any
                                     )}
                                 </BodyShort>
-
-                                <HelpText>
-                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst1')}</BodyLong>
-                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst2')}</BodyLong>
-                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst3')}</BodyLong>
-                                    <BodyLong>{tekst('din-situasjon.forskuttering.hjelpetekst.tekst4')}</BodyLong>
-                                </HelpText>
                             </div>
                         )}
                     />

@@ -1,20 +1,19 @@
 export const ArbeidssituasjonTekster = {
     'din-situasjon.tittel.2': 'Din arbeidssituasjon',
+    'din-situasjon.slik-hjelper-arbeidsgiver': 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt',
+    'din-situasjon.arbeidsgiver-legger-til-rette':
+        '<strong>Arbeidsgiveren skal legge til rette</strong> for at du kan jobbe helt eller delvis selvom du er syk.',
+    'din-situasjon.arbeidsgiver-oppfølgingsplan':
+        'I samråd med deg skal lederen din lage en <strong>oppfølgingsplan</strong> som skal gjøre det lettere å tenke gjennom:',
+    'din-situasjon.arbeidsgiver-noen-arbeidsoppgaver':
+        'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk? Er det noe som kan gjøres for at jeg kan få det til?',
+    'din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan':
+        '<strong>Oppfølgingsplanen skal lages så tidlig som mulig</strong> - med mindre det er åpenbare grunner til å la være.',
+    'din-situasjon.arbeidsgiver-ansvar-for-møte':
+        'Arbeidsgiveren har ansvar for at dere møtes til en samtale før det har gått 7 uker. Unntaket er naturligvis hvis du er alvorlig syk eller du er i en annen situasjon som gjør det vanskelig.',
     'din-situasjon.hjelpetekst.tekst': 'Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen.',
-    'din-situasjon.ANNET': 'Annet',
-    'din-situasjon.ARBEIDSLEDIG': 'Arbeidsledig eller permittert',
-    'din-situasjon.ARBEIDSTAKER': 'Arbeidstaker',
-    'din-situasjon.FRILANSER': 'Frilanser',
-    'din-situasjon.NAERINGSDRIVENDE': 'Selvstendig næringsdrivende',
     'din-situasjon.ansatt': 'Ansatt i ',
-    'din-situasjon.arbeidsgiver-forskutterer': 'Arbeidsgiveren din betaler lønn også etter de 16 første dagene.',
+    'din-situasjon.arbeidsgiver-forskutterer':
+        'Arbeidsgiveren din betaler lønn også etter de 16 første dagene i sykefraværet. Dette har arbeidsgiver meldt inn til oss i Altinn.',
     'din-situasjon.arbeidsgiver-forskutterer-ikke': 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.',
-    'din-situasjon.forskuttering.hjelpetekst.tekst1':
-        'Arbeidsgiveren betaler vanligvis lønnen de første 16 kalenderdagene man er syk.',
-    'din-situasjon.forskuttering.hjelpetekst.tekst2':
-        'Noen arbeidsgivere fortsetter å utbetale lønn og søker om å få pengene igjen fra NAV senere.',
-    'din-situasjon.forskuttering.hjelpetekst.tekst3':
-        'Hvis du har en arbeidsgiver som stanser lønnen etter 16 dager, får du i stedet utbetalingen fra NAV.',
-    'din-situasjon.forskuttering.hjelpetekst.tekst4':
-        'Det er arbeidsgiveren som melder inn til oss hva som gjelder hos dere.',
 }

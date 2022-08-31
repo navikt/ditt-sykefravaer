@@ -2,10 +2,6 @@ import dayjs from 'dayjs'
 
 import { Periode, Sykmelding } from '../types/sykmelding'
 
-export const hentArbeidssituasjon = (sykmelding: Sykmelding) => {
-    return sykmelding.sykmeldingStatus.sporsmalOgSvarListe?.find((s) => s.shortName === 'ARBEIDSSITUASJON')?.svar?.svar
-}
-
 export const tidligsteFom = (perioder: Periode[]) => {
     const tidligste = perioder
         .map((p) => dayjs(p.fom))

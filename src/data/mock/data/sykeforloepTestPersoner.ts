@@ -70,3 +70,16 @@ export const snartSlutt = () => {
     person.snartSluttSykepenger = true
     return person
 }
+
+export const forskutererIkke = () => {
+    const person = commonPersona()
+    person.narmesteledere = [
+        {
+            navn: 'Albus Dumbledore',
+            orgnummer: '972674818',
+            arbeidsgiverForskutterer: false,
+            aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
+        },
+    ]
+    return person
+}

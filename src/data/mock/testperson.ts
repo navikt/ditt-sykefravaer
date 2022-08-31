@@ -7,7 +7,7 @@ import {
 } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
 import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding } from './data/personas'
-import { snartSlutt } from './data/sykeforloepTestPersoner'
+import { forskutererIkke, snartSlutt } from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {
     [index: string]: () => Persona
@@ -23,6 +23,7 @@ export const personas: StringFunctionMap = {
     'en-ny-oppfolgingsplan-til-godkjenning': enNyTilGodkjenning,
     'to-nye-oppfolgingsplaner-til-godkjenning': toTilGodkjenning,
     'snart-slutt': snartSlutt,
+    'arbeidsgiver-forskuterer-ikke': forskutererIkke,
     'mangler-inntektsmelding': () => manglerInntektsmelding(),
     'mottatt-inntektsmelding': () => mottattInntektsmelding(),
 }

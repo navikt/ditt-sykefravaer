@@ -28,7 +28,10 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
 
     return (
         <div className="situasjon__innhold">
-            <BodyShort>{tekst('din-situasjon.ansatt') + navn}</BodyShort>
+            <BodyShort>
+                {tekst('din-situasjon.ansatt')}
+                <strong>{navn}</strong>
+            </BodyShort>
             <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
         </div>
     )
