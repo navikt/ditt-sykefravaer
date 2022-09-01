@@ -7,3 +7,33 @@ jobs:
     with:
       app: ${{ github.event.repository.name }}
     secrets: inherit
+
+  cypress:
+    needs: felles-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v3
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Kjør cypress
+        uses: cypress-io/github-action@v2
+        with:
+          install: false
+          record: false
+          config-file: cypress.config.ts
+          start: npm run start-ingen-dekorator
+          wait-on: http://localhost:8080/syk/sykefravaer/api/internal/isAlive
+      - uses: actions/upload-artifact@v1
+        if: ${{ failure() }}
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+
+  snyk-docker:
+    needs: felles-workflow
+    uses: navikt/flex-github-actions-workflows/.github/workflows/snyk-docker.yml@master
+    with:
+      image: ${{ needs.felles-workflow.outputs.image }}
+    secrets: inherit
