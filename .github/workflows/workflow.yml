@@ -17,6 +17,13 @@ jobs:
         with:
           path: ${{ github.workspace }}
           key: ${{ github.sha }}
+      - name: Cache Cypress binary
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/Cypress
+          key: cypress-${{ runner.os }}-cypress-pr-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            cypress-${{ runner.os }}-cypress-
       - name: Kjør cypress
         uses: cypress-io/github-action@v2
         with:
