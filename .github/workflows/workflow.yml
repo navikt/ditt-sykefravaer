@@ -12,16 +12,19 @@ jobs:
     needs: felles-workflow
     runs-on: ubuntu-latest
     steps:
+      - run: ls
       - name: cache workspace
         uses: actions/cache@v3
         with:
           path: ${{ github.workspace }}
           key: ${{ github.sha }}
+      - run: ls
       - name: Cache Cypress binary
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
-          key: cypress-${{ runner.os }}-cypress-pr-${{ hashFiles('**/package.json') }}
+          key: cypress-${{ runner.os }}-${{ hashFiles('package.json') }}
+      - run: ls
       - name: Kjør cypress
         uses: cypress-io/github-action@v2
         with:
