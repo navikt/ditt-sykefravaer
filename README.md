@@ -20,7 +20,6 @@ I din `.bashrc` eller `.zshrc`, sett følgende miljøvariabel:
 npm run dev
 ```
 
-
 ## Enhetstester
 ```bash
 npm run test

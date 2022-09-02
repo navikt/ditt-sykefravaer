@@ -1,16 +1,19 @@
 apiVersion: "nais.io/v1alpha1"
 kind: "Application"
 metadata:
-  name: ditt-sykefravaer
+  name: {{ appname }}
   namespace: flex
   labels:
     team: flex
+    branchState: {{ branchState }}
 spec:
-  image: {{image}}
+  image: {{ image }}
   port: 8080
   ingresses:
-    - "https://ditt-sykefravaer.labs.nais.io/"
-    - "https://sykefravaer.labs.nais.io/"
+    - {{ ingress }}
+  replicas:
+    min: {{ replicas }}
+    max: {{ replicas }}
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
   readiness:
