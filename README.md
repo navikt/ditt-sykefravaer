@@ -1,11 +1,11 @@
 # ditt-sykefravaer
 
-Modernisert ditt sykefravær landingsside. Under arbeid
+Ditt sykefravær landingsside.
 
 Lever under:
 -   prod-gcp: https://www.nav.no/syk/sykefravaer
 -   dev-gcp: https://www-gcp.dev.nav.no/syk/sykefravaer
--   labs-gcp (demo): https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer/
+-   labs-gcp: https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer/
 
 ## Tilgang til Github Package Registry
 
@@ -17,21 +17,7 @@ I din `.bashrc` eller `.zshrc`, sett følgende miljøvariabel:
 
 ## Kjør lokalt uten backend
 ```bash
-npm run start-mock
-```
-
-## Kjør lokalt i docker-compose
-Endre image i flex-docker-compose fra:
-```
-image: "docker.pkg.github.com/navikt/ditt-sykefravaer/ditt-sykefravaer:latest"
-``` 
-Til:
-```
-image: "ditt-sykefravaer:latest"
-```
-Bygg og tag nytt image ved å kjøre:
-```bash
-./buildlatest.sh
+npm run dev
 ```
 
 ## Enhetstester
@@ -44,6 +30,10 @@ npm run test
 npm run e2e
 ```
 
-# Kontakt oss
+# Henvendelser
 
-Kanalen flex på slack
+Spørsmål knyttet til koden eller prosjektet kan stilles til flex@nav.no
+
+## For NAV-ansatte
+
+Interne henvendelser kan sendes via Slack i kanalen #flex.

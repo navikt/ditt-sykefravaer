@@ -1,0 +1,60 @@
+apiVersion: "nais.io/v1alpha1"
+kind: "Application"
+metadata:
+  name: ditt-sykefravaer
+  namespace: flex
+  labels:
+    team: flex
+spec:
+  image: {{image}}
+  port: 8080
+  ingresses:
+    - {{ingress}}
+  replicas:
+    min: {{replicas_min}}
+    max: {{replicas_max}}
+    cpuThresholdPercentage: 20
+  tokenx:
+    enabled: true
+  idporten:
+    enabled: true
+    sidecar:
+      enabled: true
+      level: Level4
+  resources:
+    limits:
+      cpu: 500m
+      memory: 500Mi
+    requests:
+      cpu: 400m
+      memory: 300Mi
+  liveness:
+    path: syk/sykefravaer/api/internal/isAlive
+    initialDelay: 15
+  readiness:
+    path: syk/sykefravaer/api/internal/isReady
+    initialDelay: 15
+  prometheus:
+    enabled: true
+    path: /syk/sykefravaer/api/internal/prometheus
+  accessPolicy:
+    outbound:
+      rules:
+        - application: ditt-sykefravaer-backend
+        - application: sykepengesoknad-backend
+        - application: spinnsyn-backend
+        - application: sykmeldinger-backend
+          namespace: teamsykmelding
+        - application: narmesteleder
+          namespace: teamsykmelding
+        - application: isdialogmote
+          namespace: teamsykefravr
+        - application: syfomotebehov
+          namespace: team-esyfo
+  envFrom:
+    - configmap: loginservice-idporten
+  env:
+  {{#each env}}
+     - name: {{@key}}
+       value: "{{this}}"
+  {{/each}}
