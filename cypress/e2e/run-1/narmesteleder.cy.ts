@@ -25,7 +25,11 @@ describe('Tester narmesteledere', () => {
             )
             .should(
                 'contain',
-                'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk? Er det noe som kan gjøres for at jeg kan få det til?'
+                'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk?'
+            )
+            .should(
+                'contain',
+                'Er det noe som kan gjøres for at jeg kan få det til?'
             )
         cy.checkA11y()
 
