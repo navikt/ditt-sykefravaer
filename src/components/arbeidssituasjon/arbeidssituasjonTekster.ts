@@ -5,8 +5,8 @@ export const ArbeidssituasjonTekster = {
         '<strong>Arbeidsgiveren skal legge til rette</strong> for at du kan jobbe helt eller delvis selvom du er syk.',
     'din-situasjon.arbeidsgiver-oppfølgingsplan':
         'I samråd med deg skal lederen din lage en <strong>oppfølgingsplan</strong> som skal gjøre det lettere å tenke gjennom:',
-    'din-situasjon.arbeidsgiver-noen-arbeidsoppgaver':
-        'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk? Er det noe som kan gjøres for at jeg kan få det til?',
+    'din-situasjon.arbeidsgiver-arbeidsoppgaver': 'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk?',
+    'din-situasjon.arbeidsgiver-tilrettelegging': 'Er det noe som kan gjøres for at jeg kan få det til?',
     'din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan':
         '<strong>Oppfølgingsplanen skal lages så tidlig som mulig</strong> - med mindre det er åpenbare grunner til å la være.',
     'din-situasjon.arbeidsgiver-ansvar-for-møte':
@@ -16,4 +16,6 @@ export const ArbeidssituasjonTekster = {
     'din-situasjon.arbeidsgiver-forskutterer':
         'Arbeidsgiveren din betaler lønn også etter de 16 første dagene i sykefraværet. Dette har arbeidsgiver meldt inn til oss i Altinn.',
     'din-situasjon.arbeidsgiver-forskutterer-ikke': 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.',
+    'din-situasjon.arbeidsgiver-endret-nærmesteleder':
+        'Vi har varslet bedriften din om at de må sende oss opplysninger om din nærmeste leder på nytt. ',
 }

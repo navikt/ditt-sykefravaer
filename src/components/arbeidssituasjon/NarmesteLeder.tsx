@@ -31,39 +31,30 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
     }
 
     return (
-        <Vis
-            hvis={leder && orgNavn}
-            render={() => (
-                <>
-                    <BodyShort className="leder__informasjon">
-                        Din nærmeste leder er <strong>{leder?.navn}</strong>.
-                    </BodyShort>
-                    <div className="leder__handlinger">
-                        <button className="lenke" onClick={() => toggleOpen()}>
-                            <BodyShort as="span">Meld fra om endring</BodyShort>
-                        </button>
-                        <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
-                    </div>
-                    <Vis
-                        hvis={leder.arbeidsgiverForskutterer !== null}
-                        render={() => (
-                            <div className="leder__forskuttering">
-                                <BodyShort>
-                                    {tekst(
-                                        `din-situasjon.arbeidsgiver-forskutterer${
-                                            leder?.arbeidsgiverForskutterer
-                                                ? ''
-                                                : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                  '-ikke'
-                                        }` as any
-                                    )}
+        <>
+            <Vis
+                hvis={leder && orgNavn}
+                render={() => (
+                    <>
+                        <BodyShort className="leder__informasjon">
+                            Din nærmeste leder er <strong>{leder?.navn}</strong>.
+                        </BodyShort>
+                        <div className="leder__handlinger">
+                            <button className="lenke" onClick={() => toggleOpen()}>
+                                <BodyShort spacing as="span">
+                                    Meld fra om endring
                                 </BodyShort>
-                            </div>
-                        )}
-                    />
-                </>
-            )}
-        />
+                            </button>
+                            <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
+                        </div>
+                    </>
+                )}
+            />
+            <Vis
+                hvis={!leder || !orgNavn}
+                render={() => <BodyShort spacing>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</BodyShort>}
+            />
+        </>
     )
 }
 
