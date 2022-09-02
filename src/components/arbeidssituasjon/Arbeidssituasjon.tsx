@@ -48,9 +48,18 @@ const Arbeidssituasjon = () => {
                                     <BodyLong spacing>
                                         {parser(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
                                     </BodyLong>
-                                    <BodyLong spacing>
-                                        {tekst('din-situasjon.arbeidsgiver-noen-arbeidsoppgaver')}
-                                    </BodyLong>
+                                    <ul>
+                                        <li>
+                                            <BodyShort spacing>
+                                                <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
+                                            </BodyShort>
+                                        </li>
+                                        <li>
+                                            <BodyShort spacing>
+                                                <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
+                                            </BodyShort>
+                                        </li>
+                                    </ul>
                                     <BodyLong spacing>
                                         {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
                                     </BodyLong>
