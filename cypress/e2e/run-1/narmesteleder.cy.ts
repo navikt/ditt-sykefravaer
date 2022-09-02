@@ -23,14 +23,8 @@ describe('Tester narmesteledere', () => {
                 'contain',
                 'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selvom du er syk.'
             )
-            .should(
-                'contain',
-                'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk?'
-            )
-            .should(
-                'contain',
-                'Er det noe som kan gjøres for at jeg kan få det til?'
-            )
+            .should('contain', 'Er det noen arbeidsoppgaver jeg kan gjøre selv om jeg er syk?')
+            .should('contain', 'Er det noe som kan gjøres for at jeg kan få det til?')
         cy.checkA11y()
 
         cy.get('.navds-panel .situasjon__panel').contains('Meld fra om endring').click()
