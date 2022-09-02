@@ -1,0 +1,31 @@
+replicas_min: 2
+replicas_max: 3
+ingress: https://www.nav.no/syk/sykefravaer
+env:
+  MOCK_BACKEND: false
+  ENVIRONMENT: prod
+  OPPLAERING: false
+  SYFOAPI_ROOT: https://syfoapi-sky.nav.no
+  LOGINSERVICE_URL: https://loginservice.nav.no/login
+  LOGINSERVICE_REDIRECT_URL: https://www.nav.no/syk/sykefravaer
+  SYKEPENGESOKNAD_URL: https://www.nav.no/syk/sykepengesoknad
+  PINNSYN_URL: https://www.nav.no/syk/sykepenger
+  SYKMELDING_URL: https://www.nav.no/syk/sykmeldinger
+  AKTIVITETSPLAN_URL: https://aktivitetsplan.nav.no/
+  OPPFOLGINGSPLAN_URL: https://www.nav.no/syk/oppfolgingsplan
+  DIALOGMOTE_URL: https://www.nav.no/syk/dialogmoter/sykmeldt
+  MINSIDE_URL: https://www.nav.no/minside
+  DECORATOR_ENV: prod
+  AMPLITUDE_ENABLED: true
+  ASSET_PREFIX: https://flex-static-files.nav.no/sykefravaer
+  SNART_SLUTT_URL: https://www.nav.no/syk/info/snart-slutt-pa-sykepengene
+  DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: prod-gcp:flex:ditt-sykefravaer-backend
+  SPINNSYN_BACKEND_CLIENT_ID: prod-gcp:flex:spinnsyn-backend
+  SYKMELDINGER_BACKEND_CLIENT_ID: prod-gcp:teamsykmelding:sykmeldinger-backend
+  NARMESTELEDER_CLIENT_ID: prod-gcp:teamsykmelding:narmesteleder
+  SYKEPENGESOKNAD_BACKEND_CLIENT_ID: prod-gcp:flex:sykepengesoknad-backend
+  ISDIALOGMOTE_CLIENT_ID: prod-gcp:teamsykefravr:isdialogmote
+  SYFOMOTEBEHOV_CLIENT_ID: prod-fss:team-esyfo:syfomotebehov
+  SYFOMOTEBEHOV_URL: https://syfomotebehov.prod-fss-pub.nais.io
+  VEILARBOPPFOLGING_HOST: veilarboppfolging.prod-fss-pub.nais.io
+  VEILARBOPPFOLGING_CLIENT_ID: prod-fss:pto:veilarboppfolging
