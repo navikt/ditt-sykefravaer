@@ -7,4 +7,4 @@ jobs:
     secrets: inherit
     with:
       static-files-path: sykefravaer
-      cypress-wait-on: http://localhost:8080/syk/sykefravaer/api/internal/isAlive
+      base-path: syk/sykefravaer
