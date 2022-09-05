@@ -13,7 +13,7 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isIdle, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    const { mutate: avkreft, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal open={open} closeButton={true} onClose={toggle} aria-label="Endre nærmeste leder">
@@ -22,44 +22,34 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     Endre nærmeste leder
                 </Heading>
 
-                <Vis hvis={isSuccess} render={() => <BodyShort>Takk for oppdateringen!</BodyShort>} />
-
                 <Vis
                     hvis={isError}
                     render={() => (
                         <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>
                     )}
                 />
+                <BodyLong spacing>
+                    Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i{' '}
+                    <strong>{orgNavn}</strong>?
+                </BodyLong>
+                <BodyLong spacing>
+                    Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt
+                    det.
+                </BodyLong>
 
-                <Vis
-                    hvis={isIdle || isLoading}
-                    render={() => (
-                        <>
-                            <BodyLong spacing>
-                                Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
-                                leder i <strong>{orgNavn}</strong>?
-                            </BodyLong>
-                            <BodyLong spacing>
-                                Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor
-                                de har valgt det.
-                            </BodyLong>
-
-                            <div className="knapperad">
-                                <Button
-                                    variant="danger"
-                                    loading={isLoading}
-                                    disabled={isLoading}
-                                    onClick={() => avkreft()}
-                                >
-                                    Ja, jeg er sikker
-                                </Button>
-                                <button className="lenke" onClick={toggle}>
-                                    <BodyShort>Avbryt</BodyShort>
-                                </button>
-                            </div>
-                        </>
-                    )}
-                />
+                <div className="knapperad">
+                    <Button
+                        variant="danger"
+                        loading={isLoading || isSuccess}
+                        disabled={isLoading || isSuccess}
+                        onClick={() => avkreft()}
+                    >
+                        Ja, jeg er sikker
+                    </Button>
+                    <button className="lenke" onClick={toggle}>
+                        <BodyShort>Avbryt</BodyShort>
+                    </button>
+                </div>
             </Modal.Content>
         </Modal>
     )
