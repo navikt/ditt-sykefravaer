@@ -26,10 +26,6 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         setOpen(!open)
     }
 
-    if (!leder || !orgNavn) {
-        return null
-    }
-
     return (
         <>
             <Vis
@@ -45,7 +41,12 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                                     Meld fra om endring
                                 </BodyShort>
                             </button>
-                            <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
+                            <BekreftFeilLeder
+                                open={open}
+                                toggle={toggleOpen}
+                                narmesteLeder={leder!}
+                                orgNavn={orgNavn!}
+                            />
                         </div>
                     </>
                 )}
