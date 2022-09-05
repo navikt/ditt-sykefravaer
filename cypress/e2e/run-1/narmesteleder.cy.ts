@@ -68,6 +68,18 @@ describe('Tester narmesteledere', () => {
             .contains('Meld fra om endring')
             .click()
         cy.checkA11y()
+
+        cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
+
+        cy.get('.navds-panel .situasjon__panel')
+            .should('contain', 'Ansatt i Sykmeldingsperioder AS')
+            .should('not.contain', 'Din nærmeste leder er Albus Dumbledore')
+            .should(
+                'contain',
+                'Vi har varslet bedriften din om at de må sende oss opplysninger om din nærmeste leder på nytt.'
+            )
+            .should('contain', 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
+        cy.checkA11y()
     })
 })
 

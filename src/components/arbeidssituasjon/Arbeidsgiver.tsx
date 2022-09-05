@@ -27,11 +27,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
         setMeldinger(sykmeldinger!)
     }, [orgnummer, sykmeldinger])
 
-    const leder = narmesteLedere
-        ? narmesteLedere
-              .filter((nl) => !nl.aktivTom && nl.navn) // Aktiv og har navn på leder
-              .find((nl) => nl.orgnummer === orgnummer)
-        : null
+    const leder = narmesteLedere ? narmesteLedere.find((nl) => nl.orgnummer === orgnummer) : null
 
     if (!meldinger) return null
 
