@@ -35,7 +35,10 @@ describe('Tester narmesteledere', () => {
         cy.get('.navds-panel .situasjon__panel')
             .should('contain', 'Ansatt i Sykmeldingsperioder AS')
             .should('not.contain', 'Din nærmeste leder er Albus Dumbledore')
-            .should('contain', 'Vi har varslet bedriften din om at de må sende oss opplysninger om din nærmeste leder på nytt.')
+            .should(
+                'contain',
+                'Vi har varslet bedriften din om at de må sende oss opplysninger om din nærmeste leder på nytt.'
+            )
             .should(
                 'contain',
                 'Arbeidsgiveren din betaler lønn også etter de 16 første dagene i sykefraværet. Dette har arbeidsgiver meldt inn til oss i Altinn.'
