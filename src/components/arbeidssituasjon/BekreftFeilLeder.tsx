@@ -40,7 +40,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 <div className="knapperad">
                     <Button
                         variant="danger"
-                        loading={isLoading || isSuccess}
+                        loading={isLoading}
                         disabled={isLoading || isSuccess}
                         onClick={() => avkreft()}
                     >
