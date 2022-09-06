@@ -110,8 +110,8 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Heading size="medium" level="2" className="hide-element">
-                Oppgaver
+            <Heading size="medium" level="2" className="oppgave-tittel">
+                {tekst('oppgaver.tittel')}
             </Heading>
             {oppgaver.map((v, idx) => (
                 <EnkeltOppgaveAlert oppgave={v} key={v.tekst} />
