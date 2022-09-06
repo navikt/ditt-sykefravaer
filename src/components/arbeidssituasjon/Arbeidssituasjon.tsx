@@ -1,10 +1,9 @@
-import { BodyShort, Heading, HelpText } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading, Panel } from '@navikt/ds-react'
+import parser from 'html-react-parser'
 import React from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { ArbeidssituasjonType } from '../../types/arbeidssituasjon'
-import { hentArbeidssituasjon, selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/sykmeldingerUtils'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import Arbeidsgiver from './Arbeidsgiver'
@@ -20,78 +19,55 @@ const Arbeidssituasjon = () => {
 
     const arbeidsgivere: string[] = finnAktuelleArbeidsgivere(narmesteLedere, sykmeldinger)
 
-    const finnAktuelleArbeidssituasjoner = (arbeidsgivere: string[]): string[] => {
-        const arbeidssituasjoner = new Set(
-            selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger)
-                .filter(
-                    (s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status === 'MANUAL_PROCESSING'
-                )
-                .filter((syk) => syk.sykmeldingStatus.statusEvent === 'BEKREFTET')
-                .map((syk) => hentArbeidssituasjon(syk) || '')
-                .filter((arbeidssituasjon) => !(arbeidssituasjon === 'ARBEIDSTAKER' && arbeidsgivere.length))
-        )
-        return Array.from(arbeidssituasjoner)
-    }
-
-    const arbeidssituasjoner: string[] = finnAktuelleArbeidssituasjoner(arbeidsgivere)
-
-    const arbeidssituasjonTilIkon = (arbeidssituasjon: ArbeidssituasjonType) => {
-        switch (arbeidssituasjon) {
-            case 'ARBEIDSTAKER':
-                return '/syk/sykefravaer/static/arbeidsgiver.svg'
-            case 'NAERINGSDRIVENDE':
-            case 'FRILANSER':
-                return '/syk/sykefravaer/static/id-kort.svg'
-            default:
-                return '/syk/sykefravaer/static/skilt.svg'
-        }
-    }
-
     return (
         <Vis
-            hvis={(arbeidsgivere && arbeidsgivere.length > 0) || (arbeidssituasjoner && arbeidssituasjoner.length > 0)}
+            hvis={arbeidsgivere && arbeidsgivere.length > 0}
             render={() => (
                 <section className="din-situasjon">
-                    <header className="din-situasjon__header">
-                        <img src="/syk/sykefravaer/static/arbeidssituasjon.svg" alt="Arbeidssituasjon" />
-                        <Heading size="medium" level="2">
-                            {tekst('din-situasjon.tittel.2')}
-                        </Heading>
-                        <HelpText>{tekst('din-situasjon.hjelpetekst.tekst')}</HelpText>
-                    </header>
-                    <div className="arbeidssituasjon-panel">
-                        {arbeidsgivere.map((orgnummer, idx) => {
-                            return (
-                                <div className="situasjon__panel" key={idx}>
-                                    <div className="situasjon__ikon">
-                                        <img
-                                            src={arbeidssituasjonTilIkon('ARBEIDSTAKER')}
-                                            alt={tekst('din-situasjon.ARBEIDSTAKER')}
-                                        />
-                                    </div>
-                                    <Arbeidsgiver orgnummer={orgnummer} />
-                                </div>
-                            )
-                        })}
-                        {arbeidssituasjoner.map((arbeidssituasjon, idx) => {
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                            const arbeidssituasjonLedetekst = tekst(`din-situasjon.${arbeidssituasjon}` as any)
-                            return (
-                                <div className="situasjon__panel" key={idx}>
-                                    <div className="situasjon__ikon">
-                                        {/* eslint-disable-next-line */}
-                                        <img
-                                            src={arbeidssituasjonTilIkon(arbeidssituasjon as any)}
-                                            alt={arbeidssituasjonLedetekst}
-                                        />
-                                    </div>
-                                    <div className="situasjon__innhold">
-                                        <BodyShort>{arbeidssituasjonLedetekst}</BodyShort>
-                                    </div>
-                                </div>
-                            )
-                        })}
+                    <div className="tittel">
+                        <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
+                        <Heading size="medium">{tekst('din-situasjon.tittel.2')}</Heading>
                     </div>
+                    <Panel className="bakgrunn">
+                        <div>
+                            {arbeidsgivere.map((orgnummer, idx) => {
+                                return (
+                                    <div className="situasjon__panel" key={idx}>
+                                        <Arbeidsgiver orgnummer={orgnummer} />
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <Accordion className="accordion">
+                            <Accordion.Item>
+                                <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
+                                <Accordion.Content>
+                                    <BodyLong spacing>
+                                        {parser(tekst('din-situasjon.arbeidsgiver-legger-til-rette'))}
+                                    </BodyLong>
+                                    <BodyLong spacing>
+                                        {parser(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
+                                    </BodyLong>
+                                    <ul>
+                                        <li>
+                                            <BodyShort spacing>
+                                                <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
+                                            </BodyShort>
+                                        </li>
+                                        <li>
+                                            <BodyShort spacing>
+                                                <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
+                                            </BodyShort>
+                                        </li>
+                                    </ul>
+                                    <BodyLong spacing>
+                                        {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
+                                    </BodyLong>
+                                    <BodyShort>{tekst('din-situasjon.arbeidsgiver-ansvar-for-møte')}</BodyShort>
+                                </Accordion.Content>
+                            </Accordion.Item>
+                        </Accordion>
+                    </Panel>
                 </section>
             )}
         />
