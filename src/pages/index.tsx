@@ -9,15 +9,12 @@ import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../components/lenker/Lenker'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
-import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
 const brodsmuler: Brodsmule[] = []
 
 const Index = () => {
     useEffect(() => {
-        setBodyClass('forside')
-
         // eslint-disable-next-line
         // @ts-ignore
         Modal.setAppElement('#root')
