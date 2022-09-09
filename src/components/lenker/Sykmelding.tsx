@@ -5,7 +5,7 @@ import { tekst } from '../../utils/tekster'
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const SykmeldingLenkepanel = () => {
-    const ikon = <img src="/syk/sykefravaer/static/bandage.svg" alt="Sykmeldinger" />
+    const ikon = <img src="/syk/sykefravaer/static/bandage.svg" alt="SykmeldingLenke" />
 
     return <FellesLenkepanel ikon={ikon} url={sykmeldingUrl()} tekst={tekst('lenker.sykmelding')} />
 }
