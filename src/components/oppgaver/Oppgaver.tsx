@@ -1,5 +1,5 @@
 import { Close } from '@navikt/ds-icons'
-import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
+import { Alert, BodyShort, Button, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
@@ -110,9 +110,6 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Heading size="medium" level="2" className="hide-element">
-                Oppgaver
-            </Heading>
             {oppgaver.map((v, idx) => (
                 <EnkeltOppgaveAlert oppgave={v} key={v.tekst} />
             ))}
