@@ -1,3 +1,5 @@
+import { logger } from '@navikt/next-logger'
+
 import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
 import { BannerTekster } from '../components/banner/bannerTekster'
 import { ForsideTekster } from '../components/forside/forsideTekster'
@@ -6,7 +8,6 @@ import { InntektsmeldingTekster } from '../components/inntektsmelding/inntektsme
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
 import { StringMap } from '../types/stringMap'
-import { logger } from './logger'
 
 const tekster = {
     ...BannerTekster,
@@ -43,8 +44,6 @@ export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
     const verdi = tekster[tekst]
     // Generiskfeilmelding har ingen tekst
     if (!verdi === undefined && !tekst.includes('soknad.feilmelding')) {
-        // eslint-disable-next-line no-console
-        console.log(`Mangler teksten [ ${tekst} ]`)
         logger.error(`Mangler teksten [ ${tekst} ]`)
         return tekst
     }
