@@ -1,6 +1,12 @@
 replicas_min: 1
 replicas_max: 2
 ingress: https://www-gcp.dev.nav.no/syk/sykefravaer
+cpu: 200m
+sidecar_cpu: 200m
+memory_limits: 300Mi
+memory_requests: 200Mi
+sidecar_memory_limits: 256Mi
+sidecar_memory_requests: 32Mi
 env:
   MOCK_BACKEND: false
   ENVIRONMENT: q1

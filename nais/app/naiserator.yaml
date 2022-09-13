@@ -21,13 +21,20 @@ spec:
     sidecar:
       enabled: true
       level: Level4
+      resources:
+        limits:
+          cpu: {{sidecar_cpu}}
+          memory: {{sidecar_memory_limits}}
+        requests:
+          cpu: {{sidecar_cpu}}
+          memory: {{sidecar_memory_requests}}
   resources:
     limits:
-      cpu: 500m
-      memory: 500Mi
+      cpu: {{cpu}}
+      memory: {{memory_limits}}
     requests:
-      cpu: 400m
-      memory: 300Mi
+      cpu: {{cpu}}
+      memory: {{memory_requests}}
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
     initialDelay: 15

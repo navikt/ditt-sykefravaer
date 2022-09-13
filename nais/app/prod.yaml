@@ -1,6 +1,12 @@
 replicas_min: 2
 replicas_max: 3
 ingress: https://www.nav.no/syk/sykefravaer
+cpu: 600m
+sidecar_cpu: 700m
+memory_limits: 500Mi
+memory_requests: 300Mi
+sidecar_memory_limits: 256Mi
+sidecar_memory_requests: 32Mi
 env:
   MOCK_BACKEND: false
   ENVIRONMENT: prod
