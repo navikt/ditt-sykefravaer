@@ -1,5 +1,6 @@
 import { Close } from '@navikt/ds-icons'
 import { Alert, BodyShort, Button, Link as Lenke } from '@navikt/ds-react'
+import { logger } from '@navikt/next-logger'
 import React, { useEffect, useState } from 'react'
 
 import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
@@ -17,7 +18,6 @@ import {
     sykmeldingUrl,
 } from '../../utils/environment'
 import Fetch from '../../utils/fetch'
-import { logger } from '../../utils/logger'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 import { skapBrevOppgaver } from './brevOppgaver'
@@ -62,7 +62,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                 })
                 if (oppgave.id) {
                     Fetch.authenticatedPost(`/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`).catch((e) =>
-                        logger.warn('Feil ved merking av melding som lest', e)
+                        logger.warn(e, 'Feil ved merking av melding som lest')
                     )
                 }
             }}

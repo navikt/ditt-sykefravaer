@@ -1,10 +1,10 @@
+import { logger } from '@navikt/next-logger'
 import cookie from 'cookie'
 import { NextPageContext } from 'next'
 
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
 import { isMockBackend, loginServiceRedirectUrl, loginServiceUrl } from '../utils/environment'
-import { logger } from '../utils/logger'
 import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 import { validerLoginserviceToken } from './verifyLoginserviceAccessToken'
 
@@ -67,7 +67,7 @@ function beskyttetSide(handler: PageHandler) {
             if (shouldLogMetricForPath(cleanPath)) {
                 metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
             }
-            logger.error('kunne ikke validere idportentoken i beskyttetSide', e)
+            logger.error(e, 'kunne ikke validere idportentoken i beskyttetSide')
             return wonderwallRedirect
         }
         return handler(context)

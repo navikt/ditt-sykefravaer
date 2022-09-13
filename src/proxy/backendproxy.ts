@@ -1,3 +1,4 @@
+import { logger } from '@navikt/next-logger'
 import * as http from 'http'
 import { ClientRequestArgs, RequestOptions } from 'http'
 import * as https from 'https'
@@ -6,7 +7,6 @@ import { Readable } from 'stream'
 
 import { getTokenxToken } from '../auth/getTokenxToken'
 import { cleanPathForMetric } from '../metrics'
-import { logger } from '../utils/logger'
 import { stream2buffer } from './stream2buffer'
 
 interface Opts {
