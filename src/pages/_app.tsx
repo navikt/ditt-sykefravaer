@@ -35,7 +35,7 @@ if (process.browser && isMockBackend()) {
 }
 
 configureLogger({
-    basePath: '/syk/sykepengesoknad',
+    basePath: '/syk/sykefravaer',
 })
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
