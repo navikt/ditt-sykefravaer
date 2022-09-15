@@ -16,7 +16,7 @@ export const skapMeldinger = (meldinger: Melding[] | undefined): Oppgave[] => {
             lukkbar: m.lukkbar,
             meldingType: m.meldingType,
             id: m.uuid,
-            opprettet: dayjs(m.opprettet),
+            opprettet: m.opprettet ? dayjs(m.opprettet) : undefined,
         }
     })
 }

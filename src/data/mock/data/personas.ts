@@ -1,5 +1,7 @@
 import dayjs from 'dayjs'
 
+import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
+import { tekst } from '../../../utils/tekster'
 import { brev } from './brev'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
@@ -62,8 +64,19 @@ export const enAvvistSykmelding: Persona = {
 
 export const kunEnSoknad = () => {
     const person = commonPersona()
-    person.soknader = soknader
-    person.sykmeldinger = [sendtSykmelding]
+    person.soknader = []
+    person.sykmeldinger = [jsonDeepCopy(sendtSykmelding)]
+    person.sykmeldinger[0].sykmeldingStatus.arbeidsgiver!.orgNavn = 'MATBUTIKKEN AS'
+    person.meldinger = [
+        {
+            uuid: '123456y7',
+            tekst: tekst('oppgaver.sykepengesoknad.enkel'),
+            lenke: 'https://sykepengesoknad.labs.nais.io/syk/sykepengesoknad/soknader/963e816f-7b3c-4513-818b-95595d84dd91/1?testperson=brukertest',
+            variant: 'info',
+            meldingType: 'ny søknad',
+            lukkbar: false,
+        },
+    ]
     return person
 }
 

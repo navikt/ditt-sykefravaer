@@ -5,5 +5,5 @@ export interface Melding {
     meldingType: string
     variant: 'info' | 'warning' | 'success' | 'error'
     lukkbar: boolean
-    opprettet: string
+    opprettet?: string
 }
