@@ -110,7 +110,7 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Heading size="small" level="3">
+            <Heading size="small" level="1">
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
             {oppgaver.map((v, idx) => (
