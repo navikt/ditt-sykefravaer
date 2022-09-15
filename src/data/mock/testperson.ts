@@ -6,7 +6,7 @@ import {
     toTilGodkjenning,
 } from './data/oppfolginsplanTestPersoner'
 import { Persona } from './data/persona'
-import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding } from './data/personas'
+import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding, kunEnSoknad } from './data/personas'
 import { forskutererIkke, snartSlutt } from './data/sykeforloepTestPersoner'
 
 export interface StringFunctionMap {
@@ -26,4 +26,5 @@ export const personas: StringFunctionMap = {
     'arbeidsgiver-forskuterer-ikke': forskutererIkke,
     'mangler-inntektsmelding': () => manglerInntektsmelding(),
     'mottatt-inntektsmelding': () => mottattInntektsmelding(),
+    'kun-en-soknad': () => kunEnSoknad(),
 }

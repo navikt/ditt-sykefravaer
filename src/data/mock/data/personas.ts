@@ -60,6 +60,13 @@ export const enAvvistSykmelding: Persona = {
     brev: [],
 }
 
+export const kunEnSoknad = () => {
+    const person = commonPersona()
+    person.soknader = soknader
+    person.sykmeldinger = [sendtSykmelding]
+    return person
+}
+
 export const defaultPersona: Persona = {
     soknader: soknader,
     meldinger: [],
