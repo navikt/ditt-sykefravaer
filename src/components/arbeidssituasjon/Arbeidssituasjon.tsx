@@ -26,7 +26,9 @@ const Arbeidssituasjon = () => {
                 <section className="din-situasjon">
                     <div className="tittel">
                         <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
-                        <Heading size="medium">{tekst('din-situasjon.tittel.2')}</Heading>
+                        <Heading size="small" level="1">
+                            {tekst('din-situasjon.tittel.2')}
+                        </Heading>
                     </div>
                     <Panel className="bakgrunn">
                         <div>
