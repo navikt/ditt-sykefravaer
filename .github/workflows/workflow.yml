@@ -8,4 +8,3 @@ jobs:
     with:
       static-files-path: sykefravaer
       base-path: syk/sykefravaer
-      sentry-enabled: false
