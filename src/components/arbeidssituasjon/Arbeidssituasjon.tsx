@@ -23,54 +23,56 @@ const Arbeidssituasjon = () => {
         <Vis
             hvis={arbeidsgivere && arbeidsgivere.length > 0}
             render={() => (
-                <section className="din-situasjon">
-                    <div className="tittel">
-                        <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
-                        <Heading size="small" level="1">
-                            {tekst('din-situasjon.tittel.2')}
-                        </Heading>
-                    </div>
-                    <Panel className="bakgrunn">
-                        <div>
-                            {arbeidsgivere.map((orgnummer, idx) => {
-                                return (
-                                    <div className="situasjon__panel" key={idx}>
-                                        <Arbeidsgiver orgnummer={orgnummer} />
-                                    </div>
-                                )
-                            })}
+                <>
+                    <section className="din-situasjon">
+                        <div className="tittel">
+                            <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
+                            <Heading size="small" level="1">
+                                {tekst('din-situasjon.tittel.2')}
+                            </Heading>
                         </div>
-                        <Accordion className="accordion">
-                            <Accordion.Item>
-                                <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
-                                <Accordion.Content>
-                                    <BodyLong spacing>
-                                        {parser(tekst('din-situasjon.arbeidsgiver-legger-til-rette'))}
-                                    </BodyLong>
-                                    <BodyLong spacing>
-                                        {parser(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
-                                    </BodyLong>
-                                    <ul>
-                                        <li>
-                                            <BodyShort spacing>
-                                                <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
-                                            </BodyShort>
-                                        </li>
-                                        <li>
-                                            <BodyShort spacing>
-                                                <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
-                                            </BodyShort>
-                                        </li>
-                                    </ul>
-                                    <BodyLong spacing>
-                                        {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
-                                    </BodyLong>
-                                    <BodyShort>{tekst('din-situasjon.arbeidsgiver-ansvar-for-møte')}</BodyShort>
-                                </Accordion.Content>
-                            </Accordion.Item>
-                        </Accordion>
-                    </Panel>
-                </section>
+                        <Panel className="bakgrunn">
+                            <div>
+                                {arbeidsgivere.map((orgnummer, idx) => {
+                                    return (
+                                        <div className="situasjon__panel" key={idx}>
+                                            <Arbeidsgiver orgnummer={orgnummer} />
+                                        </div>
+                                    )
+                                })}
+                            </div>
+                        </Panel>
+                    </section>
+                    <Accordion className="accordion">
+                        <Accordion.Item>
+                            <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
+                            <Accordion.Content>
+                                <BodyLong spacing>
+                                    {parser(tekst('din-situasjon.arbeidsgiver-legger-til-rette'))}
+                                </BodyLong>
+                                <BodyLong spacing>
+                                    {parser(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
+                                </BodyLong>
+                                <ul>
+                                    <li>
+                                        <BodyShort spacing>
+                                            <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
+                                        </BodyShort>
+                                    </li>
+                                    <li>
+                                        <BodyShort spacing>
+                                            <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
+                                        </BodyShort>
+                                    </li>
+                                </ul>
+                                <BodyLong spacing>
+                                    {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
+                                </BodyLong>
+                                <BodyShort>{tekst('din-situasjon.arbeidsgiver-ansvar-for-møte')}</BodyShort>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
+                </>
             )}
         />
     )
