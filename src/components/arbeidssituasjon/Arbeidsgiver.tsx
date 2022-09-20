@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react'
+import { Accordion, BodyShort } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -32,30 +32,68 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
     if (!meldinger) return null
 
     return (
-        <div className="situasjon__innhold">
-            <BodyShort spacing>
-                {tekst('din-situasjon.ansatt')}
-                <strong>{navn}</strong>
-            </BodyShort>
-            <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
+        <>
             <Vis
-                hvis={leder?.arbeidsgiverForskutterer !== null}
+                hvis={narmesteLedere!.length === 1}
                 render={() => (
-                    <div className="leder__forskuttering">
-                        <BodyShort>
-                            {tekst(
-                                `din-situasjon.arbeidsgiver-forskutterer${
-                                    leder?.arbeidsgiverForskutterer
-                                        ? ''
-                                        : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                          '-ikke'
-                                }` as any
-                            )}
+                    <div className="situasjon__innhold">
+                        <BodyShort spacing>
+                            <strong>{navn}</strong>
                         </BodyShort>
+                        <Vis
+                            hvis={leder?.arbeidsgiverForskutterer !== null}
+                            render={() => (
+                                <div className="leder__forskuttering">
+                                    <BodyShort>
+                                        {tekst(
+                                            `din-situasjon.arbeidsgiver-forskutterer${
+                                                leder?.arbeidsgiverForskutterer
+                                                    ? ''
+                                                    : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                      '-ikke'
+                                            }` as any
+                                        )}
+                                    </BodyShort>
+                                </div>
+                            )}
+                        />
+                        <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
                     </div>
                 )}
             />
-        </div>
+            <Vis
+                hvis={narmesteLedere!.length > 1}
+                render={() => (
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>
+                                <strong>{navn}</strong>
+                            </Accordion.Header>
+                            <Accordion.Content>
+                                <Vis
+                                    hvis={leder?.arbeidsgiverForskutterer !== null}
+                                    render={() => (
+                                        <div className="leder__forskuttering">
+                                            <BodyShort>
+                                                {tekst(
+                                                    `din-situasjon.arbeidsgiver-forskutterer${
+                                                        leder?.arbeidsgiverForskutterer
+                                                            ? ''
+                                                            : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                                              '-ikke'
+                                                    }` as any
+                                                )}
+                                            </BodyShort>
+                                        </div>
+                                    )}
+                                />
+                                <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
+                )}
+            />
+        </>
     )
 }
 

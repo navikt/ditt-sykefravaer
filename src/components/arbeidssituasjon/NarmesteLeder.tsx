@@ -1,4 +1,5 @@
 import { BodyShort } from '@navikt/ds-react'
+import parser from 'html-react-parser'
 import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -32,9 +33,18 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                 hvis={leder && orgNavn}
                 render={() => (
                     <>
-                        <BodyShort className="leder__informasjon">
-                            Din nærmeste leder er <strong>{leder?.navn}</strong>.
-                        </BodyShort>
+                        <Vis
+                            hvis={leder!.navn}
+                            render={() => (
+                                <BodyShort className="leder__informasjon">
+                                    {parser(
+                                        tekst('din-situasjon.nærmesteleder', {
+                                            '%ARBEIDSGIVER%': leder!.navn!,
+                                        })
+                                    )}
+                                </BodyShort>
+                            )}
+                        />
                         <div className="leder__handlinger">
                             <button className="lenke" onClick={() => toggleOpen()}>
                                 <BodyShort spacing as="span">

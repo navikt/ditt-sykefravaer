@@ -1,4 +1,4 @@
-import { Accordion, BodyLong, BodyShort, Heading, Panel } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import React from 'react'
 
@@ -31,17 +31,13 @@ const Arbeidssituasjon = () => {
                                 {tekst('din-situasjon.tittel.2')}
                             </Heading>
                         </div>
-                        <Panel className="bakgrunn">
-                            <div>
-                                {arbeidsgivere.map((orgnummer, idx) => {
-                                    return (
-                                        <div className="situasjon__panel" key={idx}>
-                                            <Arbeidsgiver orgnummer={orgnummer} />
-                                        </div>
-                                    )
-                                })}
-                            </div>
-                        </Panel>
+                        {arbeidsgivere.map((orgnummer, idx) => {
+                            return (
+                                <div key={idx}>
+                                    <Arbeidsgiver orgnummer={orgnummer} />
+                                </div>
+                            )
+                        })}
                     </section>
                     <Accordion className="accordion">
                         <Accordion.Item>
@@ -68,7 +64,7 @@ const Arbeidssituasjon = () => {
                                 <BodyLong spacing>
                                     {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
                                 </BodyLong>
-                                <BodyShort>{tekst('din-situasjon.arbeidsgiver-ansvar-for-møte')}</BodyShort>
+                                <BodyShort>{parser(tekst('din-situasjon.arbeidsgiver-ansvar-for-møte'))}</BodyShort>
                             </Accordion.Content>
                         </Accordion.Item>
                     </Accordion>
