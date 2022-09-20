@@ -84,6 +84,24 @@ export const defaultPersona: Persona = {
     sykmeldinger: [
         sendtSykmelding,
         {
+            id: 'SENDT',
+            sykmeldingStatus: {
+                statusEvent: 'SENDT',
+                arbeidsgiver: {
+                    orgnummer: '972674819',
+                    orgNavn: 'Diagon Alley',
+                },
+            },
+            behandlingsutfall: { status: 'OK' },
+            sykmeldingsperioder: [
+                {
+                    fom: dayjs().format('YYYY-MM-DD'),
+                    tom: dayjs().add(12, 'days').format('YYYY-MM-DD'),
+                },
+            ],
+            syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
+        },
+        {
             id: 'APEN',
             sykmeldingStatus: {
                 statusEvent: 'BEKREFTET',
@@ -121,6 +139,12 @@ export const defaultPersona: Persona = {
         {
             navn: 'Albus Dumbledore',
             orgnummer: '972674818',
+            arbeidsgiverForskutterer: true,
+            aktivFom: '2021-03-19',
+        },
+        {
+            navn: 'Severus Snape',
+            orgnummer: '972674819',
             arbeidsgiverForskutterer: true,
             aktivFom: '2021-03-19',
         },
