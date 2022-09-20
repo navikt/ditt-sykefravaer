@@ -1,4 +1,4 @@
-import { Accordion, BodyShort } from '@navikt/ds-react'
+import { Accordion, BodyShort, Panel } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -36,7 +36,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
             <Vis
                 hvis={narmesteLedere!.length === 1}
                 render={() => (
-                    <div className="situasjon__innhold">
+                    <Panel className="situasjon__innhold">
                         <BodyShort spacing>
                             <strong>{navn}</strong>
                         </BodyShort>
@@ -58,7 +58,7 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
                             )}
                         />
                         <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
-                    </div>
+                    </Panel>
                 )}
             />
             <Vis
