@@ -13,7 +13,6 @@ export interface Persona {
     vedtak: RSVedtakWrapper[]
     sykmeldinger: Sykmelding[]
     narmesteledere: NarmesteLeder[]
-    snartSluttSykepenger: boolean
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     oppfolgingsplaner: Oppfolgingsplan[]
     dialogmoteBehov: DialogmoteBehov

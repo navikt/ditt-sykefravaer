@@ -24,7 +24,6 @@ env:
   DECORATOR_ENV: dev
   AMPLITUDE_ENABLED: true
   ASSET_PREFIX: https://flex-static-files.dev.nav.no/sykefravaer
-  SNART_SLUTT_URL: https://www-gcp.dev.nav.no/syk/info/snart-slutt-pa-sykepengene
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: dev-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: dev-gcp:flex:spinnsyn-backend
   SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:teamsykmelding:sykmeldinger-backend

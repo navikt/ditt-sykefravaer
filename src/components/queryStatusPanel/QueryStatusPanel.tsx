@@ -2,7 +2,6 @@ import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
 import React from 'react'
 import { useIsFetching, UseQueryResult } from 'react-query'
 
-import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useArbeidsrettetOppfolging from '../../query-hooks/useArbeidsrettetOppfolging'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -44,10 +43,6 @@ const QueryStatusPanel = () => {
         query: useNarmesteledere(),
         message: 'Kunne ikke hente din nærmeste leder',
     }
-    const trettiniUkersvarsel: QueryOgFeilmelding = {
-        query: use39ukersvarsel(),
-        message: 'Kunne ikke hente varsler om slutt på sykepenger',
-    }
     const arbeidsrettetOppfolging: QueryOgFeilmelding = {
         query: useArbeidsrettetOppfolging(),
         message: 'Kunne ikke hente arbeidsrettet oppfølging',
@@ -60,7 +55,6 @@ const QueryStatusPanel = () => {
         oppfolgingsplaner,
         dialogmoteBehov,
         narmesteledere,
-        trettiniUkersvarsel,
         arbeidsrettetOppfolging,
     ].filter((a) => a.query.isError)
 

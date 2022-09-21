@@ -20,10 +20,6 @@ function setUpMock(persona: Persona) {
 
     mock.get('/syk/sykefravaer/api/v1/soknader', (req, res, ctx) => res(ctx.json(persona.soknader)))
 
-    mock.get(`${syfoApiRoot()}/syfomotebehov/api/esyfovarsel/39uker`, (req, res, ctx) =>
-        res(ctx.json(persona.snartSluttSykepenger))
-    )
-
     mock.get('/syk/sykefravaer/api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging', (req, res, ctx) =>
         res(ctx.json(persona.arbeidsrettetOppfolging))
     )
