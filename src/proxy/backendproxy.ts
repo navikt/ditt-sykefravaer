@@ -1,3 +1,4 @@
+import { proxyApiRouteRequest } from '@navikt/next-api-proxy'
 import { logger } from '@navikt/next-logger'
 import * as http from 'http'
 import { ClientRequestArgs, RequestOptions } from 'http'
@@ -14,7 +15,7 @@ interface Opts {
     res: NextApiResponse
     tillatteApier: String[]
     backend: string
-    backendHostname: string
+    hostname: string
     backendClientId: string
     https: boolean
 }
@@ -32,42 +33,5 @@ export async function proxyKallTilBackend(opts: Opts) {
     const idportenToken = opts.req.headers.authorization!.split(' ')[1]
     const tokenxToken = await getTokenxToken(idportenToken, opts.backendClientId)
 
-    const options: RequestOptions = {
-        hostname: opts.backendHostname,
-        port: opts.https ? 443 : 80,
-        path: rewritedPath,
-        method: opts.req.method,
-        headers: {},
-    }
-
-    const headersToSkip = ['host', 'cookie', 'authorization']
-    for (const headersKey in opts.req.headers) {
-        if (!headersToSkip.includes(headersKey.toLowerCase())) {
-            options.headers![headersKey] = opts.req.headers[headersKey]
-        }
-    }
-    options.headers!['Authorization'] = `Bearer ${tokenxToken}`
-
-    const stream = Readable.from(opts.req)
-    const bodyin = await stream2buffer(stream)
-
-    const module = opts.https ? https : http
-    const backendReq = module.request(options, (res2) => {
-        if (res2.statusCode != null) {
-            opts.res.status(res2.statusCode)
-        }
-        for (const headersKey in res2.headers) {
-            opts.res.setHeader(headersKey, res2.headers[headersKey]!)
-        }
-
-        res2.on('data', (d: any) => {
-            opts.res.write(d)
-        })
-        res2.on('end', (d: any) => {
-            opts.res.end()
-        })
-    })
-
-    backendReq.write(bodyin)
-    backendReq.end()
+    await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenxToken! })
 }

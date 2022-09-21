@@ -7,16 +7,16 @@ import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 
 const { serverRuntimeConfig } = getConfig()
 
-const tillatteApier = ['GET /veilarboppfolging/api/v2/oppfolging']
+const tillatteApier = ['GET /syfomotebehov/api/v3/arbeidstaker/motebehov']
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     await proxyKallTilBackend({
         req,
         res,
         tillatteApier,
-        backend: 'veilarboppfolging',
-        hostname: serverRuntimeConfig.veilarboppfolgingHost,
-        backendClientId: serverRuntimeConfig.veilarboppfolgingClientId,
+        backend: 'syfomotebehov',
+        hostname: serverRuntimeConfig.syfomotebehovHost,
+        backendClientId: serverRuntimeConfig.syfomotebehovClientId,
         https: true,
     })
 })
