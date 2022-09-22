@@ -4,5 +4,7 @@ import { Sykmelding } from '../types/sykmelding'
 import { fetchJson } from '../utils/fetch'
 
 export default function UseSykmeldinger() {
-    return useQuery<Sykmelding[], Error>('sykmeldinger', () => fetchJson('/syk/sykefravaer/api/v1/sykmeldinger'))
+    return useQuery<Sykmelding[], Error>('sykmeldinger', () =>
+        fetchJson('/syk/sykefravaer/api/sykmeldinger-backend/api/v2/sykmeldinger')
+    )
 }

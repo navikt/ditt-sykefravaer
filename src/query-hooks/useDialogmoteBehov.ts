@@ -5,6 +5,6 @@ import { fetchJson } from '../utils/fetch'
 
 export default function UseDialogmoteBehov() {
     return useQuery<DialogmoteBehov, Error>('dialogmoteBehov', () =>
-        fetchJson('/syk/sykefravaer/api/v1/syfomotebehov/arbeidstaker/motebehov')
+        fetchJson('/syk/sykefravaer/api/syfomotebehov/syfomotebehov/api/v3/arbeidstaker/motebehov')
     )
 }

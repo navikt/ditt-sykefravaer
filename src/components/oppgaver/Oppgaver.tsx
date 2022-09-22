@@ -54,9 +54,9 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                     komponent: 'ditt sykefravær oppgave',
                 })
                 if (oppgave.id) {
-                    Fetch.authenticatedPost(`/syk/sykefravaer/api/v1/meldinger/${oppgave.id}/lukk`).catch((e) =>
-                        logger.warn(e, 'Feil ved merking av melding som lest')
-                    )
+                    Fetch.authenticatedPost(
+                        `/syk/sykefravaer/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`
+                    ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest'))
                 }
             }}
         >

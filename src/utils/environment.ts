@@ -26,10 +26,6 @@ export function amplitudeEnabled() {
     return publicRuntimeConfig.amplitudeEnabled === 'true'
 }
 
-export function syfoApiRoot() {
-    return publicRuntimeConfig.syfoApiRoot
-}
-
 export function sykepengesoknadUrl() {
     return publicRuntimeConfig.sykepengesoknadUrl
 }
