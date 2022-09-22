@@ -105,8 +105,11 @@ module.exports = withPlugins(
             isdialogmoteClientId: process.env.ISDIALOGMOTE_CLIENT_ID,
             syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,
             syfomotebehovUrl: process.env.SYFOMOTEBEHOV_URL,
+            syfomotebehovHost: process.env.SYFOMOTEBEHOV_HOST,
             veilarboppfolgingHost: process.env.VEILARBOPPFOLGING_HOST,
             veilarboppfolgingClientId: process.env.VEILARBOPPFOLGING_CLIENT_ID,
+            syfooppfolgingsplanserviceHost: process.env.SYFOOPPFOLGINGSPLANSERVICE_HOST,
+            syfooppfolgingsplanserviceClientId: process.env.SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID,
         },
         publicRuntimeConfig: {
             // Will be available on both server and client

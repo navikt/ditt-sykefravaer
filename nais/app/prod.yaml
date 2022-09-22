@@ -33,5 +33,8 @@ env:
   ISDIALOGMOTE_CLIENT_ID: prod-gcp:teamsykefravr:isdialogmote
   SYFOMOTEBEHOV_CLIENT_ID: prod-fss:team-esyfo:syfomotebehov
   SYFOMOTEBEHOV_URL: https://syfomotebehov.prod-fss-pub.nais.io
+  SYFOMOTEBEHOV_HOST: syfomotebehov.prod-fss-pub.nais.io
   VEILARBOPPFOLGING_HOST: veilarboppfolging.prod-fss-pub.nais.io
   VEILARBOPPFOLGING_CLIENT_ID: prod-fss:pto:veilarboppfolging
+  SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.prod-fss-pub.nais.io
+  SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
