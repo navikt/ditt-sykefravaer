@@ -3,7 +3,7 @@ on: push
 
 jobs:
   felles-workflow:
-    uses: navikt/flex-github-actions-workflows/.github/workflows/next-js.yml@master
+    uses: navikt/flex-github-actions-workflows/.github/workflows/next-js.yml@githubtoken
     secrets: inherit
     with:
       static-files-path: sykefravaer
