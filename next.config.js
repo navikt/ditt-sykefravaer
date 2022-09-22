@@ -120,7 +120,6 @@ module.exports = withPlugins(
             amplitudeEnabled: process.env.AMPLITUDE_ENABLED,
             environment: process.env.ENVIRONMENT,
             spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,
-            syfoApiRoot: process.env.SYFOAPI_ROOT,
             sykepengesoknadUrl: process.env.SYKEPENGESOKNAD_URL,
             spinnsynUrl: process.env.SPINNSYN_URL,
             sykmeldingUrl: process.env.SYKMELDING_URL,

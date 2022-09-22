@@ -38,13 +38,13 @@ class Fetch {
     }
 }
 
-async function fetchMedRequestId(url: string, optionsInn?: RequestInit, skipRequestId?: boolean) {
+async function fetchMedRequestId(url: string, optionsInn?: RequestInit) {
     const uuid = uuidv4()
 
     const options: RequestInit = optionsInn ? optionsInn : {}
-    if (!skipRequestId) {
-        options.headers = options.headers ? { ...options.headers, 'x-request-id': uuid } : { 'x-request-id': uuid }
-    }
+
+    options.headers = options.headers ? { ...options.headers, 'x-request-id': uuid } : { 'x-request-id': uuid }
+
     options.cache = 'no-store'
 
     try {
@@ -62,8 +62,8 @@ async function fetchMedRequestId(url: string, optionsInn?: RequestInit, skipRequ
     }
 }
 
-export async function fetchJson(url: string, options?: RequestInit, skipRequestId?: boolean) {
-    const fetchMedRequestSvar = await fetchMedRequestId(url, options, skipRequestId)
+export async function fetchJson(url: string, options?: RequestInit) {
+    const fetchMedRequestSvar = await fetchMedRequestId(url, options)
 
     if (fetchMedRequestSvar.res.status === 401) {
         window.location.href = '/syk/sykefravaer' //Lar SSR authen fikse alt
