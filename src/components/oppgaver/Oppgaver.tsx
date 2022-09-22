@@ -23,11 +23,10 @@ import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 interface EnkeltOppgaveAlertProps {
     oppgave: Oppgave
+    pushLukket: (id: string) => void
 }
 
-const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
-    const [vises, setVises] = useState<boolean>(true)
-
+const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) => {
     useEffect(() => {
         logEvent('alert vist', {
             tekst: oppgave.meldingType ?? oppgave.tekst,
@@ -36,17 +35,17 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
         })
     }, [oppgave.meldingType, oppgave.tekst, oppgave.type])
 
-    if (!vises) {
-        return null
-    }
-
     const lukkeknapp = () => (
         <Button
             variant={'secondary'}
             style={{ marginLeft: '1em', height: '32px', padding: 0 }}
             size={'small'}
             onClick={() => {
-                setVises(false)
+                if (oppgave.id) {
+                    pushLukket(oppgave.id)
+                } else {
+                    logger.error('Skal ikke lukke oppgave uten id')
+                }
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
                     alerttekst: oppgave.meldingType ?? oppgave.tekst,
@@ -55,7 +54,7 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
                 })
                 if (oppgave.id) {
                     Fetch.authenticatedPost(
-                        `/syk/sykefravaer/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`
+                        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`
                     ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest'))
                 }
             }}
@@ -94,9 +93,10 @@ const EnkeltOppgaveAlert = ({ oppgave }: EnkeltOppgaveAlertProps) => {
 
 interface OppgaveProps {
     oppgaver: Oppgave[]
+    pushLukket: (id: string) => void
 }
 
-const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
+const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
     if (oppgaver && oppgaver.length === 0) {
         return null
     }
@@ -107,53 +107,43 @@ const OppgaveLista = ({ oppgaver }: OppgaveProps) => {
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
             {oppgaver.map((v, idx) => (
-                <EnkeltOppgaveAlert oppgave={v} key={v.tekst} />
+                <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
             ))}
         </section>
     )
 }
 
 function Oppgaver() {
-    const [oppgaver, setOppgaver] = useState<Oppgave[]>([])
-
     const { data: meldinger } = useMeldinger()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
     const { data: brev } = useBrev()
+    const [lukkede, setLukkede] = useState([] as string[])
 
-    function hentOppgaver() {
-        const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
-        const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
-        const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(
-            oppfolgingsplaner,
-            sykmeldinger,
-            oppfolgingsplanUrl()
-        )
-        const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(
-            dialogmoteBehov,
-            `${dialogmoteUrl()}/motebehov/svar`
-        )
-
-        const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
-        const meldingerOppgaver = skapMeldinger(meldinger)
-
-        const tasks = [
-            ...sykmeldingOppgaver,
-            ...soknadOppgaver,
-            ...oppfolgingsplanoppgaver,
-            ...dialogmoteBehovOppgaver,
-            ...brevOppgaver,
-            ...meldingerOppgaver,
-        ]
-
-        setOppgaver(tasks)
+    const pushLukket = (id: string) => {
+        setLukkede((current) => [...current, id])
     }
 
-    useEffect(hentOppgaver, [brev, dialogmoteBehov, oppfolgingsplaner, soknader, sykmeldinger, meldinger])
+    const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
+    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
+    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
+    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)
 
-    return <OppgaveLista oppgaver={oppgaver!} />
+    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
+    const meldingerOppgaver = skapMeldinger(meldinger)
+
+    const tasks = [
+        ...sykmeldingOppgaver,
+        ...soknadOppgaver,
+        ...oppfolgingsplanoppgaver,
+        ...dialogmoteBehovOppgaver,
+        ...brevOppgaver,
+        ...meldingerOppgaver,
+    ].filter((o) => !o.id || !lukkede.includes(o.id))
+
+    return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} />
 }
 
 export default Oppgaver

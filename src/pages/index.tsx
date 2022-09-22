@@ -1,4 +1,5 @@
 import { Heading, Modal } from '@navikt/ds-react'
+import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
@@ -7,7 +8,6 @@ import Banner from '../components/banner/Banner'
 import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
 import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../components/lenker/Lenker'
-import Oppgaver from '../components/oppgaver/Oppgaver'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { tekst } from '../utils/tekster'
 
@@ -20,6 +20,9 @@ const Index = () => {
         Modal.setAppElement('#root')
     }, [])
 
+    const Oppgaver = dynamic(() => import('../components/oppgaver/Oppgaver'), {
+        ssr: false,
+    })
     return (
         <>
             <Banner>
