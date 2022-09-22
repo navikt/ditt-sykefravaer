@@ -1,12 +1,10 @@
 import { logger } from '@navikt/next-logger'
-import cookie from 'cookie'
 import { NextPageContext } from 'next'
 
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
-import { isMockBackend, loginServiceRedirectUrl, loginServiceUrl } from '../utils/environment'
+import { isMockBackend } from '../utils/environment'
 import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
-import { validerLoginserviceToken } from './verifyLoginserviceAccessToken'
 
 type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePropsPrefetchResult>
 
@@ -24,28 +22,6 @@ function beskyttetSide(handler: PageHandler) {
         const cleanPath = cleanPathForMetric(request.url)
         if (shouldLogMetricForPath(cleanPath)) {
             metrics.pageInitialLoadCounter.inc({ path: cleanPath }, 1)
-        }
-        const loginserviceRedirect = {
-            redirect: {
-                destination: `${loginServiceUrl()}?redirect=${loginServiceRedirectUrl()}`,
-                permanent: false,
-            },
-        }
-        const cookies = cookie.parse(context.req?.headers.cookie || '')
-        const selvbetjeningIdtoken = cookies['selvbetjening-idtoken']
-        if (!selvbetjeningIdtoken) {
-            if (shouldLogMetricForPath(cleanPath)) {
-                metrics.loginserviceRedirect.inc({ path: cleanPath }, 1)
-            }
-            return loginserviceRedirect
-        }
-        try {
-            await validerLoginserviceToken(selvbetjeningIdtoken)
-        } catch (e) {
-            if (shouldLogMetricForPath(cleanPath)) {
-                metrics.loginserviceRedirect.inc({ path: cleanPath }, 1)
-            }
-            return loginserviceRedirect
         }
 
         const wonderwallRedirect = {

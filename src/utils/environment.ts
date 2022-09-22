@@ -10,14 +10,6 @@ export function isOpplaering() {
     return publicRuntimeConfig.opplaering === 'true'
 }
 
-export function loginServiceUrl() {
-    return serverRuntimeConfig.loginserviceUrl
-}
-
-export function loginServiceRedirectUrl() {
-    return serverRuntimeConfig.loginServiceRedirectUrl
-}
-
 export function minSideUrl() {
     return publicRuntimeConfig.minSideUrl
 }
