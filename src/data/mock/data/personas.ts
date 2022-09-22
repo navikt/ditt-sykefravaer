@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-
 import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
 import { tekst } from '../../../utils/tekster'
 import { brev } from './brev'
@@ -17,7 +15,6 @@ export const commonPersona = (): Persona => {
         vedtak: [],
         sykmeldinger: [],
         narmesteledere: [],
-        snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { erUnderOppfolging: false },
         dialogmoteBehov: {
             visMotebehov: false,
@@ -36,7 +33,6 @@ export const enNySykmelding: Persona = {
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [nySykmelding],
     narmesteledere: [],
-    snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { erUnderOppfolging: false },
     brev: [],
 }
@@ -57,7 +53,6 @@ export const enAvvistSykmelding: Persona = {
         },
     ],
     narmesteledere: [],
-    snartSluttSykepenger: false,
     arbeidsrettetOppfolging: { erUnderOppfolging: false },
     brev: [],
 }
@@ -130,7 +125,6 @@ export const defaultPersona: Persona = {
             aktivFom: '2021-03-19',
         },
     ],
-    snartSluttSykepenger: true,
     arbeidsrettetOppfolging: { erUnderOppfolging: true },
     brev: brev,
 }

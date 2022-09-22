@@ -3,20 +3,13 @@ import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-rea
 import { logger } from '@navikt/next-logger'
 import React, { useEffect, useState } from 'react'
 
-import use39ukersvarsel from '../../query-hooks/use39ukersvarsel'
 import useBrev from '../../query-hooks/useBrev'
 import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
 import useMeldinger from '../../query-hooks/useMeldinger'
 import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
 import useSoknader from '../../query-hooks/useSoknader'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import {
-    dialogmoteUrl,
-    oppfolgingsplanUrl,
-    snartSluttUrl,
-    sykepengesoknadUrl,
-    sykmeldingUrl,
-} from '../../utils/environment'
+import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import Fetch from '../../utils/fetch'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
@@ -126,7 +119,6 @@ function Oppgaver() {
     const { data: meldinger } = useMeldinger()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
-    const { data: snartSluttPaSykepengene } = use39ukersvarsel()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
     const { data: brev } = useBrev()
@@ -156,25 +148,10 @@ function Oppgaver() {
             ...meldingerOppgaver,
         ]
 
-        if (snartSluttPaSykepengene) {
-            tasks.push({
-                tekst: tekst('oppgaver.snartslutt'),
-                lenke: snartSluttUrl(),
-            })
-        }
-
         setOppgaver(tasks)
     }
 
-    useEffect(hentOppgaver, [
-        brev,
-        dialogmoteBehov,
-        oppfolgingsplaner,
-        snartSluttPaSykepengene,
-        soknader,
-        sykmeldinger,
-        meldinger,
-    ])
+    useEffect(hentOppgaver, [brev, dialogmoteBehov, oppfolgingsplaner, soknader, sykmeldinger, meldinger])
 
     return <OppgaveLista oppgaver={oppgaver!} />
 }

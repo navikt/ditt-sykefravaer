@@ -127,7 +127,6 @@ module.exports = withPlugins(
             aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
             oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
             dialogmoteUrl: process.env.DIALOGMOTE_URL,
-            snartSluttUrl: process.env.SNART_SLUTT_URL,
         },
     }
 )

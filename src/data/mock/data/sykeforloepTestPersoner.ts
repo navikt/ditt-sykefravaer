@@ -47,7 +47,6 @@ const commonPersona = (): Persona => {
                 aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
             },
         ],
-        snartSluttSykepenger: false,
         arbeidsrettetOppfolging: { erUnderOppfolging: false },
         dialogmoteBehov: {
             visMotebehov: false,
@@ -65,9 +64,18 @@ export const snartSlutt = () => {
         fom: førtitoUker.format('YYYY-MM-DD'),
         tom: iDag.format('YYYY-MM-DD'),
     }
-
+    person.meldinger = [
+        {
+            uuid: '123456y7',
+            tekst: 'Snart slutt på sykepengene',
+            variant: 'info',
+            meldingType: 'ESYFOVARSEL_MER_VEILEDNING',
+            lukkbar: true,
+            lenke: 'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene',
+            opprettet: '2022-06-16T06:52:22.419786Z',
+        },
+    ]
     person.arbeidsrettetOppfolging = { erUnderOppfolging: false }
-    person.snartSluttSykepenger = true
     return person
 }
 

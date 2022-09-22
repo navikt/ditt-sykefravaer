@@ -53,7 +53,3 @@ export function oppfolgingsplanUrl() {
 export function dialogmoteUrl() {
     return publicRuntimeConfig.dialogmoteUrl
 }
-
-export function snartSluttUrl() {
-    return publicRuntimeConfig.snartSluttUrl
-}

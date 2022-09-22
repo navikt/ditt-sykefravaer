@@ -10,8 +10,6 @@ export const OppgaverTekster = {
     'oppgaver.sykmeldinger.en-avvist-sykmelding': 'Du har en avvist sykmelding',
     'oppgaver.sykmeldinger.flere-avviste-sykmeldinger': 'Du har %ANTALL% avviste sykmeldinger',
     'oppgaver.nye-varsler': 'Nye varsler',
-    'oppgaver.snartslutt': 'Snart slutt på sykepengene',
-    'oppgaver.snartslutt.url': '/syk/sykefravaer/snart-slutt-pa-sykepengene',
     'oppgaver.oppfoelgingsplan.avventendegodkjenninger.entall':
         'Du har en oppfølgingsplan som venter på godkjenning av deg',
     'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall':
