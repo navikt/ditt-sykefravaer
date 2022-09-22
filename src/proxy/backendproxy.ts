@@ -1,14 +1,9 @@
 import { proxyApiRouteRequest } from '@navikt/next-api-proxy'
 import { logger } from '@navikt/next-logger'
-import * as http from 'http'
-import { ClientRequestArgs, RequestOptions } from 'http'
-import * as https from 'https'
 import { NextApiRequest, NextApiResponse } from 'next'
-import { Readable } from 'stream'
 
 import { getTokenxToken } from '../auth/getTokenxToken'
 import { cleanPathForMetric } from '../metrics'
-import { stream2buffer } from './stream2buffer'
 
 interface Opts {
     req: NextApiRequest

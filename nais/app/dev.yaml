@@ -11,8 +11,6 @@ env:
   MOCK_BACKEND: false
   ENVIRONMENT: q1
   OPPLAERING: false
-  LOGINSERVICE_URL: https://loginservice.dev.nav.no/login
-  LOGINSERVICE_REDIRECT_URL: https://www-gcp.dev.nav.no/syk/sykefravaer
   SYKEPENGESOKNAD_URL: https://www-gcp.dev.nav.no/syk/sykepengesoknad
   SPINNSYN_URL: https://www-gcp.dev.nav.no/syk/sykepenger
   SYKMELDING_URL: https://www-gcp.dev.nav.no/syk/sykmeldinger

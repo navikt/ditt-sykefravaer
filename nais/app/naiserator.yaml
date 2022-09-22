@@ -58,8 +58,6 @@ spec:
           namespace: teamsykefravr
         - application: syfomotebehov
           namespace: team-esyfo
-  envFrom:
-    - configmap: loginservice-idporten
   env:
   {{#each env}}
      - name: {{@key}}

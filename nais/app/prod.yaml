@@ -11,8 +11,6 @@ env:
   MOCK_BACKEND: false
   ENVIRONMENT: prod
   OPPLAERING: false
-  LOGINSERVICE_URL: https://loginservice.nav.no/login
-  LOGINSERVICE_REDIRECT_URL: https://www.nav.no/syk/sykefravaer
   SYKEPENGESOKNAD_URL: https://www.nav.no/syk/sykepengesoknad
   SPINNSYN_URL: https://www.nav.no/syk/sykepenger
   SYKMELDING_URL: https://www.nav.no/syk/sykmeldinger
