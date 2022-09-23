@@ -45,7 +45,7 @@
     "axe-core": "^4.4.2",
     "cypress": "^10.3.0",
     "cypress-axe": "^1.0.0",
-    "eslint": "^8.14.0",
+    "eslint": "^8.23.1",
     "eslint-config-next": "^12.1.6",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-react": "^1.1.7",
