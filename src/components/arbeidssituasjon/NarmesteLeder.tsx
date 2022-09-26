@@ -45,25 +45,27 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                                 </BodyShort>
                             )}
                         />
-                        <div className="leder__handlinger">
-                            <button className="lenke" onClick={() => toggleOpen()}>
-                                <BodyShort spacing as="span">
-                                    Meld fra om endring
-                                </BodyShort>
-                            </button>
+                        <button className="lenke" onClick={() => toggleOpen()}>
+                            <BodyShort spacing as="span">
+                                Meld fra om endring
+                            </BodyShort>
                             <BekreftFeilLeder
                                 open={open}
                                 toggle={toggleOpen}
                                 narmesteLeder={leder!}
                                 orgNavn={orgNavn!}
                             />
-                        </div>
+                        </button>
                     </>
                 )}
             />
             <Vis
                 hvis={!leder || !orgNavn}
-                render={() => <BodyShort spacing>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</BodyShort>}
+                render={() => (
+                    <BodyShort className="leder__informasjon">
+                        <strong>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</strong>
+                    </BodyShort>
+                )}
             />
         </>
     )

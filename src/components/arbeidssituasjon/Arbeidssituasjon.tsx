@@ -6,7 +6,8 @@ import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
-import Arbeidsgiver from './Arbeidsgiver'
+import ArbeidsgiverAccordion from './ArbeidsgiverAccordion'
+import ArbeidsgiverPanel from './ArbeidsgiverPanel'
 import { finnAktuelleArbeidsgivere } from './arbeidssituasjonHjelpefunksjoner'
 
 const Arbeidssituasjon = () => {
@@ -31,15 +32,22 @@ const Arbeidssituasjon = () => {
                                 {tekst('din-situasjon.tittel.2')}
                             </Heading>
                         </div>
-                        {arbeidsgivere.map((orgnummer, idx) => {
-                            return (
-                                <div key={idx}>
-                                    <Arbeidsgiver orgnummer={orgnummer} />
-                                </div>
-                            )
-                        })}
+                        <Vis
+                            hvis={arbeidsgivere.length === 1}
+                            render={() => <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}
+                        />
+                        <Vis
+                            hvis={arbeidsgivere.length > 1}
+                            render={() => (
+                                <>
+                                    {arbeidsgivere.map((orgnummer, idx) => (
+                                        <ArbeidsgiverAccordion orgnummer={orgnummer} key={idx} />
+                                    ))}
+                                </>
+                            )}
+                        />
                     </section>
-                    <Accordion className="accordion">
+                    <Accordion className="arbeidsgiversrolle-accordion">
                         <Accordion.Item>
                             <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
                             <Accordion.Content>
