@@ -6,6 +6,7 @@ import { Persona } from './persona'
 import { soknader } from './soknader'
 import { nySykmelding, sendtSykmelding } from './sykmeldinger'
 import { vedtakMed100Grad } from './vedtak'
+import dayjs from 'dayjs'
 
 export const commonPersona = (): Persona => {
     return {
