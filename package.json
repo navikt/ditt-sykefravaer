@@ -15,7 +15,7 @@
     "@navikt/next-logger": "^1.11.0",
     "@sentry/nextjs": "^6.19.7",
     "amplitude-js": "^8.21.1",
-    "dayjs": "^1.11.1",
+    "dayjs": "^1.11.5",
     "html-react-parser": "^3.0.4",
     "next-compose-plugins": "^2.2.1",
     "next-logger": "^3.0.1",
