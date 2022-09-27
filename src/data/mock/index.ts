@@ -54,10 +54,10 @@ function setUpMock(persona: Persona) {
     )
 
     mock.post('/syk/sykefravaer/api/narmesteleder/v2/:org/avkreft', (req) => {
-        const idx = persona.narmesteledere.findIndex((nl) => nl.orgnummer === req.queryParams.org)
-        const nl = persona.narmesteledere.splice(idx, 1)[0]
-        persona.narmesteledere.push({
-            ...nl,
+        const idx = persona.narmesteledere.findIndex((nl) => nl.orgnummer === req.pathParams.org)
+        const avkreftetLeder = persona.narmesteledere[idx]
+        persona.narmesteledere.splice(idx, 1, {
+            ...avkreftetLeder,
             aktivTom: dayjs().format('YYYY-MM-DD'),
         })
 

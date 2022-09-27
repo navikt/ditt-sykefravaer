@@ -1,19 +1,17 @@
-import { BodyShort } from '@navikt/ds-react'
+import { BodyShort, Panel } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
 import useSykmeldinger from '../../query-hooks/useSykmeldinger'
-import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import NarmesteLeder from './NarmesteLeder'
 
-interface ArbeidsgiverProps {
+interface ArbeidsgiverPanelProps {
     orgnummer: string
 }
 
-const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
-    const [meldinger, setMeldinger] = useState<Sykmelding[]>()
+const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
     const [navn, setNavn] = useState<string>('')
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: narmesteLedere } = useNarmesteledere()
@@ -24,22 +22,17 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
                 syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer && syk.sykmeldingStatus.arbeidsgiver?.orgNavn
         )?.sykmeldingStatus.arbeidsgiver?.orgNavn
         setNavn(orgNavn!)
-        setMeldinger(sykmeldinger!)
     }, [orgnummer, sykmeldinger])
 
-    const leder = narmesteLedere ? narmesteLedere.find((nl) => nl.orgnummer === orgnummer) : null
-
-    if (!meldinger) return null
+    const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
-        <div className="situasjon__innhold">
+        <Panel className="situasjon__innhold">
             <BodyShort spacing>
-                {tekst('din-situasjon.ansatt')}
                 <strong>{navn}</strong>
             </BodyShort>
-            <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
             <Vis
-                hvis={leder?.arbeidsgiverForskutterer !== null}
+                hvis={leder?.arbeidsgiverForskutterer !== undefined}
                 render={() => (
                     <div className="leder__forskuttering">
                         <BodyShort>
@@ -55,8 +48,9 @@ const Arbeidsgiver = ({ orgnummer }: ArbeidsgiverProps) => {
                     </div>
                 )}
             />
-        </div>
+            <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
+        </Panel>
     )
 }
 
-export default Arbeidsgiver
+export default ArbeidsgiverPanel

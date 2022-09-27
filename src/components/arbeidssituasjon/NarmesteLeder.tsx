@@ -1,4 +1,5 @@
 import { BodyShort } from '@navikt/ds-react'
+import parser from 'html-react-parser'
 import React, { useState } from 'react'
 
 import useNarmesteledere from '../../query-hooks/useNarmesteledere'
@@ -32,28 +33,39 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                 hvis={leder && orgNavn}
                 render={() => (
                     <>
-                        <BodyShort className="leder__informasjon">
-                            Din nærmeste leder er <strong>{leder?.navn}</strong>.
-                        </BodyShort>
-                        <div className="leder__handlinger">
-                            <button className="lenke" onClick={() => toggleOpen()}>
-                                <BodyShort spacing as="span">
-                                    Meld fra om endring
+                        <Vis
+                            hvis={leder!.navn}
+                            render={() => (
+                                <BodyShort className="leder__informasjon">
+                                    {parser(
+                                        tekst('din-situasjon.nærmesteleder', {
+                                            '%ARBEIDSGIVER%': leder!.navn!,
+                                        })
+                                    )}
                                 </BodyShort>
-                            </button>
+                            )}
+                        />
+                        <button className="lenke" onClick={() => toggleOpen()}>
+                            <BodyShort spacing as="span">
+                                Meld fra om endring
+                            </BodyShort>
                             <BekreftFeilLeder
                                 open={open}
                                 toggle={toggleOpen}
                                 narmesteLeder={leder!}
                                 orgNavn={orgNavn!}
                             />
-                        </div>
+                        </button>
                     </>
                 )}
             />
             <Vis
                 hvis={!leder || !orgNavn}
-                render={() => <BodyShort spacing>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</BodyShort>}
+                render={() => (
+                    <BodyShort className="leder__informasjon">
+                        <strong>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</strong>
+                    </BodyShort>
+                )}
             />
         </>
     )

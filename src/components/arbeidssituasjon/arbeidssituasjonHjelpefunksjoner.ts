@@ -21,8 +21,8 @@ export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykm
     }
 
     const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] = [
-        ...sykmeldingerMedAktivNaermesteLeder,
         ...sykmeldingerFiltrertPaPeriode,
+        ...sykmeldingerMedAktivNaermesteLeder,
     ]
 
     const unikeArbeidsgiver = new Set(
