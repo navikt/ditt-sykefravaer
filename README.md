@@ -37,3 +37,8 @@ Spørsmål knyttet til koden eller prosjektet kan stilles til flex@nav.no
 ## For NAV-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #flex.
+
+## Data som logges fra Amplitude
+
+Alerts om: ny søknad, oppfølgingsplan, innkalling til dialøgmøte, lukket oppgave, navigering inn i den spesifikke oppgaven
+Navigasjon ut fra hver lenkepanel, 
