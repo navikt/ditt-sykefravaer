@@ -24,7 +24,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
         setNavn(orgNavn!)
     }, [orgnummer, sykmeldinger])
 
-    const leder = narmesteLedere ? narmesteLedere.find((nl) => nl.orgnummer === orgnummer) : null
+    const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
         <Accordion className="arbeidsgiver-accordion">
@@ -34,7 +34,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
                 </Accordion.Header>
                 <Accordion.Content>
                     <Vis
-                        hvis={leder?.arbeidsgiverForskutterer !== null}
+                        hvis={leder?.arbeidsgiverForskutterer !== undefined}
                         render={() => (
                             <div className="leder__forskuttering">
                                 <BodyShort>

@@ -24,7 +24,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
         setNavn(orgNavn!)
     }, [orgnummer, sykmeldinger])
 
-    const leder = narmesteLedere ? narmesteLedere.find((nl) => nl.orgnummer === orgnummer) : null
+    const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
         <Panel className="situasjon__innhold">
@@ -32,7 +32,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
                 <strong>{navn}</strong>
             </BodyShort>
             <Vis
-                hvis={leder?.arbeidsgiverForskutterer !== null}
+                hvis={leder?.arbeidsgiverForskutterer !== undefined}
                 render={() => (
                     <div className="leder__forskuttering">
                         <BodyShort>
