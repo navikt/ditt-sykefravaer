@@ -1,8 +1,6 @@
 import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 
-import { sykmeldingUrl } from '../../utils/environment'
-import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 
 interface FellesLenkepanelProps {

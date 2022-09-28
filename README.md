@@ -30,6 +30,31 @@ npm run test
 npm run e2e
 ```
 
+## Dette logges i Amplitude
+
+Alle oppgaver/varsler:
+
+Teksten på oppgave/varsel logges kun dersom dette ikke inneholder meldingstype.
+
+- Nye og avviste sykmeldinger
+- Nye søknader
+- Svar på søknader
+- Nye oppfølgingsplan
+- Aktivitetsplan
+- Innkalling til dialøgmøte
+- Oppgave/varsel som lukkes
+- Navigering ut av siden gjennom den spesifikke oppgaven
+
+Navigasjon ut fra ditt-sykefravær til:
+
+- Sykmeldinger
+- Søknader
+- Svar på søknader
+- Aktivitetsplan
+- Oppfølgingsplaner
+- Dialogmøter
+
+
 # Henvendelser
 
 Spørsmål knyttet til koden eller prosjektet kan stilles til flex@nav.no
