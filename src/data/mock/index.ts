@@ -18,7 +18,7 @@ function setUpMock(persona: Persona) {
         res(ctx.json(persona.meldinger))
     )
 
-    mock.post('/syk/sykefravaer/ditt-sykefravaer-backend/api/v1/meldinger/:id/lukk', (req, res, ctx) =>
+    mock.post('/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/:id/lukk', (req, res, ctx) =>
         res(ctx.json({ lukket: 'ok' }))
     )
 
