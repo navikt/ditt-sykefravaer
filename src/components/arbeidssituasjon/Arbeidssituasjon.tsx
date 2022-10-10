@@ -47,7 +47,7 @@ const Arbeidssituasjon = () => {
                             )}
                         />
                     </section>
-                    <Accordion className="arbeidsgiversrolle-accordion">
+                    <Accordion>
                         <Accordion.Item>
                             <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
                             <Accordion.Content>
