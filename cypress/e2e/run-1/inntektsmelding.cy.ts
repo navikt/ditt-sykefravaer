@@ -13,8 +13,12 @@ describe('Tester inntektsmelding', () => {
 
         cy.get('h1').contains('Vi mangler inntektsmeldingen fra jobben din.').and('is.visible')
 
-        cy.contains('Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.')
-        cy.contains('Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.')
+        cy.contains(
+            'Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
+        )
+        cy.contains(
+            'Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.'
+        )
 
         cy.injectAxe()
         cy.checkA11y()
