@@ -75,7 +75,7 @@
     "build": "next build",
     "test": "jest --watch",
     "test:ci": "jest --ci",
-    "cy:open": "cypress open",
+    "cy:open": "cypress open --e2e",
     "e2e": "start-test dev-ingen-dekorator http://localhost:8080/syk/sykefravaer cy:open",
     "prettier:write": "prettier --write .",
     "prettier:check": "prettier --check .",
