@@ -6,6 +6,7 @@ describe('Tester visning av forside', () => {
 
     it('Laster startside', () => {
         cy.url().should('equal', 'http://localhost:8080/syk/sykefravaer')
+        cy.contains('Du har en ny søknad om sykepenger')
     })
 
     it('Tester accessibility', () => {
