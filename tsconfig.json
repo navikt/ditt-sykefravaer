@@ -17,7 +17,8 @@
         "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
         "types": ["cypress", "jest"],
-        "incremental": true
+        "incremental": true,
+        "baseUrl": "/syk/sykefravaer"
     },
     "include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]

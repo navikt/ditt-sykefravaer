@@ -38,7 +38,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
     const lukkeknapp = () => (
         <Button
             variant={'secondary'}
-            style={{ marginLeft: '1em', height: '32px', padding: 0 }}
+            style={{ marginLeft: '1em' }}
             size={'small'}
             onClick={() => {
                 if (oppgave.id) {
@@ -58,9 +58,8 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest'))
                 }
             }}
-        >
-            <Close title={'Lukk'} />
-        </Button>
+            icon={<Close title={'Lukk'} />}
+        />
     )
 
     return (
@@ -106,7 +105,7 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
             <Heading size="small" level="1">
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
-            {oppgaver.map((v, idx) => (
+            {oppgaver.map((v) => (
                 <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
             ))}
         </section>

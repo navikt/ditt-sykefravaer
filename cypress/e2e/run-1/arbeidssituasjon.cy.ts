@@ -2,12 +2,11 @@ describe('Tester arbeidssituasjon', () => {
     it('Bruker med flere arbeidsgivere', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=default')
         cy.injectAxe()
-        cy.checkA11y()
 
         cy.get('.din-situasjon > :nth-child(2)').should('contain', 'Hogwarts School of Witchcraft and Wizardry').click()
         cy.checkA11y()
 
-        cy.get('.ReactCollapse--content')
+        cy.get('.arbeidsgiver-accordion')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -16,7 +15,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.ReactCollapse--content')
+        cy.get('.arbeidsgiver-accordion')
             .should(
                 'not.contain',
                 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'
@@ -30,7 +29,7 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.din-situasjon > :nth-child(3)').should('contain', 'Diagon Alley').click()
         cy.checkA11y()
 
-        cy.get('.ReactCollapse--content')
+        cy.get('.arbeidsgiver-accordion')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -39,7 +38,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.ReactCollapse--content')
+        cy.get('.arbeidsgiver-accordion')
             .should('not.contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .should(
                 'contain',
@@ -51,7 +50,6 @@ describe('Tester arbeidssituasjon', () => {
     it('Har narmesteleder og kan avkrefte den', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
         cy.injectAxe()
-        cy.checkA11y()
 
         cy.get('.situasjon__innhold')
             .should('contain', 'Sykmeldingsperioder AS')
@@ -100,7 +98,6 @@ describe('Tester arbeidssituasjon', () => {
     it('Arbeidsgiver forskuterer ikke', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskuterer-ikke')
         cy.injectAxe()
-        cy.checkA11y()
 
         cy.get('.situasjon__innhold')
             .should('contain', 'Sykmeldingsperioder AS')

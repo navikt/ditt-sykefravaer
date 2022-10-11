@@ -1,7 +1,6 @@
 describe('Tester inntektsmelding', () => {
     it('Har inntektsmelding varsel og riktig innhold', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
-        cy.injectAxe()
 
         cy.get('.oppgaver > .navds-alert')
             .should('have.length', 1)
@@ -11,19 +10,17 @@ describe('Tester inntektsmelding', () => {
             .click()
 
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/inntektsmelding')
+
+        cy.get('h1').contains('Vi mangler inntektsmeldingen fra jobben din.').and('is.visible')
+
+        cy.contains(
+            'Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
+        )
+        cy.contains(
+            'Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.'
+        )
+
         cy.injectAxe()
-
-        cy.get('.tekstbakgrunn .navds-body-long')
-            .should(
-                'contain',
-                'Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.'
-            )
-            .should(
-                'contain',
-                'Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. ' +
-                    'Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.'
-            )
-
         cy.checkA11y()
     })
 
@@ -40,7 +37,7 @@ describe('Tester inntektsmelding', () => {
 
         cy.get('.oppgaver > .navds-alert').get('.navds-button').click()
 
-        cy.get('.oppgaver > .navds-alert').should('have.length', 0)
+        cy.get('.oppgaver > .navds-alert').should('not.exist')
         cy.checkA11y()
     })
 })
