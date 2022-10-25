@@ -4,14 +4,14 @@ describe('Tester arbeidssituasjon', () => {
         cy.injectAxe()
 
         cy.get('.din-situasjon > :nth-child(2)').should('contain', 'Hogwarts School of Witchcraft and Wizardry').click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.arbeidsgiver-accordion')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
             .click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
@@ -24,17 +24,17 @@ describe('Tester arbeidssituasjon', () => {
                 'contain',
                 'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
             )
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.din-situasjon > :nth-child(3)').should('contain', 'Diagon Alley').click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.arbeidsgiver-accordion')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
             .click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
@@ -44,7 +44,7 @@ describe('Tester arbeidssituasjon', () => {
                 'contain',
                 'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
             )
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
@@ -55,15 +55,15 @@ describe('Tester arbeidssituasjon', () => {
             .should('contain', 'Sykmeldingsperioder AS')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-accordion__item')
             .should('contain', 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt')
             .click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.situasjon__innhold').contains('Meld fra om endring').click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-accordion__content')
             .should(
@@ -72,7 +72,7 @@ describe('Tester arbeidssituasjon', () => {
             )
             .should('contain', 'Er det oppgaver jeg kan gjøre selv om jeg er syk?')
             .should('contain', 'Kan noe endres på arbeidsplassen for at jeg kan få det til?')
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
@@ -87,16 +87,16 @@ describe('Tester arbeidssituasjon', () => {
                 'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
             )
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-accordion__item')
             .should('contain', 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt')
             .click()
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 
-    it('Arbeidsgiver forskuterer ikke', () => {
-        cy.visit('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskuterer-ikke')
+    it('Arbeidsgiver forskutterer ikke', () => {
+        cy.visit('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
         cy.injectAxe()
 
         cy.get('.situasjon__innhold')
@@ -105,7 +105,7 @@ describe('Tester arbeidssituasjon', () => {
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
             .click()
-        cy.checkA11y()
+        cy.checkA11y('main')
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
@@ -121,7 +121,7 @@ describe('Tester arbeidssituasjon', () => {
                 'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
             )
 
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 })
 

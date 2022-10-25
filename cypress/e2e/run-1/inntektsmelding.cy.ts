@@ -21,7 +21,7 @@ describe('Tester inntektsmelding', () => {
         )
 
         cy.injectAxe()
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 
     it('Mottatt inntektsmelding varsel kan lukkes', () => {
@@ -33,12 +33,12 @@ describe('Tester inntektsmelding', () => {
             .contains(
                 ' Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.'
             )
-        cy.checkA11y()
+        cy.checkA11y('main')
 
-        cy.get('.oppgaver > .navds-alert').get('.navds-button').click()
+        cy.get('.oppgaver > .navds-alert .navds-button').click()
 
         cy.get('.oppgaver > .navds-alert').should('not.exist')
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 })
 
