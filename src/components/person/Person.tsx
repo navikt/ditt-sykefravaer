@@ -10,6 +10,8 @@ const Person = () => {
     const person = useRef<HTMLImageElement>(null)
     const kanVelgePerson = isMockBackend() || isOpplaering()
 
+    if (!kanVelgePerson) return null
+
     return (
         <div className="person">
             <button
@@ -22,7 +24,7 @@ const Person = () => {
                 <img src="/syk/sykefravaer/static/person.svg" className="person__ikon" ref={person} alt="" />
             </button>
             <Vis
-                hvis={kanVelgePerson && open}
+                hvis={open}
                 render={() => (
                     <Popover
                         open={!open}
