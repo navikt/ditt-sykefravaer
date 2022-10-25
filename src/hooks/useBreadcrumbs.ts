@@ -36,7 +36,7 @@ export function useUpdateBreadcrumbs(makeCrumbs: () => [...Breadcrumb[], LastCru
     }, [makeCrumbs])
 
     useEffect(() => {
-        (async () => {
+        ;(async () => {
             try {
                 const prefixedCrumbs = createCompleteCrumbs(makeCrumbsRef.current())
                 await setBreadcrumbs(prefixedCrumbs)
