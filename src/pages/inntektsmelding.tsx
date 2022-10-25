@@ -6,21 +6,17 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
-import Banner from '../components/banner/Banner'
-import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
+import Person from '../components/person/Person'
+import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
-const brodsmuler: Brodsmule[] = [
-    {
-        tittel: 'Manglende inntektsmelding',
-        sti: '/inntektsmelding',
-        erKlikkbar: false,
-    },
-]
-
 const Inntektsmelding = () => {
     const router = useRouter()
+    useUpdateBreadcrumbs(
+        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Manglende inntektsmelding' }],
+        []
+    )
 
     useEffect(() => {
         setBodyClass('inntektsmelding')
@@ -28,13 +24,21 @@ const Inntektsmelding = () => {
 
     return (
         <>
-            <Banner>
-                <Heading size="xlarge" className="sidebanner__tittel">
-                    {tekst('inntektsmelding.side-tittel-manglende')}
-                </Heading>
-            </Banner>
-
-            <Brodsmuler brodsmuler={brodsmuler} />
+            <header className="sidebanner">
+                <div>
+                    <img
+                        className="sidebanner__ikon"
+                        src="/syk/sykefravaer/static/ditt-sykefravaer-ikon.svg"
+                        width={64}
+                        height={64}
+                        alt=""
+                    />
+                    <Heading size="xlarge" className="sidebanner__tittel">
+                        {tekst('inntektsmelding.side-tittel-manglende')}
+                    </Heading>
+                </div>
+                <Person />
+            </header>
 
             <div className="limit">
                 <Heading size="medium">

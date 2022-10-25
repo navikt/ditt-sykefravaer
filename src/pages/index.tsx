@@ -4,16 +4,16 @@ import React, { useEffect } from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
-import Banner from '../components/banner/Banner'
-import Brodsmuler, { Brodsmule } from '../components/brodsmuler/Brodsmuler'
 import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../components/lenker/Lenker'
+import Person from '../components/person/Person'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
+import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 
-const brodsmuler: Brodsmule[] = []
-
 const Index = () => {
+    useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
+
     useEffect(() => {
         // eslint-disable-next-line
         // @ts-ignore
@@ -23,15 +23,24 @@ const Index = () => {
     const Oppgaver = dynamic(() => import('../components/oppgaver/Oppgaver'), {
         ssr: false,
     })
+
     return (
         <>
-            <Banner>
-                <Heading size="xlarge" level="1" className="sidebanner__tittel">
-                    {tekst('sidetittel.liste')}
-                </Heading>
-            </Banner>
-
-            <Brodsmuler brodsmuler={brodsmuler} />
+            <header className="sidebanner">
+                <div>
+                    <img
+                        className="sidebanner__ikon"
+                        src="/syk/sykefravaer/static/ditt-sykefravaer-ikon.svg"
+                        width={64}
+                        height={64}
+                        alt=""
+                    />
+                    <Heading size="xlarge" level="1" className="sidebanner__tittel">
+                        {tekst('sidetittel.liste')}
+                    </Heading>
+                </div>
+                <Person />
+            </header>
 
             <div className="limit">
                 <QueryStatusPanel />

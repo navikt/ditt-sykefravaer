@@ -1,9 +1,9 @@
-import { Accordion, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading, HelpText } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import React from 'react'
 
-import useNarmesteledere from '../../query-hooks/useNarmesteledere'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import useNarmesteledere from '../../hooks/useNarmesteledere'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import ArbeidsgiverAccordion from './ArbeidsgiverAccordion'
@@ -26,12 +26,15 @@ const Arbeidssituasjon = () => {
             render={() => (
                 <>
                     <section className="din-situasjon">
-                        <div className="tittel">
-                            <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
-                            <Heading size="small" level="1">
-                                {tekst('din-situasjon.tittel.2')}
-                            </Heading>
-                        </div>
+                        <header className="din-situasjon__header">
+                            <div className="del1">
+                                <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
+                                <Heading size="small" level="1">
+                                    {tekst('din-situasjon.tittel.2')}
+                                </Heading>
+                            </div>
+                            <HelpText>{tekst('din-situasjon.hjelpetekst.tekst')}</HelpText>
+                        </header>
                         <Vis
                             hvis={arbeidsgivere.length === 1}
                             render={() => <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}

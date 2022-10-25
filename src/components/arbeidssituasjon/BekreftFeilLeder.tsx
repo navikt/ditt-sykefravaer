@@ -1,7 +1,7 @@
 import { Alert, BodyLong, BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
 import React from 'react'
 
-import useAvkreftNarmesteLeder from '../../query-hooks/useAvkreftNarmesteLeder'
+import useAvkreftNarmesteLeder from '../../hooks/useAvkreftNarmesteLeder'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import Vis from '../Vis'
 

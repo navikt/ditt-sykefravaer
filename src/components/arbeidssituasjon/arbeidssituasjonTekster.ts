@@ -17,5 +17,5 @@ export const ArbeidssituasjonTekster = {
     'din-situasjon.arbeidsgiver-endret-nærmesteleder':
         'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
     'din-situasjon.nærmesteleder':
-        'Arbeidsgiveren har meldt inn at <Strong>%ARBEIDSGIVER%</Strong> skal følge deg opp mens du er syk.',
+        'Arbeidsgiveren har meldt inn at <strong>%ARBEIDSGIVER%</strong> skal følge deg opp mens du er syk.',
 }

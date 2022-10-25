@@ -3,7 +3,7 @@ import '../components/basic.less'
 import '../components/app.less'
 import '../components/arbeidssituasjon/arbeidssituasjon.less'
 import '../components/banner/banner.less'
-import '../components/brodsmuler/brodsmuler.less'
+import '../components/person/person.less'
 import '../components/lenker/lenker.less'
 import '../components/oppgaver/oppgaver.less'
 import '../components/queryStatusPanel/QueryStatusPanel.less'
@@ -17,6 +17,7 @@ import Head from 'next/head'
 import React, { PropsWithChildren, useState } from 'react'
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
+import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
 import { isMockBackend } from '../utils/environment'
 
 interface AppProps extends Omit<NextAppProps, 'pageProps'> {
@@ -39,6 +40,8 @@ configureLogger({
 })
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
+    useHandleDecoratorClicks()
+
     const [queryClient] = useState(
         () =>
             new QueryClient({
