@@ -19,7 +19,7 @@ describe('Tester helt frisk person', () => {
     })
 
     it('Tester accessibility', () => {
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 })
 

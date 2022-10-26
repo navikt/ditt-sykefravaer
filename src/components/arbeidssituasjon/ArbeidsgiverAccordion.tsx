@@ -1,8 +1,8 @@
 import { Accordion, BodyShort } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import useNarmesteledere from '../../query-hooks/useNarmesteledere'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import useNarmesteledere from '../../hooks/useNarmesteledere'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import NarmesteLeder from './NarmesteLeder'

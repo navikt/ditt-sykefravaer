@@ -3,12 +3,12 @@ import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-rea
 import { logger } from '@navikt/next-logger'
 import React, { useEffect, useState } from 'react'
 
-import useBrev from '../../query-hooks/useBrev'
-import useDialogmoteBehov from '../../query-hooks/useDialogmoteBehov'
-import useMeldinger from '../../query-hooks/useMeldinger'
-import useOppfolgingsplaner from '../../query-hooks/useOppfolgingsplaner'
-import useSoknader from '../../query-hooks/useSoknader'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import useBrev from '../../hooks/useBrev'
+import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
+import useMeldinger from '../../hooks/useMeldinger'
+import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
+import useSoknader from '../../hooks/useSoknader'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import Fetch from '../../utils/fetch'
 import { tekst } from '../../utils/tekster'
@@ -37,6 +37,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
 
     const lukkeknapp = () => (
         <Button
+            aria-label="Lukk"
             variant={'secondary'}
             style={{ marginLeft: '1em' }}
             size={'small'}

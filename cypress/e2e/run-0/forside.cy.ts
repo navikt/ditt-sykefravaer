@@ -10,7 +10,7 @@ describe('Tester visning av forside', () => {
     })
 
     it('Tester accessibility', () => {
-        cy.checkA11y()
+        cy.checkA11y('main')
     })
 })
 

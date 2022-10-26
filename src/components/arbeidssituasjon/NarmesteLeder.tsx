@@ -2,7 +2,7 @@ import { BodyShort } from '@navikt/ds-react'
 import parser from 'html-react-parser'
 import React, { useState } from 'react'
 
-import useNarmesteledere from '../../query-hooks/useNarmesteledere'
+import useNarmesteledere from '../../hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
 import BekreftFeilLeder from './BekreftFeilLeder'
@@ -36,7 +36,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                         <Vis
                             hvis={leder!.navn}
                             render={() => (
-                                <BodyShort className="leder__informasjon">
+                                <BodyShort spacing className="leder__informasjon">
                                     {parser(
                                         tekst('din-situasjon.nærmesteleder', {
                                             '%ARBEIDSGIVER%': leder!.navn!,

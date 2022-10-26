@@ -1,0 +1,27 @@
+<svg width="57" height="56" viewBox="0 0 57 56" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="ditt-sykefravær-ikon">
+    <g clip-path="url(#clip0_504_894)">
+        <rect x="9.83301" y="21" width="37.3333" height="14" fill="#CCF1D6"/>
+        <rect x="35.5" y="9.3335" width="37.3333" height="14" transform="rotate(90 35.5 9.3335)" fill="#CCF1D6"/>
+        <circle cx="29.8788" cy="43.8559" r="4.9394" stroke="#262626" stroke-width="2"/>
+        <path d="M7.60639 21H5.06093C3.18651 21 1.66699 22.5195 1.66699 24.3939V32.8788C1.66699 36.9791 4.99094 40.303 9.09124 40.303V40.303C13.1915 40.303 16.5155 36.9791 16.5155 32.8788V24.3939C16.5155 22.5195 14.996 21 13.1215 21H10.5761" stroke="#262626" stroke-width="2"/>
+        <path d="M9.09082 39.4014V51.2802C9.09082 52.9203 10.4204 54.2499 12.0605 54.2499V54.2499C13.7006 54.2499 15.0302 52.9203 15.0302 51.2802V49.0529C15.0302 46.1827 17.357 43.8559 20.2272 43.8559H25.4242" stroke="#262626" stroke-width="2"/>
+        <mask id="path-6-inside-1_504_894" fill="white">
+            <rect x="28.5" y="3.5" width="28" height="24.5" rx="1.33333"/>
+        </mask>
+        <rect x="28.5" y="3.5" width="28" height="24.5" rx="1.33333" stroke="#262626" stroke-width="4" mask="url(#path-6-inside-1_504_894)"/>
+        <line x1="29.667" y1="12.9995" x2="55.3337" y2="12.9995" stroke="#262626" stroke-width="2"/>
+        <path d="M36.667 1.1665L36.667 8.1665" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M36.667 17.4995L34.3337 17.4995" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M36.667 22.1665L34.3337 22.1665" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M43.667 17.4995L41.3337 17.4995" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M43.667 22.1665L41.3337 22.1665" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M50.667 17.4995L48.3337 17.4995" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M50.667 22.1665L48.3337 22.1665" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+        <path d="M48.333 1.1665L48.333 8.1665" stroke="#262626" stroke-width="2" stroke-linecap="round"/>
+    </g>
+    <defs>
+        <clipPath id="clip0_504_894">
+            <rect width="56" height="56" fill="white" transform="translate(0.5)"/>
+        </clipPath>
+    </defs>
+</svg>

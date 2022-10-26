@@ -3,7 +3,7 @@ import parser from 'html-react-parser'
 import React from 'react'
 
 import { veileder } from '../../grafikk/Veileder'
-import useSykmeldinger from '../../query-hooks/useSykmeldinger'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 export const IngenSykmelding = () => {

@@ -79,7 +79,7 @@ export const snartSlutt = () => {
     return person
 }
 
-export const forskutererIkke = () => {
+export const forskuttererIkke = () => {
     const person = commonPersona()
     person.narmesteledere = [
         {
