@@ -8,7 +8,7 @@ import { cleanPathForMetric } from '../metrics'
 interface Opts {
     req: NextApiRequest
     res: NextApiResponse
-    tillatteApier: String[]
+    tillatteApier: string[]
     backend: string
     hostname: string
     backendClientId: string
@@ -18,7 +18,7 @@ interface Opts {
 export async function proxyKallTilBackend(opts: Opts) {
     const rewritedPath = opts.req.url!.replace(`/api/${opts.backend}`, '')
     const api = `${opts.req.method} ${rewritedPath}`
-    if (!opts.tillatteApier.includes(<String>cleanPathForMetric(api))) {
+    if (!opts.tillatteApier.includes(<string>cleanPathForMetric(api))) {
         logger.warn('404 Ukjent api: ' + api)
         opts.res.status(404)
         opts.res.send(null)

@@ -1,5 +1,5 @@
 import { logger } from '@navikt/next-logger'
-import { collectDefaultMetrics, Counter, Histogram } from 'prom-client'
+import { collectDefaultMetrics, Counter } from 'prom-client'
 
 declare global {
     // eslint-disable-next-line no-var

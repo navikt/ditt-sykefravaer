@@ -2,6 +2,7 @@ import { expect } from '@jest/globals'
 import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../types/sykmelding'
+
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 const iDag = dayjs().format('MM-DD-YYYY')

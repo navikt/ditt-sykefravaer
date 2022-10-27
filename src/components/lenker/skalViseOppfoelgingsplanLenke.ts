@@ -27,7 +27,7 @@ const sykmeldtHarOppfolgingsplan = (oppfolgingsplaner: Oppfolgingsplan[] | undef
 
 export const skalViseOppfoelgingsplanLenke = (
     sykmeldinger: Sykmelding[] | undefined,
-    oppfolgingsplaner: Oppfolgingsplan[] | undefined
+    oppfolgingsplaner: Oppfolgingsplan[] | undefined,
 ): boolean => {
     return sykmeldtHarGyldigSykmelding(sykmeldinger) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
 }

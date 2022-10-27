@@ -2,6 +2,7 @@ import { expect } from '@jest/globals'
 import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../types/sykmelding'
+
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 
 it('Returnerer false hvis ingenting er fetchet', () => {

@@ -1,5 +1,6 @@
 import { Brev, BrevType } from '../../types/brev'
 import { tekst } from '../../utils/tekster'
+
 import { Oppgave } from './oppgaveTyper'
 
 export const skapBrevOppgaver = (brev: Brev[] | undefined, lenke: string): Oppgave[] => {

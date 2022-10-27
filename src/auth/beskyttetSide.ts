@@ -4,6 +4,7 @@ import { NextPageContext } from 'next'
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
 import { isMockBackend } from '../utils/environment'
+
 import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 
 type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePropsPrefetchResult>
@@ -50,7 +51,7 @@ function beskyttetSide(handler: PageHandler) {
     }
 }
 
-export const beskyttetSideUtenProps = beskyttetSide(async (ctx): Promise<GetServerSidePropsPrefetchResult> => {
+export const beskyttetSideUtenProps = beskyttetSide(async (): Promise<GetServerSidePropsPrefetchResult> => {
     return {
         props: {},
     }

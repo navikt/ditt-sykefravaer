@@ -9,6 +9,6 @@ export default function UseArbeidsrettetOppfolging() {
             headers: {
                 'Nav-Consumer-Id': 'sykefravaer',
             },
-        })
+        }),
     )
 }

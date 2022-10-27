@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 
 import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
 import { tekst } from '../../../utils/tekster'
+
 import { brev } from './brev'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
