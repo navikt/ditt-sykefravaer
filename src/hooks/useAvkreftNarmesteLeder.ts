@@ -11,6 +11,6 @@ export default function UseAvkreftNarmesteLeder(org: string) {
             onSuccess: () => {
                 setTimeout(() => queryClient.invalidateQueries('narmesteledere'), 200)
             },
-        }
+        },
     )
 }

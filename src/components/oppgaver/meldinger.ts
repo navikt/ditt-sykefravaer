@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 
 import { Melding } from '../../types/melding'
+
 import { Oppgave } from './oppgaveTyper'
 
 export const skapMeldinger = (meldinger: Melding[] | undefined): Oppgave[] => {

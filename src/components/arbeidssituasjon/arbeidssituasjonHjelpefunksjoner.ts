@@ -16,7 +16,7 @@ export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykm
             .filter((syk) => aktiveLedereOrgnummer.includes(syk.sykmeldingStatus.arbeidsgiver?.orgnummer || ''))
 
         sykmeldingerFiltrertPaPeriode = selectSykmeldingerYngreEnnTreMaaneder(sykmeldinger).filter(
-            (syk) => syk.sykmeldingStatus.statusEvent === 'SENDT'
+            (syk) => syk.sykmeldingStatus.statusEvent === 'SENDT',
         )
     }
 
@@ -29,7 +29,7 @@ export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykm
         sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
             .filter((syk) => syk.sykmeldingStatus.arbeidsgiver)
             // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-            .map((syk) => syk.sykmeldingStatus.arbeidsgiver!.orgnummer)
+            .map((syk) => syk.sykmeldingStatus.arbeidsgiver!.orgnummer),
     )
 
     return Array.from(unikeArbeidsgiver)

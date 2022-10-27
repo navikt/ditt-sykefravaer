@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
+
 import BekreftFeilLeder from './BekreftFeilLeder'
 
 interface NaermesteLederContainerProps {
@@ -40,7 +41,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                                     {parser(
                                         tekst('din-situasjon.nærmesteleder', {
                                             '%ARBEIDSGIVER%': leder!.navn!,
-                                        })
+                                        }),
                                     )}
                                 </BodyShort>
                             )}

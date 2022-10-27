@@ -74,7 +74,7 @@ export async function fetchJson(url: string, options?: RequestInit) {
         if (!(fetchMedRequestSvar.res.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
             logger.error(
                 `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} fikk status ` +
-                    fetchMedRequestSvar.res.status
+                    fetchMedRequestSvar.res.status,
             )
             throw new Error('Feil ved henting av ' + url)
         }
@@ -83,7 +83,7 @@ export async function fetchJson(url: string, options?: RequestInit) {
         return await fetchMedRequestSvar.res.json()
     } catch (e: any) {
         logger.warn(
-            `${e.message}, Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved json() kall. Status: ${fetchMedRequestSvar.res.status}`
+            `${e.message}, Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved json() kall. Status: ${fetchMedRequestSvar.res.status}`,
         )
         throw e
     }

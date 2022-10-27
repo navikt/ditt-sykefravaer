@@ -1,6 +1,7 @@
 import { Soknad } from '../../types/soknad'
 import { Soknadstype } from '../../types/soknadstype'
 import { tekst } from '../../utils/tekster'
+
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 

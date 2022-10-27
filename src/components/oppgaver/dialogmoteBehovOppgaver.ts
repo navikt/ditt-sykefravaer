@@ -1,5 +1,6 @@
 import { DialogmoteBehov } from '../../types/dialogmoteBehov'
 import { tekst } from '../../utils/tekster'
+
 import { Oppgave } from './oppgaveTyper'
 
 export const motebehovErUbesvart = (dialogmoteBehov: DialogmoteBehov) => {

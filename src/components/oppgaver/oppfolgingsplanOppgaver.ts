@@ -2,12 +2,13 @@ import { Godkjenning, Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { Sykmelding } from '../../types/sykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
 import { tekst } from '../../utils/tekster'
+
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
 const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (
     oppfolgingsdialog: Oppfolgingsplan,
-    sykmeldinger: Sykmelding[]
+    sykmeldinger: Sykmelding[],
 ) => {
     const dagensDato = new Date()
     return (
@@ -64,7 +65,7 @@ const prosseserPlaner = (oppfolgingsdialoger: Oppfolgingsplan[], sykmeldinger: S
 export const skapOppfolgingsplanOppgaver = (
     oppfolgingsdialoger: Oppfolgingsplan[] | undefined,
     sykmeldinger: Sykmelding[] | undefined,
-    lenke: string
+    lenke: string,
 ): Oppgave[] => {
     if (!oppfolgingsdialoger || !sykmeldinger) {
         return []
@@ -86,7 +87,7 @@ export const skapOppfolgingsplanOppgaver = (
         leggTilOppgave(
             tekst('oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall', {
                 '%ANTALL%': tallTilSpråk(planer.nyePlaner),
-            })
+            }),
         )
     }
     if (planer.avventendeGodkjenninger === 1) {
@@ -96,7 +97,7 @@ export const skapOppfolgingsplanOppgaver = (
         leggTilOppgave(
             tekst('oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall', {
                 '%ANTALL%': tallTilSpråk(planer.avventendeGodkjenninger),
-            })
+            }),
         )
     }
     return oppgaver

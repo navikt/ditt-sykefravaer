@@ -53,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                         refetchOnWindowFocus: false,
                     },
                 },
-            })
+            }),
     )
 
     return (

@@ -1,6 +1,7 @@
 import { expect } from '@jest/globals'
 
 import { DialogmoteBehov } from '../../types/dialogmoteBehov'
+
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 
 it('Returnerer ingen oppgaver når det ikke er dialogmøteBehov', () => {

@@ -1,7 +1,6 @@
 import { onBreadcrumbClick, setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
-import { ParsedUrlQuery } from 'querystring'
 import { DependencyList, useCallback, useEffect, useRef } from 'react'
 
 import { minSideUrl } from '../utils/environment'
@@ -22,7 +21,7 @@ function createCompleteCrumbs(breadcrumbs: [...Breadcrumb[], LastCrumb] | []): C
             ...it,
             url: 'url' in it ? it.url : '/',
             handleInApp: true,
-        })
+        }),
     )
 
     return [baseCrumb, ...prefixedCrumbs]
@@ -57,7 +56,7 @@ export function useHandleDecoratorClicks(): void {
             // router.push automatically pre-pends the base route of the application
             router.push(breadcrumb.url)
         },
-        [router]
+        [router],
     )
 
     useEffect(() => {
@@ -77,10 +76,7 @@ export enum SsrPathVariants {
     Inntektsmelding = '/inntektsmelding',
 }
 
-export function createInitialServerSideBreadcrumbs(
-    pathname: SsrPathVariants | string,
-    query: ParsedUrlQuery
-): CompleteCrumb[] {
+export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
     switch (pathname) {
         case SsrPathVariants.Root:
         case SsrPathVariants.NotFound:

@@ -18,11 +18,11 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.arbeidsgiver-accordion')
             .should(
                 'not.contain',
-                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'
+                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
             )
             .should(
                 'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
+                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
             )
         cy.checkA11y('main')
 
@@ -42,7 +42,7 @@ describe('Tester arbeidssituasjon', () => {
             .should('not.contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .should(
                 'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
+                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
             )
         cy.checkA11y('main')
     })
@@ -68,7 +68,7 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-accordion__content')
             .should(
                 'contain',
-                'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selvom du er syk.'
+                'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selvom du er syk.',
             )
             .should('contain', 'Er det oppgaver jeg kan gjøre selv om jeg er syk?')
             .should('contain', 'Kan noe endres på arbeidsplassen for at jeg kan få det til?')
@@ -80,11 +80,11 @@ describe('Tester arbeidssituasjon', () => {
             .should('contain', 'Sykmeldingsperioder AS')
             .should(
                 'not.contain',
-                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'
+                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
             )
             .should(
                 'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
+                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
             )
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
         cy.checkA11y('main')
@@ -114,11 +114,11 @@ describe('Tester arbeidssituasjon', () => {
             .should('contain', 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
             .should(
                 'not.contain',
-                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'
+                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
             )
             .should(
                 'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.'
+                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
             )
 
         cy.checkA11y('main')

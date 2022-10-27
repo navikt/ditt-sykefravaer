@@ -2,14 +2,14 @@ describe('Tester oppfølgingsplan oppgaver', () => {
     it('En ny oppgave', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=en-ny-oppfolgingsplan')
         cy.get('.oppgaver > .navds-alert').contains(
-            'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.'
+            'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.',
         )
     })
 
     it('To nye oppgaver', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=to-nye-oppfolgingsplaner')
         cy.get('.oppgaver > .navds-alert').contains(
-            'Arbeidsgiverne dine har begynt på hver sin oppfølgingsplan. Du skal fylle ut din del.'
+            'Arbeidsgiverne dine har begynt på hver sin oppfølgingsplan. Du skal fylle ut din del.',
         )
     })
 

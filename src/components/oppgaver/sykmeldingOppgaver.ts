@@ -2,6 +2,7 @@ import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../types/sykmelding'
 import { tekst } from '../../utils/tekster'
+
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 

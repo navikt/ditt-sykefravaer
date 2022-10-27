@@ -13,6 +13,7 @@ import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } 
 import Fetch from '../../utils/fetch'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
+
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
@@ -55,7 +56,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                 })
                 if (oppgave.id) {
                     Fetch.authenticatedPost(
-                        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`
+                        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
                     ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest'))
                 }
             }}

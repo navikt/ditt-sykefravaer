@@ -2,6 +2,7 @@ import React from 'react'
 
 import { spinnsynUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const UtbetalingAvSykepengerLenkepanel = () => {

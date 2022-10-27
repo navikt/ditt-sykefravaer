@@ -15,7 +15,7 @@ const Inntektsmelding = () => {
     const router = useRouter()
     useUpdateBreadcrumbs(
         () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Manglende inntektsmelding' }],
-        []
+        [],
     )
 
     useEffect(() => {

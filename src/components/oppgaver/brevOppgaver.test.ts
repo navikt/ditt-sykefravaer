@@ -1,6 +1,7 @@
 import { expect } from '@jest/globals'
 
 import { Brev, BrevType } from '../../types/brev'
+
 import { skapBrevOppgaver } from './brevOppgaver'
 
 const brevObject = (brevType: BrevType, createdAt: string, lestDato: string | null): Brev[] => {
@@ -30,7 +31,7 @@ it('Returnerer ingen brev oppgaver når det ikke er brev', () => {
 it("Returnerer endring brev advarsel oppgave når status er 'NYTT_TID_STED' og lestDato ikke er satt", () => {
     const oppgaver = skapBrevOppgaver(
         brevObject(BrevType.ENDRING, '2021-11-08T12:35:37.669+01:00', null),
-        'https://www.nav.no/syk/dialogmote'
+        'https://www.nav.no/syk/dialogmote',
     )
     expect(oppgaver).toEqual([
         {
@@ -43,7 +44,7 @@ it("Returnerer endring brev advarsel oppgave når status er 'NYTT_TID_STED' og l
 it("Returnerer referat brev info oppgave når status er 'REFERAT' og lestDato ikke er satt", () => {
     const oppgaver = skapBrevOppgaver(
         brevObject(BrevType.REFERAT, '2021-11-08T12:35:37.669+01:00', null),
-        'https://www.nav.no/syk/dialogmote'
+        'https://www.nav.no/syk/dialogmote',
     )
     expect(oppgaver).toEqual([
         {
@@ -56,7 +57,7 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT' og lestDato ik
 it("Returnerer referat brev info oppgave når status er 'REFERAT_ENDRET' og lestDato ikke er satt", () => {
     const oppgaver = skapBrevOppgaver(
         brevObject(BrevType.REFERAT_ENDRET, '2021-11-08T12:35:37.669+01:00', null),
-        'https://www.nav.no/syk/dialogmote'
+        'https://www.nav.no/syk/dialogmote',
     )
     expect(oppgaver).toEqual([
         {
@@ -69,7 +70,7 @@ it("Returnerer referat brev info oppgave når status er 'REFERAT_ENDRET' og lest
 it("Returnerer ingen brev oppgaver når status er 'NYTT_TID_STED' og lestDato er satt", () => {
     const oppgaver = skapBrevOppgaver(
         brevObject(BrevType.ENDRING, '2021-11-08T12:35:37.669+01:00', '2021-11-01T12:35:37.669+01:00'),
-        'https://www.nav.no/syk/dialogmote'
+        'https://www.nav.no/syk/dialogmote',
     )
     expect(oppgaver).toEqual([])
 })

@@ -2,6 +2,7 @@ import React from 'react'
 
 import { sykepengesoknadUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const SoknadLenkepanel = () => {

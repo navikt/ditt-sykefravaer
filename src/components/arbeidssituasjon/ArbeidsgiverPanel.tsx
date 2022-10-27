@@ -5,6 +5,7 @@ import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
+
 import NarmesteLeder from './NarmesteLeder'
 
 interface ArbeidsgiverPanelProps {
@@ -19,7 +20,8 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
     useEffect(() => {
         const orgNavn = sykmeldinger!.find(
             (syk) =>
-                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer && syk.sykmeldingStatus.arbeidsgiver?.orgNavn
+                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
+                syk.sykmeldingStatus.arbeidsgiver?.orgNavn,
         )?.sykmeldingStatus.arbeidsgiver?.orgNavn
         setNavn(orgNavn!)
     }, [orgnummer, sykmeldinger])
@@ -42,7 +44,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
                                         ? ''
                                         : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
                                           '-ikke'
-                                }` as any
+                                }` as any,
                             )}
                         </BodyShort>
                     </div>
