@@ -19,6 +19,7 @@ import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'reac
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
 import { isMockBackend } from '../utils/environment'
+import { LabsWarning } from '../components/labs-warning/LabsWarning'
 
 interface AppProps extends Omit<NextAppProps, 'pageProps'> {
     pageProps: PropsWithChildren<unknown> & {
@@ -67,6 +68,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <Hydrate state={pageProps.dehydratedState}>
                     <div className="pagewrapper">
                         <div id="root">
+                            <LabsWarning />
                             <Component {...pageProps} />
                         </div>
                     </div>
