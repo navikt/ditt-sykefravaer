@@ -40,7 +40,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
         <Button
             aria-label="Lukk"
             variant={'secondary'}
-            style={{ marginLeft: '1em' }}
+            className={'lukkeknapp'}
             size={'small'}
             onClick={() => {
                 if (oppgave.id) {
