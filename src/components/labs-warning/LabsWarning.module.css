@@ -1,5 +1,5 @@
 .limit {
     width: var(--desktop-limit-width);
-    margin: 0 auto;
-    max-width: 95vw;
+    margin: 25px auto 50px auto;
+    max-width: 640px;
 }

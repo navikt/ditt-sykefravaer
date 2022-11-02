@@ -6,7 +6,7 @@ export function isMockBackend() {
     return publicRuntimeConfig.mockBackend === 'true'
 }
 
-export function isOpplaering() {
+export function isOpplaering() { 
     return publicRuntimeConfig.opplaering === 'true'
 }
 
