@@ -86,7 +86,7 @@ export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | s
         case SsrPathVariants.Inntektsmelding:
             return createCompleteCrumbs(createInntektsmeldingBreadcrumbs())
         default:
-            logger.error(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)
+            logger.info(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)
             return createCompleteCrumbs([])
     }
 }
