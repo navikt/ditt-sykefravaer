@@ -13,7 +13,7 @@ spec:
   replicas:
     min: {{replicas_min}}
     max: {{replicas_max}}
-    cpuThresholdPercentage: 20
+    cpuThresholdPercentage: 50
   tokenx:
     enabled: true
   idporten:
@@ -30,10 +30,10 @@ spec:
           memory: {{sidecar_memory_requests}}
   resources:
     limits:
-      cpu: {{cpu}}
+      cpu: {{cpu_limits}}
       memory: {{memory_limits}}
     requests:
-      cpu: {{cpu}}
+      cpu: {{cpu_requests}}
       memory: {{memory_requests}}
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
