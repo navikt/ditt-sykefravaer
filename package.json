@@ -28,7 +28,7 @@
         "uuid": "^9.0.0"
     },
     "devDependencies": {
-        "@cypress/webpack-preprocessor": "^5.15.0",
+        "@cypress/webpack-preprocessor": "^5.15.5",
         "@navikt/eslint-config-teamsykmelding": "^1.0.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^12.1.5",
