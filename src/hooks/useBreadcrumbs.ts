@@ -12,7 +12,6 @@ type CompleteCrumb = Parameters<typeof setBreadcrumbs>[0][0]
 const baseCrumb: CompleteCrumb = {
     title: 'Min side',
     url: minSideUrl(),
-    handleInApp: true,
 }
 
 function createCompleteCrumbs(breadcrumbs: [...Breadcrumb[], LastCrumb] | []): CompleteCrumb[] {
