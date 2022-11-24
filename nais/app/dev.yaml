@@ -16,7 +16,7 @@ env:
   SPINNSYN_URL: https://www-gcp.dev.nav.no/syk/sykepenger
   SYKMELDING_URL: https://www-gcp.dev.nav.no/syk/sykmeldinger
   AKTIVITETSPLAN_URL: https://aktivitetsplan-q1.dev.nav.no/
-  OPPFOLGINGSPLAN_URL: https://www-gcp.dev.nav.no/syk/oppfolgingsplan
+  OPPFOLGINGSPLAN_URL: https://www-gcp.dev.nav.no/syk/oppfolgingsplaner/sykmeldt
   DIALOGMOTE_URL: https://www-gcp.dev.nav.no/syk/dialogmoter/sykmeldt
   MINSIDE_URL: https://www.dev.nav.no/minside/
   DECORATOR_ENV: dev
