@@ -16,7 +16,7 @@ env:
   SPINNSYN_URL: https://www.nav.no/syk/sykepenger
   SYKMELDING_URL: https://www.nav.no/syk/sykmeldinger
   AKTIVITETSPLAN_URL: https://aktivitetsplan.nav.no/
-  OPPFOLGINGSPLAN_URL: https://www.nav.no/syk/oppfolgingsplaner/sykmeldt
+  OPPFOLGINGSPLAN_URL: https://www.nav.no/syk/oppfolgingsplan
   DIALOGMOTE_URL: https://www.nav.no/syk/dialogmoter/sykmeldt
   MINSIDE_URL: https://www.nav.no/minside
   DECORATOR_ENV: prod
