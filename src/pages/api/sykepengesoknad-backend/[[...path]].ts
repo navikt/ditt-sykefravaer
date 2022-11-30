@@ -7,7 +7,7 @@ import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 
 const { serverRuntimeConfig } = getConfig()
 
-const tillatteApier = ['GET /api/v2/soknader']
+const tillatteApier = ['GET /api/v2/soknader', 'GET /api/v2/soknader/metadata']
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     await proxyKallTilBackend({

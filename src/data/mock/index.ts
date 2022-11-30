@@ -23,7 +23,7 @@ function setUpMock(persona: Persona) {
         res(ctx.json({ lukket: 'ok' })),
     )
 
-    mock.get('/syk/sykefravaer/api/sykepengesoknad-backend/api/v2/soknader', (req, res, ctx) =>
+    mock.get('/syk/sykefravaer/api/sykepengesoknad-backend/api/v2/soknader/metadata', (req, res, ctx) =>
         res(ctx.json(persona.soknader)),
     )
 
