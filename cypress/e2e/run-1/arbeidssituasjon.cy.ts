@@ -15,15 +15,10 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.arbeidsgiver-accordion')
-            .should(
-                'not.contain',
-                'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-            )
-            .should(
-                'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
-            )
+        cy.get('.arbeidsgiver-accordion').should(
+            'not.contain',
+            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
+        )
         cy.checkA11y('main')
 
         cy.get('.din-situasjon > :nth-child(3)').should('contain', 'Diagon Alley').click()
@@ -38,12 +33,10 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.arbeidsgiver-accordion')
-            .should('not.contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
-            .should(
-                'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
-            )
+        cy.get('.arbeidsgiver-accordion').should(
+            'not.contain',
+            'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
+        )
         cy.checkA11y('main')
     })
 
@@ -82,10 +75,6 @@ describe('Tester arbeidssituasjon', () => {
                 'not.contain',
                 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
             )
-            .should(
-                'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
-            )
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
         cy.checkA11y('main')
 
@@ -115,10 +104,6 @@ describe('Tester arbeidssituasjon', () => {
             .should(
                 'not.contain',
                 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-            )
-            .should(
-                'contain',
-                'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
             )
 
         cy.checkA11y('main')

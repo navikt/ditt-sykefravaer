@@ -60,14 +60,6 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                     </>
                 )}
             />
-            <Vis
-                hvis={!leder || !orgNavn}
-                render={() => (
-                    <BodyShort className="leder__informasjon">
-                        <strong>{tekst('din-situasjon.arbeidsgiver-endret-nærmesteleder')}</strong>
-                    </BodyShort>
-                )}
-            />
         </>
     )
 }
