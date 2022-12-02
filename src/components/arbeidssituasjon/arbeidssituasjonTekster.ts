@@ -14,8 +14,6 @@ export const ArbeidssituasjonTekster = {
     'din-situasjon.hjelpetekst.tekst': 'Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen.',
     'din-situasjon.arbeidsgiver-forskutterer': 'Betaler lønn også etter de 16 første dagene i sykefraværet.',
     'din-situasjon.arbeidsgiver-forskutterer-ikke': 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.',
-    'din-situasjon.arbeidsgiver-endret-nærmesteleder':
-        'Vi har varslet arbeidsgiveren din om at de må melde inn ny person som skal følge deg opp mens du er syk.',
     'din-situasjon.nærmesteleder':
         'Arbeidsgiveren har meldt inn at <strong>%ARBEIDSGIVER%</strong> skal følge deg opp mens du er syk.',
 }
