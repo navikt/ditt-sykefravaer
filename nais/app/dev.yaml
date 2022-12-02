@@ -21,7 +21,7 @@ env:
   MINSIDE_URL: https://www.dev.nav.no/minside/
   DECORATOR_ENV: dev
   AMPLITUDE_ENABLED: true
-  ASSET_PREFIX: https://cdn.dev.nav.no/flex/ditt-sykefravaer
+  ASSET_PREFIX: https://cdn.nav.no/flex/ditt-sykefravaer
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: dev-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: dev-gcp:flex:spinnsyn-backend
   SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:teamsykmelding:sykmeldinger-backend
