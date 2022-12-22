@@ -44,7 +44,7 @@ function beskyttetSide(handler: PageHandler) {
             if (shouldLogMetricForPath(cleanPath)) {
                 metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
             }
-            logger.error(e, 'kunne ikke validere idportentoken i beskyttetSide')
+            logger.error(e, 'Kunne ikke validere idporten token på beskyttetSide.')
             return wonderwallRedirect
         }
         return handler(context)

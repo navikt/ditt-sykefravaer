@@ -45,8 +45,6 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
             onClick={() => {
                 if (oppgave.id) {
                     pushLukket(oppgave.id)
-                } else {
-                    logger.error('Skal ikke lukke oppgave uten id')
                 }
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
@@ -57,7 +55,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                 if (oppgave.id) {
                     Fetch.authenticatedPost(
                         `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
-                    ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest'))
+                    ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest.'))
                 }
             }}
             icon={<Close title={'Lukk'} />}
