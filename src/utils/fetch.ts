@@ -57,7 +57,7 @@ async function fetchMedRequestId(url: string, optionsInn?: RequestInit) {
     } catch (e: any) {
         // Logger x_request_id i stedet for x-request-id for å matche logging fra
         // ingress-controller og sykepengesoknad-backend.
-        logger.warn(`${e.message} Kall til url: ${url} med x_request_id: ${uuid} feilet ved fetch kall.`)
+        logger.warn(e, `Kall til url: ${url} med x_request_id: ${uuid} feilet.`)
         throw e
     }
 }
@@ -66,24 +66,25 @@ export async function fetchJson(url: string, options?: RequestInit) {
     const fetchMedRequestSvar = await fetchMedRequestId(url, options)
 
     if (fetchMedRequestSvar.res.status === 401) {
-        window.location.href = '/syk/sykefravaer' //Lar SSR authen fikse alt
+        // Redirect sånn at bruker kan logge inn på nytt.
+        window.location.href = '/syk/sykefravaer'
         throw new Error('Sesjonen utløpt.')
     }
 
     if (!fetchMedRequestSvar.res.ok) {
         if (!(fetchMedRequestSvar.res.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
-            logger.error(
-                `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} fikk status ` +
-                    fetchMedRequestSvar.res.status,
+            logger.warn(
+                `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet med status ${fetchMedRequestSvar.res.status}.`,
             )
-            throw new Error('Feil ved henting av ' + url)
+            throw new Error(`Feil ved henting av url: ${url}.`)
         }
     }
     try {
         return await fetchMedRequestSvar.res.json()
     } catch (e: any) {
         logger.warn(
-            `${e.message}, Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved json() kall. Status: ${fetchMedRequestSvar.res.status}`,
+            e,
+            `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved kall til json().`,
         )
         throw e
     }
