@@ -16,7 +16,7 @@
         "@sentry/nextjs": "^7.27.0",
         "amplitude-js": "^8.21.2",
         "dayjs": "^1.11.6",
-        "html-react-parser": "^3.0.4",
+        "html-react-parser": "^3.0.6",
         "next-logger": "^3.0.1",
         "openid-client": "^5.3.1",
         "pino-pretty": "^9.1.1",
