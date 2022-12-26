@@ -40,7 +40,7 @@
         "@types/uuid": "^8.3.4",
         "axe-core": "^4.6.1",
         "cypress": "^10.11.0",
-        "cypress-axe": "^1.0.0",
+        "cypress-axe": "^1.2.0",
         "eslint": "^8.30.0",
         "eslint-config-next": "^13.0.7",
         "eslint-plugin-cypress": "^2.12.1",
