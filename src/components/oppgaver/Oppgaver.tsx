@@ -1,6 +1,5 @@
 import { Close } from '@navikt/ds-icons'
 import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
-import { logger } from '@navikt/next-logger'
 import React, { useEffect, useState } from 'react'
 
 import useBrev from '../../hooks/useBrev'
@@ -10,9 +9,9 @@ import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
-import Fetch from '../../utils/fetch'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
+import { fetchMedRequestId } from '../../utils/fetch'
 
 import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
@@ -42,10 +41,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
             variant={'secondary'}
             className={'lukkeknapp'}
             size={'small'}
-            onClick={() => {
-                if (oppgave.id) {
-                    pushLukket(oppgave.id)
-                }
+            onClick={async () => {
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
                     alerttekst: oppgave.meldingType ?? oppgave.tekst,
@@ -53,9 +49,23 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     komponent: 'ditt sykefravær oppgave',
                 })
                 if (oppgave.id) {
-                    Fetch.authenticatedPost(
-                        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
-                    ).catch((e) => logger.warn(e, 'Feil ved merking av melding som lest.'))
+                    try {
+                        await fetchMedRequestId(
+                            `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
+                            {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                },
+                            },
+                        )
+                    } catch (e: any) {
+                        // Viser ikke feilmelding til bruker siden lukking kan funke neste gang hen prøver.
+                        // Feilen blir logget i fetchMedRequestId.
+                    } finally {
+                        pushLukket(oppgave.id as string)
+                    }
                 }
             }}
             icon={<Close title={'Lukk'} />}
