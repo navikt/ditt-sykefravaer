@@ -1,93 +1,59 @@
 import { logger } from '@navikt/next-logger'
 import { v4 as uuidv4 } from 'uuid'
 
-/**
- * Class with utility functions for working with fetch.
- * Redirects to Login Service if any request contains a 401 response.
- */
-class Fetch {
-    /**
-     * Make a POST request to the specified endpoint
-     * Redirects to Login Service if request contains a 401 response.
-     * @param {string} url - The endpoint to call
-     * @param {T | undefined} body - The body to send with the request
-     * @return {string} The response from the http request parsed as text
-     */
-    static async authenticatedPost<T>(url: string, body?: T): Promise<string> {
-        const res = await fetch(url, {
-            method: 'POST',
-            credentials: 'include',
-            body: body ? JSON.stringify(body) : undefined,
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        const textResponse = await res.text()
-        if (res.ok) {
-            return textResponse
-        }
-        if (res.status === 401) {
-            window.location.href = '/syk/sykefravaer' //Lar SSR authen fikse alt
-            throw new Error('Sesjonen er utløpt. Vi videresender deg til innloggingssiden.')
-        }
-        logger.warn(`Request to ${url} resulted in statuscode: ${res.status} with message: ${textResponse}`)
-        if (res.status === 400) {
-            throw new Error(textResponse)
-        }
-        throw new Error('Vi har problemer med baksystemene for øyeblikket. Vennligst prøv igjen senere.')
-    }
-}
+export type FetchResult = { requestId: string; response: Response }
 
-async function fetchMedRequestId(url: string, optionsInn?: RequestInit) {
-    const uuid = uuidv4()
+export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): Promise<FetchResult> {
+    const requestId = uuidv4()
 
     const options: RequestInit = optionsInn ? optionsInn : {}
-
-    options.headers = options.headers ? { ...options.headers, 'x-request-id': uuid } : { 'x-request-id': uuid }
-
+    options.headers = options.headers
+        ? { ...options.headers, 'x-request-id': requestId }
+        : { 'x-request-id': requestId }
     options.cache = 'no-store'
 
-    try {
-        // fetch() kaster exception for nettverksfeil, men ikke HTTP-statuskoder.
-        const res = await fetch(url, options)
-        return {
-            res,
-            x_request_id: uuid,
+    const fetchUrl = async () => {
+        try {
+            return await fetch(url, options)
+        } catch (e) {
+            logger.warn(
+                e,
+                `${e} - Kall til url: ${options.method} ${url} og x_request_id: ${requestId} feilet uten svar fra backend.`,
+            )
+            throw e
         }
-    } catch (e: any) {
-        // Logger x_request_id i stedet for x-request-id for å matche logging fra
-        // ingress-controller og sykepengesoknad-backend.
-        logger.warn(e, `Kall til url: ${url} med x_request_id: ${uuid} feilet.`)
-        throw e
     }
+
+    const response = await fetchUrl()
+
+    if (response.status == 401) {
+        window.location.reload()
+        throw new Error('Laster siden på nytt på grunn av HTTP-kode 401 fra backend.')
+    }
+
+    if (!response.ok) {
+        if (!(response.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
+            const feilmelding = `Kall til url: ${options.method} ${url} og x_request_id: ${requestId} feilet med HTTP-kode: ${response.status}.`
+            // Må både logge og kaste exception siden feilen ikke blir logget av react-query.
+            logger.warn(feilmelding)
+            throw new Error(feilmelding)
+        }
+    }
+
+    return { requestId, response }
 }
 
-export async function fetchJson(url: string, options?: RequestInit) {
-    const fetchMedRequestSvar = await fetchMedRequestId(url, options)
+export async function fetchJson(url: string, options: RequestInit = {}) {
+    const fetchResult = await fetchMedRequestId(url, options)
+    const response = fetchResult.response
 
-    if (fetchMedRequestSvar.res.status === 401) {
-        // Redirect sånn at bruker kan logge inn på nytt.
-        window.location.href = '/syk/sykefravaer'
-        throw new Error('Sesjonen utløpt.')
-    }
-
-    if (!fetchMedRequestSvar.res.ok) {
-        if (!(fetchMedRequestSvar.res.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
-            logger.warn(
-                `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet med status ${fetchMedRequestSvar.res.status}.`,
-            )
-            throw new Error(`Feil ved henting av url: ${url}.`)
-        }
-    }
     try {
-        return await fetchMedRequestSvar.res.json()
+        return await fetchResult.response.json()
     } catch (e: any) {
         logger.warn(
             e,
-            `Kall til url: ${url} med x_request_id: ${fetchMedRequestSvar.x_request_id} feilet ved kall til json().`,
+            `${e} - Kall til url: ${options.method} ${url} og x_request_id: ${fetchResult.requestId} feilet ved parsing av JSON med HTTP-kode: ${response.status}.`,
         )
         throw e
     }
 }
-
-export default Fetch
