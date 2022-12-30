@@ -55,8 +55,13 @@ function setUpMock(persona: Persona) {
     )
 
     mock.post('/syk/sykefravaer/api/narmesteleder/v2/:org/avkreft', (req) => {
+        // Simulerer backend-kall som feiler (Gloucester Cathedral).
+        if (req.pathParams.org === '972674820') {
+            return Promise.resolve({ status: 500 })
+        }
         const idx = persona.narmesteledere.findIndex((nl) => nl.orgnummer === req.pathParams.org)
         const avkreftetLeder = persona.narmesteledere[idx]
+        // Fjerner avkreftet leder fra mockdata.
         persona.narmesteledere.splice(idx, 1, {
             ...avkreftetLeder,
             aktivTom: dayjs().format('YYYY-MM-DD'),

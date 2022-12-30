@@ -50,13 +50,8 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                             <BodyShort spacing as="span">
                                 Meld fra om endring
                             </BodyShort>
-                            <BekreftFeilLeder
-                                open={open}
-                                toggle={toggleOpen}
-                                narmesteLeder={leder!}
-                                orgNavn={orgNavn!}
-                            />
                         </button>
+                        <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />
                     </>
                 )}
             />

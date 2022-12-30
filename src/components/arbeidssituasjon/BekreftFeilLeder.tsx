@@ -16,7 +16,13 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
     const { mutate: avkreft, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
-        <Modal open={open} closeButton={true} onClose={toggle} aria-label="Endre nærmeste leder">
+        <Modal
+            open={open}
+            shouldCloseOnOverlayClick={false}
+            closeButton={true}
+            onClose={toggle}
+            aria-label="Endre nærmeste leder"
+        >
             <Modal.Content>
                 <Heading spacing size="small" level="1">
                     Endre nærmeste leder
