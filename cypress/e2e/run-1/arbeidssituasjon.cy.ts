@@ -40,6 +40,23 @@ describe('Tester arbeidssituasjon', () => {
         cy.checkA11y('main')
     })
 
+    it('Avkreft nærmeste leder feiler', () => {
+        cy.get('.din-situasjon > :nth-child(4)').should('contain', 'Gloucester Cathedral').click()
+        cy.checkA11y('main')
+
+        cy.get('.arbeidsgiver-accordion')
+            .should('contain', 'Arbeidsgiveren har meldt inn at Charity Burbage skal følge deg opp mens du er syk.')
+            .contains('Meld fra om endring')
+            .click()
+        cy.checkA11y('main')
+
+        cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
+        cy.get('.navds-modal').contains('Beklager, det oppstod en feil!')
+        cy.get('.navds-modal').should('be.visible')
+
+        cy.checkA11y('main')
+    })
+
     it('Har narmesteleder og kan avkrefte den', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
         cy.injectAxe()

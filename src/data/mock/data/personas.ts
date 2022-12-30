@@ -105,6 +105,24 @@ export const defaultPersona: Persona = {
             syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
         },
         {
+            id: 'SENDT',
+            sykmeldingStatus: {
+                statusEvent: 'SENDT',
+                arbeidsgiver: {
+                    orgnummer: '972674820',
+                    orgNavn: 'Gloucester Cathedral',
+                },
+            },
+            behandlingsutfall: { status: 'OK' },
+            sykmeldingsperioder: [
+                {
+                    fom: dayjs().format('YYYY-MM-DD'),
+                    tom: dayjs().add(12, 'days').format('YYYY-MM-DD'),
+                },
+            ],
+            syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
+        },
+        {
             id: 'APEN',
             sykmeldingStatus: {
                 statusEvent: 'BEKREFTET',
@@ -150,6 +168,12 @@ export const defaultPersona: Persona = {
             orgnummer: '972674819',
             arbeidsgiverForskutterer: true,
             aktivFom: '2021-03-19',
+        },
+        {
+            navn: 'Charity Burbage',
+            orgnummer: '972674820',
+            arbeidsgiverForskutterer: true,
+            aktivFom: '2021-03-20',
         },
     ],
     arbeidsrettetOppfolging: { erUnderOppfolging: true },
