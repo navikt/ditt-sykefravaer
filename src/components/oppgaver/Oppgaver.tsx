@@ -112,7 +112,7 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
 
     return (
         <section className="oppgaver">
-            <Heading size="small" level="1">
+            <Heading size="small" level="2">
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
             {oppgaver.map((v) => (

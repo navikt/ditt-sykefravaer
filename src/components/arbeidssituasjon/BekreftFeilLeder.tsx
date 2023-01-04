@@ -24,7 +24,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             aria-label="Endre nærmeste leder"
         >
             <Modal.Content>
-                <Heading spacing size="small" level="1">
+                <Heading spacing size="small" level="3">
                     Endre nærmeste leder
                 </Heading>
 
