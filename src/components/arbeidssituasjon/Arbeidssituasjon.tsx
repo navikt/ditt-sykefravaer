@@ -27,15 +27,15 @@ const Arbeidssituasjon = () => {
             render={() => (
                 <>
                     <section className="din-situasjon">
-                        <header className="din-situasjon__header">
+                        <div className="din-situasjon__header">
                             <div className="del1">
                                 <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
-                                <Heading size="small" level="1">
+                                <Heading size="small" level="2">
                                     {tekst('din-situasjon.tittel.2')}
                                 </Heading>
                             </div>
                             <HelpText>{tekst('din-situasjon.hjelpetekst.tekst')}</HelpText>
-                        </header>
+                        </div>
                         <Vis
                             hvis={arbeidsgivere.length === 1}
                             render={() => <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}

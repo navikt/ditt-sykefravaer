@@ -33,7 +33,7 @@ const Inntektsmelding = () => {
                         height={64}
                         alt=""
                     />
-                    <Heading size="xlarge" className="sidebanner__tittel">
+                    <Heading level="1" size="xlarge" className="sidebanner__tittel">
                         {tekst('inntektsmelding.side-tittel-manglende')}
                     </Heading>
                 </div>
@@ -41,7 +41,7 @@ const Inntektsmelding = () => {
             </header>
 
             <div className="limit">
-                <Heading size="medium">
+                <Heading level="2" size="medium">
                     {tekst('inntektsmelding.side-tittel', {
                         '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
                     })}
@@ -52,18 +52,24 @@ const Inntektsmelding = () => {
                 </BodyLong>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">{tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}</Heading>
+                    <Heading level="2" size="small">
+                        {tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}
+                    </Heading>
                     <BodyLong>{parser(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">{tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}</Heading>
+                    <Heading level="2" size="small">
+                        {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
+                    </Heading>
                     <BodyLong spacing>{parser(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
                     <BodyLong>{parser(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">
-                    <Heading size="small">{tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}</Heading>
+                    <Heading level="2" size="small">
+                        {tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}
+                    </Heading>
                     <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
                 </Panel>
 

@@ -64,7 +64,9 @@ const QueryStatusPanel = () => {
                 hvis={isFetching > 0}
                 render={() => (
                     <div className="query-status-panel">
-                        <Heading size="small">Henter ditt sykefravær</Heading>
+                        <Heading level="2" size="small">
+                            Henter ditt sykefravær
+                        </Heading>
                         <Loader />
                     </div>
                 )}
