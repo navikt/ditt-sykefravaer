@@ -1,4 +1,3 @@
-import { proxiedApiRouteConfig } from '@navikt/next-api-proxy'
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 
@@ -25,6 +24,11 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     })
 })
 
-export const config = proxiedApiRouteConfig
+export const config = {
+    api: {
+        bodyParser: false,
+        externalResolver: true,
+    },
+}
 
 export default handler
