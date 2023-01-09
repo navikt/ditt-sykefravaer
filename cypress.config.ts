@@ -13,5 +13,6 @@ export default defineConfig({
         },
         baseUrl: 'http://localhost:8080/',
         excludeSpecPattern: process.env.CI ? ['cypress/e2e/alle_tester.cy.ts'] : [],
+        testIsolation: false,
     },
 })
