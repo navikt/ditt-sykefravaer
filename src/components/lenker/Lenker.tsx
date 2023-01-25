@@ -1,5 +1,5 @@
 import { Heading } from '@navikt/ds-react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
@@ -17,45 +17,31 @@ import SykmeldingLenkepanel from './Sykmelding'
 import UtbetalingAvSykepengerLenkepanel from './Utbetaling'
 
 const Lenker = () => {
-    const [lenker, setLenker] = useState<boolean>()
-
     const { data: arbeidsrettetOppfolging } = useArbeidsrettetOppfolging()
     const { data: vedtak } = useVedtak()
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
 
-    useEffect(() => {
-        const anyLenker = () =>
-            [arbeidsrettetOppfolging, vedtak, sykmeldinger, soknader, oppfolgingsplaner].find((data) => data) !==
-            undefined
-        setLenker(anyLenker())
-    }, [arbeidsrettetOppfolging, oppfolgingsplaner, soknader, sykmeldinger, vedtak])
-
     return (
-        <Vis
-            hvis={lenker}
-            render={() => (
-                <section className="lenker">
-                    <Heading size="medium" level="2" className="hide-element">
-                        Lenker
-                    </Heading>
-                    <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
+        <section className="lenker">
+            <Heading size="medium" level="2" className="hide-element">
+                Lenker
+            </Heading>
+            <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
 
-                    <Vis hvis={soknader && soknader.length > 0} render={() => <SoknadLenkepanel />} />
+            <Vis hvis={soknader && soknader.length > 0} render={() => <SoknadLenkepanel />} />
 
-                    <Vis hvis={vedtak && vedtak.length > 0} render={() => <UtbetalingAvSykepengerLenkepanel />} />
+            <Vis hvis={vedtak && vedtak.length > 0} render={() => <UtbetalingAvSykepengerLenkepanel />} />
 
-                    <Vis hvis={arbeidsrettetOppfolging?.erUnderOppfolging} render={() => <Aktivitetsplan />} />
+            <Vis hvis={arbeidsrettetOppfolging?.erUnderOppfolging} render={() => <Aktivitetsplan />} />
 
-                    <Vis
-                        hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
-                        render={() => <Oppfolgingsplan />}
-                    />
-                    <DialogmoteLenke />
-                </section>
-            )}
-        />
+            <Vis
+                hvis={skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)}
+                render={() => <Oppfolgingsplan />}
+            />
+            <DialogmoteLenke />
+        </section>
     )
 }
 
