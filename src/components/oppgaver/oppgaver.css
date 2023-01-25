@@ -1,0 +1,27 @@
+.oppgaver .navds-heading__medium {
+    margin-bottom: 1rem;
+}
+.oppgaver .oppgave-tittel {
+    margin-bottom: 1.5rem;
+}
+.oppgaver .navds-alert {
+    margin-top: 0.5rem;
+}
+.oppgaver .navds-alert .navds-alert__wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+.oppgaver .navds-alert .navds-alert__wrapper .oppgave-tekst .navds-link {
+    display: inline;
+    color: #262626;
+}
+.oppgaver .navds-alert .navds-alert__wrapper .oppgave-tekst .navds-link:focus {
+    color: #ffffff;
+}
+.oppgaver .navds-alert .navds-alert__wrapper .oppgave-tekst:not(:last-child) {
+    margin-right: 1rem;
+}
+.oppgaver .navds-alert .navds-alert__wrapper .lukkeknapp {
+    margin-left: auto;
+}

@@ -1,4 +1,4 @@
-# ditt-sykefravaer
+# Ditt sykefravaer
 
 Ditt sykefravær landingsside.
 
