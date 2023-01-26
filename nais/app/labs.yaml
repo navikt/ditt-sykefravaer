@@ -43,3 +43,5 @@ spec:
       value: "prod"
     - name: AMPLITUDE_ENABLED
       value: "false"
+    - name: ASSET_PREFIX
+      value: "https://cdn.nav.no/flex/ditt-sykefravaer"
