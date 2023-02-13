@@ -6,7 +6,7 @@
         "node": "18"
     },
     "dependencies": {
-        "@jest/globals": "^29.4.1",
+        "@jest/globals": "^29.4.2",
         "@navikt/ds-css": "^2.1.7",
         "@navikt/ds-react": "^2.1.7",
         "@navikt/ds-tokens": "^2.1.7",
