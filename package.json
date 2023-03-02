@@ -9,7 +9,7 @@
         "@jest/globals": "^29.4.3",
         "@navikt/ds-css": "^2.4.2",
         "@navikt/ds-react": "^2.5.0",
-        "@navikt/ds-tokens": "^2.4.2",
+        "@navikt/ds-tokens": "^2.5.0",
         "@navikt/nav-dekoratoren-moduler": "^1.9.0",
         "@navikt/next-api-proxy": "^2.1.0",
         "@navikt/next-logger": "^1.14.0",
