@@ -18,7 +18,9 @@ export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): 
         } catch (e) {
             logger.warn(
                 e,
-                `${e} - Kall til url: ${options.method} ${url} og x_request_id: ${requestId} feilet uten svar fra backend.`,
+                `${e} - Kall til url: ${
+                    options.method || 'GET'
+                } ${url} og x_request_id: ${requestId} feilet uten svar fra backend.`,
             )
             throw e
         }
@@ -52,7 +54,9 @@ export async function fetchJson(url: string, options: RequestInit = {}) {
     } catch (e: any) {
         logger.warn(
             e,
-            `${e} - Kall til url: ${options.method} ${url} og x_request_id: ${fetchResult.requestId} feilet ved parsing av JSON med HTTP-kode: ${response.status}.`,
+            `${e} - Kall til url: ${options.method || 'GET'} ${url} og x_request_id: ${
+                fetchResult.requestId
+            } feilet ved parsing av JSON med HTTP-kode: ${response.status}.`,
         )
         throw e
     }
