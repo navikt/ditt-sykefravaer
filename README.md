@@ -4,7 +4,7 @@ Ditt sykefravær landingsside.
 
 Lever under:
 -   prod-gcp: https://www.nav.no/syk/sykefravaer
--   dev-gcp: https://www-gcp.dev.nav.no/syk/sykefravaer
+-   dev-gcp: https://www.ekstern.dev.nav.no/syk/sykefravaer
 -   labs-gcp: https://ditt-sykefravaer.labs.nais.io/syk/sykefravaer/
 
 ## Tilgang til Github Package Registry
