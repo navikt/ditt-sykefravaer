@@ -41,3 +41,7 @@ export function oppfolgingsplanUrl() {
 export function dialogmoteUrl() {
     return publicRuntimeConfig.dialogmoteUrl
 }
+
+export function feilmeldingerUrl() {
+    return publicRuntimeConfig.feilmeldingerUrl
+}
