@@ -35,3 +35,4 @@ env:
   VEILARBOPPFOLGING_CLIENT_ID: prod-fss:pto:veilarboppfolging
   SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.prod-fss-pub.nais.io
   SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
+  FEILMELDINGER_URL: "https://www.nav.no/syk/feilmeldinger"

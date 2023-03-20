@@ -45,3 +45,5 @@ spec:
       value: "false"
     - name: ASSET_PREFIX
       value: "https://cdn.nav.no/flex/ditt-sykefravaer"
+    - name: FEILMELDINGER_URL
+      value: "https://www.nav.no/syk/feilmeldinger"
