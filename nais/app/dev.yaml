@@ -1,6 +1,6 @@
 replicas_min: 1
 replicas_max: 2
-ingress: https://www-gcp.dev.nav.no/syk/sykefravaer
+ingress: https://www.ekstern.dev.nav.no/syk/sykefravaer
 cpu_limits: 1000m
 cpu_requests: 100m
 sidecar_cpu: 200m
@@ -12,8 +12,8 @@ env:
   MOCK_BACKEND: false
   ENVIRONMENT: q1
   OPPLAERING: false
-  SYKEPENGESOKNAD_URL: https://www-gcp.dev.nav.no/syk/sykepengesoknad
-  SPINNSYN_URL: https://www-gcp.dev.nav.no/syk/sykepenger
+  SYKEPENGESOKNAD_URL: https://www.ekstern.dev.nav.no/syk/sykepengesoknad
+  SPINNSYN_URL: https://www.ekstern.dev.nav.no/syk/sykepenger
   SYKMELDING_URL: https://www-gcp.dev.nav.no/syk/sykmeldinger
   AKTIVITETSPLAN_URL: https://aktivitetsplan-q1.dev.nav.no/
   OPPFOLGINGSPLAN_URL: https://www-gcp.dev.nav.no/syk/oppfolgingsplaner/sykmeldt
