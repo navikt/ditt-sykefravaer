@@ -37,7 +37,9 @@ export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): 
 
     if (!response.ok) {
         if (!(response.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
-            const feilmelding = `Kall til url: ${options.method} ${url} og x_request_id: ${requestId} feilet med HTTP-kode: ${response.status}.`
+            const feilmelding = `Kall til url: ${
+                options.method || 'GET'
+            } ${url} og x_request_id: ${requestId} feilet med HTTP-kode: ${response.status}.`
             // Må både logge og kaste exception siden feilen ikke blir logget av react-query.
             logger.warn(feilmelding)
             throw new Error(feilmelding)
@@ -65,10 +67,17 @@ export async function fetchJson(url: string, options: RequestInit = {}) {
         } catch (e) {}
     }
 
+    // Kloner siden kall til .json() konsumerer data, og vi trenger å gjøre et kall til .text() hvis det ikke er mulig
+    // å parse JSON.
+    const clonedResponse = response.clone()
     try {
         return await response.json()
     } catch (e) {
-        lagrePayload({ requestId: fetchResult.requestId, app: 'ditt-sykefravaer', payload: await response.text() })
+        lagrePayload({
+            requestId: fetchResult.requestId,
+            app: 'spinnsyn-frontend',
+            payload: await clonedResponse.text(),
+        })
 
         logger.warn(
             e,
