@@ -53,18 +53,13 @@ export async function fetchJson(url: string, options: RequestInit = {}) {
     const fetchResult = await fetchMedRequestId(url, options)
     const response = fetchResult.response
 
-    type Payload = { requestId: string; app: string; payload: string }
-
-    function lagrePayload(payload: Payload) {
-        try {
-            fetch(`${feilmeldingerUrl()}/api/v1/feilmelding`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(payload),
-            })
-        } catch (e) {}
+    type Payload = {
+        requestId: string
+        app: string
+        payload: string
+        method: string
+        responseCode: number
+        contentLength: number
     }
 
     // Kloner siden kall til .json() konsumerer data, og vi trenger å gjøre et kall til .text() hvis det ikke er mulig
@@ -73,12 +68,26 @@ export async function fetchJson(url: string, options: RequestInit = {}) {
     try {
         return await response.json()
     } catch (e) {
-        lagrePayload({
+        const payload: Payload = {
             requestId: fetchResult.requestId,
-            app: 'spinnsyn-frontend',
+            app: 'ditt-sykefravaer',
             payload: await clonedResponse.text(),
-        })
+            method: options.method || 'GET',
+            responseCode: response.status,
+            contentLength: parseInt(response.headers.get('content-length') || '0'),
+        }
 
+        fetch(`${feilmeldingerUrl()}/api/v1/feilmelding`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+        })
+            .catch((e) => {
+                logger.error(e, 'Feilet ved parsing av JSON og kunne ikke lagre payload.')
+            })
+            .finally(() => {
+                logger.info('Sendt payload til flex-frontend-feilmeldinger.')
+            })
         logger.warn(
             e,
             `${e} - Kall til url: ${options.method || 'GET'} ${url} og x_request_id: ${
