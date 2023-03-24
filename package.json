@@ -7,7 +7,7 @@
     },
     "dependencies": {
         "@jest/globals": "^29.5.0",
-        "@navikt/ds-css": "^2.8.2",
+        "@navikt/ds-css": "^2.8.3",
         "@navikt/ds-react": "^2.8.2",
         "@navikt/ds-tokens": "^2.8.2",
         "@navikt/nav-dekoratoren-moduler": "^1.9.0",
