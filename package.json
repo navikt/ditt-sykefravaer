@@ -51,7 +51,7 @@
         "start-server-and-test": "^2.0.0",
         "ts-loader": "^9.4.2",
         "typescript": "^4.9.5",
-        "yet-another-fetch-mock": "^4.1.0"
+        "yet-another-fetch-mock": "^4.2.1"
     },
     "scripts": {
         "dev": "MOCK_BACKEND=true next dev -p 8080 | pino-pretty",
