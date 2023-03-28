@@ -63,8 +63,8 @@ const QueryStatusPanel = () => {
             <Vis
                 hvis={isFetching > 0}
                 render={() => (
-                    <div className="query-status-panel">
-                        <Heading level="2" size="small">
+                    <div className="mb-4  text-center">
+                        <Heading level="2" size="small" className="m-2">
                             Henter ditt sykefravær
                         </Heading>
                         <Loader />
@@ -74,7 +74,7 @@ const QueryStatusPanel = () => {
             <Vis
                 hvis={errorQueries.length > 0}
                 render={() => (
-                    <Alert variant="warning" className="query-status-error">
+                    <Alert variant="warning" className="mb-4">
                         <strong>Ai ai ai!</strong>
                         <span> Vi har problemer med noen av baksystemene nå. </span>
                         <ul>
@@ -87,6 +87,7 @@ const QueryStatusPanel = () => {
                             onClick={() => {
                                 errorQueries.forEach((a) => a.query.refetch())
                             }}
+                            className={'mt-4'}
                         >
                             Hent på nytt
                         </Button>
