@@ -111,13 +111,15 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
     }
 
     return (
-        <section className="oppgaver">
-            <Heading size="small" level="2">
+        <section className="oppgaver2">
+            <Heading size="small" level="2" className={'pb-4'}>
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
-            {oppgaver.map((v) => (
-                <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
-            ))}
+            <div className={'space-y-2'}>
+                {oppgaver.map((v) => (
+                    <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
+                ))}
+            </div>
         </section>
     )
 }
