@@ -14,7 +14,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
     const heading = () => {
         if (props.undertekst) {
             return (
-                <div className="bred-tekst-lenkepanel">
+                <div>
                     <Heading size="small" level="3">
                         {props.tekst}
                     </Heading>
@@ -30,6 +30,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
     }
     return (
         <LinkPanel
+            className={'mb-2'}
             onClick={(e) => {
                 e.preventDefault()
                 logEvent('navigere', {
@@ -42,8 +43,10 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
             href={props.url}
             border={true}
         >
-            <div className="lenkeikon">{props.ikon}</div>
-            {heading()}
+            <div className={'flex w-72'}>
+                <div className="my-4 mr-4 ml-0.5 flex ">{props.ikon}</div>
+                {heading()}
+            </div>
         </LinkPanel>
     )
 }

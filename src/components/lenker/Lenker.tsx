@@ -36,7 +36,7 @@ const Lenker = () => {
         <Vis
             hvis={lenker}
             render={() => (
-                <section className="lenker">
+                <section className="lenker my-8">
                     <Heading size="medium" level="2" className="invisible h-0 w-0">
                         Lenker
                     </Heading>

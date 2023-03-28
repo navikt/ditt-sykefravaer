@@ -1,0 +1,81 @@
+* {
+    box-sizing: border-box;
+}
+html,
+body,
+#app-root {
+    height: 100%;
+}
+html .navds-loader,
+body .navds-loader,
+#app-root .navds-loader {
+    display: block;
+    margin: 0 auto;
+}
+
+.app {
+    min-height: 70vh;
+}
+
+.maincontent:focus {
+    outline: 0;
+}
+.maincontent .limit {
+    background-color: #ffffff;
+    padding-top: 1rem;
+}
+a {
+    color: #0067c5;
+}
+.navno-dekorator .login-knapp.navds-button--secondary {
+    min-height: auto;
+    font-size: 1rem;
+    padding: 0.2rem 0.7rem;
+}
+.navds-modal {
+    width: 440px;
+}
+.navds-modal .navds-modal__button {
+    margin-top: -6px;
+}
+.navds-modal section h2 {
+    margin: 0.5rem 2rem 0.5rem 0;
+}
+.navds-modal section > p {
+    margin-top: 1rem;
+}
+.navds-modal .knapperad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem 0 1rem;
+}
+.navds-modal .knapperad > * {
+    margin: 0.5rem 0;
+}
+.lenkeknapp {
+    background: none;
+    border: 0;
+    padding: 0;
+}
+button.lenke {
+    background: 0;
+    color: #0067c5;
+    text-decoration: underline;
+    border: 0;
+    padding: 0;
+}
+button.lenke:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
+.hide-element {
+    border: 0;
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}

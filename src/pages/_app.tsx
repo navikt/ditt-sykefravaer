@@ -1,7 +1,6 @@
 /* eslint-disable postcss-modules/no-unused-class */
 import '../style/global.css'
 import '../components/arbeidssituasjon/arbeidssituasjon.css'
-import '../components/lenker/lenker.css'
 import '../components/oppgaver/oppgaver.css'
 import '../components/queryStatusPanel/QueryStatusPanel.css'
 
