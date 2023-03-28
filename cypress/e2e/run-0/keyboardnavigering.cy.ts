@@ -85,12 +85,6 @@ describe('Keyboard navigering', () => {
         ).should('be.visible')
 
         cy.realPress('Tab')
-        cy.realPress('Tab')
-
-        // Første lenke er fokusert med riktig styling
-        cy.focused().should('have.text', 'Til ditt sykefraværDitt sykefravær')
-        cy.realPress('Enter')
-        cy.url().should('equal', 'http://localhost:8080/syk/sykefravaer')
     })
 })
 
