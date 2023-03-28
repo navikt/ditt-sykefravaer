@@ -1,10 +1,10 @@
 import { Back } from '@navikt/ds-icons'
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
-import parser from 'html-react-parser'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
+import { parserWithReplace } from '../utils/html-react-parser-utils'
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Person from '../components/person/Person'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
@@ -48,22 +48,22 @@ const Inntektsmelding = () => {
                 </Heading>
 
                 <BodyLong spacing className="forklaring-bodylong">
-                    {parser(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
+                    {parserWithReplace(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
                 </BodyLong>
 
                 <Panel className="tekstbakgrunn">
                     <Heading level="2" size="small">
                         {tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}
                     </Heading>
-                    <BodyLong>{parser(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
+                    <BodyLong>{parserWithReplace(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">
                     <Heading level="2" size="small">
                         {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
                     </Heading>
-                    <BodyLong spacing>{parser(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
-                    <BodyLong>{parser(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
+                    <BodyLong spacing>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
+                    <BodyLong>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
                 </Panel>
 
                 <Panel className="tekstbakgrunn">

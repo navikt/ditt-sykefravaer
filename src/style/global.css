@@ -1,5 +1,15 @@
-@import '~@navikt/ds-css/dist/index.css';
+@import 'tailwindcss/base';
+@import '@navikt/ds-css';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
 
 html {
-    --desktop-limit-width: 800px;
+    --desktop-limit-width: 672px;
+}
+
+@layer base {
+    ul {
+        @apply list-disc;
+        @apply list-inside;
+    }
 }

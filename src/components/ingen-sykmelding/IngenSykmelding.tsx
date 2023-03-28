@@ -1,7 +1,7 @@
 import { GuidePanel } from '@navikt/ds-react'
-import parser from 'html-react-parser'
 import React from 'react'
 
+import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import { veileder } from '../../grafikk/Veileder'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
@@ -13,5 +13,5 @@ export const IngenSykmelding = () => {
         return null
     }
 
-    return <GuidePanel illustration={veileder}>{parser(tekst('ingen.sykmelding'))}</GuidePanel>
+    return <GuidePanel illustration={veileder}>{parserWithReplace(tekst('ingen.sykmelding'))}</GuidePanel>
 }
