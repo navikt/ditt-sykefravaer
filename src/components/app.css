@@ -12,11 +12,7 @@ body .navds-loader,
     display: block;
     margin: 0 auto;
 }
-.pagewrapper {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100%;
-}
+
 .app {
     min-height: 70vh;
 }

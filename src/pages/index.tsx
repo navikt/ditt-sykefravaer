@@ -1,4 +1,4 @@
-import { Heading, Modal } from '@navikt/ds-react'
+import { Modal } from '@navikt/ds-react'
 import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 
@@ -6,11 +6,10 @@ import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
 import { IngenSykmelding } from '../components/ingen-sykmelding/IngenSykmelding'
 import Lenker from '../components/lenker/Lenker'
-import Person from '../components/person/Person'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
-import { PageWrapper } from '../components/PageWrapper'
+import { Banner } from '../components/banner/Banner'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
@@ -26,29 +25,15 @@ const Index = () => {
     })
 
     return (
-        <PageWrapper>
-            <header className="sidebanner">
-                <div>
-                    <img
-                        className="sidebanner__ikon"
-                        src="/syk/sykefravaer/static/ditt-sykefravaer-ikon.svg"
-                        width={64}
-                        height={64}
-                        alt=""
-                    />
-                    <Heading size="xlarge" level="1" className="sidebanner__tittel">
-                        {tekst('sidetittel.liste')}
-                    </Heading>
-                </div>
-                <Person />
-            </header>
+        <>
+            <Banner tittel={tekst('sidetittel.liste')} />
 
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
             <Arbeidssituasjon />
             <Lenker />
-        </PageWrapper>
+        </>
     )
 }
 

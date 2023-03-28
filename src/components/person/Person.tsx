@@ -1,4 +1,4 @@
-import { Popover } from '@navikt/ds-react'
+import { Link, Popover } from '@navikt/ds-react'
 import React, { useRef, useState } from 'react'
 
 import { personas } from '../../data/mock/testperson'
@@ -13,21 +13,20 @@ const Person = () => {
     if (!kanVelgePerson) return null
 
     return (
-        <div className="person">
+        <div className="hidden cursor-pointer md:block">
             <button
                 aria-label="Velg person"
-                className="lenkeknapp"
                 onClick={() => {
                     setOpen(!open)
                 }}
             >
-                <img src="/syk/sykefravaer/static/person.svg" className="person__ikon" ref={person} alt="" />
+                <img src="/syk/sykefravaer/static/person.svg" className="h-8 w-8" ref={person} alt="" />
             </button>
             <Vis
                 hvis={open}
                 render={() => (
                     <Popover
-                        open={!open}
+                        open={open}
                         anchorEl={person.current as HTMLElement}
                         placement="bottom"
                         onClose={() => setOpen(false)}
@@ -36,7 +35,7 @@ const Person = () => {
                             <ul>
                                 {Object.keys(personas).map((p, idx) => (
                                     <li key={idx}>
-                                        <a href={`?testperson=${p}`}>{p}</a>
+                                        <Link href={`?testperson=${p}`}>{p}</Link>
                                     </li>
                                 ))}
                             </ul>

@@ -2,7 +2,6 @@ import { logger } from '@navikt/next-logger'
 
 import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
 import { BannerTekster } from '../components/banner/bannerTekster'
-import { ForsideTekster } from '../components/forside/forsideTekster'
 import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykmeldingTekster'
 import { InntektsmeldingTekster } from '../components/inntektsmelding/inntektsmeldingTekster'
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
@@ -12,7 +11,6 @@ import { StringMap } from '../types/stringMap'
 const tekster = {
     ...BannerTekster,
     ...LenkerTekster,
-    ...ForsideTekster,
     ...OppgaverTekster,
     ...ingenSykmeldingTekster,
     ...ArbeidssituasjonTekster,
@@ -24,7 +22,6 @@ type TekstKeys =
     | keyof typeof LenkerTekster
     | keyof typeof OppgaverTekster
     | keyof typeof ingenSykmeldingTekster
-    | keyof typeof ForsideTekster
     | keyof typeof ArbeidssituasjonTekster
     | keyof typeof InntektsmeldingTekster
 

@@ -3,10 +3,9 @@ import React from 'react'
 
 import { parserWithReplace } from '../utils/html-react-parser-utils'
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
-import Person from '../components/person/Person'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
-import { PageWrapper } from '../components/PageWrapper'
+import { Banner } from '../components/banner/Banner'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(
@@ -15,24 +14,10 @@ const Inntektsmelding = () => {
     )
 
     return (
-        <PageWrapper>
-            <header className="sidebanner">
-                <div>
-                    <img
-                        className="sidebanner__ikon"
-                        src="/syk/sykefravaer/static/ditt-sykefravaer-ikon.svg"
-                        width={64}
-                        height={64}
-                        alt=""
-                    />
-                    <Heading level="1" size="xlarge" className="sidebanner__tittel">
-                        {tekst('inntektsmelding.side-tittel-manglende')}
-                    </Heading>
-                </div>
-                <Person />
-            </header>
+        <>
+            <Banner tittel={tekst('inntektsmelding.side-tittel-manglende')} />
 
-            <Heading className="pt-20" level="2" size="medium">
+            <Heading level="2" size="medium">
                 {tekst('inntektsmelding.side-tittel', {
                     '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
                 })}
@@ -63,7 +48,7 @@ const Inntektsmelding = () => {
                 </Heading>
                 <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
             </Panel>
-        </PageWrapper>
+        </>
     )
 }
 

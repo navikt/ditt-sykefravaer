@@ -2,12 +2,9 @@
 import '../style/global.css'
 import '../components/app.css'
 import '../components/arbeidssituasjon/arbeidssituasjon.css'
-import '../components/banner/banner.css'
-import '../components/person/person.css'
 import '../components/lenker/lenker.css'
 import '../components/oppgaver/oppgaver.css'
 import '../components/queryStatusPanel/QueryStatusPanel.css'
-import '../components/inntektsmelding/inntektsmelding.css'
 
 import { configureLogger } from '@navikt/next-logger'
 import dayjs from 'dayjs'
@@ -66,11 +63,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </Head>
             <QueryClientProvider client={queryClient}>
                 <Hydrate state={pageProps.dehydratedState}>
-                    <div className="pagewrapper">
-                        <div id="root">
-                            <LabsWarning />
-                            <Component {...pageProps} />
-                        </div>
+                    <div id="root" className="mx-auto my-0 max-w-full px-4 pb-32 pt-4 md:w-[50rem]">
+                        <LabsWarning />
+                        <Component {...pageProps} />
                     </div>
                 </Hydrate>
             </QueryClientProvider>
