@@ -37,7 +37,7 @@ const Lenker = () => {
             hvis={lenker}
             render={() => (
                 <section className="lenker">
-                    <Heading size="medium" level="2" className="invisible w-0 h-0">
+                    <Heading size="medium" level="2" className="invisible h-0 w-0">
                         Lenker
                     </Heading>
                     <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
