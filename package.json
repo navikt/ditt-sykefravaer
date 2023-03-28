@@ -9,6 +9,7 @@
         "@jest/globals": "^29.5.0",
         "@navikt/ds-css": "^2.8.4",
         "@navikt/ds-react": "^2.8.4",
+        "@navikt/ds-tailwind": "^2.8.4",
         "@navikt/ds-tokens": "^2.8.4",
         "@navikt/nav-dekoratoren-moduler": "^1.9.0",
         "@navikt/next-api-proxy": "^2.1.0",
@@ -35,6 +36,7 @@
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.11",
         "@types/uuid": "^9.0.1",
+        "autoprefixer": "^10.4.14",
         "axe-core": "^4.6.3",
         "cypress": "^12.8.1",
         "cypress-axe": "^1.4.0",
@@ -46,10 +48,13 @@
         "jest-environment-jsdom": "^29.5.0",
         "jest-react-hooks-shallow": "^1.5.1",
         "next": "^12.3.1",
+        "postcss": "^8.4.21",
         "prettier": "^2.8.4",
+        "prettier-plugin-tailwindcss": "^0.2.5",
         "react-test-renderer": "^18.2.0",
         "start-server-and-test": "^2.0.0",
         "ts-loader": "^9.4.2",
+        "tailwindcss": "^3.2.7",
         "typescript": "^4.9.5",
         "yet-another-fetch-mock": "^4.2.1"
     },
@@ -79,7 +84,9 @@
             "@typescript-eslint/explicit-function-return-type": "off",
             "@typescript-eslint/no-explicit-any": "off",
             "@typescript-eslint/no-non-null-assertion": "off",
-            "@next/next/no-img-element": "off"
+            "@next/next/no-img-element": "off",
+            "postcss-modules/no-undef-class": "off",
+            "postcss-modules/no-unused-class": "off"
         }
     },
     "prettier": "@navikt/eslint-config-teamsykmelding/prettier"

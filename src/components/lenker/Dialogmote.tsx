@@ -6,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 export function DialogmoteLenke() {
-    const ikon = <img src="/syk/sykefravaer/static/calender.svg" alt="Dialogmoter" />
+    const ikon = <img className="max-w-none" src="/syk/sykefravaer/static/calender.svg" alt="Dialogmoter" />
 
     return <FellesLenkepanel ikon={ikon} url={dialogmoteUrl()} tekst={tekst('lenker.dialogmoter')} />
 }

@@ -1,7 +1,7 @@
 import { Accordion, BodyLong, BodyShort, Heading, HelpText } from '@navikt/ds-react'
-import parser from 'html-react-parser'
 import React from 'react'
 
+import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
@@ -56,27 +56,26 @@ const Arbeidssituasjon = () => {
                             <Accordion.Header>{tekst('din-situasjon.slik-hjelper-arbeidsgiver')}</Accordion.Header>
                             <Accordion.Content>
                                 <BodyLong spacing>
-                                    {parser(tekst('din-situasjon.arbeidsgiver-legger-til-rette'))}
+                                    {parserWithReplace(tekst('din-situasjon.arbeidsgiver-legger-til-rette'))}
                                 </BodyLong>
                                 <BodyLong spacing>
-                                    {parser(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
+                                    {parserWithReplace(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
                                 </BodyLong>
                                 <ul>
-                                    <li>
-                                        <BodyShort spacing>
-                                            <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
-                                        </BodyShort>
-                                    </li>
-                                    <li>
-                                        <BodyShort spacing>
-                                            <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
-                                        </BodyShort>
-                                    </li>
+                                    <BodyShort as="li" spacing>
+                                        <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
+                                    </BodyShort>
+
+                                    <BodyShort as="li" spacing>
+                                        <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
+                                    </BodyShort>
                                 </ul>
                                 <BodyLong spacing>
-                                    {parser(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
+                                    {parserWithReplace(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}
                                 </BodyLong>
-                                <BodyShort>{parser(tekst('din-situasjon.arbeidsgiver-ansvar-for-møte'))}</BodyShort>
+                                <BodyShort>
+                                    {parserWithReplace(tekst('din-situasjon.arbeidsgiver-ansvar-for-møte'))}
+                                </BodyShort>
                             </Accordion.Content>
                         </Accordion.Item>
                     </Accordion>

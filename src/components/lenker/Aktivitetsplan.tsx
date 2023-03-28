@@ -6,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const Aktivitetsplan = () => {
-    const ikon = <img src="/syk/sykefravaer/static/dialog.svg" alt="Aktivitetsplan" />
+    const ikon = <img className="max-w-none" src="/syk/sykefravaer/static/dialog.svg" alt="Aktivitetsplan" />
 
     return (
         <FellesLenkepanel

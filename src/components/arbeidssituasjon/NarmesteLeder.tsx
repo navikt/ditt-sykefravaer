@@ -1,7 +1,7 @@
 import { BodyShort } from '@navikt/ds-react'
-import parser from 'html-react-parser'
 import React, { useState } from 'react'
 
+import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
 import Vis from '../Vis'
@@ -38,7 +38,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                             hvis={leder!.navn}
                             render={() => (
                                 <BodyShort spacing className="leder__informasjon">
-                                    {parser(
+                                    {parserWithReplace(
                                         tekst('din-situasjon.nærmesteleder', {
                                             '%ARBEIDSGIVER%': leder!.navn!,
                                         }),
