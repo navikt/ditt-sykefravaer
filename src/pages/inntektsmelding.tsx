@@ -1,12 +1,12 @@
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { parserWithReplace } from '../utils/html-react-parser-utils'
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Person from '../components/person/Person'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
-import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
+import { PageWrapper } from '../components/PageWrapper'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(
@@ -14,12 +14,8 @@ const Inntektsmelding = () => {
         [],
     )
 
-    useEffect(() => {
-        setBodyClass('inntektsmelding')
-    }, [])
-
     return (
-        <>
+        <PageWrapper>
             <header className="sidebanner">
                 <div>
                     <img
@@ -36,40 +32,38 @@ const Inntektsmelding = () => {
                 <Person />
             </header>
 
-            <div className="limit">
-                <Heading level="2" size="medium">
-                    {tekst('inntektsmelding.side-tittel', {
-                        '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
-                    })}
+            <Heading className="pt-20" level="2" size="medium">
+                {tekst('inntektsmelding.side-tittel', {
+                    '%ARBEIDSGIVER%': 'Test Arbeidsgiver AS',
+                })}
+            </Heading>
+
+            <BodyLong spacing className="forklaring-bodylong">
+                {parserWithReplace(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
+            </BodyLong>
+
+            <Panel className="my-8 bg-blue-50">
+                <Heading level="2" size="small">
+                    {tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}
                 </Heading>
+                <BodyLong>{parserWithReplace(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
+            </Panel>
 
-                <BodyLong spacing className="forklaring-bodylong">
-                    {parserWithReplace(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
-                </BodyLong>
+            <Panel className="my-8 bg-blue-50">
+                <Heading level="2" size="small">
+                    {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
+                </Heading>
+                <BodyLong spacing>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
+                <BodyLong>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
+            </Panel>
 
-                <Panel className="tekstbakgrunn">
-                    <Heading level="2" size="small">
-                        {tekst('inntektsmelding.soknaden-kan-ikke-behandles.tittel')}
-                    </Heading>
-                    <BodyLong>{parserWithReplace(tekst('inntektsmelding.soknaden-kan-ikke-behandles'))}</BodyLong>
-                </Panel>
-
-                <Panel className="tekstbakgrunn">
-                    <Heading level="2" size="small">
-                        {tekst('inntekstmelding.hvorfor.varsler.vi.tittel')}
-                    </Heading>
-                    <BodyLong spacing>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi1'))}</BodyLong>
-                    <BodyLong>{parserWithReplace(tekst('inntekstmelding.hvorfor.varsler.vi2'))}</BodyLong>
-                </Panel>
-
-                <Panel className="tekstbakgrunn">
-                    <Heading level="2" size="small">
-                        {tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}
-                    </Heading>
-                    <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
-                </Panel>
-            </div>
-        </>
+            <Panel className="my-8 bg-blue-50">
+                <Heading level="2" size="small">
+                    {tekst('inntektsmelding.hva-er-inntekysmeldingen-tittel')}
+                </Heading>
+                <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
+            </Panel>
+        </PageWrapper>
     )
 }
 

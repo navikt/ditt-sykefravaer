@@ -10,6 +10,7 @@ import Person from '../components/person/Person'
 import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
+import { PageWrapper } from '../components/PageWrapper'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
@@ -25,7 +26,7 @@ const Index = () => {
     })
 
     return (
-        <>
+        <PageWrapper>
             <header className="sidebanner">
                 <div>
                     <img
@@ -42,14 +43,12 @@ const Index = () => {
                 <Person />
             </header>
 
-            <div className="limit">
-                <QueryStatusPanel />
-                <IngenSykmelding />
-                <Oppgaver />
-                <Arbeidssituasjon />
-                <Lenker />
-            </div>
-        </>
+            <QueryStatusPanel />
+            <IngenSykmelding />
+            <Oppgaver />
+            <Arbeidssituasjon />
+            <Lenker />
+        </PageWrapper>
     )
 }
 

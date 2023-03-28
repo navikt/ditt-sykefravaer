@@ -13,3 +13,12 @@ html {
         @apply list-inside;
     }
 }
+
+@layer components {
+    .custom-width {
+        width: var(--desktop-limit-width);
+    }
+    .pb-custom-padding {
+        padding-bottom: var(--a-spacing-32);
+    }
+}
