@@ -6,7 +6,7 @@ import { tekst } from '../../utils/tekster'
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const SoknadLenkepanel = () => {
-    const ikon = <img src="/syk/sykefravaer/static/task.svg" alt="Soknader" />
+    const ikon = <img className="max-w-none" src="/syk/sykefravaer/static/task.svg" alt="Soknader" />
 
     return (
         <FellesLenkepanel

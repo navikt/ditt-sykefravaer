@@ -62,16 +62,13 @@ const Arbeidssituasjon = () => {
                                     {parserWithReplace(tekst('din-situasjon.arbeidsgiver-oppfølgingsplan'))}
                                 </BodyLong>
                                 <ul>
-                                    <li>
-                                        <BodyShort spacing>
-                                            <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
-                                        </BodyShort>
-                                    </li>
-                                    <li>
-                                        <BodyShort spacing>
-                                            <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
-                                        </BodyShort>
-                                    </li>
+                                    <BodyShort as="li" spacing>
+                                        <strong>{tekst('din-situasjon.arbeidsgiver-arbeidsoppgaver')}</strong>
+                                    </BodyShort>
+
+                                    <BodyShort as="li" spacing>
+                                        <strong>{tekst('din-situasjon.arbeidsgiver-tilrettelegging')}</strong>
+                                    </BodyShort>
                                 </ul>
                                 <BodyLong spacing>
                                     {parserWithReplace(tekst('din-situasjon.arbeidsgiver-tidlig-oppfølgingsplan'))}

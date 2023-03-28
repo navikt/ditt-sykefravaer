@@ -1,7 +1,4 @@
-import { Back } from '@navikt/ds-icons'
 import { BodyLong, Heading, Panel } from '@navikt/ds-react'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 import { parserWithReplace } from '../utils/html-react-parser-utils'
@@ -12,7 +9,6 @@ import { setBodyClass } from '../utils/setBodyClass'
 import { tekst } from '../utils/tekster'
 
 const Inntektsmelding = () => {
-    const router = useRouter()
     useUpdateBreadcrumbs(
         () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Manglende inntektsmelding' }],
         [],
@@ -72,19 +68,6 @@ const Inntektsmelding = () => {
                     </Heading>
                     <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
                 </Panel>
-
-                <Link href="/">
-                    <a
-                        className="lenke"
-                        onClick={(e) => {
-                            e.preventDefault()
-                            router.push('/')
-                        }}
-                    >
-                        <Back style={{ marginBottom: '-4px' }} title={'Til ditt sykefravær'} />
-                        <BodyLong as="span">{tekst('sidetittel.liste')}</BodyLong>
-                    </a>
-                </Link>
             </div>
         </>
     )
