@@ -27,7 +27,7 @@ const Arbeidssituasjon = () => {
             render={() => (
                 <>
                     <section className="din-situasjon">
-                        <div className="din-situasjon__header">
+                        <div className="mx-auto my-8 mt-0 flex items-center justify-between py-1 pt-6">
                             <div className="flex">
                                 <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
                                 <Heading size="small" level="2">

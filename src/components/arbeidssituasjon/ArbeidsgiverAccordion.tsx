@@ -31,25 +31,23 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
     return (
         <Accordion className="arbeidsgiver-accordion">
             <Accordion.Item>
-                <Accordion.Header>
+                <Accordion.Header className={'bg-blue-50'}>
                     <strong>{navn}</strong>
                 </Accordion.Header>
                 <Accordion.Content>
                     <Vis
                         hvis={leder?.arbeidsgiverForskutterer !== undefined}
                         render={() => (
-                            <div className="leder__forskuttering">
-                                <BodyShort>
-                                    {tekst(
-                                        `din-situasjon.arbeidsgiver-forskutterer${
-                                            leder?.arbeidsgiverForskutterer
-                                                ? ''
-                                                : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                                  '-ikke'
-                                        }` as any,
-                                    )}
-                                </BodyShort>
-                            </div>
+                            <BodyShort>
+                                {tekst(
+                                    `din-situasjon.arbeidsgiver-forskutterer${
+                                        leder?.arbeidsgiverForskutterer
+                                            ? ''
+                                            : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                              '-ikke'
+                                    }` as any,
+                                )}
+                            </BodyShort>
                         )}
                     />
                     <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />

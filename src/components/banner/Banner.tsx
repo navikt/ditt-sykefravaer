@@ -5,7 +5,7 @@ import Person from '../person/Person'
 
 export const Banner = ({ tittel }: { tittel: string }) => {
     return (
-        <header className="mx-auto mt-4 flex items-center justify-between py-1 pl-4 pb-8 md:w-[40rem] md:pl-0">
+        <header className="mx-auto mt-4 flex items-center justify-between py-1 pl-4 pb-8 md:w-[550px] md:pl-0">
             <div className="flex">
                 <img
                     className="hidden md:mr-6 md:inline"
