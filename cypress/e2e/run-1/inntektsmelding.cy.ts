@@ -2,7 +2,8 @@ describe('Tester inntektsmelding', () => {
     it('Har inntektsmelding varsel og riktig innhold', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
 
-        cy.get('.oppgaver > .navds-alert')
+        cy.get('[data-cy="oppgaver"]')
+            .get(' .navds-alert')
             .should('have.length', 1)
             .contains(
                 'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
@@ -19,26 +20,21 @@ describe('Tester inntektsmelding', () => {
         cy.contains(
             'Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.',
         )
-
-        cy.injectAxe()
-        cy.checkA11y('main')
     })
 
     it('Mottatt inntektsmelding varsel kan lukkes', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mottatt-inntektsmelding')
-        cy.injectAxe()
 
-        cy.get('.oppgaver > .navds-alert')
+        cy.get('[data-cy="oppgaver"]')
+            .get(' .navds-alert')
             .should('have.length', 1)
             .contains(
                 ' Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
             )
-        cy.checkA11y('main')
 
-        cy.get('.oppgaver > .navds-alert .navds-button').click()
+        cy.get('[data-cy="oppgaver"]').get(' .navds-alert').get(' .navds-button').click()
 
-        cy.get('.oppgaver > .navds-alert').should('not.exist')
-        cy.checkA11y('main')
+        cy.get('[data-cy="oppgaver"]').should('not.exist')
     })
 })
 

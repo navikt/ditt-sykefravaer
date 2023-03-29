@@ -1,4 +1,3 @@
-import { Heading } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
@@ -36,10 +35,7 @@ const Lenker = () => {
         <Vis
             hvis={lenker}
             render={() => (
-                <section className="lenker my-8">
-                    <Heading size="medium" level="2" className="invisible h-0 w-0">
-                        Lenker
-                    </Heading>
+                <section className="my-8">
                     <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
 
                     <Vis hvis={soknader && soknader.length > 0} render={() => <SoknadLenkepanel />} />

@@ -111,7 +111,7 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
     }
 
     return (
-        <section className="oppgaver2">
+        <section data-cy="oppgaver">
             <Heading size="small" level="2" className={'pb-4'}>
                 {tekst('oppgaver.nye-varsler')}
             </Heading>

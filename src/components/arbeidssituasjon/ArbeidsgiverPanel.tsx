@@ -29,7 +29,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
     const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
-        <Panel className="bg-blue-50">
+        <Panel className="bg-blue-50" data-cy="situasjon-innhold">
             <BodyShort spacing>
                 <strong>{navn}</strong>
             </BodyShort>

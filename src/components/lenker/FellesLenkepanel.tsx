@@ -15,7 +15,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
         if (props.undertekst) {
             return (
                 <div>
-                    <Heading size="small" level="3">
+                    <Heading size="small" level="2">
                         {props.tekst}
                     </Heading>
                     <BodyShort>{props.undertekst}</BodyShort>
@@ -23,7 +23,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
             )
         }
         return (
-            <Heading size="small" level="3">
+            <Heading size="small" level="2">
                 {props.tekst}
             </Heading>
         )
