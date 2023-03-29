@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
             </Head>
             <QueryClientProvider client={queryClient}>
                 <Hydrate state={pageProps.dehydratedState}>
-                    <div id="root" className="mx-auto my-0 max-w-full px-4 pb-32 pt-4 md:w-[640px]">
+                    <div id="root" className="mx-auto max-w-2xl p-4 pb-32">
                         <LabsWarning />
                         <Component {...pageProps} />
                     </div>

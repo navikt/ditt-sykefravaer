@@ -2,9 +2,13 @@ describe('Tester arbeidssituasjon', () => {
     it('Bruker med flere arbeidsgivere', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=default')
 
-        cy.get('.din-situasjon > :nth-child(2)').should('contain', 'Hogwarts School of Witchcraft and Wizardry').click()
+        cy.get('[data-cy="din-situasjon"]')
+            .children()
+            .eq(1)
+            .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
+            .click()
 
-        cy.get('.arbeidsgiver-accordion')
+        cy.get('[data-cy="arbeidsgiver-accordion"]')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -12,14 +16,14 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.arbeidsgiver-accordion').should(
+        cy.get('[data-cy="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
 
-        cy.get('.din-situasjon > :nth-child(3)').should('contain', 'Diagon Alley').click()
+        cy.get('[data-cy="din-situasjon"]').children().eq(2).should('contain', 'Diagon Alley').click()
 
-        cy.get('.arbeidsgiver-accordion')
+        cy.get('[data-cy="arbeidsgiver-accordion"]')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -27,16 +31,16 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.arbeidsgiver-accordion').should(
+        cy.get('[data-cy="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
         )
     })
 
     it('Avkreft nærmeste leder feiler', () => {
-        cy.get('.din-situasjon > :nth-child(4)').should('contain', 'Gloucester Cathedral').click()
+        cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral').click()
 
-        cy.get('.arbeidsgiver-accordion')
+        cy.get('[data-cy="arbeidsgiver-accordion"]')
             .should('contain', 'Arbeidsgiveren har meldt inn at Charity Burbage skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
             .click()
