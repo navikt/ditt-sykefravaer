@@ -58,6 +58,10 @@ spec:
           namespace: teamsykefravr
         - application: syfomotebehov
           namespace: team-esyfo
+      external:
+  {{#each external-host}}
+        - host: {{this}}
+  {{/each}}
   env:
   {{#each env}}
      - name: {{@key}}

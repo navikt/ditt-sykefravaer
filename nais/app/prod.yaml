@@ -8,6 +8,10 @@ memory_limits: 500Mi
 memory_requests: 300Mi
 sidecar_memory_limits: 256Mi
 sidecar_memory_requests: 32Mi
+external-host:
+  - syfooppfolgingsplanservice.prod-fss-pub.nais.io
+  - veilarboppfolging.prod-fss-pub.nais.io
+  - syfomotebehov.prod-fss-pub.nais.io
 env:
   MOCK_BACKEND: false
   ENVIRONMENT: prod
