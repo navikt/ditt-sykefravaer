@@ -23,9 +23,7 @@ const Inntektsmelding = () => {
                 })}
             </Heading>
 
-            <BodyLong spacing className="forklaring-bodylong">
-                {parserWithReplace(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}
-            </BodyLong>
+            <BodyLong spacing>{parserWithReplace(tekst('inntektsmelding.arbeidsgiver-har-fatt-beskjed'))}</BodyLong>
 
             <Panel className="my-8 bg-blue-50">
                 <Heading level="2" size="small">

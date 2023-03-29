@@ -1,22 +1,19 @@
+import { Heading, Link } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
 
-interface RedirectProps {
-    addresse: string
-}
-
-export const Redirect = (props: RedirectProps) => {
+export const Redirect = ({ addresse }: { addresse: string }) => {
     useEffect(() => {
-        window.location.href = props.addresse
-    }, [props.addresse])
+        window.location.href = addresse
+    }, [addresse])
 
     return (
-        <div>
-            <h1>Du blir sendt videre...</h1>
-            <p>
-                <a href={props.addresse} className="navds-link">
-                    Gå videre!
-                </a>
-            </p>
-        </div>
+        <>
+            <Heading size={'large'} level={'1'}>
+                Du blir sendt videre...
+            </Heading>
+            <Link className={'pt-4'} href={addresse}>
+                Gå videre!
+            </Link>
+        </>
     )
 }

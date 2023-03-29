@@ -39,8 +39,8 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
         <Button
             aria-label="Lukk"
             variant={'secondary'}
-            className={'lukkeknapp'}
             size={'small'}
+            className={'bg-white'}
             onClick={async () => {
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
@@ -74,28 +74,33 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
 
     return (
         <Alert variant={oppgave.type ?? 'info'}>
-            <div className="oppgave-tekst">
-                {oppgave.opprettet && <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>}
-                {oppgave.lenke && (
-                    <Lenke
-                        href={oppgave.lenke}
-                        onClick={(e) => {
-                            e.preventDefault()
-                            logEvent('navigere', {
-                                destinasjon: oppgave.lenke!,
-                                lenketekst: oppgave.meldingType ?? oppgave.tekst,
-                                variant: oppgave.type ?? 'info',
-                                komponent: 'ditt sykefravær oppgave',
-                            })
-                            window.location.href = oppgave.lenke!
-                        }}
-                    >
-                        {oppgave.tekst}
-                    </Lenke>
-                )}
-                {!oppgave.lenke && oppgave.tekst}
+            <div className={'flex items-center'}>
+                <div>
+                    {oppgave.opprettet && (
+                        <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>
+                    )}
+                    {oppgave.lenke && (
+                        <Lenke
+                            className={'inline'}
+                            href={oppgave.lenke}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                logEvent('navigere', {
+                                    destinasjon: oppgave.lenke!,
+                                    lenketekst: oppgave.meldingType ?? oppgave.tekst,
+                                    variant: oppgave.type ?? 'info',
+                                    komponent: 'ditt sykefravær oppgave',
+                                })
+                                window.location.href = oppgave.lenke!
+                            }}
+                        >
+                            {oppgave.tekst}
+                        </Lenke>
+                    )}
+                    {!oppgave.lenke && oppgave.tekst}
+                </div>
+                {oppgave.lukkbar && lukkeknapp()}
             </div>
-            {oppgave.lukkbar && lukkeknapp()}
         </Alert>
     )
 }
