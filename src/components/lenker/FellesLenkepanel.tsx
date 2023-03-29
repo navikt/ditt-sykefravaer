@@ -43,7 +43,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
             href={props.url}
             border={true}
         >
-            <div className={'flex w-72'}>
+            <div className={'flex'}>
                 <div className="mr-4 ml-0.5 flex ">{props.ikon}</div>
                 {heading()}
             </div>
