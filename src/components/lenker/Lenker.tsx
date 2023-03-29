@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Heading } from '@navikt/ds-react'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
@@ -36,6 +37,9 @@ const Lenker = () => {
             hvis={lenker}
             render={() => (
                 <section className="my-8">
+                    <Heading size="medium" level="2" className="absolute m-[-1px] h-1 w-1 overflow-hidden border-0 p-0">
+                        Lenker
+                    </Heading>
                     <Vis hvis={sykmeldinger && sykmeldinger.length > 0} render={() => <SykmeldingLenkepanel />} />
 
                     <Vis hvis={soknader && soknader.length > 0} render={() => <SoknadLenkepanel />} />

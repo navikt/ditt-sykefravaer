@@ -37,7 +37,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                         <Vis
                             hvis={leder!.navn}
                             render={() => (
-                                <BodyShort spacing className="mt-4">
+                                <BodyShort spacing>
                                     {parserWithReplace(
                                         tekst('din-situasjon.nærmesteleder', {
                                             '%ARBEIDSGIVER%': leder!.navn!,

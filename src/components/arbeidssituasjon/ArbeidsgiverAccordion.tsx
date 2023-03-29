@@ -38,7 +38,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
                     <Vis
                         hvis={leder?.arbeidsgiverForskutterer !== undefined}
                         render={() => (
-                            <BodyShort>
+                            <BodyShort spacing>
                                 {tekst(
                                     `din-situasjon.arbeidsgiver-forskutterer${
                                         leder?.arbeidsgiverForskutterer
