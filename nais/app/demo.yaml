@@ -18,6 +18,10 @@ spec:
     path: syk/sykefravaer/api/internal/isAlive
   readiness:
     path: syk/sykefravaer/api/internal/isReady
+  accessPolicy:
+    outbound:
+      external:
+        - host: www.nav.no
   env:
     - name: MOCK_BACKEND
       value: "true"
