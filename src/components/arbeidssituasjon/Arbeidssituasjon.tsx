@@ -26,9 +26,9 @@ const Arbeidssituasjon = () => {
             hvis={arbeidsgivere && arbeidsgivere.length > 0}
             render={() => (
                 <>
-                    <section className="din-situasjon">
-                        <div className="din-situasjon__header">
-                            <div className="del1">
+                    <section data-cy="din-situasjon">
+                        <div className="mx-auto mb-4 mt-0 flex items-center justify-between py-1 pt-6">
+                            <div className="flex">
                                 <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
                                 <Heading size="small" level="2">
                                     {tekst('din-situasjon.tittel.2')}

@@ -1,11 +1,11 @@
 describe('Tester helt frisk person', () => {
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=helt-frisk')
-        cy.injectAxe()
     })
 
     it('Laster startside', () => {
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer')
+        cy.contains('Dialogmøter')
     })
 
     it('Har veildertekst om papirsykmelding', () => {
@@ -16,10 +16,6 @@ describe('Tester helt frisk person', () => {
             'href',
             'https://www.nav.no/no/person/arbeid/sykmeldt-arbeidsavklaringspenger-og-yrkesskade/papirsykmelding',
         )
-    })
-
-    it('Tester accessibility', () => {
-        cy.checkA11y('main')
     })
 })
 

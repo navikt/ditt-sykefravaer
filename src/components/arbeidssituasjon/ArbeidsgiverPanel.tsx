@@ -29,25 +29,23 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
     const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
-        <Panel className="situasjon__innhold">
+        <Panel className="bg-blue-50" data-cy="situasjon-innhold">
             <BodyShort spacing>
                 <strong>{navn}</strong>
             </BodyShort>
             <Vis
                 hvis={leder?.arbeidsgiverForskutterer !== undefined}
                 render={() => (
-                    <div className="leder__forskuttering">
-                        <BodyShort>
-                            {tekst(
-                                `din-situasjon.arbeidsgiver-forskutterer${
-                                    leder?.arbeidsgiverForskutterer
-                                        ? ''
-                                        : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                          '-ikke'
-                                }` as any,
-                            )}
-                        </BodyShort>
-                    </div>
+                    <BodyShort>
+                        {tekst(
+                            `din-situasjon.arbeidsgiver-forskutterer${
+                                leder?.arbeidsgiverForskutterer
+                                    ? ''
+                                    : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
+                                      '-ikke'
+                            }` as any,
+                        )}
+                    </BodyShort>
                 )}
             />
             <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />

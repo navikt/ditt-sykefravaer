@@ -1,4 +1,4 @@
-import { BodyShort } from '@navikt/ds-react'
+import { BodyShort, Link } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
@@ -37,7 +37,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                         <Vis
                             hvis={leder!.navn}
                             render={() => (
-                                <BodyShort spacing className="leder__informasjon">
+                                <BodyShort spacing>
                                     {parserWithReplace(
                                         tekst('din-situasjon.nærmesteleder', {
                                             '%ARBEIDSGIVER%': leder!.navn!,
@@ -46,11 +46,10 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                                 </BodyShort>
                             )}
                         />
-                        <button className="lenke" onClick={() => toggleOpen()}>
-                            <BodyShort spacing as="span">
-                                Meld fra om endring
-                            </BodyShort>
-                        </button>
+
+                        <Link as={'button'} onClick={() => toggleOpen()}>
+                            Meld fra om endring
+                        </Link>
                         <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />
                     </>
                 )}

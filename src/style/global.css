@@ -3,10 +3,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-html {
-    --desktop-limit-width: 672px;
-}
-
 @layer base {
     ul {
         @apply list-disc;

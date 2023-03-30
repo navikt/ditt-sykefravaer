@@ -1,4 +1,4 @@
-import { Alert, BodyLong, BodyShort, Button, Heading, Modal } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react'
 import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../hooks/useAvkreftNarmesteLeder'
@@ -21,6 +21,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             shouldCloseOnOverlayClick={false}
             closeButton={true}
             onClose={toggle}
+            className={'w-96'}
             aria-label="Endre nærmeste leder"
         >
             <Modal.Content>
@@ -43,18 +44,19 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     det.
                 </BodyLong>
 
-                <div className="knapperad">
+                <div className="flex flex-col items-center py-2 pb-4">
                     <Button
                         variant="danger"
+                        className="my-2"
                         loading={isLoading}
                         disabled={isLoading || isSuccess}
                         onClick={() => avkreft()}
                     >
                         Ja, jeg er sikker
                     </Button>
-                    <button className="lenke" onClick={toggle}>
-                        <BodyShort>Avbryt</BodyShort>
-                    </button>
+                    <Link as={'button'} className={'my-2'} onClick={toggle}>
+                        Avbryt
+                    </Link>
                 </div>
             </Modal.Content>
         </Modal>
