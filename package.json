@@ -13,7 +13,7 @@
         "@navikt/ds-tokens": "^2.8.7",
         "@navikt/nav-dekoratoren-moduler": "^1.9.0",
         "@navikt/next-api-proxy": "^2.1.0",
-        "@navikt/next-logger": "^1.14.0",
+        "@navikt/next-logger": "^1.15.0",
         "dayjs": "^1.11.7",
         "html-react-parser": "^3.0.12",
         "next-logger": "^3.0.1",
