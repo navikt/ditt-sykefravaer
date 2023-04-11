@@ -38,9 +38,9 @@ spec:
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
     - name: OPPFOLGINGSPLAN_URL
-      value: "https://oppfolgingsplaner.labs.nais.io/syk/oppfolgingsplaner/sykmeldt"
+      value: "https://demo.ekstern.dev.nav.no/syk/oppfolgingsplaner/sykmeldt"
     - name: DIALOGMOTE_URL
-      value: "https://dialogmoter.labs.nais.io/syk/dialogmoter/sykmeldt"
+      value: "https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt"
     - name: MINSIDE_URL
       value: "https://www.nav.no/minside/"
     - name: DECORATOR_ENV

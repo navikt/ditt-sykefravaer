@@ -6,7 +6,7 @@ describe('Tester snart slutt oppgave ', () => {
             .children()
             .eq(1)
             .contains('Snart slutt på sykepengene')
-            .should('have.attr', 'href', 'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene')
+            .should('have.attr', 'href', 'https://demo.ekstern.dev.nav.no/syk/info/snart-slutt-pa-sykepengene')
     })
 })
 
