@@ -76,16 +76,14 @@ export async function fetchJson(url: string, options: RequestInit = {}) {
             contentLength: parseInt(response.headers.get('Content-Length') || '0'),
         }
 
+        // Vi vil ikke at lagring av payload skal påvirke noe.
         try {
             await fetch(`${feilmeldingerUrl()}/api/v1/feilmelding`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),
             })
-            logger.info('Sendt payload til flex-frontend-feilmeldinger med x_request_id: ' + fetchResult.requestId)
-        } catch (e) {
-            logger.error(e, 'Feilet ved sending av payload til backend.')
-        }
+        } catch (e) {}
 
         logger.warn(
             e,
