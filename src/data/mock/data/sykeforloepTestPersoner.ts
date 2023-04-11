@@ -71,7 +71,7 @@ export const snartSlutt = () => {
             variant: 'info',
             meldingType: 'ESYFOVARSEL_MER_VEILEDNING',
             lukkbar: true,
-            lenke: 'https://esyfo-info-frontend.labs.nais.io/syk/info/snart-slutt-pa-sykepengene',
+            lenke: 'https://demo.ekstern.dev.nav.no/syk/info/snart-slutt-pa-sykepengene',
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ]
