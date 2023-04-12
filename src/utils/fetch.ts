@@ -1,8 +1,6 @@
 import { logger } from '@navikt/next-logger'
 import { v4 as uuidv4 } from 'uuid'
 
-import { feilmeldingerUrl } from './environment'
-
 export type FetchResult = { requestId: string; response: Response }
 
 export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): Promise<FetchResult> {
@@ -49,42 +47,13 @@ export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): 
     return { requestId, response }
 }
 
-type Payload = {
-    requestId: string
-    app: string
-    payload: string
-    method: string
-    responseCode: number
-    contentLength: number
-}
-
 export async function fetchJson(url: string, options: RequestInit = {}) {
     const fetchResult = await fetchMedRequestId(url, options)
     const response = fetchResult.response
-    // Kloner reponse sånn at den kan konsumere flere ganger siden kall til .json() og .text() konsumerer data.
-    const clonedResponse = response.clone()
 
     try {
         return await response.json()
     } catch (e) {
-        const payload: Payload = {
-            requestId: fetchResult.requestId,
-            app: 'ditt-sykefravaer',
-            payload: await clonedResponse.text(),
-            method: options.method || 'GET',
-            responseCode: response.status,
-            contentLength: parseInt(response.headers.get('Content-Length') || '0'),
-        }
-
-        // Vi vil ikke at lagring av payload skal påvirke noe.
-        try {
-            await fetch(`${feilmeldingerUrl()}/api/v1/feilmelding`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-            })
-        } catch (e) {}
-
         logger.warn(
             e,
             `${e} - Kall til url: ${options.method || 'GET'} ${url} og x_request_id: ${

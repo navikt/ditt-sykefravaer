@@ -39,4 +39,3 @@ env:
   VEILARBOPPFOLGING_CLIENT_ID: dev-fss:pto:veilarboppfolging
   SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.dev-fss-pub.nais.io
   SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: dev-fss:team-esyfo:syfooppfolgingsplanservice
-  FEILMELDINGER_URL: https://www.ekstern.dev.nav.no/syk/feilmeldinger
