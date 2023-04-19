@@ -59,6 +59,8 @@ spec:
         - application: syfomotebehov
           namespace: team-esyfo
       external:
+        - host: www.nav.no                      # for prod
+        - host: dekoratoren.ekstern.dev.nav.no  # for dev
   {{#each external-host}}
         - host: {{this}}
   {{/each}}
