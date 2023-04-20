@@ -1,13 +1,10 @@
 replicas_min: 2
 replicas_max: 6
 ingress: https://www.nav.no/syk/sykefravaer
-cpu_limits: 1000m
-cpu_requests: 250m
+cpu: 300m
+memory: 300Mi
 sidecar_cpu: 700m
-memory_limits: 500Mi
-memory_requests: 300Mi
-sidecar_memory_limits: 256Mi
-sidecar_memory_requests: 32Mi
+sidecar_memory: 256Mi
 external-host:
   - syfooppfolgingsplanservice.prod-fss-pub.nais.io
   - veilarboppfolging.prod-fss-pub.nais.io
