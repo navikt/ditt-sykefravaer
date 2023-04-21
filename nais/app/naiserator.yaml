@@ -35,10 +35,11 @@ spec:
       memory: {{memory}}
   liveness:
     path: syk/sykefravaer/api/internal/isAlive
-    initialDelay: 15
   readiness:
     path: syk/sykefravaer/api/internal/isReady
-    initialDelay: 15
+  startup:
+    path: syk/sykefravaer/api/internal/isAlive
+    initialDelay: 10
   prometheus:
     enabled: true
     path: /syk/sykefravaer/api/internal/prometheus
