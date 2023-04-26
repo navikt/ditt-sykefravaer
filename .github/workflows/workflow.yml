@@ -10,6 +10,7 @@ jobs:
       packages: 'write'
       contents: 'read'
       id-token: 'write'
+      security-events: write
     secrets: inherit
     with:
       base-path: syk/sykefravaer
