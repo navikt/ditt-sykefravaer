@@ -19,9 +19,9 @@ spec:
   readiness:
     path: syk/sykefravaer/api/internal/isReady
   accessPolicy:
-    outbound:
-      external:
-        - host: www.nav.no
+    rules:
+      - application: nav-dekoratoren
+        namespace: personbruker
   env:
     - name: MOCK_BACKEND
       value: "true"
