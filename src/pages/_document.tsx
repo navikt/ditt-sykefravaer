@@ -30,7 +30,7 @@ class MyDocument extends Document<Props> {
                 feedback: false,
                 urlLookupTable: false,
                 breadcrumbs: createInitialServerSideBreadcrumbs(ctx.pathname),
-            }
+            },
         })
 
         const language = getDocumentParameter(initialProps, 'lang')
