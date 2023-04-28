@@ -59,9 +59,6 @@ spec:
           namespace: team-esyfo
         - application: nav-dekoratoren
           namespace: personbruker
-  {{#each external-host}}
-        - host: {{this}}
-  {{/each}}
   env:
   {{#each env}}
      - name: {{@key}}
