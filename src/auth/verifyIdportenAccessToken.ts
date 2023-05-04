@@ -32,16 +32,18 @@ async function issuer() {
     return _issuer
 }
 
+export class AuthenticationError extends Error {}
+
 export async function verifyIdportenAccessToken(bearerToken: string) {
     const token = bearerToken.split(' ')[1]
 
     const verified = await validerToken(token)
 
     if (verified.payload.client_id !== serverRuntimeConfig.idportenClientId) {
-        throw new Error('client_id matcher ikke min client ID')
+        throw new Error('client_id matcher ikke servers clientId.')
     }
 
     if (verified.payload.acr !== 'Level4') {
-        throw new Error('Har ikke acr Level4')
+        throw new AuthenticationError('Har ikke ACR Level4.')
     }
 }

@@ -5,7 +5,7 @@ import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
 import { isMockBackend } from '../utils/environment'
 
-import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
+import { AuthenticationError, verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 
 type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePropsPrefetchResult>
 
@@ -44,7 +44,9 @@ function beskyttetSide(handler: PageHandler) {
             if (shouldLogMetricForPath(cleanPath)) {
                 metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
             }
-            logger.error(e, 'Kunne ikke validere idporten token på beskyttetSide.')
+            if (!(e instanceof AuthenticationError)) {
+                logger.warn(`Kunne ikke validere token fra ID-porten i beskyttetSide. Error: ${e}.`)
+            }
             return wonderwallRedirect
         }
         return handler(context)
