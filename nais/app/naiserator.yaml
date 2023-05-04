@@ -57,9 +57,9 @@ spec:
           namespace: teamsykefravr
         - application: syfomotebehov
           namespace: team-esyfo
+        - application: nav-dekoratoren
+          namespace: personbruker
       external:
-        - host: www.nav.no                      # for prod
-        - host: dekoratoren.ekstern.dev.nav.no  # for dev
   {{#each external-host}}
         - host: {{this}}
   {{/each}}

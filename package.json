@@ -11,7 +11,7 @@
         "@navikt/ds-react": "^2.9.3",
         "@navikt/ds-tailwind": "^2.9.3",
         "@navikt/ds-tokens": "^2.9.3",
-        "@navikt/nav-dekoratoren-moduler": "^1.9.0",
+        "@navikt/nav-dekoratoren-moduler": "^2.0.0",
         "@navikt/next-api-proxy": "^3.0.0",
         "@navikt/next-logger": "^1.18.0",
         "dayjs": "^1.11.7",
@@ -53,8 +53,8 @@
         "prettier-plugin-tailwindcss": "^0.2.7",
         "react-test-renderer": "^18.2.0",
         "start-server-and-test": "^2.0.0",
-        "ts-loader": "^9.4.2",
         "tailwindcss": "^3.3.2",
+        "ts-loader": "^9.4.2",
         "typescript": "^5.0.4",
         "yet-another-fetch-mock": "^4.2.1"
     },
