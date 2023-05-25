@@ -21,7 +21,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             shouldCloseOnOverlayClick={false}
             closeButton={true}
             onClose={toggle}
-            className={'w-96'}
+            className="w-96"
             aria-label="Endre nærmeste leder"
         >
             <Modal.Content>
@@ -54,7 +54,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     >
                         Ja, jeg er sikker
                     </Button>
-                    <Link as={'button'} className={'my-2'} onClick={toggle}>
+                    <Link as="button" className="my-2" onClick={toggle}>
                         Avbryt
                     </Link>
                 </div>

@@ -38,9 +38,9 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
     const lukkeknapp = () => (
         <Button
             aria-label="Lukk"
-            variant={'secondary'}
-            size={'small'}
-            className={'bg-white'}
+            variant="secondary"
+            size="small"
+            className="bg-white"
             onClick={async () => {
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
@@ -68,20 +68,20 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     }
                 }
             }}
-            icon={<Close title={'Lukk'} />}
+            icon={<Close title="Lukk" />}
         />
     )
 
     return (
         <Alert variant={oppgave.type ?? 'info'}>
-            <div className={'flex items-center'}>
+            <div className="flex items-center">
                 <div>
                     {oppgave.opprettet && (
                         <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>
                     )}
                     {oppgave.lenke && (
                         <Lenke
-                            className={'inline'}
+                            className="inline"
                             href={oppgave.lenke}
                             onClick={(e) => {
                                 e.preventDefault()
@@ -117,10 +117,10 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
 
     return (
         <section data-cy="oppgaver">
-            <Heading size="small" level="2" className={'pb-4'}>
+            <Heading size="small" level="2" className="pb-4">
                 {tekst('oppgaver.nye-varsler')}
             </Heading>
-            <div className={'space-y-2'}>
+            <div className="space-y-2">
                 {oppgaver.map((v) => (
                     <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
                 ))}

@@ -29,9 +29,9 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
     const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
     return (
-        <Accordion data-cy={'arbeidsgiver-accordion'}>
+        <Accordion data-cy="arbeidsgiver-accordion">
             <Accordion.Item>
-                <Accordion.Header className={'bg-blue-50'}>
+                <Accordion.Header className="bg-blue-50">
                     <strong>{navn}</strong>
                 </Accordion.Header>
                 <Accordion.Content>

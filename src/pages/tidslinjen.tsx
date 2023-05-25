@@ -5,7 +5,7 @@ import { Redirect } from '../components/redirect/redirect'
 
 export const Tidslinjen = () => {
     // Redirecter til åpne sider for å
-    return <Redirect addresse={'https://www.nav.no/sykepenger'} />
+    return <Redirect addresse="https://www.nav.no/sykepenger" />
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {

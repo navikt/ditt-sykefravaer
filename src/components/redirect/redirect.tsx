@@ -8,10 +8,10 @@ export const Redirect = ({ addresse }: { addresse: string }) => {
 
     return (
         <>
-            <Heading size={'large'} level={'1'}>
+            <Heading size="large" level="1">
                 Du blir sendt videre...
             </Heading>
-            <Link className={'pt-4'} href={addresse}>
+            <Link className="pt-4" href={addresse}>
                 Gå videre!
             </Link>
         </>
