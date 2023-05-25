@@ -87,7 +87,7 @@ const QueryStatusPanel = () => {
                             onClick={() => {
                                 errorQueries.forEach((a) => a.query.refetch())
                             }}
-                            className={'mt-4'}
+                            className="mt-4"
                         >
                             Hent på nytt
                         </Button>

@@ -47,7 +47,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                             )}
                         />
 
-                        <Link as={'button'} onClick={() => toggleOpen()}>
+                        <Link as="button" onClick={() => toggleOpen()}>
                             Meld fra om endring
                         </Link>
                         <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />

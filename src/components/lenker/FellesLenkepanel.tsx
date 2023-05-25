@@ -30,7 +30,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
     }
     return (
         <LinkPanel
-            className={'mb-2'}
+            className="mb-2"
             onClick={(e) => {
                 e.preventDefault()
                 logEvent('navigere', {
@@ -43,7 +43,7 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
             href={props.url}
             border={true}
         >
-            <div className={'flex'}>
+            <div className="flex">
                 <div className="ml-0.5 mr-4 flex ">{props.ikon}</div>
                 {heading()}
             </div>
