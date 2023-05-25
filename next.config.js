@@ -40,6 +40,7 @@ const nextConfig = {
     },
     basePath: '/syk/sykefravaer',
     assetPrefix: process.env.ASSET_PREFIX || undefined,
+    transpilePackages: ['filter-obj', 'query-string'],
     serverRuntimeConfig: {
         // Will only be available on the server side
         decoratorEnv: process.env.DECORATOR_ENV,
