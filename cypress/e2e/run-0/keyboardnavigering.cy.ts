@@ -36,9 +36,9 @@ describe('Keyboard navigering', () => {
         cy.contains('Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen').should('not.be.visible')
 
         cy.realPress('Tab')
-        cy.focused()
-            .should('have.text', 'Hogwarts School of Witchcraft and Wizardry')
-            .should('have.css', 'box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
+        cy.focused().should('have.css', 'box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
+
+        cy.focused().children().eq(1).should('have.text', 'Hogwarts School of Witchcraft and Wizardry')
         cy.realPress('Space')
         cy.contains('Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.').should(
             'be.visible',
