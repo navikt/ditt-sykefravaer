@@ -47,6 +47,7 @@ function terminalLog(violations: any) {
         impact,
         description,
         nodes: nodes.length,
+        nodesJsonString: JSON.stringify(nodes),
     }))
 
     cy.task('table', violationData)
