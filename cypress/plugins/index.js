@@ -8,5 +8,10 @@ module.exports = (on) => {
 
             return null
         },
+        table(message) {
+            console.log(message)
+
+            return null
+        },
     })
 }
