@@ -48,6 +48,9 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
         cy.get('.navds-modal').contains('Beklager, det oppstod en feil!')
         cy.get('.navds-modal').should('be.visible')
+
+        cy.get('.navds-modal').contains('Avbryt').click()
+        cy.get('.navds-modal').should('not.exist')
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
