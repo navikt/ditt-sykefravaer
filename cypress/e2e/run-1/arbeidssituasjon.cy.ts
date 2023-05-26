@@ -50,7 +50,7 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-modal').should('be.visible')
 
         cy.get('.navds-modal').contains('Avbryt').click()
-        cy.get('.navds-modal').should('not.exist')
+        cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral').click()
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
