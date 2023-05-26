@@ -2,7 +2,7 @@ replicas_min: 1
 replicas_max: 2
 ingress: https://www.ekstern.dev.nav.no/syk/sykefravaer
 cpu: 200m
-memory: 200Mi
+memory: 384Mi
 sidecar_cpu: 200m
 sidecar_memory: 128Mi
 external-host:
