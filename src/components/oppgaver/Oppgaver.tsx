@@ -1,4 +1,4 @@
-import { Close } from '@navikt/ds-icons'
+import { XMarkIcon } from '@navikt/aksel-icons'
 import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
@@ -68,7 +68,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     }
                 }
             }}
-            icon={<Close title="Lukk" />}
+            icon={<XMarkIcon title="Lukk" />}
         />
     )
 
