@@ -73,8 +73,8 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
     )
 
     return (
-        <Alert variant={oppgave.type ?? 'info'}>
-            <div className="flex items-center">
+        <Alert variant={oppgave.type ?? 'info'} className="[&>div]:w-full">
+            <div className="flex items-center justify-between">
                 <div>
                     {oppgave.opprettet && (
                         <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>
