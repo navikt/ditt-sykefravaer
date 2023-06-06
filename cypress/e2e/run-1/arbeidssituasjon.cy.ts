@@ -31,13 +31,12 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
+        cy.get('.navds-modal').should('not.exist')
+
         cy.get('[data-cy="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
         )
-
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
     })
 
     it('Avkreft nærmeste leder feiler', () => {
@@ -54,8 +53,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').contains('Avbryt').click()
         cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral').click()
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
+        cy.get('.navds-modal').should('not.exist')
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
@@ -93,8 +91,7 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-accordion__item')
             .should('contain', 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt')
             .click()
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
+        cy.get('.navds-modal').should('not.exist')
     })
 
     it('Arbeidsgiver forskutterer ikke', () => {
@@ -116,8 +113,7 @@ describe('Tester arbeidssituasjon', () => {
                 'not.contain',
                 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
             )
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
+        cy.get('.navds-modal').should('not.exist')
     })
 })
 
