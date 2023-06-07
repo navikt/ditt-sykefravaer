@@ -24,44 +24,22 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
 
-declare global {
-    // eslint-disable-next-line @typescript-eslint/no-namespace
-    namespace Cypress {
-        /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-        interface Chainable<Subject = any> {
-            isNotInViewport(element: string): Chainable<Subject>
-            isInViewport(element: string): Chainable<Subject>
-        }
+function disableAnimations(win: Cypress.AUTWindow) {
+    const injectedStyleEl = win.document.getElementById('__cy_disable_animations__')
+    if (injectedStyleEl) {
+        return
     }
+    win.document.head.insertAdjacentHTML(
+        'beforeend',
+        `
+    <style id="__cy_disable_animations__">
+      *, *::before, *::after { transition: none !important; }
+      *, *::before, *::after { animation: none !important; }
+    </style>
+  `.trim(),
+    )
 }
 
-export function isNotInViewport(element: string) {
-    return cy.get(element).should(($el) => {
-        /* eslint-disable-next-line */
-        // @ts-ignore
-        const bottom = Cypress.$(cy.state('window')).height() || 0
-        const rect = $el[0].getBoundingClientRect()
-
-        expect(rect.top).to.be.greaterThan(bottom)
-        expect(rect.bottom).to.be.greaterThan(bottom)
-        expect(rect.top).to.be.greaterThan(bottom)
-        expect(rect.bottom).to.be.greaterThan(bottom)
-    })
-}
-
-export function isInViewport(element: string) {
-    return cy.get(element).should(($el) => {
-        /* eslint-disable-next-line */
-        // @ts-ignore
-        const bottom = Cypress.$(cy.state('window')).height() || 0
-        const rect = $el[0].getBoundingClientRect()
-
-        expect(rect.top).not.to.be.greaterThan(bottom)
-        expect(rect.bottom).not.to.be.greaterThan(bottom)
-        expect(rect.top).not.to.be.greaterThan(bottom)
-        expect(rect.bottom).not.to.be.greaterThan(bottom)
-    })
-}
-
-Cypress.Commands.add('isNotInViewport', isNotInViewport)
-Cypress.Commands.add('isInViewport', isInViewport)
+Cypress.on('window:before:load', (cyWindow) => {
+    disableAnimations(cyWindow)
+})
