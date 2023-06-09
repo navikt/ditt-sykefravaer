@@ -96,9 +96,7 @@ export const Feedback = () => {
             case Feedbacktype.JA:
                 return 'Er det noe du vil trekke frem? (valgfritt)'
             case Feedbacktype.NEI:
-                return 'Hva skulle du gjøre eller hva fant du ikke?'
-            case Feedbacktype.FORBEDRING:
-                return 'Hva kan forbedres?'
+                return 'Hvilken informasjon leter du etter?'
             default:
                 throw Error('Ugyldig tilbakemeldingstype')
         }
@@ -112,9 +110,7 @@ export const Feedback = () => {
                 </Heading>
             </div>
             <div className="mt-1 rounded-b-xl bg-surface-subtle p-6">
-                <BodyShort className="mb-6">
-                    Fikk du gjort det du skulle og fant informasjonen du lette etter?
-                </BodyShort>
+                <BodyShort className="mb-6">Fant du den informasjonen du trengte?</BodyShort>
                 <div className="flex w-full gap-2">
                     <FeedbackButton feedbacktype={Feedbacktype.JA}>Ja</FeedbackButton>
                     <FeedbackButton feedbacktype={Feedbacktype.NEI}>Nei</FeedbackButton>
@@ -143,17 +139,17 @@ export const Feedback = () => {
                         />
 
                         {activeState == Feedbacktype.NEI && (
-                            <RadioGroup className="mt-4" legend="Kommer du til å kontakte NAV for å få hjelp?">
+                            <RadioGroup className="mt-4" legend="Må du kontakte NAV for å få hjelp?">
                                 <Radio value="Midterst">Ja, per telefon</Radio>
                                 <Radio value="Fremst">Ja, jeg skriver til dere</Radio>
                                 <Radio value="Fremst">Nei</Radio>
                             </RadioGroup>
                         )}
-                        <Alert variant="warning">
-                            Ikke skriv inn navn eller andre personopplysninger. Svaret ditt blir kun brukt til å
-                            forbedre tjenesten, du vil ikke få et svar fra oss.
-                        </Alert>
 
+                        <Alert variant="warning">
+                            Ikke skriv inn navn eller andre personopplysninger. Dette er en anonym tilbakemelding og
+                            blir kun brukt til å forbedre tjenesten. Du vil ikke få et svar fra oss.
+                        </Alert>
                         <Button
                             data-cy="send-feedback"
                             className="mr-auto"
