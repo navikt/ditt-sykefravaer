@@ -10,6 +10,7 @@ import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
+import { Feedback } from '../components/feedback/feedback'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
@@ -33,6 +34,7 @@ const Index = () => {
             <Oppgaver />
             <Arbeidssituasjon />
             <Lenker />
+            <Feedback />
         </>
     )
 }
