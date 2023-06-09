@@ -62,7 +62,6 @@ export const Feedback = () => {
                 <Button
                     data-cy={'feedback-' + props.feedbacktype}
                     variant="secondary-neutral"
-                    size="small"
                     className={cn({
                         'bg-surface-neutral-active text-text-on-inverted hover:bg-surface-neutral-active':
                             activeState === props.feedbacktype,
@@ -153,7 +152,6 @@ export const Feedback = () => {
                         <Button
                             data-cy="send-feedback"
                             className="mr-auto"
-                            size="small"
                             variant="secondary-neutral"
                             onClick={async (e) => {
                                 e.preventDefault()
