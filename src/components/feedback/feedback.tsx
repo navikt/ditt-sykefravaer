@@ -3,12 +3,11 @@ import React, { useEffect, useRef, useState } from 'react'
 import { FaceSmileIcon } from '@navikt/aksel-icons'
 
 import { cn } from '../../utils/tw-utils'
-import { isMockBackend } from '../../utils/environment'
+import UseFlexjarFeedback from '../../hooks/useFlexjarFeedback'
 
 enum Feedbacktype {
     'JA' = 'JA',
     'NEI' = 'NEI',
-    'FORBEDRING' = 'FORBEDRING',
 }
 
 interface FeedbackButtonProps extends ButtonProps {
@@ -19,8 +18,12 @@ export const Feedback = () => {
     const [textValue, setTextValue] = useState('')
     const [activeState, setActiveState] = useState<Feedbacktype | null>(null)
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
+    const [radioErrorMsg, setRadioErrorMsg] = useState<string | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
     const textAreaRef = useRef(null)
+    const [radioState, setRadioState] = useState<string | null>(null)
+
+    const { mutate: giFeedback } = UseFlexjarFeedback()
 
     useEffect(() => {
         textValue && errorMsg && setErrorMsg(null)
@@ -37,9 +40,6 @@ export const Feedback = () => {
         setErrorMsg(null)
     }, [activeState])
 
-    if (!isMockBackend()) {
-        return null
-    }
     const fetchFeedback = async (): Promise<void> => {
         if (activeState === null) {
             return
@@ -47,13 +47,13 @@ export const Feedback = () => {
 
         const body = {
             feedback: textValue,
-            feedbackId: 'sykepengesoknad-sporsmal',
+            feedbackId: 'ditt-sykefravaer-fant-du',
             svar: activeState,
-            app: 'sykepengesoknad-frontend',
+            maatteKontakteNAV: radioState,
+            app: 'ditt-sykefravaer-frontend',
         }
 
-        // eslint-disable-next-line no-console
-        console.log(body)
+        await giFeedback(body)
     }
 
     const FeedbackButton = (props: FeedbackButtonProps) => {
@@ -78,8 +78,12 @@ export const Feedback = () => {
         )
     }
     const handleSend = async () => {
-        if ((activeState === Feedbacktype.FORBEDRING || activeState === Feedbacktype.NEI) && textValue === '') {
+        if (activeState === Feedbacktype.NEI && textValue === '') {
             setErrorMsg('Tilbakemeldingen kan ikke være tom. Legg til tekst i feltet.')
+            return
+        }
+        if (activeState === Feedbacktype.NEI && radioState === null) {
+            setRadioErrorMsg('Du må gi et svar')
             return
         }
         await fetchFeedback()
@@ -88,6 +92,8 @@ export const Feedback = () => {
         setActiveState(null)
         setTextValue('')
         setThanksFeedback(true)
+        setRadioErrorMsg(null)
+        setRadioState(null)
     }
 
     const getPlaceholder = (): string => {
@@ -138,10 +144,16 @@ export const Feedback = () => {
                         />
 
                         {activeState == Feedbacktype.NEI && (
-                            <RadioGroup className="mt-4" legend="Må du kontakte NAV for å få hjelp?">
-                                <Radio value="Midterst">Ja, per telefon</Radio>
-                                <Radio value="Fremst">Ja, jeg skriver til dere</Radio>
-                                <Radio value="Fremst">Nei</Radio>
+                            <RadioGroup
+                                error={radioErrorMsg}
+                                value={radioState}
+                                className="mt-4"
+                                onChange={(val: string) => setRadioState(val)}
+                                legend="Må du kontakte NAV for å få hjelp?"
+                            >
+                                <Radio value="JA-Telefon">Ja, per telefon</Radio>
+                                <Radio value="JA-Skriver">Ja, jeg skriver til dere</Radio>
+                                <Radio value="NEI">Nei</Radio>
                             </RadioGroup>
                         )}
 
@@ -167,7 +179,7 @@ export const Feedback = () => {
                 {thanksFeedback && (
                     <div className="mt-2 rounded-xl bg-green-50 p-6">
                         <Heading size="small" as="p" className="flex items-center">
-                            Takk for tilbakemeldingen din! <FaceSmileIcon></FaceSmileIcon>
+                            Takk for tilbakemeldingen din! <FaceSmileIcon aria-label="Smilefjes"></FaceSmileIcon>
                         </Heading>
                     </div>
                 )}
