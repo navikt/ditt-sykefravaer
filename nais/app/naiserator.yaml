@@ -49,6 +49,7 @@ spec:
         - application: ditt-sykefravaer-backend
         - application: sykepengesoknad-backend
         - application: spinnsyn-backend
+        - application: flexjar-backend
         - application: sykmeldinger-backend
           namespace: teamsykmelding
         - application: narmesteleder

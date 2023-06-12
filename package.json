@@ -6,8 +6,8 @@
         "node": "18"
     },
     "dependencies": {
-        "@navikt/aksel-icons": "^4.1.2",
         "@jest/globals": "^29.5.0",
+        "@navikt/aksel-icons": "^4.1.2",
         "@navikt/ds-css": "^4.1.2",
         "@navikt/ds-react": "^4.1.2",
         "@navikt/ds-tailwind": "^4.1.2",
@@ -15,6 +15,7 @@
         "@navikt/nav-dekoratoren-moduler": "^2.0.0",
         "@navikt/next-api-proxy": "^3.2.0",
         "@navikt/next-logger": "^1.19.0",
+        "classnames": "^2.3.2",
         "dayjs": "^1.11.7",
         "html-react-parser": "^3.0.16",
         "next-logger": "^3.0.2",
@@ -25,6 +26,7 @@
         "react-dom": "^18.2.0",
         "react-modal": "^3.16.1",
         "react-query": "^3.39.3",
+        "tailwind-merge": "^1.13.1",
         "uuid": "^9.0.0"
     },
     "devDependencies": {

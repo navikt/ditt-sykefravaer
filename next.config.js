@@ -56,6 +56,7 @@ const nextConfig = {
         sykepengesoknadBackendClientId: process.env.SYKEPENGESOKNAD_BACKEND_CLIENT_ID,
         narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
         isdialogmoteClientId: process.env.ISDIALOGMOTE_CLIENT_ID,
+        flexjarBackendClientId: process.env.FLEXJAR_BACKEND_CLIENT_ID,
         syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,
         syfomotebehovUrl: process.env.SYFOMOTEBEHOV_URL,
         syfomotebehovHost: process.env.SYFOMOTEBEHOV_HOST,
