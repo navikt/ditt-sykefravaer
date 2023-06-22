@@ -8,7 +8,7 @@ import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfo
 import { Persona } from './persona'
 import { soknader } from './soknader'
 import { nySykmelding, sendtSykmelding } from './sykmeldinger'
-import { vedtakMed100Grad } from './vedtak'
+import { nyttVedtakMed100Grad, vedtakMed100Grad } from './vedtak'
 
 export const commonPersona = (): Persona => {
     return {
@@ -81,7 +81,7 @@ export const kunEnSoknad = () => {
 export const defaultPersona: Persona = {
     soknader: soknader,
     meldinger: [],
-    vedtak: [vedtakMed100Grad],
+    vedtak: [vedtakMed100Grad, nyttVedtakMed100Grad],
     oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     sykmeldinger: [

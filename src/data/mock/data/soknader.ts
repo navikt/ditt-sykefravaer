@@ -5,6 +5,7 @@ export const arbeidstaker100: Soknad = {
     soknadstype: 'ARBEIDSTAKERE',
     status: 'NY',
     arbeidssituasjon: 'ARBEIDSTAKER',
+    opprettetDato: '2023-05-06',
 }
 
 export const soknader: Soknad[] = [arbeidstaker100]
