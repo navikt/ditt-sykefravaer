@@ -7,4 +7,5 @@ export interface Soknad {
     soknadstype: Soknadstype
     status: Soknadstatus
     arbeidssituasjon: ArbeidssituasjonType | null
+    opprettetDato: string | null
 }

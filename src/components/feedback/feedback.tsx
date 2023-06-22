@@ -1,9 +1,12 @@
 import { Alert, BodyShort, Button, ButtonProps, Heading, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaceSmileIcon } from '@navikt/aksel-icons'
+import dayjs from 'dayjs'
 
 import { cn } from '../../utils/tw-utils'
 import UseFlexjarFeedback from '../../hooks/useFlexjarFeedback'
+import useVedtak from '../../hooks/useVedtak'
+import useSoknader from '../../hooks/useSoknader'
 
 enum Feedbacktype {
     'JA' = 'JA',
@@ -22,6 +25,8 @@ export const Feedback = () => {
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
     const textAreaRef = useRef(null)
     const [radioState, setRadioState] = useState<string | null>(null)
+    const { data: vedtak } = useVedtak()
+    const { data: soknader } = useSoknader()
 
     const { mutate: giFeedback } = UseFlexjarFeedback()
 
@@ -40,17 +45,48 @@ export const Feedback = () => {
         setErrorMsg(null)
     }, [activeState])
 
+    function dagerSidenSisteSpinnsynVedtak(): number | null {
+        if (vedtak && vedtak.length > 0) {
+            const datoer = vedtak.map((vedtak) => {
+                return vedtak.opprettet
+            })
+            datoer.sort().reverse()
+            return dayjs().diff(dayjs(datoer[0]), 'day')
+        }
+        return null
+    }
+
+    function soknaderSisteÅr(): number | null {
+        if (soknader) {
+            const sistÅr = soknader.filter((sok) => {
+                if (!sok.opprettetDato) return false
+                return dayjs(sok.opprettetDato).isAfter(dayjs().subtract(1, 'year'))
+            })
+            return sistÅr.length
+        }
+        return null
+    }
+
     const fetchFeedback = async (): Promise<void> => {
         if (activeState === null) {
             return
         }
 
-        const body = {
+        const body: Record<string, any> = {
             feedback: textValue,
             feedbackId: 'ditt-sykefravaer-fant-du',
             svar: activeState,
             maatteKontakteNAV: radioState,
             app: 'ditt-sykefravaer-frontend',
+        }
+        const dagerSidenVedtak = dagerSidenSisteSpinnsynVedtak()
+
+        if (dagerSidenVedtak !== null) {
+            body.dagerSidenSpinnsynVedtak = dagerSidenVedtak
+        }
+        const soknaderSistÅr = soknaderSisteÅr()
+        if (soknaderSistÅr !== null) {
+            body.antallSoknaderSisteÅr = soknaderSistÅr
         }
 
         await giFeedback(body)
