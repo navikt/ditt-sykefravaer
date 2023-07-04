@@ -67,6 +67,7 @@ const nextConfig = {
     },
     publicRuntimeConfig: {
         // Will be available on both server and client
+        basePath: '/syk/sykefravaer',
         mockBackend: process.env.MOCK_BACKEND,
         opplaering: process.env.OPPLAERING,
         sykefravaerUrl: process.env.SYKEFRAVAER_URL,
@@ -80,6 +81,9 @@ const nextConfig = {
         aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
         oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
         dialogmoteUrl: process.env.DIALOGMOTE_URL,
+        telemetryCollectorURL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
+        naisAppImage: process.env.NAIS_APP_IMAGE,
+        naisAppName: process.env.NAIS_APP_NAME,
     },
 }
 

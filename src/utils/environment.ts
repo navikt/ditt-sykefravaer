@@ -41,3 +41,18 @@ export function oppfolgingsplanUrl() {
 export function dialogmoteUrl() {
     return publicRuntimeConfig.dialogmoteUrl
 }
+export function telemetryCollectorURL() {
+    return publicRuntimeConfig.telemetryCollectorURL
+}
+
+export function naisAppImage() {
+    return publicRuntimeConfig.naisAppImage
+}
+
+export function naisAppName() {
+    return publicRuntimeConfig.naisAppName
+}
+
+export function basePath() {
+    return publicRuntimeConfig.basePath
+}
