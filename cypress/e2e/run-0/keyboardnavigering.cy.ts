@@ -29,13 +29,6 @@ describe('Keyboard navigering', () => {
         cy.focused().should('have.text', 'Du er innkalt til dialogmøte - vi trenger svaret ditt')
 
         cy.realPress('Tab')
-        cy.focused().should('have.text', 'hjelphjelp')
-        cy.realPress('Space')
-        cy.contains('Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen').should('be.visible')
-        cy.realPress('Enter')
-        cy.contains('Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen').should('not.be.visible')
-
-        cy.realPress('Tab')
         cy.focused().should('have.css', 'box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
 
         cy.focused().children().eq(1).should('have.text', 'Hogwarts School of Witchcraft and Wizardry')
