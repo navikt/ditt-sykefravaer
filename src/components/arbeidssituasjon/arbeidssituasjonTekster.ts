@@ -11,7 +11,6 @@ export const ArbeidssituasjonTekster = {
         'Med mindre det er åpenbare grunner til å la være, skal oppfølgingsplanen lages så tidlig som mulig.',
     'din-situasjon.arbeidsgiver-ansvar-for-møte':
         'Du kan ta initiativ til <a href="https://www.nav.no/syk/dialogmoter/sykmeldt" target="_blank">dialogmøte</a> hvis du mener du har behov for det. ',
-    'din-situasjon.hjelpetekst.tekst': 'Arbeidssituasjonen er bestemt av hva du krysset av på i sykmeldingen.',
     'din-situasjon.arbeidsgiver-forskutterer': 'Betaler lønn også etter de 16 første dagene i sykefraværet.',
     'din-situasjon.arbeidsgiver-forskutterer-ikke': 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.',
     'din-situasjon.nærmesteleder':

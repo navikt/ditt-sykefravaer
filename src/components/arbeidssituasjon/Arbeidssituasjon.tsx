@@ -1,4 +1,4 @@
-import { Accordion, BodyLong, BodyShort, Heading, HelpText } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
@@ -27,14 +27,11 @@ const Arbeidssituasjon = () => {
             render={() => (
                 <>
                     <section data-cy="din-situasjon">
-                        <div className="mx-auto mb-4 mt-0 flex items-center justify-between py-1 pt-6">
-                            <div className="flex">
-                                <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
-                                <Heading size="small" level="2">
-                                    {tekst('din-situasjon.tittel.2')}
-                                </Heading>
-                            </div>
-                            <HelpText>{tekst('din-situasjon.hjelpetekst.tekst')}</HelpText>
+                        <div className="mx-auto mb-4 mt-0 flex py-1 pt-6 ">
+                            <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
+                            <Heading size="small" level="2">
+                                {tekst('din-situasjon.tittel.2')}
+                            </Heading>
                         </div>
                         <Vis
                             hvis={arbeidsgivere.length === 1}
