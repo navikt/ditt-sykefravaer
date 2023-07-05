@@ -10,8 +10,9 @@ import React, { PropsWithChildren, useState } from 'react'
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
-import { isMockBackend } from '../utils/environment'
+import { basePath, isMockBackend } from '../utils/environment'
 import { LabsWarning } from '../components/labs-warning/LabsWarning'
+import { getFaro, initInstrumentation, pinoLevelToFaroLevel } from '../faro/faro'
 
 interface AppProps extends Omit<NextAppProps, 'pageProps'> {
     pageProps: PropsWithChildren<unknown> & {
@@ -28,8 +29,13 @@ if (process.browser && isMockBackend()) {
     require('../data/mock')
 }
 
+initInstrumentation()
 configureLogger({
-    basePath: '/syk/sykefravaer',
+    basePath: basePath(),
+    onLog: (log) =>
+        getFaro()?.api.pushLog(log.messages, {
+            level: pinoLevelToFaroLevel(log.level.label),
+        }),
 })
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
