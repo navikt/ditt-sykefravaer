@@ -1,5 +1,5 @@
 import { Accordion, BodyShort } from '@navikt/ds-react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
@@ -13,18 +13,13 @@ interface ArbeidsgiverAccordionProps {
 }
 
 const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
-    const [navn, setNavn] = useState<string>('')
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: narmesteLedere } = useNarmesteledere()
 
-    useEffect(() => {
-        const orgNavn = sykmeldinger!.find(
-            (syk) =>
-                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
-                syk.sykmeldingStatus.arbeidsgiver?.orgNavn,
-        )?.sykmeldingStatus.arbeidsgiver?.orgNavn
-        setNavn(orgNavn!)
-    }, [orgnummer, sykmeldinger])
+    const orgNavn = sykmeldinger?.find(
+        (syk) =>
+            syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer && syk.sykmeldingStatus.arbeidsgiver?.orgNavn,
+    )?.sykmeldingStatus.arbeidsgiver?.orgNavn
 
     const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 
@@ -39,7 +34,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
         >
             <Accordion.Item>
                 <Accordion.Header>
-                    <strong>{navn}</strong>
+                    <strong>{orgNavn}</strong>
                 </Accordion.Header>
                 <Accordion.Content className="pt-3">
                     <Vis
@@ -57,7 +52,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
                             </BodyShort>
                         )}
                     />
-                    <NarmesteLeder orgnummer={orgnummer} orgNavn={navn} />
+                    <NarmesteLeder orgnummer={orgnummer} orgNavn={orgNavn} />
                 </Accordion.Content>
             </Accordion.Item>
         </Accordion>

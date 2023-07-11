@@ -64,7 +64,8 @@ export const kunEnSoknad = () => {
     const person = commonPersona()
     person.soknader = []
     person.sykmeldinger = [jsonDeepCopy(sendtSykmelding)]
-    person.sykmeldinger[0].sykmeldingStatus.arbeidsgiver!.orgNavn = 'MATBUTIKKEN AS'
+    if (!person.sykmeldinger[0].sykmeldingStatus.arbeidsgiver) throw new Error('Arbeidsgiver mangler')
+    person.sykmeldinger[0].sykmeldingStatus.arbeidsgiver.orgNavn = 'MATBUTIKKEN AS'
     person.meldinger = [
         {
             uuid: '123456y7',

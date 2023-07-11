@@ -84,14 +84,16 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                             className="inline"
                             href={oppgave.lenke}
                             onClick={(e) => {
+                                if (!oppgave.lenke) return
                                 e.preventDefault()
                                 logEvent('navigere', {
-                                    destinasjon: oppgave.lenke!,
+                                    destinasjon: oppgave.lenke,
                                     lenketekst: oppgave.meldingType ?? oppgave.tekst,
                                     variant: oppgave.type ?? 'info',
                                     komponent: 'ditt sykefravær oppgave',
                                 })
-                                window.location.href = oppgave.lenke!
+
+                                window.location.href = oppgave.lenke
                             }}
                         >
                             {oppgave.tekst}
