@@ -1,5 +1,5 @@
 import { BodyShort, Panel } from '@navikt/ds-react'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
@@ -13,18 +13,13 @@ interface ArbeidsgiverPanelProps {
 }
 
 const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
-    const [navn, setNavn] = useState<string>('')
     const { data: sykmeldinger } = useSykmeldinger()
     const { data: narmesteLedere } = useNarmesteledere()
 
-    useEffect(() => {
-        const orgNavn = sykmeldinger!.find(
-            (syk) =>
-                syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer &&
-                syk.sykmeldingStatus.arbeidsgiver?.orgNavn,
-        )?.sykmeldingStatus.arbeidsgiver?.orgNavn
-        setNavn(orgNavn!)
-    }, [orgnummer, sykmeldinger])
+    const navn = sykmeldinger?.find(
+        (syk) =>
+            syk.sykmeldingStatus.arbeidsgiver?.orgnummer === orgnummer && syk.sykmeldingStatus.arbeidsgiver?.orgNavn,
+    )?.sykmeldingStatus.arbeidsgiver?.orgNavn
 
     const leder = narmesteLedere?.find((nl) => nl.orgnummer === orgnummer)
 

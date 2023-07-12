@@ -16,7 +16,8 @@ interface Opts {
 }
 
 export async function proxyKallTilBackend(opts: Opts) {
-    const rewritedPath = opts.req.url!.replace(`/api/${opts.backend}`, '')
+    if (!opts.req.url) return null
+    const rewritedPath = opts.req.url.replace(`/api/${opts.backend}`, '')
     const api = `${opts.req.method} ${rewritedPath}`
     if (!opts.tillatteApier.includes(<string>cleanPathForMetric(api))) {
         logger.warn('404 Ukjent api: ' + api)
@@ -24,9 +25,9 @@ export async function proxyKallTilBackend(opts: Opts) {
         opts.res.send(null)
         return
     }
-
-    const idportenToken = opts.req.headers.authorization!.split(' ')[1]
+    if (!opts.req.headers.authorization) throw new Error('Mangler authorization header')
+    const idportenToken = opts.req.headers.authorization.split(' ')[1]
     const tokenxToken = await getTokenxToken(idportenToken, opts.backendClientId)
 
-    await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenxToken! })
+    await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenxToken })
 }
