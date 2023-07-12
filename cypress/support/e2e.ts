@@ -16,6 +16,7 @@
 import 'cypress-axe'
 import 'cypress-real-events'
 import './commands'
+import { Result } from 'axe-core'
 
 afterEach(() => {
     setupAxe()
@@ -34,7 +35,7 @@ export function setupAxe() {
     cy.checkA11y(A11YOptions, undefined, terminalLog, false)
 }
 
-function terminalLog(violations: any) {
+function terminalLog(violations: Result[]) {
     cy.task(
         'log',
         `${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} ${
@@ -42,7 +43,7 @@ function terminalLog(violations: any) {
         } detected`,
     )
     // pluck specific keys to keep the table readable
-    const violationData = violations.map(({ id, impact, description, nodes }: any) => ({
+    const violationData = violations.map(({ id, impact, description, nodes }: Result) => ({
         id,
         impact,
         description,

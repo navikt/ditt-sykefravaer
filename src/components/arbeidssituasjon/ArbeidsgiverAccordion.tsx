@@ -43,11 +43,8 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
                             <BodyShort spacing>
                                 {tekst(
                                     `din-situasjon.arbeidsgiver-forskutterer${
-                                        leder?.arbeidsgiverForskutterer
-                                            ? ''
-                                            : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                              '-ikke'
-                                    }` as any,
+                                        leder?.arbeidsgiverForskutterer ? '' : '-ikke'
+                                    }`,
                                 )}
                             </BodyShort>
                         )}
