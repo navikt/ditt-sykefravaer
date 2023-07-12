@@ -1,11 +1,11 @@
 import { Accordion, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
 import React from 'react'
+import { Buldings2Icon } from '@navikt/aksel-icons'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
-import Vis from '../Vis'
 
 import ArbeidsgiverAccordion from './ArbeidsgiverAccordion'
 import ArbeidsgiverPanel from './ArbeidsgiverPanel'
@@ -22,31 +22,26 @@ const Arbeidssituasjon = () => {
     const arbeidsgivere: string[] = finnAktuelleArbeidsgivere(narmesteLedere, sykmeldinger)
 
     return (
-        <Vis
-            hvis={arbeidsgivere && arbeidsgivere.length > 0}
-            render={() => (
+        <>
+            {' '}
+            {arbeidsgivere.length > 0 && (
                 <>
                     <section data-cy="din-situasjon">
                         <div className="mx-auto mb-4 mt-0 flex py-1 pt-6 ">
-                            <img src="/syk/sykefravaer/static/employer.svg" alt="Employer" />
+                            <Buldings2Icon title="Employer" width="30px" height="30px" className="mr-1" />
                             <Heading size="small" level="2">
                                 {tekst('din-situasjon.tittel.2')}
                             </Heading>
                         </div>
-                        <Vis
-                            hvis={arbeidsgivere.length === 1}
-                            render={() => <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}
-                        />
-                        <Vis
-                            hvis={arbeidsgivere.length > 1}
-                            render={() => (
-                                <>
-                                    {arbeidsgivere.map((orgnummer, idx) => (
-                                        <ArbeidsgiverAccordion orgnummer={orgnummer} key={idx} />
-                                    ))}
-                                </>
-                            )}
-                        />
+                        {arbeidsgivere.length === 1 && <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}
+
+                        {arbeidsgivere.length > 1 && (
+                            <>
+                                {arbeidsgivere.map((orgnummer, idx) => (
+                                    <ArbeidsgiverAccordion orgnummer={orgnummer} key={idx} />
+                                ))}
+                            </>
+                        )}
                     </section>
                     <Accordion>
                         <Accordion.Item>
@@ -78,7 +73,7 @@ const Arbeidssituasjon = () => {
                     </Accordion>
                 </>
             )}
-        />
+        </>
     )
 }
 

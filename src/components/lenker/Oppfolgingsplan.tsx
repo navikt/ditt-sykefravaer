@@ -1,16 +1,14 @@
 import React from 'react'
+import { HandshakeIcon } from '@navikt/aksel-icons'
 
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
-
 const Oppfolgingsplan = () => {
-    const ikon = <img className="max-w-none" src="/syk/sykefravaer/static/shakeHands.svg" alt="Oppfolgingsplaner" />
-
     return (
         <FellesLenkepanel
-            ikon={ikon}
+            ikon={HandshakeIcon}
             url={oppfolgingsplanUrl()}
             tekst={tekst('lenker.oppfolgingsplan')}
             undertekst={tekst('lenker.oppfolgingsplan.undertekst')}

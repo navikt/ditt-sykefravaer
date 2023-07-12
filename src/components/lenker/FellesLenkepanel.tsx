@@ -5,7 +5,7 @@ import { logEvent } from '../amplitude/amplitude'
 
 interface FellesLenkepanelProps {
     url: string
-    ikon: React.ReactNode
+    ikon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>
     tekst: string
     undertekst?: string
 }
@@ -44,7 +44,9 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
             border={true}
         >
             <div className="flex">
-                <div className="ml-0.5 mr-4 flex ">{props.ikon}</div>
+                <div className="ml-0.5 mr-4 flex items-center">
+                    <props.ikon aria-hidden={true} height="30px" width="30px" />
+                </div>
                 {heading()}
             </div>
         </LinkPanel>
