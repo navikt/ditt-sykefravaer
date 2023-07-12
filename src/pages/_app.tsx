@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import nb from 'dayjs/locale/nb'
 import type { AppProps as NextAppProps } from 'next/app'
 import Head from 'next/head'
-import React, { PropsWithChildren, useState } from 'react'
+import React, { PropsWithChildren } from 'react'
 import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
@@ -38,22 +38,19 @@ configureLogger({
         }),
 })
 
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            // Setting this to true causes query request after initial
+            // mount even if the query was hydrated from the server side.
+            refetchOnMount: false,
+            refetchOnWindowFocus: false,
+        },
+    },
+})
+
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     useHandleDecoratorClicks()
-
-    const [queryClient] = useState(
-        () =>
-            new QueryClient({
-                defaultOptions: {
-                    queries: {
-                        /* Setting this to true causes the request to be immediately executed after initial
-                           mount Even if the query had data hydrated from the server side render */
-                        refetchOnMount: false,
-                        refetchOnWindowFocus: false,
-                    },
-                },
-            }),
-    )
 
     return (
         <>

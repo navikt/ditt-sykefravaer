@@ -4,7 +4,6 @@ import React, { useState } from 'react'
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import { tekst } from '../../utils/tekster'
-import Vis from '../Vis'
 
 import BekreftFeilLeder from './BekreftFeilLeder'
 
@@ -28,32 +27,26 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         setOpen(!open)
     }
 
+    if (!leder || !orgNavn) {
+        return null
+    }
+
     return (
         <>
-            <Vis
-                hvis={leder && orgNavn}
-                render={() => (
-                    <>
-                        <Vis
-                            hvis={leder!.navn}
-                            render={() => (
-                                <BodyShort spacing>
-                                    {parserWithReplace(
-                                        tekst('din-situasjon.nærmesteleder', {
-                                            '%ARBEIDSGIVER%': leder!.navn!,
-                                        }),
-                                    )}
-                                </BodyShort>
-                            )}
-                        />
+            {leder.navn && (
+                <BodyShort spacing>
+                    {parserWithReplace(
+                        tekst('din-situasjon.nærmesteleder', {
+                            '%ARBEIDSGIVER%': leder.navn,
+                        }),
+                    )}
+                </BodyShort>
+            )}
 
-                        <Link as="button" onClick={() => toggleOpen()}>
-                            Meld fra om endring
-                        </Link>
-                        <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder!} orgNavn={orgNavn!} />
-                    </>
-                )}
-            />
+            <Link as="button" onClick={() => toggleOpen()}>
+                Meld fra om endring
+            </Link>
+            <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
         </>
     )
 }
