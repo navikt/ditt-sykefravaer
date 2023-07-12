@@ -33,12 +33,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
                 render={() => (
                     <BodyShort>
                         {tekst(
-                            `din-situasjon.arbeidsgiver-forskutterer${
-                                leder?.arbeidsgiverForskutterer
-                                    ? ''
-                                    : /* eslint-disable-next-line @typescript-eslint/no-explicit-any */
-                                      '-ikke'
-                            }` as any,
+                            `din-situasjon.arbeidsgiver-forskutterer${leder?.arbeidsgiverForskutterer ? '' : '-ikke'}`,
                         )}
                     </BodyShort>
                 )}

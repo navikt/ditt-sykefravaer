@@ -85,8 +85,7 @@
             "plugin:cypress/recommended"
         ],
         "rules": {
-            "@typescript-eslint/explicit-function-return-type": "off",
-            "@typescript-eslint/no-explicit-any": "off"
+            "@typescript-eslint/explicit-function-return-type": "off"
         }
     },
     "prettier": "@navikt/eslint-config-teamsykmelding/prettier"

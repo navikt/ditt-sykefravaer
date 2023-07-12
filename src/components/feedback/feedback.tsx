@@ -23,7 +23,7 @@ export const Feedback = () => {
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const [radioErrorMsg, setRadioErrorMsg] = useState<string | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
-    const textAreaRef = useRef(null)
+    const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
     const [radioState, setRadioState] = useState<string | null>(null)
     const { data: vedtak } = useVedtak()
     const { data: soknader } = useSoknader()
@@ -41,7 +41,7 @@ export const Feedback = () => {
     }, [])
 
     useEffect(() => {
-        activeState && textAreaRef.current && (textAreaRef.current as any).focus()
+        activeState && textAreaRef.current && textAreaRef.current.focus()
         setErrorMsg(null)
     }, [activeState])
 
@@ -72,7 +72,7 @@ export const Feedback = () => {
             return
         }
 
-        const body: Record<string, any> = {
+        const body: Record<string, string | null | number> = {
             feedback: textValue,
             feedbackId: 'ditt-sykefravaer-fant-du',
             svar: activeState,

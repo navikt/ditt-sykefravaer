@@ -61,11 +61,9 @@ export async function getTokenxToken(subject_token: string, audience: string): P
     try {
         const grant = await _client.grant(grantBody, additionalClaims)
         return grant.access_token
-    } catch (e: any) {
-        switch (e.constructor) {
-            case OPError:
-                logger.error(e, `Noe gikk galt med token exchange mot TokenX.`)
-                break
+    } catch (e) {
+        if (e instanceof OPError) {
+            logger.error(e, `Noe gikk galt med token exchange mot TokenX.`)
         }
         throw e
     }
