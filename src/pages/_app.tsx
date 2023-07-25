@@ -26,7 +26,7 @@ dayjs.locale({
     weekStart: 1,
 })
 
-if (process.browser && isMockBackend()) {
+if (typeof window === 'object' && isMockBackend()) {
     require('../data/mock')
 }
 
