@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { fetchMedRequestId } from '../utils/fetch'
 
@@ -16,7 +16,7 @@ export default function UseAvkreftNarmesteLeder(org: string) {
             }),
         {
             onSuccess: () => {
-                setTimeout(() => queryClient.invalidateQueries('narmesteledere'), 200)
+                setTimeout(() => queryClient.invalidateQueries(['narmesteledere']), 200)
             },
         },
     )
