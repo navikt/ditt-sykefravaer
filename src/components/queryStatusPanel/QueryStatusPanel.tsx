@@ -1,6 +1,6 @@
 import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
 import React from 'react'
-import { useIsFetching, UseQueryResult } from 'react-query'
+import { useIsFetching, UseQueryResult } from '@tanstack/react-query'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
