@@ -119,6 +119,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             const idx = testperson.narmesteledere.findIndex((nl) => nl.orgnummer === org)
             if (idx !== -1) {
                 const avkreftetLeder = testperson.narmesteledere[idx]
+                // Fjerner avkreftet leder fra mockdata.
                 testperson.narmesteledere.splice(idx, 1, {
                     ...avkreftetLeder,
                     aktivTom: dayjs().format('YYYY-MM-DD'),
