@@ -1,5 +1,7 @@
 describe('Tester helt frisk person', () => {
     before(() => {
+        cy.clearCookies()
+
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=helt-frisk')
     })
 

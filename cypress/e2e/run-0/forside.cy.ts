@@ -1,5 +1,7 @@
 describe('Tester visning av forside', () => {
     before(() => {
+        cy.clearCookies()
+
         cy.visit('http://localhost:8080/syk/sykefravaer')
     })
 

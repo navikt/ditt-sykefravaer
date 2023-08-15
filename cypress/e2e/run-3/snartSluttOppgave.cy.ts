@@ -1,5 +1,7 @@
 describe('Tester snart slutt oppgave ', () => {
     it('Har riktig lenke', () => {
+        cy.clearCookies()
+
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
         cy.get('[data-cy="oppgaver"]')
