@@ -20,6 +20,9 @@ function beskyttetSide(handler: PageHandler) {
         if (request == null) {
             throw new Error('Context is missing request. This should not happen')
         }
+        if (request.url == null) {
+            throw new Error('request.url is missing request. This should not happen')
+        }
         const cleanPath = cleanPathForMetric(request.url)
         if (shouldLogMetricForPath(cleanPath)) {
             metrics.pageInitialLoadCounter.inc({ path: cleanPath }, 1)
