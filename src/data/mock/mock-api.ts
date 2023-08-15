@@ -106,12 +106,11 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         case 'GET /api/narmesteleder/user/v2/sykmeldt/narmesteledere':
             return sendJson(testperson.narmesteledere)
 
-        case 'POST /api/narmesteleder/v2/[:orgnr]/avkreft':
+        case 'POST /api/narmesteleder/v2/[orgnr]/avkreft':
             // For this route, additional logic is needed to simulate the backend call and handle the :org parameter
             // Using the commented code for a basic logic:
-            const org = pathNumber(4)
+            const org = pathNumber(1)
             // eslint-disable-next-line no-console
-            console.log(org)
             if (org === '972674820') {
                 res.status(500)
                 res.end()
