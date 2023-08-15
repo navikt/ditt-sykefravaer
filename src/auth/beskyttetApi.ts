@@ -4,6 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { cleanPathForMetric } from '../metrics'
 import metrics from '../metrics'
 import { isMockBackend } from '../utils/environment'
+import { mockApi } from '../data/mock/mock-api'
 
 import { verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 
@@ -11,7 +12,8 @@ type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => void | Promise<
 
 export function beskyttetApi(handler: ApiHandler): ApiHandler {
     return async function withBearerTokenHandler(req, res) {
-        const cleanPath = cleanPathForMetric(req.url)
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        const cleanPath = cleanPathForMetric(req.url!)
 
         function send401() {
             metrics.apiUnauthorized.inc({ path: cleanPath }, 1)
@@ -20,7 +22,7 @@ export function beskyttetApi(handler: ApiHandler): ApiHandler {
         }
 
         if (isMockBackend()) {
-            return handler(req, res)
+            return mockApi(req, res)
         }
 
         const bearerToken: string | null | undefined = req.headers['authorization']

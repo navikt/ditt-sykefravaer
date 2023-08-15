@@ -1,4 +1,3 @@
-/* eslint-disable postcss-modules/no-unused-class */
 import '../style/global.css'
 
 import { configureLogger } from '@navikt/next-logger'
@@ -11,7 +10,7 @@ import { DehydratedState, QueryClient } from '@tanstack/query-core'
 import { Hydrate, QueryClientProvider } from '@tanstack/react-query'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
-import { basePath, isMockBackend } from '../utils/environment'
+import { basePath } from '../utils/environment'
 import { LabsWarning } from '../components/labs-warning/LabsWarning'
 import { getFaro, initInstrumentation, pinoLevelToFaroLevel } from '../faro/faro'
 
@@ -25,10 +24,6 @@ dayjs.locale({
     ...nb,
     weekStart: 1,
 })
-
-if (typeof window === 'object' && isMockBackend()) {
-    require('../data/mock')
-}
 
 initInstrumentation()
 configureLogger({
