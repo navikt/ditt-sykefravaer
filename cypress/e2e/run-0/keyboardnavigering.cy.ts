@@ -1,5 +1,7 @@
 describe('Keyboard navigering', () => {
     it('Vi navigerer forsiden med mange elementer', () => {
+        cy.clearCookies()
+
         cy.visit('http://localhost:8080/syk/sykefravaer')
         cy.get('#maincontent').should('be.visible')
         cy.get('#maincontent').focus() //Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
