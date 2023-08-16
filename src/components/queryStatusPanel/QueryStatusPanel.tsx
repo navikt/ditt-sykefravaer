@@ -1,6 +1,6 @@
-import { Alert, Button, Heading, Loader } from '@navikt/ds-react'
+import { Alert, Button } from '@navikt/ds-react'
 import React from 'react'
-import { useIsFetching, UseQueryResult } from '@tanstack/react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
@@ -17,8 +17,6 @@ interface QueryOgFeilmelding {
 }
 
 const QueryStatusPanel = () => {
-    const isFetching = useIsFetching()
-
     const sykmeldinger: QueryOgFeilmelding = {
         query: useSykmeldinger(),
         message: 'Kunne ikke hente dine sykmeldinger',
@@ -60,17 +58,6 @@ const QueryStatusPanel = () => {
 
     return (
         <>
-            <Vis
-                hvis={isFetching > 0}
-                render={() => (
-                    <div className="mb-4  text-center">
-                        <Heading level="2" size="small" className="m-2">
-                            Henter ditt sykefravær
-                        </Heading>
-                        <Loader />
-                    </div>
-                )}
-            />
             <Vis
                 hvis={errorQueries.length > 0}
                 render={() => (

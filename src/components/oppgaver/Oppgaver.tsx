@@ -1,5 +1,5 @@
 import { XMarkIcon } from '@navikt/aksel-icons'
-import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
+import { Alert, BodyShort, Button, Link as Lenke, Skeleton } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useBrev from '../../hooks/useBrev'
@@ -110,18 +110,19 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
 interface OppgaveProps {
     oppgaver: Oppgave[]
     pushLukket: (id: string) => void
+    lasterData: boolean
 }
 
-const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
-    if (oppgaver && oppgaver.length === 0) {
+const OppgaveLista = ({ oppgaver, pushLukket, lasterData }: OppgaveProps) => {
+    if (lasterData && oppgaver.length === 0) {
+        return <Skeleton variant="rectangle" height="70px" className="rounded" />
+    }
+    if (oppgaver.length === 0) {
         return null
     }
 
     return (
-        <section data-cy="oppgaver">
-            <Heading size="small" level="2" className="pb-4">
-                {tekst('oppgaver.nye-varsler')}
-            </Heading>
+        <section data-cy="oppgaver" aria-label={tekst('oppgaver.nye-varsler')}>
             <div className="space-y-2">
                 {oppgaver.map((v) => (
                     <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />
@@ -132,12 +133,13 @@ const OppgaveLista = ({ oppgaver, pushLukket }: OppgaveProps) => {
 }
 
 function Oppgaver() {
-    const { data: meldinger } = useMeldinger()
-    const { data: sykmeldinger } = useSykmeldinger()
-    const { data: soknader } = useSoknader()
-    const { data: oppfolgingsplaner } = useOppfolgingsplaner()
-    const { data: dialogmoteBehov } = useDialogmoteBehov()
-    const { data: brev } = useBrev()
+    const { data: meldinger, isLoading: meldingerLaster } = useMeldinger()
+    const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useSykmeldinger()
+    const { data: soknader, isLoading: soknaderLaster } = useSoknader()
+    const { data: oppfolgingsplaner, isLoading: oppfolgingsplanerLaster } = useOppfolgingsplaner()
+    const { data: dialogmoteBehov, isLoading: dialogmoteBehovLaster } = useDialogmoteBehov()
+    const { data: brev, isLoading: brevLaster } = useBrev()
+
     const [lukkede, setLukkede] = useState([] as string[])
 
     const pushLukket = (id: string) => {
@@ -160,8 +162,15 @@ function Oppgaver() {
         ...brevOppgaver,
         ...meldingerOppgaver,
     ].filter((o) => !o.id || !lukkede.includes(o.id))
+    const lasterData =
+        meldingerLaster ||
+        sykmeldingerLaster ||
+        soknaderLaster ||
+        oppfolgingsplanerLaster ||
+        dialogmoteBehovLaster ||
+        brevLaster
 
-    return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} />
+    return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} lasterData={lasterData} />
 }
 
 export default Oppgaver

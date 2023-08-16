@@ -1,6 +1,7 @@
 import dayjs from 'dayjs'
 
 export interface Oppgave {
+    skeleton?: boolean
     type?: 'info' | 'warning' | 'success' | 'error'
     tekst: string
     lenke?: string

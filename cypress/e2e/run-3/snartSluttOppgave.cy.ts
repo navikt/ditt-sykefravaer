@@ -4,7 +4,9 @@ describe('Tester snart slutt oppgave ', () => {
 
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
+        cy.contains('Snart slutt på sykepengene')
         cy.get('[data-cy="oppgaver"]')
+            .children()
             .children()
             .eq(1)
             .contains('Snart slutt på sykepengene')
