@@ -16,7 +16,6 @@ function beskyttetSide(handler: PageHandler) {
         if (isMockBackend()) {
             const rawCookies = context.req?.headers.cookie || ''
             const parsedCookies = parse(rawCookies)
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             getSession(parsedCookies, context.res)
             return handler(context)
         }
