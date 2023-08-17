@@ -5,7 +5,7 @@ import { arbeidstaker100 } from './soknader'
 
 const iDag = dayjs()
 
-const commonPersona = (): Persona => {
+export const sykeforloepTestPerson = (): Persona => {
     return {
         meldinger: [],
         soknader: [arbeidstaker100],
@@ -58,7 +58,7 @@ const commonPersona = (): Persona => {
 
 export const snartSlutt = () => {
     const førtitoUker = iDag.subtract(293, 'days')
-    const person = commonPersona()
+    const person = sykeforloepTestPerson()
     person.sykmeldinger[0].sykmeldingsperioder[0] = {
         fom: førtitoUker.format('YYYY-MM-DD'),
         tom: iDag.format('YYYY-MM-DD'),
@@ -79,7 +79,7 @@ export const snartSlutt = () => {
 }
 
 export const forskuttererIkke = () => {
-    const person = commonPersona()
+    const person = sykeforloepTestPerson()
     person.narmesteledere = [
         {
             navn: 'Albus Dumbledore',

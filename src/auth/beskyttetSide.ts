@@ -1,9 +1,11 @@
 import { logger } from '@navikt/next-logger'
 import { NextPageContext } from 'next'
+import { parse } from 'cookie'
 
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
 import { isMockBackend } from '../utils/environment'
+import { getSession } from '../data/mock/mock-api'
 
 import { AuthenticationError, verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 
@@ -12,6 +14,9 @@ type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePro
 function beskyttetSide(handler: PageHandler) {
     return async function withBearerTokenHandler(context: NextPageContext): Promise<ReturnType<typeof handler>> {
         if (isMockBackend()) {
+            const rawCookies = context.req?.headers.cookie || ''
+            const parsedCookies = parse(rawCookies)
+            getSession(parsedCookies, context.res)
             return handler(context)
         }
 
