@@ -1,3 +1,5 @@
+import { ServerResponse } from 'http'
+
 import { serialize } from 'cookie'
 import { v4 as uuidv4 } from 'uuid'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -7,7 +9,7 @@ import { nextleton } from 'nextleton'
 
 import { cleanPathForMetric } from '../../metrics'
 
-import { testpersoner } from './testperson'
+import { PersonaKeys, testpersoner } from './testperson'
 import { Persona } from './data/persona'
 
 type session = {
@@ -18,9 +20,14 @@ export const sessionStore = nextleton('sessionStore', () => {
     return {} as Record<string, session>
 })
 
-export function getSession(req: NextApiRequest, res: NextApiResponse): session {
+export function getSession(
+    cookies: Partial<{
+        [key: string]: string
+    }>,
+    res?: ServerResponse,
+): session {
     function getSessionId(): string {
-        const sessionIdCookie = req.cookies['mock-session']
+        const sessionIdCookie = cookies['mock-session']
         if (sessionIdCookie) {
             return sessionIdCookie
         }
@@ -30,7 +37,7 @@ export function getSession(req: NextApiRequest, res: NextApiResponse): session {
             path: '/',
             expires: new Date(Date.now() + 60 * 60 * 1000),
         })
-        res.setHeader('Set-Cookie', cookie)
+        res?.setHeader('Set-Cookie', cookie)
 
         return sessionId
     }
@@ -47,20 +54,25 @@ export function getSession(req: NextApiRequest, res: NextApiResponse): session {
     return sessionStore[sessionId]
 }
 
-export function hentTestperson(req: NextApiRequest, res: NextApiResponse): Persona {
-    function nokkel(): string {
-        const query = req.query['testperson']
-        if (query) return query.toString()
-        return 'default'
-    }
+function nokkel(req: NextApiRequest): PersonaKeys {
+    const query = req.query['testperson']
+    if (query) return query.toString() as PersonaKeys
+    return 'default' as PersonaKeys
+}
 
-    return getSession(req, res).testpersoner[nokkel()]
+export function hentTestperson(req: NextApiRequest, res: NextApiResponse): Persona {
+    return getSession(req.cookies, res).testpersoner[nokkel(req)]
+}
+
+async function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promise<void> {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const url = `${req.method} ${cleanPathForMetric(req.url!).split('?')[0]}`
     const testperson = hentTestperson(req, res)
+    const nokkelKey = nokkel(req)
 
     function sendJson(json = {}, status = 200) {
         res.writeHead(status, { 'Content-Type': 'application/json' })
@@ -74,18 +86,21 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         return null
     }
 
+    const erClsTestperson = nokkelKey === 'cummulative-layout-shift'
     switch (url) {
         case 'GET /api/sykepengesoknad-backend/api/v2/soknader/metadata':
+            if (erClsTestperson) await sleep(500)
             return sendJson(testperson.soknader)
 
         case 'GET /api/sykmeldinger-backend/api/v2/sykmeldinger':
+            if (erClsTestperson) await sleep(1000)
             return sendJson(testperson.sykmeldinger)
 
         case 'GET /api/ditt-sykefravaer-backend/api/v1/meldinger':
+            if (erClsTestperson) await sleep(750)
             return sendJson(testperson.meldinger)
 
         case 'POST /api/ditt-sykefravaer-backend/api/v1/meldinger/[uuid]/lukk':
-            // Here we need more logic to handle the :id parameter, but for now:
             return sendJson({ lukket: 'ok' })
 
         case 'GET /api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging':
@@ -95,6 +110,8 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             return sendJson(testperson.vedtak)
 
         case 'GET /api/syfooppfolgingsplanservice/syfooppfolgingsplanservice/api/v2/arbeidstaker/oppfolgingsplaner':
+            if (erClsTestperson) await sleep(250)
+
             return sendJson(testperson.oppfolgingsplaner)
 
         case 'GET /api/isdialogmote/api/v2/arbeidstaker/brev':

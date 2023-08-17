@@ -1,5 +1,4 @@
 import { Modal } from '@navikt/ds-react'
-import dynamic from 'next/dynamic'
 import React, { useEffect } from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
@@ -11,6 +10,7 @@ import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
 import { Feedback } from '../components/feedback/feedback'
+import Oppgaver from '../components/oppgaver/Oppgaver'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
@@ -20,10 +20,6 @@ const Index = () => {
         // @ts-ignore
         Modal.setAppElement('#root')
     }, [])
-
-    const Oppgaver = dynamic(() => import('../components/oppgaver/Oppgaver'), {
-        ssr: false,
-    })
 
     return (
         <>

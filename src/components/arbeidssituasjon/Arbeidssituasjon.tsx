@@ -1,4 +1,4 @@
-import { Accordion, BodyLong, BodyShort, Heading } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading, Skeleton } from '@navikt/ds-react'
 import React from 'react'
 import { Buldings2Icon } from '@navikt/aksel-icons'
 
@@ -12,8 +12,18 @@ import ArbeidsgiverPanel from './ArbeidsgiverPanel'
 import { finnAktuelleArbeidsgivere } from './arbeidssituasjonHjelpefunksjoner'
 
 const Arbeidssituasjon = () => {
-    const { data: narmesteLedere } = useNarmesteledere()
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: narmesteLedere, isLoading: nlLaster } = useNarmesteledere()
+    const { data: sykmeldinger, isLoading: smLaster } = useSykmeldinger()
+
+    if (nlLaster || smLaster) {
+        return (
+            <>
+                <Skeleton variant="rectangle" height="30px" className="mb-4 mt-8" />
+                <Skeleton variant="rectangle" height="178px" />
+                <Skeleton variant="rectangle" height="52px" className="mb-2" />
+            </>
+        )
+    }
 
     if (!sykmeldinger || !narmesteLedere) {
         return null
@@ -23,11 +33,10 @@ const Arbeidssituasjon = () => {
 
     return (
         <>
-            {' '}
             {arbeidsgivere.length > 0 && (
                 <>
                     <section data-cy="din-situasjon">
-                        <div className="mx-auto mb-4 mt-0 flex py-1 pt-6 ">
+                        <div className="mx-auto mb-4 mt-8 flex">
                             <Buldings2Icon title="Employer" width="30px" height="30px" className="mr-1" />
                             <Heading size="small" level="2">
                                 {tekst('din-situasjon.tittel.2')}

@@ -10,6 +10,7 @@ import {
 import { Persona } from './data/persona'
 import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding, kunEnSoknad } from './data/personas'
 import { forskuttererIkke, snartSlutt } from './data/sykeforloepTestPersoner'
+import { clsPerson } from './data/clsPerson'
 
 export enum PersonaKeys {
     'default' = 'default',
@@ -25,6 +26,7 @@ export enum PersonaKeys {
     'mangler-inntektsmelding' = 'mangler-inntektsmelding',
     'mottatt-inntektsmelding' = 'mottatt-inntektsmelding',
     'kun-en-soknad' = 'kun-en-soknad',
+    'cummulative-layout-shift' = 'cummulative-layout-shift',
 }
 
 type PersonaData = Record<PersonaKeys, Persona>
@@ -44,6 +46,7 @@ export function testpersoner(): PersonaData {
         [PersonaKeys['mangler-inntektsmelding']]: jsonDeepCopy(manglerInntektsmelding()),
         [PersonaKeys['mottatt-inntektsmelding']]: jsonDeepCopy(mottattInntektsmelding()),
         [PersonaKeys['kun-en-soknad']]: jsonDeepCopy(kunEnSoknad()),
+        [PersonaKeys['cummulative-layout-shift']]: jsonDeepCopy(clsPerson()),
     }
 
     return data
