@@ -13,7 +13,6 @@ import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 import { fetchMedRequestId } from '../../utils/fetch'
 
-import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
@@ -149,7 +148,6 @@ function Oppgaver() {
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
     const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)
 
-    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
     const meldingerOppgaver = skapMeldinger(meldinger)
 
     const tasks = [
@@ -157,7 +155,6 @@ function Oppgaver() {
         ...soknadOppgaver,
         ...oppfolgingsplanoppgaver,
         ...dialogmoteBehovOppgaver,
-        ...brevOppgaver,
         ...meldingerOppgaver,
     ].filter((o) => !o.id || !lukkede.includes(o.id))
 
