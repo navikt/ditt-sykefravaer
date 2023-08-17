@@ -53,7 +53,6 @@ const commonPersona = (): Persona => {
             skjemaType: null,
             motebehov: null,
         },
-        brev: [],
     }
 }
 

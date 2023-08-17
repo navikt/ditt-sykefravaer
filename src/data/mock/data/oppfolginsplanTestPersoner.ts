@@ -32,7 +32,6 @@ const commonPersona: Persona = {
     narmesteledere: [],
     arbeidsrettetOppfolging: { erUnderOppfolging: false },
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
-    brev: [],
 }
 
 export const enNyOppfolgingsplan = () => {

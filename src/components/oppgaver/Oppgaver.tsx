@@ -2,7 +2,6 @@ import { XMarkIcon } from '@navikt/aksel-icons'
 import { Alert, BodyShort, Button, Heading, Link as Lenke } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import useBrev from '../../hooks/useBrev'
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
@@ -136,7 +135,6 @@ function Oppgaver() {
     const { data: soknader } = useSoknader()
     const { data: oppfolgingsplaner } = useOppfolgingsplaner()
     const { data: dialogmoteBehov } = useDialogmoteBehov()
-    const { data: brev } = useBrev()
     const [lukkede, setLukkede] = useState([] as string[])
 
     const pushLukket = (id: string) => {

@@ -57,8 +57,6 @@ spec:
           namespace: teamsykmelding
         - application: narmesteleder
           namespace: teamsykmelding
-        - application: isdialogmote
-          namespace: teamsykefravr
         - application: syfomotebehov
           namespace: team-esyfo
         - application: nav-dekoratoren
