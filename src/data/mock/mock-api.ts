@@ -73,7 +73,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
     const url = `${req.method} ${cleanPathForMetric(req.url!).split('?')[0]}`
     const testperson = hentTestperson(req, res)
     const nokkelKey = nokkel(req)
-    await sleep(400)
 
     function sendJson(json = {}, status = 200) {
         res.writeHead(status, { 'Content-Type': 'application/json' })
@@ -87,17 +86,18 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         return null
     }
 
+    const erClsTestperson = nokkelKey === 'cummulative-layout-shift'
     switch (url) {
         case 'GET /api/sykepengesoknad-backend/api/v2/soknader/metadata':
-            if (nokkelKey === 'cummulative-layout-shift') await sleep(500)
+            if (erClsTestperson) await sleep(500)
             return sendJson(testperson.soknader)
 
         case 'GET /api/sykmeldinger-backend/api/v2/sykmeldinger':
-            if (nokkelKey === 'cummulative-layout-shift') await sleep(1000)
+            if (erClsTestperson) await sleep(1000)
             return sendJson(testperson.sykmeldinger)
 
         case 'GET /api/ditt-sykefravaer-backend/api/v1/meldinger':
-            if (nokkelKey === 'cummulative-layout-shift') await sleep(750)
+            if (erClsTestperson) await sleep(750)
             return sendJson(testperson.meldinger)
 
         case 'POST /api/ditt-sykefravaer-backend/api/v1/meldinger/[uuid]/lukk':
@@ -110,7 +110,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             return sendJson(testperson.vedtak)
 
         case 'GET /api/syfooppfolgingsplanservice/syfooppfolgingsplanservice/api/v2/arbeidstaker/oppfolgingsplaner':
-            if (nokkelKey === 'cummulative-layout-shift') await sleep(250)
+            if (erClsTestperson) await sleep(250)
 
             return sendJson(testperson.oppfolgingsplaner)
 
