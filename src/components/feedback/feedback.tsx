@@ -144,82 +144,79 @@ export const Feedback = () => {
     }
 
     return (
-        <div className="w:full mt-16 md:w-3/4" data-cy="feedback-wrapper">
-            <div className="rounded-t-xl bg-gray-200 p-6">
-                <Heading size="xsmall" level="2">
-                    Hjelp oss med å gjøre denne siden bedre (valgfritt)
-                </Heading>
-            </div>
-            <div className="mt-1 rounded-b-xl bg-surface-subtle p-6">
-                <BodyShort className="mb-6">Fant du den informasjonen du trengte?</BodyShort>
-                <div className="flex w-full gap-2">
-                    <FeedbackButton feedbacktype={Feedbacktype.JA}>Ja</FeedbackButton>
-                    <FeedbackButton feedbacktype={Feedbacktype.NEI}>Nei</FeedbackButton>
-                </div>
+        <section aria-label="Tilbakemelding på ditt sykefravær siden">
+            <div className="w:full mt-16 md:w-3/4" data-cy="feedback-wrapper">
+                <div className="mt-1 rounded-xl bg-surface-subtle p-6">
+                    <BodyShort className="mb-6">Fant du den informasjonen du trengte?</BodyShort>
+                    <div className="flex w-full gap-2">
+                        <FeedbackButton feedbacktype={Feedbacktype.JA}>Ja</FeedbackButton>
+                        <FeedbackButton feedbacktype={Feedbacktype.NEI}>Nei</FeedbackButton>
+                    </div>
 
-                {activeState !== null && (
-                    <form className="mt-6 flex w-full flex-col gap-4">
-                        <Textarea
-                            data-cy="feedback-textarea"
-                            ref={textAreaRef}
-                            error={errorMsg}
-                            label={getPlaceholder()}
-                            onKeyDown={async (e) => {
-                                if (e.key === 'Enter' && !e.shiftKey) {
+                    {activeState !== null && (
+                        <form className="mt-6 flex w-full flex-col gap-4">
+                            <Textarea
+                                data-cy="feedback-textarea"
+                                ref={textAreaRef}
+                                error={errorMsg}
+                                label={getPlaceholder()}
+                                onKeyDown={async (e) => {
+                                    if (e.key === 'Enter' && !e.shiftKey) {
+                                        e.preventDefault()
+                                        await handleSend()
+                                    }
+                                }}
+                                value={textValue}
+                                onChange={(e) => {
+                                    setThanksFeedback(false)
+                                    setTextValue(e.target.value)
+                                }}
+                                maxLength={600}
+                                minRows={3}
+                            />
+
+                            {activeState == Feedbacktype.NEI && (
+                                <RadioGroup
+                                    error={radioErrorMsg}
+                                    value={radioState}
+                                    className="mt-4"
+                                    onChange={(val: string) => setRadioState(val)}
+                                    legend="Må du kontakte NAV for å få hjelp?"
+                                >
+                                    <Radio value="JA-Telefon">Ja, per telefon</Radio>
+                                    <Radio value="JA-Skriver">Ja, jeg skriver til dere</Radio>
+                                    <Radio value="NEI">Nei</Radio>
+                                </RadioGroup>
+                            )}
+
+                            <Alert variant="warning">
+                                Ikke skriv inn navn eller andre personopplysninger. Dette er en anonym tilbakemelding og
+                                blir kun brukt til å forbedre tjenesten. Du vil ikke få et svar fra oss.
+                            </Alert>
+                            <Button
+                                data-cy="send-feedback"
+                                className="mr-auto"
+                                variant="secondary-neutral"
+                                onClick={async (e) => {
                                     e.preventDefault()
                                     await handleSend()
-                                }
-                            }}
-                            value={textValue}
-                            onChange={(e) => {
-                                setThanksFeedback(false)
-                                setTextValue(e.target.value)
-                            }}
-                            maxLength={600}
-                            minRows={3}
-                        />
-
-                        {activeState == Feedbacktype.NEI && (
-                            <RadioGroup
-                                error={radioErrorMsg}
-                                value={radioState}
-                                className="mt-4"
-                                onChange={(val: string) => setRadioState(val)}
-                                legend="Må du kontakte NAV for å få hjelp?"
+                                }}
                             >
-                                <Radio value="JA-Telefon">Ja, per telefon</Radio>
-                                <Radio value="JA-Skriver">Ja, jeg skriver til dere</Radio>
-                                <Radio value="NEI">Nei</Radio>
-                            </RadioGroup>
-                        )}
-
-                        <Alert variant="warning">
-                            Ikke skriv inn navn eller andre personopplysninger. Dette er en anonym tilbakemelding og
-                            blir kun brukt til å forbedre tjenesten. Du vil ikke få et svar fra oss.
-                        </Alert>
-                        <Button
-                            data-cy="send-feedback"
-                            className="mr-auto"
-                            variant="secondary-neutral"
-                            onClick={async (e) => {
-                                e.preventDefault()
-                                await handleSend()
-                            }}
-                        >
-                            Send tilbakemelding
-                        </Button>
-                    </form>
-                )}
+                                Send tilbakemelding
+                            </Button>
+                        </form>
+                    )}
+                </div>
+                <div aria-live="polite">
+                    {thanksFeedback && (
+                        <div className="mt-2 rounded-xl bg-green-50 p-6">
+                            <Heading size="small" as="p" className="flex items-center">
+                                Takk for tilbakemeldingen din! <FaceSmileIcon aria-label="Smilefjes"></FaceSmileIcon>
+                            </Heading>
+                        </div>
+                    )}
+                </div>
             </div>
-            <div aria-live="polite">
-                {thanksFeedback && (
-                    <div className="mt-2 rounded-xl bg-green-50 p-6">
-                        <Heading size="small" as="p" className="flex items-center">
-                            Takk for tilbakemeldingen din! <FaceSmileIcon aria-label="Smilefjes"></FaceSmileIcon>
-                        </Heading>
-                    </div>
-                )}
-            </div>
-        </div>
+        </section>
     )
 }
