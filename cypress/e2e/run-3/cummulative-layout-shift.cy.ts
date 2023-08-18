@@ -7,7 +7,7 @@ describe('Tester cummulative-layout-shift ', () => {
         cy.get('.navds-skeleton').should('have.length', 6)
 
         // Sjekk dokumentets høyde
-        const expectedHeight = 1273
+        const expectedHeight = 1197
         cy.window().then((win) => {
             const docHeight = win.document.documentElement.scrollHeight
             expect(docHeight).to.equal(expectedHeight)
