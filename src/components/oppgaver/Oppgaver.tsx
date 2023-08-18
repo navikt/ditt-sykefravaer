@@ -158,11 +158,7 @@ function Oppgaver() {
         ...meldingerOppgaver,
     ].filter((o) => !o.id || !lukkede.includes(o.id))
     const lasterData =
-        meldingerLaster ||
-        sykmeldingerLaster ||
-        soknaderLaster ||
-        oppfolgingsplanerLaster ||
-        dialogmoteBehovLaster
+        meldingerLaster || sykmeldingerLaster || soknaderLaster || oppfolgingsplanerLaster || dialogmoteBehovLaster
 
     return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} lasterData={lasterData} />
 }
