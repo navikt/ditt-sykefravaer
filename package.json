@@ -55,7 +55,7 @@
         "jest-environment-jsdom": "^29.6.2",
         "jest-react-hooks-shallow": "^1.5.1",
         "next": "^13.4.4",
-        "postcss": "^8.4.24",
+        "postcss": "^8.4.28",
         "prettier": "^2.8.8",
         "prettier-plugin-tailwindcss": "^0.3.0",
         "start-server-and-test": "^2.0.0",
