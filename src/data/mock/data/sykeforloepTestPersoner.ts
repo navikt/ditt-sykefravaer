@@ -53,7 +53,6 @@ export const sykeforloepTestPerson = (): Persona => {
             skjemaType: null,
             motebehov: null,
         },
-        brev: [],
     }
 }
 

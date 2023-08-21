@@ -114,9 +114,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
 
             return sendJson(testperson.oppfolgingsplaner)
 
-        case 'GET /api/isdialogmote/api/v2/arbeidstaker/brev':
-            return sendJson(testperson.brev)
-
         case 'GET /api/syfomotebehov/syfomotebehov/api/v3/arbeidstaker/motebehov':
             return sendJson(testperson.dialogmoteBehov)
 

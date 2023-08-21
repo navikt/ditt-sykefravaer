@@ -3,7 +3,6 @@ import dayjs from 'dayjs'
 import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
 import { tekst } from '../../../utils/tekster'
 
-import { brev } from './brev'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from './oppfolgingsplaner'
 import { Persona } from './persona'
 import { soknader } from './soknader'
@@ -24,7 +23,6 @@ export const commonPersona = (): Persona => {
             skjemaType: null,
             motebehov: null,
         },
-        brev: [],
     }
 }
 
@@ -37,7 +35,6 @@ export const enNySykmelding: Persona = {
     sykmeldinger: [nySykmelding],
     narmesteledere: [],
     arbeidsrettetOppfolging: { erUnderOppfolging: false },
-    brev: [],
 }
 
 export const enAvvistSykmelding: Persona = {
@@ -57,7 +54,6 @@ export const enAvvistSykmelding: Persona = {
     ],
     narmesteledere: [],
     arbeidsrettetOppfolging: { erUnderOppfolging: false },
-    brev: [],
 }
 
 export const kunEnSoknad = () => {
@@ -178,5 +174,4 @@ export const defaultPersona: Persona = {
         },
     ],
     arbeidsrettetOppfolging: { erUnderOppfolging: true },
-    brev: brev,
 }

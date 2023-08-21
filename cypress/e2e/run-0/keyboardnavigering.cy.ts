@@ -29,8 +29,6 @@ describe('Keyboard navigering', () => {
         )
         cy.realPress('Tab')
         cy.focused().should('have.text', 'Du har en oppfølgingsplan som venter på godkjenning av deg')
-        cy.realPress('Tab')
-        cy.focused().should('have.text', 'Du er innkalt til dialogmøte - vi trenger svaret ditt')
 
         cy.realPress('Tab')
         cy.focused().should('have.css', 'box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')

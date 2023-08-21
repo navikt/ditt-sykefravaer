@@ -2,7 +2,6 @@ import { XMarkIcon } from '@navikt/aksel-icons'
 import { Alert, BodyShort, Button, Link as Lenke, Skeleton } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import useBrev from '../../hooks/useBrev'
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
@@ -13,7 +12,6 @@ import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 import { fetchMedRequestId } from '../../utils/fetch'
 
-import { skapBrevOppgaver } from './brevOppgaver'
 import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
@@ -138,7 +136,6 @@ function Oppgaver() {
     const { data: soknader, isLoading: soknaderLaster } = useSoknader()
     const { data: oppfolgingsplaner, isLoading: oppfolgingsplanerLaster } = useOppfolgingsplaner()
     const { data: dialogmoteBehov, isLoading: dialogmoteBehovLaster } = useDialogmoteBehov()
-    const { data: brev, isLoading: brevLaster } = useBrev()
 
     const [lukkede, setLukkede] = useState([] as string[])
 
@@ -151,7 +148,6 @@ function Oppgaver() {
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
     const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)
 
-    const brevOppgaver = skapBrevOppgaver(brev, dialogmoteUrl())
     const meldingerOppgaver = skapMeldinger(meldinger)
 
     const tasks = [
@@ -159,16 +155,10 @@ function Oppgaver() {
         ...soknadOppgaver,
         ...oppfolgingsplanoppgaver,
         ...dialogmoteBehovOppgaver,
-        ...brevOppgaver,
         ...meldingerOppgaver,
     ].filter((o) => !o.id || !lukkede.includes(o.id))
     const lasterData =
-        meldingerLaster ||
-        sykmeldingerLaster ||
-        soknaderLaster ||
-        oppfolgingsplanerLaster ||
-        dialogmoteBehovLaster ||
-        brevLaster
+        meldingerLaster || sykmeldingerLaster || soknaderLaster || oppfolgingsplanerLaster || dialogmoteBehovLaster
 
     return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} lasterData={lasterData} />
 }

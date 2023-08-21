@@ -28,7 +28,6 @@ env:
   SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:teamsykmelding:sykmeldinger-backend
   NARMESTELEDER_CLIENT_ID: dev-gcp:teamsykmelding:narmesteleder
   SYKEPENGESOKNAD_BACKEND_CLIENT_ID: dev-gcp:flex:sykepengesoknad-backend
-  ISDIALOGMOTE_CLIENT_ID: dev-gcp:teamsykefravr:isdialogmote
   SYFOMOTEBEHOV_CLIENT_ID: dev-fss:team-esyfo:syfomotebehov
   SYFOMOTEBEHOV_URL: https://syfomotebehov.dev-fss-pub.nais.io
   SYFOMOTEBEHOV_HOST: syfomotebehov.dev-fss-pub.nais.io
