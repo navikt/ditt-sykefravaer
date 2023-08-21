@@ -34,7 +34,7 @@
     },
     "devDependencies": {
         "@cypress/webpack-preprocessor": "^5.17.1",
-        "@navikt/eslint-config-teamsykmelding": "^1.7.0",
+        "@navikt/eslint-config-teamsykmelding": "^3.0.0",
         "@testing-library/jest-dom": "^5.16.5",
         "@testing-library/react": "^14.0.0",
         "@types/cookie": "^0.5.1",
