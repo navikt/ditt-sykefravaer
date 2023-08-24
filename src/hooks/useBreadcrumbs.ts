@@ -67,7 +67,6 @@ export function createInntektsmeldingBreadcrumbs(): [Breadcrumb, LastCrumb] {
 }
 
 export enum SsrPathVariants {
-    Root = '/',
     NotFound = '/404',
     ServerError = '/500',
     DittSykefravaer = '/',
@@ -76,7 +75,6 @@ export enum SsrPathVariants {
 
 export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
     switch (pathname) {
-        case SsrPathVariants.Root:
         case SsrPathVariants.NotFound:
         case SsrPathVariants.ServerError:
         case SsrPathVariants.DittSykefravaer:
