@@ -88,7 +88,5 @@ describe('Keyboard navigering', () => {
         cy.contains(
             'Vi har varslet jobben din om å sende inntektsmeldingen, men vi kan ikke se at vi har fått den ennå.',
         ).should('be.visible')
-
-        cy.realPress('Tab')
     })
 })
