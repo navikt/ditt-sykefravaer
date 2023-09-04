@@ -1,9 +1,7 @@
 describe('Keyboard navigering', () => {
     it('Vi navigerer forsiden med mange elementer', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer')
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
-        cy.get('#maincontent').should('be.visible')
+        cy.contains('Du har en ny søknad om sykepenger').should('be.visible')
         cy.get('#maincontent').focus() //Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
         cy.realPress('Tab')
@@ -64,9 +62,9 @@ describe('Keyboard navigering', () => {
 
     it('Vi navigerer forsiden med lenke til mangelnde inntektsmelding', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
-        // eslint-disable-next-line cypress/no-unnecessary-waiting
-        cy.wait(1000)
-        cy.get('#maincontent').should('be.visible')
+        cy.contains(
+            'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
+        ).should('be.visible')
         cy.get('#maincontent').focus() //Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
         cy.realPress('Tab')
