@@ -19,6 +19,9 @@ import './commands'
 import { Result } from 'axe-core'
 
 before(() => {
+    // Skjuler hint så den ikke ligger over andre elementer
+    localStorage.setItem('devtools-hint', 'false')
+    // Resetter testdata sånn at alle tester kan kjøres på nytt lokalt
     cy.clearCookies()
 })
 
