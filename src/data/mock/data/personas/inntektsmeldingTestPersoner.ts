@@ -1,9 +1,12 @@
-import { commonPersona } from './personas'
-import { sendtSykmelding } from './sykmeldinger'
+import { Persona } from '../../testperson'
+import { sendtSykmelding } from '../sykmeldinger'
 
-export const manglerInntektsmelding = () => {
-    const person = commonPersona()
-    person.meldinger = [
+import { commonPersona } from './personas'
+
+export const manglerInntektsmelding: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
         {
             uuid: '123456y7',
             tekst: 'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
@@ -13,14 +16,14 @@ export const manglerInntektsmelding = () => {
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
-    ]
-    person.sykmeldinger = [sendtSykmelding]
-    return person
+    ],
+    beskrivelse: 'Person som har oppgave om manglende inntektsmelding fra arbeidsgiver',
 }
 
-export const mottattInntektsmelding = () => {
-    const person = commonPersona()
-    person.meldinger = [
+export const mottattInntektsmelding: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
         {
             uuid: '123456y7',
             tekst: 'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
@@ -29,7 +32,6 @@ export const mottattInntektsmelding = () => {
             lukkbar: true,
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
-    ]
-    person.sykmeldinger = [sendtSykmelding]
-    return person
+    ],
+    beskrivelse: 'Person som har oppgave når arbeidsgiver har sendt inn inntektsmelding',
 }

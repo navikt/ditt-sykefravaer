@@ -1,0 +1,78 @@
+import { Persona } from '../../testperson'
+import { nyttVedtakMed100Grad, vedtakMed100Grad } from '../vedtak'
+import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykmeldinger'
+import { arbeidstaker100 } from '../soknader'
+import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
+
+type PersonaUtenBeskrivelse = Omit<Persona, 'beskrivelse'>
+export const commonPersona = (): PersonaUtenBeskrivelse => {
+    return {
+        soknader: [],
+        vedtak: [],
+        sykmeldinger: [],
+        narmesteledere: [],
+        arbeidsrettetOppfolging: { erUnderOppfolging: false },
+        oppfolgingsplaner: [],
+        dialogmoteBehov: {
+            visMotebehov: false,
+            skjemaType: null,
+            motebehov: null,
+        },
+        meldinger: [],
+    }
+}
+
+export const defaultPersona: Persona = {
+    soknader: [arbeidstaker100],
+    meldinger: [],
+    vedtak: [vedtakMed100Grad, nyttVedtakMed100Grad],
+    oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
+    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+    sykmeldinger: [
+        sendtSykmelding,
+        {
+            ...sendtSykmelding,
+            sykmeldingStatus: {
+                statusEvent: 'SENDT',
+                arbeidsgiver: {
+                    orgnummer: '972674819',
+                    orgNavn: 'Diagon Alley',
+                },
+            },
+        },
+        {
+            ...sendtSykmelding,
+            sykmeldingStatus: {
+                statusEvent: 'SENDT',
+                arbeidsgiver: {
+                    orgnummer: '972674820',
+                    orgNavn: 'Gloucester Cathedral',
+                },
+            },
+        },
+        bekreftetSykmelding,
+        avvistSykmelding,
+    ],
+    narmesteledere: [
+        {
+            navn: 'Albus Dumbledore',
+            orgnummer: '972674818',
+            arbeidsgiverForskutterer: true,
+            aktivFom: '2021-03-19',
+        },
+        {
+            navn: 'Severus Snape',
+            orgnummer: '972674819',
+            arbeidsgiverForskutterer: true,
+            aktivFom: '2021-03-19',
+        },
+        {
+            navn: 'Charity Burbage',
+            orgnummer: '972674820',
+            arbeidsgiverForskutterer: true,
+            aktivFom: '2021-03-20',
+        },
+    ],
+    arbeidsrettetOppfolging: { erUnderOppfolging: true },
+    beskrivelse: 'Person med det meste',
+}

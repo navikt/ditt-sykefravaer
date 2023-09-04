@@ -33,3 +33,38 @@ export const sendtSykmelding: Sykmelding = {
     ],
     syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
 }
+
+export const bekreftetSykmelding: Sykmelding = {
+    id: 'APEN',
+    sykmeldingStatus: {
+        statusEvent: 'BEKREFTET',
+        sporsmalOgSvarListe: [
+            {
+                shortName: 'FORSIKRING',
+                svar: { svarType: 'JA_NEI', svar: 'JA' },
+            },
+            {
+                shortName: 'FRAVAER',
+                svar: { svarType: 'JA_NEI', svar: 'NEI' },
+            },
+            {
+                shortName: 'ARBEIDSSITUASJON',
+                svar: {
+                    svarType: 'ARBEIDSSITUASJON',
+                    svar: 'FRILANSER',
+                },
+            },
+        ],
+    },
+    behandlingsutfall: { status: 'OK' },
+    sykmeldingsperioder: [{ fom: '2021-03-15', tom: '2021-03-19' }],
+    syketilfelleStartDato: '2021-03-01',
+}
+
+export const avvistSykmelding: Sykmelding = {
+    id: 'AVVIST',
+    sykmeldingStatus: { statusEvent: 'APEN' },
+    behandlingsutfall: { status: 'INVALID' },
+    sykmeldingsperioder: [{ fom: '2021-03-19', tom: '2021-03-19' }],
+    syketilfelleStartDato: '2021-03-01',
+}

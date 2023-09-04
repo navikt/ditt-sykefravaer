@@ -1,53 +1,91 @@
 import { jsonDeepCopy } from '../../utils/jsonDeepCopy'
+import { Soknad } from '../../types/soknad'
+import { RSVedtakWrapper } from '../../types/vedtak'
+import { Sykmelding } from '../../types/sykmelding'
+import { NarmesteLeder } from '../../types/narmesteLeder'
+import { ArbeidsrettetOppfolging } from '../../types/arbeidsrettetOppfolging'
+import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
+import { DialogmoteBehov } from '../../types/dialogmoteBehov'
+import { Melding } from '../../types/melding'
 
-import { manglerInntektsmelding, mottattInntektsmelding } from './data/inntektsmeldingTestPersoner'
+import { clsPerson } from './data/personas/clsPerson'
+import { forskuttererIkkePerson, snartSluttPerson } from './data/personas/sykeforloepTestPersoner'
+import { defaultPersona } from './data/personas/personas'
 import {
     enNyOppfolgingsplan,
     enNyTilGodkjenning,
     toNyeOppfolgingsplaner,
     toTilGodkjenning,
-} from './data/oppfolginsplanTestPersoner'
-import { Persona } from './data/persona'
-import { commonPersona, defaultPersona, enAvvistSykmelding, enNySykmelding, kunEnSoknad } from './data/personas'
-import { forskuttererIkke, snartSlutt } from './data/sykeforloepTestPersoner'
-import { clsPerson } from './data/clsPerson'
+} from './data/personas/oppfolginsplanTestPersoner'
+import { manglerInntektsmelding, mottattInntektsmelding } from './data/personas/inntektsmeldingTestPersoner'
+import { enAvvistSykmeldingPerson, enNySykmelding } from './data/personas/sykmeldingPersoner'
+import { kunEnSoknadPerson } from './data/personas/kunEnSoknadPerson'
+import { heltFriskPerson } from './data/personas/heltFriskPerson'
 
-export enum PersonaKeys {
-    'default' = 'default',
-    'helt-frisk' = 'helt-frisk',
-    'en-ny-sykmelding' = 'en-ny-sykmelding',
-    'en-avvist-sykmelding' = 'en-avvist-sykmelding',
-    'en-ny-oppfolgingsplan' = 'en-ny-oppfolgingsplan',
-    'to-nye-oppfolgingsplaner' = 'to-nye-oppfolgingsplaner',
-    'to-nye-oppfolgingsplaner-til-godkjenning' = 'to-nye-oppfolgingsplaner-til-godkjenning',
-    'en-ny-oppfolgingsplan-til-godkjenning' = 'en-ny-oppfolgingsplan-til-godkjenning',
-    'snart-slutt' = 'snart-slutt',
-    'arbeidsgiver-forskutterer-ikke' = 'arbeidsgiver-forskutterer-ikke',
-    'mangler-inntektsmelding' = 'mangler-inntektsmelding',
-    'mottatt-inntektsmelding' = 'mottatt-inntektsmelding',
-    'kun-en-soknad' = 'kun-en-soknad',
-    'cummulative-layout-shift' = 'cummulative-layout-shift',
+export interface Persona {
+    soknader: Soknad[]
+    vedtak: RSVedtakWrapper[]
+    sykmeldinger: Sykmelding[]
+    narmesteledere: NarmesteLeder[]
+    arbeidsrettetOppfolging: ArbeidsrettetOppfolging
+    oppfolgingsplaner: Oppfolgingsplan[]
+    dialogmoteBehov: DialogmoteBehov
+    meldinger: Melding[]
+    beskrivelse: string
 }
 
-type PersonaData = Record<PersonaKeys, Persona>
+export type PersonaKey =
+    | 'default'
+    | 'helt-frisk'
+    | 'en-ny-sykmelding'
+    | 'en-avvist-sykmelding'
+    | 'en-ny-oppfolgingsplan'
+    | 'to-nye-oppfolgingsplaner'
+    | 'to-nye-oppfolgingsplaner-til-godkjenning'
+    | 'en-ny-oppfolgingsplan-til-godkjenning'
+    | 'snart-slutt'
+    | 'arbeidsgiver-forskutterer-ikke'
+    | 'mangler-inntektsmelding'
+    | 'mottatt-inntektsmelding'
+    | 'kun-en-soknad'
+    | 'cummulative-layout-shift'
+
+export type PersonaData = Partial<Record<PersonaKey, Persona>>
+
+export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing'
+type PersonaGroup = Record<PersonaGroupKey, PersonaData>
 
 export function testpersoner(): PersonaData {
-    const data: PersonaData = {
-        [PersonaKeys['default']]: jsonDeepCopy(defaultPersona),
-        [PersonaKeys['helt-frisk']]: jsonDeepCopy(commonPersona()),
-        [PersonaKeys['en-ny-sykmelding']]: jsonDeepCopy(enNySykmelding),
-        [PersonaKeys['en-avvist-sykmelding']]: jsonDeepCopy(enAvvistSykmelding),
-        [PersonaKeys['en-ny-oppfolgingsplan']]: jsonDeepCopy(enNyOppfolgingsplan()),
-        [PersonaKeys['to-nye-oppfolgingsplaner']]: jsonDeepCopy(toNyeOppfolgingsplaner()),
-        [PersonaKeys['en-ny-oppfolgingsplan-til-godkjenning']]: jsonDeepCopy(enNyTilGodkjenning()),
-        [PersonaKeys['to-nye-oppfolgingsplaner-til-godkjenning']]: jsonDeepCopy(toTilGodkjenning()),
-        [PersonaKeys['snart-slutt']]: jsonDeepCopy(snartSlutt()),
-        [PersonaKeys['arbeidsgiver-forskutterer-ikke']]: jsonDeepCopy(forskuttererIkke()),
-        [PersonaKeys['mangler-inntektsmelding']]: jsonDeepCopy(manglerInntektsmelding()),
-        [PersonaKeys['mottatt-inntektsmelding']]: jsonDeepCopy(mottattInntektsmelding()),
-        [PersonaKeys['kun-en-soknad']]: jsonDeepCopy(kunEnSoknad()),
-        [PersonaKeys['cummulative-layout-shift']]: jsonDeepCopy(clsPerson()),
-    }
+    let alle: PersonaData = {}
+    Object.values(testpersonerGruppert()).forEach((group) => {
+        alle = { ...alle, ...group }
+    })
+    return alle
+}
 
-    return data
+export function testpersonerGruppert(): PersonaGroup {
+    return {
+        ['blanding']: {
+            ['helt-frisk']: jsonDeepCopy(heltFriskPerson),
+            ['default']: jsonDeepCopy(defaultPersona),
+        },
+        ['soknader-og-sykmeldinger']: {
+            ['kun-en-soknad']: jsonDeepCopy(kunEnSoknadPerson),
+            ['en-ny-sykmelding']: jsonDeepCopy(enNySykmelding),
+            ['en-avvist-sykmelding']: jsonDeepCopy(enAvvistSykmeldingPerson),
+        },
+        ['oppgaver']: {
+            ['en-ny-oppfolgingsplan']: jsonDeepCopy(enNyOppfolgingsplan),
+            ['to-nye-oppfolgingsplaner']: jsonDeepCopy(toNyeOppfolgingsplaner),
+            ['en-ny-oppfolgingsplan-til-godkjenning']: jsonDeepCopy(enNyTilGodkjenning),
+            ['to-nye-oppfolgingsplaner-til-godkjenning']: jsonDeepCopy(toTilGodkjenning),
+            ['snart-slutt']: jsonDeepCopy(snartSluttPerson),
+            ['arbeidsgiver-forskutterer-ikke']: jsonDeepCopy(forskuttererIkkePerson),
+            ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
+            ['mottatt-inntektsmelding']: jsonDeepCopy(mottattInntektsmelding),
+        },
+        ['testing']: {
+            ['cummulative-layout-shift']: jsonDeepCopy(clsPerson),
+        },
+    }
 }
