@@ -4,9 +4,8 @@ describe('Tester snart slutt oppgave ', () => {
 
         cy.contains('Snart slutt på sykepengene')
         cy.get('[data-cy="oppgaver"]')
-            .children()
-            .children()
-            .eq(1)
+            .should('have.length', '1')
+            .first()
             .contains('Snart slutt på sykepengene')
             .should('have.attr', 'href', 'https://demo.ekstern.dev.nav.no/syk/info/snart-slutt-pa-sykepengene')
     })
