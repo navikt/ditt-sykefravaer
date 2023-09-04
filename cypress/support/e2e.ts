@@ -18,6 +18,10 @@ import 'cypress-real-events'
 import './commands'
 import { Result } from 'axe-core'
 
+before(() => {
+    cy.clearCookies()
+})
+
 afterEach(() => {
     setupAxe()
 })

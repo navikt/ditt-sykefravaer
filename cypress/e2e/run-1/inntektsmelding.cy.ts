@@ -1,7 +1,5 @@
 describe('Tester inntektsmelding', () => {
     it('Har inntektsmelding varsel og riktig innhold', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
 
         cy.get('[data-cy="oppgaver"]')
@@ -25,8 +23,6 @@ describe('Tester inntektsmelding', () => {
     })
 
     it('Mottatt inntektsmelding varsel kan lukkes', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mottatt-inntektsmelding')
 
         cy.get('[data-cy="oppgaver"]')
@@ -41,5 +37,3 @@ describe('Tester inntektsmelding', () => {
         cy.get('[data-cy="oppgaver"]').should('not.exist')
     })
 })
-
-export {}

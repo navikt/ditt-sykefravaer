@@ -1,7 +1,5 @@
 describe('Inline feedback', () => {
     before(() => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer')
     })
 

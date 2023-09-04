@@ -1,7 +1,5 @@
 describe('Tester oppfølgingsplan oppgaver', () => {
     it('En ny oppgave', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=en-ny-oppfolgingsplan')
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
@@ -9,8 +7,6 @@ describe('Tester oppfølgingsplan oppgaver', () => {
     })
 
     it('To nye oppgaver', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=to-nye-oppfolgingsplaner')
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
@@ -18,8 +14,6 @@ describe('Tester oppfølgingsplan oppgaver', () => {
     })
 
     it('En til godkjenning', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=en-ny-oppfolgingsplan-til-godkjenning')
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
@@ -27,13 +21,9 @@ describe('Tester oppfølgingsplan oppgaver', () => {
     })
 
     it('To til godkjenning', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=to-nye-oppfolgingsplaner-til-godkjenning')
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
             .contains('Du har to oppfølgingsplaner som venter på godkjenning av deg')
     })
 })
-
-export {}

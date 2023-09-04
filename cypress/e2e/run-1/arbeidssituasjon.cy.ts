@@ -1,7 +1,5 @@
 describe('Tester arbeidssituasjon', () => {
     it('Bruker med flere arbeidsgivere', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=default')
 
         cy.get('[data-cy="din-situasjon"]')
@@ -60,8 +58,6 @@ describe('Tester arbeidssituasjon', () => {
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
         cy.get('[data-cy="situasjon-innhold"]')
@@ -101,8 +97,6 @@ describe('Tester arbeidssituasjon', () => {
     })
 
     it('Arbeidsgiver forskutterer ikke', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
 
         cy.get('[data-cy="situasjon-innhold"]')
@@ -125,5 +119,3 @@ describe('Tester arbeidssituasjon', () => {
             )
     })
 })
-
-export {}

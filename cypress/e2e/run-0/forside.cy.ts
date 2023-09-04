@@ -1,7 +1,5 @@
 describe('Tester visning av forside', () => {
     before(() => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer')
     })
 
@@ -10,5 +8,3 @@ describe('Tester visning av forside', () => {
         cy.contains('Du har en ny søknad om sykepenger')
     })
 })
-
-export {}

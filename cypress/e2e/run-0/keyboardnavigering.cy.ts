@@ -1,7 +1,5 @@
 describe('Keyboard navigering', () => {
     it('Vi navigerer forsiden med mange elementer', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer')
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
@@ -65,8 +63,6 @@ describe('Keyboard navigering', () => {
     })
 
     it('Vi navigerer forsiden med lenke til mangelnde inntektsmelding', () => {
-        cy.clearCookies()
-
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
         // eslint-disable-next-line cypress/no-unnecessary-waiting
         cy.wait(1000)
@@ -96,5 +92,3 @@ describe('Keyboard navigering', () => {
         cy.realPress('Tab')
     })
 })
-
-export {}
