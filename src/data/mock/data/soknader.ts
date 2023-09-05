@@ -10,6 +10,5 @@ export const arbeidstaker100: Soknad = {
 }
 
 export const sendtSoknad: Soknad = jsonDeepCopy(arbeidstaker100)
-sendtSoknad.status = 'SENDT'
 sendtSoknad.id = 'faba11f5-c4f2-4647-8c8a-58b28ce2f388'
-export const soknader: Soknad[] = [arbeidstaker100]
+sendtSoknad.status = 'SENDT'

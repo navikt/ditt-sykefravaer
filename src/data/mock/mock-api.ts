@@ -9,8 +9,7 @@ import { nextleton } from 'nextleton'
 
 import { cleanPathForMetric } from '../../metrics'
 
-import { PersonaKeys, testpersoner } from './testperson'
-import { Persona } from './data/persona'
+import { Persona, testpersoner } from './testperson'
 
 type session = {
     expires: dayjs.Dayjs
@@ -54,10 +53,10 @@ export function getSession(
     return sessionStore[sessionId]
 }
 
-function nokkel(req: NextApiRequest): PersonaKeys {
+function nokkel(req: NextApiRequest): string {
     const query = req.query['testperson']
-    if (query) return query.toString() as PersonaKeys
-    return 'default' as PersonaKeys
+    if (query) return query.toString()
+    return 'default'
 }
 
 export function hentTestperson(req: NextApiRequest, res: NextApiResponse): Persona {
