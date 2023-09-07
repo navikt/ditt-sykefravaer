@@ -45,7 +45,7 @@
         "@types/uuid": "^9.0.3",
         "autoprefixer": "^10.4.15",
         "axe-core": "^4.7.2",
-        "cypress": "^12.17.4",
+        "cypress": "^13.1.0",
         "cypress-axe": "^1.4.0",
         "cypress-real-events": "^1.10.0",
         "eslint": "^8.48.0",
