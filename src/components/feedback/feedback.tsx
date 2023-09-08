@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, ButtonProps, Heading, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
+import { Alert, Button, ButtonProps, Heading, Label, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { FaceSmileIcon } from '@navikt/aksel-icons'
 import dayjs from 'dayjs'
@@ -147,7 +147,9 @@ export const Feedback = () => {
         <section aria-label="Tilbakemelding på ditt sykefravær siden">
             <div className="w:full mt-16 md:w-3/4" data-cy="feedback-wrapper">
                 <div className="mt-1 rounded-xl bg-surface-subtle p-6">
-                    <BodyShort className="mb-6">Fant du den informasjonen du trengte?</BodyShort>
+                    <Label as="p" className="mb-6">
+                        Fant du den informasjonen du trengte?
+                    </Label>
                     <div className="flex w-full gap-2">
                         <FeedbackButton feedbacktype={Feedbacktype.JA}>Ja</FeedbackButton>
                         <FeedbackButton feedbacktype={Feedbacktype.NEI}>Nei</FeedbackButton>
