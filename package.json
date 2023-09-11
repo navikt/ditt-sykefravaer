@@ -47,7 +47,7 @@
         "axe-core": "^4.7.2",
         "cypress": "^12.17.4",
         "cypress-axe": "^1.4.0",
-        "cypress-real-events": "^1.10.0",
+        "cypress-real-events": "^1.10.2",
         "eslint": "^8.48.0",
         "eslint-config-next": "^13.4.19",
         "eslint-plugin-cypress": "^2.14.0",
