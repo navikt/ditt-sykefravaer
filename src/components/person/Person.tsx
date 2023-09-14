@@ -66,7 +66,7 @@ export default function Person() {
                     if (showHint) dismissHint()
                     setOpenState(false)
                 }}
-                className="h-screen max-w-[369px] rounded-none"
+                className="h-screen max-h-max max-w-[369px] rounded-none p-0 left-auto m-0"
                 header={{
                     heading: 'Testdataverktøy',
                 }}

@@ -19,7 +19,7 @@ describe('Keyboard navigering', () => {
         cy.realPress('Tab')
         // Stylingen er ikke fokusert igjen
         cy.contains('Du har en ny søknad om sykepenger')
-            .should('have.css', 'color', 'rgb(38, 38, 38)')
+            .should('have.css', 'color', 'rgb(35, 38, 42)')
             .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
 
         // eslint-disable-next-line cypress/unsafe-to-chain-command

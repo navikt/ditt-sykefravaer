@@ -19,7 +19,7 @@ const Arbeidssituasjon = () => {
         return (
             <>
                 <Skeleton variant="rectangle" height="30px" className="mb-4 mt-8" />
-                <Skeleton variant="rectangle" height="178px" />
+                <Skeleton variant="rectangle" height="170px" />
                 <Skeleton variant="rectangle" height="52px" className="mb-2" />
             </>
         )
