@@ -1,4 +1,4 @@
-import { Alert, BodyLong, Button, Heading, Link, Modal } from '@navikt/ds-react'
+import { Alert, BodyLong, Button, Modal } from '@navikt/ds-react'
 import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../hooks/useAvkreftNarmesteLeder'
@@ -18,17 +18,15 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
     return (
         <Modal
             open={open}
-            shouldCloseOnOverlayClick={false}
-            closeButton={true}
-            onClose={toggle}
             className="w-96"
             aria-label="Endre nærmeste leder"
+            header={{
+                heading: 'Endre nærmeste leder',
+                closeButton: false,
+                size: 'small',
+            }}
         >
-            <Modal.Content>
-                <Heading spacing size="small" level="3">
-                    Endre nærmeste leder
-                </Heading>
-
+            <Modal.Body>
                 <Vis
                     hvis={isError}
                     render={() => (
@@ -43,22 +41,21 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt
                     det.
                 </BodyLong>
-
-                <div className="flex flex-col items-center py-2 pb-4">
-                    <Button
-                        variant="danger"
-                        className="my-2"
-                        loading={isLoading}
-                        disabled={isLoading || isSuccess}
-                        onClick={() => avkreft()}
-                    >
-                        Ja, jeg er sikker
-                    </Button>
-                    <Link as="button" className="my-2" onClick={toggle}>
-                        Avbryt
-                    </Link>
-                </div>
-            </Modal.Content>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button
+                    variant="danger"
+                    loading={isLoading}
+                    type="button"
+                    disabled={isLoading || isSuccess}
+                    onClick={() => avkreft()}
+                >
+                    Ja, jeg er sikker
+                </Button>
+                <Button variant="secondary" onClick={toggle} type="button">
+                    Avbryt
+                </Button>
+            </Modal.Footer>
         </Modal>
     )
 }
