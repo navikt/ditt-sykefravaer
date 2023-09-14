@@ -39,12 +39,9 @@ export const byttTekstInnhold = (text: string, data: StringMap): string => {
 
 export const tekst = (tekst: TekstKeys, data?: StringMap): string => {
     const verdi = tekster[tekst]
-    // Generiskfeilmelding har ingen tekst
-    if (!verdi === undefined && !tekst.includes('soknad.feilmelding')) {
-        logger.error(`Mangler teksten [ ${tekst} ]`)
-        return tekst
-    }
+
     if (verdi === undefined) {
+        logger.error(`Mangler teksten [ ${tekst} ].`)
         return tekst
     }
     if (data) {
