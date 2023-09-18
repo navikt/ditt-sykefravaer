@@ -1,9 +1,9 @@
 import React from 'react'
-import { BodyShort, Heading, Label } from '@navikt/ds-react'
+import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
+import Link from 'next/link'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
-import { Banner } from '../components/banner/Banner'
 import { useInntektsmeldinger } from '../hooks/useInntektsmeldinger'
 
 const Inntektsmeldinger = () => {
@@ -15,16 +15,24 @@ const Inntektsmeldinger = () => {
 
     return (
         <>
-            <Banner tittel="Inntektsmeldinger" />
+            <Heading size="large" level="1">
+                Inntektsmeldinger
+            </Heading>
+
             {inntektsmeldinger?.map((inntektsmelding) => (
-                <div key={inntektsmelding.inntektsmeldingId}>
-                    <Heading level="2" size="medium" spacing>
-                        {inntektsmelding.organisasjonsnavn}
-                    </Heading>
-                    <BodyShort spacing>{'Første fraværsdag: ' + inntektsmelding.foersteFravaersdag}</BodyShort>
-                    <BodyShort spacing>{'Beregnet inntekt: ' + inntektsmelding.beregnetInntekt}</BodyShort>
-                    <BodyShort spacing>{'Mottatt dato: ' + inntektsmelding.mottattDato}</BodyShort>
-                </div>
+                <Link
+                    href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
+                    key={inntektsmelding.inntektsmeldingId}
+                >
+                    <LinkPanel className="mt-4">
+                        <div>
+                            <Heading size="small" level="2">
+                                {inntektsmelding.organisasjonsnavn}
+                            </Heading>
+                            <BodyShort> {inntektsmelding.mottattDato}</BodyShort>
+                        </div>
+                    </LinkPanel>
+                </Link>
             ))}
         </>
     )
