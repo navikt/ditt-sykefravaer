@@ -31,8 +31,6 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.navds-modal').should('not.exist')
-
         cy.get('[data-cy="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
@@ -52,9 +50,9 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-modal').should('be.visible')
 
         cy.get('.navds-modal').contains('Avbryt').click()
-        cy.get('.navds-modal').should('not.exist')
+        cy.get('.navds-modal').should('not.be.visible')
         cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral')
-        cy.get('.navds-modal').should('not.exist')
+        cy.get('.navds-modal').should('not.be.visible')
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
@@ -81,7 +79,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.navds-modal').should('not.exist')
+        cy.get('.navds-modal').should('not.be.visible')
 
         cy.get('[data-cy="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
@@ -108,7 +106,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('.navds-modal').should('not.exist')
+        cy.get('.navds-modal').should('not.be.visible')
 
         cy.get('[data-cy="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')

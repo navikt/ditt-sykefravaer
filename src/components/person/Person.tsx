@@ -66,15 +66,14 @@ export default function Person() {
                     if (showHint) dismissHint()
                     setOpenState(false)
                 }}
-                className="h-screen max-w-[369px] rounded-none"
-                overlayClassName="p-0 justify-end"
+                className="h-screen max-h-max max-w-[369px] rounded-none p-0 left-auto m-0"
+                header={{
+                    heading: 'Testdataverktøy',
+                }}
             >
-                <Modal.Content>
-                    <Heading size="medium" spacing level="3">
-                        Testdataverktøy
-                    </Heading>
+                <Modal.Body>
                     <PersonPicker />
-                </Modal.Content>
+                </Modal.Body>
             </Modal>
         </>
     )

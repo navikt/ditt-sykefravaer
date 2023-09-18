@@ -1,5 +1,4 @@
-import { Modal } from '@navikt/ds-react'
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
@@ -14,12 +13,6 @@ import Oppgaver from '../components/oppgaver/Oppgaver'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
-
-    useEffect(() => {
-        // eslint-disable-next-line
-        // @ts-ignore
-        Modal.setAppElement('#root')
-    }, [])
 
     return (
         <>
