@@ -4,6 +4,8 @@ import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykme
 import { arbeidstaker100 } from '../soknader'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
 
+import { altinnInntektsmelding } from './inntektsmeldinger'
+
 type PersonaUtenBeskrivelse = Omit<Persona, 'beskrivelse'>
 export const commonPersona = (): PersonaUtenBeskrivelse => {
     return {
@@ -28,6 +30,7 @@ export const defaultPersona: Persona = {
     vedtak: [vedtakMed100Grad, nyttVedtakMed100Grad],
     oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
     dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
+    inntektsmeldinger: [altinnInntektsmelding],
     sykmeldinger: [
         sendtSykmelding,
         {

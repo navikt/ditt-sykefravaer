@@ -4,7 +4,7 @@ import React from 'react'
 import { logEvent } from '../amplitude/amplitude'
 
 interface FellesLenkepanelProps {
-    url: string
+    url?: string
     ikon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>
     tekst: string
     undertekst?: string
@@ -32,13 +32,17 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
         <LinkPanel
             className="mb-2"
             onClick={(e) => {
-                e.preventDefault()
-                logEvent('navigere', {
-                    destinasjon: props.url,
-                    lenketekst: props.tekst,
-                    komponent: 'ditt sykefravær lenkepanel',
-                })
-                window.location.href = props.url
+                if (props.url) {
+                    e.preventDefault()
+
+                    logEvent('navigere', {
+                        destinasjon: props.url,
+                        lenketekst: props.tekst,
+                        komponent: 'ditt sykefravær lenkepanel',
+                    })
+
+                    window.location.href = props.url
+                }
             }}
             href={props.url}
             border={true}
