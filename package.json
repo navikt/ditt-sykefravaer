@@ -30,7 +30,7 @@
         "react-dom": "^18.2.0",
         "react-modal": "^3.16.1",
         "tailwind-merge": "^1.14.0",
-        "uuid": "^9.0.0"
+        "uuid": "^9.0.1"
     },
     "devDependencies": {
         "@cypress/webpack-preprocessor": "^5.17.1",
@@ -42,7 +42,7 @@
         "@types/node": "^20.5.4",
         "@types/react": "^18.2.21",
         "@types/react-dom": "^18.2.7",
-        "@types/uuid": "^9.0.3",
+        "@types/uuid": "^9.0.4",
         "autoprefixer": "^10.4.15",
         "axe-core": "^4.8.1",
         "cypress": "^12.17.4",
