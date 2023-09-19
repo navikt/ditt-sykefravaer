@@ -9,9 +9,15 @@ export interface Inntektsmelding {
     organisasjonsnavn: string
     virksomhetsnummer: string
     arbeidsgiverperioder: Periode[]
+    opphoerAvNaturalytelser: OpphoerAvNaturalytelser[]
 }
 
 export interface Periode {
     fom: string
     tom: string
+}
+
+export interface OpphoerAvNaturalytelser {
+    fom?: string
+    natuiralytelse: string
 }

@@ -1,10 +1,8 @@
-import { Alert, BodyLong, BodyShort, Heading, Label, Skeleton } from '@navikt/ds-react'
+import { BodyLong, Heading, Label } from '@navikt/ds-react'
 import React from 'react'
 
 import { Inntektsmelding } from '../../types/inntektsmelding'
 
-import { Person } from './Person'
-import Skillelinje from './Skillelinje/Skillelinje'
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
 import { formatDateFromString } from './formatDate'
 
@@ -15,80 +13,67 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     return (
         <>
             <Heading level="1" size="large" spacing>
-                {inntektsmelding?.organisasjonsnavn}
+                {'Inntektsmelding' + ' - ' + formatDateFromString(inntektsmelding?.foersteFravaersdag)}
             </Heading>
-            <Alert variant="info" className="mb-4">
-                Hvis du finner feil i denne informasjonen, kontakt din arbeidsgiver slik at de kan sende en ny
-                inntektsmelding
-            </Alert>
 
-            <div>
-                <Person inntektsmelding={inntektsmelding} />
-                <Skillelinje />
-                <div>
-                    <div>
-                        <div>
-                            <Heading size="medium" level="2">
-                                Bestemmende fraværsdag
-                            </Heading>
-                            <BodyShort spacing>
-                                Bestemmende fraværsdag angir den dato som sykelønn skal beregnes utfra.
-                            </BodyShort>
-                            <Label>Dato</Label>
-                            <BodyShort>
-                                {inntektsmelding?.foersteFravaersdag ? (
-                                    formatDateFromString(inntektsmelding.foersteFravaersdag)
-                                ) : (
-                                    <Skeleton variant="text" />
-                                )}
-                            </BodyShort>
+            <BodyLong spacing>
+                For at vi skal utbetale riktig beløp i forbindelse med sykmelding, har arbeidsgiveren sendt inn de
+                opplysningene de har om den ansatte og sykefraværet. Hvis du finner opplysninger som må oppdateres må du
+                kontakte arbeidsgiveren.
+            </BodyLong>
 
-                            <div className="mt-4">
-                                <Heading size="medium" level="2">
-                                    Arbeidsgiverperiode
-                                </Heading>
+            <Heading level="2" size="medium" spacing className="mt-8">
+                Arbeidsgiveren
+            </Heading>
 
-                                {!ingenArbeidsgiverperioder && (
-                                    <BodyLong>
-                                        Arbeidsgiver er ansvarlig for å betale ut lønn til den sykmeldte under
-                                        arbeidsgiverpeioden. Deretter betaler Nav lønn til den syke eller refunderer
-                                        bedriften.
-                                    </BodyLong>
-                                )}
-                                {ingenArbeidsgiverperioder && <BodyLong>Det er ikke arbeidsgiverperiode.</BodyLong>}
-                                {arbeidsgiverperioder?.map((periode, i) => (
-                                    <PeriodeFraTil fom={periode.fom} tom={periode.tom} key={i} />
-                                ))}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <Skillelinje />
-                <Heading size="medium" level="2">
-                    Beregnet månedslønn
-                </Heading>
-                <BodyShort>Registrert inntekt</BodyShort>
-                <BodyShort>{inntektsmelding?.beregnetInntekt} kr/måned</BodyShort>
-                {/*    {bruttoinntekt.endringsaarsak && (
-                    <>
-                        <div>Endret med årsak</div>
-                        {formatBegrunnelseEndringBruttoinntekt(bruttoinntekt.endringsaarsak)}
-                        <EndringAarsakVisning
-                            endringsaarsak={bruttoinntekt.endringsaarsak}
-                            ferie={ferie}
-                            lonnsendringsdato={lonnsendringsdato}
-                            permisjon={permisjon}
-                            permittering={permittering}
-                            nystillingdato={nystillingdato}
-                            nystillingsprosentdato={nystillingsprosentdato}
-                            tariffendringDato={tariffendringsdato}
-                            tariffkjentdato={tariffkjentdato}
-                            sykefravaer={sykefravaerperioder}
-                        />
-                    </>
-                )}
-                <Skillelinje />
-                <Heading2>Refusjon</Heading2>
+            <Label>Virksomhetsnavn</Label>
+            <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
+
+            <Label>Innsender</Label>
+            <BodyLong spacing>{inntektsmelding?.innsenderNavn}</BodyLong>
+
+            <Heading size="medium" level="2" className="mt-8">
+                Bestemmende fraværsdag
+            </Heading>
+            <BodyLong spacing>
+                Bestemmende fraværsdag angir det datumet som sykelønn beregnes utfra, og er den første dagen i den siste
+                perioden i sykefraværet.
+            </BodyLong>
+            <Label>Dato</Label>
+            <BodyLong>{formatDateFromString(inntektsmelding?.foersteFravaersdag)}</BodyLong>
+
+            <Heading size="medium" level="2" className="mt-8">
+                Arbeidsgiverperiode
+            </Heading>
+
+            {!ingenArbeidsgiverperioder && (
+                <BodyLong>
+                    Arbeidsgiver er ansvarlig å betale ut lønn til den sykmeldte under arbeidsgiverperioden, deretter
+                    betaler NAV lønn til den syke eller refunderer bedriften.
+                </BodyLong>
+            )}
+            {ingenArbeidsgiverperioder && <BodyLong>Det er ikke arbeidsgiverperiode.</BodyLong>}
+            {arbeidsgiverperioder?.map((periode, i) => <PeriodeFraTil fom={periode.fom} tom={periode.tom} key={i} />)}
+
+            <Heading size="medium" level="2" className="mt-8" spacing>
+                Beregnet månedslønn
+            </Heading>
+            <BodyLong spacing>
+                Beregnet månedslønn er den lønn som sykepengene baseres på. Det er et snitt av de siste tre
+                månedslønnene og skal speile det som du skulle få i lønn hvis du ikke var syk.
+            </BodyLong>
+            <Label>{`Registrert inntekt (per ${formatDateFromString(inntektsmelding?.mottattDato)})`}</Label>
+            <BodyLong>{inntektsmelding?.beregnetInntekt} kr/måned</BodyLong>
+
+            <Heading size="medium" level="2" className="mt-8">
+                Utbetaling og refusjon
+            </Heading>
+            <BodyLong>
+                Vi viser hvis det er arbeidsgiver eller Nav som betaler ut sykepenger. Hvis arbeidsgiver betaler ut
+                sykepenger så vil Nav vanligvis refundere arbeidsgiver. Hvis ikke arbeidsgiver betaler så vil du
+                vanligvis få sykepenger direkte fra Nav.
+            </BodyLong>
+            {/*
                 {visFullLonnIArbeidsgiverperioden && (
                     <>
                         <div>Betaler arbeidsgiver ut full lønn til arbeidstaker i arbeidsgiverperioden?</div>
@@ -102,6 +87,8 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     harRefusjonEndringer={harRefusjonEndringer}
                     refusjonEndringer={refusjonEndringer}
                 />
+
+
                 {visNaturalytelser && (
                     <>
                         <Skillelinje />
@@ -109,13 +96,10 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                         <BortfallNaturalytelser ytelser={naturalytelser!} />
                     </>
                 )}
-                <Skillelinje />
-                <BodyShort>Kvittering - innsendt inntektsmelding{innsendingstidspunkt}</BodyShort> */}
-            </div>
-            <Skillelinje />
-            <BodyShort spacing className="italic text-gray-600">
+                */}
+            <BodyLong spacing className="italic text-gray-600 mt-12">
                 {'Inntektsmelding innstendt: ' + inntektsmelding?.mottattDato}
-            </BodyShort>
+            </BodyLong>
         </>
     )
 }
