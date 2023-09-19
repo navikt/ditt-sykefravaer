@@ -1,5 +1,5 @@
 import React from 'react'
-import { BodyShort, Heading } from '@navikt/ds-react'
+import { Alert, BodyShort, Heading } from '@navikt/ds-react'
 import { useRouter } from 'next/router'
 
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
@@ -35,6 +35,10 @@ const Inntektsmeldinger = () => {
             <Heading level="1" size="large" spacing>
                 {inntektsmelding?.organisasjonsnavn}
             </Heading>
+            <Alert variant="info" className="mb-4">
+                Hvis du finner feil i denne informasjonen, kontakt din arbeidsgiver slik at de kan sende en ny
+                inntektsmelding
+            </Alert>
             <BodyShort spacing>{'Første fraværsdag: ' + inntektsmelding?.foersteFravaersdag}</BodyShort>
             <BodyShort spacing>{'Beregnet inntekt: ' + inntektsmelding?.beregnetInntekt}</BodyShort>
             <BodyShort spacing>{'Mottatt dato: ' + inntektsmelding?.mottattDato}</BodyShort>

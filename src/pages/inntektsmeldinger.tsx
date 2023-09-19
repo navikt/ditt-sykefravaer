@@ -26,10 +26,13 @@ const Inntektsmeldinger = () => {
                 >
                     <LinkPanel className="mt-4">
                         <div>
-                            <Heading size="small" level="2">
+                            <Heading size="small" level="2" spacing>
                                 {inntektsmelding.organisasjonsnavn}
                             </Heading>
-                            <BodyShort> {inntektsmelding.mottattDato}</BodyShort>
+                            <BodyShort>For sykefravær som startet {inntektsmelding.foersteFravaersdag}</BodyShort>
+                            <BodyShort className="text-gray-600 italic">
+                                Mottatt: {inntektsmelding.mottattDato}
+                            </BodyShort>
                         </div>
                     </LinkPanel>
                 </Link>
