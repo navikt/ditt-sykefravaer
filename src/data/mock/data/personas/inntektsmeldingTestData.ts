@@ -15,14 +15,18 @@ export const altinnInntektsmelding: InntektsmeldingTyper = {
         {
             fom: '2023-04-18',
             naturalytelse: 'AKSJERGRUNNFONDSBEVISTILUNDERKURS',
-            beloepPrMnd: 1000,
+            beloepPrMnd: '1000',
         },
         {
             fom: '2023-04-18',
             naturalytelse: 'KOSTDAGER',
-            beloepPrMnd: 5500,
+            beloepPrMnd: '5500',
         },
     ],
+    refusjon: {
+        opphoersdato: '2023-04-18',
+        beloepPrMnd: '52000.00',
+    },
 }
 
 export const altinnInntektsmelding2: InntektsmeldingTyper = {
@@ -40,4 +44,5 @@ export const altinnInntektsmelding2: InntektsmeldingTyper = {
     mottattDato: '2023-05-13T08:49:43',
     organisasjonsnavn: 'Matbutikken AS, Grefsen',
     opphoerAvNaturalytelser: [],
+    refusjon: {},
 }

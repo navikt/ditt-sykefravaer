@@ -10,6 +10,12 @@ export interface InntektsmeldingTyper {
     virksomhetsnummer: string
     arbeidsgiverperioder: Periode[]
     opphoerAvNaturalytelser: OpphoerAvNaturalytelser[]
+    refusjon: Refusjon
+}
+
+export interface Refusjon {
+    opphoersdato?: string
+    beloepPrMnd?: string
 }
 
 export interface Periode {
@@ -20,7 +26,7 @@ export interface Periode {
 export interface OpphoerAvNaturalytelser {
     fom: string
     naturalytelse: string
-    beloepPrMnd: number
+    beloepPrMnd: string
 }
 
 interface Naturalytelser {

@@ -10,6 +10,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const ingenArbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder.length === 0
     const arbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
+    const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd
     return (
         <>
             <Heading level="1" size="large" spacing>
@@ -68,11 +69,20 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             <Heading size="medium" level="2" className="mt-8">
                 Utbetaling og refusjon
             </Heading>
-            <BodyLong>
+            <BodyLong spacing>
                 Vi viser hvis det er arbeidsgiver eller Nav som betaler ut sykepenger. Hvis arbeidsgiver betaler ut
                 sykepenger så vil Nav vanligvis refundere arbeidsgiver. Hvis ikke arbeidsgiver betaler så vil du
                 vanligvis få sykepenger direkte fra Nav.
             </BodyLong>
+            <Label>Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?</Label>
+            <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei'}</BodyLong>
+
+            {erRefusjon && (
+                <>
+                    <Label>Månedslønn til arbeidstaker under sykefravær</Label>
+                    <BodyLong>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
+                </>
+            )}
             {/*
                 {visFullLonnIArbeidsgiverperioden && (
                     <>
