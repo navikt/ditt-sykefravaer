@@ -4,7 +4,7 @@ import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykme
 import { arbeidstaker100 } from '../soknader'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
 
-import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldinger'
+import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldingTestData'
 
 type PersonaUtenBeskrivelse = Omit<Persona, 'beskrivelse'>
 export const commonPersona = (): PersonaUtenBeskrivelse => {
