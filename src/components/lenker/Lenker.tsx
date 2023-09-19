@@ -14,9 +14,9 @@ const Lenker = () => {
             <SykmeldingLenkepanel />
             <SoknadLenkepanel />
             <InntektsmeldingLenkepanel />
+            <UtbetalingAvSykepengerLenkepanel />
             <Oppfolgingsplan />
             <DialogmoteLenke />
-            <UtbetalingAvSykepengerLenkepanel />
             <Aktivitetsplan />
         </section>
     )
