@@ -5,10 +5,7 @@ import { Inntektsmelding } from '../../types/inntektsmelding'
 
 import { Person } from './Person'
 import Skillelinje from './Skillelinje/Skillelinje'
-import Heading2 from './Heading2/Heading2'
-import Heading3 from './Heading3'
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
-import formatCurrency from './formatCurrency'
 import { formatDateFromString } from './formatDate'
 
 export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: Inntektsmelding }) {
@@ -31,7 +28,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 <div>
                     <div>
                         <div>
-                            <Heading2>Bestemmende fraværsdag</Heading2>
+                            <Heading size="medium" level="2">
+                                Bestemmende fraværsdag
+                            </Heading>
                             <BodyShort spacing>
                                 Bestemmende fraværsdag angir den dato som sykelønn skal beregnes utfra.
                             </BodyShort>
@@ -45,7 +44,10 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                             </BodyShort>
 
                             <div className="mt-4">
-                                <Heading2>Arbeidsgiverperiode</Heading2>
+                                <Heading size="medium" level="2">
+                                    Arbeidsgiverperiode
+                                </Heading>
+
                                 {!ingenArbeidsgiverperioder && (
                                     <BodyLong>
                                         Arbeidsgiver er ansvarlig for å betale ut lønn til den sykmeldte under
@@ -62,7 +64,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     </div>
                 </div>
                 <Skillelinje />
-                <Heading2>Beregnet månedslønn</Heading2>
+                <Heading size="medium" level="2">
+                    Beregnet månedslønn
+                </Heading>
                 <BodyShort>Registrert inntekt</BodyShort>
                 <BodyShort>{inntektsmelding?.beregnetInntekt} kr/måned</BodyShort>
                 {/*    {bruttoinntekt.endringsaarsak && (

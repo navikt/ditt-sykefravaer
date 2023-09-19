@@ -1,9 +1,8 @@
-import { Skeleton } from '@navikt/ds-react'
+import { BodyShort, Heading, Skeleton } from '@navikt/ds-react'
 
 import { Inntektsmelding } from '../../types/inntektsmelding'
 
 import TextLabel from './TextLabel'
-import Heading3 from './Heading3'
 
 export function Person({ inntektsmelding }: { inntektsmelding?: Inntektsmelding }) {
     const virksomhetsnavn = inntektsmelding?.organisasjonsnavn
@@ -12,38 +11,21 @@ export function Person({ inntektsmelding }: { inntektsmelding?: Inntektsmelding 
     const innsenderTelefonNr = inntektsmelding?.innsenderTelefonNr
     return (
         <>
-            <div>
-                <div>
-                    <Heading3>Arbeidsgiveren</Heading3>
+            <Heading level="2" size="medium" spacing>
+                Arbeidsgiveren
+            </Heading>
 
-                    <div>
-                        <div>
-                            <TextLabel>Virksomhetsnavn</TextLabel>
-                            <div data-cy="virksomhetsnavn">
-                                {virksomhetsnavn || <Skeleton variant="text" width="90%" height={28} />}
-                            </div>
-                        </div>
-                        <div>
-                            <TextLabel>Virksomhetsnummer</TextLabel>
-                            <div data-cy="orgnummer">
-                                {virksomhetsnummer ?? <Skeleton variant="text" width="90%" height={28} />}
-                            </div>
-                        </div>
-                        <div>
-                            <TextLabel>Innsender</TextLabel>
-                            <div data-cy="innsendernavn">
-                                {innsenderNavn ?? <Skeleton variant="text" width="90%" height={28} />}
-                            </div>
-                        </div>
-                        <div>
-                            <>
-                                <TextLabel>Telefon innsender</TextLabel>
-                                <div data-cy="innsendertlf">{innsenderTelefonNr}</div>
-                            </>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <TextLabel>Virksomhetsnavn</TextLabel>
+            <BodyShort spacing>{virksomhetsnavn || <Skeleton variant="text" width="90%" height={28} />}</BodyShort>
+
+            <TextLabel>Virksomhetsnummer</TextLabel>
+            <BodyShort spacing>{virksomhetsnummer ?? <Skeleton variant="text" width="90%" height={28} />}</BodyShort>
+
+            <TextLabel>Innsender</TextLabel>
+            <BodyShort spacing>{innsenderNavn ?? <Skeleton variant="text" width="90%" height={28} />}</BodyShort>
+
+            <TextLabel>Telefon innsender</TextLabel>
+            <BodyShort spacing>{innsenderTelefonNr}</BodyShort>
         </>
     )
 }
