@@ -1,15 +1,15 @@
-import { BodyLong, Heading, Label } from '@navikt/ds-react'
+import { BodyLong, Heading, Label, Table } from '@navikt/ds-react'
 import React from 'react'
 
-import { Inntektsmelding } from '../../types/inntektsmelding'
+import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
 
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
 import { formatDateFromString } from './formatDate'
 
-export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: Inntektsmelding }) {
+export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: InntektsmeldingTyper }) {
     const ingenArbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder.length === 0
     const arbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder
-
+    const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
     return (
         <>
             <Heading level="1" size="large" spacing>
@@ -88,17 +88,37 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     refusjonEndringer={refusjonEndringer}
                 />
 
+*/}
+            {visNaturalytelser && (
+                <>
+                    <Heading size="medium" level="2" className="mt-8">
+                        Eventuelle naturalytelser
+                    </Heading>
+                    <Table size="small">
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Naturalytelse</Table.HeaderCell>
+                                <Table.HeaderCell>Dato naturalytelse bortfaller</Table.HeaderCell>
+                                <Table.HeaderCell>Verdi naturalytelse - kr/måned</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {inntektsmelding?.opphoerAvNaturalytelser?.map((naturalytelse, i) => (
+                                <Table.Row key={i}>
+                                    <Table.DataCell>
+                                        {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
+                                    </Table.DataCell>
+                                    <Table.DataCell>{formatDateFromString(naturalytelse.fom)}</Table.DataCell>
+                                    <Table.DataCell>{naturalytelse.beloepPrMnd} kr/måned</Table.DataCell>
+                                </Table.Row>
+                            ))}
+                        </Table.Body>
+                    </Table>
+                </>
+            )}
 
-                {visNaturalytelser && (
-                    <>
-                        <Skillelinje />
-                        <Heading2>Eventuelle naturalytelser</Heading2>
-                        <BortfallNaturalytelser ytelser={naturalytelser!} />
-                    </>
-                )}
-                */}
             <BodyLong spacing className="italic text-gray-600 mt-12">
-                {'Inntektsmelding innstendt: ' + inntektsmelding?.mottattDato}
+                {'InntektsmeldingTyper innstendt: ' + inntektsmelding?.mottattDato}
             </BodyLong>
         </>
     )

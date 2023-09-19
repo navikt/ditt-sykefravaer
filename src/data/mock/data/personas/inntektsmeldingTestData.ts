@@ -1,6 +1,6 @@
-import { Inntektsmelding } from '../../../../types/inntektsmelding'
+import { InntektsmeldingTyper } from '../../../../types/inntektsmeldingTyper'
 
-export const altinnInntektsmelding: Inntektsmelding = {
+export const altinnInntektsmelding: InntektsmeldingTyper = {
     arbeidsgiverperioder: [],
     innsenderNavn: 'Pål Dagfinn R',
     innsenderTelefonNr: '123432232',
@@ -11,10 +11,21 @@ export const altinnInntektsmelding: Inntektsmelding = {
     foersteFravaersdag: '2023-04-18',
     mottattDato: '2023-05-16T08:49:43',
     organisasjonsnavn: 'Matbutikken AS, Kjelsås',
-    opphoerAvNaturalytelser: [],
+    opphoerAvNaturalytelser: [
+        {
+            fom: '2023-04-18',
+            naturalytelse: 'AKSJERGRUNNFONDSBEVISTILUNDERKURS',
+            beloepPrMnd: 1000,
+        },
+        {
+            fom: '2023-04-18',
+            naturalytelse: 'KOSTDAGER',
+            beloepPrMnd: 5500,
+        },
+    ],
 }
 
-export const altinnInntektsmelding2: Inntektsmelding = {
+export const altinnInntektsmelding2: InntektsmeldingTyper = {
     arbeidsgiverperioder: [
         { fom: '2023-04-18', tom: '2023-04-18' },
         { fom: '2023-04-10', tom: '2023-04-15' },
