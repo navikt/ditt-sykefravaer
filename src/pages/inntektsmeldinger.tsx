@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../hooks/useInntektsmeldinger'
+import { formatDateFromString } from '../components/inntektsmelding/formatDate'
 
 const Inntektsmeldinger = () => {
     useUpdateBreadcrumbs(
@@ -12,7 +13,7 @@ const Inntektsmeldinger = () => {
         [],
     )
     const { data: inntektsmeldinger } = useInntektsmeldinger()
-
+    // TODO sorter denne koden
     return (
         <>
             <Heading size="large" level="1">
@@ -29,9 +30,11 @@ const Inntektsmeldinger = () => {
                             <Heading size="small" level="2" spacing>
                                 {inntektsmelding.organisasjonsnavn}
                             </Heading>
-                            <BodyShort>For sykefravær som startet {inntektsmelding.foersteFravaersdag}</BodyShort>
+                            <BodyShort>
+                                For sykefravær som startet {formatDateFromString(inntektsmelding.foersteFravaersdag)}
+                            </BodyShort>
                             <BodyShort className="text-gray-600 italic">
-                                Mottatt: {inntektsmelding.mottattDato}
+                                Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
                             </BodyShort>
                         </div>
                     </LinkPanel>

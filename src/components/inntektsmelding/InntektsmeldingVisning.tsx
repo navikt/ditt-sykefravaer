@@ -1,7 +1,8 @@
-import { BodyLong, Heading, Label, Table } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Heading, Label, Table } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
+import { Feedback } from '../feedback/feedback'
 
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
 import { formatDateFromString } from './formatDate'
@@ -15,13 +16,13 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     return (
         <>
             <Heading level="1" size="large" spacing>
-                {'Inntektsmelding' + ' - ' + formatDateFromString(inntektsmelding?.foersteFravaersdag)}
+                Inntektsmelding
             </Heading>
 
             <BodyLong spacing>
-                For at vi skal utbetale riktig beløp i forbindelse med sykmelding, har arbeidsgiveren sendt inn de
-                opplysningene de har om den ansatte og sykefraværet. Hvis du finner opplysninger som må oppdateres må du
-                kontakte arbeidsgiveren.
+                For å bestemme din rett til sykepenger og korrekt beregne ditt sykepengegrunnlag, har din arbeidsgiver
+                sendt oss informasjon om inntekten og arbeidsforholdet ditt. Hvis du har spørsmål til de opplysningene
+                du ser her, eller noe er feil, må du kontakte arbeidsgiveren din.
             </BodyLong>
 
             <Heading level="2" size="medium" spacing className="mt-8">
@@ -41,45 +42,50 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 Bestemmende fraværsdag
             </Heading>
             <BodyLong spacing>
-                Bestemmende fraværsdag angir det datumet som sykelønn beregnes utfra, og er den første dagen i den siste
-                perioden i sykefraværet.
+                Bestemmende fraværsdag er den dagen sykepenger beregnes fra. Det er kun inntekt du har hatt før denne
+                dagen som skal være med i beregningen.
             </BodyLong>
             <Label>Dato</Label>
             <BodyLong>{formatDateFromString(inntektsmelding?.foersteFravaersdag)}</BodyLong>
 
-            <Heading size="medium" level="2" className="mt-8">
-                Arbeidsgiverperiode
-            </Heading>
-
             {!ingenArbeidsgiverperioder && (
-                <BodyLong>
-                    Arbeidsgiver er ansvarlig å betale ut lønn til den sykmeldte under arbeidsgiverperioden, deretter
-                    betaler NAV lønn til den syke eller refunderer bedriften.
-                </BodyLong>
+                <>
+                    <Heading size="medium" level="2" className="mt-8">
+                        Arbeidsgiverperiode
+                    </Heading>
+                    <BodyLong>
+                        Arbeidsgiveren din er vanligvis ansvarlig for å betale sykepenger til deg de første 16
+                        kalenderdagene av sykefraværet ditt. Etter dette overtar NAV betalingen til deg eller din
+                        arbeidsgiver hvis du har rett til sykepenger.
+                    </BodyLong>
+                    {arbeidsgiverperioder?.map((periode, i) => (
+                        <PeriodeFraTil fom={periode.fom} tom={periode.tom} key={i} />
+                    ))}
+                </>
             )}
-            {ingenArbeidsgiverperioder && <BodyLong>Det er ikke arbeidsgiverperiode.</BodyLong>}
-            {arbeidsgiverperioder?.map((periode, i) => <PeriodeFraTil fom={periode.fom} tom={periode.tom} key={i} />)}
 
             <Heading size="medium" level="2" className="mt-8" spacing>
-                Beregnet månedslønn
+                Beregnet månedsinntekt
             </Heading>
             <BodyLong spacing>
-                Beregnet månedslønn er den lønn som sykepengene baseres på. Det er et snitt av de siste tre
-                månedslønnene og skal speile det som du skulle få i lønn hvis du ikke var syk.
+                Beregnet månedsinntekt er den inntekten som sykepenger regnes ut fra. Dette skal som regel være
+                gjennomsnittet av inntekten din de siste tre kalendermånedene før sykefraværet startet. Hvis du er
+                usikker på om månedsinntekten er riktig, kontakt arbeidsgiveren din.
             </BodyLong>
-            <Label>{`Registrert inntekt (per ${formatDateFromString(inntektsmelding?.mottattDato)})`}</Label>
+            <Label>Registrert inntekt</Label>
             <BodyLong>{inntektsmelding?.beregnetInntekt} kr/måned</BodyLong>
 
             <Heading size="medium" level="2" className="mt-8">
                 Utbetaling og refusjon
             </Heading>
             <BodyLong spacing>
-                Vi viser hvis det er arbeidsgiver eller Nav som betaler ut sykepenger. Hvis arbeidsgiver betaler ut
-                sykepenger så vil Nav vanligvis refundere arbeidsgiver. Hvis ikke arbeidsgiver betaler så vil du
-                vanligvis få sykepenger direkte fra Nav.
+                Hvis sykefraværet ditt overstiger 16 kalenderdager og du har rett til sykepenger, vil NAV stå for
+                utbetalingen av sykepenger. Noen arbeidsgivere betaler fortsatt sykepenger fra dag 17, men de vil senere
+                bli refundert av NAV. Nedenfor ser du om sykepengene blir betalt direkte til deg eller om de blir sendt
+                til arbeidsgiveren din.
             </BodyLong>
             <Label>Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?</Label>
-            <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei'}</BodyLong>
+            <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei, sykepengene blir betalt direkte til deg'}</BodyLong>
 
             {erRefusjon && (
                 <>
@@ -112,13 +118,14 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     <BodyLong spacing>Ja</BodyLong>
 
                     <Label>Siste dag arbeidsgiver betaler lønn</Label>
-                    <BodyLong spacing>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)} </BodyLong>
+                    <BodyShort>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)}</BodyShort>
+                    <BodyLong spacing>NAV betaler direkte til deg etter dette.</BodyLong>
                 </>
             )}
             {visNaturalytelser && (
                 <>
                     <Heading size="medium" level="2" className="mt-8">
-                        Eventuelle naturalytelser
+                        Naturalytelser
                     </Heading>
                     <Table size="small">
                         <Table.Header>
@@ -146,6 +153,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             <BodyLong spacing className="italic text-gray-600 mt-12">
                 {'Inntektsmelding innsendt ' + formatDateFromString(inntektsmelding?.mottattDato)}
             </BodyLong>
+            <Feedback />
         </>
     )
 }
