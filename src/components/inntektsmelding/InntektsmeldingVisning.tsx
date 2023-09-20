@@ -87,6 +87,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     <BodyLong spacing>{inntektsmelding?.refusjon?.beloepPrMnd} kr/måned</BodyLong>
                 </>
             )}
+
             {visEndringerIRefusjon && (
                 <>
                     <Label>Er det endringer i utbetaling til arbeidstaker under sykefravær?</Label>
@@ -103,6 +104,15 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                             </div>
                         </div>
                     ))}
+                </>
+            )}
+            {inntektsmelding?.refusjon?.opphoersdato && (
+                <>
+                    <Label>Opphører arbeidsgiver med å betale lønn under perioden?</Label>
+                    <BodyLong spacing>Ja</BodyLong>
+
+                    <Label>Siste dag arbeidsgiver betaler lønn</Label>
+                    <BodyLong spacing>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)} </BodyLong>
                 </>
             )}
             {visNaturalytelser && (
