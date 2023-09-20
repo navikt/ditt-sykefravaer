@@ -9,6 +9,7 @@ export function useInntektsmeldinger() {
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<InntektsmeldingTyper[], Error>({
+        enabled: false,
         queryKey: ['inntektsmeldinger'],
         queryFn: () =>
             fetchJson(

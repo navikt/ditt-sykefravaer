@@ -4,11 +4,15 @@ import { Skeleton } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
+import { inntektsmeldingerEnabled } from '../../utils/environment'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 export const InntektsmeldingLenkepanel = () => {
     const { data: inntektsmeldinger, isLoading } = useInntektsmeldinger()
+    if (!inntektsmeldingerEnabled()) {
+        return null
+    }
     if (isLoading) {
         return <Skeleton variant="rectangle" height="86px" className="mb-2" />
     }
