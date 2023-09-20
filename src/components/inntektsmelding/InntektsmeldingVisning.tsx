@@ -128,7 +128,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
 
             <BodyLong spacing className="italic text-gray-600 mt-12">
-                {'InntektsmeldingTyper innstendt: ' + inntektsmelding?.mottattDato}
+                {'Inntektsmelding innstendt: ' + inntektsmelding?.mottattDato}
             </BodyLong>
         </>
     )
