@@ -114,9 +114,6 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
             {inntektsmelding?.refusjon?.opphoersdato && (
                 <>
-                    <Label>Opphører arbeidsgiver med å betale lønn under perioden?</Label>
-                    <BodyLong spacing>Ja</BodyLong>
-
                     <Label>Siste dag arbeidsgiver betaler lønn</Label>
                     <BodyShort>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)}</BodyShort>
                     <BodyLong spacing>NAV betaler direkte til deg etter dette.</BodyLong>
