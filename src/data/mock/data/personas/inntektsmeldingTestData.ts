@@ -54,5 +54,5 @@ export const altinnInntektsmelding2: InntektsmeldingTyper = {
     mottattDato: '2023-05-13T08:49:43',
     organisasjonsnavn: 'Matbutikken AS, Grefsen',
     opphoerAvNaturalytelser: [],
-    refusjon: {},
+    endringIRefusjoner: [],
 }

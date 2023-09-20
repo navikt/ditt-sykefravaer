@@ -11,7 +11,7 @@ export interface InntektsmeldingTyper {
     arbeidsgiverperioder: Periode[]
     opphoerAvNaturalytelser: OpphoerAvNaturalytelser[]
     endringIRefusjoner: EndringIRefusjon[]
-    refusjon: Refusjon
+    refusjon?: Refusjon
 }
 
 export interface EndringIRefusjon {

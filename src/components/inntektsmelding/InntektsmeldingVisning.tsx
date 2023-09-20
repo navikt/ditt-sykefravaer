@@ -84,7 +84,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             {erRefusjon && (
                 <>
                     <Label>Månedslønn til arbeidstaker under sykefravær</Label>
-                    <BodyLong spacing>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
+                    <BodyLong spacing>{inntektsmelding?.refusjon?.beloepPrMnd} kr/måned</BodyLong>
                 </>
             )}
             {visEndringerIRefusjon && (
