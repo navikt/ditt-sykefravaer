@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { fetchJson } from '../utils/fetch'
 import { InntektsmeldingTyper } from '../types/inntektsmeldingTyper'
+import { inntektsmeldingerEnabled } from '../utils/environment'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
@@ -9,7 +10,7 @@ export function useInntektsmeldinger() {
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<InntektsmeldingTyper[], Error>({
-        enabled: false,
+        enabled: inntektsmeldingerEnabled(),
         queryKey: ['inntektsmeldinger'],
         queryFn: () =>
             fetchJson(
