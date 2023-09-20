@@ -1,5 +1,5 @@
 describe('Tester cummulative-layout-shift ', () => {
-    xit('Høyden endres ikke i happy case etter at dataene er lastet', () => {
+    it('Høyden endres ikke i happy case etter at dataene er lastet', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=cummulative-layout-shift')
         cy.get('h1').should('be.visible')
         cy.get('.navds-skeleton').should('have.length', 6)

@@ -1,6 +1,5 @@
 import React from 'react'
 import { SackKronerIcon } from '@navikt/aksel-icons'
-import { Skeleton } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
@@ -14,7 +13,7 @@ export const InntektsmeldingLenkepanel = () => {
         return null
     }
     if (isLoading) {
-        return <Skeleton variant="rectangle" height="86px" className="mb-2" />
+        return null
     }
     if (inntektsmeldinger && inntektsmeldinger.length == 0) {
         return null
