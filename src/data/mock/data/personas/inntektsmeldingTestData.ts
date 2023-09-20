@@ -27,6 +27,16 @@ export const altinnInntektsmelding: InntektsmeldingTyper = {
         opphoersdato: '2023-04-18',
         beloepPrMnd: '52000.00',
     },
+    endringIRefusjoner: [
+        {
+            beloep: '52000.00',
+            endringsdato: '2023-04-18',
+        },
+        {
+            beloep: '65000.00',
+            endringsdato: '2023-04-30',
+        },
+    ],
 }
 
 export const altinnInntektsmelding2: InntektsmeldingTyper = {

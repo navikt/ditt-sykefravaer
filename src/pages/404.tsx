@@ -10,6 +10,9 @@ function NotFound(): JSX.Element | boolean {
         if (window.location.pathname === '/') {
             window.location.pathname = '/syk/sykefravaer'
         }
+        if (!window.location.pathname.startsWith('/syk/sykefravaer')) {
+            window.location.pathname = '/syk/sykefravaer'
+        }
     }, [])
 
     return (

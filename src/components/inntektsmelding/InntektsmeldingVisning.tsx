@@ -11,6 +11,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const arbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
     const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd
+    const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
     return (
         <>
             <Heading level="1" size="large" spacing>
@@ -27,11 +28,14 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 Arbeidsgiveren
             </Heading>
 
-            <Label>Virksomhetsnavn</Label>
-            <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
-
-            <Label>Innsender</Label>
-            <BodyLong spacing>{inntektsmelding?.innsenderNavn}</BodyLong>
+            <div className="w-1/2 inline-block">
+                <Label>Virksomhetsnavn</Label>
+                <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
+            </div>
+            <div className="w-1/2 inline-block">
+                <Label>Innsender</Label>
+                <BodyLong spacing>{inntektsmelding?.innsenderNavn}</BodyLong>
+            </div>
 
             <Heading size="medium" level="2" className="mt-8">
                 Bestemmende fraværsdag
@@ -80,25 +84,27 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             {erRefusjon && (
                 <>
                     <Label>Månedslønn til arbeidstaker under sykefravær</Label>
-                    <BodyLong>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
+                    <BodyLong spacing>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
                 </>
             )}
-            {/*
-                {visFullLonnIArbeidsgiverperioden && (
-                    <>
-                        <div>Betaler arbeidsgiver ut full lønn til arbeidstaker i arbeidsgiverperioden?</div>
-                        <FullLonnIArbeidsgiverperioden lonnIPerioden={fullLonnIArbeidsgiverPerioden!} />
-                    </>
-                )}
-                <div>Betaler arbeidsgiver lønn og krever refusjon etter arbeidsgiverperioden?</div>
-                <LonnUnderSykefravaeret
-                    lonn={lonnISykefravaeret!}
-                    refusjonskravetOpphoerer={refusjonskravetOpphoerer}
-                    harRefusjonEndringer={harRefusjonEndringer}
-                    refusjonEndringer={refusjonEndringer}
-                />
-
-*/}
+            {visEndringerIRefusjon && (
+                <>
+                    <Label>Er det endringer i utbetaling til arbeidstaker under sykefravær?</Label>
+                    <BodyLong spacing>Ja</BodyLong>
+                    {inntektsmelding?.endringIRefusjoner?.map((endring, i) => (
+                        <div key={i}>
+                            <div className="w-1/2 inline-block">
+                                <Label>Dato for endring</Label>
+                                <BodyLong spacing>{formatDateFromString(endring.endringsdato)}</BodyLong>
+                            </div>
+                            <div className="w-1/2 inline-block">
+                                <Label>Nytt beløp</Label>
+                                <BodyLong spacing>{endring.beloep} kr/måned</BodyLong>
+                            </div>
+                        </div>
+                    ))}
+                </>
+            )}
             {visNaturalytelser && (
                 <>
                     <Heading size="medium" level="2" className="mt-8">
@@ -128,7 +134,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
 
             <BodyLong spacing className="italic text-gray-600 mt-12">
-                {'Inntektsmelding innstendt: ' + inntektsmelding?.mottattDato}
+                {'Inntektsmelding innsendt ' + formatDateFromString(inntektsmelding?.mottattDato)}
             </BodyLong>
         </>
     )
