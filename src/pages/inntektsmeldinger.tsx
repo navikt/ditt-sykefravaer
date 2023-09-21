@@ -13,33 +13,35 @@ const Inntektsmeldinger = () => {
         [],
     )
     const { data: inntektsmeldinger } = useInntektsmeldinger()
-    // TODO sorter denne koden
     return (
         <>
             <Heading size="large" level="1">
                 Inntektsmeldinger
             </Heading>
 
-            {inntektsmeldinger?.map((inntektsmelding) => (
-                <Link
-                    href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
-                    key={inntektsmelding.inntektsmeldingId}
-                >
-                    <LinkPanel className="mt-4">
-                        <div>
-                            <Heading size="small" level="2" spacing>
-                                {inntektsmelding.organisasjonsnavn}
-                            </Heading>
-                            <BodyShort>
-                                For sykefravær som startet {formatDateFromString(inntektsmelding.foersteFravaersdag)}
-                            </BodyShort>
-                            <BodyShort className="text-gray-600 italic">
-                                Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
-                            </BodyShort>
-                        </div>
-                    </LinkPanel>
-                </Link>
-            ))}
+            {inntektsmeldinger
+                ?.sort((a, b) => b.mottattDato.localeCompare(a.mottattDato))
+                ?.map((inntektsmelding) => (
+                    <Link
+                        href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
+                        key={inntektsmelding.inntektsmeldingId}
+                    >
+                        <LinkPanel className="mt-4">
+                            <div>
+                                <Heading size="small" level="2" spacing>
+                                    {inntektsmelding.organisasjonsnavn}
+                                </Heading>
+                                <BodyShort>
+                                    For sykefravær som startet{' '}
+                                    {formatDateFromString(inntektsmelding.foersteFravaersdag)}
+                                </BodyShort>
+                                <BodyShort className="text-gray-600 italic">
+                                    Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
+                                </BodyShort>
+                            </div>
+                        </LinkPanel>
+                    </Link>
+                ))}
         </>
     )
 }
