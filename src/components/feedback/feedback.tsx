@@ -17,7 +17,8 @@ interface FeedbackButtonProps extends ButtonProps {
     feedbacktype: Feedbacktype
 }
 
-export const Feedback = () => {
+// Denne komponentent har feedbackID som props
+export const Feedback = ({ feedbackId }: { feedbackId: string }) => {
     const [textValue, setTextValue] = useState('')
     const [activeState, setActiveState] = useState<Feedbacktype | null>(null)
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
@@ -74,7 +75,7 @@ export const Feedback = () => {
 
         const body: Record<string, string | null | number> = {
             feedback: textValue,
-            feedbackId: 'ditt-sykefravaer-fant-du',
+            feedbackId,
             svar: activeState,
             maatteKontakteNAV: radioState,
             app: 'ditt-sykefravaer-frontend',

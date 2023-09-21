@@ -23,7 +23,7 @@ const Index = () => {
             <Oppgaver />
             <Arbeidssituasjon />
             <Lenker />
-            <Feedback />
+            <Feedback feedbackId="ditt-sykefravaer-fant-du" />
         </>
     )
 }

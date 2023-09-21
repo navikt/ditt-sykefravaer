@@ -149,7 +149,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                     inntektsmelding?.mottattDato,
                 )}`}
             </BodyLong>
-            <Feedback />
+            <Feedback feedbackId="inntektsmelding-visning" />
         </>
     )
 }
