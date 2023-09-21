@@ -29,7 +29,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 Arbeidsgiveren
             </Heading>
 
-            <Label>Virksomhetsnavn</Label>
+            <Label as="p">Virksomhetsnavn</Label>
             <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
 
             <Heading size="medium" level="2" className="mt-8">
@@ -39,7 +39,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 Bestemmende fraværsdag er den dagen sykepenger beregnes fra. Det er kun inntekt du har hatt før denne
                 dagen som skal være med i beregningen.
             </BodyLong>
-            <Label>Dato</Label>
+            <Label as="p">Dato</Label>
             <BodyLong>{formatDateFromString(inntektsmelding?.foersteFravaersdag)}</BodyLong>
 
             {!ingenArbeidsgiverperioder && (
@@ -66,7 +66,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 gjennomsnittet av inntekten din de siste tre kalendermånedene før sykefraværet startet. Hvis du er
                 usikker på om månedsinntekten er riktig, kontakt arbeidsgiveren din.
             </BodyLong>
-            <Label>Registrert inntekt</Label>
+            <Label as="p">Registrert inntekt</Label>
             <BodyLong>{inntektsmelding?.beregnetInntekt} kr/måned</BodyLong>
 
             <Heading size="medium" level="2" className="mt-8">
@@ -78,28 +78,28 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 bli refundert av NAV. Nedenfor ser du om sykepengene blir betalt direkte til deg eller om de blir sendt
                 til arbeidsgiveren din.
             </BodyLong>
-            <Label>Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?</Label>
+            <Label as="p">Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?</Label>
             <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei, sykepengene blir betalt direkte til deg'}</BodyLong>
 
             {erRefusjon && (
                 <>
-                    <Label>Månedslønn til arbeidstaker under sykefravær</Label>
+                    <Label as="p">Månedslønn til arbeidstaker under sykefravær</Label>
                     <BodyLong spacing>{formatCurrency(inntektsmelding?.refusjon.beloepPrMnd)} kr/måned</BodyLong>
                 </>
             )}
 
             {visEndringerIRefusjon && (
                 <>
-                    <Label>Er det endringer i utbetaling til arbeidstaker under sykefravær?</Label>
+                    <Label as="p">Er det endringer i utbetaling til arbeidstaker under sykefravær?</Label>
                     <BodyLong spacing>Ja</BodyLong>
                     {inntektsmelding?.endringIRefusjoner?.map((endring, i) => (
                         <div key={i}>
                             <div className="w-1/2 inline-block">
-                                <Label>Dato for endring</Label>
+                                <Label as="p">Dato for endring</Label>
                                 <BodyLong spacing>{formatDateFromString(endring.endringsdato)}</BodyLong>
                             </div>
                             <div className="w-1/2 inline-block">
-                                <Label>Nytt beløp</Label>
+                                <Label as="p">Nytt beløp</Label>
                                 <BodyLong spacing>{formatCurrency(endring.beloep)} kr/måned</BodyLong>
                             </div>
                         </div>
@@ -108,7 +108,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
             {inntektsmelding?.refusjon?.opphoersdato && (
                 <>
-                    <Label>Siste dag arbeidsgiver betaler lønn</Label>
+                    <Label as="p">Siste dag arbeidsgiver betaler lønn</Label>
                     <BodyShort>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)}</BodyShort>
                     <BodyLong spacing>NAV betaler direkte til deg etter dette.</BodyLong>
                 </>
@@ -143,7 +143,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 </>
             )}
 
-            <BodyLong spacing className="italic text-gray-600 mt-12">
+            <BodyLong spacing className="text-gray-600 mt-12">
                 {`Inntektsmelding innsendt ${formatDateFromString(inntektsmelding?.mottattDato)} kl. ${formatTime(
                     inntektsmelding?.mottattDato,
                 )}`}

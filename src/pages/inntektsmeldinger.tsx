@@ -39,7 +39,7 @@ const Inntektsmeldinger = () => {
                                     For sykefravær som startet{' '}
                                     {formatDateFromString(inntektsmelding.foersteFravaersdag)}
                                 </BodyShort>
-                                <BodyShort className="text-gray-600 italic">
+                                <BodyShort className="text-gray-600">
                                     Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
                                 </BodyShort>
                             </div>

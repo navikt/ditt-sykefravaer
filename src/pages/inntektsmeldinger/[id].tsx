@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { BodyLong } from '@navikt/ds-react'
+import { Heading } from '@navikt/ds-react'
 
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
@@ -33,7 +33,12 @@ const Inntektsmeldinger = () => {
         [inntektsmelding?.organisasjonsnavn],
     )
 
-    if (inntektsmeldinger && !inntektsmelding) return <BodyLong>Fant ikke inntektsmelding</BodyLong>
+    if (inntektsmeldinger && !inntektsmelding)
+        return (
+            <Heading size="medium" level="1">
+                Fant ikke inntektsmelding
+            </Heading>
+        )
 
     return <InntektsmeldingVisning inntektsmelding={inntektsmelding} />
 }
