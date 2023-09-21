@@ -99,6 +99,10 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             if (erClsTestperson) await sleep(750)
             return sendJson(testperson.meldinger)
 
+        case 'GET /api/ditt-sykefravaer-backend/api/v1/inntektsmeldinger':
+            if (erClsTestperson) await sleep(750)
+            return sendJson(testperson.inntektsmeldinger || [])
+
         case 'POST /api/ditt-sykefravaer-backend/api/v1/meldinger/[uuid]/lukk':
             return sendJson({ lukket: 'ok' })
 

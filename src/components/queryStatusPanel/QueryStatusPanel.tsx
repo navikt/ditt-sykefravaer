@@ -10,6 +10,7 @@ import useSoknader from '../../hooks/useSoknader'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import useVedtak from '../../hooks/useVedtak'
 import Vis from '../Vis'
+import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 
 interface QueryOgFeilmelding {
     query: UseQueryResult
@@ -45,6 +46,10 @@ const QueryStatusPanel = () => {
         query: useArbeidsrettetOppfolging(),
         message: 'Kunne ikke hente arbeidsrettet oppfølging',
     }
+    const inntektsmeldinger: QueryOgFeilmelding = {
+        query: useInntektsmeldinger(),
+        message: 'Kunne ikke hente inntektsmeldinger',
+    }
 
     const errorQueries = [
         sykmeldinger,
@@ -54,6 +59,7 @@ const QueryStatusPanel = () => {
         dialogmoteBehov,
         narmesteledere,
         arbeidsrettetOppfolging,
+        inntektsmeldinger,
     ].filter((a) => a.query.isError)
 
     return (

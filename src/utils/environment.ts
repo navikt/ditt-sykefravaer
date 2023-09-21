@@ -56,3 +56,7 @@ export function naisAppName() {
 export function basePath() {
     return publicRuntimeConfig.basePath
 }
+
+export function inntektsmeldingerEnabled() {
+    return publicRuntimeConfig.inntektsmeldingerEnabled === 'true'
+}

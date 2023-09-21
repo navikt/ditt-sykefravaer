@@ -83,6 +83,7 @@ const nextConfig = {
         telemetryCollectorURL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
         naisAppImage: process.env.NAIS_APP_IMAGE,
         naisAppName: process.env.NAIS_APP_NAME,
+        inntektsmeldingerEnabled: process.env.INNTEKTSMELDINGER_ENABLED,
     },
 }
 
