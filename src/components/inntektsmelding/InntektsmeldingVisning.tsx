@@ -11,7 +11,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const ingenArbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder.length === 0
     const arbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
-    const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd
+    const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd && Number(inntektsmelding.refusjon.beloepPrMnd) > 0
     const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
     return (
         <>
