@@ -5,7 +5,8 @@ import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldin
 import { Feedback } from '../feedback/feedback'
 
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
-import { formatDateFromString } from './formatDate'
+import { formatDateFromString, formatTime } from './formatDate'
+import formatCurrency from './formatCurrency'
 
 export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: InntektsmeldingTyper }) {
     const ingenArbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder.length === 0
@@ -84,7 +85,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             {erRefusjon && (
                 <>
                     <Label>Månedslønn til arbeidstaker under sykefravær</Label>
-                    <BodyLong spacing>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
+                    <BodyLong spacing>{formatCurrency(inntektsmelding?.refusjon.beloepPrMnd)} kr/måned</BodyLong>
                 </>
             )}
 
@@ -100,7 +101,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                             </div>
                             <div className="w-1/2 inline-block">
                                 <Label>Nytt beløp</Label>
-                                <BodyLong spacing>{endring.beloep} kr/måned</BodyLong>
+                                <BodyLong spacing>{formatCurrency(endring.beloep)} kr/måned</BodyLong>
                             </div>
                         </div>
                     ))}
@@ -133,7 +134,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                                         {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
                                     </Table.DataCell>
                                     <Table.DataCell>{formatDateFromString(naturalytelse.fom)}</Table.DataCell>
-                                    <Table.DataCell>{naturalytelse.beloepPrMnd} kr/måned</Table.DataCell>
+                                    <Table.DataCell>
+                                        {formatCurrency(naturalytelse.beloepPrMnd)} kr/måned
+                                    </Table.DataCell>
                                 </Table.Row>
                             ))}
                         </Table.Body>
@@ -142,7 +145,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
 
             <BodyLong spacing className="italic text-gray-600 mt-12">
-                {'Inntektsmelding innsendt ' + formatDateFromString(inntektsmelding?.mottattDato)}
+                {`Inntektsmelding innsendt ${formatDateFromString(inntektsmelding?.mottattDato)} kl. ${formatTime(
+                    inntektsmelding?.mottattDato,
+                )}`}
             </BodyLong>
             <Feedback />
         </>
