@@ -20,6 +20,6 @@
         "incremental": true,
         "baseUrl": "/syk/sykefravaer"
     },
-    "include": ["src", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["src"],
     "exclude": ["node_modules"]
 }
