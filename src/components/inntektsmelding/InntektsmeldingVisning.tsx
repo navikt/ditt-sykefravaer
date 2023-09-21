@@ -29,14 +29,8 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 Arbeidsgiveren
             </Heading>
 
-            <div className="w-1/2 inline-block">
-                <Label>Virksomhetsnavn</Label>
-                <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
-            </div>
-            <div className="w-1/2 inline-block">
-                <Label>Innsender</Label>
-                <BodyLong spacing>{inntektsmelding?.innsenderNavn}</BodyLong>
-            </div>
+            <Label>Virksomhetsnavn</Label>
+            <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
 
             <Heading size="medium" level="2" className="mt-8">
                 Bestemmende fraværsdag
@@ -90,7 +84,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             {erRefusjon && (
                 <>
                     <Label>Månedslønn til arbeidstaker under sykefravær</Label>
-                    <BodyLong spacing>{inntektsmelding?.refusjon?.beloepPrMnd} kr/måned</BodyLong>
+                    <BodyLong spacing>{inntektsmelding?.refusjon.beloepPrMnd} kr/måned</BodyLong>
                 </>
             )}
 
