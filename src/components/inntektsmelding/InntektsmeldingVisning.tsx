@@ -3,6 +3,7 @@ import React from 'react'
 
 import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
 import { Feedback } from '../feedback/feedback'
+import { Banner } from '../banner/Banner'
 
 import PeriodeFraTil from './PeriodeFraTil/PeriodeFraTil'
 import { formatDateFromString, formatTime } from './formatDate'
@@ -16,9 +17,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
     return (
         <>
-            <Heading level="1" size="large" spacing>
-                Inntektsmelding
-            </Heading>
+            <Banner tittel="Inntektsmelding" utenIkon={true}></Banner>
 
             <BodyLong spacing>
                 For å bestemme din rett til sykepenger og korrekt beregne ditt sykepengegrunnlag, har din arbeidsgiver

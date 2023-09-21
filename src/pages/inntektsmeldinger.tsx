@@ -6,6 +6,7 @@ import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../hooks/useInntektsmeldinger'
 import { formatDateFromString } from '../components/inntektsmelding/formatDate'
+import { Banner } from '../components/banner/Banner'
 
 const Inntektsmeldinger = () => {
     useUpdateBreadcrumbs(
@@ -15,10 +16,13 @@ const Inntektsmeldinger = () => {
     const { data: inntektsmeldinger } = useInntektsmeldinger()
     return (
         <>
-            <Heading size="large" level="1">
-                Inntektsmeldinger
-            </Heading>
+            <Banner tittel="Inntektsmeldinger" utenIkon={true}></Banner>
 
+            {inntektsmeldinger && inntektsmeldinger.length === 0 && (
+                <BodyShort spacing className="mt-4">
+                    Du har ingen inntektsmeldinger som kan vises.
+                </BodyShort>
+            )}
             {inntektsmeldinger
                 ?.sort((a, b) => b.mottattDato.localeCompare(a.mottattDato))
                 ?.map((inntektsmelding) => (
