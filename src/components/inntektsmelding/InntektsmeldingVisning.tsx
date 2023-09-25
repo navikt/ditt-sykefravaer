@@ -13,7 +13,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const ingenArbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder.length === 0
     const arbeidsgiverperioder = inntektsmelding?.arbeidsgiverperioder
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
-    const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd && Number(inntektsmelding.refusjon.beloepPrMnd) > 0
+    const erRefusjon = inntektsmelding?.refusjon?.beloepPrMnd && Number(inntektsmelding?.refusjon.beloepPrMnd) > 0
     const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
     return (
         <>
@@ -32,16 +32,26 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             <Label as="p">Virksomhetsnavn</Label>
             <BodyLong spacing>{inntektsmelding?.organisasjonsnavn}</BodyLong>
 
-            <Heading size="medium" level="2" className="mt-8">
-                Bestemmende fraværsdag
-            </Heading>
-            <BodyLong spacing>
-                Bestemmende fraværsdag er den dagen sykepenger beregnes fra. Det er kun inntekt du har hatt før denne
-                dagen som skal være med i beregningen.
-            </BodyLong>
-            <Label as="p">Dato</Label>
-            <BodyLong>{formatDateFromString(inntektsmelding?.foersteFravaersdag)}</BodyLong>
+            {inntektsmelding?.innsenderFulltNavn && (
+                <>
+                    <Label as="p">Innsender</Label>
+                    <BodyLong spacing>{inntektsmelding?.innsenderFulltNavn}</BodyLong>
+                </>
+            )}
 
+            {inntektsmelding?.foersteFravaersdag && (
+                <>
+                    <Heading size="medium" level="2" className="mt-8">
+                        Bestemmende fraværsdag
+                    </Heading>
+                    <BodyLong spacing>
+                        Bestemmende fraværsdag er den dagen sykepenger beregnes fra. Det er kun inntekt du har hatt før
+                        denne dagen som skal være med i beregningen.
+                    </BodyLong>
+                    <Label as="p">Dato</Label>
+                    <BodyLong>{formatDateFromString(inntektsmelding?.foersteFravaersdag)}</BodyLong>
+                </>
+            )}
             {!ingenArbeidsgiverperioder && (
                 <>
                     <Heading size="medium" level="2" className="mt-8">
@@ -78,6 +88,23 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 bli refundert av NAV. Nedenfor ser du om sykepengene blir betalt direkte til deg eller om de blir sendt
                 til arbeidsgiveren din.
             </BodyLong>
+
+            {inntektsmelding?.begrunnelseForReduksjonEllerIkkeUtbetalt && (
+                <>
+                    <Label as="p">Betaler arbeidsgiver ut full lønn i arbeidsgiverperioden?</Label>
+                    <BodyLong spacing>Nei</BodyLong>
+
+                    <Label as="p">Begrunnelse</Label>
+                    <BodyLong spacing>{inntektsmelding?.begrunnelseForReduksjonEllerIkkeUtbetalt}</BodyLong>
+
+                    {inntektsmelding?.bruttoUtbetalt && (
+                        <>
+                            <Label as="p">Brutto utbetalt under arbeidsgiverperiode</Label>
+                            <BodyLong spacing>{formatCurrency(inntektsmelding?.bruttoUtbetalt)} kr</BodyLong>
+                        </>
+                    )}
+                </>
+            )}
             <Label as="p">Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?</Label>
             <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei, sykepengene blir betalt direkte til deg'}</BodyLong>
 
@@ -109,7 +136,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             {inntektsmelding?.refusjon?.opphoersdato && (
                 <>
                     <Label as="p">Siste dag arbeidsgiver betaler lønn</Label>
-                    <BodyShort>{formatDateFromString(inntektsmelding.refusjon.opphoersdato)}</BodyShort>
+                    <BodyShort>{formatDateFromString(inntektsmelding?.refusjon.opphoersdato)}</BodyShort>
                     <BodyLong spacing>NAV betaler direkte til deg etter dette.</BodyLong>
                 </>
             )}
@@ -127,27 +154,34 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                             </Table.Row>
                         </Table.Header>
                         <Table.Body>
-                            {inntektsmelding?.opphoerAvNaturalytelser?.map((naturalytelse, i) => (
-                                <Table.Row key={i}>
-                                    <Table.DataCell>
-                                        {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
-                                    </Table.DataCell>
-                                    <Table.DataCell>{formatDateFromString(naturalytelse.fom)}</Table.DataCell>
-                                    <Table.DataCell>
-                                        {formatCurrency(naturalytelse.beloepPrMnd)} kr/måned
-                                    </Table.DataCell>
-                                </Table.Row>
-                            ))}
+                            {inntektsmelding?.opphoerAvNaturalytelser?.map((naturalytelse, i) => {
+                                if (!naturalytelse.naturalytelse) return null
+                                if (!naturalytelse.fom) return null
+                                if (!naturalytelse.beloepPrMnd) return null
+                                return (
+                                    <Table.Row key={i}>
+                                        <Table.DataCell>
+                                            {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
+                                        </Table.DataCell>
+                                        <Table.DataCell>{formatDateFromString(naturalytelse.fom)}</Table.DataCell>
+                                        <Table.DataCell>
+                                            {formatCurrency(naturalytelse.beloepPrMnd)} kr/måned
+                                        </Table.DataCell>
+                                    </Table.Row>
+                                )
+                            })}
                         </Table.Body>
                     </Table>
                 </>
             )}
 
-            <BodyLong spacing className="text-gray-600 mt-12">
-                {`Inntektsmelding innsendt ${formatDateFromString(inntektsmelding?.mottattDato)} kl. ${formatTime(
-                    inntektsmelding?.mottattDato,
-                )}`}
-            </BodyLong>
+            {inntektsmelding?.mottattDato && (
+                <BodyLong spacing className="text-gray-600 mt-12">
+                    {`Inntektsmelding innsendt ${formatDateFromString(inntektsmelding?.mottattDato)} kl. ${formatTime(
+                        inntektsmelding?.mottattDato,
+                    )}`}
+                </BodyLong>
+            )}
             <Feedback feedbackId="inntektsmelding-visning" />
         </>
     )

@@ -9,11 +9,7 @@ export function formatDate(date?: Date): string {
     return format(date, 'dd.MM.yyyy')
 }
 
-export function formatDateFromString(date?: string): string {
-    if (!date) {
-        return ''
-    }
-
+export function formatDateFromString(date: string): string {
     return format(new Date(date), 'dd.MM.yyyy')
 }
 

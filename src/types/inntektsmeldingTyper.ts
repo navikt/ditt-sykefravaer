@@ -2,12 +2,15 @@ export interface InntektsmeldingTyper {
     organisasjonsnavn: string
     inntektsmeldingId: string
     beregnetInntekt?: string
-    foersteFravaersdag: string
+    foersteFravaersdag?: string
     mottattDato: string
     arbeidsgiverperioder: Periode[]
     opphoerAvNaturalytelser: OpphoerAvNaturalytelser[]
     endringIRefusjoner: EndringIRefusjon[]
     refusjon: Refusjon
+    begrunnelseForReduksjonEllerIkkeUtbetalt?: string
+    bruttoUtbetalt?: string
+    innsenderFulltNavn?: string
 }
 
 export interface EndringIRefusjon {
@@ -26,9 +29,9 @@ export interface Periode {
 }
 
 export interface OpphoerAvNaturalytelser {
-    fom: string
-    naturalytelse: string
-    beloepPrMnd: string
+    fom?: string
+    naturalytelse?: string
+    beloepPrMnd?: string
 }
 
 interface Naturalytelser {
