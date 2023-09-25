@@ -71,6 +71,7 @@ export enum SsrPathVariants {
     ServerError = '/500',
     DittSykefravaer = '/',
     Inntektsmelding = '/inntektsmelding',
+    Inntektsmeldinger = '/inntektsmeldinger',
 }
 
 export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
@@ -79,6 +80,9 @@ export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | s
         case SsrPathVariants.ServerError:
         case SsrPathVariants.DittSykefravaer:
             return createCompleteCrumbs([])
+        case SsrPathVariants.Inntektsmeldinger:
+            return createCompleteCrumbs([baseCrumb, { title: 'Inntektsmeldinger' }])
+
         case SsrPathVariants.Inntektsmelding:
             return createCompleteCrumbs(createInntektsmeldingBreadcrumbs())
         default:

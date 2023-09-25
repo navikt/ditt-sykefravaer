@@ -35,10 +35,12 @@ const Inntektsmeldinger = () => {
                                 <Heading size="small" level="2" spacing>
                                     {inntektsmelding.organisasjonsnavn}
                                 </Heading>
-                                <BodyShort>
-                                    For sykefravær som startet{' '}
-                                    {formatDateFromString(inntektsmelding.foersteFravaersdag)}
-                                </BodyShort>
+                                {inntektsmelding.foersteFravaersdag && (
+                                    <BodyShort spacing>
+                                        For sykefravær som startet{' '}
+                                        {formatDateFromString(inntektsmelding.foersteFravaersdag)}
+                                    </BodyShort>
+                                )}
                                 <BodyShort className="text-gray-600">
                                     Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
                                 </BodyShort>
