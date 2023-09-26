@@ -10,7 +10,7 @@ export interface InntektsmeldingTyper {
     refusjon: Refusjon
     begrunnelseForReduksjonEllerIkkeUtbetalt?: string
     bruttoUtbetalt?: string
-    innsenderFulltNavn?: string
+    innsenderFulltNavn: string
 }
 
 export interface EndringIRefusjon {
