@@ -35,7 +35,12 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
             {renderInnsendtInfo()}
 
             {foersteFravaersdag && (
-                <ExpansionCard className="mb-8 mt-8" size="small" aria-label="Small-variant" style={expansionCardStyle}>
+                <ExpansionCard
+                    className="mb-8 mt-8"
+                    size="small"
+                    aria-label="Informasjon om bestemmende fraværsdag"
+                    style={expansionCardStyle}
+                >
                     <ExpansionCard.Header>
                         <ExpansionCard.Title size="small">
                             <BodyShort weight="semibold">
@@ -52,7 +57,12 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
                 </ExpansionCard>
             )}
 
-            <ExpansionCard size="small" aria-label="Small-variant" className="mb-4" style={expansionCardStyle}>
+            <ExpansionCard
+                size="small"
+                aria-label="Informasjon om beregnet månedsinntekt"
+                className="mb-4"
+                style={expansionCardStyle}
+            >
                 <ExpansionCard.Header>
                     <ExpansionCard.Title size="small">
                         <BodyShort weight="semibold">Beregnet månedsinntekt: {beregnetInntekt} kr</BodyShort>
