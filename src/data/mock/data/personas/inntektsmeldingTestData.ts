@@ -8,7 +8,7 @@ export const altinnInntektsmelding: InntektsmeldingTyper = {
     mottattDato: '2023-05-16T08:49:43',
     organisasjonsnavn: 'Matbutikken AS, Kjelsås',
     innsenderFulltNavn: 'Pål Dagfinn',
-    begrunnelseForReduksjonEllerIkkeUtbetalt: 'Ugyldig fravær.',
+    begrunnelseForReduksjonEllerIkkeUtbetalt: 'BetvilerArbeidsufoerhet',
     bruttoUtbetalt: '0',
     opphoerAvNaturalytelser: [
         {
