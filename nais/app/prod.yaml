@@ -36,4 +36,3 @@ env:
   SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.prod-fss-pub.nais.io
   SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
   FLEXJAR_BACKEND_CLIENT_ID: prod-gcp:flex:flexjar-backend
-  INNTEKTSMELDINGER_ENABLED: false

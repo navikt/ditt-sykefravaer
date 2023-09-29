@@ -13,11 +13,12 @@ describe('Inntektsmeldinger', () => {
     it('Åpner inntektsmelding', () => {
         cy.contains('Inntektsmeldinger')
         cy.get('body')
-            .findByRole('link', { name: /grefsen/i })
+            .findByRole('link', { name: /kjelsås/i })
             .click()
 
         cy.contains('Bestemmende fraværsdag')
-        cy.contains('Matbutikken AS, Grefsen')
+        cy.contains('Matbutikken AS, Kjelsås')
+        cy.contains('Vi betviler at ansatt er ute av stand til å jobbe')
     })
 
     it('Går til listevisning uten inntektsmeldinger', () => {
