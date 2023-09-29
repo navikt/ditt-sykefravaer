@@ -34,9 +34,28 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
 
             {renderInnsendtInfo()}
 
+            <ExpansionCard
+                size="small"
+                aria-label="Informasjon om beregnet månedsinntekt"
+                className="mb-8 mt-8"
+                style={expansionCardStyle}
+            >
+                <ExpansionCard.Header>
+                    <ExpansionCard.Title size="small">
+                        <BodyShort weight="semibold">Beregnet månedsinntekt: {beregnetInntekt} kr</BodyShort>
+                    </ExpansionCard.Title>
+                </ExpansionCard.Header>
+                <ExpansionCard.Content>
+                    <BodyShort>
+                        Beregnet månedsinntekt er den inntekten som sykepenger regnes ut fra. Dette skal som regel være
+                        gjennomsnittet av inntekten din de siste tre kalendermånedene før sykefraværet startet.
+                    </BodyShort>
+                </ExpansionCard.Content>
+            </ExpansionCard>
+
             {foersteFravaersdag && (
                 <ExpansionCard
-                    className="mb-8 mt-8"
+                    className="mb-4"
                     size="small"
                     aria-label="Informasjon om bestemmende fraværsdag"
                     style={expansionCardStyle}
@@ -56,25 +75,6 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
                     </ExpansionCard.Content>
                 </ExpansionCard>
             )}
-
-            <ExpansionCard
-                size="small"
-                aria-label="Informasjon om beregnet månedsinntekt"
-                className="mb-4"
-                style={expansionCardStyle}
-            >
-                <ExpansionCard.Header>
-                    <ExpansionCard.Title size="small">
-                        <BodyShort weight="semibold">Beregnet månedsinntekt: {beregnetInntekt} kr</BodyShort>
-                    </ExpansionCard.Title>
-                </ExpansionCard.Header>
-                <ExpansionCard.Content>
-                    <BodyShort>
-                        Beregnet månedsinntekt er den inntekten som sykepenger regnes ut fra. Dette skal som regel være
-                        gjennomsnittet av inntekten din de siste tre kalendermånedene før sykefraværet startet.
-                    </BodyShort>
-                </ExpansionCard.Content>
-            </ExpansionCard>
         </Panel>
     )
 }
