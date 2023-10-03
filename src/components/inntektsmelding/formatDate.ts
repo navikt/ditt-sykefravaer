@@ -12,11 +12,3 @@ export function formatDate(date?: Date): string {
 export function formatDateFromString(date: string): string {
     return format(new Date(date), 'dd.MM.yyyy')
 }
-
-/** Funskjon som formatterer klokkeslsett fra ISO format til HH:mm med dayjs */
-export function formatTime(dateTime?: string) {
-    if (!dateTime) {
-        return ''
-    }
-    return format(new Date(dateTime), 'HH:mm')
-}
