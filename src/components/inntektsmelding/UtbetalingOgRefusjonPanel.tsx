@@ -122,7 +122,3 @@ function begrunnelseTilBegrunnelsetekst(begrunnelse: string) {
     logger.error(`Begrunnelse ${begrunnelse} ikke funnet i begrunnelseIngenEllerRedusertUtbetalingListe`)
     return begrunnelse
 }
-
-UtbetalingOgRefusjonPanel.defaultProps = {
-    inntektsmelding: null,
-}

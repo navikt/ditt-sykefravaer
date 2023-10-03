@@ -78,7 +78,3 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
         </Panel>
     )
 }
-
-InntektsmeldingPanel.defaultProps = {
-    inntektsmelding: null,
-}

@@ -8,6 +8,7 @@ import { Banner } from '../banner/Banner'
 import { InntektsmeldingPanel } from './InntektsmeldingPanel'
 import { UtbetalingOgRefusjonPanel } from './UtbetalingOgRefusjonPanel'
 import { Naturalytelser } from './Naturalytelser'
+import { ArbeidsgiverperiodePanel } from './ArbeidsgiverperiodePanel'
 
 export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: InntektsmeldingTyper }) {
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
@@ -22,7 +23,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             </BodyLong>
 
             <InntektsmeldingPanel inntektsmelding={inntektsmelding} />
-
+            {inntektsmelding && inntektsmelding.arbeidsgiverperioder.length > 0 && (
+                <ArbeidsgiverperiodePanel inntektsmelding={inntektsmelding} />
+            )}
             <UtbetalingOgRefusjonPanel inntektsmelding={inntektsmelding} />
 
             {visNaturalytelser && <Naturalytelser inntektsmelding={inntektsmelding} />}

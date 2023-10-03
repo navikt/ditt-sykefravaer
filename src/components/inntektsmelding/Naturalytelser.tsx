@@ -2,6 +2,7 @@ import { Panel, Heading, BodyShort } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
+import { cn } from '../../utils/tw-utils'
 
 import { formatDateFromString } from './formatDate'
 import formatCurrency from './formatCurrency'
@@ -16,24 +17,29 @@ export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: I
                 if (!naturalytelse.naturalytelse) return null
                 if (!naturalytelse.fom) return null
                 if (!naturalytelse.beloepPrMnd) return null
+                const isLastNaturalytelse = i === inntektsmelding.opphoerAvNaturalytelser.length - 1
+
                 return (
-                    <div key={i} className="border-b border-gray-400 mt-8 mb-8">
+                    <div
+                        key={i}
+                        className={cn('mt-8 mb-8', {
+                            'border-b border-gray-400': !isLastNaturalytelse,
+                        })}
+                    >
                         <BodyShort spacing>
-                            <strong>Ytelse:</strong> {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
+                            <span className="font-bold">Ytelse:</span>{' '}
+                            {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
                         </BodyShort>
                         <BodyShort spacing>
-                            <strong>Verdi:</strong> {formatCurrency(naturalytelse.beloepPrMnd)} kr/mnd
+                            <span className="font-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)} kr/mnd
                         </BodyShort>
                         <BodyShort className="mb-8">
-                            <strong>Ytelsen bortfaller:</strong> {formatDateFromString(naturalytelse.fom)}
+                            <span className="font-bold">Ytelsen bortfaller:</span>{' '}
+                            {formatDateFromString(naturalytelse.fom)}
                         </BodyShort>
                     </div>
                 )
             })}
         </Panel>
     )
-}
-
-Naturalytelser.defaultProps = {
-    inntektsmelding: null,
 }
