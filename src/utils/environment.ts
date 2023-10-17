@@ -56,3 +56,7 @@ export function naisAppName() {
 export function basePath() {
     return publicRuntimeConfig.basePath
 }
+
+export function isProd() {
+    return publicRuntimeConfig.env === 'prod'
+}

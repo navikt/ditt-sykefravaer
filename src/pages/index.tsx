@@ -10,9 +10,11 @@ import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
 import { Feedback } from '../components/feedback/feedback'
 import Oppgaver from '../components/oppgaver/Oppgaver'
+import { useToggle } from '../toggles/context'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
+    const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
 
     return (
         <>
@@ -23,7 +25,7 @@ const Index = () => {
             <Oppgaver />
             <Arbeidssituasjon />
             <Lenker />
-            <Feedback feedbackId="ditt-sykefravaer-fant-du" />
+            {flexjarToggle.enabled && <Feedback feedbackId="ditt-sykefravaer-fant-du" />}
         </>
     )
 }

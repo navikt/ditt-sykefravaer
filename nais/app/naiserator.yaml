@@ -65,6 +65,8 @@ spec:
   {{#each external-host}}
         - host: {{this}}
   {{/each}}
+  envFrom:
+    - secret: ditt-sykefravaer-frontend-unleash-api-token
   env:
   {{#each env}}
      - name: {{@key}}

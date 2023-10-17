@@ -4,6 +4,7 @@ import React from 'react'
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
 import { Feedback } from '../feedback/feedback'
 import { Banner } from '../banner/Banner'
+import { useToggle } from '../../toggles/context'
 
 import { InntektsmeldingPanel } from './InntektsmeldingPanel'
 import { UtbetalingOgRefusjonPanel } from './UtbetalingOgRefusjonPanel'
@@ -12,6 +13,8 @@ import { ArbeidsgiverperiodePanel } from './ArbeidsgiverperiodePanel'
 
 export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: InntektsmeldingTyper }) {
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
+    const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-inntektsmelding-visning')
+
     return (
         <>
             <Banner tittel="Inntektsmelding" utenIkon={true}></Banner>
@@ -35,7 +38,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 din.
             </BodyLong>
 
-            <Feedback feedbackId="inntektsmelding-visning" />
+            {flexjarToggle.enabled && <Feedback feedbackId="inntektsmelding-visning" />}
         </>
     )
 }
