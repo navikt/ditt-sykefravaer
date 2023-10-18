@@ -25,7 +25,7 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
 
     return (
         <Panel className="bg-blue-50" data-cy="situasjon-innhold">
-            <BodyShort spacing className="break-all">
+            <BodyShort spacing className="break-words">
             {/*<BodyShort spacing>*/}
                 <strong>{navn}</strong>
             </BodyShort>

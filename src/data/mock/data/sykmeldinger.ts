@@ -15,13 +15,14 @@ export const nySykmelding: Sykmelding = {
     syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
 }
 
+const orgNavn = 'hogwart ';
 export const sendtSykmelding: Sykmelding = {
     id: 'SENDT',
     sykmeldingStatus: {
         statusEvent: 'SENDT',
         arbeidsgiver: {
             orgnummer: '972674818',
-            orgNavn: 'HogwartsSchoolofWitchcraftandWizardryHogwartsSchoolofWitchcraftandWizardry HogwartsSchoolofWitchcraftandWizardry HogwartsSchoolofWitchcraftandWizardry',
+            orgNavn: 'hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart ',
         },
     },
     behandlingsutfall: { status: 'OK' },
