@@ -1,18 +1,26 @@
 import { logger } from '@navikt/next-logger'
-import { NextPageContext } from 'next'
+import { GetServerSidePropsContext } from 'next/types'
 import { parse } from 'cookie'
+import { IToggle } from '@unleash/nextjs'
+import { GetServerSidePropsResult } from 'next'
 
 import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
-import { GetServerSidePropsPrefetchResult } from '../types/prefecthing'
 import { isMockBackend } from '../utils/environment'
 import { getSession } from '../data/mock/mock-api'
+import { getFlagsServerSide } from '../toggles/ssr'
 
 import { AuthenticationError, verifyIdportenAccessToken } from './verifyIdportenAccessToken'
 
-type PageHandler = (context: NextPageContext) => void | Promise<GetServerSidePropsPrefetchResult>
+type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<ServerSidePropsResult>>
+
+export interface ServerSidePropsResult {
+    toggles: IToggle[]
+}
 
 function beskyttetSide(handler: PageHandler) {
-    return async function withBearerTokenHandler(context: NextPageContext): Promise<ReturnType<typeof handler>> {
+    return async function withBearerTokenHandler(
+        context: GetServerSidePropsContext,
+    ): Promise<ReturnType<typeof handler>> {
         if (isMockBackend()) {
             const rawCookies = context.req?.headers.cookie || ''
             const parsedCookies = parse(rawCookies)
@@ -61,8 +69,9 @@ function beskyttetSide(handler: PageHandler) {
     }
 }
 
-export const beskyttetSideUtenProps = beskyttetSide(async (): Promise<GetServerSidePropsPrefetchResult> => {
+export const beskyttetSideUtenProps = beskyttetSide(async (context): Promise<{ props: ServerSidePropsResult }> => {
+    const flags = await getFlagsServerSide(context.req, context.res)
     return {
-        props: {},
+        props: { toggles: flags.toggles },
     }
 })

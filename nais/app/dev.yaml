@@ -9,6 +9,7 @@ external-host:
   - syfooppfolgingsplanservice.dev-fss-pub.nais.io
   - veilarboppfolging.dev-fss-pub.nais.io
   - syfomotebehov.dev-fss-pub.nais.io
+  - flex-unleash-api.nav.cloud.nais.io
 env:
   MOCK_BACKEND: false
   ENVIRONMENT: q1
