@@ -21,7 +21,7 @@ export const sendtSykmelding: Sykmelding = {
         statusEvent: 'SENDT',
         arbeidsgiver: {
             orgnummer: '972674818',
-            orgNavn: 'Hogwarts School of Witchcraft and Wizardry',
+            orgNavn: 'HogwartsSchoolofWitchcraftandWizardry',
         },
     },
     behandlingsutfall: { status: 'OK' },
