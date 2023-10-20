@@ -15,16 +15,14 @@ export const nySykmelding: Sykmelding = {
     syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
 }
 
-const orgNavn = 'hogwart ';
 export const sendtSykmelding: Sykmelding = {
     id: 'SENDT',
     sykmeldingStatus: {
         statusEvent: 'SENDT',
         arbeidsgiver: {
             orgnummer: '972674818',
-        // orgNavn: 'hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart hogwart ',
-                        orgNavn: 'ssdflfsjlfsjsfddfsksdlkfsdlfsdklfjsfldjlsdfjsfjlslfjsdsflfjfdjsfl xlfjdlf sdfkljsdlff dsfkjsldf jlsdfjsdlfj HogwartsSchoolofWitchcraftandWizardry HogwartsSchoolofWitchcraftandWizardry',
-
+            orgNavn:
+                'Hogwart School of Witchcraft and Wizardry SectionPotionsSpeelsManagerMalfloydDraco',
         },
     },
     behandlingsutfall: { status: 'OK' },
