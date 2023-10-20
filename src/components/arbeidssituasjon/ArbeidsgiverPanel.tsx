@@ -26,6 +26,8 @@ const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
     return (
         <Panel className="bg-blue-50" data-cy="situasjon-innhold">
             <BodyShort spacing className="break-words">
+                {' '}
+                {/* Mange arbeidsgivernavn er lange, de vil få en visning som ikke fungerer på mobil uten break-words, husk å sjekke hvordan det ser ut med lange arbeidsgivernavn om du fjerner break-words*/}
                 <strong>{navn}</strong>
             </BodyShort>
             <Vis

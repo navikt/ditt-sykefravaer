@@ -21,7 +21,7 @@ export const sendtSykmelding: Sykmelding = {
         statusEvent: 'SENDT',
         arbeidsgiver: {
             orgnummer: '972674818',
-            orgNavn: 'Hogwart School of Witchcraft and Wizardry Section-Potions&Spells-Manager-Malfloyd,Draco ',
+            orgNavn: 'Hogwarts School of Witchcraft and Wizardry',
         },
     },
     behandlingsutfall: { status: 'OK' },
