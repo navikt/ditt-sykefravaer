@@ -6,7 +6,7 @@
         "node": "18"
     },
     "dependencies": {
-        "@grafana/faro-web-sdk": "^1.2.1",
+        "@grafana/faro-web-sdk": "^1.2.2",
         "@jest/globals": "^29.7.0",
         "@navikt/aksel-icons": "^5.7.6",
         "@navikt/ds-css": "^5.7.6",
