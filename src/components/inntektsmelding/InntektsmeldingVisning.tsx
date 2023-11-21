@@ -2,7 +2,7 @@ import { BodyLong } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
-import { Feedback } from '../feedback/feedback'
+import { Flexjar } from '../flexjar/flexjar'
 import { Banner } from '../banner/Banner'
 import { useToggle } from '../../toggles/context'
 
@@ -38,7 +38,7 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
                 din.
             </BodyLong>
 
-            {flexjarToggle.enabled && <Feedback feedbackId="inntektsmelding-visning" />}
+            {flexjarToggle.enabled && <Flexjar feedbackId="inntektsmelding-visning" />}
         </>
     )
 }

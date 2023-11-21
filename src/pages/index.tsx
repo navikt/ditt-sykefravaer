@@ -8,7 +8,7 @@ import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
-import { Feedback } from '../components/feedback/feedback'
+import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
 
@@ -25,7 +25,7 @@ const Index = () => {
             <Oppgaver />
             <Arbeidssituasjon />
             <Lenker />
-            {flexjarToggle.enabled && <Feedback feedbackId="ditt-sykefravaer-fant-du" />}
+            {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
         </>
     )
 }
