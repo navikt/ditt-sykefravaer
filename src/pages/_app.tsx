@@ -53,9 +53,11 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
             </Head>
             <FlagProvider toggles={pageProps.toggles}>
                 <QueryClientProvider client={queryClient}>
-                    <div id="root" className="mx-auto max-w-2xl p-4 pb-32">
-                        <LabsWarning />
-                        <Component {...pageProps} />
+                    <div className=" bg-red-100">
+                        <div id="root" className="mx-auto max-w-2xl p-4 pb-32">
+                            <LabsWarning />
+                            <Component {...pageProps} />
+                        </div>
                     </div>
                 </QueryClientProvider>
             </FlagProvider>
