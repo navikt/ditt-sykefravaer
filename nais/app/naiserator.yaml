@@ -13,7 +13,9 @@ spec:
   replicas:
     min: {{replicas_min}}
     max: {{replicas_max}}
-    cpuThresholdPercentage: 50
+    scalingStrategy:
+      cpu:
+        thresholdPercentage: 50
   tokenx:
     enabled: true
   idporten:
