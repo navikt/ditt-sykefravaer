@@ -9,7 +9,7 @@ export const Banner = ({ tittel, utenIkon }: { tittel: string; utenIkon?: boolea
     const kanVelgePerson = isMockBackend() || isOpplaering()
 
     return (
-        <header className="mt-4 flex items-center justify-between pb-8 ">
+        <div className="mt-4 flex items-center justify-between pb-8 ">
             <div className="flex">
                 {!utenIkon && (
                     <div className="hidden md:mr-6 md:inline">
@@ -21,6 +21,6 @@ export const Banner = ({ tittel, utenIkon }: { tittel: string; utenIkon?: boolea
                 </Heading>
             </div>
             {kanVelgePerson && <Person />}
-        </header>
+        </div>
     )
 }

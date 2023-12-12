@@ -1,6 +1,5 @@
 import React from 'react'
 import { SackKronerIcon } from '@navikt/aksel-icons'
-import Link from 'next/link'
 
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 
@@ -16,8 +15,11 @@ export const InntektsmeldingLenkepanel = () => {
         return null
     }
     return (
-        <Link href="/inntektsmeldinger">
-            <FellesLenkepanel ikon={SackKronerIcon} tekst="Inntektsmeldinger" undertekst="Fra arbeidsgiveren din" />
-        </Link>
+        <FellesLenkepanel
+            ikon={SackKronerIcon}
+            tekst="Inntektsmeldinger"
+            undertekst="Fra arbeidsgiveren din"
+            url="/inntektsmeldinger"
+        />
     )
 }
