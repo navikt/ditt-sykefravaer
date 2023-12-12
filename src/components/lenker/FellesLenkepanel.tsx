@@ -1,5 +1,6 @@
 import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
+import Link from 'next/link'
 
 import { logEvent } from '../amplitude/amplitude'
 
@@ -30,18 +31,15 @@ export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
     }
     return (
         <LinkPanel
+            as={Link}
             className="mb-2"
-            onClick={(e) => {
+            onClick={() => {
                 if (props.url) {
-                    e.preventDefault()
-
                     logEvent('navigere', {
                         destinasjon: props.url,
                         lenketekst: props.tekst,
                         komponent: 'ditt sykefravær lenkepanel',
                     })
-
-                    window.location.href = props.url
                 }
             }}
             href={props.url}

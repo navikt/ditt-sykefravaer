@@ -26,27 +26,27 @@ const Inntektsmeldinger = () => {
             {inntektsmeldinger
                 ?.sort((a, b) => b.mottattDato.localeCompare(a.mottattDato))
                 ?.map((inntektsmelding) => (
-                    <Link
-                        href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
+                    <LinkPanel
                         key={inntektsmelding.inntektsmeldingId}
+                        href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
+                        as={Link}
+                        className="mt-4"
                     >
-                        <LinkPanel className="mt-4">
-                            <div>
-                                <Heading size="small" level="2" spacing>
-                                    {inntektsmelding.organisasjonsnavn}
-                                </Heading>
-                                {inntektsmelding.foersteFravaersdag && (
-                                    <BodyShort spacing>
-                                        For sykefravær som startet{' '}
-                                        {formatDateFromString(inntektsmelding.foersteFravaersdag)}
-                                    </BodyShort>
-                                )}
-                                <BodyShort className="text-gray-600">
-                                    Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
+                        <div>
+                            <Heading size="small" level="2" spacing>
+                                {inntektsmelding.organisasjonsnavn}
+                            </Heading>
+                            {inntektsmelding.foersteFravaersdag && (
+                                <BodyShort spacing>
+                                    For sykefravær som startet{' '}
+                                    {formatDateFromString(inntektsmelding.foersteFravaersdag)}
                                 </BodyShort>
-                            </div>
-                        </LinkPanel>
-                    </Link>
+                            )}
+                            <BodyShort className="text-gray-600">
+                                Mottatt: {formatDateFromString(inntektsmelding.mottattDato)}
+                            </BodyShort>
+                        </div>
+                    </LinkPanel>
                 ))}
         </>
     )
