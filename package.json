@@ -30,7 +30,7 @@
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-modal": "^3.16.1",
-        "remeda": "^1.29.0",
+        "remeda": "^1.30.0",
         "tailwind-merge": "^2.1.0",
         "uuid": "^9.0.1"
     },
