@@ -72,7 +72,7 @@ describe('Tester arbeidssituasjon', () => {
         cy.get('.navds-accordion__content')
             .should(
                 'contain',
-                'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selvom du er syk.',
+                'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selv om du er syk.',
             )
             .should('contain', 'Er det oppgaver jeg kan gjøre selv om jeg er syk?')
             .should('contain', 'Kan noe endres på arbeidsplassen for at jeg kan få det til?')
