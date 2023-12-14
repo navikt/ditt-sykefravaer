@@ -2,7 +2,7 @@ export const ArbeidssituasjonTekster = {
     'din-situasjon.tittel.2': 'Din arbeidssituasjon',
     'din-situasjon.slik-hjelper-arbeidsgiver': 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt',
     'din-situasjon.arbeidsgiver-legger-til-rette':
-        '<strong>Arbeidsgiveren skal legge til rette</strong> for at du kan jobbe helt eller delvis selvom du er syk.',
+        '<strong>Arbeidsgiveren skal legge til rette</strong> for at du kan jobbe helt eller delvis selv om du er syk.',
     'din-situasjon.arbeidsgiver-oppfølgingsplan':
         'Sammen med deg skal lederen din lage en <strong>oppfølgingsplan</strong> som skal gjøre det lettere å tenke gjennom:',
     'din-situasjon.arbeidsgiver-arbeidsoppgaver': 'Er det oppgaver jeg kan gjøre selv om jeg er syk?',
