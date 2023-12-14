@@ -18,7 +18,7 @@ interface FlexjarFellesProps {
     flexjarsporsmal: string
     flexjartittel: string
     app: string
-    feedbackProps: Record<string, string | undefined>
+    feedbackProps: Record<string, string | undefined | boolean>
 }
 
 export function FlexjarFelles({
@@ -184,6 +184,7 @@ export function FeedbackButton(props: FeedbackButtonProps) {
                 'bg-surface-neutral-active text-text-on-inverted hover:bg-surface-neutral-active':
                     props.activeState === props.svar,
             })}
+            aria-pressed={props.activeState === props.svar}
             onClick={() => {
                 logEvent('knapp klikket', {
                     komponent: 'flexjar',
