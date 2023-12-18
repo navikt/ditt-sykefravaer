@@ -4,6 +4,7 @@ on: delete
 jobs:
   branch-delete:
     uses: navikt/flex-github-actions-workflows/.github/workflows/demo-delete.yml@master
-    secrets: inherit
+    permissions:
+      id-token: write
     with:
       base-path: syk/sykefravaer
