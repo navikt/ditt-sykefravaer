@@ -26,6 +26,14 @@ const nextConfig = {
                         key: 'Content-Security-Policy',
                         value: csp,
                     },
+                    {
+                        key: 'Permissions-Policy',
+                        value: 'geolocation=(), microphone=(), camera=()',
+                    },
+                    {
+                        key: 'Referrer-Policy',
+                        value: 'strict-origin-when-cross-origin',
+                    },
                 ],
             },
             {
