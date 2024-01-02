@@ -30,7 +30,6 @@ env:
   NARMESTELEDER_CLIENT_ID: dev-gcp:teamsykmelding:narmesteleder
   SYKEPENGESOKNAD_BACKEND_CLIENT_ID: dev-gcp:flex:sykepengesoknad-backend
   SYFOMOTEBEHOV_CLIENT_ID: dev-fss:team-esyfo:syfomotebehov
-  SYFOMOTEBEHOV_URL: https://syfomotebehov.dev-fss-pub.nais.io
   SYFOMOTEBEHOV_HOST: syfomotebehov.dev-fss-pub.nais.io
   VEILARBOPPFOLGING_HOST: veilarboppfolging.dev-fss-pub.nais.io
   VEILARBOPPFOLGING_CLIENT_ID: dev-fss:pto:veilarboppfolging
