@@ -63,8 +63,6 @@ spec:
           namespace: teamsykmelding
         - application: narmesteleder
           namespace: teamsykmelding
-        - application: syfomotebehov
-          namespace: team-esyfo
         - application: nav-dekoratoren
           namespace: personbruker
       external:
