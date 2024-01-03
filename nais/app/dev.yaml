@@ -20,7 +20,7 @@ env:
   AKTIVITETSPLAN_URL: https://aktivitetsplan-q1.dev.nav.no/
   OPPFOLGINGSPLAN_URL: https://www.ekstern.dev.nav.no/syk/oppfolgingsplaner/sykmeldt
   DIALOGMOTE_URL: https://www.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt
-  MINSIDE_URL: https://www.dev.nav.no/minside/
+  MINSIDE_URL: https://www.intern.dev.nav.no/minside/
   DECORATOR_ENV: dev
   AMPLITUDE_ENABLED: true
   ASSET_PREFIX: https://cdn.nav.no/flex/ditt-sykefravaer
