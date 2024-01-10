@@ -14,7 +14,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         res,
         tillatteApier,
         backend: 'syfomotebehov',
-        hostname: serverRuntimeConfig.syfomotebehovHost,
+        hostname: 'syfomotebehov.team-esyfo',
         backendClientId: serverRuntimeConfig.syfomotebehovClientId,
         https: true,
     })
