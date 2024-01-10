@@ -58,7 +58,6 @@ const nextConfig = {
         narmestelederClientId: process.env.NARMESTELEDER_CLIENT_ID,
         flexjarBackendClientId: process.env.FLEXJAR_BACKEND_CLIENT_ID,
         syfomotebehovClientId: process.env.SYFOMOTEBEHOV_CLIENT_ID,
-        syfomotebehovHost: process.env.SYFOMOTEBEHOV_HOST,
         veilarboppfolgingHost: process.env.VEILARBOPPFOLGING_HOST,
         veilarboppfolgingClientId: process.env.VEILARBOPPFOLGING_CLIENT_ID,
         syfooppfolgingsplanserviceHost: process.env.SYFOOPPFOLGINGSPLANSERVICE_HOST,
