@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { Sykmelding } from '../types/sykmelding'
-import { fetchJson } from '../utils/fetch'
+import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
@@ -11,6 +11,8 @@ export default function UseSykmeldinger() {
     return useQuery<Sykmelding[], Error>({
         queryKey: ['sykmeldinger'],
         queryFn: () =>
-            fetchJson('/syk/sykefravaer/api/sykmeldinger-backend/api/v2/sykmeldinger' + testpersonQuery.query()),
+            fetchJsonMedRequestId(
+                '/syk/sykefravaer/api/sykmeldinger-backend/api/v2/sykmeldinger' + testpersonQuery.query(),
+            ),
     })
 }

@@ -120,6 +120,12 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         case 'GET /api/syfomotebehov/syfomotebehov/api/v3/arbeidstaker/motebehov':
             return sendJson(testperson.dialogmoteBehov)
 
+        case 'POST /api/flexjar-backend/api/v2/feedback':
+            return sendJson({ id: uuidv4() }, 201)
+
+        case 'PUT /api/flexjar-backend/api/v2/feedback/[uuid]':
+            return sendJson({}, 204)
+
         case 'GET /api/narmesteleder/user/v2/sykmeldt/narmesteledere':
             return sendJson(testperson.narmesteledere)
 

@@ -16,6 +16,8 @@ interface Opts {
 }
 
 export async function proxyKallTilBackend(opts: Opts) {
+    logger.info('proxykall')
+
     if (!opts.req.url) return null
     const rewritedPath = opts.req.url.replace(`/api/${opts.backend}`, '')
     const api = `${opts.req.method} ${rewritedPath}`

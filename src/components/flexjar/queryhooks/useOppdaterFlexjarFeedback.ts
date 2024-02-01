@@ -1,13 +1,10 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 
 import fetchMedRequestId from '../../../utils/fetch'
 import { basePath } from '../../../utils/environment'
 
 export function UseOppdaterFlexjarFeedback() {
-    const queryClient = useQueryClient()
-
     return useMutation<unknown, Error, OppdaterFlexjarFeedbackRequest>({
-        mutationKey: ['opprettFlexjarFeedback'],
         mutationFn: async (req) => {
             return fetchMedRequestId(`${basePath()}/api/flexjar-backend/api/v2/feedback/${req.id}`, {
                 method: 'PUT',
@@ -19,9 +16,7 @@ export function UseOppdaterFlexjarFeedback() {
             })
         },
         onSuccess: async (_, req) => {
-            if (req.knappeklikk) {
-                await queryClient.resetQueries(['opprettFlexjarFeedback'])
-            }
+            req.cb?.()
         },
     })
 }
@@ -29,5 +24,5 @@ export function UseOppdaterFlexjarFeedback() {
 interface OppdaterFlexjarFeedbackRequest {
     id: string
     body: object
-    knappeklikk: boolean
+    cb?: () => void
 }
