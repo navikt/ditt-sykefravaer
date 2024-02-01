@@ -1,10 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { Alert, BodyShort, Button, Heading, Label, Textarea } from '@navikt/ds-react'
 import { FaceSmileIcon, MagnifyingGlassIcon } from '@navikt/aksel-icons'
 
-import UseFlexjarFeedback from '../../hooks/useFlexjarFeedback'
 import { cn } from '../../utils/tw-utils'
 import { logEvent } from '../amplitude/amplitude'
+
+import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
+import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
 
 interface FlexjarFellesProps {
     feedbackId: string
@@ -38,34 +40,46 @@ export function FlexjarFelles({
     const [textValue, setTextValue] = useState('')
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const textAreaRef = useRef(null)
-    const { mutate: giFeedback } = UseFlexjarFeedback()
+    const { mutate: giFeedback, data, reset } = UseOpprettFlexjarFeedback()
+    const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
+    const fetchFeedback = useCallback(
+        async (knappeklikk: boolean): Promise<boolean> => {
+            if (activeState === null) {
+                return false
+            }
 
+            const body = {
+                feedback: textValue,
+                feedbackId: feedbackId,
+                svar: activeState,
+                app,
+                ...feedbackProps,
+            }
+            if (data?.id) {
+                oppdaterFeedback({ body, id: data.id, knappeklikk })
+                return true
+            } else {
+                giFeedback(body)
+                return false
+            }
+        },
+        [activeState, app, data?.id, feedbackId, feedbackProps, giFeedback, oppdaterFeedback, textValue],
+    )
     useEffect(() => {
         setErrorMsg(null)
     }, [activeState])
+
+    useEffect(() => {
+        fetchFeedback(false).catch()
+    }, [activeState, fetchFeedback])
 
     const feedbackPropsString = JSON.stringify(feedbackProps)
     useEffect(() => {
         setErrorMsg(null)
         setTextValue('')
         setActiveState(null)
-    }, [feedbackPropsString, setActiveState, feedbackId])
-
-    const fetchFeedback = async (): Promise<void> => {
-        if (activeState === null) {
-            return
-        }
-
-        const body = {
-            feedback: textValue,
-            feedbackId: feedbackId,
-            svar: activeState,
-            app,
-            ...feedbackProps,
-        }
-
-        giFeedback(body)
-    }
+        reset()
+    }, [feedbackPropsString, setActiveState, feedbackId, reset])
 
     const sendTilbakemelding = 'Send tilbakemelding'
 
@@ -80,12 +94,14 @@ export function FlexjarFelles({
             svar: activeState + '',
             tekst: sendTilbakemelding,
         })
-        await fetchFeedback()
-        setErrorMsg(null)
+        const oppdatert = await fetchFeedback(true)
+        if (oppdatert) {
+            setErrorMsg(null)
 
-        setActiveState(null)
-        setTextValue('')
-        setThanksFeedback(true)
+            setActiveState(null)
+            setTextValue('')
+            setThanksFeedback(true)
+        }
     }
 
     return (
