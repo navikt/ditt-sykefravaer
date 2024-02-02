@@ -136,7 +136,7 @@ export function FlexjarFelles({
                                     error={errorMsg}
                                     label={getPlaceholder()}
                                     onKeyDown={async (e) => {
-                                        if (e.key === 'Enter' && !e.shiftKey) {
+                                        if (e.key === 'Enter' && e.ctrlKey) {
                                             e.preventDefault()
                                             await handleSend(() => reset())
                                         }
