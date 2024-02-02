@@ -33,7 +33,6 @@ export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
             thanksFeedback={thanksFeedback}
             setThanksFeedback={setThanksFeedback}
             getPlaceholder={getPlaceholder}
-            app="ditt-sykefravaer-frontend"
             feedbackProps={{}}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
