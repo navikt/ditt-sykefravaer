@@ -19,7 +19,6 @@ interface FlexjarFellesProps {
     textRequired?: boolean
     flexjarsporsmal: string
     flexjartittel: string
-    app: string
     feedbackProps: Record<string, string | undefined | boolean>
 }
 
@@ -34,7 +33,6 @@ export function FlexjarFelles({
     flexjarsporsmal,
     children,
     textRequired,
-    app,
     feedbackProps,
 }: FlexjarFellesProps) {
     const [textValue, setTextValue] = useState('')
@@ -52,7 +50,6 @@ export function FlexjarFelles({
                 feedback: textValue,
                 feedbackId: feedbackId,
                 svar: activeState,
-                app,
                 ...feedbackProps,
             }
             if (data?.id) {
@@ -63,7 +60,7 @@ export function FlexjarFelles({
                 return false
             }
         },
-        [activeState, app, data?.id, feedbackId, feedbackProps, giFeedback, oppdaterFeedback, textValue],
+        [activeState, data?.id, feedbackId, feedbackProps, giFeedback, oppdaterFeedback, textValue],
     )
     useEffect(() => {
         setErrorMsg(null)
