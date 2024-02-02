@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { DialogmoteBehov } from '../types/dialogmoteBehov'
-import { fetchJson } from '../utils/fetch'
+import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
@@ -11,7 +11,7 @@ export default function UseDialogmoteBehov() {
     return useQuery<DialogmoteBehov, Error>({
         queryKey: ['dialogmoteBehov'],
         queryFn: () =>
-            fetchJson(
+            fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/syfomotebehov/syfomotebehov/api/v3/arbeidstaker/motebehov' +
                     testpersonQuery.query(),
             ),

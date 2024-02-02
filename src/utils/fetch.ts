@@ -1,28 +1,43 @@
-import { logger } from '@navikt/next-logger'
 import { v4 as uuidv4 } from 'uuid'
 
 export type FetchResult = { requestId: string; response: Response }
 
-export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): Promise<FetchResult> {
+export type ErrorHandler = (result: Response, requestId: string, defaultErrorHandler: () => void) => void
+
+export class FetchError extends Error {
+    status: number
+
+    constructor(message: string, status: number) {
+        super(message)
+        this.status = status
+    }
+}
+
+export class AuthenticationError extends FetchError {
+    constructor(message: string) {
+        super(message, 401)
+    }
+}
+
+export const fetchMedRequestId = async (
+    url: string,
+    options: RequestInit = {},
+    errorHandler?: ErrorHandler,
+): Promise<FetchResult> => {
     const requestId = uuidv4()
 
-    const options: RequestInit = optionsInn ? optionsInn : {}
     options.headers = options.headers
         ? { ...options.headers, 'x-request-id': requestId }
         : { 'x-request-id': requestId }
-    options.cache = 'no-store'
 
     const fetchUrl = async () => {
         try {
             return await fetch(url, options)
         } catch (e) {
-            logger.warn(
-                e,
-                `${e} - Kall til url: ${
-                    options.method || 'GET'
-                } ${url} og x_request_id: ${requestId} feilet uten svar fra backend.`,
+            throw new FetchError(
+                `${e} - Kall til url: ${options.method} ${url} og x_request_id: ${requestId} feilet uten svar fra backend.`,
+                -1,
             )
-            throw e
         }
     }
 
@@ -30,36 +45,52 @@ export async function fetchMedRequestId(url: string, optionsInn?: RequestInit): 
 
     if (response.status == 401) {
         window.location.reload()
-        throw new Error('Laster siden på nytt på grunn av HTTP-kode 401 fra backend.')
+        throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
     }
 
     if (!response.ok) {
-        if (!(response.status === 403 && url.endsWith('/veilarboppfolging/api/v2/oppfolging'))) {
-            const feilmelding = `Kall til url: ${
-                options.method || 'GET'
-            } ${url} og x_request_id: ${requestId} feilet med HTTP-kode: ${response.status}.`
-            // Må både logge og kaste exception siden feilen ikke blir logget av react-query.
-            logger.warn(feilmelding)
-            throw new Error(feilmelding)
+        const defaultErrorHandler = () => {
+            throw new FetchError(
+                `Kall til url: ${options.method || 'GET'} ${url} og x_request_id: ${requestId} feilet med HTTP-kode: ${
+                    response.status
+                }.`,
+                response.status,
+            )
+        }
+        if (errorHandler) {
+            errorHandler(response, requestId, defaultErrorHandler)
+        } else {
+            defaultErrorHandler()
         }
     }
 
     return { requestId, response }
 }
 
-export async function fetchJson(url: string, options: RequestInit = {}) {
-    const fetchResult = await fetchMedRequestId(url, options)
+export const fetchJsonMedRequestId = async (url: string, options: RequestInit = {}, errorHandler?: ErrorHandler) => {
+    const fetchResult = await fetchMedRequestId(url, options, errorHandler)
     const response = fetchResult.response
+
+    // Guard som sjekker at response faktisk er OK før vi prøver å parse JSON siden default throw i fetchMedRequestId()
+    // kan bli utelatt i en custom errorHandler.
+    if (!response.ok) {
+        throw new Error(
+            `Response er ${response.status}, så vi parser ikke JSON for url: ${
+                options.method || 'GET'
+            } ${url} og x_request_id: ${fetchResult.requestId}.`,
+        )
+    }
 
     try {
         return await response.json()
     } catch (e) {
-        logger.warn(
-            e,
+        throw new FetchError(
             `${e} - Kall til url: ${options.method || 'GET'} ${url} og x_request_id: ${
                 fetchResult.requestId
             } feilet ved parsing av JSON med HTTP-kode: ${response.status}.`,
+            response.status,
         )
-        throw e
     }
 }
+
+export default fetchMedRequestId
