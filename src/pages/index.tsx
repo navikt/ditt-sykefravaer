@@ -1,4 +1,5 @@
 import React from 'react'
+import { GuidePanel } from '@navikt/ds-react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import Arbeidssituasjon from '../components/arbeidssituasjon/Arbeidssituasjon'
@@ -23,6 +24,17 @@ const Index = () => {
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
+            <GuidePanel className="mt-8">
+                Du har nå vært sykmeldt i 30 uker. Hvis du lurer på hvor lenge du har rett til sykepenger, kan dy sjekke
+                din
+                <a
+                    href="https://demo.ekstern.dev.nav.no/syk/sykepenger?id=a147e9a9-0aa2-4f5f-a8e3-c16c901e4071"
+                    target="_blank"
+                >
+                    {' '}
+                    siste svar på sykpengesøknad.
+                </a>
+            </GuidePanel>
             <Arbeidssituasjon />
             <Lenker />
             {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
