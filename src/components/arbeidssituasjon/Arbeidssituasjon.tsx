@@ -80,6 +80,34 @@ const Arbeidssituasjon = () => {
                             </Accordion.Content>
                         </Accordion.Item>
                     </Accordion>
+                    <Accordion>
+                        <Accordion.Item>
+                            <Accordion.Header>Du har rett til sykepenger til 17.des.2024</Accordion.Header>
+                            <Accordion.Content>
+                                <BodyLong spacing>Du har nå vært sykmeldt i 30 uker</BodyLong>
+                                <BodyLong spacing>
+                                    Som ansatt har du rett til sykepenger i opptil 52 uker over en periode på 18
+                                    måneder, også kjent som maksdatoen for sykepenger. Når du nærmer deg denne grensen
+                                    og fortsatt er syk, vil ikke arbeidsgiveren din lenger få refusjon fra NAV for dine
+                                    sykepenger.
+                                </BodyLong>
+                                <BodyLong spacing>
+                                    Ved sykdom utover 52 uker, kan overgang til arbeidsavklaringspenger (AAP) være
+                                    aktuelt. Det er viktig å merke seg at sykefravær over de siste tre årene kan legges
+                                    sammen hvis det er mindre enn 26 uker mellom fraværene. Etter utløpt maksdato, må
+                                    det gå 26 uker uten sykepenger eller AAP før du eventuelt kan motta sykepenger
+                                    igjen. Spesielle regler gjelder for personer mellom 67 og 70 år.
+                                </BodyLong>
+                                <BodyShort>
+                                    For mer detaljert informasjon les
+                                    <a href="https://www.nav.no/sykepenger#hvor-lenge" target="_blank">
+                                        {' '}
+                                        syk lenger enn 52 uker.
+                                    </a>
+                                </BodyShort>
+                            </Accordion.Content>
+                        </Accordion.Item>
+                    </Accordion>
                 </>
             )}
         </>
