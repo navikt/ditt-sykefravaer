@@ -6,6 +6,12 @@ export const vedtakMed100Grad: RSVedtakWrapper = {
     lestDato: '1970-01-01T01:00:00+01:00',
     opprettet: '2021-05-06',
     annullert: false,
+    vedtak: {
+        utbetaling: {
+            forbrukteSykedager: 14,
+            gjenståendeSykedager: 36,
+        },
+    },
 }
 
 export const nyttVedtakMed100Grad: RSVedtakWrapper = {
@@ -14,4 +20,10 @@ export const nyttVedtakMed100Grad: RSVedtakWrapper = {
     lestDato: '1970-01-01T01:00:00+01:00',
     opprettet: '2023-06-20',
     annullert: false,
+    vedtak: {
+        utbetaling: {
+            forbrukteSykedager: 50,
+            gjenståendeSykedager: 55,
+        },
+    },
 }
