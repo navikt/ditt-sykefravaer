@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import dayjs from 'dayjs'
+
+import useVedtak from '../../hooks/useVedtak'
 
 import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 
@@ -25,6 +28,32 @@ export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
         setActiveState,
     }
 
+    const { data: vedtak } = useVedtak()
+
+    function spinnsynMetadata(): Record<string, string | undefined | number | boolean> {
+        if (vedtak && vedtak.length > 0) {
+            // Klon vedtak-arrayet før sortering
+            const klonedeVedtak = [...vedtak].sort((a, b) => {
+                const datoA = new Date(a.opprettet)
+                const datoB = new Date(b.opprettet)
+                return datoB.getTime() - datoA.getTime() // Synkende rekkefølge
+            })
+
+            // Hent 'opprettet'-datoene fra det sorterte, klonede arrayet
+            const sisteVedtak = klonedeVedtak[0]
+
+            const dagerSidenSisteVedtak = dayjs().diff(dayjs(sisteVedtak.opprettet), 'day')
+            const forbrukteSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.forbrukteSykedager / 5)
+            const gjenstaeendeSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.gjenståendeSykedager / 5)
+            return {
+                dagerSidenSisteVedtak,
+                forbrukteSykepengeuker,
+                gjenstaeendeSykepengeuker,
+            }
+        }
+        return {}
+    }
+
     return (
         <FlexjarFelles
             feedbackId={feedbackId}
@@ -33,7 +62,9 @@ export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
             thanksFeedback={thanksFeedback}
             setThanksFeedback={setThanksFeedback}
             getPlaceholder={getPlaceholder}
-            feedbackProps={{}}
+            feedbackProps={{
+                ...spinnsynMetadata(),
+            }}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
             flexjarsporsmal="Fant du den informasjonen du trengte?"

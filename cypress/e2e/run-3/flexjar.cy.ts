@@ -4,6 +4,7 @@ describe('Flexjar', () => {
     })
 
     it('Kan gi ja feedback', () => {
+        cy.contains('Svar på søknader')
         heading('Hjelp oss med å gjøre denne siden bedre')
             .closest('section')
             .within(() => {
@@ -22,6 +23,7 @@ describe('Flexjar', () => {
     })
 
     it('Kan gi nei feedback', () => {
+        cy.contains('Svar på søknader')
         heading('Hjelp oss med å gjøre denne siden bedre')
             .closest('section')
             .within(() => {
