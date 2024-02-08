@@ -44,11 +44,11 @@ export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
 
             const dagerSidenSisteVedtak = dayjs().diff(dayjs(sisteVedtak.opprettet), 'day')
             const forbrukteSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.forbrukteSykedager / 5)
-            const gjenstaeendeSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.gjenståendeSykedager / 5)
+            const gjenstaendeSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.gjenståendeSykedager / 5)
             return {
                 dagerSidenSisteVedtak,
                 forbrukteSykepengeuker,
-                gjenstaeendeSykepengeuker,
+                gjenstaendeSykepengeuker,
             }
         }
         return {}
