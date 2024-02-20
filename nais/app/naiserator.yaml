@@ -67,6 +67,8 @@ spec:
           namespace: team-esyfo
         - application: nav-dekoratoren
           namespace: personbruker
+        - application: esyfovarsel
+          namespace: team-esyfo
       external:
   {{#each external-host}}
         - host: {{this}}
