@@ -11,7 +11,8 @@ export default function UseMaxdate() {
         queryKey: ['maxdate'],
         queryFn: () =>
             fetchJsonMedRequestId(
-                '/syk/sykefravaer/api/esyfovarsel/api/v1/sykepenger/maxdate' + testpersonQuery.query(),
+                '/syk/sykefravaer/api/esyfovarsel/api/v1/sykepenger/maxdate?isoformat=true' +
+                    testpersonQuery.query(true),
             ),
     })
 }
