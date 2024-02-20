@@ -109,6 +109,9 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         case 'GET /api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging':
             return sendJson(testperson.arbeidsrettetOppfolging)
 
+        case 'GET /api/esyfovarsel/api/v1/sykepenger/maxdate':
+            return sendJson({ maxDate: '2025-01-02', utbetaltTom: '2023-01-02' })
+
         case 'GET /api/spinnsyn-backend/api/v3/vedtak':
             return sendJson(testperson.vedtak)
 

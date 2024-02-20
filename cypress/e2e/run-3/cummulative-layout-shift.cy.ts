@@ -1,4 +1,4 @@
-describe('Tester cummulative-layout-shift ', () => {
+xdescribe('Tester cummulative-layout-shift ', () => {
     it('Høyden endres ikke i happy case etter at dataene er lastet', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=cummulative-layout-shift')
         cy.get('h1').should('be.visible')

@@ -11,15 +11,16 @@ import { Banner } from '../components/banner/Banner'
 import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
+import useMaxDate from '../hooks/useMaxDate'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
     const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
-
+    const { data: maxdato } = useMaxDate()
     return (
         <>
             <Banner tittel={tekst('sidetittel.liste')} />
-
+            {JSON.stringify(maxdato)}
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
