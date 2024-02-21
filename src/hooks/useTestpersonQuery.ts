@@ -5,9 +5,9 @@ export function UseTestpersonQuery() {
     const testpersonQuery = router.query['testperson']
 
     return {
-        query: () => {
+        query: (appended: boolean = false) => {
             if (testpersonQuery) {
-                return `?testperson=${testpersonQuery}`
+                return `${appended ? '&' : '?'}testperson=${testpersonQuery}`
             }
             return ''
         },

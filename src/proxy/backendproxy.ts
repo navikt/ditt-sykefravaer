@@ -19,7 +19,7 @@ export async function proxyKallTilBackend(opts: Opts) {
     if (!opts.req.url) return null
     const rewritedPath = opts.req.url.replace(`/api/${opts.backend}`, '')
     const api = `${opts.req.method} ${rewritedPath}`
-    if (!opts.tillatteApier.includes(<string>cleanPathForMetric(api))) {
+    if (!opts.tillatteApier.includes(<string>cleanPathForMetric(api).split('?')[0])) {
         logger.warn('404 Ukjent api: ' + api)
         opts.res.status(404)
         opts.res.send(null)
