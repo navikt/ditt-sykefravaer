@@ -5,37 +5,46 @@ const Maksdato = () => {
     return (
         <ExpansionCard size="small" className="mt-8" aria-label="Demo med bare tittel">
             <ExpansionCard.Header>
-                <ExpansionCard.Title>Din maksdato er 17. des. 2024 </ExpansionCard.Title>
-                <ExpansionCard.Description>per 3. april. 2024</ExpansionCard.Description>
+                <ExpansionCard.Title size="small">Beregnet slutt på sykepenger</ExpansionCard.Title>
+                <ExpansionCard.Description>Maksdato per 3. april 2024 er 25. desember 2024</ExpansionCard.Description>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
                 <BodyLong spacing>
-                    Du kan som regel være sykmeldt med rett til sykepenger inntil 248 dager (52 uker) over en periode på
-                    tre år. Dette er også kjent som maksdato. Datoen gjelder hvis du er sykmeldt uten opphold. Den vil
-                    flytte seg hvis du for eksempel ikke er sykmeldt, eller hvis du tar ferie.
+                    Du kan maksimalt få sykepenger fra NAV i 52 uker. Grensen er den samme enten du er helt eller delvis
+                    sykmeldt og kalles også maksdato. Datoen gjelder hvis du er sammenhengende sykmeldt. Den vil flytte
+                    seg hvis du for eksempel ikke får sykepenger fra NAV i perioder, eller hvis du tar ferie.
                 </BodyLong>
 
                 <BodyLong spacing>
-                    Ved sykdom utover 52 uker, kan overgang til arbeidsavklaringspenger (AAP) være aktuelt.{' '}
-                    <a href="https://www.nav.no/sykepenger#hvor-lenge" target="_blank">
+                    Sykefravær inntil 3 år tilbake i tid blir lagt sammen hvis det er mindre enn 26 uker mellom noen av
+                    fraværene.
+                </BodyLong>
+
+                <BodyLong spacing>
+                    Hvis du har brukt opp de 52 ukene, må det gå 26 uker uten sykepenger eller Arbeidsavklaringspenger
+                    (AAP) før du kan få sykepenger igjen, du kan lese mer om dette i
+                    <a href="https://lovdata.no/nav/folketrygdloven/kap8/%C2%A78-12" target="_blank">
                         {' '}
-                        Les mer her
-                    </a>
+                        folketrygdloven § 8-12.
+                    </a>{' '}
+                    Blir du syk på nytt før disse ukene har gått, kan det være aktuelt med AAP som erstatning for
+                    sykepenger. Ta gjerne kontakt med NAV eller snakk med veilederen din om dette.
                 </BodyLong>
 
                 <BodyLong spacing>
-                    Perioder hvor du har fått sykepenger fra NAV over de siste tre årene kan legges sammen hvis det er
-                    mindre enn 26 uker mellom fraværene. Etter utløpt maksdato, må det gå 26 uker uten sykepenger eller
-                    AAP før du eventuelt kan motta sykepenger igjen.
+                    <a href="https://www.nav.no/sykepenger#mellom-67-og-70" target="_blank">
+                        {' '}
+                        Det er egne regler for deg som er mellom 67 og 70 år.
+                    </a>
                 </BodyLong>
 
                 <BodyLong>
-                    Spesielle regler gjelder for personer mellom 67 og 70 år.
-                    <a href="https://lovdata.no/nav/folketrygdloven/kap8/%C2%A78-12" target="_blank">
+                    Hvis du har fått sykepenger i 52 uker og fortsatt ikke kan arbeide på grunn av sykdom eller skade,
+                    kan du ha rett til arbeidsavklaringspenger eller uføretrygd.
+                    <a href="https://www.nav.no/sykepenger#nar-det-snart-er-slutt-pa-sykepengene" target="_blank">
                         {' '}
-                        folketrygdloven § 8-12
+                        Les mer om mulighetene dine etter det er slutt på sykepengene.
                     </a>
-                    , andre avsnitt
                 </BodyLong>
             </ExpansionCard.Content>
         </ExpansionCard>
