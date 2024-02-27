@@ -16,6 +16,7 @@ import Maksdato from '../components/maksdato/Maksdato'
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
     const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
+    const maksdatoToggle = useToggle('ditt-sykefravaer-maxdato')
 
     return (
         <>
@@ -24,7 +25,7 @@ const Index = () => {
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
-            <Maksdato />
+            {maksdatoToggle.enabled && <Maksdato />}
             <Arbeidssituasjon />
             <Lenker />
             {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
