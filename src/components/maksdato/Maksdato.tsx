@@ -7,17 +7,19 @@ import { formatDateFromString } from '../inntektsmelding/formatDate'
 const Maksdato = () => {
     const { data: maxdate } = useMaxDate()
 
-    const sisteUbetaling = formatDateFromString(maxdate?.utbetaltTom ?? '')
-    const maksdato = formatDateFromString(maxdate?.maxDate ?? '')
-
-    if (sisteUbetaling === '' && maksdato === '') {
+    if (maxdate?.utbetaltTom === undefined || maxdate?.maxDate === undefined) {
         return null
     }
+
+    const sisteUbetaling = formatDateFromString(maxdate?.utbetaltTom ?? '')
+    const maksdato = formatDateFromString(maxdate?.maxDate ?? '')
 
     return (
         <ExpansionCard size="small" className="mt-8" aria-label="Demo med bare tittel">
             <ExpansionCard.Header>
-                <ExpansionCard.Title size="small">Beregnet slutt på sykepenger</ExpansionCard.Title>
+                <ExpansionCard.Title as="h2" size="small">
+                    Beregnet slutt på sykepenger
+                </ExpansionCard.Title>
                 <ExpansionCard.Description>
                     Maksdato per {sisteUbetaling} er {maksdato}
                 </ExpansionCard.Description>
