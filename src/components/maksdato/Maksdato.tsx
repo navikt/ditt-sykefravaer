@@ -1,5 +1,5 @@
-import { ExpansionCard, BodyLong } from '@navikt/ds-react'
 import React from 'react'
+import { ExpansionCard, BodyLong } from '@navikt/ds-react'
 
 import useMaxDate from '../../hooks/useMaxDate'
 import { formatDateFromString } from '../inntektsmelding/formatDate'
@@ -7,15 +7,16 @@ import { formatDateFromString } from '../inntektsmelding/formatDate'
 const Maksdato = () => {
     const { data: maxdate } = useMaxDate()
 
-    if (maxdate?.utbetaltTom === undefined || maxdate?.maxDate === undefined) {
+    if (!maxdate?.utbetaltTom || !maxdate?.maxDate) {
         return null
     }
 
-    const sisteUbetaling = formatDateFromString(maxdate?.utbetaltTom ?? '')
-    const maksdato = formatDateFromString(maxdate?.maxDate ?? '')
+    const { utbetaltTom, maxDate } = maxdate
+    const sisteUbetaling = formatDateFromString(utbetaltTom)
+    const maksdato = formatDateFromString(maxDate)
 
     return (
-        <ExpansionCard size="small" className="mt-8" aria-label="Demo med bare tittel">
+        <ExpansionCard size="small" className="mt-8" aria-label="Beregnet slutt på sykepenger">
             <ExpansionCard.Header>
                 <ExpansionCard.Title as="h2" size="small">
                     Beregnet slutt på sykepenger
