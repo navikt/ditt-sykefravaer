@@ -8,6 +8,7 @@ import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { DialogmoteBehov } from '../../types/dialogmoteBehov'
 import { Melding } from '../../types/melding'
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
+import { MaxDate } from '../../hooks/useMaxDate'
 
 import { clsPerson } from './data/personas/clsPerson'
 import { forskuttererIkkePerson, snartSluttPerson } from './data/personas/sykeforloepTestPersoner'
@@ -28,6 +29,7 @@ export interface Persona {
     vedtak: RSVedtakWrapper[]
     sykmeldinger: Sykmelding[]
     narmesteledere: NarmesteLeder[]
+    maxdato: MaxDate
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     oppfolgingsplaner: Oppfolgingsplan[]
     dialogmoteBehov: DialogmoteBehov

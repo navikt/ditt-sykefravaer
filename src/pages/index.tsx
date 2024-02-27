@@ -11,10 +11,12 @@ import { Banner } from '../components/banner/Banner'
 import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
+import Maksdato from '../components/maksdato/Maksdato'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
     const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
+    const maksdatoToggle = useToggle('ditt-sykefravaer-maxdato')
 
     return (
         <>
@@ -23,6 +25,7 @@ const Index = () => {
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
+            {maksdatoToggle.enabled && <Maksdato />}
             <Arbeidssituasjon />
             <Lenker />
             {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}

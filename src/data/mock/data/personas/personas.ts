@@ -13,6 +13,7 @@ export const commonPersona = (): PersonaUtenBeskrivelse => {
         vedtak: [],
         sykmeldinger: [],
         narmesteledere: [],
+        maxdato: { maxDate: null, utbetaltTom: null },
         arbeidsrettetOppfolging: { erUnderOppfolging: false },
         oppfolgingsplaner: [],
         dialogmoteBehov: {
@@ -76,6 +77,7 @@ export const defaultPersona: Persona = {
             aktivFom: '2021-03-20',
         },
     ],
+    maxdato: { maxDate: '2025-01-02', utbetaltTom: '2023-01-02' },
     arbeidsrettetOppfolging: { erUnderOppfolging: true },
     beskrivelse: 'Person med det meste',
 }
