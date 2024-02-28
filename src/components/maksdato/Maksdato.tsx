@@ -22,7 +22,7 @@ const Maksdato = () => {
 
     const { utbetaltTom, maxDate } = maxdate
 
-    if (dayjs(utbetaltTom).isBefore(dayjs().subtract(30, 'days'))) {
+    if (dayjs(utbetaltTom).isBefore(dayjs().subtract(60, 'days'))) {
         return null
     }
 
