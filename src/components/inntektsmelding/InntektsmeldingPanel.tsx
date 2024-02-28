@@ -2,8 +2,7 @@ import { Panel, BodyShort, Heading, ExpansionCard } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
-
-import { formatDateFromString } from './formatDate'
+import { formatDateFromString } from '../../utils/dato-utils'
 
 export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmelding?: InntektsmeldingTyper | null }) {
     const { organisasjonsnavn, mottattDato, innsenderFulltNavn, foersteFravaersdag, beregnetInntekt } =

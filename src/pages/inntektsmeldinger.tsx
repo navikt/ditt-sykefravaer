@@ -5,8 +5,8 @@ import Link from 'next/link'
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../hooks/useInntektsmeldinger'
-import { formatDateFromString } from '../components/inntektsmelding/formatDate'
 import { Banner } from '../components/banner/Banner'
+import { formatDateFromString } from '../utils/dato-utils'
 
 const Inntektsmeldinger = () => {
     useUpdateBreadcrumbs(

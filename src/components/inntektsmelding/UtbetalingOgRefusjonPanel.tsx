@@ -3,8 +3,8 @@ import React from 'react'
 import { logger } from '@navikt/next-logger'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
+import { formatDateFromString } from '../../utils/dato-utils'
 
-import { formatDateFromString } from './formatDate'
 import formatCurrency from './formatCurrency'
 
 export function UtbetalingOgRefusjonPanel({
