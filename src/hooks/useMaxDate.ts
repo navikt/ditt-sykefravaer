@@ -4,10 +4,11 @@ import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function UseMaxdate() {
+export default function UseMaxdate(enabled: boolean) {
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<MaxDate, Error>({
+        enabled,
         queryKey: ['maxdate'],
         queryFn: () =>
             fetchJsonMedRequestId(

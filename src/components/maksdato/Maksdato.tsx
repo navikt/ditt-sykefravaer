@@ -1,17 +1,31 @@
 import React from 'react'
 import { ExpansionCard, BodyLong } from '@navikt/ds-react'
+import dayjs from 'dayjs'
 
 import useMaxDate from '../../hooks/useMaxDate'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
 
 const Maksdato = () => {
-    const { data: maxdate } = useMaxDate()
+    const { data: sykmeldinger } = useSykmeldinger()
+
+    const erSykmeldt = sykmeldinger?.some((sykmelding) => {
+        return sykmelding.sykmeldingsperioder.some((periode) => {
+            return dayjs(periode.tom).isAfter(dayjs().subtract(17, 'days'))
+        })
+    })
+    const { data: maxdate } = useMaxDate(erSykmeldt ?? false)
 
     if (!maxdate?.utbetaltTom || !maxdate?.maxDate) {
         return null
     }
 
     const { utbetaltTom, maxDate } = maxdate
+
+    if (dayjs(utbetaltTom).isBefore(dayjs().subtract(60, 'days'))) {
+        return null
+    }
+
     const sisteUbetaling = tilLesbarDatoMedArstall(utbetaltTom)
     const maksdato = tilLesbarDatoMedArstall(maxDate)
 
