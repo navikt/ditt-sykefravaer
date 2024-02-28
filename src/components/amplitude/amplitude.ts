@@ -3,9 +3,15 @@ import { logger } from '@navikt/next-logger'
 
 import { amplitudeEnabled } from '../../utils/environment'
 
-export type validEventNames = 'navigere' | 'alert vist' | 'knapp klikket' //Bruk kun navn fra taksonomien
+export type validEventNames =
+    | 'navigere'
+    | 'alert vist'
+    | 'knapp klikket'
+    | 'komponent vist'
+    | 'expansioncard åpnet'
+    | 'expansioncard lukket' //Bruk kun navn fra taksonomien
 
-export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean>) => {
+export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean | number>) => {
     if (window) {
         if (amplitudeEnabled()) {
             logAmplitudeEvent({
