@@ -3,8 +3,8 @@ import React from 'react'
 
 import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
 import { cn } from '../../utils/tw-utils'
+import { formatDateFromString } from '../../utils/dato-utils'
 
-import { formatDateFromString } from './formatDate'
 import formatCurrency from './formatCurrency'
 
 export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: InntektsmeldingTyper | null }) {

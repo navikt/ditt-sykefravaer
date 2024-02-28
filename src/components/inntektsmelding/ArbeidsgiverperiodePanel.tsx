@@ -4,8 +4,7 @@ import dayjs from 'dayjs'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
 import { cn } from '../../utils/tw-utils'
-
-import { formatDateFromString } from './formatDate'
+import { formatDateFromString } from '../../utils/dato-utils'
 
 export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding: InntektsmeldingTyper }) {
     return (
