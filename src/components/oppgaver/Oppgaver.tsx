@@ -1,5 +1,4 @@
-import { XMarkIcon } from '@navikt/aksel-icons'
-import { Alert, BodyShort, Button, Link as Lenke, Skeleton } from '@navikt/ds-react'
+import { Alert, BodyShort, Link as Lenke, Skeleton } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
@@ -33,13 +32,12 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
         })
     }, [oppgave.meldingType, oppgave.tekst, oppgave.type])
 
-    const lukkeknapp = () => (
-        <Button
-            aria-label="Lukk"
-            variant="secondary"
-            size="small"
-            className="bg-white"
-            onClick={async () => {
+    return (
+        <Alert
+            variant={oppgave.type ?? 'info'}
+            className="[&>div]:w-full"
+            closeButton={oppgave.lukkbar}
+            onClose={async () => {
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
                     alerttekst: oppgave.meldingType ?? oppgave.tekst,
@@ -66,12 +64,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     }
                 }
             }}
-            icon={<XMarkIcon title="Lukk" />}
-        />
-    )
-
-    return (
-        <Alert variant={oppgave.type ?? 'info'} className="[&>div]:w-full">
+        >
             <div className="flex items-center justify-between">
                 <div>
                     {oppgave.opprettet && (
@@ -99,7 +92,6 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                     )}
                     {!oppgave.lenke && oppgave.tekst}
                 </div>
-                {oppgave.lukkbar && lukkeknapp()}
             </div>
         </Alert>
     )
