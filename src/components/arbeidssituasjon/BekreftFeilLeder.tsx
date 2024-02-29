@@ -18,6 +18,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
     return (
         <Modal
             open={open}
+            onClose={() => {}}
             className="w-96"
             aria-label="Endre nærmeste leder"
             header={{

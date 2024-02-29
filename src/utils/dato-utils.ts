@@ -1,7 +1,7 @@
-import format from 'date-fns/format'
+import dayjs from 'dayjs'
 
 export function formatDateFromString(date: string): string {
-    return format(new Date(date), 'dd.MM.yyyy')
+    return dayjs(date).format('DD.MM.YYYY')
 }
 
 const maaneder = [
