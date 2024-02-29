@@ -117,6 +117,9 @@ function PersonGruppeVisning({ gruppe, personer }: { gruppe: PersonaGroupKey; pe
             case 'testing': {
                 return 'Diverse personer for testing'
             }
+            case 'maksdato': {
+                return 'Personer med maksdato'
+            }
             default: {
                 throw Error(`mangler testperson gruppe heading for ${gruppe}`)
             }

@@ -23,6 +23,13 @@ import { manglerInntektsmelding, mottattInntektsmelding } from './data/personas/
 import { enAvvistSykmeldingPerson, enNySykmelding } from './data/personas/sykmeldingPersoner'
 import { kunEnSoknadPerson } from './data/personas/kunEnSoknadPerson'
 import { heltFriskPerson } from './data/personas/heltFriskPerson'
+import {
+    syk16sidenMedMaksdato,
+    syk17sidenMedMaksdato,
+    sykNåMedMaksdato,
+    sykNåMedMaksdato59gammel,
+    sykNåMedMaksdato60gammel,
+} from './data/personas/maksdatoPersoner'
 
 export interface Persona {
     soknader: Soknad[]
@@ -53,10 +60,15 @@ export type PersonaKey =
     | 'mottatt-inntektsmelding'
     | 'kun-en-soknad'
     | 'cummulative-layout-shift'
+    | 'syk-naa-med-maksdato'
+    | 'syk-16-siden'
+    | 'syk-17-siden'
+    | 'syk-naa-med-maksdato-beregnet-59-siden'
+    | 'syk-naa-med-maksdato-beregnet-60-siden'
 
 export type PersonaData = Partial<Record<PersonaKey, Persona>>
 
-export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing'
+export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing' | 'maksdato'
 type PersonaGroup = Record<PersonaGroupKey, PersonaData>
 
 export function testpersoner(): PersonaData {
@@ -77,6 +89,13 @@ export function testpersonerGruppert(): PersonaGroup {
             ['kun-en-soknad']: jsonDeepCopy(kunEnSoknadPerson),
             ['en-ny-sykmelding']: jsonDeepCopy(enNySykmelding),
             ['en-avvist-sykmelding']: jsonDeepCopy(enAvvistSykmeldingPerson),
+        },
+        ['maksdato']: {
+            ['syk-naa-med-maksdato']: jsonDeepCopy(sykNåMedMaksdato),
+            ['syk-16-siden']: jsonDeepCopy(syk16sidenMedMaksdato),
+            ['syk-17-siden']: jsonDeepCopy(syk17sidenMedMaksdato),
+            ['syk-naa-med-maksdato-beregnet-59-siden']: jsonDeepCopy(sykNåMedMaksdato59gammel),
+            ['syk-naa-med-maksdato-beregnet-60-siden']: jsonDeepCopy(sykNåMedMaksdato60gammel),
         },
         ['oppgaver']: {
             ['en-ny-oppfolgingsplan']: jsonDeepCopy(enNyOppfolgingsplan),
