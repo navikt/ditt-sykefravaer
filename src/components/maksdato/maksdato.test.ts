@@ -7,10 +7,9 @@ import { skalViseMaksDato } from './skalViseMaksDato'
 
 const iDag = dayjs().format('YYYY-MM-DD')
 const femDagerSiden = dayjs().subtract(5, 'days').format('YYYY-MM-DD')
-const attenDagerSiden = dayjs().subtract(18, 'days').format('YYYY-MM-DD')
-const sekstiDagerSiden = dayjs().subtract(61, 'days').format('YYYY-MM-DD')
-const sekstiEnDagerSiden = dayjs().subtract(61, 'days').format('YYYY-MM-DD')
-const syttiEnDagerSiden = dayjs().subtract(61, 'days').format('YYYY-MM-DD')
+const syttenDagerSiden = dayjs().subtract(17, 'days').format('YYYY-MM-DD')
+const femtini = dayjs().subtract(59, 'days').format('YYYY-MM-DD')
+const sekstiDagerSiden = dayjs().subtract(60, 'days').format('YYYY-MM-DD')
 
 const aktuellSykmelding: Sykmelding[] = [
     {
@@ -41,8 +40,8 @@ const ikkeAktuellSykmelding: Sykmelding[] = [
         },
         sykmeldingsperioder: [
             {
-                fom: attenDagerSiden,
-                tom: attenDagerSiden,
+                fom: syttenDagerSiden,
+                tom: syttenDagerSiden,
             },
         ],
     },
@@ -58,7 +57,12 @@ it('returnerer false når det ikke er aktuell sykmelding, og maksdatoen er innen
     expect(skalViseMaksDato(ikkeAktuellSykmelding, maxdate)).toEqual(false)
 })
 
-it('returnerer false når det er sykmeldinger, men maksdatoen er mer enn 60 dager siden', () => {
+it('returnerer true når det er sykmeldinger, men maksdatoen er 59 dager siden', () => {
+    const maxdate = { utbetaltTom: femtini, maxDate: iDag }
+    expect(skalViseMaksDato(aktuellSykmelding, maxdate)).toEqual(true)
+})
+
+it('returnerer false når det er sykmeldinger, men maksdatoen er 60 dager siden', () => {
     const maxdate = { utbetaltTom: sekstiDagerSiden, maxDate: iDag }
     expect(skalViseMaksDato(aktuellSykmelding, maxdate)).toEqual(false)
 })
@@ -71,16 +75,6 @@ it('returnerer false når det ikke er noen maksdato', () => {
 it('returnerer false når det er sykmeldinger som ikke er innafor', () => {
     const maxdate = { utbetaltTom: femDagerSiden, maxDate: iDag }
     expect(skalViseMaksDato(ikkeAktuellSykmelding, maxdate)).toEqual(false)
-})
-
-it('returnerer true når maksdatoen er nøyaktig 60 dager siden', () => {
-    const maxdate = { utbetaltTom: sekstiDagerSiden, maxDate: iDag }
-    expect(skalViseMaksDato(aktuellSykmelding, maxdate)).toEqual(true)
-})
-
-it('returnerer false når maksdatoen er mer enn 60 dager siden', () => {
-    const maxdate = { utbetaltTom: sekstiEnDagerSiden, maxDate: iDag }
-    expect(skalViseMaksDato(aktuellSykmelding, maxdate)).toEqual(false)
 })
 
 it('returnerer false når det ikke finnes sykmeldinger', () => {

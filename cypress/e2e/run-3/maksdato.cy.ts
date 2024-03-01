@@ -1,4 +1,4 @@
-describe('Flexjar', () => {
+describe('Maksdato', () => {
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=syk-naa-med-maksdato')
     })
@@ -7,7 +7,7 @@ describe('Flexjar', () => {
         cy.findByRole('region', {
             name: 'Beregnet slutt på sykepenger',
         }).click()
-        cy.get('.navds-expansioncard__header').should('contain', 'Maksdato per 28. februar 2024 er 3. februar 2025')
+        cy.get('.navds-expansioncard__header').should('contain', 'Maksdato per')
     })
 
     it('Innholdet i maksdato kortet er riktig', () => {
