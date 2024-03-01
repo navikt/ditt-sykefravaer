@@ -1,13 +1,20 @@
+import dayjs from 'dayjs'
+
+import { tilLesbarDatoMedArstall } from '../../../src/utils/dato-utils'
+
 describe('Maksdato', () => {
     before(() => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=syk-naa-med-maksdato')
     })
 
     it('Finner maksdato kortet og kan åpne den', () => {
+        const sisteUtbetaling = tilLesbarDatoMedArstall(dayjs().subtract(1, 'day').toDate())
+        const maksdato = tilLesbarDatoMedArstall(dayjs().add(340, 'days').toDate())
+        const forventetTekst = `Maksdato per ${sisteUtbetaling} er ${maksdato}`
         cy.findByRole('region', {
             name: 'Beregnet slutt på sykepenger',
         }).click()
-        cy.get('.navds-expansioncard__header').should('contain', 'Maksdato per')
+        cy.get('.navds-expansioncard__header').should('contain', forventetTekst)
     })
 
     it('Innholdet i maksdato kortet er riktig', () => {
