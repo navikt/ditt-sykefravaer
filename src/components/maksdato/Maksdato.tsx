@@ -8,27 +8,19 @@ import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { logEvent } from '../amplitude/amplitude'
 import { LenkeMedAmplitude } from '../lenke/lenke-med-amplitude'
 
+import { skalViseMaksDato, erSykmeldingInnafor } from './skalViseMaksDato'
+
 const Maksdato = () => {
     const { data: sykmeldinger } = useSykmeldinger()
+    const { data: maxdate } = useMaxDate(
+        sykmeldinger?.some((sykmelding) => erSykmeldingInnafor(sykmelding, 17)) ?? false,
+    )
 
-    const erSykmeldt = sykmeldinger?.some((sykmelding) => {
-        return sykmelding.sykmeldingsperioder.some((periode) => {
-            return dayjs(periode.tom).isAfter(dayjs().subtract(17, 'days'))
-        })
-    })
-    const { data: maxdate } = useMaxDate(erSykmeldt ?? false)
-
-    if (!maxdate?.utbetaltTom || !maxdate?.maxDate) {
+    if (!maxdate || !skalViseMaksDato(sykmeldinger || [], maxdate)) {
         return null
     }
 
-    const { utbetaltTom, maxDate } = maxdate
-
-    if (dayjs(utbetaltTom).isBefore(dayjs().subtract(60, 'days'))) {
-        return null
-    }
-
-    return <MaksdatoExpansionCard maxDate={maxDate} utbetaltTom={utbetaltTom} />
+    return <MaksdatoExpansionCard utbetaltTom={maxdate.utbetaltTom!} maxDate={maxdate.maxDate!} />
 }
 
 const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; maxDate: string }) => {
