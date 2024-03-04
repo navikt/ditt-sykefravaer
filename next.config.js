@@ -50,11 +50,6 @@ const nextConfig = {
         // Will only be available on the server side
         decoratorEnv: process.env.DECORATOR_ENV,
         noDecorator: process.env.NO_DECORATOR,
-        tokenXWellKnownUrl: process.env.TOKEN_X_WELL_KNOWN_URL,
-        tokenXPrivateJwk: process.env.TOKEN_X_PRIVATE_JWK,
-        tokenXClientId: process.env.TOKEN_X_CLIENT_ID,
-        idportenClientId: process.env.IDPORTEN_CLIENT_ID,
-        idportenWellKnownUrl: process.env.IDPORTEN_WELL_KNOWN_URL,
         dittSykefravaerBackendClientId: process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
         spinnsynBackendClientId: process.env.SPINNSYN_BACKEND_CLIENT_ID,
         sykmeldingerBackendClientId: process.env.SYKMELDINGER_BACKEND_CLIENT_ID,
