@@ -1,10 +1,16 @@
 import dayjs from 'dayjs'
+import timezone from 'dayjs/plugin/timezone'
+import utc from 'dayjs/plugin/utc'
 
 import { Persona } from '../../testperson'
 import { sendtSykmelding } from '../sykmeldinger'
 import { jsonDeepCopy } from '../../../../utils/jsonDeepCopy'
 
 import { commonPersona } from './personas'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
+dayjs.tz.setDefault('Europe/Oslo')
 
 export function skapSendtSykmelding(tom: dayjs.Dayjs) {
     const sm = jsonDeepCopy(sendtSykmelding)
