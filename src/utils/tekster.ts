@@ -3,7 +3,6 @@ import { logger } from '@navikt/next-logger'
 import { ArbeidssituasjonTekster } from '../components/arbeidssituasjon/arbeidssituasjonTekster'
 import { BannerTekster } from '../components/banner/bannerTekster'
 import { ingenSykmeldingTekster } from '../components/ingen-sykmelding/ingenSykmeldingTekster'
-import { InntektsmeldingTekster } from '../components/manglende-inntektsmelding/inntektsmeldingTekster'
 import { LenkerTekster } from '../components/lenker/lenkerTekster'
 import { OppgaverTekster } from '../components/oppgaver/oppgaverTekster'
 import { StringMap } from '../types/stringMap'
@@ -14,7 +13,6 @@ const tekster = {
     ...OppgaverTekster,
     ...ingenSykmeldingTekster,
     ...ArbeidssituasjonTekster,
-    ...InntektsmeldingTekster,
 }
 
 type TekstKeys =
@@ -23,7 +21,6 @@ type TekstKeys =
     | keyof typeof OppgaverTekster
     | keyof typeof ingenSykmeldingTekster
     | keyof typeof ArbeidssituasjonTekster
-    | keyof typeof InntektsmeldingTekster
 
 export const byttTekstInnhold = (text: string, data: StringMap): string => {
     if (text === undefined || data === undefined) {
