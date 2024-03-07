@@ -6,7 +6,7 @@ describe('Tester inntektsmelding', () => {
             .get(' .navds-alert')
             .should('have.length', 1)
             .contains(
-                'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
+                'Saksbehandlingen er forsinket fordi vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
             )
             .click()
 

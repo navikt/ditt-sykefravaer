@@ -63,7 +63,7 @@ describe('Keyboard navigering', () => {
     it('Vi navigerer forsiden med lenke til mangelnde inntektsmelding', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
         cy.contains(
-            'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
+            'vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
         ).should('be.visible')
         cy.get('#maincontent').focus() //Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
@@ -75,7 +75,7 @@ describe('Keyboard navigering', () => {
         cy.focused()
             .should(
                 'have.text',
-                'Vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
+                'Saksbehandlingen er forsinket fordi vi mangler inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
             )
             .should('have.css', 'color', 'rgb(255, 255, 255)')
             .should('have.css', 'background-color', 'rgb(0, 52, 125)')
@@ -83,8 +83,6 @@ describe('Keyboard navigering', () => {
         cy.realPress('Enter')
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/inntektsmelding')
 
-        cy.contains(
-            'Vi har varslet jobben din om å sende inntektsmeldingen, men vi kan ikke se at vi har fått den ennå.',
-        ).should('be.visible')
+        cy.contains('Arbeidsgiveren din skal ha blitt varslet om at vi trenger inntektsmelding.').should('be.visible')
     })
 })

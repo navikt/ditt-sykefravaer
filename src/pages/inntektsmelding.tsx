@@ -9,7 +9,7 @@ import { LenkeMedAmplitude } from '../components/lenke/lenke-med-amplitude'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Manglende inntektsmelding' }],
+        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Forsinket saksbehandlingstid' }],
         [],
     )
 
@@ -52,6 +52,7 @@ const Inntektsmelding = () => {
                         url="https://www.nav.no/sykepenger#utbetaling"
                         tekst="nav.no/sykepenger"
                     ></LenkeMedAmplitude>
+                    .
                 </BodyLong>
             </Panel>
 
@@ -80,9 +81,7 @@ const Inntektsmelding = () => {
                 </BodyLong>
             </Panel>
 
-            <BodyLong>Takk for din forståelse!</BodyLong>
-
-            <Flexjar feedbackId="manglende-inntektsmelding" />
+            <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
         </>
     )
 }

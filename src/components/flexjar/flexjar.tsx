@@ -5,7 +5,7 @@ import useVedtak from '../../hooks/useVedtak'
 
 import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 
-export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
+export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal?: string }) => {
     const [activeState, setActiveState] = useState<string | number | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
 
@@ -67,7 +67,7 @@ export const Flexjar = ({ feedbackId }: { feedbackId: string }) => {
             }}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
-            flexjarsporsmal="Fant du den informasjonen du trengte?"
+            flexjarsporsmal={sporsmal || 'Fant du den informasjonen du trengte?'}
         >
             <div className="flex w-full gap-2">
                 <FeedbackButton feedbackId={feedbackId} tekst="Ja" svar="JA" {...feedbackButtonProps} />
