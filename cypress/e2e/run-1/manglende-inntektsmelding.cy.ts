@@ -12,13 +12,13 @@ describe('Tester inntektsmelding', () => {
 
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/inntektsmelding')
 
-        cy.get('h2').contains('Vi mangler inntektsmeldingen fra jobben din.').and('is.visible')
+        cy.get('h2').contains('Vi mangler inntektsmelding fra arbeidsgiveren din').and('is.visible')
 
         cy.contains(
-            'Vi kan ikke behandle søknaden din om sykepenger før vi har mottatt inntektsmeldingen. Det vil si at hvis du får sykepenger fra NAV, kan vi ikke utbetale dem før vi har behandlet søknaden ferdig.',
+            'Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din, vi trenger denne for å behandle søknaden din om sykepenger. ',
         )
         cy.contains(
-            'Vi har også varslet jobben din, men hvis du er usikker, bør du kontakte jobben og gi beskjed om at de må sende inntektsmeldingen til oss så snart som mulig.',
+            'Uten inntektsmelding kan vi ikke behandle søknaden din om sykepenger, og du kan ikke få utbetalt sykepenger.',
         )
     })
 
