@@ -6,6 +6,7 @@ import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
+import { Flexjar } from '../components/flexjar/flexjar'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(
@@ -15,7 +16,7 @@ const Inntektsmelding = () => {
 
     return (
         <>
-            <Banner tittel={tekst('inntektsmelding.side-tittel-manglende')} />
+            <Banner utenIkon={true} tittel={tekst('inntektsmelding.side-tittel-manglende')} />
 
             <Heading level="2" size="medium">
                 {tekst('inntektsmelding.side-tittel', {
@@ -46,6 +47,8 @@ const Inntektsmelding = () => {
                 </Heading>
                 <BodyLong>{tekst('inntektsmelding.hva-er-inntekysmeldingen-forklaring')}</BodyLong>
             </Panel>
+
+            <Flexjar feedbackId="manglende-inntektsmelding" />
         </>
     )
 }
