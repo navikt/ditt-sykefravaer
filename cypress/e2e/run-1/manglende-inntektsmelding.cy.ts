@@ -14,12 +14,8 @@ describe('Tester inntektsmelding', () => {
 
         cy.get('h2').contains('Vi mangler inntektsmelding fra arbeidsgiveren din').and('is.visible')
 
-        cy.contains(
-            'Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din, vi trenger denne for å behandle søknaden din om sykepenger. ',
-        )
-        cy.contains(
-            'Uten inntektsmelding kan vi ikke behandle søknaden din om sykepenger, og du kan ikke få utbetalt sykepenger.',
-        )
+        cy.contains('Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din,')
+        cy.contains('Vi trenger inntektsmelding for å vurdere om du har rett til sykepenger')
     })
 
     it('Mottatt inntektsmelding varsel kan lukkes', () => {

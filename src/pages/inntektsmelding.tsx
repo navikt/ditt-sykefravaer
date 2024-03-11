@@ -22,32 +22,33 @@ const Inntektsmelding = () => {
             </Heading>
 
             <BodyLong spacing>
-                Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din, vi trenger denne for å behandle
-                søknaden din om sykepenger. Arbeidsgiveren din skal ha blitt varslet om at vi trenger inntektsmelding.
-                Om du får betalt lønn som vanlig av din arbeidsgiver mens du er sykmeldt, er dette ikke noe du trenger å
-                gjøre noe med.
+                Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din, og vi trenger denne for å behandle
+                søknaden din om sykepenger. Vi trenger inntektsmelding for å vurdere om du har rett til sykepenger og
+                eventuelt hvor mye du har rett til.
             </BodyLong>
 
-            <Panel className="my-8 bg-blue-50">
-                <Heading level="2" size="small">
-                    Hvorfor er dette viktig?
-                </Heading>
-                <BodyLong>
-                    Uten inntektsmelding kan vi ikke behandle søknaden din om sykepenger, og du kan ikke få utbetalt
-                    sykepenger. Vi trenger inntektsmelding for å vurdere retten din til sykepenger og eventuelt
-                    størrelsen på sykepengene.
-                </BodyLong>
-            </Panel>
+            <BodyLong spacing>
+                Vi har varslet arbeidsgiveren din om dette. Hvis arbeidsgiveren din betaler deg lønn som vanlig mens du
+                er sykmeldt, trenger du ikke å gjøre noe med dette.
+            </BodyLong>
 
             <Panel className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Hva kan du gjøre?
                 </Heading>
-                <BodyLong spacing>
-                    Ta kontakt med arbeidsgiveren din og be om at de sender inntektsmeldingen til NAV snarest mulig.
-                </BodyLong>
                 <BodyLong>
-                    {'Du kan også finne mer informasjon om inntektsmelding og saksbehandlingstid på '}
+                    Ta kontakt med arbeidsgiveren din og be om at de sender inntektsmeldingen til NAV så fort som mulig.
+                </BodyLong>
+            </Panel>
+
+            <Panel className="my-8 bg-blue-50">
+                <Heading level="2" size="small">
+                    Hvor lang tid tar det å behandle søknaden?
+                </Heading>
+                <BodyLong>
+                    {
+                        'Saksbehandlingstiden starter fra når vi har mottatt både søknaden din og inntektsmeldingen fra arbeidsgiveren din. Saksbehandlingstiden kan være opptil fire uker etter at arbeidsgiveren din har sendt inn inntektsmeldingen. Du finner mer informasjon om inntektsmelding og saksbehandlingstid på '
+                    }
                     <LenkeMedAmplitude
                         url="https://www.nav.no/sykepenger#utbetaling"
                         tekst="nav.no/sykepenger"
@@ -58,26 +59,11 @@ const Inntektsmelding = () => {
 
             <Panel className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
-                    Hvor lang tid tar det å behandle søknaden?
-                </Heading>
-                <BodyLong>
-                    Saksbehandlingstiden starter når vi har mottatt både søknaden din og inntektsmeldingen fra
-                    arbeidsgiveren. Forventet saksbehandlingstid kan være opp til fire uker etter at arbeidsgiveren din
-                    har sendt inn inntektsmelding.
-                </BodyLong>
-            </Panel>
-
-            <Panel className="my-8 bg-blue-50">
-                <Heading level="2" size="small">
                     Har du spørsmål?
                 </Heading>
                 <BodyLong>
-                    {'Du kan finne mer informasjon på '}
-                    <LenkeMedAmplitude
-                        url="https://www.nav.no/sykepenger"
-                        tekst="nav.no/sykepenger"
-                    ></LenkeMedAmplitude>
-                    {' eller du kan kontakte NAV kundeservice.'}
+                    {'Hvis det er noe du lurer på, kan du ta '}
+                    <LenkeMedAmplitude url="https://www.nav.no/kontaktoss" tekst="kontakt med oss."></LenkeMedAmplitude>
                 </BodyLong>
             </Panel>
 

@@ -83,6 +83,6 @@ describe('Keyboard navigering', () => {
         cy.realPress('Enter')
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/inntektsmelding')
 
-        cy.contains('Arbeidsgiveren din skal ha blitt varslet om at vi trenger inntektsmelding.').should('be.visible')
+        cy.contains('Vi har varslet arbeidsgiveren din om dette').should('be.visible')
     })
 })
