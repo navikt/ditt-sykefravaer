@@ -35,6 +35,25 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
         sykmeldinger?.some((sykmelding) => erSykmeldingInnafor(sykmelding, 17)) ?? false,
     )
 
+    function amplitudeMetadata() {
+        const cookies = document.cookie
+        const amplitudeCookie = cookies.split(';').find((cookie) => cookie.includes('amp_defaul'))
+        if (amplitudeCookie) {
+            const strings = amplitudeCookie.split('=')
+            if (strings.length == 2) {
+                const amplitudeCookieValue = strings[1]
+                if (amplitudeCookieValue.includes('...')) {
+                    const deviceId = amplitudeCookieValue.split('...')[0]
+                    return {
+                        amplitudeDeviceId: deviceId,
+                    }
+                }
+            }
+        }
+
+        return {}
+    }
+
     function maksdatoMetadata(): Record<string, string | undefined | number | boolean> {
         const ret = {} as Record<string, string | undefined | number | boolean>
         if (sykmeldinger) {
@@ -72,6 +91,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
             feedbackProps={{
                 ...maksdatoMetadata(),
             }}
+            feedbackPropsFunction={amplitudeMetadata}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
             flexjarsporsmal={sporsmal || 'Fant du den informasjonen du trengte?'}
