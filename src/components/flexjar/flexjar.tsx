@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs'
 
-import useVedtak from '../../hooks/useVedtak'
+import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useMaxDate from '../../hooks/useMaxDate'
+import { erSykmeldingInnafor } from '../maksdato/skalViseMaksDato'
 
 import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 
@@ -28,30 +30,35 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
         setActiveState,
     }
 
-    const { data: vedtak } = useVedtak()
+    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: maxdate } = useMaxDate(
+        sykmeldinger?.some((sykmelding) => erSykmeldingInnafor(sykmelding, 17)) ?? false,
+    )
 
-    function spinnsynMetadata(): Record<string, string | undefined | number | boolean> {
-        if (vedtak && vedtak.length > 0) {
-            // Klon vedtak-arrayet før sortering
-            const klonedeVedtak = [...vedtak].sort((a, b) => {
-                const datoA = new Date(a.opprettet)
-                const datoB = new Date(b.opprettet)
-                return datoB.getTime() - datoA.getTime() // Synkende rekkefølge
+    function maksdatoMetadata(): Record<string, string | undefined | number | boolean> {
+        const ret = {} as Record<string, string | undefined | number | boolean>
+        if (sykmeldinger) {
+            const datoer = [] as string[]
+            sykmeldinger.forEach((s) => {
+                s.sykmeldingsperioder.forEach((p) => {
+                    datoer.push(p.tom)
+                })
             })
-
-            // Hent 'opprettet'-datoene fra det sorterte, klonede arrayet
-            const sisteVedtak = klonedeVedtak[0]
-
-            const dagerSidenSisteVedtak = dayjs().diff(dayjs(sisteVedtak.opprettet), 'day')
-            const forbrukteSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.forbrukteSykedager / 5)
-            const gjenstaendeSykepengeuker = Math.floor(sisteVedtak.vedtak.utbetaling.gjenståendeSykedager / 5)
-            return {
-                dagerSidenSisteVedtak,
-                forbrukteSykepengeuker,
-                gjenstaendeSykepengeuker,
+            datoer.sort((a, b) => dayjs(b).diff(dayjs(a)))
+            if (datoer.length > 0) {
+                ret['dagerSidenSisteSykmelding'] = dayjs().diff(dayjs(datoer[0]), 'day')
             }
         }
-        return {}
+        if (maxdate) {
+            if (maxdate.maxDate) {
+                ret['dagerTilMaksdato'] = dayjs(maxdate.maxDate).diff(dayjs(), 'days')
+            }
+            if (maxdate.utbetaltTom) {
+                ret['dagerSidenSisteUtbetaling'] = dayjs().diff(dayjs(maxdate.utbetaltTom), 'days')
+            }
+        }
+
+        return ret
     }
 
     return (
@@ -63,7 +70,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
             setThanksFeedback={setThanksFeedback}
             getPlaceholder={getPlaceholder}
             feedbackProps={{
-                ...spinnsynMetadata(),
+                ...maksdatoMetadata(),
             }}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
