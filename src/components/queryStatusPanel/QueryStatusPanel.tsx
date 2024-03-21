@@ -9,7 +9,6 @@ import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import useVedtak from '../../hooks/useVedtak'
-import Vis from '../Vis'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 
 interface QueryOgFeilmelding {
@@ -64,29 +63,26 @@ const QueryStatusPanel = () => {
 
     return (
         <>
-            <Vis
-                hvis={errorQueries.length > 0}
-                render={() => (
-                    <Alert variant="warning" className="mb-4">
-                        <strong>Ai ai ai!</strong>
-                        <span> Vi har problemer med noen av baksystemene nå. </span>
-                        <ul>
-                            {errorQueries.map((e, idx) => (
-                                <li key={idx}>{e.message}</li>
-                            ))}
-                        </ul>
+            {errorQueries.length > 0 && (
+                <Alert variant="warning" className="mb-4">
+                    <strong>Ai ai ai!</strong>
+                    <span> Vi har problemer med noen av baksystemene nå. </span>
+                    <ul>
+                        {errorQueries.map((e, idx) => (
+                            <li key={idx}>{e.message}</li>
+                        ))}
+                    </ul>
 
-                        <Button
-                            onClick={() => {
-                                errorQueries.forEach((a) => a.query.refetch())
-                            }}
-                            className="mt-4"
-                        >
-                            Hent på nytt
-                        </Button>
-                    </Alert>
-                )}
-            />
+                    <Button
+                        onClick={() => {
+                            errorQueries.forEach((a) => a.query.refetch())
+                        }}
+                        className="mt-4"
+                    >
+                        Hent på nytt
+                    </Button>
+                </Alert>
+            )}
         </>
     )
 }
