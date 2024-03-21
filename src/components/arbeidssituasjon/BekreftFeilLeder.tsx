@@ -3,7 +3,6 @@ import React from 'react'
 
 import useAvkreftNarmesteLeder from '../../hooks/useAvkreftNarmesteLeder'
 import { NarmesteLeder } from '../../types/narmesteLeder'
-import Vis from '../Vis'
 
 interface BekreftFeilLederProps {
     open: boolean
@@ -28,12 +27,8 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             }}
         >
             <Modal.Body>
-                <Vis
-                    hvis={isError}
-                    render={() => (
-                        <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>
-                    )}
-                />
+                {isError && <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>}
+
                 <BodyLong spacing>
                     Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i{' '}
                     <strong>{orgNavn}</strong>?

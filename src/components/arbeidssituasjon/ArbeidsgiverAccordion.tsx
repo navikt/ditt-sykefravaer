@@ -4,7 +4,6 @@ import React from 'react'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useSykmeldinger from '../../hooks/useSykmeldinger'
 import { tekst } from '../../utils/tekster'
-import Vis from '../Vis'
 
 import NarmesteLeder from './NarmesteLeder'
 
@@ -37,18 +36,15 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
                     <strong>{orgNavn}</strong>
                 </Accordion.Header>
                 <Accordion.Content className="pt-3">
-                    <Vis
-                        hvis={leder?.arbeidsgiverForskutterer !== undefined}
-                        render={() => (
-                            <BodyShort spacing>
-                                {tekst(
-                                    `din-situasjon.arbeidsgiver-forskutterer${
-                                        leder?.arbeidsgiverForskutterer ? '' : '-ikke'
-                                    }`,
-                                )}
-                            </BodyShort>
-                        )}
-                    />
+                    {leder?.arbeidsgiverForskutterer !== undefined && (
+                        <BodyShort spacing>
+                            {tekst(
+                                `din-situasjon.arbeidsgiver-forskutterer${
+                                    leder?.arbeidsgiverForskutterer ? '' : '-ikke'
+                                }`,
+                            )}
+                        </BodyShort>
+                    )}
                     <NarmesteLeder orgnummer={orgnummer} orgNavn={orgNavn} />
                 </Accordion.Content>
             </Accordion.Item>
