@@ -13,5 +13,9 @@ export const IngenSykmelding = () => {
         return null
     }
 
-    return <GuidePanel illustration={veileder}>{parserWithReplace(tekst('ingen.sykmelding'))}</GuidePanel>
+    return (
+        <GuidePanel className="mb-4" illustration={veileder} poster={true}>
+            {parserWithReplace(tekst('ingen.sykmelding'))}
+        </GuidePanel>
+    )
 }
