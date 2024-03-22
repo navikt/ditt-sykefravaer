@@ -36,16 +36,18 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
     )
 
     function amplitudeMetadata() {
-        const cookies = document.cookie
-        const amplitudeCookie = cookies.split(';').find((cookie) => cookie.includes('amp_defaul'))
-        if (amplitudeCookie) {
-            const strings = amplitudeCookie.split('=')
-            if (strings.length == 2) {
-                const amplitudeCookieValue = strings[1]
-                if (amplitudeCookieValue.includes('...')) {
-                    const deviceId = amplitudeCookieValue.split('...')[0]
-                    return {
-                        amplitudeDeviceId: deviceId,
+        if (activeState === 'NEI') {
+            const cookies = document.cookie
+            const amplitudeCookie = cookies.split(';').find((cookie) => cookie.includes('amp_defaul'))
+            if (amplitudeCookie) {
+                const strings = amplitudeCookie.split('=')
+                if (strings.length == 2) {
+                    const amplitudeCookieValue = strings[1]
+                    if (amplitudeCookieValue.includes('...')) {
+                        const deviceId = amplitudeCookieValue.split('...')[0]
+                        return {
+                            amplitudeDeviceId: deviceId,
+                        }
                     }
                 }
             }
