@@ -31,7 +31,7 @@
         "react-dom": "^18.2.0",
         "react-modal": "^3.16.1",
         "remeda": "^1.45.2",
-        "tailwind-merge": "^2.2.1",
+        "tailwind-merge": "^2.2.2",
         "uuid": "^9.0.1"
     },
     "devDependencies": {
