@@ -1,8 +1,8 @@
 replicas_min: 2
 replicas_max: 6
 ingress: https://www.nav.no/syk/sykefravaer
-cpu: 400m
-memory: 450Mi
+cpu: 200m
+memory: 700Mi
 sidecar_cpu: 700m
 sidecar_memory: 256Mi
 external-host:
