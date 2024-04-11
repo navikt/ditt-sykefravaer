@@ -1,4 +1,4 @@
-import { BodyLong, Heading, Panel } from '@navikt/ds-react'
+import { BodyLong, Box, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
@@ -9,39 +9,31 @@ import { LenkeMedAmplitude } from '../components/lenke/lenke-med-amplitude'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Forsinket saksbehandlingstid' }],
+        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Venter på inntektsmelding' }],
         [],
     )
 
     return (
         <>
-            <Banner utenIkon={true} tittel="Vi må bruke lenger tid på å behandle søknaden din" />
-
-            <Heading level="2" size="medium" spacing>
-                Vi mangler inntektsmelding fra arbeidsgiveren din
-            </Heading>
+            <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiver" />
 
             <BodyLong spacing>
-                Vi har dessverre ikke mottatt inntektsmelding fra arbeidsgiveren din, og vi trenger denne for å behandle
-                søknaden din om sykepenger. Vi trenger inntektsmelding for å vurdere om du har rett til sykepenger og
-                eventuelt hvor mye du har rett til.
+                Vi har ikke mottatt inntektsmelding fra arbeidsgiveren din, som vi trenger for å behandle søknaden om
+                sykepenger. Inntekstmeldingen brukes for å vurdere om du har rett til sykepenger og eventuelt hvor mye
+                du har rett til. Vi har varslet arbeidsgiveren din om dette.
             </BodyLong>
 
-            <BodyLong spacing>
-                Vi har varslet arbeidsgiveren din om dette. Hvis arbeidsgiveren din betaler deg lønn som vanlig mens du
-                er sykmeldt, trenger du ikke å gjøre noe med dette.
-            </BodyLong>
-
-            <Panel className="my-8 bg-blue-50">
+            <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Hva kan du gjøre?
                 </Heading>
                 <BodyLong>
-                    Ta kontakt med arbeidsgiveren din og be om at de sender inntektsmeldingen til NAV så fort som mulig.
+                    Hvis du ikke får lønn fra arbeidsgiveren under sykefraværet, ta kontakt med arbeidsgiveren din og be
+                    de om å sende inntektsmeldingen til NAV så fort som mulig.
                 </BodyLong>
-            </Panel>
+            </Box>
 
-            <Panel className="my-8 bg-blue-50">
+            <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Hvor lang tid tar det å behandle søknaden?
                 </Heading>
@@ -55,9 +47,9 @@ const Inntektsmelding = () => {
                     ></LenkeMedAmplitude>
                     .
                 </BodyLong>
-            </Panel>
+            </Box>
 
-            <Panel className="my-8 bg-blue-50">
+            <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Har du spørsmål?
                 </Heading>
@@ -65,7 +57,7 @@ const Inntektsmelding = () => {
                     {'Hvis det er noe du lurer på, kan du ta '}
                     <LenkeMedAmplitude url="https://www.nav.no/kontaktoss" tekst="kontakt med oss."></LenkeMedAmplitude>
                 </BodyLong>
-            </Panel>
+            </Box>
 
             <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
         </>
