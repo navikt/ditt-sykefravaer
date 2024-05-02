@@ -2,11 +2,11 @@
 const { buildCspHeader } = require('@navikt/nav-dekoratoren-moduler/ssr')
 
 const appDirectives = {
-    'connect-src': ["'self'", 'https://*.uxsignals.com'],
+    'connect-src': ["'self'", '*.uxsignals.com'],
     'font-src': ['https://fonts.gstatic.com'],
     'object-src': ['none'],
-    'script-src': ['https://uxsignals-frontend.uxsignals.app.iterate.no', 'navtest.boost.ai'],
-    'script-src-elem': ["'self'", 'navtest.boost.ai'],
+    'script-src': ['uxsignals-frontend.uxsignals.app.iterate.no', 'navtest.boost.ai'],
+    'script-src-elem': ["'self'", 'navtest.boost.ai', 'uxsignals-frontend.uxsignals.app.iterate.no'],
     'style-src-elem': ["'self'"],
     'img-src': ["'self'"],
 }
