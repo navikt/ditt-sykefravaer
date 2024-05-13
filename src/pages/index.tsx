@@ -12,8 +12,6 @@ import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
 import Maksdato from '../components/maksdato/Maksdato'
-import { UxSignalsWidget } from '../components/ux-signals/UxSignalsWidget'
-import { isMockBackend } from '../utils/environment'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }], [])
@@ -30,7 +28,6 @@ const Index = () => {
             {maksdatoToggle.enabled && <Maksdato />}
             <Arbeidssituasjon />
             <Lenker />
-            <UxSignalsWidget study="panel-g193jwe57m" demo={isMockBackend()} />
 
             {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
         </>
