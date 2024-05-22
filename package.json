@@ -18,7 +18,7 @@
         "@navikt/next-logger": "^1.23.0",
         "@navikt/oasis": "^3.3.0",
         "@tanstack/react-query": "^4.36.1",
-        "@unleash/nextjs": "^1.4.2",
+        "@unleash/nextjs": "^1.4.3",
         "classnames": "^2.5.1",
         "cookie": "^0.6.0",
         "dayjs": "^1.11.11",
