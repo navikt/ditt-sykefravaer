@@ -15,7 +15,7 @@
         "@navikt/ds-tokens": "^6.1.0",
         "@navikt/nav-dekoratoren-moduler": "^2.1.6",
         "@navikt/next-api-proxy": "^3.4.1",
-        "@navikt/next-logger": "^1.23.0",
+        "@navikt/next-logger": "^1.24.0",
         "@navikt/oasis": "^3.3.0",
         "@tanstack/react-query": "^4.36.1",
         "@unleash/nextjs": "^1.4.3",
