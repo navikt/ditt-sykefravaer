@@ -35,3 +35,4 @@ env:
   SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
   FLEXJAR_BACKEND_CLIENT_ID: prod-gcp:flex:flexjar-backend
   ESYFOVARSEL_CLIENT_ID: prod-gcp:team-esyfo:esyfovarsel
+  MEROPPFOLGING_URL: https://www.nav.no/syk/meroppfolging/reg/0
