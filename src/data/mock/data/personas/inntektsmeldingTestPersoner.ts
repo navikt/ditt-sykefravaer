@@ -9,7 +9,7 @@ export const manglerInntektsmelding: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Du har gjort din del. Nå venter vi på inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
+            tekst: 'Vi venter på inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
