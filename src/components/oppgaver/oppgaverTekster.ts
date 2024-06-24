@@ -1,6 +1,9 @@
 export const OppgaverTekster = {
     'oppgaver.sykepengesoknad.enkel': 'Du har en ny søknad om sykepenger',
     'oppgaver.sykepengesoknad.flere': 'Du har %ANTALL% nye søknader om sykepenger',
+    'oppgaver.opphold-utland-eos.enkel': 'Du har en ny søknad om å beholde sykepengene for reise utenfor EU/EØS',
+    'oppgaver.opphold-utland-eos.flere':
+        'Du har %ANTALL% nye søknader om å beholde sykepengene for reise utenfor EU/EØS',
     'oppgaver.reisetilskudd.enkel': 'Du har en ny søknad om reisetilskudd',
     'oppgaver.reisetilskudd.flere': 'Du har %ANTALL% nye søknader om reisetilskudd',
     'oppgaver.gradert-reisetilskudd.enkel': 'Du har en ny søknad om sykepenger med reisetilskudd',

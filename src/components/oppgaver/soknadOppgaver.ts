@@ -1,106 +1,70 @@
 import { Soknad } from '../../types/soknad'
 import { Soknadstype } from '../../types/soknadstype'
-import { tekst } from '../../utils/tekster'
+import { tekst, TekstKeys } from '../../utils/tekster'
 
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
-export const skapSøknadOppgaver = (soknader: Soknad[] | undefined, sykepengesoknadUrl: string): Oppgave[] => {
-    if (!soknader) {
-        return []
-    }
+// Hjelpefunksjon for å filtrere søknader som er nye eller utkast til korrigering
+const soknaderTilUtfylling = (s: Soknad) => s.status === 'NY' || s.status === 'UTKAST_TIL_KORRIGERING'
 
-    const søknaderTilUtfylling = (s: Soknad) => s.status === 'NY' || s.status === 'UTKAST_TIL_KORRIGERING'
+// Generell hjelpefunksjon for å lage oppgaver for en gitt liste av søknadstyper
+const skapOppgaverForTyper = (
+    soknader: Soknad[],
+    soknadstyper: Soknadstype[],
+    tekstEnkel: TekstKeys,
+    tekstFlere: TekstKeys,
+    url: string,
+) => {
+    const soknadene = soknader.filter(soknaderTilUtfylling).filter((s) => soknadstyper.includes(s.soknadstype))
 
-    const skapSykepengesoknadOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
-        const vanligeSoknader: Soknadstype[] = [
-            'ARBEIDSTAKERE',
-            'ARBEIDSLEDIG',
-            'ANNET_ARBEIDSFORHOLD',
-            'BEHANDLINGSDAGER',
-            'SELVSTENDIGE_OG_FRILANSERE',
-        ]
+    if (soknadene.length === 0) return []
 
-        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => vanligeSoknader.includes(s.soknadstype))
+    return soknadene.length === 1
+        ? [{ tekst: tekst(tekstEnkel), lenke: `${url}/soknader/${soknadene[0].id}` }]
+        : [{ tekst: tekst(tekstFlere, { '%ANTALL%': tallTilSpråk(soknadene.length) }), lenke: url }]
+}
 
-        if (soknadene.length === 0) {
-            return []
-        }
+// Hovedfunksjon for å lage oppgaver basert på forskjellige søknadstyper
+export const skapSoknadOppgaver = (soknader: Soknad[] | undefined, sykepengesoknadUrl: string): Oppgave[] => {
+    if (!soknader) return []
 
-        if (soknadene.length === 1) {
-            return [
-                {
-                    tekst: tekst('oppgaver.sykepengesoknad.enkel'),
-                    lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                },
-            ]
-        }
-
-        return [
-            {
-                tekst: tekst('oppgaver.sykepengesoknad.flere', {
-                    '%ANTALL%': tallTilSpråk(soknadene.length),
-                }),
-                lenke: sykepengesoknadUrl,
-            },
-        ]
-    }
-
-    const skapReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
-        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => s.soknadstype === 'REISETILSKUDD')
-
-        if (soknadene.length === 0) {
-            return []
-        }
-
-        if (soknadene.length === 1) {
-            return [
-                {
-                    tekst: tekst('oppgaver.reisetilskudd.enkel'),
-                    lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                },
-            ]
-        }
-
-        return [
-            {
-                tekst: tekst('oppgaver.reisetilskudd.flere', {
-                    '%ANTALL%': tallTilSpråk(soknadene.length),
-                }),
-                lenke: sykepengesoknadUrl,
-            },
-        ]
-    }
-
-    const skapGraderteReisetilskuddOppgaver = (soknader: Soknad[], sykepengesoknadUrl: string): Oppgave[] => {
-        const soknadene = soknader.filter(søknaderTilUtfylling).filter((s) => s.soknadstype === 'GRADERT_REISETILSKUDD')
-
-        if (soknadene.length === 0) {
-            return []
-        }
-
-        if (soknadene.length === 1) {
-            return [
-                {
-                    tekst: tekst('oppgaver.gradert-reisetilskudd.enkel'),
-                    lenke: `${sykepengesoknadUrl}/soknader/${soknadene[0].id}`,
-                },
-            ]
-        }
-
-        return [
-            {
-                tekst: tekst('oppgaver.gradert-reisetilskudd.flere', {
-                    '%ANTALL%': tallTilSpråk(soknadene.length),
-                }),
-                lenke: sykepengesoknadUrl,
-            },
-        ]
-    }
+    const vanligeSoknadsTyper: Soknadstype[] = [
+        'ARBEIDSTAKERE',
+        'ARBEIDSLEDIG',
+        'ANNET_ARBEIDSFORHOLD',
+        'BEHANDLINGSDAGER',
+        'SELVSTENDIGE_OG_FRILANSERE',
+    ]
 
     return [
-        ...skapSykepengesoknadOppgaver(soknader, sykepengesoknadUrl),
-        ...skapReisetilskuddOppgaver(soknader, sykepengesoknadUrl),
-        ...skapGraderteReisetilskuddOppgaver(soknader, sykepengesoknadUrl),
+        ...skapOppgaverForTyper(
+            soknader,
+            vanligeSoknadsTyper,
+            'oppgaver.sykepengesoknad.enkel',
+            'oppgaver.sykepengesoknad.flere',
+            sykepengesoknadUrl,
+        ),
+        ...skapOppgaverForTyper(
+            soknader,
+            ['REISETILSKUDD'],
+            'oppgaver.reisetilskudd.enkel',
+            'oppgaver.reisetilskudd.flere',
+            sykepengesoknadUrl,
+        ),
+        ...skapOppgaverForTyper(
+            soknader,
+            ['GRADERT_REISETILSKUDD'],
+            'oppgaver.gradert-reisetilskudd.enkel',
+            'oppgaver.gradert-reisetilskudd.flere',
+            sykepengesoknadUrl,
+        ),
+        ...skapOppgaverForTyper(
+            soknader,
+            ['OPPHOLD_UTLAND'],
+            'oppgaver.opphold-utland-eos.enkel',
+            'oppgaver.opphold-utland-eos.flere',
+            sykepengesoknadUrl,
+        ),
     ]
 }

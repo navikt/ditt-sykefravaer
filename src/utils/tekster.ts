@@ -15,7 +15,7 @@ const tekster = {
     ...ArbeidssituasjonTekster,
 }
 
-type TekstKeys =
+export type TekstKeys =
     | keyof typeof BannerTekster
     | keyof typeof LenkerTekster
     | keyof typeof OppgaverTekster
