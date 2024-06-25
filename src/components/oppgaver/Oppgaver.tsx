@@ -15,7 +15,7 @@ import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
-import { skapSøknadOppgaver } from './soknadOppgaver'
+import { skapSoknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
 interface EnkeltOppgaveAlertProps {
@@ -135,7 +135,7 @@ function Oppgaver() {
         setLukkede((current) => [...current, id])
     }
 
-    const soknadOppgaver = skapSøknadOppgaver(soknader, sykepengesoknadUrl())
+    const soknadOppgaver = skapSoknadOppgaver(soknader, sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
     const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)

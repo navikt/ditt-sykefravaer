@@ -2,10 +2,10 @@ import { expect } from '@jest/globals'
 
 import { Soknad } from '../../types/soknad'
 
-import { skapSøknadOppgaver } from './soknadOppgaver'
+import { skapSoknadOppgaver } from './soknadOppgaver'
 
 it('Returnerer ingen oppgaver når det ikke er noen søknader', () => {
-    const oppgaver = skapSøknadOppgaver([], 'http://soknad')
+    const oppgaver = skapSoknadOppgaver([], 'http://soknad')
     expect(oppgaver).toEqual([])
 })
 
@@ -16,9 +16,10 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'ARBEIDSTAKERE',
             status: 'NY',
+            opprettetDato: null,
         },
     ]
-    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([
         {
             lenke: 'http://soknad/soknader/123',
@@ -34,33 +35,38 @@ it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'ARBEIDSTAKERE',
             status: 'NY',
+            opprettetDato: null,
         },
         {
             id: '2',
             arbeidssituasjon: 'ARBEIDSLEDIG',
             soknadstype: 'ARBEIDSLEDIG',
             status: 'NY',
+            opprettetDato: null,
         },
         {
             id: '3',
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'ARBEIDSTAKERE',
             status: 'UTKAST_TIL_KORRIGERING',
+            opprettetDato: null,
         },
         {
             id: '4',
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'REISETILSKUDD',
             status: 'UTKAST_TIL_KORRIGERING',
+            opprettetDato: null,
         },
         {
             id: '5',
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'GRADERT_REISETILSKUDD',
             status: 'NY',
+            opprettetDato: null,
         },
     ]
-    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([
         {
             lenke: 'http://soknad',
@@ -84,9 +90,10 @@ it('Returnerer en oppgave når det er søknad om reisetilskudd', () => {
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'REISETILSKUDD',
             status: 'UTKAST_TIL_KORRIGERING',
+            opprettetDato: null,
         },
     ]
-    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([
         {
             lenke: 'http://soknad/soknader/123',
@@ -102,21 +109,28 @@ it('Returnerer ingen oppgaver når det er en sendt arbeidstakersøknad', () => {
             arbeidssituasjon: 'ARBEIDSTAKER',
             soknadstype: 'ARBEIDSTAKERE',
             status: 'SENDT',
+            opprettetDato: null,
         },
     ]
-    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([])
 })
 
-it('Returnerer ingen oppgaver når det er en ny utenlandssøknad', () => {
+it('Returnerer en oppgave når det er en ny utenlandssøknad', () => {
     const soknader: Soknad[] = [
         {
             id: '123',
             arbeidssituasjon: 'ARBEIDSTAKER',
-            soknadstype: 'ARBEIDSTAKERE',
-            status: 'SENDT',
+            soknadstype: 'OPPHOLD_UTLAND',
+            status: 'NY',
+            opprettetDato: null,
         },
     ]
-    const oppgaver = skapSøknadOppgaver(soknader, 'http://soknad')
-    expect(oppgaver).toEqual([])
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://soknad/soknader/123',
+            tekst: 'Du har en ny søknad om å beholde sykepengene for reise utenfor EU/EØS',
+        },
+    ])
 })

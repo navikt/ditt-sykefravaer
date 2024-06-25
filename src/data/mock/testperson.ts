@@ -30,6 +30,8 @@ import {
     sykNåMedMaksdato59gammel,
     sykNåMedMaksdato60gammel,
 } from './data/personas/maksdatoPersoner'
+import { nySoknadUtlandEOSPerson } from './data/personas/nySoknadUtlandEOSPerson'
+import { flereSoknaderPerson } from './data/personas/flereSoknaderPerson'
 
 export interface Persona {
     soknader: Soknad[]
@@ -59,12 +61,14 @@ export type PersonaKey =
     | 'mangler-inntektsmelding'
     | 'mottatt-inntektsmelding'
     | 'kun-en-soknad'
+    | 'flere-soknader'
     | 'cummulative-layout-shift'
     | 'syk-naa-med-maksdato'
     | 'syk-16-siden'
     | 'syk-17-siden'
     | 'syk-naa-med-maksdato-beregnet-59-siden'
     | 'syk-naa-med-maksdato-beregnet-60-siden'
+    | 'ny-soknad-utland-eos'
 
 export type PersonaData = Partial<Record<PersonaKey, Persona>>
 
@@ -87,6 +91,7 @@ export function testpersonerGruppert(): PersonaGroup {
         },
         ['soknader-og-sykmeldinger']: {
             ['kun-en-soknad']: jsonDeepCopy(kunEnSoknadPerson),
+            ['flere-soknader']: jsonDeepCopy(flereSoknaderPerson),
             ['en-ny-sykmelding']: jsonDeepCopy(enNySykmelding),
             ['en-avvist-sykmelding']: jsonDeepCopy(enAvvistSykmeldingPerson),
         },
@@ -106,6 +111,7 @@ export function testpersonerGruppert(): PersonaGroup {
             ['arbeidsgiver-forskutterer-ikke']: jsonDeepCopy(forskuttererIkkePerson),
             ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
             ['mottatt-inntektsmelding']: jsonDeepCopy(mottattInntektsmelding),
+            ['ny-soknad-utland-eos']: jsonDeepCopy(nySoknadUtlandEOSPerson),
         },
         ['testing']: {
             ['cummulative-layout-shift']: jsonDeepCopy(clsPerson),
