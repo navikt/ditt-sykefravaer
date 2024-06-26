@@ -24,8 +24,9 @@ describe('Tester inntektsmelding', () => {
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
             .should('have.length', 1)
-            .contains(
-                ' Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
+            .and(
+                'include.text',
+                'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
             )
 
         cy.get('[data-cy="oppgaver"]').find('.navds-alert .navds-button').click()

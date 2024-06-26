@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Link as Lenke, Skeleton } from '@navikt/ds-react'
+import { Alert, BodyShort, Detail, Link as Lenke, Skeleton } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
 import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
@@ -66,13 +66,9 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
             }}
         >
             <div className="flex items-center justify-between">
-                <div>
-                    {oppgave.opprettet && (
-                        <BodyShort as="span">{oppgave.opprettet.format('DD.MM.YYYY:') + ' '}</BodyShort>
-                    )}
+                <div className="space-y-2">
                     {oppgave.lenke && (
                         <Lenke
-                            className="inline"
                             href={oppgave.lenke}
                             onClick={(e) => {
                                 if (!oppgave.lenke) return
@@ -90,7 +86,8 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                             {oppgave.tekst}
                         </Lenke>
                     )}
-                    {!oppgave.lenke && oppgave.tekst}
+                    {!oppgave.lenke && <BodyShort>{oppgave.tekst}</BodyShort>}
+                    {oppgave.opprettet && <Detail>{`Sendt: ${oppgave.opprettet.format('DD.MM.YYYY')}`}</Detail>}
                 </div>
             </div>
         </Alert>
