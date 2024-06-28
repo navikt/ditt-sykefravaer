@@ -2,7 +2,7 @@ import { Soknad } from '../../../types/soknad'
 import { jsonDeepCopy } from '../../../utils/jsonDeepCopy'
 
 export const arbeidstaker100: Soknad = {
-    id: 'faba11f5-c4f2-4647-8c8a-58b28ce2f3ef',
+    id: 'd9ac193d-9b67-4a51-80c2-fe4289214878',
     soknadstype: 'ARBEIDSTAKERE',
     status: 'NY',
     arbeidssituasjon: 'ARBEIDSTAKER',
