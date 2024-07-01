@@ -19,7 +19,13 @@ import {
     toNyeOppfolgingsplaner,
     toTilGodkjenning,
 } from './data/personas/oppfolginsplanTestPersoner'
-import { manglerInntektsmelding, mottattInntektsmelding } from './data/personas/inntektsmeldingTestPersoner'
+import {
+    manglerInntektsmelding,
+    manglerInntektsmeldingVarsel2,
+    mottattInntektsmelding,
+    venterPaSaksbehandlingNummer1,
+    venterPaSaksbehandlingNummer2,
+} from './data/personas/inntektsmeldingTestPersoner'
 import { enAvvistSykmeldingPerson, enNySykmelding } from './data/personas/sykmeldingPersoner'
 import { kunEnSoknadPerson } from './data/personas/kunEnSoknadPerson'
 import { heltFriskPerson } from './data/personas/heltFriskPerson'
@@ -69,10 +75,13 @@ export type PersonaKey =
     | 'syk-naa-med-maksdato-beregnet-59-siden'
     | 'syk-naa-med-maksdato-beregnet-60-siden'
     | 'ny-soknad-utland-eos'
+    | 'mangler-inntektsmelding-andre-varsel'
+    | 'venter-saksbehandling'
+    | 'venter-saksbehandling-revarsel'
 
 export type PersonaData = Partial<Record<PersonaKey, Persona>>
 
-export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing' | 'maksdato'
+export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing' | 'maksdato' | 'varsler'
 type PersonaGroup = Record<PersonaGroupKey, PersonaData>
 
 export function testpersoner(): PersonaData {
@@ -102,6 +111,12 @@ export function testpersonerGruppert(): PersonaGroup {
             ['syk-naa-med-maksdato-beregnet-59-siden']: jsonDeepCopy(sykNåMedMaksdato59gammel),
             ['syk-naa-med-maksdato-beregnet-60-siden']: jsonDeepCopy(sykNåMedMaksdato60gammel),
         },
+        ['varsler']: {
+            ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
+            ['mangler-inntektsmelding-andre-varsel']: jsonDeepCopy(manglerInntektsmeldingVarsel2),
+            ['venter-saksbehandling']: jsonDeepCopy(venterPaSaksbehandlingNummer1),
+            ['venter-saksbehandling-revarsel']: jsonDeepCopy(venterPaSaksbehandlingNummer2),
+        },
         ['oppgaver']: {
             ['en-ny-oppfolgingsplan']: jsonDeepCopy(enNyOppfolgingsplan),
             ['to-nye-oppfolgingsplaner']: jsonDeepCopy(toNyeOppfolgingsplaner),
@@ -109,12 +124,12 @@ export function testpersonerGruppert(): PersonaGroup {
             ['to-nye-oppfolgingsplaner-til-godkjenning']: jsonDeepCopy(toTilGodkjenning),
             ['snart-slutt']: jsonDeepCopy(snartSluttPerson),
             ['arbeidsgiver-forskutterer-ikke']: jsonDeepCopy(forskuttererIkkePerson),
-            ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
-            ['mottatt-inntektsmelding']: jsonDeepCopy(mottattInntektsmelding),
+
             ['ny-soknad-utland-eos']: jsonDeepCopy(nySoknadUtlandEOSPerson),
         },
         ['testing']: {
             ['cummulative-layout-shift']: jsonDeepCopy(clsPerson),
+            ['mottatt-inntektsmelding']: jsonDeepCopy(mottattInntektsmelding),
         },
     }
 }
