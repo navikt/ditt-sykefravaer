@@ -5,9 +5,7 @@ describe('Tester inntektsmelding', () => {
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
             .should('have.length', 1)
-            .contains(
-                'Vi venter på inntektsmeldingen fra Test Arbeidsgiver AS for sykefraværet som startet 1. juni 2022.',
-            )
+            .contains('Vi venter på inntektsmeldingen fra Matbutikken AS for sykefraværet som startet 1. juni 2022.')
             .click()
 
         cy.url().should('contain', 'http://localhost:8080/syk/sykefravaer/inntektsmelding')
