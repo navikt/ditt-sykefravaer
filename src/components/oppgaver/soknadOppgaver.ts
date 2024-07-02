@@ -20,9 +20,19 @@ const skapOppgaverForTyper = (
 
     if (soknadene.length === 0) return []
 
-    return soknadene.length === 1
-        ? [{ tekst: tekst(tekstEnkel), lenke: `${url}/soknader/${soknadene[0].id}` }]
-        : [{ tekst: tekst(tekstFlere, { '%ANTALL%': tallTilSpråk(soknadene.length) }), lenke: url }]
+    const erOppholdUtland = soknadstyper.includes('OPPHOLD_UTLAND')
+    const lenke = erOppholdUtland
+        ? `${url}/sykepengesoknad-utland`
+        : soknadene.length === 1
+          ? `${url}/soknader/${soknadene[0].id}`
+          : url
+
+    const tekstObj =
+        soknadene.length === 1
+            ? { tekst: tekst(tekstEnkel), lenke: lenke }
+            : { tekst: tekst(tekstFlere, { '%ANTALL%': tallTilSpråk(soknadene.length) }), lenke: lenke }
+
+    return [tekstObj]
 }
 
 // Hovedfunksjon for å lage oppgaver basert på forskjellige søknadstyper

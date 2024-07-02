@@ -14,5 +14,7 @@ describe('Tester at oppgaver vises for søknader', () => {
         cy.get('[data-cy="oppgaver"]')
             .get(' .navds-alert')
             .contains('Du har en ny søknad om å beholde sykepengene for reise utenfor EU/EØS')
+            .invoke('attr', 'href')
+            .should('include', '/syk/sykepengesoknad/sykepengesoknad-utland')
     })
 })
