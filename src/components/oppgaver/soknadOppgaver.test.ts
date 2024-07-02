@@ -129,7 +129,7 @@ it('Returnerer en oppgave når det er en ny utenlandssøknad', () => {
     const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
     expect(oppgaver).toEqual([
         {
-            lenke: 'http://soknad/soknader/123',
+            lenke: 'http://soknad/sykepengesoknad-utland',
             tekst: 'Du har en ny søknad om å beholde sykepengene for reise utenfor EU/EØS',
         },
     ])
