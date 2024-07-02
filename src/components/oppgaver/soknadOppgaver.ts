@@ -20,8 +20,11 @@ const skapOppgaverForTyper = (
 
     if (soknadene.length === 0) return []
 
+    const isOppholdUtland = soknadstyper.includes('OPPHOLD_UTLAND')
+    const enkelLenke = isOppholdUtland ? `${url}/sykepengesoknad-utland}` : `${url}/soknader/${soknadene[0].id}`
+
     return soknadene.length === 1
-        ? [{ tekst: tekst(tekstEnkel), lenke: `${url}/soknader/${soknadene[0].id}` }]
+        ? [{ tekst: tekst(tekstEnkel), lenke: enkelLenke }]
         : [{ tekst: tekst(tekstFlere, { '%ANTALL%': tallTilSpråk(soknadene.length) }), lenke: url }]
 }
 
