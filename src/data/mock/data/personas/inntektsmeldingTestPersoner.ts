@@ -26,7 +26,7 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Saksbehandlingen er forsinket fordi vi fortsatt mangler inntekstmelding fra Matbutikken AS. Etter vi har mottatt inntekstmelding vil søknaden forhåpentligvis være ferdigbehandlet innen 4 uker.',
+            tekst: 'Saksbehandlingen er forsinket fordi vi fortsatt mangler inntektsmelding fra Matbutikken AS. Etter vi har mottatt inntektsmelding vil søknaden forhåpentligvis være ferdigbehandlet innen 4 uker.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',

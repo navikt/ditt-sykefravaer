@@ -19,7 +19,7 @@ const Inntektsmelding = () => {
 
             <BodyLong spacing>
                 Vi har ikke mottatt inntektsmelding fra arbeidsgiveren din, som vi trenger for å behandle søknaden om
-                sykepenger. Inntekstmeldingen brukes for å vurdere om du har rett til sykepenger og eventuelt hvor mye
+                sykepenger. Inntektsmeldingen brukes for å vurdere om du har rett til sykepenger og eventuelt hvor mye
                 du har rett til. Vi har varslet arbeidsgiveren din om dette.
             </BodyLong>
 
