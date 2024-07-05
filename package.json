@@ -23,7 +23,7 @@
         "cookie": "^0.6.0",
         "dayjs": "^1.11.11",
         "html-react-parser": "^5.1.10",
-        "next-logger": "^4.0.0",
+        "next-logger": "^5.0.0",
         "nextleton": "^0.6.1",
         "node-cache": "^5.1.2",
         "pino-pretty": "^11.2.1",
