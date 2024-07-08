@@ -84,7 +84,7 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
 
                     <BodyLong spacing>
                         <LenkeMedAmplitude
-                            url="https://www.nav.no/sykepenger#mellom-67-og-70"
+                            url="https://www.nav.no/sykepenger#hvor-lenge"
                             tekst="Det er egne regler for deg som er mellom 67 og 70 år."
                         ></LenkeMedAmplitude>
                     </BodyLong>
@@ -93,7 +93,7 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
                         Hvis du har fått sykepenger i 52 uker og fortsatt ikke kan arbeide på grunn av sykdom eller
                         skade, kan du ha rett til arbeidsavklaringspenger eller uføretrygd.
                         <LenkeMedAmplitude
-                            url="https://www.nav.no/sykepenger#nar-det-snart-er-slutt-pa-sykepengene"
+                            url="https://www.nav.no/sykepenger#hvor-lenge"
                             tekst="Les mer om mulighetene dine etter det er slutt på sykepengene."
                         ></LenkeMedAmplitude>
                     </BodyLong>

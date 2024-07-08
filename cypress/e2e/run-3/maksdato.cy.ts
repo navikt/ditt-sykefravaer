@@ -44,12 +44,12 @@ describe('Maksdato', () => {
         cy.contains('Det er egne regler for deg som er mellom 67 og 70 år.').should(
             'have.attr',
             'href',
-            'https://www.nav.no/sykepenger#mellom-67-og-70',
+            'https://www.nav.no/sykepenger#hvor-lenge',
         )
         cy.contains('Les mer om mulighetene dine etter det er slutt på sykepengene.').should(
             'have.attr',
             'href',
-            'https://www.nav.no/sykepenger#nar-det-snart-er-slutt-pa-sykepengene',
+            'https://www.nav.no/sykepenger#hvor-lenge',
         )
     })
 })
