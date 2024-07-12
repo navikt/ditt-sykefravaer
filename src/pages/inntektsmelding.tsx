@@ -22,7 +22,14 @@ const Inntektsmelding = () => {
                 sykepenger. Inntektsmeldingen brukes for å vurdere om du har rett til sykepenger og eventuelt hvor mye
                 du har rett til. Vi har varslet arbeidsgiveren din om dette.
             </BodyLong>
-
+            <Heading level="2" size="small">
+                Hvorfor du denne beskjeden?
+            </Heading>
+            <BodyLong spacing>
+                Vi sender dette til alle fordi vi ikke vet om du får lønn fra arbeidsgiveren din eller om du får
+                sykepenger fra NAV. Du behøver ikke gjøre noe nå, men dersom det haster å få behandlet søknaden din kan
+                du gjøre behandlingstiden kortere ved å kontakte arbeidsgiveren din.
+            </BodyLong>
             <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Hva kan du gjøre?
