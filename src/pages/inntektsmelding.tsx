@@ -23,7 +23,7 @@ const Inntektsmelding = () => {
                 du har rett til. Vi har varslet arbeidsgiveren din om dette.
             </BodyLong>
             <Heading level="2" size="small">
-                Hvorfor du denne beskjeden?
+                Hvorfor får du denne beskjeden?
             </Heading>
             <BodyLong spacing>
                 Vi sender dette til alle fordi vi ikke vet om du får lønn fra arbeidsgiveren din eller om du får
