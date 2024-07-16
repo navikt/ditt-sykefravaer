@@ -23,6 +23,7 @@ spec:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
+  ttl: 168h # 7*24h
   env:
     - name: MOCK_BACKEND
       value: "true"
