@@ -47,7 +47,7 @@ const Inntektsmelding = () => {
 
                 <BodyLong>
                     {
-                        'Saksbehandlingstiden starter fra når vi har mottatt både søknaden din og inntektsmeldingen fra arbeidsgiveren din. Saksbehandlingstiden er som regel opptil fire uker etter at arbeidsgiveren din har sendt inn inntektsmeldingen, men dette kan variere. Du finner oppdatert informasjon om inntektsmelding og forventet saksbehandlingstid på '
+                        'Saksbehandlingstiden starter fra når vi har mottatt både søknaden din og inntektsmeldingen fra arbeidsgiveren din. Saksbehandlingstiden er som regel opptil fire uker etter at arbeidsgiveren din har sendt inn inntektsmeldingen. I perioder kan saksbehandlingstiden være lenger. Du finner oppdatert informasjon om inntektsmelding og forventet saksbehandlingstid på '
                     }
                     <LenkeMedAmplitude
                         url="https://www.nav.no/sykepenger#utbetaling"
