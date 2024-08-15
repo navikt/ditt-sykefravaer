@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals'
+import { expect, it } from 'vitest'
 
 import { Soknad } from '../../types/soknad'
 

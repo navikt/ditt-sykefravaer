@@ -1,4 +1,4 @@
-import { expect } from '@jest/globals'
+import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../types/sykmelding'
