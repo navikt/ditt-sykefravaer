@@ -16,7 +16,7 @@
         "@navikt/next-api-proxy": "^3.4.2",
         "@navikt/next-logger": "^1.23.0",
         "@navikt/oasis": "^3.4.0",
-        "@tanstack/query-core": "^4.36.1",
+        "@tanstack/query-core": "^5.51.24",
         "@tanstack/react-query": "^4.36.1",
         "@unleash/nextjs": "^1.4.4",
         "classnames": "^2.5.1",
