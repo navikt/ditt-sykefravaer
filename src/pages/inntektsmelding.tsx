@@ -47,7 +47,7 @@ const Inntektsmelding = () => {
 
                 <BodyLong>
                     {
-                        'Saksbehandlingstiden starter fra når vi har mottatt både søknaden din og inntektsmeldingen fra arbeidsgiveren din. Du finner oppdatert informasjon om forventet saksbehandlingstid på '
+                        'Vi starter å saksbehandle søknaden din om sykepenger når vi har fått søknaden fra deg og inntektsmeldingen fra arbeidsgiveren din. Du finner mer informasjon om saksbehandlingstid på '
                     }
                     <LenkeMedAmplitude
                         url="https://www.nav.no/sykepenger#utbetaling"

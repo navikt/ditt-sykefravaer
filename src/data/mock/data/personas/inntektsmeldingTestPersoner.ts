@@ -26,7 +26,7 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Saksbehandlingen er forsinket fordi vi fortsatt mangler inntektsmelding fra Matbutikken AS. Etter vi har mottatt inntektsmelding vil søknaden forhåpentligvis være ferdigbehandlet innen 4 uker.',
+            tekst: 'Saksbehandlingen er forsinket fordi vi fortsatt mangler inntektsmelding fra Matbutikken AS.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
@@ -43,7 +43,7 @@ export const venterPaSaksbehandlingNummer1: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Behandlingen av søknaden din om sykepenger tar lengre tid enn forventet. Vi beklager eventuelle ulemper dette medfører. Se vår oversikt over normal saksbehandlingstid.',
+            tekst: 'Behandlingen av søknaden din om sykepenger tar lengre tid enn forventet. Vi beklager eventuelle ulemper dette medfører. Se vår oversikt over forventet saksbehandlingstid.',
             lenke: 'https://www.nav.no/saksbehandlingstider#sykepenger',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
