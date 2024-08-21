@@ -23,7 +23,9 @@ spec:
       rules:
         - application: nav-dekoratoren
           namespace: personbruker
-  ttl: 168h # 7*24h
+  {{ #if TTL_HOURS}}
+  ttl: { { TTL_HOURS } }
+  {{/if }}
   env:
     - name: MOCK_BACKEND
       value: "true"
