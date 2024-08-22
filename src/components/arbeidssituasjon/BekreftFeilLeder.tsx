@@ -12,7 +12,8 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isLoading, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    const { mutate: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -41,9 +42,9 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             <Modal.Footer>
                 <Button
                     variant="danger"
-                    loading={isLoading}
+                    loading={isPending}
                     type="button"
-                    disabled={isLoading || isSuccess}
+                    disabled={isPending || isSuccess}
                     onClick={() => avkreft()}
                 >
                     Ja, jeg er sikker

@@ -25,6 +25,7 @@ export async function proxyKallTilBackend(opts: Opts) {
         opts.res.send(null)
         return
     }
+
     if (!opts.req.headers.authorization) throw new Error('Mangler authorization header')
     const idportenToken = opts.req.headers.authorization.split(' ')[1]
     const tokenX = await requestOboToken(idportenToken, opts.backendClientId)
