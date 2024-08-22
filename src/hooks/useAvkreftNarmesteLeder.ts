@@ -8,8 +8,8 @@ export default function UseAvkreftNarmesteLeder(org: string) {
     const queryClient = useQueryClient()
     const testpersonQuery = UseTestpersonQuery()
 
-    return useMutation<unknown, Error>(
-        () =>
+    return useMutation({
+        mutationFn: () =>
             fetchMedRequestId(`/syk/sykefravaer/api/narmesteleder/v2/${org}/avkreft` + testpersonQuery.query(), {
                 method: 'POST',
                 credentials: 'include',
@@ -17,10 +17,15 @@ export default function UseAvkreftNarmesteLeder(org: string) {
                     'Content-Type': 'application/json',
                 },
             }),
-        {
-            onSuccess: () => {
-                setTimeout(() => queryClient.invalidateQueries(['narmesteledere']), 200)
-            },
+
+        onSuccess: () => {
+            setTimeout(
+                () =>
+                    queryClient.invalidateQueries({
+                        queryKey: ['narmesteledere'],
+                    }),
+                200,
+            )
         },
-    )
+    })
 }
