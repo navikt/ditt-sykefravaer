@@ -1,4 +1,4 @@
-import { DecoratorComponents, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
+import { DecoratorComponentsReact, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 import getConfig from 'next/config'
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
@@ -13,7 +13,7 @@ const getDocumentParameter = (initialProps: DocumentInitialProps, name: string) 
 }
 
 interface Props {
-    Decorator: DecoratorComponents
+    Decorator: DecoratorComponentsReact
     language: string
 }
 
@@ -26,7 +26,6 @@ class MyDocument extends Document<Props> {
             params: {
                 chatbot: false,
                 feedback: false,
-                urlLookupTable: false,
                 breadcrumbs: createInitialServerSideBreadcrumbs(ctx.pathname),
             },
         })
@@ -41,7 +40,7 @@ class MyDocument extends Document<Props> {
         const showDecorator = serverRuntimeConfig.noDecorator != 'true'
         return (
             <Html lang={language || 'no'}>
-                <Head>{showDecorator && <Decorator.Styles />}</Head>
+                <Head>{showDecorator && <Decorator.HeadAssets />}</Head>
                 <body>
                     {showDecorator && <Decorator.Header />}
                     <main id="maincontent" role="main" tabIndex={-1}>
