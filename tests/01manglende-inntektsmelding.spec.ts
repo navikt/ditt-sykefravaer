@@ -21,18 +21,21 @@ test.describe('Tester inntektsmelding', () => {
       /http:\/\/localhost:8080\/syk\/sykefravaer\/inntektsmelding/
     );
 
-    const header = page.locator('h1');
+    const header = page.locator('main').locator('h1').first();
     await expect(header).toBeVisible();
     await expect(header).toContainText(
       'Vi venter på inntektsmelding fra arbeidsgiver'
     );
 
-    await expect(page).toContainText(
-      'Vi har ikke mottatt inntektsmelding fra arbeidsgiveren din'
-    );
-    await expect(page).toContainText(
-      'for å vurdere om du har rett til sykepenger'
-    );
+    await expect(
+      page.locator(
+        'text=Vi har ikke mottatt inntektsmelding fra arbeidsgiveren din'
+      )
+    ).toBeVisible();
+
+    await expect(
+      page.locator('text=for å vurdere om du har rett til sykepenger')
+    ).toBeVisible();
   });
 
   test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
