@@ -17,7 +17,7 @@ export const manglerInntektsmelding: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Person som har varsel om manglende inntektsmelding fra arbeidsgiver etter 15 dager',
+    beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 15 dager',
 }
 
 export const manglerInntektsmeldingVarsel2: Persona = {
@@ -34,7 +34,7 @@ export const manglerInntektsmeldingVarsel2: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Person som har varsel om manglende inntektsmelding fra arbeidsgiver etter 28 dager',
+    beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 28 dager',
 }
 
 export const venterPaSaksbehandlingNummer1: Persona = {
@@ -51,7 +51,7 @@ export const venterPaSaksbehandlingNummer1: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Person som har varsel om venter på saksbehandlet etter 28 dager',
+    beskrivelse: 'Venter på saksbehandlet etter 28 dager',
 }
 
 export const venterPaSaksbehandlingNummer2: Persona = {
@@ -68,7 +68,7 @@ export const venterPaSaksbehandlingNummer2: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Person som har revarsel om venter på saksbehandlet',
+    beskrivelse: 'Revarsel om venter på saksbehandler',
 }
 
 export const mottattInntektsmelding: Persona = {
@@ -84,5 +84,5 @@ export const mottattInntektsmelding: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Person som har oppgave når arbeidsgiver har sendt inn inntektsmelding',
+    beskrivelse: 'Oppgave når arbeidsgiver har sendt inn inntektsmelding',
 }
