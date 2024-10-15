@@ -1,6 +1,7 @@
 // tests/arbeidssituasjon.spec.ts
 
 import { test, expect } from '@playwright/test';
+import {ar} from "vitest/dist/chunks/reporters.WnPwkmgA";
 
 test.describe('Tester arbeidssituasjon', () => {
 
@@ -13,10 +14,13 @@ test.describe('Tester arbeidssituasjon', () => {
         const firstEmployer = dinSituasjon.locator(':scope > *').nth(1);
         await expect(firstEmployer).toContainText('Hogwarts School of Witchcraft and Wizardry');
         await firstEmployer.click();
-
+        // noe er fucka her
         // Verify the 'arbeidsgiver-accordion' contains specific texts and click 'Meld fra om endring'
-        const arbeidsgiverAccordion = page.locator('[data-testid="arbeidsgiver-accordion"]');
-        await 
+        const arbeidsgiverAccordion = page.locator('[data-testid="arbeidsgiver-accordion"]').first();
+        // await arbeidsgiverAccordion.click()
+        await page.locator('text=Betaler lønn også etter de 16 første dagene i sykefraværet.').first().waitFor()
+
+
         await expect(arbeidsgiverAccordion).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.');
         await expect(arbeidsgiverAccordion).toContainText('Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.');
         const meldFraOmEndring = arbeidsgiverAccordion.locator('text=Meld fra om endring');
@@ -24,8 +28,10 @@ test.describe('Tester arbeidssituasjon', () => {
 
         // In the modal, verify content and click the confirmation button
         const modal = page.locator('.navds-modal');
-        await expect(modal).toContainText('Endre nærmeste leder');
-        const bekreftButton = modal.locator('text=Ja, jeg er sikker');
+        // await expect(modal).toContainText('Endre nærmeste leder');
+        await expect(page.getByRole('dialog', { name: 'Endre nærmeste leder' })).toBeVisible()
+        // const bekreftButton = modal.locator('text=Ja, jeg er sikker');
+        const bekreftButton = page.getByRole('button', { name: 'Ja, jeg er sikker' })
         await bekreftButton.click();
 
         // Verify that the specific text is no longer present in 'arbeidsgiver-accordion'
@@ -36,20 +42,26 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(secondEmployer).toContainText('Diagon Alley');
         await secondEmployer.click();
 
+
+        const arbeidsgiverAccordion2 = page.locator('[data-testid="arbeidsgiver-accordion"]').nth(1);
         // Verify the 'arbeidsgiver-accordion' contains specific texts and click 'Meld fra om endring'
-        await expect(arbeidsgiverAccordion).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.');
-        await expect(arbeidsgiverAccordion).toContainText('Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.');
-        const meldFraOmEndringSecond = arbeidsgiverAccordion.locator('text=Meld fra om endring');
+        await expect(arbeidsgiverAccordion2).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.');
+        await expect(arbeidsgiverAccordion2).toContainText('Arbeidsgiveren har meldt  inn at Severus Snape skal følge deg opp mens du er syk.');
+        const meldFraOmEndringSecond = arbeidsgiverAccordion2.locator('text=Meld fra om endring');
         await meldFraOmEndringSecond.click();
 
+        const modal2 = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
         // In the modal, verify content and click the confirmation button
-        await expect(modal).toContainText('Endre nærmeste leder');
-        const bekreftButtonSecond = modal.locator('text=Ja, jeg er sikker');
+        await expect(modal2).toContainText('Endre nærmeste leder');
+        const bekreftButtonSecond = modal2.locator('text=Ja, jeg er sikker');
         await bekreftButtonSecond.click();
 
         // Verify that the specific text is no longer present in 'arbeidsgiver-accordion'
-        await expect(arbeidsgiverAccordion).not.toContainText('Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.');
+        await expect(arbeidsgiverAccordion2).not.toContainText('Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.');
     });
+
+
+    // todo det virket til hit nå
 
     test('Avkreft nærmeste leder feiler', async ({ page }) => {
         // Visit the base URL assuming it's required for this test

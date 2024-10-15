@@ -19,11 +19,11 @@ export default function Person() {
             localStorage.setItem('devtools-hint', 'true')
         }
 
-        setTimeout(() => {
-            if (localStorage.getItem('devtools-hint') === 'true') {
-                setShowHint(true)
-            }
-        }, 1000)
+        // setTimeout(() => {
+        //     if (localStorage.getItem('devtools-hint') === 'true') {
+        //         setShowHint(true)
+        //     }
+        // }, 1000)
     }, [])
 
     return (
