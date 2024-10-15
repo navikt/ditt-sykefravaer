@@ -61,7 +61,6 @@ test.describe('Tester arbeidssituasjon', () => {
     });
 
 
-    // todo det virket til hit nå
 
     test('Avkreft nærmeste leder feiler', async ({ page }) => {
         // Visit the base URL assuming it's required for this test
@@ -74,13 +73,13 @@ test.describe('Tester arbeidssituasjon', () => {
         await employer.click();
 
         // Verify the 'arbeidsgiver-accordion' contains specific text and click 'Meld fra om endring'
-        const arbeidsgiverAccordion = page.locator('[data-testid="arbeidsgiver-accordion"]');
+        const arbeidsgiverAccordion = page.getByTestId('arbeidsgiver-accordion').nth(2)
         await expect(arbeidsgiverAccordion).toContainText('Arbeidsgiveren har meldt inn at Charity Burbage skal følge deg opp mens du er syk.');
         const meldFraOmEndring = arbeidsgiverAccordion.locator('text=Meld fra om endring');
         await meldFraOmEndring.click();
 
         // In the modal, verify content and click the confirmation button
-        const modal = page.locator('.navds-modal');
+        const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' }) // page.locator('.navds-modal');
         await expect(modal).toContainText('Endre nærmeste leder');
         const bekreftButton = modal.locator('text=Ja, jeg er sikker');
         await bekreftButton.click();
@@ -98,6 +97,8 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(employer).toContainText('Gloucester Cathedral');
     });
 
+
+    // todo fungerer til hit
     test('Har narmesteleder og kan avkrefte den', async ({ page }) => {
         // Visit the specified URL for this test
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt');
