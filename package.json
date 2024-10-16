@@ -74,7 +74,7 @@
         "test:ci": "vitest --run",
         "cy:open": "cypress open --e2e",
         "e2e": "start-test dev-ingen-dekorator http://localhost:8080/syk/sykefravaer cy:open",
-        "play": "npx playwright test --ui --headed",
+        "play": "npx playwright test --ui",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",
         "lint": "eslint --ext=ts,tsx src cypress",
