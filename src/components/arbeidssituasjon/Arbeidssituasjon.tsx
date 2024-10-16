@@ -35,7 +35,7 @@ const Arbeidssituasjon = () => {
         <>
             {arbeidsgivere.length > 0 && (
                 <>
-                    <section data-cy="din-situasjon">
+                    <section data-testid="din-situasjon">
                         <div className="mx-auto mb-4 mt-8 flex">
                             <Buildings2Icon title="Employer" width="30px" height="30px" className="mr-1" />
                             <Heading size="small" level="2">

@@ -2,13 +2,13 @@ describe('Tester arbeidssituasjon', () => {
     it('Bruker med flere arbeidsgivere', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=default')
 
-        cy.get('[data-cy="din-situasjon"]')
+        cy.get('[data-testid="din-situasjon"]')
             .children()
             .eq(1)
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
             .click()
 
-        cy.get('[data-cy="arbeidsgiver-accordion"]')
+        cy.get('[data-testid="arbeidsgiver-accordion"]')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -16,14 +16,14 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('[data-cy="arbeidsgiver-accordion"]').should(
+        cy.get('[data-testid="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
 
-        cy.get('[data-cy="din-situasjon"]').children().eq(2).should('contain', 'Diagon Alley').click()
+        cy.get('[data-testid="din-situasjon"]').children().eq(2).should('contain', 'Diagon Alley').click()
 
-        cy.get('[data-cy="arbeidsgiver-accordion"]')
+        cy.get('[data-testid="arbeidsgiver-accordion"]')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
@@ -31,16 +31,16 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('contain', 'Endre nærmeste leder').contains('Ja, jeg er sikker').click()
 
-        cy.get('[data-cy="arbeidsgiver-accordion"]').should(
+        cy.get('[data-testid="arbeidsgiver-accordion"]').should(
             'not.contain',
             'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
         )
     })
 
     it('Avkreft nærmeste leder feiler', () => {
-        cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral').click()
+        cy.get('[data-testid="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral').click()
 
-        cy.get('[data-cy="arbeidsgiver-accordion"]')
+        cy.get('[data-testid="arbeidsgiver-accordion"]')
             .should('contain', 'Arbeidsgiveren har meldt inn at Charity Burbage skal følge deg opp mens du er syk.')
             .contains('Meld fra om endring')
             .click()
@@ -51,14 +51,14 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').contains('Avbryt').click()
         cy.get('.navds-modal').should('not.be.visible')
-        cy.get('[data-cy="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral')
+        cy.get('[data-testid="din-situasjon"]').children().eq(3).should('contain', 'Gloucester Cathedral')
         cy.get('.navds-modal').should('not.be.visible')
     })
 
     it('Har narmesteleder og kan avkrefte den', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
-        cy.get('[data-cy="situasjon-innhold"]')
+        cy.get('[data-testid="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
             .should('contain', 'Betaler lønn også etter de 16 første dagene i sykefraværet.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
@@ -67,7 +67,7 @@ describe('Tester arbeidssituasjon', () => {
             .should('contain', 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt')
             .click()
 
-        cy.get('[data-cy="situasjon-innhold"]').contains('Meld fra om endring').click()
+        cy.get('[data-testid="situasjon-innhold"]').contains('Meld fra om endring').click()
 
         cy.get('.navds-accordion__content')
             .should(
@@ -81,7 +81,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('not.be.visible')
 
-        cy.get('[data-cy="situasjon-innhold"]')
+        cy.get('[data-testid="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
             .should(
                 'not.contain',
@@ -97,7 +97,7 @@ describe('Tester arbeidssituasjon', () => {
     it('Arbeidsgiver forskutterer ikke', () => {
         cy.visit('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
 
-        cy.get('[data-cy="situasjon-innhold"]')
+        cy.get('[data-testid="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
             .should('contain', 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
             .should('contain', 'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.')
@@ -108,7 +108,7 @@ describe('Tester arbeidssituasjon', () => {
 
         cy.get('.navds-modal').should('not.be.visible')
 
-        cy.get('[data-cy="situasjon-innhold"]')
+        cy.get('[data-testid="situasjon-innhold"]')
             .should('contain', 'Hogwarts School of Witchcraft and Wizardry')
             .should('contain', 'Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
             .should(
