@@ -15,4 +15,3 @@ jobs:
     secrets: inherit
     with:
       base-path: syk/sykefravaer
-      sentry-enabled: false
