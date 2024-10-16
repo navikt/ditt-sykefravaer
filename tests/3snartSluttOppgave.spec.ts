@@ -10,7 +10,7 @@ test.describe('Tester snart slutt oppgave', () => {
 
         await expect(validLink).toBeVisible()
 
-        const oppgaver = page.locator('[data-testid="oppgaver"]')
+        const oppgaver = page.getByTestId("oppgaver")
         await expect(oppgaver).toHaveCount(1)
         await expect(oppgaver.last()).toContainText('Snart slutt på sykepengene')
         // // await expect(oppgaver.last()).toHaveAttribute('href', 'https://demo.ekstern.dev.nav.no/syk/info/snart-slutt-pa-sykepengene');

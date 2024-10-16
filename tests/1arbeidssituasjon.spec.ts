@@ -1,7 +1,6 @@
 // tests/arbeidssituasjon.spec.ts
 
 import { test, expect } from '@playwright/test'
-import { ar } from 'vitest/dist/chunks/reporters.WnPwkmgA'
 
 test.describe('Tester arbeidssituasjon', () => {
     test('Bruker med flere arbeidsgivere', async ({ page }) => {
@@ -9,13 +8,13 @@ test.describe('Tester arbeidssituasjon', () => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=default')
 
         // Select the second child of 'din-situasjon' and verify its content, then click it
-        const dinSituasjon = page.locator('[data-testid="din-situasjon"]')
+        const dinSituasjon = page.getByTestId("din-situasjon") // page.locator('[data-testid="din-situasjon"]')
         const firstEmployer = dinSituasjon.locator(':scope > *').nth(1)
         await expect(firstEmployer).toContainText('Hogwarts School of Witchcraft and Wizardry')
         await firstEmployer.click()
         // noe er fucka her
         // Verify the 'arbeidsgiver-accordion' contains specific texts and click 'Meld fra om endring'
-        const arbeidsgiverAccordion = page.locator('[data-testid="arbeidsgiver-accordion"]').first()
+        const arbeidsgiverAccordion = page.getByTestId("arbeidsgiver-accordion").first() // locator('[data-testid="arbeidsgiver-accordion"]').first()
         // await arbeidsgiverAccordion.click()
         await page.locator('text=Betaler lønn også etter de 16 første dagene i sykefraværet.').first().waitFor()
 
@@ -44,7 +43,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(secondEmployer).toContainText('Diagon Alley')
         await secondEmployer.click()
 
-        const arbeidsgiverAccordion2 = page.locator('[data-testid="arbeidsgiver-accordion"]').nth(1)
+        const arbeidsgiverAccordion2 = page.getByTestId("arbeidsgiver-accordion").nth(1) // locator('[data-testid="arbeidsgiver-accordion"]').nth(1)
         // Verify the 'arbeidsgiver-accordion' contains specific texts and click 'Meld fra om endring'
         await expect(arbeidsgiverAccordion2).toContainText(
             'Betaler lønn også etter de 16 første dagene i sykefraværet.',
@@ -72,7 +71,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=default')
 
         // Select the fourth child of 'din-situasjon', verify content, and click it
-        const dinSituasjon = page.locator('[data-testid="din-situasjon"]')
+        const dinSituasjon = page.getByTestId("din-situasjon") // locator('[data-testid="din-situasjon"]')
         const employer = dinSituasjon.locator(':scope > *').nth(3)
         await expect(employer).toContainText('Gloucester Cathedral')
         await employer.click()
@@ -110,7 +109,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
 
         // Verify 'situasjon-innhold' contains specific texts
-        const situasjonInnhold = page.locator('[data-testid="situasjon-innhold"]')
+        const situasjonInnhold = page.getByTestId("situasjon-innhold")//  locator('[data-testid="situasjon-innhold"]')
         await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
         await expect(situasjonInnhold).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.')
         await expect(situasjonInnhold).toContainText(
@@ -159,7 +158,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
 
         // Verify 'situasjon-innhold' contains specific texts and click 'Meld fra om endring'
-        const situasjonInnhold = page.locator('[data-testid="situasjon-innhold"]')
+        const situasjonInnhold = page.getByTestId("situasjon-innhold") // locator('[data-testid="situasjon-innhold"]')
         await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
         await expect(situasjonInnhold).toContainText('Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
         await expect(situasjonInnhold).toContainText(
