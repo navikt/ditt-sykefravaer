@@ -10,8 +10,8 @@ describe('Tester cummulative-layout-shift ', () => {
             const docHeight = win.document.documentElement.scrollHeight
             expect(docHeight).to.equal(expectedHeight)
         })
-        // Venter på at alle dataene er fetchet og rendret
 
+        // Venter på at alle dataene er fetchet og rendret
         cy.contains('Du har en ny sykmelding').should('be.visible')
         cy.get('.navds-skeleton').should('have.length', 0)
 

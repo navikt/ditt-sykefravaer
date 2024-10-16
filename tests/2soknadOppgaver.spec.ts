@@ -17,8 +17,7 @@ test.describe('Tester at oppgaver vises for søknader', () => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=ny-soknad-utland-eos')
         const alert = page.getByTestId('oppgaver').locator('.navds-alert')
         await expect(alert).toContainText('Du har en ny søknad om å beholde sykepengene for reise utenfor EU/EØS')
-        // const href = await alert.getAttribute('href');
-        const link = page.getByTestId('oppgaver').locator('.navds-alert >> a') // Adjust the selector to target the anchor tag
+        const link = page.getByTestId('oppgaver').locator('.navds-alert >> a')
         const href = await link.getAttribute('href')
         expect(href).toContain('/syk/sykepengesoknad/sykepengesoknad-utland')
     })
