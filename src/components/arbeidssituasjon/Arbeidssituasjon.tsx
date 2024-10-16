@@ -1,6 +1,6 @@
 import { Accordion, BodyLong, BodyShort, Heading, Skeleton } from '@navikt/ds-react'
 import React from 'react'
-import { Buldings2Icon } from '@navikt/aksel-icons'
+import { Buildings2Icon } from '@navikt/aksel-icons'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
@@ -37,7 +37,7 @@ const Arbeidssituasjon = () => {
                 <>
                     <section data-cy="din-situasjon">
                         <div className="mx-auto mb-4 mt-8 flex">
-                            <Buldings2Icon title="Employer" width="30px" height="30px" className="mr-1" />
+                            <Buildings2Icon title="Employer" width="30px" height="30px" className="mr-1" />
                             <Heading size="small" level="2">
                                 {tekst('din-situasjon.tittel.2')}
                             </Heading>
