@@ -32,13 +32,8 @@ test.describe('Keyboard navigering', () => {
         await page.keyboard.press('Tab')
         const focusedElement = await page.locator(':focus')
         await expect(focusedElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
-        // kommer hit
-        // Validate that any child under the focused element has the desired text
-        // await expect(focusedElement.locator('*')).toHaveText(
-        //   'Hogwarts School of Witchcraft and Wizardry',
-        // );
 
-        await expect(focusedElement).toContainText('Hogwarts School of Witchcraft and Wizardry') // toHaveText får også med vis mer som kommer fra expand knappen
+        await expect(focusedElement).toContainText('Hogwarts School of Witchcraft and Wizardry')
 
         await page.keyboard.press('Space')
         await expect(

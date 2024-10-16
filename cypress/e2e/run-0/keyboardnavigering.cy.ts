@@ -35,7 +35,6 @@ describe('Keyboard navigering', () => {
         cy.realPress('Tab')
         // eslint-disable-next-line cypress/unsafe-to-chain-command
         cy.focused().should('have.css', 'box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
-        // kommer hit
         // eslint-disable-next-line cypress/unsafe-to-chain-command
         cy.focused().children().eq(1).should('have.text', 'Hogwarts School of Witchcraft and Wizardry')
         cy.realPress('Space')
