@@ -38,6 +38,7 @@
     "devDependencies": {
         "@cypress/webpack-preprocessor": "^6.0.2",
         "@navikt/eslint-config-teamsykmelding": "^6.6.0",
+        "@playwright/test": "^1.48.0",
         "@testing-library/cypress": "^10.0.2",
         "@testing-library/react": "^16.0.1",
         "@types/cookie": "^0.6.0",
@@ -73,6 +74,7 @@
         "test:ci": "vitest --run",
         "cy:open": "cypress open --e2e",
         "e2e": "start-test dev-ingen-dekorator http://localhost:8080/syk/sykefravaer cy:open",
+        "play": "npx playwright test --ui --headed",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",
         "lint": "eslint --ext=ts,tsx src cypress",
