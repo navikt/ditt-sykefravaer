@@ -71,6 +71,7 @@
         "start-ingen-dekorator": "NO_DECORATOR=true npm start",
         "build": "next build",
         "test": "vitest",
+        "test:ci": "vitest --run",
         "cy:open": "cypress open --e2e",
         "e2e": "start-test dev-ingen-dekorator http://localhost:8080/syk/sykefravaer cy:open",
         "play": "npx playwright test --ui",
