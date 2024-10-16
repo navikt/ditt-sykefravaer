@@ -12,17 +12,11 @@ test.describe('Maksdato', () => {
         const sisteUtbetaling = tilLesbarDatoMedArstall(dayjs().subtract(1, 'day').toDate())
         const maksdato = tilLesbarDatoMedArstall(dayjs().add(340, 'days').toDate())
         const forventetTekst = `Maksdato per ${sisteUtbetaling} er ${maksdato}`
-        const today = dayjs().toDate()
         await page.getByRole('region', { name: 'Beregnet slutt på sykepenger' }).click()
-        await expect(
-            // page.locator('.navds-expansioncard__header')
-            page.getByRole('region', { name: 'Beregnet slutt på sykepenger' }),
-            // ).toContainText("Maksdato per 15. oktober 2024 er 21. september 2025")
-        ).toContainText(forventetTekst)
+        await expect(page.getByRole('region', { name: 'Beregnet slutt på sykepenger' })).toContainText(forventetTekst)
     })
 
     test('Innholdet i maksdato kortet er riktig', async ({ page }) => {
-        // Åpner maksdato-kortet
         await page.getByRole('region', { name: 'Beregnet slutt på sykepenger' }).click()
 
         const contentLocator = page.locator('.navds-expansioncard__content')
@@ -40,7 +34,6 @@ test.describe('Maksdato', () => {
             'Hvis du har fått sykepenger i 52 uker og fortsatt ikke kan arbeide på grunn av sykdom eller skade, kan du ha rett til arbeidsavklaringspenger eller uføretrygd.',
         )
 
-        // Sjekker lenker
         await expect(page.locator('text=folketrygdloven § 8-12.')).toHaveAttribute(
             'href',
             'https://lovdata.no/nav/folketrygdloven/kap8/%C2%A78-12',

@@ -13,20 +13,6 @@ test.describe('Inntektsmeldinger', () => {
     test('Åpner inntektsmelding', async ({ page }) => {
         await expect(page.locator('text=Inntektsmeldinger')).toBeVisible()
 
-        // await page.getByRole('link', { name: /kjelsås/i }).click();
-        //const link = page.locator('body').getByRole('link', { name: 'Your Link Name' });
-        // getByRole('link', { name: /kjelsås/i });
-        // await link.click();
-        //           const firstOppgave = oppgaver.first()
-        //         const href = 'https://demo.ekstern.dev.nav.no/syk/info/snart-slutt-pa-sykepengene'; // Replace with the desired href
-        // const linkExists = await firstOppgave.locator(`a[href="${href}"]`).count() > 0;
-        //   expect(linkExists).toBeTruthy()
-        //const hrefPart = /kjelsås/i
-        //const item = await page.locator('body').locator(`a[href*="${hrefPart}"]`).count()
-        // const linkExists = await page.locator('body').locator(`a[href*="${hrefPart}"]`).count() > 0;
-        // const link = await page.locator('body').locator()
-        // expect (linkExists).toBeTruthy()
-
         await page.locator('text=Inntektsmeldinger').click()
         await page.getByText('Matbutikken AS, Kjelsås').waitFor()
         await page.getByText('Matbutikken AS, Kjelsås').click()
