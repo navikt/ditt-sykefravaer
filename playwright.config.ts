@@ -12,7 +12,7 @@ import { defineConfig, devices } from '@playwright/test'
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-    testDir: './tests',
+    testDir: './playwrightTests',
     timeout: 30000, // Global timeout for all tests (30 seconds)
     use: {
         navigationTimeout: 60000, // Navigation-specific timeout (60 seconds)
