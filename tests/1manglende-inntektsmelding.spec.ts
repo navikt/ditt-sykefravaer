@@ -4,7 +4,7 @@ test.describe('Tester inntektsmelding', () => {
     test('Har inntektsmelding varsel og riktig innhold', async ({ page }) => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
 
-        const oppgaver = page.locator('[data-testid="oppgaver"]')
+        const oppgaver = page.getByTestId("oppgaver")
         const navdsAlert = oppgaver.locator('.navds-alert')
 
         await expect(navdsAlert).toHaveCount(1)
@@ -28,7 +28,7 @@ test.describe('Tester inntektsmelding', () => {
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=mottatt-inntektsmelding')
 
-        const oppgaver = page.locator('[data-testid="oppgaver"]')
+        const oppgaver = page.getByTestId("oppgaver")
         const navdsAlert = oppgaver.locator('.navds-alert')
 
         await expect(navdsAlert).toHaveCount(1)
