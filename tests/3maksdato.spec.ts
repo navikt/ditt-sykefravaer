@@ -1,6 +1,5 @@
 import { test, expect } from '@playwright/test'
-// import dayjs from 'dayjs';
-import dayjs from 'dayjs' // there are other solutions: https://chatgpt.com/c/67065cc3-d988-8001-9b5a-38ed4bf52b43
+import dayjs from 'dayjs'
 import { tilLesbarDatoMedArstall } from '../src/utils/dato-utils'
 
 test.describe('Maksdato', () => {

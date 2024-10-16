@@ -1,10 +1,7 @@
-// tests/arbeidssituasjon.spec.ts
-
 import { test, expect } from '@playwright/test'
 
 test.describe('Tester arbeidssituasjon', () => {
     test('Bruker med flere arbeidsgivere', async ({ page }) => {
-        // Visit the specified URL
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon')
