@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
-        "target": "es2015",
-        "lib": ["dom", "dom.iterable", "esnext"],
+        "target": "es5",
+        "lib": ["dom", "dom.iterable", "es2015", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
@@ -16,7 +16,7 @@
         "jsx": "preserve",
         "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
-        "types": ["cypress"],
+        "types": ["cypress", "node"],
         "incremental": true,
         "baseUrl": "/syk/sykefravaer"
     },
