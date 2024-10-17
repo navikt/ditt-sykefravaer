@@ -16,7 +16,7 @@ describe('Keyboard navigering', () => {
             .should('have.css', 'color', 'rgb(255, 255, 255)')
             .should('have.css', 'background-color', 'rgb(0, 52, 125)')
 
-        // kommer hit
+
         cy.realPress('Tab')
         // Stylingen er ikke fokusert igjen
         cy.contains('Du har en ny søknad om sykepenger')

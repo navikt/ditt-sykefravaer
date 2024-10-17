@@ -14,7 +14,7 @@ test.describe('Keyboard navigering', () => {
         await expect(page.locator(':focus')).toHaveCSS('color', 'rgb(255, 255, 255)')
         await expect(page.locator(':focus')).toHaveCSS('background-color', 'rgb(0, 52, 125)')
 
-        // kommer hit
+
         await page.keyboard.press('Tab')
         // Stylingen er ikke fokusert igjen
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toHaveCSS('color', 'rgb(35, 38, 42)')
