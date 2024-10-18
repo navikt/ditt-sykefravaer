@@ -24,7 +24,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
 
     return (
         <Accordion
-            data-cy="arbeidsgiver-accordion"
+            data-testid="arbeidsgiver-accordion"
             style={
                 {
                     '--ac-accordion-header-bg': 'var(--a-blue-50)',

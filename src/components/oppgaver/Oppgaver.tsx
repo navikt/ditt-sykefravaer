@@ -109,7 +109,7 @@ const OppgaveLista = ({ oppgaver, pushLukket, lasterData }: OppgaveProps) => {
     }
 
     return (
-        <section data-cy="oppgaver" aria-label={tekst('oppgaver.nye-varsler')}>
+        <section data-testid="oppgaver" aria-label={tekst('oppgaver.nye-varsler')}>
             <div className="space-y-2">
                 {oppgaver.map((v) => (
                     <EnkeltOppgaveAlert oppgave={v} key={v.tekst + v.id} pushLukket={pushLukket} />

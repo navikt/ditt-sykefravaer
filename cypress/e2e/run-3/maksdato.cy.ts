@@ -14,6 +14,7 @@ describe('Maksdato', () => {
         cy.findByRole('region', {
             name: 'Beregnet slutt på sykepenger',
         }).click()
+
         cy.get('.navds-expansioncard__header').should('contain', forventetTekst)
     })
 
