@@ -14,7 +14,6 @@ import { defineConfig, devices } from '@playwright/test'
 export default defineConfig({
     testDir: './playwright',
     timeout: 30000, // Global timeout for all tests (30 seconds)
-
     /* Run tests in files in parallel */
     fullyParallel: true,
     /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -30,8 +29,7 @@ export default defineConfig({
         navigationTimeout: 60000, // Navigation-specific timeout (60 seconds)
 
         /* Base URL to use in actions like `await page.goto('/')`. */
-        baseURL: 'http://127.0.0.1:8080',
-        navigationTimeout: 15, // Navigation-specific timeout (60 seconds)
+        // baseURL: 'http://127.0.0.1:3000',
 
         /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
         trace: 'on-first-retry',
@@ -76,9 +74,9 @@ export default defineConfig({
     ],
 
     /* Run your local dev server before starting the tests */
-    webServer: {
-        command: 'MOCK_BACKEND=true NO_DECORATOR=true npm run dev | pino-pretty', // command: 'npm run start',
-        url: 'http://127.0.0.1:3000',
-    },
-    // reuseExistingServer: !process.env.CI,
+    // webServer: {
+    //   command: 'npm run start',
+    //   url: 'http://127.0.0.1:3000',
+    //   reuseExistingServer: !process.env.CI,
+    // },
 })
