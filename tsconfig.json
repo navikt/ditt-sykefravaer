@@ -16,7 +16,6 @@
         "jsx": "preserve",
         "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
-        "types": ["cypress", "node"],
         "incremental": true,
         "baseUrl": "/syk/sykefravaer"
     },
