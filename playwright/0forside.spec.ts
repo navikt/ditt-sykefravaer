@@ -7,6 +7,6 @@ test.describe('Tester visning av forside', () => {
 
     test('Laster startside', async ({ page }) => {
         await expect(page).toHaveURL('http://localhost:8080/syk/sykefravaer')
-        await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
+        await expect(page.locator('text=Du har en ny søknad om sykepenger dennetestenfinnesikke')).toBeVisible()
     })
 })
