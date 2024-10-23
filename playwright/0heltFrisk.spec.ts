@@ -1,8 +1,10 @@
 import { test, expect } from '@playwright/test'
+import {injectAxe} from "axe-playwright";
 
 test.describe('Tester helt frisk person', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=helt-frisk')
+        await injectAxe(page)
     })
 
     test('Laster startside', async ({ page }) => {
