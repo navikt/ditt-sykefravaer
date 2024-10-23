@@ -49,6 +49,7 @@
         "@types/uuid": "^10.0.0",
         "autoprefixer": "^10.4.20",
         "axe-core": "^4.10.1",
+        "axe-playwright": "^2.0.3",
         "cypress": "^13.15.0",
         "cypress-axe": "^1.5.0",
         "cypress-real-events": "^1.13.0",
