@@ -34,72 +34,68 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
 
     return (
         <>
-            <h1>
-                hello
-            </h1>
+            <h1>hello</h1>
 
-            <h1>
-                yet another one
-            </h1>
-        <Alert
-            variant={oppgave.type ?? 'info'}
-            className="[&>div]:w-full"
-            closeButton={oppgave.lukkbar}
-            onClose={async () => {
-                logEvent('knapp klikket', {
-                    tekst: 'close ikon',
-                    alerttekst: oppgave.meldingType ?? oppgave.tekst,
-                    variant: oppgave.type ?? 'info',
-                    komponent: 'ditt sykefravær oppgave',
-                })
-                if (oppgave.id) {
-                    try {
-                        await fetchMedRequestId(
-                            `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
-                            {
-                                method: 'POST',
-                                credentials: 'include',
-                                headers: {
-                                    'Content-Type': 'application/json',
+            <h1>yet another one</h1>
+            <Alert
+                variant={oppgave.type ?? 'info'}
+                className="[&>div]:w-full"
+                closeButton={oppgave.lukkbar}
+                onClose={async () => {
+                    logEvent('knapp klikket', {
+                        tekst: 'close ikon',
+                        alerttekst: oppgave.meldingType ?? oppgave.tekst,
+                        variant: oppgave.type ?? 'info',
+                        komponent: 'ditt sykefravær oppgave',
+                    })
+                    if (oppgave.id) {
+                        try {
+                            await fetchMedRequestId(
+                                `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/meldinger/${oppgave.id}/lukk`,
+                                {
+                                    method: 'POST',
+                                    credentials: 'include',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
                                 },
-                            },
-                        )
-                    } catch (e) {
-                        // Viser ikke feilmelding til bruker siden lukking kan funke neste gang hen prøver.
-                        // Feilen blir logget i fetchMedRequestId.
-                    } finally {
-                        pushLukket(oppgave.id as string)
+                            )
+                        } catch (e) {
+                            // Viser ikke feilmelding til bruker siden lukking kan funke neste gang hen prøver.
+                            // Feilen blir logget i fetchMedRequestId.
+                        } finally {
+                            pushLukket(oppgave.id as string)
+                        }
                     }
-                }
-            }}
-        >
-            <div className="flex items-center justify-between">
-                <div className="space-y-2">
-                    {oppgave.lenke && (
-                        <Lenke
-                            href={oppgave.lenke}
-                            onClick={(e) => {
-                                if (!oppgave.lenke) return
-                                e.preventDefault()
-                                logEvent('navigere', {
-                                    destinasjon: oppgave.lenke,
-                                    lenketekst: oppgave.meldingType ?? oppgave.tekst,
-                                    variant: oppgave.type ?? 'info',
-                                    komponent: 'ditt sykefravær oppgave',
-                                })
+                }}
+            >
+                <div className="flex items-center justify-between">
+                    <div className="space-y-2">
+                        {oppgave.lenke && (
+                            <Lenke
+                                href={oppgave.lenke}
+                                onClick={(e) => {
+                                    if (!oppgave.lenke) return
+                                    e.preventDefault()
+                                    logEvent('navigere', {
+                                        destinasjon: oppgave.lenke,
+                                        lenketekst: oppgave.meldingType ?? oppgave.tekst,
+                                        variant: oppgave.type ?? 'info',
+                                        komponent: 'ditt sykefravær oppgave',
+                                    })
 
-                                window.location.href = oppgave.lenke
-                            }}
-                        >
-                            {oppgave.tekst}
-                        </Lenke>
-                    )}
-                    {!oppgave.lenke && <BodyShort>{oppgave.tekst}</BodyShort>}
-                    {oppgave.opprettet && <Detail>{`Sendt: ${oppgave.opprettet.format('DD.MM.YYYY')}`}</Detail>}
+                                    window.location.href = oppgave.lenke
+                                }}
+                            >
+                                {oppgave.tekst}
+                            </Lenke>
+                        )}
+                        {!oppgave.lenke && <BodyShort>{oppgave.tekst}</BodyShort>}
+                        {oppgave.opprettet && <Detail>{`Sendt: ${oppgave.opprettet.format('DD.MM.YYYY')}`}</Detail>}
+                    </div>
                 </div>
-            </div>
-        </Alert>
-            </>
+            </Alert>
+        </>
     )
 }
 

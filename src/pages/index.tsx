@@ -22,7 +22,7 @@ const Index = () => {
         <>
             <Banner tittel={tekst('sidetittel.liste')} />
             {/* Intentional Accessibility Violation: Image without alt attribute */}
-      <img src="https://picsum.photos/200/300" />
+            {/*<img src="https://picsum.photos/200/300" />*/}
 
             <QueryStatusPanel />
             <IngenSykmelding />
