@@ -33,6 +33,14 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
     }, [oppgave.meldingType, oppgave.tekst, oppgave.type])
 
     return (
+        <>
+            <h1>
+                hello
+            </h1>
+
+            <h1>
+                yet another one
+            </h1>
         <Alert
             variant={oppgave.type ?? 'info'}
             className="[&>div]:w-full"
@@ -91,6 +99,7 @@ const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) =>
                 </div>
             </div>
         </Alert>
+            </>
     )
 }
 
