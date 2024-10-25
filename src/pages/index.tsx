@@ -23,8 +23,9 @@ const Index = () => {
             <Banner tittel={tekst('sidetittel.liste')} />
             {/* Intentional Accessibility Violation: Image without alt attribute */}
             <img src="https://picsum.photos/200/300" />
-            <h1>hello</h1>
-            <h1>yet another one</h1>
+            {/*TODO it is actually correct that the below do not give errors by default*/}
+            {/*<h1>hello</h1>*/}
+            {/*<h1>yet another one</h1>*/}
 
             <QueryStatusPanel />
             <IngenSykmelding />
