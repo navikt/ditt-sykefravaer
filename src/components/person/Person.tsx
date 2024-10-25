@@ -14,7 +14,6 @@ export default function Person() {
         setShowHint(false)
     }, [])
 
-
     return (
         <>
             <div hidden={openState}>
