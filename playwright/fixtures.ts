@@ -6,7 +6,8 @@ export const test = base.extend({})
 
 test.afterEach(async ({ page }) => {
     // Wait for the network to be idle to ensure all elements are loaded
-    await page.waitForLoadState('networkidle')
+    // await page.waitForLoadState('networkidle')
+    // Wait for all animations to finish
 
     // Run the Axe accessibility analysis
     const results = await new AxeBuilder({ page }).analyze()

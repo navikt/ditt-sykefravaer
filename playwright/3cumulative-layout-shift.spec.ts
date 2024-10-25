@@ -1,4 +1,5 @@
-import { test, expect } from '@playwright/test'
+import { test } from './fixtures'
+import { expect } from '@playwright/test'
 
 test.describe('Tester cumulative-layout-shift', () => {
     test('Height does not change in happy case after data is loaded', async ({ page }) => {

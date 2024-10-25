@@ -1,4 +1,3 @@
-// example.spec.ts
 import { test } from './fixtures'
 import { expect } from '@playwright/test'
 

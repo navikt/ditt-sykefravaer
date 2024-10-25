@@ -1,4 +1,6 @@
-import { test, expect } from '@playwright/test'
+import { test } from './fixtures'
+import { expect } from '@playwright/test'
+
 import dayjs from 'dayjs'
 import { tilLesbarDatoMedArstall } from '../src/utils/dato-utils'
 
