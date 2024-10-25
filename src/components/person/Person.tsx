@@ -13,18 +13,7 @@ export default function Person() {
         localStorage.setItem('devtools-hint', 'false')
         setShowHint(false)
     }, [])
-
-    useEffect(() => {
-        if (localStorage.getItem('devtools-hint') === null) {
-            localStorage.setItem('devtools-hint', 'true')
-        }
-
-        setTimeout(() => {
-            if (localStorage.getItem('devtools-hint') === 'true') {
-                setShowHint(true)
-            }
-        }, 1000)
-    }, [])
+    
 
     return (
         <>
