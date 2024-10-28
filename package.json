@@ -33,7 +33,7 @@
         "react-modal": "^3.16.1",
         "remeda": "^2.15.0",
         "tailwind-merge": "^2.5.4",
-        "uuid": "^10.0.0"
+        "uuid": "^11.0.1"
     },
     "devDependencies": {
         "@cypress/webpack-preprocessor": "^6.0.2",
