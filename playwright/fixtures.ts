@@ -3,7 +3,7 @@ import { AxeBuilder } from '@axe-core/playwright'
 
 export const test = base.extend({})
 
-test.afterEach(async ({ page }) => {
+test.afterEach(async ({ page }, testInfo) => {
     const results = await new AxeBuilder({ page }).analyze()
 
     const { violations } = results
@@ -11,6 +11,8 @@ test.afterEach(async ({ page }) => {
     if (violations.length > 0) {
         console.log(`${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected:`)
         console.log(`\nURL: ${page.url()}`)
+        console.log(`Test: ${testInfo.title}`)
+        console.log(`URL: ${page.url()}`)
 
         for (const violation of violations) {
             console.log(`\nViolation ID: ${violation.id}`)
@@ -19,8 +21,7 @@ test.afterEach(async ({ page }) => {
             console.log(`Help: ${violation.help}`)
             console.log(`Help URL: ${violation.helpUrl}`)
 
-            // Add a reference to the test line in your GitHub Actions log
-            console.trace('Violation detected in:', violation.nodes[0]?.target?.join(' ') || 'Unknown node')
+
 
             console.log('Affected Nodes:')
             violation.nodes.forEach(({ target }) => {
