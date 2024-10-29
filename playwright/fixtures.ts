@@ -14,6 +14,7 @@ test.afterEach(async ({ page }) => {
 
     if (violations.length > 0) {
         console.log(`${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected:`)
+        console.log(`\nURL: ${page.url()}`)
 
         for (const violation of violations) {
             console.log(`\nViolation ID: ${violation.id}`)

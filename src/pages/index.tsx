@@ -20,18 +20,18 @@ const Index = () => {
 
     return (
         <>
-            <Banner tittel={tekst('sidetittel.liste')}/>
+            <Banner tittel={tekst('sidetittel.liste')} />
 
-            <img src="https://example.com/image.jpg"/>
+            <img src="https://example.com/image.jpg" />
 
-            <QueryStatusPanel/>
-            <IngenSykmelding/>
-            <Oppgaver/>
-            {maksdatoToggle.enabled && <Maksdato/>}
-            <Arbeidssituasjon/>
-            <Lenker/>
+            <QueryStatusPanel />
+            <IngenSykmelding />
+            <Oppgaver />
+            {maksdatoToggle.enabled && <Maksdato />}
+            <Arbeidssituasjon />
+            <Lenker />
 
-            {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du"/>}
+            {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
         </>
     )
 }
