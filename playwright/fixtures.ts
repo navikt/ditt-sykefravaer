@@ -9,6 +9,7 @@ test.afterEach(async ({ page }, testInfo) => {
     const { violations } = results
 
     if (violations.length > 0) {
+        console.log('==================\n')
         console.log(`${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected:`)
         console.log(`\nURL: ${page.url()}`)
         console.log(`Test file: ${testInfo.file.replace("/home/runner/work", ".")}`)
