@@ -1,4 +1,6 @@
-import { test, expect } from '@playwright/test'
+import { test } from './fixtures'
+import { expect } from '@playwright/test'
+
 test.describe('Tester snart slutt oppgave', () => {
     test('Har riktig lenke', async ({ page }) => {
         await page.goto('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')

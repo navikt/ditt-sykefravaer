@@ -1,5 +1,5 @@
 import { BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
-import React, { CSSProperties, useCallback, useEffect, useRef, useState } from 'react'
+import React, { CSSProperties, useCallback, useRef, useState } from 'react'
 import { SandboxIcon } from '@navikt/aksel-icons'
 
 import { PersonaData, PersonaGroupKey, testpersonerGruppert } from '../../data/mock/testperson'
@@ -12,18 +12,6 @@ export default function Person() {
     const dismissHint = useCallback(() => {
         localStorage.setItem('devtools-hint', 'false')
         setShowHint(false)
-    }, [])
-
-    useEffect(() => {
-        if (localStorage.getItem('devtools-hint') === null) {
-            localStorage.setItem('devtools-hint', 'true')
-        }
-
-        setTimeout(() => {
-            if (localStorage.getItem('devtools-hint') === 'true') {
-                setShowHint(true)
-            }
-        }, 1000)
     }, [])
 
     return (
