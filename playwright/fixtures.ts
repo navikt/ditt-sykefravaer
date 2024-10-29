@@ -1,4 +1,3 @@
-// fixtures.ts
 import { test as base, expect } from '@playwright/test'
 import { AxeBuilder } from '@axe-core/playwright'
 
@@ -9,16 +8,13 @@ test.afterEach(async ({ page }) => {
     // await page.waitForLoadState('networkidle')
     // Wait for all animations to finish
 
-    // Run the Axe accessibility analysis
     const results = await new AxeBuilder({ page }).analyze()
 
     const { violations } = results
 
     if (violations.length > 0) {
-        // Log the number of violations
         console.log(`${violations.length} accessibility violation${violations.length === 1 ? '' : 's'} detected:`)
 
-        // Log detailed information for each violation
         for (const violation of violations) {
             console.log(`\nViolation ID: ${violation.id}`)
             console.log(`Description: ${violation.description}`)
@@ -26,14 +22,12 @@ test.afterEach(async ({ page }) => {
             console.log(`Help: ${violation.help}`)
             console.log(`Help URL: ${violation.helpUrl}`)
 
-            // List all elements that failed this violation
             console.log('Affected Nodes:')
             violation.nodes.forEach(({ target }) => {
                 console.log(`  - ${target.join(' ')}`)
             })
         }
 
-        // Fail the test with a custom error message
         expect(violations.length, 'Accessibility violations found').toBe(0)
     }
 })
