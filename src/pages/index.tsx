@@ -22,8 +22,6 @@ const Index = () => {
         <>
             <Banner tittel={tekst('sidetittel.liste')} />
 
-            <img src="https://example.com/image.jpg" />
-
             <QueryStatusPanel />
             <IngenSykmelding />
             <Oppgaver />
