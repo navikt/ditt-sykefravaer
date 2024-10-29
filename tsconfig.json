@@ -17,7 +17,7 @@
         "strictNullChecks": true,
         "noFallthroughCasesInSwitch": true,
         "incremental": true,
-        "baseUrl": "/syk/sykefravaer",
+        "baseUrl": "/syk/sykefravaer"
     },
     "include": ["src"],
     "exclude": ["node_modules"]
