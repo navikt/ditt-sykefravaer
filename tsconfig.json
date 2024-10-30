@@ -11,13 +11,22 @@
         "module": "esnext",
         "moduleResolution": "node",
         "resolveJsonModule": true,
+        "experimentalDecorators": true,
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "preserve",
-        "strictNullChecks": true,
+        "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "incremental": true,
-        "baseUrl": "/syk/sykefravaer"
+        "baseUrl": "/syk/sykefravaer",
+        "plugins": [
+            {
+                "name": "next",
+            },
+        ],
+        "paths": {
+            "queries": ["./src/fetching/graphql.generated.ts"],
+        }
     },
     "include": ["src"],
     "exclude": ["node_modules"]

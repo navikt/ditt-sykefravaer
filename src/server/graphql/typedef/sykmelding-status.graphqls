@@ -1,0 +1,69 @@
+enum ShortName {
+    ARBEIDSSITUASJON
+    NY_NARMESTE_LEDER
+    FRAVAER
+    PERIODE
+    FORSIKRING
+    EGENMELDINGSDAGER
+}
+
+enum Svartype {
+    ARBEIDSSITUASJON
+    PERIODER
+    JA_NEI
+    DAGER
+}
+
+enum StatusEvent {
+    SENDT
+    APEN
+    AVBRUTT
+    UTGATT
+    BEKREFTET
+}
+
+type ArbeidsgiverStatus {
+    orgnummer: String!
+    orgNavn: String!
+}
+
+type JaNeiSvar {
+    svarType: Svartype!
+    svar: YesOrNo!
+}
+
+type ArbeidssituasjonSvar {
+    svarType: Svartype!
+    svar: ArbeidssituasjonType!
+}
+
+type DagerSvar {
+    svarType: Svartype!
+    svar: [Date!]!
+}
+
+type PerioderSvar {
+    svarType: Svartype!
+    svar: [FomTom!]!
+}
+
+union SvarTypeUnion = JaNeiSvar | ArbeidssituasjonSvar | DagerSvar | PerioderSvar
+
+type Sporsmal {
+    tekst: String!
+    shortName: ShortName!
+    svar: SvarTypeUnion!
+}
+
+type FomTom {
+    fom: Date!
+    tom: Date!
+}
+
+type SykmeldingStatus {
+    statusEvent: StatusEvent!
+    timestamp: Date!
+    arbeidsgiver: ArbeidsgiverStatus
+    sporsmalOgSvarListe: [Sporsmal!]!
+    brukerSvar: BrukerSvar
+}
