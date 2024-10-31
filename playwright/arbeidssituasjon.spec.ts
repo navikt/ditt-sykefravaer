@@ -1,9 +1,10 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
+
+import { test } from './fixtures'
 
 test.describe('Tester arbeidssituasjon', () => {
     test('Bruker med flere arbeidsgivere', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=default')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon')
         const firstEmployer = dinSituasjon.locator(':scope > *').nth(1)
@@ -54,7 +55,7 @@ test.describe('Tester arbeidssituasjon', () => {
     })
 
     test('Avkreft nærmeste leder feiler', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=default')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon') // locator('[data-testid="din-situasjon"]')
         const employer = dinSituasjon.locator(':scope > *').nth(3)
@@ -84,7 +85,7 @@ test.describe('Tester arbeidssituasjon', () => {
     })
 
     test('Har narmesteleder og kan avkrefte den', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=snart-slutt')
 
         const situasjonInnhold = page.getByTestId('situasjon-innhold') //  locator('[data-testid="situasjon-innhold"]')
         await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
@@ -124,7 +125,7 @@ test.describe('Tester arbeidssituasjon', () => {
     })
 
     test('Arbeidsgiver forskutterer ikke', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
 
         const situasjonInnhold = page.getByTestId('situasjon-innhold')
         await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')

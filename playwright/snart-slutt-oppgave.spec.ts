@@ -1,9 +1,10 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
+
+import { test } from './fixtures'
 
 test.describe('Tester snart slutt oppgave', () => {
     test('Har riktig lenke', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=snart-slutt')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=snart-slutt')
         await page.waitForTimeout(10)
         const validLink = page.locator('main').locator('a:has-text("Snart slutt på sykepengene")').last()
 

@@ -1,9 +1,10 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
+
+import { test } from './fixtures'
 
 test.describe('Flexjar', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer')
+        await page.goto('http://localhost:3000/syk/sykefravaer')
     })
 
     test('Kan gi ja feedback', async ({ page }) => {

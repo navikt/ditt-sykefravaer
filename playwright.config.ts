@@ -1,6 +1,6 @@
 import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
 
-const PORT = process.env.PORT || 8080
+const PORT = process.env.PORT || 3000
 
 type OptionsType = {
     baseURL: string
@@ -16,7 +16,7 @@ const createOptions = (): OptionsType => {
         const prebuild = false
         if (prebuild) {
             return {
-                baseURL: `http://localhost:8080`,
+                baseURL: `http://localhost:3000`,
                 timeout: 30 * 1000,
                 server: undefined,
             }
@@ -26,7 +26,7 @@ const createOptions = (): OptionsType => {
             timeout,
             server: {
                 command: 'npm run dev-ingen-dekorator',
-                port: 8080,
+                port: 3000,
                 timeout: 120 * 1000, // Wait up to 2 minutes for the server to start
                 reuseExistingServer: false,
             },
@@ -52,7 +52,7 @@ const createOptions = (): OptionsType => {
         timeout,
         server: {
             command: 'npm run dev-ingen-dekorator',
-            port: 8080,
+            port: 3000,
             timeout: 120 * 1000, // Wait up to 2 minutes for the server to start
             reuseExistingServer: true,
         },

@@ -1,12 +1,13 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
-
 import dayjs from 'dayjs'
+
 import { tilLesbarDatoMedArstall } from '../src/utils/dato-utils'
+
+import { test } from './fixtures'
 
 test.describe('Maksdato', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=syk-naa-med-maksdato')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=syk-naa-med-maksdato')
     })
 
     test('Finner maksdato kortet og kan åpne den', async ({ page }) => {
