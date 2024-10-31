@@ -1,9 +1,10 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
+
+import { test } from './fixtures'
 
 test.describe('Keyboard navigering', () => {
     test('Vi navigerer forsiden med mange elementer', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer')
+        await page.goto('http://localhost:3000/syk/sykefravaer')
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
@@ -56,7 +57,7 @@ test.describe('Keyboard navigering', () => {
     })
 
     test('Vi navigerer forsiden med lenke til mangelnde inntektsmelding', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
             page.locator(
                 'text=Vi venter på inntektsmeldingen fra Matbutikken AS for sykefraværet som startet 1. juni 2022.',
@@ -75,7 +76,7 @@ test.describe('Keyboard navigering', () => {
         await expect(page.locator(':focus')).toHaveCSS('background-color', 'rgb(0, 52, 125)')
 
         await page.keyboard.press('Enter')
-        await expect(page).toHaveURL('http://localhost:8080/syk/sykefravaer/inntektsmelding')
+        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
 
         await expect(page.locator('text=Vi har varslet arbeidsgiveren din om dette')).toBeVisible()
     })

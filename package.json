@@ -60,9 +60,9 @@
         "vitest": "^2.1.2"
     },
     "scripts": {
-        "dev": "MOCK_BACKEND=true next dev -p 8080 | pino-pretty",
+        "dev": "MOCK_BACKEND=true next dev -p 3000 | pino-pretty",
         "dev-ingen-dekorator": "MOCK_BACKEND=true NO_DECORATOR=true npm run dev | pino-pretty",
-        "start": "next start -p 8080",
+        "start": "next start -p 3000",
         "start-ingen-dekorator": "NO_DECORATOR=true npm start",
         "build": "next build",
         "test": "vitest",

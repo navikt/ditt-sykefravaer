@@ -1,9 +1,10 @@
-import { test } from './fixtures'
 import { expect } from '@playwright/test'
+
+import { test } from './fixtures'
 
 test.describe('Tester inntektsmelding', () => {
     test('Har inntektsmelding varsel og riktig innhold', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -12,7 +13,7 @@ test.describe('Tester inntektsmelding', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
-        await expect(page).toHaveURL('http://localhost:8080/syk/sykefravaer/inntektsmelding')
+        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
 
         const header = page.locator('main').locator('h1').first()
         await expect(header).toBeVisible()
@@ -24,7 +25,7 @@ test.describe('Tester inntektsmelding', () => {
     })
 
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
-        await page.goto('http://localhost:8080/syk/sykefravaer?testperson=mottatt-inntektsmelding')
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mottatt-inntektsmelding')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
