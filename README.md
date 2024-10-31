@@ -25,10 +25,7 @@ npm run dev
 npm run test
 ```
 
-## Cypress tester
-```bash
-npm run e2e
-```
+
 
 ## Dette logges i Amplitude
 
