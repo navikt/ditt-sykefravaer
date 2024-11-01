@@ -11,7 +11,7 @@ test.describe('Tester cumulative-layout-shift', () => {
         await expect(skeletons).toHaveCount(6)
 
         // Sjekk dokumentets høyde
-        const expectedHeight = 1419
+        const expectedHeight = 1325
         const initialHeight = await page.evaluate(() => document.documentElement.scrollHeight)
         expect(initialHeight).toBe(expectedHeight)
 

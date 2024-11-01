@@ -60,7 +60,3 @@ export function basePath() {
 export function isProd() {
     return publicRuntimeConfig.env === 'prod'
 }
-
-export function meroppfolgingUrl() {
-    return publicRuntimeConfig.meroppfolgingUrl
-}
