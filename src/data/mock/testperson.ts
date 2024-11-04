@@ -23,6 +23,7 @@ import {
     manglerInntektsmelding,
     manglerInntektsmeldingVarsel2,
     mottattInntektsmelding,
+    henterInntektsmeldingFraAareg,
     venterPaSaksbehandlingNummer1,
     venterPaSaksbehandlingNummer2,
 } from './data/personas/inntektsmeldingTestPersoner'
@@ -76,6 +77,7 @@ export type PersonaKey =
     | 'syk-naa-med-maksdato-beregnet-60-siden'
     | 'ny-soknad-utland-eos'
     | 'mangler-inntektsmelding-andre-varsel'
+    | 'hentet-inntektsmelding-fra-aareg'
     | 'venter-saksbehandling'
     | 'venter-saksbehandling-revarsel'
 
@@ -114,6 +116,7 @@ export function testpersonerGruppert(): PersonaGroup {
         ['varsler']: {
             ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
             ['mangler-inntektsmelding-andre-varsel']: jsonDeepCopy(manglerInntektsmeldingVarsel2),
+            ['hentet-inntektsmelding-fra-aareg']: jsonDeepCopy(henterInntektsmeldingFraAareg),
             ['venter-saksbehandling']: jsonDeepCopy(venterPaSaksbehandlingNummer1),
             ['venter-saksbehandling-revarsel']: jsonDeepCopy(venterPaSaksbehandlingNummer2),
         },

@@ -37,6 +37,23 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 28 dager',
 }
 
+export const henterInntektsmeldingFraAareg: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
+        {
+            uuid: '123456y7',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.',
+            lenke: `/syk/sykefravaer/aareg/123456789`,
+            variant: 'info',
+            meldingType: 'inntektsmelding hentet fra Aa-reg',
+            lukkbar: false,
+            opprettet: '2022-06-16T06:52:22.419786Z',
+        },
+    ],
+    beskrivelse: 'Opplysningener om inntektet hentet fra Aa-reg',
+}
+
 export const venterPaSaksbehandlingNummer1: Persona = {
     ...commonPersona(),
     sykmeldinger: [sendtSykmelding],
