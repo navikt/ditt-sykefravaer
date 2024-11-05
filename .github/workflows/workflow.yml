@@ -17,6 +17,8 @@ jobs:
       base-path: syk/sykefravaer
 
   prebuild-app-for-playwright:
+    permissions:
+      packages: write
     name: Prebuild image for sharded playwright tests
     runs-on: ubuntu-latest
     env:
