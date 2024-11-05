@@ -65,13 +65,19 @@ jobs:
         shardIndex: [1, 2]
         shardTotal: [2]
     steps:
-      - uses: navikt/teamsykmelding-github-actions-workflows/actions/yarn-cached@main
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+          node-version: 20
+      - name: Install npm dependencies
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
       - name: Install Playwright browsers
-        run: yarn playwright install --with-deps
+        run: npx playwright install
       - name: Run Playwright
-        run: yarn e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
       - name: Upload blob report to GitHub Actions Artifacts
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@v4
