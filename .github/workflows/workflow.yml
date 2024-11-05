@@ -15,3 +15,86 @@ jobs:
     secrets: inherit
     with:
       base-path: syk/sykefravaer
+
+  prebuild-app-for-playwright:
+    name: Prebuild image for sharded playwright tests
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: ${{ github.repository }}-e2e
+      REGISTRY: ghcr.io
+    steps:
+      - uses: navikt/teamsykmelding-github-actions-workflows/actions/yarn-cached@main
+        with:
+          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Build e2e version of app
+        run: npm run build
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+    outputs:
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  run-playwright:
+    needs: [prebuild-app-for-playwright]
+    name: Playwright shard ${{ matrix.shardIndex }}
+    runs-on: ubuntu-latest
+    services:
+      app:
+        image: ${{ needs.prebuild-app-for-playwright.outputs.image }}
+        ports: ['3000:3000']
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2]
+        shardTotal: [2]
+    steps:
+      - uses: navikt/teamsykmelding-github-actions-workflows/actions/yarn-cached@main
+        with:
+          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+      - name: Install Playwright browsers
+        run: yarn playwright install --with-deps
+      - name: Run Playwright
+        run: yarn e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  merge-reports:
+    if: ${{ !cancelled() }}
+    needs: [run-playwright]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Download blob reports from GitHub Actions Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge into HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: html-report--attempt-${{ github.run_attempt }}
+          path: playwright-report
+          retention-days: 14

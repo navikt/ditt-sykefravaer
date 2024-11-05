@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { test as base, expect } from '@playwright/test'
 import { AxeBuilder } from '@axe-core/playwright'
 

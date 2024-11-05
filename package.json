@@ -70,8 +70,8 @@
         "play": "npx playwright test --ui",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",
-        "lint": "eslint --ext=ts,tsx src",
-        "lint:fix": "eslint --ext=ts,tsx src --fix",
+        "lint": "eslint --ext=ts,tsx src playwright",
+        "lint:fix": "eslint --ext=ts,tsx src playwright --fix",
         "format": "npm run prettier:write && npm run lint:fix"
     },
     "eslintConfig": {
@@ -81,7 +81,17 @@
         ],
         "rules": {
             "@typescript-eslint/explicit-function-return-type": "off"
-        }
+        },
+        "overrides": [
+            {
+                "files": [
+                    "**/playwright/**/*.{js,ts}"
+                ],
+                "rules": {
+                    "testing-library/prefer-screen-queries": "off"
+                }
+            }
+        ]
     },
     "prettier": "@navikt/eslint-config-teamsykmelding/prettier"
 }

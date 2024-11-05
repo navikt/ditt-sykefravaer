@@ -85,6 +85,8 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         return null
     }
 
+    await sleep(2000)
+
     const erClsTestperson = nokkelKey === 'cummulative-layout-shift'
     switch (url) {
         case 'GET /api/sykepengesoknad-backend/api/v2/soknader/metadata':
