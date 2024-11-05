@@ -34,4 +34,4 @@ env:
   SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.prod-fss-pub.nais.io
   SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
   FLEXJAR_BACKEND_CLIENT_ID: prod-gcp:flex:flexjar-backend
-  ESYFOVARSEL_CLIENT_ID: prod-gcp:team-esyfo:esyfovarsel
+  ESYFOVARSEL_CLIENT_ID: prod-gcp:team-esyfo:sykepengedager-informasjon

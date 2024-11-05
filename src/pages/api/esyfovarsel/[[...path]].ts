@@ -14,7 +14,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         res,
         tillatteApier,
         backend: 'esyfovarsel',
-        hostname: 'esyfovarsel.team-esyfo',
+        hostname: 'sykepengedager-informasjon.team-esyfo',
         backendClientId: serverRuntimeConfig.esyfovarselClientId,
         https: false,
     })
