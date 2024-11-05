@@ -23,9 +23,15 @@ jobs:
       IMAGE_NAME: ${{ github.repository }}-e2e
       REGISTRY: ghcr.io
     steps:
-      - uses: navikt/teamsykmelding-github-actions-workflows/actions/yarn-cached@main
+      - uses: actions/checkout@v4
+      - name: Use Node.js 20
+        uses: actions/setup-node@v4
         with:
-          NPM_AUTH_TOKEN: ${{ secrets.READER_TOKEN }}
+          node-version: 20
+      - name: Install npm dependencies
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
       - name: Build e2e version of app
         run: npm run build
       - name: Log in to the Container registry
