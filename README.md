@@ -25,6 +25,28 @@ npm run dev
 npm run test
 ```
 
+## Playwright tester
+### Interaktivt mot dev server (tregt)
+
+```bash
+npm run play
+```
+
+### Mot kompilert server
+Kompiler serveren først:
+
+```bash
+npm run build
+```
+
+Deretter enten 
+```bash
+FAST=true npm run play
+```
+eller
+```bash
+FAST=true npm run play-headless
+```
 
 
 ## Dette logges i Amplitude
