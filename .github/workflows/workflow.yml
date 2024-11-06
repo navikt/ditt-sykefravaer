@@ -120,13 +120,15 @@ jobs:
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
       - name: Merge into junit Report
-        run: npx playwright merge-reports --reporter junit --output-path ./reports/junit-results.xml
+        run: npx playwright merge-reports --reporter json --output-path ./reports/jsonrapport.json
 
-      - name: Publish JUnit Report to GitHub Actions
-        uses: mikepenz/junit-report-action@v3
+      - name: Upload blob report to GitHub Actions Artifacts
+        uses: actions/upload-artifact@v4
         with:
-          report_paths: './reports/junit-results.xml'
-          detailed_summary: true
+          name: jsonrapportmerged
+          path: reports
+          retention-days: 1
+
 
       - name: Add summary output to GitHub Actions summary
         run: |
