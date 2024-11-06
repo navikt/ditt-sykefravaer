@@ -126,7 +126,7 @@ jobs:
           total_tests=$(jq '.stats.expected + .stats.unexpected' playwright-report/report.json)
           passed_tests=$(jq '.stats.expected' playwright-report/report.json)
           failed_tests=$(jq '.stats.unexpected' playwright-report/report.json)
-          failed_test_titles=$(jq -r '.suites[].suites[].specs[] | select(.ok == false) | .title' playwright-report/report.json)
+          failed_test_info=$(jq -r '.suites[].suites[].specs[] | select(.ok == false) | "\(.title) (\(.file), \(.tests[].projectName))"' playwright-report/report.json)
 
           echo "## Playwright Test Report Summary" >> $GITHUB_STEP_SUMMARY
           echo "Total tests: $total_tests ✅" >> $GITHUB_STEP_SUMMARY
@@ -137,7 +137,7 @@ jobs:
             echo "### Failed Tests:" >> $GITHUB_STEP_SUMMARY
             while IFS= read -r test; do
               echo "- $test ❌" >> $GITHUB_STEP_SUMMARY
-            done <<< "$failed_test_titles"
+            done <<< "$failed_test_info"
           else
             echo "Failed tests: $failed_tests 🔹" >> $GITHUB_STEP_SUMMARY
           fi
