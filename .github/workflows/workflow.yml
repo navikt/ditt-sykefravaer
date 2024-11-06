@@ -128,9 +128,9 @@ jobs:
 
       - name: Parse test results and add to summary
         run: |
-          passed_count=$(jq '[.[] | select(.status == "passed")] | length' ./all-blob-reports/*.json | jq -s add)
-          failed_count=$(jq '[.[] | select(.status == "failed")] | length' ./all-blob-reports/*.json | jq -s add)
-          flaky_count=$(jq '[.[] | select(.status == "flaky")] | length' ./all-blob-reports/*.json | jq -s add)
+          passed_count=$(jq 'select(.status == "passed")' ./all-blob-reports/*.jsonl | wc -l)
+          failed_count=$(jq 'select(.status == "failed")' ./all-blob-reports/*.jsonl | wc -l)
+          flaky_count=$(jq 'select(.status == "flaky")' ./all-blob-reports/*.jsonl | wc -l)
 
           echo "## Playwright Test Report Summary" >> $GITHUB_STEP_SUMMARY
           echo "- **Passed tests:** $passed_count" >> $GITHUB_STEP_SUMMARY
