@@ -32,7 +32,7 @@ npm run test
 npm run play
 ```
 
-### Mot kompilert server
+### Mot kompilert server (raskt)
 Kompiler serveren først:
 
 ```bash
