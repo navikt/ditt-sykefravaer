@@ -109,6 +109,7 @@ jobs:
       - name: Merge into HTML Report
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
+
       - name: Upload html rapport to CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
@@ -118,23 +119,17 @@ jobs:
           identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
           project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
+      - name: Merge into junit Report
+        run: npx playwright merge-reports --reporter junit --output-path ./reports/junit-results.xml
+
+      - name: Publish JUnit Report to GitHub Actions
+        uses: mikepenz/junit-report-action@v3
+        with:
+          report_paths: './reports/junit-results.xml'
+          detailed_summary: true
+
       - name: Add summary output to GitHub Actions summary
         run: |
           echo "## Playwright Test Report Summary" >> $GITHUB_STEP_SUMMARY
-          echo "All tests executed successfully." >> $GITHUB_STEP_SUMMARY
-          echo "- **Passed tests:** 10" >> $GITHUB_STEP_SUMMARY
-          echo "- **Failed tests:** 0" >> $GITHUB_STEP_SUMMARY
           echo "Se hele rapporten [her](https://cdn.nav.no/flex/${{ github.repository }}/${{ github.run_number }}/playwright-report/index.html)." >> $GITHUB_STEP_SUMMARY
 
-      - name: Parse test results and add to summary
-        run: |
-          passed_count=$(jq 'select(.status == "passed")' ./all-blob-reports/*.jsonl | wc -l)
-          failed_count=$(jq 'select(.status == "failed")' ./all-blob-reports/*.jsonl | wc -l)
-          flaky_count=$(jq 'select(.status == "flaky")' ./all-blob-reports/*.jsonl | wc -l)
-
-          echo "## Playwright Test Report Summary" >> $GITHUB_STEP_SUMMARY
-          echo "- **Passed tests:** $passed_count" >> $GITHUB_STEP_SUMMARY
-          echo "- **Failed tests:** $failed_count" >> $GITHUB_STEP_SUMMARY
-          echo "- **Flaky tests:** $flaky_count" >> $GITHUB_STEP_SUMMARY
-          echo "View the full report [here](./playwright-report/index.html)." >> $GITHUB_STEP_SUMMARY
-        shell: bash
