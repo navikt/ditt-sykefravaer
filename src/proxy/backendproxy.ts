@@ -35,23 +35,5 @@ export async function proxyKallTilBackend(opts: Opts) {
         })
     }
 
-    // eslint-disable-next-line no-console
-    console.log('opts.backend: ' + opts.backend)
-
-    if (opts.backend === 'sykepengedager-informasjon') {
-        // eslint-disable-next-line no-console
-        console.log(
-            'Henter maxdato med: ' +
-                'opts.backendClientId:' +
-                opts.backendClientId +
-                'opts.req.url:' +
-                opts.req.url +
-                ', opts.hostname:' +
-                opts.hostname +
-                ', api:' +
-                api,
-        )
-    }
-
     await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenX.token })
 }
