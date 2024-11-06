@@ -90,6 +90,9 @@ jobs:
     if: ${{ !cancelled() }}
     needs: [run-playwright]
     runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -106,9 +109,11 @@ jobs:
       - name: Merge into HTML Report
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
-      - name: Upload HTML report
-        uses: actions/upload-artifact@v4
+      - name: Upload html rapport til CDN
+        uses: nais/deploy/actions/cdn-upload/v2@master
         with:
-          name: html-report--attempt-${{ github.run_attempt }}
-          path: playwright-report
-          retention-days: 14
+          team: flex # Required, e.g. "team-name"
+          source: playwright-report
+          destination: /${{ github.repository }}/playwright-report/${{ github.run_number }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
