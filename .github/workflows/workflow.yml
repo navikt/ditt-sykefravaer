@@ -16,10 +16,9 @@ jobs:
     with:
       base-path: syk/sykefravaer
 
-  prebuild-app-for-playwright:
+  bygg-app-for-playwright:
     permissions:
       packages: write
-    name: Prebuild image for sharded playwright tests
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ${{ github.repository }}-e2e
@@ -51,13 +50,12 @@ jobs:
     outputs:
       image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-  run-playwright:
-    needs: [prebuild-app-for-playwright]
-    name: Playwright shard ${{ matrix.shardIndex }}
+  playwright:
+    needs: [bygg-app-for-playwright]
     runs-on: ubuntu-latest
     services:
       app:
-        image: ${{ needs.prebuild-app-for-playwright.outputs.image }}
+        image: ${{ needs.bygg-app-for-playwright.outputs.image }}
         ports: ['3000:3000']
     strategy:
       fail-fast: false
@@ -86,9 +84,9 @@ jobs:
           path: blob-report
           retention-days: 1
 
-  merge-reports:
+  playwright-rapport:
     if: ${{ !cancelled() }}
-    needs: [run-playwright]
+    needs: [playwright]
     runs-on: ubuntu-latest
     permissions:
       contents: 'read'
@@ -99,17 +97,17 @@ jobs:
         with:
           node-version: lts/*
 
-      - name: Download blob reports from GitHub Actions Artifacts
+      - name: Last ned rapporter
         uses: actions/download-artifact@v4
         with:
           path: all-blob-reports
           pattern: blob-report-*
           merge-multiple: true
 
-      - name: Merge into HTML Report
+      - name: Merge til HTML Report
         run: npx playwright merge-reports --reporter html ./all-blob-reports
 
-      - name: Upload html rapport to CDN
+      - name: Last opp til CDN
         uses: nais/deploy/actions/cdn-upload/v2@master
         with:
           team: flex
@@ -121,7 +119,7 @@ jobs:
       - name: Merge til json rapport
         run: npx playwright merge-reports --reporter json  ./all-blob-reports > playwright-report/report.json
 
-      - name: Add detailed summary output to GitHub Actions summary
+      - name: Lag GHA summary
         run: |
           total_tests=$(jq '.stats.expected + .stats.unexpected' playwright-report/report.json)
           passed_tests=$(jq '.stats.expected' playwright-report/report.json)
