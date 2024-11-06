@@ -38,7 +38,7 @@ export async function proxyKallTilBackend(opts: Opts) {
     // eslint-disable-next-line no-console
     console.log('opts.backend: ' + opts.backend)
 
-    if (opts.backend === 'esyfovarsel') {
+    if (opts.backend === 'sykepengedager-informasjon') {
         // eslint-disable-next-line no-console
         console.log(
             'Henter maxdato med: ' +

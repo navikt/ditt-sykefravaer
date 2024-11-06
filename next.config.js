@@ -61,7 +61,7 @@ const nextConfig = {
         veilarboppfolgingClientId: process.env.VEILARBOPPFOLGING_CLIENT_ID,
         syfooppfolgingsplanserviceHost: process.env.SYFOOPPFOLGINGSPLANSERVICE_HOST,
         syfooppfolgingsplanserviceClientId: process.env.SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID,
-        esyfovarselClientId: process.env.ESYFOVARSEL_CLIENT_ID,
+        sykepengedagerInformasjonClientId: process.env.SYKEPENGEDAGER_INFORMASJON_CLIENT_ID,
     },
     publicRuntimeConfig: {
         // Will be available on both server and client
