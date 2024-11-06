@@ -1,7 +1,5 @@
 import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
 
-const PORT = process.env.PORT || 3000
-
 type OptionsType = {
     baseURL: string
     timeout: number
@@ -9,12 +7,12 @@ type OptionsType = {
 }
 
 const createOptions = (): OptionsType => {
-    const baseURL = `http://localhost:${PORT}`
     const timeout = process.env.CI ? 30 * 1000 : 120 * 2 * 1000
 
+    const baseURL = `http://localhost:3000`
     if (process.env.CI) {
         return {
-            baseURL: `http://localhost:3000`,
+            baseURL,
             timeout: 30 * 1000,
             server: undefined,
         }
@@ -25,10 +23,12 @@ const createOptions = (): OptionsType => {
             baseURL,
             timeout: 30 * 1000,
             server: {
-                command: 'yarn start:e2e', //TODO fikse en fast lokal
-                url: baseURL,
+                command: 'npm run start',
+                port: 3000,
                 timeout: 120 * 1000,
                 reuseExistingServer: false,
+                stderr: 'pipe',
+                stdout: 'pipe',
             },
         }
     }
