@@ -49,6 +49,17 @@ export const henterInntektsmeldingFraAareg: Persona = {
             meldingType: 'inntektsmelding hentet fra Aa-reg',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
+            metadata: {
+                id: '123456789',
+                tidsstempel: '2022-06-16T06:52:22.419786Z',
+                orgnavn: 'Snekkeri AS',
+                inntekter: [
+                    { maned: '2024-02', belop: 40000 },
+                    { maned: '2024-03', belop: 60000 },
+                    { maned: '2024-04', belop: 50000 },
+                ],
+                omregnetAarsinntekt: 50000,
+            },
         },
     ],
     beskrivelse: 'Opplysningener om inntektet hentet fra Aa-reg',

@@ -1,6 +1,7 @@
 export interface AaregInntekt {
-    uuid: string
-    inntekt1: string
-    inntekt2: string
-    inntekt3: string
+    id: string
+    tidsstempel: string
+    inntekter: { maned: string; belop: number }[]
+    omregnetAarsinntekt: number
+    orgnavn: string
 }
