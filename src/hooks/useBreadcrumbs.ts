@@ -66,8 +66,8 @@ export function createInntektsmeldingBreadcrumbs(): [Breadcrumb, LastCrumb] {
     return [baseCrumb, { title: 'Manglende inntektsmelding' }]
 }
 
-export function createAaregBreadcrumbs(id: string): [Breadcrumb, LastCrumb] {
-    return [baseCrumb, { title: 'Din inntektsmelding fra Aareg', url: `/aareg/${id}` }]
+export function createForelagtInntektBreadcrumbs(): [Breadcrumb, LastCrumb] {
+    return [baseCrumb, { title: 'Din inntektsmelding fra Aareg' }]
 }
 
 export enum SsrPathVariants {
@@ -76,10 +76,10 @@ export enum SsrPathVariants {
     DittSykefravaer = '/',
     Inntektsmelding = '/inntektsmelding',
     Inntektsmeldinger = '/inntektsmeldinger',
-    Aareg = '/aareg/[id]',
+    Beskjed = '/beskjed/[id]',
 }
 
-export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string, id?: string): CompleteCrumb[] {
+export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
     switch (pathname) {
         case SsrPathVariants.NotFound:
         case SsrPathVariants.ServerError:
@@ -91,13 +91,8 @@ export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | s
         case SsrPathVariants.Inntektsmelding:
             return createCompleteCrumbs(createInntektsmeldingBreadcrumbs())
 
-        case SsrPathVariants.Aareg:
-            if (id) {
-                return createCompleteCrumbs(createAaregBreadcrumbs(id))
-            } else {
-                logger.error('ID mangler for Aareg breadcrumb path')
-                return createCompleteCrumbs([])
-            }
+        case SsrPathVariants.Beskjed:
+            return createCompleteCrumbs(createForelagtInntektBreadcrumbs())
 
         default:
             logger.info(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)

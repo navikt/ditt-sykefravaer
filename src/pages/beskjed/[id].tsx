@@ -1,40 +1,39 @@
-import { BodyLong, Box, Heading, ReadMore, Link } from '@navikt/ds-react'
-import React, { useEffect, useState } from 'react'
+import { BodyLong, Box, Heading, ReadMore, Link, Skeleton, BodyShort } from '@navikt/ds-react'
+import React from 'react'
 import { useRouter } from 'next/router'
-import { logger } from '@navikt/next-logger'
 
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { Banner } from '../../components/banner/Banner'
 import { Flexjar } from '../../components/flexjar/flexjar'
-import { AaregInntekt } from '../../types/aaregInntekt'
+import useMeldinger from '../../hooks/useMeldinger'
+import { formatterTall } from '../../utils/tall-utils'
 
-const Aareg = () => {
+const ForelagtInntektFraAareg = () => {
     const router = useRouter()
     const { id } = router.query
-    const [inntektData, setInntektData] = useState<AaregInntekt | null>(null)
 
-    useEffect(() => {
-        if (id) {
-            fetch(`/api/inntektsmelding/${id}`)
-                .then((response) => response.json())
-                .then((data) => setInntektData(data))
-                .catch((error) => logger.error('Error fetching inntektsmelding data:', error))
-        }
-    }, [id])
+    const { data: meldinger, isLoading: meldingerLaster } = useMeldinger()
+
+    const melding = meldinger?.find((m) => m.uuid == id)
 
     useUpdateBreadcrumbs(
         () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Venter på Inntektsmelding' }],
         [],
     )
 
+    if (meldingerLaster) {
+        return <Skeleton variant="rectangle" height="86px" className="mb-2" />
+    }
+
     return (
         <>
             <Banner utenIkon={true} tittel="Vi har hentet opplysninger fra A-ordningen" />
 
             <BodyLong spacing>
-                Vi har fortsatt ikke mottatt inntektsmelding fra [arbeidsgiver] og har derfor hentet opplysninger om
-                inntekten din fra A-ordningen. Vi vil bruke opplysningene til å behandle saken din om sykepenger.
+                Vi har fortsatt ikke mottatt inntektsmelding fra {melding?.metadata?.orgnavn} og har derfor hentet
+                opplysninger om inntekten din fra A-ordningen. Vi vil bruke opplysningene til å behandle saken din om
+                sykepenger.
             </BodyLong>
 
             <ReadMore className="mt-4" header="Hva er A-ordningen?">
@@ -53,11 +52,16 @@ const Aareg = () => {
             </BodyLong>
 
             <Box padding="4" borderRadius="small" className="my-8 bg-gray-50">
-                <Heading level="2" size="small">
+                <Heading level="2" size="small" spacing>
                     Inntekt hentet fra Aa-registeret
                 </Heading>
-
-                <BodyLong>{inntektData ? inntektData.orgnavn : 'Laster inn inntektsdata...'}</BodyLong>
+                <div>
+                    {melding?.metadata?.inntekter.map((inntekt: { maned: string; belop: number }) => (
+                        <BodyShort key={inntekt.maned}>
+                            <strong>{inntekt.maned}</strong>: {`${formatterTall(inntekt.belop)} kroner`}
+                        </BodyShort>
+                    ))}
+                </div>
             </Box>
 
             <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
@@ -65,16 +69,14 @@ const Aareg = () => {
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
                 <BodyLong className="mt-4" spacing>
-                    Hvis opplysningene er feil, må du gi beskjed på
+                    Hvis opplysningene er feil, må du gi beskjed på{' '}
                     <Link href="https://www.nav.no/kontaktoss" target="_blank">
                         nav.no/kontaktoss
                     </Link>
-                    innen 3 uker fra denne beskjeden ble sendt. Har du dokumentasjon som viser hva feilen er, kan du
-                    også sende oss det.
+                    innen 3 uker fra {melding?.metadata?.tidsstempel}. Har du dokumentasjon som viser hva feilen er, kan
+                    du også sende oss det.
                 </BodyLong>
-                <BodyLong>
-                    Hvis vi ikke hører fra deg, antar vi at du har sjekket opplysningene og at alt ser greit ut.
-                </BodyLong>
+                <BodyLong>Hvis inntekten stemmer, trenger du ikke gjøre noe.</BodyLong>
             </Box>
 
             <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
@@ -84,4 +86,4 @@ const Aareg = () => {
 
 export const getServerSideProps = beskyttetSideUtenProps
 
-export default Aareg
+export default ForelagtInntektFraAareg
