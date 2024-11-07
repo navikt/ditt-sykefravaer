@@ -65,10 +65,10 @@ const Aareg = () => {
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
                 <BodyLong className="mt-4" spacing>
-                    Hvis opplysningene er feil, må du gi beskjed på{' '}
-                    <a href="https://www.nav.no/kontaktoss" target="_blank">
+                    Hvis opplysningene er feil, må du gi beskjed på
+                    <Link href="https://www.nav.no/kontaktoss" target="_blank">
                         nav.no/kontaktoss
-                    </a>{' '}
+                    </Link>
                     innen 3 uker fra denne beskjeden ble sendt. Har du dokumentasjon som viser hva feilen er, kan du
                     også sende oss det.
                 </BodyLong>
