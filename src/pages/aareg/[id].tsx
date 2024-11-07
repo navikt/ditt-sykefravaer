@@ -1,4 +1,4 @@
-import { BodyLong, Box, Heading, ReadMore } from '@navikt/ds-react'
+import { BodyLong, Box, Heading, ReadMore, Link } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import { logger } from '@navikt/next-logger'
@@ -57,7 +57,7 @@ const Aareg = () => {
                     Inntekt hentet fra Aa-registeret
                 </Heading>
 
-                <BodyLong>{inntektData ? inntektData.inntekt1 : 'Laster inn inntektsdata...'}</BodyLong>
+                <BodyLong>{inntektData ? inntektData.orgnavn : 'Laster inn inntektsdata...'}</BodyLong>
             </Box>
 
             <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
