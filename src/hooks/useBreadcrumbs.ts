@@ -6,7 +6,7 @@ import { DependencyList, useCallback, useEffect, useRef } from 'react'
 import { minSideUrl } from '../utils/environment'
 
 type Breadcrumb = { title: string; url: string }
-type LastCrumb = { title: string; url?: string }
+type LastCrumb = { title: string }
 type CompleteCrumb = Parameters<typeof setBreadcrumbs>[0][0]
 
 const baseCrumb: CompleteCrumb = {
@@ -18,7 +18,7 @@ function createCompleteCrumbs(breadcrumbs: [...Breadcrumb[], LastCrumb] | []): C
     const prefixedCrumbs: CompleteCrumb[] = breadcrumbs.map(
         (it): CompleteCrumb => ({
             ...it,
-            url: it.url ?? '/',
+            url: 'url' in it ? it.url : '/',
             handleInApp: true,
         }),
     )
