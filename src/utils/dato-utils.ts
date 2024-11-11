@@ -49,6 +49,13 @@ export const tilLesbarDatoMedArstall = (datoArg: Date | string) => {
     return datoArg ? `${tilLesbarDatoUtenAarstall(new Date(datoArg))} ${new Date(datoArg).getFullYear()}` : undefined
 }
 
+export const getManedsNavn = (maned: string): string => {
+    const manedIndex = parseInt(maned, 10) - 1
+    return maaneder[manedIndex] || maned
+}
+
+export const capitalizeFirstLetter = (text: string): string => (text ? text[0].toLocaleUpperCase() + text.slice(1) : '')
+
 export function dateAdd(date: string | Date, duration: Duration): string {
     return toDateString(add(date, duration))
 }
