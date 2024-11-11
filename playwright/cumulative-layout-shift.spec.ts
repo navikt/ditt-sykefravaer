@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './fixtures'
 
-test.describe.skip('Tester cumulative-layout-shift', () => {
+test.describe('Tester cumulative-layout-shift', () => {
     test('Height does not change in happy case after data is loaded', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=cummulative-layout-shift')
         await page.waitForSelector('h1', { timeout: 10000 })
