@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './fixtures'
 
-test.describe.skip('Tester cumulative-layout-shift', () => {
+test.describe('Tester cumulative-layout-shift', () => {
     test('Height does not change in happy case after data is loaded', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=cummulative-layout-shift')
         await page.waitForSelector('h1', { timeout: 10000 })
@@ -11,7 +11,7 @@ test.describe.skip('Tester cumulative-layout-shift', () => {
         await expect(skeletons).toHaveCount(6)
 
         // Sjekk dokumentets høyde
-        const expectedHeight = 1325
+        const expectedHeight = 1387
         const initialHeight = await page.evaluate(() => document.documentElement.scrollHeight)
         expect(initialHeight).toBe(expectedHeight)
 
