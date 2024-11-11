@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './fixtures'
 
-test.describe.skip('Inntektsmeldinger', () => {
+test.describe('Inntektsmeldinger', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer')
     })
