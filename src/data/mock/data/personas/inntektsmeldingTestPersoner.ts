@@ -46,7 +46,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=hentet-inntektsmelding-fra-aareg`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra Aa-reg',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {
@@ -61,7 +61,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
             },
         },
     ],
-    beskrivelse: 'Opplysninger om inntekt hentet fra Aa-reg (3 måneder med inntekt)',
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (3 måneder med inntekt)',
 }
 
 export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
@@ -73,7 +73,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=hentet-inntektsmelding-fra-aareg-en-maned`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra Aa-reg',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {
@@ -88,7 +88,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
             },
         },
     ],
-    beskrivelse: 'Opplysninger om inntekt hentet fra Aa-reg (1 måned med inntekt)',
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (1 måned med inntekt)',
 }
 
 export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
@@ -100,7 +100,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=hentet-inntektsmelding-fra-aareg-ingen`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra Aa-reg',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {
@@ -115,7 +115,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
             },
         },
     ],
-    beskrivelse: 'Opplysninger om inntekt hentet fra Aa-reg (ingen inntekt)',
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (ingen inntekt)',
 }
 
 export const venterPaSaksbehandlingNummer1: Persona = {
