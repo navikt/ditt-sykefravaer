@@ -21,11 +21,11 @@
         "baseUrl": "/syk/sykefravaer",
         "plugins": [
             {
-                "name": "next",
-            },
+                "name": "next"
+            }
         ],
         "paths": {
-            "queries": ["./src/fetching/graphql.generated.ts"],
+            "queries": ["./src/fetching/graphql.generated.ts"]
         }
     },
     "include": ["src"],
