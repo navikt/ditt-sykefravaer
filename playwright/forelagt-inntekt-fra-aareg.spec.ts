@@ -23,7 +23,7 @@ test.describe('Tester forelagt inntekt fra A-ordningen', () => {
         const header = page.locator('main').locator('h1').first()
 
         await expect(header).toBeVisible()
-        await expect(header).toContainText('Vi har hentet opplysninger om inntekten din fra A-ordningen')
+        await expect(header).toContainText('Vi har hentet opplysninger fra A-ordningen')
         await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
         await expect(
             page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
