@@ -2,15 +2,17 @@ import { expect } from '@playwright/test'
 
 import { test } from './fixtures'
 
-test.describe('Tester forelagt inntekt fra Aareg ', () => {
-    test('Har varsel om innhentet opplysninger fra Aa-registeret', async ({ page }) => {
+test.describe('Tester forelagt inntekt fra A-ordningen', () => {
+    test('Tester når vi har tre månedsinntekter', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=hentet-inntektsmelding-fra-aareg')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
         await expect(navdsAlert).toHaveCount(1)
+
         const alertText =
             'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.'
+
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
@@ -19,15 +21,77 @@ test.describe('Tester forelagt inntekt fra Aareg ', () => {
         )
 
         const header = page.locator('main').locator('h1').first()
+
         await expect(header).toBeVisible()
-
         await expect(header).toContainText('Vi har hentet opplysninger fra A-ordningen')
-
-        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra')).toBeVisible()
+        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
         await expect(
-            page.locator(
-                'text=Det kan være tilfeller hvor du har hatt høyere eller lavere inntekt enn det som er registrert',
-            ),
+            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
         ).toBeVisible()
+
+        await expect(page.locator('text=2023')).toBeVisible()
+        await expect(page.locator('text=Desember: 33 960 kroner')).toBeVisible()
+
+        await expect(page.locator('text=2024')).toBeVisible()
+        await expect(page.locator('text=Januar: 0 kroner')).toBeVisible()
+        await expect(page.locator('text=Februar: 33 960 kroner')).toBeVisible()
+    })
+
+    test('Tester når vi har kun en av tre månedsinntekt', async ({ page }) => {
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=hentet-inntektsmelding-fra-aareg-en-maned')
+
+        const oppgaver = page.getByTestId('oppgaver')
+        const navdsAlert = oppgaver.locator('.navds-alert')
+        await expect(navdsAlert).toHaveCount(1)
+
+        const alertText =
+            'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.'
+
+        await expect(navdsAlert).toContainText(alertText)
+        await navdsAlert.click()
+
+        await expect(page).toHaveURL(
+            'http://localhost:3000/syk/sykefravaer/beskjed/123456y8?testperson=hentet-inntektsmelding-fra-aareg-en-maned',
+        )
+
+        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
+        await expect(
+            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
+        ).toBeVisible()
+
+        await expect(page.locator('text=2023')).toBeVisible()
+        await expect(page.locator('text=Desember: Ingen inntekt registrert')).toBeVisible()
+
+        await expect(page.locator('text=2024')).toBeVisible()
+        await expect(page.locator('text=Februar: 40 000 kroner')).toBeVisible()
+        await expect(page.locator('text=Januar: Ingen inntekt registrert')).toBeVisible()
+    })
+
+    test('Tester når vi har ingen av tre månedsinntekt', async ({ page }) => {
+        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=hentet-inntektsmelding-fra-aareg-ingen')
+
+        const oppgaver = page.getByTestId('oppgaver')
+        const navdsAlert = oppgaver.locator('.navds-alert')
+        await expect(navdsAlert).toHaveCount(1)
+
+        const alertText =
+            'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.'
+
+        await expect(navdsAlert).toContainText(alertText)
+        await navdsAlert.click()
+
+        await expect(page).toHaveURL(
+            'http://localhost:3000/syk/sykefravaer/beskjed/123456y9?testperson=hentet-inntektsmelding-fra-aareg-ingen',
+        )
+
+        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
+        await expect(
+            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
+        ).toBeVisible()
+
+        await expect(page.locator('text=2024')).toBeVisible()
+        await expect(page.locator('text=Mars: Ingen inntekt registrert')).toBeVisible()
+        await expect(page.locator('text=Februar: Ingen inntekt registrert')).toBeVisible()
+        await expect(page.locator('text=Januar: Ingen inntekt registrert')).toBeVisible()
     })
 })
