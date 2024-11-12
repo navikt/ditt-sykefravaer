@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { BodyShort, Link } from '@navikt/ds-react'
+
 import { Periodetype, SykmeldingFragment } from 'queries'
 
 type Props = {

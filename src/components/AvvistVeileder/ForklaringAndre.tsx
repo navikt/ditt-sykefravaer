@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { BodyLong, Label } from '@navikt/ds-react'
+
 import { Behandlingsutfall } from 'queries'
 
 interface ForklaringAndreProps {

@@ -18,7 +18,7 @@
         "noImplicitReturns": true,
         "noFallthroughCasesInSwitch": true,
         "incremental": true,
-        "baseUrl": "/syk/sykefravaer",
+        "baseUrl": ".",
         "plugins": [
             {
                 "name": "next"

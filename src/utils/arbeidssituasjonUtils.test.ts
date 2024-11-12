@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest'
+
 import { ArbeidssituasjonType } from 'queries'
 
 import { isArbeidstaker, isFrilanserOrNaeringsdrivendeOrJordbruker } from './arbeidssituasjonUtils'

@@ -1,4 +1,5 @@
 import * as R from 'remeda'
+
 import { SykmeldingChangeStatus } from 'queries'
 
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'

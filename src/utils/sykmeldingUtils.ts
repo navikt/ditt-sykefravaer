@@ -1,4 +1,5 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
+
 import { RegelStatus, StatusEvent, SykmeldingFragment } from 'queries'
 
 import { toDate, toReadableDatePeriod } from './dateUtils'

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Merknadtype, RegelStatus, StatusEvent, SykmeldingFragment } from 'queries'
 
 import {

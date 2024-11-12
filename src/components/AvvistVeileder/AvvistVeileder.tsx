@@ -1,5 +1,6 @@
 import { ReactElement } from 'react'
 import { BodyLong, BodyShort, GuidePanel, Heading } from '@navikt/ds-react'
+
 import { Behandlingsutfall, SykmeldingFragment } from 'queries'
 
 import ForklaringZDiagnose from './ForklaringZDiagnose'

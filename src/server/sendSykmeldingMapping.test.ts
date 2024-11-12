@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { Blad, ArbeidssituasjonType, LottOgHyre, StatusEvent, UriktigeOpplysningerType, YesOrNo } from 'queries'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'

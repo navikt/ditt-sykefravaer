@@ -14,5 +14,6 @@ const htmlParserOptionsWithReplace: HTMLReactParserOptions = {
                 )
             }
         }
+        return <></>
     },
 }
