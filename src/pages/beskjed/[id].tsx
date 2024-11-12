@@ -44,7 +44,6 @@ const ForelagtInntektFraAareg = () => {
     }
 
     const groupedInntekter = melding?.metadata?.inntekter ? grouperMedAar(melding.metadata.inntekter) : {}
-    console.log('melding', meldinger) // eslint-disable-line
 
     return (
         <>
