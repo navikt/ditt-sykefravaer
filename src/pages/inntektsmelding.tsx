@@ -21,7 +21,7 @@ const Inntektsmelding = () => {
                 Vi har ikke fått inntektsmelding fra arbeidsgiveren din. Nav trenger opplysninger fra inntektsmeldingen
                 for å behandle søknaden din om sykepenger.
             </BodyLong>
-            <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
+            <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small" spacing>
                     Hva kan du gjøre?
                 </Heading>
@@ -37,7 +37,7 @@ const Inntektsmelding = () => {
                     opplysninger om inntekten din fra A-ordningen i stedet. Du vil få beskjed fra oss når vi eventuelt
                     gjør dette.
                 </BodyLong>
-                <ReadMore header="Hva er A-ordningen?">
+                <ReadMore header="Hva er A-ordningen?" className="mb-2">
                     A-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
                     bruker opplysninger fra dette registeret til å blant annet behandle søknader om sykepenger.
                 </ReadMore>
