@@ -1,0 +1,42 @@
+fragment NaermesteLeder on NaermesteLeder {
+    navn
+}
+
+fragment Brukerinformasjon on Brukerinformasjon {
+    arbeidsgivere {
+        orgnummer
+        navn
+        aktivtArbeidsforhold
+        naermesteLeder {
+            ...NaermesteLeder
+        }
+    }
+}
+
+fragment SykmeldingUtenforVentetid on UtenforVentetid {
+    erUtenforVentetid
+    oppfolgingsdato
+}
+
+query SykmeldingErUtenforVentetid($sykmeldingId: String!) {
+    sykmeldingUtenforVentetid(id: $sykmeldingId) {
+        ...SykmeldingUtenforVentetid
+    }
+}
+
+query Brukerinformasjon($sykmeldingId: String!) {
+    brukerinformasjon(id: $sykmeldingId) {
+        ...Brukerinformasjon
+    }
+}
+
+fragment TidligereArbeidsgiver on TidligereArbeidsgiver {
+    orgNavn
+    orgnummer
+}
+
+query TidligereArbeidsgivereById($sykmeldingId: String!) {
+    tidligereArbeidsgivere(id: $sykmeldingId) {
+        ...TidligereArbeidsgiver
+    }
+}

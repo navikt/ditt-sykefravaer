@@ -23,7 +23,7 @@ export async function proxyKallTilBackend(opts: Opts) {
         logger.warn('404 Ukjent api: ' + api)
         opts.res.status(404)
         opts.res.send(null)
-        return
+        return Promise.resolve()
     }
 
     if (!opts.req.headers.authorization) throw new Error('Mangler authorization header')
