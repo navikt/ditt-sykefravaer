@@ -65,7 +65,7 @@ const ForelagtInntektFraAareg = () => {
 
             <ForelagteInntektInfoBoks grupperteInntekter={grupperteInntekter} />
 
-            <Box padding="4" borderRadius="small" className="my-8 bg-blue-50">
+            <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>

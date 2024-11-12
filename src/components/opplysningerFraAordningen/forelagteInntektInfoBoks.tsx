@@ -10,18 +10,20 @@ interface InntektListeProps {
 
 export const ForelagteInntektInfoBoks = ({ grupperteInntekter }: InntektListeProps) => {
     return (
-        <Box padding="4" borderRadius="small" className="my-8 bg-gray-50">
-            <Heading level="2" size="medium" spacing>
-                Vi trenger at du sjekker om inntekten stemmer
-            </Heading>
+        <Box padding="6" borderRadius="small" className="my-8 bg-gray-50">
+            <div className="border-b mb-8" style={{ borderColor: 'var(--a-grayalpha-500)' }}>
+                <Heading level="2" size="medium" spacing>
+                    Vi trenger at du sjekker om inntekten stemmer
+                </Heading>
 
-            <BodyLong spacing>
-                Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før du ble syk for å
-                beregne sykepengene dine. Hvis inntekten vi har hentet ikke stemmer med det du har tjent, må du gi
-                beskjed så vi kan ta det med i beregningen.
-            </BodyLong>
+                <BodyLong spacing>
+                    Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før du ble syk for å
+                    beregne sykepengene dine. Hvis inntekten vi har hentet ikke stemmer med det du har tjent, må du gi
+                    beskjed så vi kan ta det med i beregningen.
+                </BodyLong>
 
-            <BodyLong spacing>Hvis inntekten stemmer og alt ser greit ut, trenger du ikke gjøre noe.</BodyLong>
+                <BodyLong spacing>Hvis inntekten stemmer og alt ser greit ut, trenger du ikke gjøre noe.</BodyLong>
+            </div>
 
             <Heading level="2" size="small" spacing>
                 Inntekt hentet fra A-ordningen
