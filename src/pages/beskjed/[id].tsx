@@ -70,9 +70,9 @@ const ForelagtInntektFraAareg = () => {
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
                 <BodyLong className="mt-4">
-                    Hvis opplysningene vi har hentet er feil, ta kontakt på{' '}
+                    Hvis opplysningene vi har hentet er feil,{' '}
                     <Link href="https://www.nav.no/kontaktoss#skriv-til-oss" target="_blank">
-                        nav.no/kontaktoss
+                        ta kontakt med Nav
                     </Link>{' '}
                     innen 3 uker fra{' '}
                     {melding?.metadata?.tidsstempel ? formatDateFromString(melding.metadata.tidsstempel) : ''}. Har du
