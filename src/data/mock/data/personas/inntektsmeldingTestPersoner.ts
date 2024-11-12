@@ -43,7 +43,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=hentet-inntektsmelding-fra-aareg`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra Aa-reg',
@@ -70,7 +70,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
     meldinger: [
         {
             uuid: '123456y8',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=hentet-inntektsmelding-fra-aareg-en-maned`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra Aa-reg',
@@ -97,7 +97,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
     meldinger: [
         {
             uuid: '123456y9',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra Aa-registeret. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=hentet-inntektsmelding-fra-aareg-ingen`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra Aa-reg',

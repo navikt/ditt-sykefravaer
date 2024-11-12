@@ -69,7 +69,7 @@ const ForelagtInntektFraAareg = () => {
                 <Heading level="2" size="small">
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
-                <BodyLong className="mt-4" spacing>
+                <BodyLong className="mt-4">
                     Hvis opplysningene vi har hentet er feil, ta kontakt på{' '}
                     <Link href="https://www.nav.no/kontaktoss#skriv-til-oss" target="_blank">
                         nav.no/kontaktoss

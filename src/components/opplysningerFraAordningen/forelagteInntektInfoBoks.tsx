@@ -11,7 +11,7 @@ interface InntektListeProps {
 export const ForelagteInntektInfoBoks = ({ grupperteInntekter }: InntektListeProps) => {
     return (
         <Box padding="4" borderRadius="small" className="my-8 bg-gray-50">
-            <Heading level="2" size="small" spacing>
+            <Heading level="2" size="medium" spacing>
                 Vi trenger at du sjekker om inntekten stemmer
             </Heading>
 
@@ -23,7 +23,7 @@ export const ForelagteInntektInfoBoks = ({ grupperteInntekter }: InntektListePro
 
             <BodyLong spacing>Hvis inntekten stemmer og alt ser greit ut, trenger du ikke gjøre noe.</BodyLong>
 
-            <Heading level="2" size="xsmall" spacing>
+            <Heading level="2" size="small" spacing>
                 Inntekt hentet fra A-ordningen
             </Heading>
 
