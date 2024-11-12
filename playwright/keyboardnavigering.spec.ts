@@ -56,7 +56,7 @@ test.describe('Keyboard navigering', () => {
         await expect(page.locator(':focus')).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
     })
 
-    test('Vi navigerer forsiden med lenke til mangelnde inntektsmelding', async ({ page }) => {
+    test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
             page.locator(
@@ -78,6 +78,8 @@ test.describe('Keyboard navigering', () => {
         await page.keyboard.press('Enter')
         await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
 
-        await expect(page.locator('text=Vi har varslet arbeidsgiveren din om dette')).toBeVisible()
+        await expect(
+            page.locator('text=For å få behandlet søknaden din raskere, kan du ta kontakt med arbeidsgiveren din'),
+        ).toBeVisible()
     })
 })

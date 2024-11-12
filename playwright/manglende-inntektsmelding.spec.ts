@@ -20,8 +20,7 @@ test.describe('Tester inntektsmelding', () => {
 
         await expect(header).toContainText('Vi venter på inntektsmelding fra arbeidsgiver')
 
-        await expect(page.locator('text=Vi har ikke mottatt inntektsmelding fra arbeidsgiveren din')).toBeVisible()
-        await expect(page.locator('text=for å vurdere om du har rett til sykepenger')).toBeVisible()
+        await expect(page.locator('text=Vi har ikke fått inntektsmelding fra arbeidsgiveren din')).toBeVisible()
     })
 
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
