@@ -15,7 +15,7 @@ const Inntektsmelding = () => {
 
     return (
         <>
-            <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiver" />
+            <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiveren din" />
 
             <BodyLong spacing>
                 Vi har ikke fått inntektsmelding fra arbeidsgiveren din. Nav trenger opplysninger fra inntektsmeldingen
