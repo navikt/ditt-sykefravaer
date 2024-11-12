@@ -1,4 +1,4 @@
-import { BodyLong, Box, Heading } from '@navikt/ds-react'
+import { BodyLong, Box, Heading, ReadMore } from '@navikt/ds-react'
 import React from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
@@ -32,11 +32,15 @@ const Inntektsmelding = () => {
                 <Heading level="2" size="small" spacing>
                     Hva gjør Nav?
                 </Heading>
-                <BodyLong>
+                <BodyLong spacing>
                     Hvis vi ikke har fått inntektsmeldingen innen 3 måneder etter at du søkte om sykepenger, henter vi
                     opplysninger om inntekten din fra A-ordningen i stedet. Du vil få beskjed fra oss når vi eventuelt
                     gjør dette.
                 </BodyLong>
+                <ReadMore header="Hva er A-ordningen?">
+                    A-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
+                    bruker opplysninger fra dette registeret til å blant annet behandle søknader om sykepenger.
+                </ReadMore>
             </Box>
 
             <Heading level="2" size="small" spacing>
@@ -44,20 +48,18 @@ const Inntektsmelding = () => {
             </Heading>
 
             <BodyLong spacing>
-                {'Du kan sjekke de oppdaterte saksbehandlingstidene på '}
                 <LenkeMedAmplitude
                     url="https://www.nav.no/saksbehandlingstider#sykepenger"
-                    tekst="nav.no/saksbehandlingstider#sykepenger"
+                    tekst="Sjekk oppdaterte saksbehandlingstider her."
                 ></LenkeMedAmplitude>
-                .
             </BodyLong>
 
             <Heading level="2" size="small" spacing>
                 Har du spørsmål?
             </Heading>
             <BodyLong>
-                {'Hvis det er noe du lurer på, kan du ta '}
-                <LenkeMedAmplitude url="https://www.nav.no/kontaktoss" tekst="kontakt med oss."></LenkeMedAmplitude>
+                {'Hvis det er noe du lurer på, kan du '}
+                <LenkeMedAmplitude url="https://www.nav.no/kontaktoss" tekst="ta kontakt med oss."></LenkeMedAmplitude>
             </BodyLong>
 
             <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
