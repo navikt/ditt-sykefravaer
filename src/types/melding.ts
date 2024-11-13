@@ -1,3 +1,5 @@
+import { AaregInntekt } from './aaregInntekt'
+
 export interface Melding {
     uuid: string
     tekst: string
@@ -6,4 +8,5 @@ export interface Melding {
     variant: 'info' | 'warning' | 'success' | 'error'
     lukkbar: boolean
     opprettet?: string
+    metadata?: AaregInntekt
 }

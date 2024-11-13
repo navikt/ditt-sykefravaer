@@ -37,6 +37,87 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 28 dager',
 }
 
+export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
+        {
+            uuid: '123456y7',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=hentet-inntektsmelding-fra-aareg`,
+            variant: 'info',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
+            lukkbar: false,
+            opprettet: '2022-06-16T06:52:22.419786Z',
+            metadata: {
+                tidsstempel: '2022-06-16T06:52:22.419786Z',
+                orgnavn: 'Snekkeri AS',
+                inntekter: [
+                    { maned: '2024-02', belop: 33960 },
+                    { maned: '2024-01', belop: 0 },
+                    { maned: '2023-12', belop: 33960 },
+                ],
+                omregnetAarsinntekt: 780000,
+            },
+        },
+    ],
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (3 måneder med inntekt)',
+}
+
+export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
+        {
+            uuid: '123456y8',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=hentet-inntektsmelding-fra-aareg-en-maned`,
+            variant: 'info',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
+            lukkbar: false,
+            opprettet: '2022-06-16T06:52:22.419786Z',
+            metadata: {
+                tidsstempel: '2022-06-16T06:52:22.419786Z',
+                orgnavn: 'Snekkeri AS',
+                inntekter: [
+                    { maned: '2024-02', belop: 40000 },
+                    { maned: '2024-01', belop: null },
+                    { maned: '2023-12', belop: null },
+                ],
+                omregnetAarsinntekt: 780000,
+            },
+        },
+    ],
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (1 måned med inntekt)',
+}
+
+export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [sendtSykmelding],
+    meldinger: [
+        {
+            uuid: '123456y9',
+            tekst: 'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=hentet-inntektsmelding-fra-aareg-ingen`,
+            variant: 'info',
+            meldingType: 'inntektsmelding hentet fra A-ordningen',
+            lukkbar: false,
+            opprettet: '2022-06-16T06:52:22.419786Z',
+            metadata: {
+                tidsstempel: '2022-06-16T06:52:22.419786Z',
+                orgnavn: 'Snekkeri AS',
+                inntekter: [
+                    { maned: '2024-03', belop: null },
+                    { maned: '2024-02', belop: null },
+                    { maned: '2024-01', belop: null },
+                ],
+                omregnetAarsinntekt: 780000,
+            },
+        },
+    ],
+    beskrivelse: 'Opplysninger om inntekt hentet fra A-ordningen (ingen inntekt)',
+}
+
 export const venterPaSaksbehandlingNummer1: Persona = {
     ...commonPersona(),
     sykmeldinger: [sendtSykmelding],
