@@ -7,7 +7,7 @@ import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { Banner } from '../../components/banner/Banner'
 import { Flexjar } from '../../components/flexjar/flexjar'
 import useMeldinger from '../../hooks/useMeldinger'
-import { formatDateFromString } from '../../utils/dato-utils'
+import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 import { ForelagteInntektInfoBoks } from '../../components/opplysningerFraAordningen/forelagteInntektInfoBoks'
 
 export interface Inntekt {
@@ -74,9 +74,9 @@ const ForelagtInntektFraAareg = () => {
                     <Link href="https://www.nav.no/kontaktoss#skriv-til-oss" target="_blank">
                         ta kontakt med Nav
                     </Link>{' '}
-                    innen 3 uker fra{' '}
-                    {melding?.metadata?.tidsstempel ? formatDateFromString(melding.metadata.tidsstempel) : ''}. Har du
-                    dokumentasjon som viser hva feilen er, kan du også sende oss det.
+                    innen{' '}
+                    {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''}.
+                    Har du dokumentasjon som viser hva feilen er, kan du også sende oss det.
                 </BodyLong>
             </Box>
 

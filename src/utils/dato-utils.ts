@@ -45,8 +45,12 @@ export const tilLesbarDatoUtenAarstall = (datoArg: Date | string): string => {
     return ''
 }
 
-export const tilLesbarDatoMedArstall = (datoArg: Date | string) => {
-    return datoArg ? `${tilLesbarDatoUtenAarstall(new Date(datoArg))} ${new Date(datoArg).getFullYear()}` : undefined
+export const tilLesbarDatoMedArstall = (datoArg: Date | string, leggTilDager: number = 0) => {
+    const dato = new Date(datoArg)
+    if (leggTilDager) {
+        dato.setDate(dato.getDate() + leggTilDager)
+    }
+    return datoArg ? `${tilLesbarDatoUtenAarstall(dato)} ${dato.getFullYear()}` : undefined
 }
 
 export const getManedsNavn = (maned: string): string => {
