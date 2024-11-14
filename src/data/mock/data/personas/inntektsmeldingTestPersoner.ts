@@ -46,7 +46,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra a-ordningen',
+            meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {
@@ -73,7 +73,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra a-ordningen',
+            meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {
@@ -100,7 +100,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen`,
             variant: 'info',
-            meldingType: 'inntektsmelding hentet fra a-ordningen',
+            meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
             lukkbar: false,
             opprettet: '2022-06-16T06:52:22.419786Z',
             metadata: {

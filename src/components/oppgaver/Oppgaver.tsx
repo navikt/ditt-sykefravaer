@@ -23,7 +23,7 @@ interface EnkeltOppgaveAlertProps {
     pushLukket: (id: string) => void
 }
 
-const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) => {
+export const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertProps) => {
     useEffect(() => {
         logEvent('alert vist', {
             tekst: oppgave.meldingType ?? oppgave.tekst,
