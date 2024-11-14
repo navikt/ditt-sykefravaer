@@ -7,7 +7,10 @@ COPY /next-logger.config.js ./
 COPY /.next ./.next
 COPY /.env ./
 COPY /public ./public
-COPY /node_modules ./node_modules
+
+# Only copy required node_modules, excluding esbuild and other build-time dependencies
+COPY /node_modules/next ./node_modules/next
+COPY /node_modules/next-logger ./node_modules/next-logger
 
 ENV PORT=3000
 ENV NODE_OPTIONS='-r next-logger'
