@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './fixtures'
 
-test.describe('Tester forelagt inntekt fra A-ordningen', () => {
+test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     test('Tester når vi har tre månedsinntekter', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=hentet-inntektsmelding-fra-aareg')
 
@@ -11,7 +11,7 @@ test.describe('Tester forelagt inntekt fra A-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
@@ -23,7 +23,7 @@ test.describe('Tester forelagt inntekt fra A-ordningen', () => {
         const header = page.locator('main').locator('h1').first()
 
         await expect(header).toBeVisible()
-        await expect(header).toContainText('Vi har hentet opplysninger fra A-ordningen')
+        await expect(header).toContainText('Vi har hentet opplysninger fra a-ordningen')
         await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
         await expect(
             page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
@@ -45,7 +45,7 @@ test.describe('Tester forelagt inntekt fra A-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
@@ -75,7 +75,7 @@ test.describe('Tester forelagt inntekt fra A-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra A-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
