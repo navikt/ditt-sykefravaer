@@ -12,9 +12,16 @@ const createOptions = (): OptionsType => {
     const baseURL = `http://localhost:3000`
     if (process.env.CI) {
         return {
-            baseURL,
+                 baseURL,
+        timeout: 30 * 1000,
+        server: {
+            command: 'npm run start-ingen-dekorator',
+            port: 3000,
             timeout: 30 * 1000,
-            server: undefined,
+            reuseExistingServer: false,
+            stderr: 'pipe',
+            stdout: 'pipe',
+        },
         }
     }
 
