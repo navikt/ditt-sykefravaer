@@ -34,11 +34,11 @@ const Inntektsmelding = () => {
                 </Heading>
                 <BodyLong spacing>
                     Hvis vi ikke har fått inntektsmeldingen innen 3 måneder etter at du søkte om sykepenger, henter vi
-                    opplysninger om inntekten din fra A-ordningen i stedet. Du vil få beskjed fra oss når vi eventuelt
+                    opplysninger om inntekten din fra a-ordningen i stedet. Du vil få beskjed fra oss når vi eventuelt
                     gjør dette.
                 </BodyLong>
-                <ReadMore header="Hva er A-ordningen?" className="mb-2">
-                    A-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
+                <ReadMore header="Hva er a-ordningen?" className="mb-2">
+                    a-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
                     bruker opplysninger fra dette registeret til å blant annet behandle søknader om sykepenger.
                 </ReadMore>
             </Box>

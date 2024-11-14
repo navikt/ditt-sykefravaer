@@ -48,7 +48,7 @@ export const ForelagteInntektInfoBoks = ({ grupperteInntekter }: InntektListePro
             </div>
 
             <Heading level="2" size="small" spacing>
-                Inntekt hentet fra A-ordningen
+                Inntekt hentet fra a-ordningen
             </Heading>
 
             {Object.entries(grupperteInntekter)

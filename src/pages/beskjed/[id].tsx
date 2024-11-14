@@ -23,7 +23,7 @@ const ForelagtInntektFraAareg = () => {
     const melding = meldinger?.find((m) => m.uuid === id)
 
     useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Opplysninger fra A-ordningen' }],
+        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Opplysninger fra a-ordningen' }],
         [],
     )
 
@@ -50,16 +50,16 @@ const ForelagtInntektFraAareg = () => {
 
     return (
         <>
-            <Banner utenIkon={true} tittel="Vi har hentet opplysninger fra A-ordningen" />
+            <Banner utenIkon={true} tittel="Vi har hentet opplysninger fra a-ordningen" />
 
             <BodyLong spacing>
                 Vi har fortsatt ikke mottatt inntektsmelding fra {melding?.metadata?.orgnavn} og har derfor hentet
-                opplysninger om inntekten din fra A-ordningen. Vi vil bruke opplysningene til å behandle saken din om
+                opplysninger om inntekten din fra a-ordningen. Vi vil bruke opplysningene til å behandle saken din om
                 sykepenger.
             </BodyLong>
 
-            <ReadMore className="mt-4" header="Hva er A-ordningen?">
-                A-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
+            <ReadMore className="mt-4" header="Hva er a-ordningen?">
+                a-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
                 bruker opplysninger fra dette registeret til å blant annet behandle søknader om sykepenger.
             </ReadMore>
 
