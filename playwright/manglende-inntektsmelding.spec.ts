@@ -9,7 +9,8 @@ test.describe('Tester inntektsmelding', () => {
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
         await expect(navdsAlert).toHaveCount(1)
-        const alertText = 'Vi venter på inntektsmeldingen fra Matbutikken AS for sykefraværet som startet 1. juni 2022.'
+        const alertText =
+            'Vi venter på inntektsmelding fra Flex AS. Når vi får den kan vi behandle søknaden om sykepenger du sendte 1. juli 2022.'
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
