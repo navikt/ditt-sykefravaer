@@ -44,7 +44,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
         {
             uuid: '123456y7',
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
-            lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=hentet-inntektsmelding-fra-aareg`,
+            lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra a-ordningen',
             lukkbar: false,
@@ -71,7 +71,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
         {
             uuid: '123456y8',
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
-            lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=hentet-inntektsmelding-fra-aareg-en-maned`,
+            lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra a-ordningen',
             lukkbar: false,
@@ -98,7 +98,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
         {
             uuid: '123456y9',
             tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
-            lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=hentet-inntektsmelding-fra-aareg-ingen`,
+            lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen`,
             variant: 'info',
             meldingType: 'inntektsmelding hentet fra a-ordningen',
             lukkbar: false,
