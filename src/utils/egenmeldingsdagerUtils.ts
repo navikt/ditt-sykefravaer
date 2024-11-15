@@ -5,7 +5,7 @@ import { SvarUnion_DagerSvar_Fragment, SykmeldingStatusFragment, YesOrNo } from 
 import {
     EgenmeldingsdagerFormValue,
     MAX_EGENMELDINGSDAGER,
-} from '../components/FormComponents/Egenmelding/EgenmeldingerField'
+} from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 
 const hasMoreThan16Dates: (perioder: EgenmeldingsdagerFormValue[]) => boolean = R.piped(
     R.flatMap(R.prop('datoer')),

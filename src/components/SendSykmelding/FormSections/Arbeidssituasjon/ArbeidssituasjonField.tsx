@@ -7,7 +7,6 @@ import { ArbeidssituasjonType } from 'queries'
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'
 import { arbeidsSituasjonEnumToText, sporsmal } from '../../../../utils/sporsmal'
-import { logAmplitudeEvent } from '../../../amplitude/amplitude'
 
 import AnnetExtraSelect from './AnnetExtraSelect'
 
@@ -28,10 +27,10 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 id={field.name}
                 legend={sporsmal.arbeidssituasjon}
                 onChange={(value: ArbeidssituasjonType) => {
-                    logAmplitudeEvent({
-                        eventName: 'skjema spørsmål besvart',
-                        data: { skjemanavn: 'arbeidssituasjon', spørsmål: 'Jeg er sykmeldt som', svar: value },
-                    })
+                    /*      logAmplitudeEvent({
+                              eventName: 'skjema spørsmål besvart',
+                              data: { skjemanavn: 'arbeidssituasjon', spørsmål: 'Jeg er sykmeldt som', svar: value },
+                          })*/ //TODO skru på igjen
                     field.onChange(value)
                 }}
                 error={fieldState.error?.message}

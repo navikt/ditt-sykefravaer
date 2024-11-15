@@ -14,16 +14,11 @@ import HarBruktEgenmelding from './HarBruktEgenmelding'
 import ValgtEgenmeldingsdager from './ValgtEgenmeldingsdager'
 import EgenmeldingDatesPickerSubField from './EgenmeldingDatesPickerSubField'
 import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFieldUtils'
+import { EgenmeldingsdagerFormValue, MAX_EGENMELDINGSDAGER } from './EgenmeldingerFieldHelpers'
 
 export type EgenmeldingsdagerSubForm = {
     egenmeldingsdager: EgenmeldingsdagerFormValue[] | null
     egenmeldingsdagerHitPrevious: boolean | null
-}
-
-export type EgenmeldingsdagerFormValue = {
-    harPerioder: YesOrNo | null
-    datoer: Date[] | null
-    hasClickedVidere: boolean | null
 }
 
 interface Props {
@@ -39,8 +34,6 @@ interface Props {
     editSentEgenmelding?: boolean
     amplitudeSkjemanavn: string
 }
-
-export const MAX_EGENMELDINGSDAGER = 16
 
 function EgenmeldingerField({
     index,
