@@ -1,5 +1,6 @@
 import { logAmplitudeEvent as logAmplDekoratoren } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
+import { useLayoutEffect, useRef } from 'react'
 
 import { amplitudeEnabled } from '../../utils/environment'
 
@@ -51,6 +52,22 @@ function taxonomyToAmplitudeEvent(
         event_type: event.eventName,
         event_properties: properties,
     }
+}
+
+export function useLogAmplitudeEvent(
+    event: AmplitudeTaxonomyEvents,
+    extraData?: Record<string, unknown>,
+    condition: () => boolean = () => true,
+): void {
+    const stableEvent = useRef(event)
+    const stableExtraData = useRef(extraData)
+    const stableCondition = useRef(condition)
+
+    useLayoutEffect(() => {
+        if (stableCondition.current()) {
+            logAmplitudeEvent(stableEvent.current, stableExtraData.current)
+        }
+    }, [])
 }
 
 export type AmplitudeTaxonomyEvents =
