@@ -34,5 +34,6 @@ export async function proxyKallTilBackend(opts: Opts) {
             cause: tokenX.error,
         })
     }
+
     await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenX.token })
 }
