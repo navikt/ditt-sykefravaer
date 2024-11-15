@@ -10,10 +10,10 @@ import {
 } from '../../../../utils/arbeidssituasjonUtils'
 import { hasCompletedEgenmeldingsdager } from '../../../../utils/egenmeldingsdagerUtils'
 import { FormValues } from '../../SendSykmeldingForm'
-import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerField'
 import useSykmeldinger from '../../../../hooks/useSykmeldingerApollo'
 import { toDate } from '../../../../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
+import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 
 type UseDynamicSubSections = {
     shouldShowArbeidsgiverOrgnummer: boolean
