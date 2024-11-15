@@ -6,7 +6,7 @@ import { SykmeldingFragment } from 'queries'
 import { toDate } from '../../../utils/dateUtils'
 import { getSykmeldingStartDate } from '../../../utils/sykmeldingUtils'
 
-import { EgenmeldingsdagerFormValue } from './EgenmeldingerField'
+import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'
 
 export function currentPeriodDatePicker(
     previous: {
