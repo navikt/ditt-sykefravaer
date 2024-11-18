@@ -1,16 +1,7 @@
 import { PropsWithChildren, ReactElement } from 'react'
-import {
-    render,
-    renderHook,
-    screen,
-    RenderOptions,
-    Screen,
-    RenderHookOptions,
-    RenderHookResult,
-} from '@testing-library/react'
+import { render, renderHook, screen, RenderOptions, RenderHookOptions, RenderHookResult } from '@testing-library/react'
 import { MockedProvider, MockedResponse, MockLink } from '@apollo/client/testing'
 import { ApolloLink, Cache } from '@apollo/client'
-import open from 'open'
 import { onError } from '@apollo/client/link/error'
 import { logger } from '@navikt/next-logger'
 import { configureAxe } from 'vitest-axe'
@@ -90,9 +81,7 @@ const customRenderHook = <TProps, TResult>(
     })
 }
 
-export async function openPlayground(screen: Screen): Promise<void> {
-    await open(screen.logTestingPlaygroundURL())
-}
+export async function openPlayground(): Promise<void> {}
 
 const axe = configureAxe({
     rules: {
@@ -108,7 +97,6 @@ const customScreen = {
     getRadioInGroup: customQueries.getRadioInGroup(screen)('radio'),
     getCheckboxInGroup: customQueries.getRadioInGroup(screen)('checkbox'),
     findRadioInGroup: customQueries.findRadioInGroup(screen),
-    openPlayground: () => openPlayground(screen),
 }
 
 export { axe as axe }

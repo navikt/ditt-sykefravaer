@@ -4,7 +4,6 @@ import { requestOboToken } from '@navikt/oasis'
 import { GraphQLError } from 'graphql'
 
 import { sporsmal } from '../utils/sporsmal'
-import { getServerEnv } from '../utils/env'
 
 import { Sykmelding, SykmeldingSchema } from './api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon, BrukerinformasjonSchema } from './api-models/Brukerinformasjon'
@@ -14,8 +13,6 @@ import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { getErUtenforVentetid } from './flexService'
 import metrics from './metrics'
 import { TidligereArbeidsgivere, TidligereArbeidsgivereSchema } from './api-models/TidligereArbeidsgiver'
-
-const serverEnv = getServerEnv()
 
 export async function getSykmeldinger(context: RequestContext): Promise<Sykmelding[]> {
     return fetchApi(
@@ -113,7 +110,7 @@ export async function sendSykmelding(
     const [sykmelding, brukerinformasjon, erUtenforVentetid] = await Promise.all([
         getSykmelding(sykmeldingId, context),
         getBrukerinformasjonById(sykmeldingId, context),
-        getErUtenforVentetid(sykmeldingId, context),
+        getErUtenforVentetid(),
     ])
 
     const mappedValues = mapSendSykmeldingValuesToV3Api(values, sykmelding, brukerinformasjon, erUtenforVentetid)
@@ -184,7 +181,7 @@ async function fetchApi<ResponseObject>(
 ): Promise<ResponseObject> {
     const childLogger = createChildLogger(context.requestId)
 
-    const tokenX = await requestOboToken(context.accessToken, serverEnv.SYKMELDINGER_BACKEND_SCOPE)
+    const tokenX = await requestOboToken(context.accessToken, 'todo')
     if (!tokenX.ok) {
         throw new Error(
             `Unable to exchange token for sykmeldinger-backend token, requestId: ${context.requestId}, reason: ${tokenX.error.message}`,
@@ -193,7 +190,7 @@ async function fetchApi<ResponseObject>(
     }
 
     const stopApiResponsetimer = metrics.backendApiDurationHistogram.startTimer({ path: what })
-    const response = await fetch(`${getServerEnv().SYKMELDINGER_BACKEND}/api/${path}`, {
+    const response = await fetch(`todo/api/${path}`, {
         method: method.type,
         body: method.type === 'POST' ? method.body : undefined,
         headers: {
