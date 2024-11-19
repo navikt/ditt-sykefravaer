@@ -1,15 +1,24 @@
-FROM gcr.io/distroless/nodejs20-debian12@sha256:f912a7599e5338df6527a669def29bddc9469fdac9ab22c4cc9282c1b64c868b
+FROM node:20-slim
 
-ENV NODE_ENV production
+# Create non-root user
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs
 
-COPY /next.config.js ./
-COPY /next-logger.config.js ./
-COPY /.next ./.next
-COPY /.env ./
-COPY /public ./public
-COPY /node_modules ./node_modules
+WORKDIR /app
 
-ENV PORT=3000
-ENV NODE_OPTIONS='-r next-logger'
+# Set proper NODE_ENV
+ENV NODE_ENV=production \
+    PORT=3000 \
+    NODE_OPTIONS='-r next-logger'
+
+# Copy only the built artifacts and necessary files
+COPY --chown=nextjs:nodejs next.config.js ./
+COPY --chown=nextjs:nodejs next-logger.config.js ./
+COPY --chown=nextjs:nodejs .next ./.next
+COPY --chown=nextjs:nodejs public ./public
+COPY --chown=nextjs:nodejs node_modules ./node_modules
+
+# Switch to non-root user
+USER nextjs
 
 CMD ["./node_modules/next/dist/bin/next", "start"]
