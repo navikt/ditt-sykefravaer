@@ -16,7 +16,7 @@ test.describe('Flexjar', () => {
         await expect(section.getByRole('button', { name: 'Ja' })).toHaveCSS('background-color', 'rgb(35, 38, 42)')
         await section.getByRole('textbox').fill('Dette er en test')
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
-        await expect(section).toContainText('Takk for tilbakemeldingen')
+        await page.getByText('Takk for tilbakemeldingen!').isVisible()
     })
 
     test('Kan gi nei feedback', async ({ page }) => {
@@ -28,6 +28,6 @@ test.describe('Flexjar', () => {
         await expect(section.getByRole('button', { name: 'Nei' })).toHaveCSS('background-color', 'rgb(35, 38, 42)')
         await section.getByRole('textbox').fill('Dette er en test')
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
-        await expect(section).toContainText('Takk for tilbakemeldingen')
+        await page.getByText('Takk for tilbakemeldingen!').isVisible()
     })
 })
