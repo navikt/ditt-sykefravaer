@@ -17,7 +17,7 @@ const Query: QueryResolvers = {
     sykmeldinger: async (_, args, context) => sykmeldingerService.getSykmeldinger(context),
     sykmelding: async (_, { id }, context) => sykmeldingerService.getSykmelding(id, context),
     brukerinformasjon: async (_, { id }, context) => sykmeldingerService.getBrukerinformasjonById(id, context),
-    sykmeldingUtenforVentetid: async (_, { id }, context) => flexService.getErUtenforVentetid(id, context),
+    sykmeldingUtenforVentetid: async () => flexService.getErUtenforVentetid(),
     tidligereArbeidsgivere: async (_, { id }, context) => sykmeldingerService.getTidligereArbeidsgivere(id, context),
 }
 
@@ -28,7 +28,7 @@ const Mutation: MutationResolvers = {
         sykmeldingerService.sendSykmelding(sykmeldingId, values, context),
     updateEgenmeldingsdager: async (_, { sykmeldingId, egenmeldingsdager }, context) =>
         sykmeldingerService.updateEgenmeldingsdager(sykmeldingId, egenmeldingsdager, context),
-    feedback: async (_, { feedback }, context) => flexService.feedback(feedback, context),
+    feedback: async () => flexService.feedback(),
 }
 
 const resolvers: Partial<Resolvers> = {

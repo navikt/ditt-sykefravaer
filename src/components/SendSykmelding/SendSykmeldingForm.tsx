@@ -10,10 +10,10 @@ import { useSendSykmelding } from '../../hooks/useMutations'
 import Spinner from '../Spinner/Spinner'
 import { EgenmeldingsdagerSubForm } from '../FormComponents/Egenmelding/EgenmeldingerField'
 import useWarnUnsavedPopup from '../../hooks/useWarnUnsaved'
-import { browserEnv } from '../../utils/env'
 import useBrukerinformasjonById from '../../hooks/useBrukerinformasjonById'
 import AutoFillerDevTools from '../FormComponents/DevTools/AutoFillerDevTools'
 import { logAmplitudeEvent, useLogAmplitudeEvent } from '../amplitude/amplitude'
+import { autofillEnabled } from '../../utils/environment'
 
 import OpplysningerRiktigeSection from './FormSections/OpplysningerRiktige/OpplysningerRiktigeSection'
 import ActionSection from './FormSections/ActionSection'
@@ -123,10 +123,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
 
     return (
         <FormProvider {...form}>
-            {(browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'dev' ||
-                browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'local') && (
-                <AutoFillerDevTools sykmeldingId={sykmeldingId} />
-            )}
+            {autofillEnabled() && <AutoFillerDevTools sykmeldingId={sykmeldingId} />}
             <form
                 onSubmit={form.handleSubmit(sendSykmelding, () => {
                     requestAnimationFrame(() => {

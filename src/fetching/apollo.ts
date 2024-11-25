@@ -8,8 +8,8 @@ import { QueryOptions } from '@apollo/client/core/watchQueryOptions'
 import { OperationVariables } from '@apollo/client/core/types'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
 
-import { browserEnv } from '../utils/env'
 import { getUserRequestId } from '../utils/userRequestId'
+import { basePath, isMockBackend } from '../utils/environment'
 
 import possibleTypesGenerated from './possible-types.generated'
 
@@ -26,8 +26,7 @@ export const createInMemoryCache = (): InMemoryCache =>
 
 export const createApolloClient = (): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
-        connectToDevTools:
-            process.env.NODE_ENV === 'development' || browserEnv.NEXT_PUBLIC_RUNTIME_ENVIRONMENT === 'dev',
+        connectToDevTools: process.env.NODE_ENV === 'development' || isMockBackend(),
         cache: createInMemoryCache(),
         link: from([
             errorLink,
@@ -83,7 +82,7 @@ const errorLink = onError(({ graphQLErrors, networkError, operation, forward }) 
 })
 
 const httpLink = new HttpLink({
-    uri: `${browserEnv.NEXT_PUBLIC_BASE_PATH ?? ''}/api/graphql`,
+    uri: `${basePath() ?? ''}/api/graphql`,
     credentials: 'same-origin',
     headers: {
         'x-request-id': getUserRequestId(),

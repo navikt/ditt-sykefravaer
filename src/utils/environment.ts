@@ -14,6 +14,10 @@ export function minSideUrl() {
     return publicRuntimeConfig.minSideUrl
 }
 
+export function autofillEnabled() {
+    return isMockBackend()
+}
+
 export function amplitudeEnabled() {
     return publicRuntimeConfig.amplitudeEnabled === 'true'
 }
