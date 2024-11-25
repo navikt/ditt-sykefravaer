@@ -20,7 +20,7 @@ interface FlexjarFellesProps {
     textRequired?: boolean
     flexjarsporsmal: string
     flexjartittel: string
-    feedbackProps: Record<string, string | undefined | boolean>
+    feedbackProps: Record<string, string | undefined | boolean | number>
     feedbackPropsFunction?: () => Record<string, string | undefined | number | boolean>
 }
 
