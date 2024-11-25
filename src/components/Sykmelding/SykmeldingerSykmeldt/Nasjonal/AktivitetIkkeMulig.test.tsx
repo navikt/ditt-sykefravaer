@@ -1,4 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+vi.mock('next/config', () => ({
+    default: () => ({
+        publicRuntimeConfig: {
+            someConfig: 'mockedValue',
+        },
+    }),
+}))
 
 import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from 'queries'
 
