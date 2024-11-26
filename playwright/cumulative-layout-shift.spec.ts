@@ -8,7 +8,7 @@ test.describe('Tester cumulative-layout-shift', () => {
         await page.waitForSelector('h1', { timeout: 10000 })
         await expect(page.locator('h1').first()).toBeVisible()
         const skeletons = page.locator('.navds-skeleton')
-        await expect(skeletons).toHaveCount(6)
+        await expect(skeletons).toHaveCount(7)
 
         // Sjekk dokumentets høyde
         const expectedHeight = 1387

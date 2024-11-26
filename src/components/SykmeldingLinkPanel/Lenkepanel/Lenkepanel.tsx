@@ -28,7 +28,7 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
     const sykmeldingPeriod: string = getReadableSykmeldingLength(sykmelding)
 
     return (
-        <Link href={`/${id}`} passHref legacyBehavior>
+        <Link href={`/sykmelding/${id}`} passHref legacyBehavior>
             <LinkPanel
                 className={cn('mb-4 p-6 [&>div]:w-full', {
                     'border-orange-300 bg-orange-50 hover:border-orange-500': notifying,
