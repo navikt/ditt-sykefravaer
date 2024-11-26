@@ -60,6 +60,7 @@ export default defineConfig({
         baseURL: opts.baseURL,
         navigationTimeout: 60000,
         trace: 'on-first-retry',
+        screenshot: 'only-on-failure', // Tar skjermbilder kun ved feil
     },
     projects: [
         {
