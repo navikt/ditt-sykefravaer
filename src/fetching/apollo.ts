@@ -9,7 +9,7 @@ import { OperationVariables } from '@apollo/client/core/types'
 import { TypedDocumentNode } from '@graphql-typed-document-node/core'
 
 import { getUserRequestId } from '../utils/userRequestId'
-import { basePath, isMockBackend } from '../utils/environment'
+import { basePath } from '../utils/environment'
 
 import possibleTypesGenerated from './possible-types.generated'
 
@@ -26,7 +26,9 @@ export const createInMemoryCache = (): InMemoryCache =>
 
 export const createApolloClient = (): ApolloClient<NormalizedCacheObject> => {
     return new ApolloClient({
-        connectToDevTools: process.env.NODE_ENV === 'development' || isMockBackend(),
+        devtools: {
+            enabled: false,
+        },
         cache: createInMemoryCache(),
         link: from([
             errorLink,
