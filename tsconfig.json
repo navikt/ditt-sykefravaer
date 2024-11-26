@@ -28,6 +28,6 @@
             "queries": ["./src/fetching/graphql.generated.ts"]
         }
     },
-    "include": ["src", "./vitest.setup.mts"],
+    "include": ["**/*.ts", "**/*.tsx", "./vitest.setup.mts"],
     "exclude": ["node_modules"]
 }
