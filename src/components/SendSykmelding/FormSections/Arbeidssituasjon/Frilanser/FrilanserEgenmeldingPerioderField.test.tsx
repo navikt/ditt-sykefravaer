@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import userEvent from '@testing-library/user-event'
 import { FormProvider, useForm } from 'react-hook-form'
 import * as R from 'remeda'
@@ -8,13 +8,6 @@ import { screen, render } from '../../../../../utils/test/testUtils'
 import { toDateString } from '../../../../../utils/dateUtils'
 
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
-vi.mock('next/config', () => ({
-    default: () => ({
-        publicRuntimeConfig: {
-            someConfig: 'mockedValue',
-        },
-    }),
-}))
 
 describe('FrilanserEgenmeldingPerioderField', () => {
     const EgenmeldingerFieldInForm = ({ oppfolgingsdato }: { oppfolgingsdato: string }): ReactElement => {

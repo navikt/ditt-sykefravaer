@@ -34,7 +34,13 @@ vi.mock('@navikt/nav-dekoratoren-moduler', () => ({
 }))
 vi.mock('next/router', () => vi.importActual('next-router-mock'))
 vi.mock('next/dist/client/router', () => vi.importActual('next-router-mock'))
-
+vi.mock('next/config', () => ({
+    default: () => ({
+        publicRuntimeConfig: {
+            sykepengesoknadUrl: 'http://example.com',
+        },
+    }),
+}))
 afterEach(() => {
     cleanup()
 })

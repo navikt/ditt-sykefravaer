@@ -1,13 +1,5 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { MockedResponse } from '@apollo/client/testing'
-
-vi.mock('next/config', () => ({
-    default: () => ({
-        publicRuntimeConfig: {
-            someConfig: 'mockedValue',
-        },
-    }),
-}))
 
 import { Periodetype, RegelStatus, StatusEvent, SykmeldingerDocument, SykmeldingFragment } from 'queries'
 
