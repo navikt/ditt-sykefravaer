@@ -23,7 +23,7 @@ export function gotoScenario(
 
         if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
             // Basic scenario
-            await page.goto('/syk/sykefravaer/sykmelding/')
+            await page.goto('http://localhost:3000/syk/sykefravaer/sykmelding/')
             return
         }
 
@@ -34,7 +34,7 @@ export function gotoScenario(
             oppfolgingsdato: oppfolgingsdato ?? '',
         })
 
-        await page.goto(`/syk/sykefravaer/sykmelding/?${searchParams.toString()}`)
+        await page.goto(`http://localhost:3000/syk/sykefravaer/sykmelding/?${searchParams.toString()}`)
     }
 }
 
