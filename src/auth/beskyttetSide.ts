@@ -5,10 +5,11 @@ import { IToggle } from '@unleash/nextjs'
 import { GetServerSidePropsResult } from 'next'
 import { getToken, validateIdportenToken } from '@navikt/oasis'
 
-import metrics, { cleanPathForMetric, shouldLogMetricForPath } from '../metrics'
 import { isMockBackend } from '../utils/environment'
 import { getSession } from '../data/mock/mock-api'
 import { getFlagsServerSide } from '../toggles/ssr'
+
+import { handleMockContext } from './mock-context'
 
 type PageHandler = (context: GetServerSidePropsContext) => Promise<GetServerSidePropsResult<ServerSidePropsResult>>
 
@@ -24,7 +25,7 @@ function beskyttetSide(handler: PageHandler) {
             const rawCookies = context.req?.headers.cookie || ''
             const parsedCookies = parse(rawCookies)
             getSession(parsedCookies, context.res)
-            return handler(context)
+            return handleMockContext(context, handler)
         }
 
         const request = context.req
@@ -35,11 +36,6 @@ function beskyttetSide(handler: PageHandler) {
         if (request.url == null) {
             throw new Error('request.url is missing request. This should not happen')
         }
-        const cleanPath = cleanPathForMetric(request.url)
-        if (shouldLogMetricForPath(cleanPath)) {
-            metrics.pageInitialLoadCounter.inc({ path: cleanPath }, 1)
-        }
-
         const wonderwallRedirect = {
             redirect: {
                 destination: '/oauth2/login?redirect=/syk/sykefravaer',
@@ -49,9 +45,6 @@ function beskyttetSide(handler: PageHandler) {
 
         const token = getToken(context.req)
         if (token == null) {
-            if (shouldLogMetricForPath(cleanPath)) {
-                metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
-            }
             return wonderwallRedirect
         }
 
@@ -67,9 +60,7 @@ function beskyttetSide(handler: PageHandler) {
             } else {
                 logger.error(error)
             }
-            if (shouldLogMetricForPath(cleanPath)) {
-                metrics.wonderwallRedirect.inc({ path: cleanPath }, 1)
-            }
+
             return wonderwallRedirect
         }
 
