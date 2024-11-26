@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test'
 
-import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
-import { sporsmal } from '../../src/utils/sporsmal'
+import { sporsmal } from '../src/utils/sporsmal'
+
+import { gotoScenario, navigateToFirstSykmelding } from './utils/user-actions'
 
 test.describe('sykmelding page tests that are not specific to a user', () => {
     test('should show details from sykmelding without a11y problems', async ({ page, context }) => {
