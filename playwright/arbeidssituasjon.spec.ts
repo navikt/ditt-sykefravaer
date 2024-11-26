@@ -3,7 +3,9 @@ import { expect } from '@playwright/test'
 import { test } from './fixtures'
 
 test.describe('Tester arbeidssituasjon', () => {
-    test('Bruker med flere arbeidsgivere', async ({ page }) => {
+    test('Bruker med flere arbeidsgivere', async ({ page, context }) => {
+        await context.clearCookies()
+
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon')
@@ -54,7 +56,9 @@ test.describe('Tester arbeidssituasjon', () => {
         )
     })
 
-    test('Avkreft nærmeste leder feiler', async ({ page }) => {
+    test('Avkreft nærmeste leder feiler', async ({ page, context }) => {
+        await context.clearCookies()
+
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon') // locator('[data-testid="din-situasjon"]')
@@ -84,7 +88,9 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(employer).toContainText('Gloucester Cathedral')
     })
 
-    test('Har narmesteleder og kan avkrefte den', async ({ page }) => {
+    test('Har narmesteleder og kan avkrefte den', async ({ page, context }) => {
+        await context.clearCookies()
+
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=snart-slutt')
 
         const situasjonInnhold = page.getByTestId('situasjon-innhold') //  locator('[data-testid="situasjon-innhold"]')
@@ -124,7 +130,9 @@ test.describe('Tester arbeidssituasjon', () => {
         await accordionItem.click()
     })
 
-    test('Arbeidsgiver forskutterer ikke', async ({ page }) => {
+    test('Arbeidsgiver forskutterer ikke', async ({ page, context }) => {
+        await context.clearCookies()
+
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
 
         const situasjonInnhold = page.getByTestId('situasjon-innhold')

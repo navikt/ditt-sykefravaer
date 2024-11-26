@@ -4,7 +4,8 @@ import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { sporsmal } from '../../src/utils/sporsmal'
 
 test.describe('sykmelding page tests that are not specific to a user', () => {
-    test('should show details from sykmelding without a11y problems', async ({ page }) => {
+    test('should show details from sykmelding without a11y problems', async ({ page, context }) => {
+        await context.clearCookies()
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
 
@@ -12,7 +13,12 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
     })
 
-    test('legacy: a user without any "bruker svar" should still be able to view kvittering', async ({ page }) => {
+    test('legacy: a user without any "bruker svar" should still be able to view kvittering', async ({
+        page,
+        context,
+    }) => {
+        await context.clearCookies()
+
         await gotoScenario('noBrukerSvar')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
