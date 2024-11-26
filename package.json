@@ -50,7 +50,7 @@
         "react-modal": "^3.16.1",
         "remeda": "^2.16.0",
         "tailwind-merge": "^2.5.4",
-        "uuid": "^10.0.0",
+        "uuid": "^11.0.3",
         "zod": "^3.23.8"
     },
     "devDependencies": {
