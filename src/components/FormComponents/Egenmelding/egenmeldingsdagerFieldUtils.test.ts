@@ -5,7 +5,7 @@ import { YesOrNo } from 'queries'
 import { toDate, toDateString } from '../../../utils/dateUtils'
 
 import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFieldUtils'
-import { EgenmeldingsdagerFormValue } from './EgenmeldingerField'
+import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'
 
 describe('egenmeldingsdagerFieldUtils', () => {
     describe('root case', () => {
