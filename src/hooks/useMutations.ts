@@ -60,7 +60,7 @@ export function useSendSykmelding(
     const router = useRouter()
     const [submit, result] = useMutation(SendSykmeldingDocument, {
         onCompleted: async () => {
-            await router.push(`/${sykmeldingId}/kvittering`, undefined, { scroll: true })
+            await router.push(`/sykmelding/${sykmeldingId}/kvittering`, undefined, { scroll: true })
         },
         onError: () => {
             onError()
