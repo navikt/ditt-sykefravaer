@@ -50,7 +50,7 @@ const opts = createOptions()
 
 export default defineConfig({
     testDir: './playwright',
-    timeout: 30000,
+    timeout: 15000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: 0,
