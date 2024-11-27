@@ -47,7 +47,7 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
                         <Heading size="small" level="3">
                             {getSykmeldingTitle(sykmelding)}
                         </Heading>
-                        <ul className="list-disc pl-4">
+                        <ul className="list-none pl-4">
                             {sykmelding.sykmeldingsperioder.map((periode, index) => (
                                 <li key={index}>
                                     <BodyShort className="overflow-anywhere">
