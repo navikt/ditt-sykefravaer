@@ -1,8 +1,8 @@
 import { GetServerSidePropsContext, NextApiRequest } from 'next'
 
-import { RequestContext } from '../server/graphql/resolvers'
 import { getSessionId } from '../utils/userSessionId'
 import { isMockBackend } from '../utils/environment'
+import { RequestContext } from '../server/graphql/mockResolvers'
 
 /**
  * Used locally or in demo environments to create a fake request context.
@@ -13,7 +13,8 @@ export function createDemoRequestContext(req: GetServerSidePropsContext['req'] |
     }
 
     return {
-        ...require('./fakeLocalAuthTokenSet.json'),
+        pid: '12345678910',
+        accessToken: 'fake-token',
         requestId: 'not set',
         sessionId: getSessionId(req),
     }

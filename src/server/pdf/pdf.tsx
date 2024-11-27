@@ -2,9 +2,9 @@ import { renderToBuffer } from '@react-pdf/renderer'
 
 import { Sykmelding } from '../api-models/sykmelding/Sykmelding'
 import { getSykmelding } from '../sykmeldingerService'
-import { RequestContext } from '../graphql/resolvers'
 import mockDb from '../graphql/mock-db'
 import { isMockBackend } from '../../utils/environment'
+import { RequestContext } from '../graphql/mockResolvers'
 
 import SykmeldingPdf from './components/SykmeldingPdf'
 

@@ -8,11 +8,11 @@ import { sporsmal } from '../utils/sporsmal'
 import { Sykmelding, SykmeldingSchema } from './api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon, BrukerinformasjonSchema } from './api-models/Brukerinformasjon'
 import { SendSykmeldingValues, SykmeldingChangeStatus } from './graphql/resolver-types.generated'
-import { RequestContext } from './graphql/resolvers'
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { getErUtenforVentetid } from './flexService'
 import metrics from './metrics'
 import { TidligereArbeidsgivere, TidligereArbeidsgivereSchema } from './api-models/TidligereArbeidsgiver'
+import { RequestContext } from './graphql/mockResolvers'
 
 export async function getSykmeldinger(context: RequestContext): Promise<Sykmelding[]> {
     return fetchApi(

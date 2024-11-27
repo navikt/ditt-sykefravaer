@@ -43,4 +43,11 @@ const resolvers: Partial<Resolvers> = {
     ...objectResolvers,
 }
 
+export interface RequestContext {
+    pid: string
+    accessToken: string
+    requestId: string
+    sessionId: string
+}
+
 export default resolvers
