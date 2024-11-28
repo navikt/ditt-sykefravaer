@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import { Fragment, PropsWithChildren, ReactElement } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
 import { Alert, BodyShort, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
@@ -21,11 +21,14 @@ import SykmeldingSykmeldtSection from '../../../components/Sykmelding/Sykmelding
 import { createKvitteringBreadcrumbs, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
+import { Flexjar } from '../../../components/flexjar/flexjar'
+import { useToggle } from '../../../toggles/context'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
     const { data, error, loading } = useSykmeldingById(sykmeldingId)
     const router = useRouter()
+    const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     if (loading) {
         return (
@@ -117,6 +120,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             )}
 
             <HintToNextOlderSykmelding />
+            {flexjarToggle.enabled && <Flexjar feedbackId="sykmelding-kvittering" />}
         </KvitteringWrapper>
     )
 }

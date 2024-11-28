@@ -76,7 +76,7 @@ function StatusInfo({
     return (
         <div data-testid="status-info">
             <div className="my-8 rounded-medium bg-surface-subtle p-8">
-                <Heading spacing size="small" level="3">
+                <Heading spacing size="small" level="2">
                     Skal du reise utenfor EU/EØS når du er sykmeldt?
                 </Heading>
                 <BodyShort spacing>
