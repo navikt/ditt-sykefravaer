@@ -1,12 +1,12 @@
 import { expect } from '@playwright/test'
 
-import { test } from './fixtures'
+import { test } from '../fixtures'
 
 test.describe('Sykmelding kvittering', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer/sykmelding')
         const tidligereSykmeldinger = page.getByText('Tidligere sykmeldinger')
-        await expect(tidligereSykmeldinger).toBeVisible({ timeout: 10_000 })
+        await expect(tidligereSykmeldinger).toBeVisible()
         await page.getByRole('region').filter({ has: tidligereSykmeldinger }).getByText('Sykmelding').last().click()
         await expect(page.getByText('Sykmeldingen er sendt')).toBeVisible()
         await page.goto(page.url() + '/kvittering')
