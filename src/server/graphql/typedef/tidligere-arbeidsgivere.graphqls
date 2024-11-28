@@ -1,4 +1,0 @@
-type TidligereArbeidsgiver {
-    orgNavn: String!
-    orgnummer: String!
-}
