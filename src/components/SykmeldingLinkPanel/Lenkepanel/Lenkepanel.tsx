@@ -54,10 +54,9 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
                                 </li>
                             ))}
                         </ul>
-
                     </div>
                     <div className="flex shrink-0 items-center">
-                        <LenkepanelEtikett status={status} behandlingsutfall={behandlingsutfallStatus}/>
+                        <LenkepanelEtikett status={status} behandlingsutfall={behandlingsutfallStatus} />
                     </div>
                 </div>
             </LinkPanel>
