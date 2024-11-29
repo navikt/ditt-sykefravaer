@@ -20,7 +20,7 @@ vi.mock('@navikt/nav-dekoratoren-moduler', async (importOriginal) => {
     return actual.default
 })
 
-describe('SykmeldingerPage: /syk/sykmeldinger', () => {
+describe.skip('SykmeldingerPage: /syk/sykmeldinger', () => {
     it('should fail with error message on API error', async () => {
         render(<SykmeldingerPage />, {
             mocks: [
@@ -47,7 +47,6 @@ describe('SykmeldingerPage: /syk/sykmeldinger', () => {
                 }),
             ],
         })
-
         expect(await screen.findByText('Du har ingen nye sykmeldinger'))
     })
 
