@@ -8,6 +8,8 @@ import { logger } from '@navikt/next-logger'
 import { nextleton } from 'nextleton'
 
 import { cleanPathForMetric } from '../../metrics'
+import { getSessionId } from '../../utils/userSessionId'
+import mockDb from '../../server/graphql/mock-db'
 
 import { Persona, testpersoner } from './testperson'
 
@@ -72,6 +74,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
     const url = `${req.method} ${cleanPathForMetric(req.url!).split('?')[0]}`
     const testperson = hentTestperson(req, res)
     const nokkelKey = nokkel(req)
+    const sessionId = getSessionId(req)
 
     function sendJson(json = {}, status = 200) {
         res.writeHead(status, { 'Content-Type': 'application/json' })
@@ -108,6 +111,9 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
 
         case 'GET /api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging':
             return sendJson(testperson.arbeidsrettetOppfolging)
+
+        case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger':
+            return sendJson(mockDb().get(sessionId).sykmeldinger())
 
         case 'GET /api/sykepengedager-informasjon/api/v1/sykepenger/maxdate':
             return sendJson(testperson.maxdato)

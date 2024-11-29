@@ -5,20 +5,20 @@ import * as R from 'remeda'
 
 import { SykmeldingFragment } from 'queries'
 
-import useSykmeldinger from '../../hooks/useSykmeldingerApollo'
 import useFocusRefetch from '../../hooks/useFocusRefetch'
 import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'
 import { InfoOmDigitalSykmelding, SerIkkeSykmelding } from '../InfoOmDigitalSykmelding/InfoOmDigitalSykmelding'
 import { isActiveSykmelding, isUnderbehandling } from '../../utils/sykmeldingUtils'
+import UseSykmeldingerFlex from '../../hooks/useSykmeldingerFlexBackend'
 
 import { SykmeldingerListSkeleton } from './SykmeldingerSkeletons'
 
 function SykmeldingerListAll(): ReactElement {
-    const { data, error, loading, refetch } = useSykmeldinger()
+    const { data, isLoading, error, refetch } = UseSykmeldingerFlex()
 
     useFocusRefetch(refetch)
 
-    if (data?.sykmeldinger == null && loading) {
+    if (data == null && isLoading) {
         return <SykmeldingerListSkeleton />
     }
 
@@ -29,7 +29,7 @@ function SykmeldingerListAll(): ReactElement {
             </Alert>
         )
     }
-    if (data?.sykmeldinger == null) {
+    if (data == null) {
         logger.error('Sykmeldinger is undefined')
         return (
             <Alert variant="error" role="alert" aria-live="polite">
@@ -38,7 +38,7 @@ function SykmeldingerListAll(): ReactElement {
         )
     }
 
-    const { underBehandling, apenSykmeldinger, pastSykmeldinger } = filterSykmeldinger(data.sykmeldinger)
+    const { underBehandling, apenSykmeldinger, pastSykmeldinger } = filterSykmeldinger(data)
 
     return (
         <div>
