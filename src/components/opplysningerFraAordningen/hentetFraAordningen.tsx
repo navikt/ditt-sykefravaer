@@ -1,4 +1,4 @@
-import { BodyLong, Box, Heading, Link, ReadMore } from '@navikt/ds-react'
+import { BodyLong, Box, Heading, Link, List, BodyShort } from '@navikt/ds-react'
 import React from 'react'
 
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
@@ -39,29 +39,63 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
 
             <BodyLong spacing>
                 Vi har fortsatt ikke mottatt inntektsmelding fra {melding?.metadata?.orgnavn} og har derfor hentet
-                opplysninger om inntekten din fra a-ordningen. Vi vil bruke opplysningene til å behandle saken din om
-                sykepenger.
+                opplysninger om inntekten din fra a-ordningen. Vi vil bruke opplysningene til å behandle søknaden din og
+                vurdere hvor mye sykepenger du eventuelt kan få.
             </BodyLong>
 
-            <ReadMore className="mt-4" header="Hva er a-ordningen?">
-                A-ordningen er et offentlig register hvor arbeidsgivere sender inn opplysninger om sine ansatte. Nav
-                bruker opplysninger fra dette registeret til å blant annet behandle søknader om sykepenger.
-            </ReadMore>
-
             <ForelagteInntektInfoBoks grupperteInntekter={grupperteInntekter} />
+
+            <Heading level="2" size="medium" spacing>
+                Vi trenger å vite om vi skal bruke inntekten fra a-ordningen
+            </Heading>
+
+            <BodyLong spacing>
+                Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før den måneden du ble syk
+                for å beregne hvor mye sykepenger du kan få. Hvis situasjonen din har endret seg i løpet av denne
+                perioden, kan det være andre regler for hvordan vi skal beregne. Da må du gi oss beskjed. Det kan for
+                eksempel være hvis:
+            </BodyLong>
+
+            <List as="ul">
+                <List.Item>
+                    <BodyShort as="span" weight="semibold">
+                        Du har fått ny jobb:
+                    </BodyShort>{' '}
+                    Da skal vi kun bruke den nye inntekten din
+                </List.Item>
+                <List.Item>
+                    <BodyShort as="span" weight="semibold">
+                        Du har gått opp eller ned i lønn:
+                    </BodyShort>{' '}
+                    Da skal vi bruke inntekten etter endringen skjedde
+                </List.Item>
+                <List.Item>
+                    <BodyShort as="span" weight="semibold">
+                        Du har hatt ferie, permisjon eller annet fravær:
+                    </BodyShort>{' '}
+                    Da skal vi bruke inntekten du ville hatt hvis du hadde vært på jobb
+                </List.Item>
+            </List>
+
+            <BodyLong spacing>Har du inntekt fra overtid skal det som regel ikke tas med i beregningen.</BodyLong>
 
             <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small">
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
                 <BodyLong className="mt-4">
-                    Hvis opplysningene vi har hentet er feil,{' '}
+                    Har det vært endringer i situasjonen din eller har spørsmål til opplysningene hentet fra
+                    a-ordningen,{' '}
                     <Link href="https://www.nav.no/kontaktoss#skriv-til-oss" target="_blank">
                         ta kontakt med Nav
                     </Link>{' '}
                     innen{' '}
                     {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''}.
-                    Har du dokumentasjon som viser hva feilen er, kan du også sende oss det.
+                </BodyLong>
+                <BodyLong className="mt-4">
+                    Hvis vi ikke hører fra deg innen{' '}
+                    {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''},
+                    vil vi bruke opplysningene fra a-ordningen til å behandle søknaden din.
                 </BodyLong>
             </Box>
 
