@@ -115,6 +115,11 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger':
             return sendJson(mockDb().get(sessionId).sykmeldinger())
 
+        case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]':
+            const pathNumber1 = pathNumber(3)
+            console.log('sykmeldingid: ' + pathNumber1)
+            return sendJson(mockDb().get(sessionId).sykmelding(pathNumber1!))
+
         case 'GET /api/sykepengedager-informasjon/api/v1/sykepenger/maxdate':
             return sendJson(testperson.maxdato)
 
