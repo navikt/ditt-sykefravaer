@@ -23,20 +23,20 @@ import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import useFindOlderSykmeldingId from '../../../hooks/useFindOlderSykmeldingId'
-import useSykmeldingById from '../../../hooks/useSykmeldingById'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
+import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
 
-    const { data, error, loading, refetch } = useSykmeldingById(sykmeldingId)
-    const olderSykmelding = useFindOlderSykmeldingId(data?.sykmelding)
+    const { data, error, isLoading: loading, refetch } = useSykmeldingByIdRest(sykmeldingId)
+    const olderSykmelding = useFindOlderSykmeldingId(data)
 
     useFocusRefetch(refetch)
 
-    if (data?.sykmelding == null && (loading || olderSykmelding.isLoading)) {
+    if (data == null && (loading || olderSykmelding.isLoading)) {
         return (
             <SykmeldingerWrapper>
                 <SykmeldingSkeleton />
@@ -44,7 +44,7 @@ function SykmeldingPage(): ReactElement {
         )
     }
 
-    if (olderSykmelding.error || (error && data?.sykmelding == null)) {
+    if (olderSykmelding.error || (error && data == null)) {
         return (
             <SykmeldingerWrapper>
                 <Alert variant="error" role="alert" aria-live="polite">
@@ -75,7 +75,7 @@ function SykmeldingPage(): ReactElement {
         )
     }
 
-    if (data?.sykmelding === undefined) {
+    if (data === undefined) {
         logger.error(`Sykmelding with id ${sykmeldingId} is undefined`)
         return (
             <SykmeldingerWrapper>
@@ -87,9 +87,9 @@ function SykmeldingPage(): ReactElement {
     }
 
     return (
-        <SykmeldingerWrapper sykmelding={data?.sykmelding}>
+        <SykmeldingerWrapper sykmelding={data}>
             <SykmeldingComponent
-                sykmelding={data?.sykmelding}
+                sykmelding={data}
                 olderSykmeldingId={olderSykmelding.earliestSykmeldingId}
                 olderSykmeldingCount={olderSykmelding.olderSykmeldingCount}
             />

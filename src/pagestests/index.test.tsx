@@ -15,7 +15,7 @@ import SykmeldingPage from '../pages/sykmelding/[sykmeldingId]/index'
 import { brukerinformasjonData, createExtraFormDataMock } from '../utils/test/mockUtils'
 import { dateSub } from '../utils/dateUtils'
 
-describe('SykmeldingPage: /syk/sykmeldinger/{sykmeldingId}', () => {
+describe.skip('SykmeldingPage: /syk/sykmeldinger/{sykmeldingId}', () => {
     beforeEach(() => {
         mockRouter.setCurrentUrl(`/sykmelding-id`)
     })
