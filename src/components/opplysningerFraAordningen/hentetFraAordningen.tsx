@@ -7,6 +7,7 @@ import { Banner } from '../banner/Banner'
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { Inntekt } from '../../pages/beskjed/[id]'
 import { Melding } from '../../types/melding'
+import TilHovedsiden from '../TilHovedsiden/TilHovedsiden'
 
 import { ForelagteInntektInfoBoks } from './forelagteInntektInfoBoks'
 
@@ -98,6 +99,8 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                     vil vi bruke opplysningene fra a-ordningen til å behandle søknaden din.
                 </BodyLong>
             </Box>
+
+            <TilHovedsiden />
 
             <Flexjar feedbackId="forelegging-fra-a-ordningen" sporsmal="Var denne informasjonen nyttig for deg?" />
         </>
