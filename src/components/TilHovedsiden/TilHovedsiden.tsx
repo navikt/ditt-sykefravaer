@@ -15,6 +15,7 @@ function TilHovedsiden(): ReactElement {
             icon={<ArrowLeftIcon aria-hidden />}
             variant="secondary"
             as="a"
+            role="link"
             href={basePath() + testpersonQuery.query()}
             className="mt-8"
             onClick={(e) => {
