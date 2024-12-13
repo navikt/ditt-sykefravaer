@@ -38,7 +38,7 @@
         "dotenv": "^16.4.5",
         "graphql": "^16.9.0",
         "graphql-scalars": "^1.23.0",
-        "html-react-parser": "^5.1.18",
+        "html-react-parser": "^5.2.0",
         "next-logger": "^5.0.1",
         "nextleton": "^0.6.1",
         "node-cache": "^5.1.2",
