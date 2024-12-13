@@ -35,7 +35,7 @@
         "crypto-hash": "^3.1.0",
         "date-fns": "^3.6.0",
         "dayjs": "^1.11.13",
-        "dotenv": "^16.4.5",
+        "dotenv": "^16.4.7",
         "graphql": "^16.9.0",
         "graphql-scalars": "^1.23.0",
         "html-react-parser": "^5.1.18",
