@@ -6,7 +6,7 @@
         "node": "20"
     },
     "dependencies": {
-        "@apollo/client": "^3.11.8",
+        "@apollo/client": "^3.12.3",
         "@apollo/server": "^4.11.2",
         "@as-integrations/next": "^3.2.0",
         "@grafana/faro-web-sdk": "^1.10.2",
