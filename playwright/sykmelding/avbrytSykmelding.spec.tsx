@@ -44,7 +44,7 @@ test.describe('Avbryt sykmelding', () => {
         await page.getByRole('button', { name: /Ja, jeg er sikker/ }).click()
 
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
-        await expect(page.getByRole('link', { name: 'Til hovedsiden Ditt sykefravær' })).toBeVisible()
+        await expect(page.getByRole('link', { name: 'Tilbake til Ditt sykefravær' })).toBeVisible()
 
         await expect(page).toHaveNoViolations()
     })

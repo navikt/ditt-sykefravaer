@@ -35,6 +35,12 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(page.locator('text=2024')).toBeVisible()
         await expect(page.locator('text=Januar: 0 kroner')).toBeVisible()
         await expect(page.locator('text=Februar: 33 960 kroner')).toBeVisible()
+
+        // Navigerer til ditt sykefravær
+        await expect(page.getByRole('link', { name: /Tilbake til Ditt sykefravær/ })).toBeVisible()
+
+        await page.click('text=Tilbake til Ditt sykefravær')
+        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
     })
 
     test('Tester når vi har kun en av tre månedsinntekt', async ({ page }) => {

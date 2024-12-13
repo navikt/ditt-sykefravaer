@@ -101,7 +101,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
                 ),
             ).toBeVisible()
 
-            await expect(page.getByRole('link', { name: 'Til hovedsiden Ditt sykefravær' })).toBeVisible()
+            await expect(page.getByRole('link', { name: 'Tilbake til Ditt sykefravær' })).toBeVisible()
             await expect(page).toHaveNoViolations()
         })
     })
