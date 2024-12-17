@@ -20,7 +20,6 @@ const Index = () => {
 
     return (
         <>
-            <Banner tittel={tekst('sidetittel.liste')} />
 
             <QueryStatusPanel />
             <IngenSykmelding />
