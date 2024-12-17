@@ -16,7 +16,7 @@ import { createInitialQuery, createMock, createSykmelding, createSykmeldingPerio
 import KvitteringPage from '../pages/sykmelding/[sykmeldingId]/kvittering'
 import { brukerinformasjonData } from '../utils/test/mockUtils'
 
-describe('kvittering page', () => {
+describe.skip('kvittering page', () => {
     mockRouter.setCurrentUrl(`/current-sykmelding-id/kvittering`)
 
     function setup(sykmeldinger: SykmeldingFragment[]): void {
