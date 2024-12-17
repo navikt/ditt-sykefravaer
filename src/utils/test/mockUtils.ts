@@ -1,5 +1,3 @@
-import { MockedResponse } from '@apollo/client/testing'
-
 import {
     Brukerinformasjon,
     BrukerinformasjonDocument,
@@ -45,7 +43,7 @@ export function createExtraFormDataMock({
     sykmeldingId?: string
     utenforVentetid?: Partial<UtenforVentetid>
     brukerinformasjon?: Partial<Brukerinformasjon>
-} = {}): MockedResponse[] {
+} = {}) {
     return [
         createMock({
             request: { query: BrukerinformasjonDocument },

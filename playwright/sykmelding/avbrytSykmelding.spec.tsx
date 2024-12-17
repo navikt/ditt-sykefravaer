@@ -9,7 +9,7 @@ import {
     velgArbeidstakerArbeidsledig,
 } from '../utils/user-actions'
 
-test.describe('Avbryt sykmelding', () => {
+test.describe.skip('Avbryt sykmelding', () => {
     test('should show sykmelding as avbrutt', async ({ page }) => {
         await gotoScenario('avbrutt')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)

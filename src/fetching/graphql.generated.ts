@@ -949,13 +949,14 @@ export type TidligereArbeidsgivereByIdQueryVariables = Exact<{
     sykmeldingId: Scalars['String']['input']
 }>
 
+export type TidligereArbeidsgivereArray = ReadonlyArray<{
+    readonly __typename: 'TidligereArbeidsgiver'
+    readonly orgNavn: string
+    readonly orgnummer: string
+}>
 export type TidligereArbeidsgivereByIdQuery = {
     readonly __typename: 'Query'
-    readonly tidligereArbeidsgivere?: ReadonlyArray<{
-        readonly __typename: 'TidligereArbeidsgiver'
-        readonly orgNavn: string
-        readonly orgnummer: string
-    }> | null
+    readonly tidligereArbeidsgivere?: TidligereArbeidsgivereArray | null
 }
 
 export type ChangeSykmeldingStatusMutationVariables = Exact<{

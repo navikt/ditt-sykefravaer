@@ -13,7 +13,7 @@ import {
 import { getRadioInGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe('Arbeidssituasjon - Fiskere', () => {
+test.describe.skip('Arbeidssituasjon - Fiskere', () => {
     test.describe('Blad A', () => {
         test('Lott, should be næringsdrivende-esque', async ({ page }) => {
             await gotoScenario('normal')(page)

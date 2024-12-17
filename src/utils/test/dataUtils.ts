@@ -1,8 +1,3 @@
-import { MockedResponse } from '@apollo/client/testing'
-import { Cache, TypedDocumentNode } from '@apollo/client'
-import { FetchResult } from '@apollo/client/link/core'
-import { ResultFunction } from '@apollo/client/testing/core/mocking/mockLink'
-
 import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
@@ -266,10 +261,12 @@ export function createAvvistBehandlingsutfall(
 }
 
 export function createInitialQuery<Query, Variables>(
-    typedDocumentNode: TypedDocumentNode<Query, Variables>,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    typedDocumentNode: any,
     data: Query,
     variables?: Variables,
-): Cache.WriteQueryOptions<Query, Variables> {
+): // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any {
     return {
         query: typedDocumentNode,
         data,
@@ -277,13 +274,17 @@ export function createInitialQuery<Query, Variables>(
     }
 }
 
-export function createMock<Query, Variables extends Record<string, unknown>>(mockedResponse: {
-    request: { query: TypedDocumentNode<Query, Variables>; variables?: Variables }
-    result?: FetchResult<Query> | ResultFunction<FetchResult<Query>>
+export function createMock(mockedResponse: {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    request: any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    result?: any
     error?: Error
     delay?: number
-    newData?: ResultFunction<FetchResult<Query>, Record<string, unknown>>
-}): MockedResponse<Query> {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    newData?: any
+}): // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any {
     return mockedResponse
 }
 

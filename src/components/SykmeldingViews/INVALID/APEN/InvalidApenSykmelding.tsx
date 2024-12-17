@@ -1,6 +1,5 @@
 import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { useController, useForm } from 'react-hook-form'
-import { ApolloError } from '@apollo/client'
 import { ReactElement } from 'react'
 
 import { SykmeldingChangeStatus, SykmeldingFragment } from 'queries'
@@ -23,7 +22,7 @@ interface FormData {
 const skjemanavn = 'invalid åpen sykmelding'
 
 function InvalidApenSykmelding({ sykmelding }: InvalidApenSykmeldingProps): ReactElement {
-    const { bekreftInvalid, mutationLoading, mutationError } = useBekreftInvalid()
+    const { mutate: bekreftInvalid, isPending: mutationLoading, isError: mutationError } = useBekreftInvalid()
     const { control, handleSubmit } = useForm<FormData>()
     const { field, fieldState } = useController({
         name: 'bekreftetLest',
@@ -49,7 +48,7 @@ function InvalidApenSykmelding({ sykmelding }: InvalidApenSykmeldingProps): Reac
                 <SykmeldingSykmeldtSection sykmelding={sykmelding} />
             </div>
 
-            <form className="flex flex-col items-center" onSubmit={handleSubmit(bekreftInvalid)}>
+            <form className="flex flex-col items-center" onSubmit={handleSubmit(() => bekreftInvalid())}>
                 <div className="mb-8">
                     <ConfirmationPanel
                         {...field}
@@ -65,7 +64,9 @@ function InvalidApenSykmelding({ sykmelding }: InvalidApenSykmeldingProps): Reac
                 {mutationError && (
                     <div className="mb-4">
                         <Alert variant="error" role="alert" aria-live="polite">
-                            {mutationError.message}
+                            {' '}
+                            {/* TODO */}
+                            OOOPS! Noe gikk galt. Prøv igjen senere.
                         </Alert>
                     </div>
                 )}
@@ -78,24 +79,14 @@ function InvalidApenSykmelding({ sykmelding }: InvalidApenSykmeldingProps): Reac
     )
 }
 
-function useBekreftInvalid(): {
-    bekreftInvalid: () => void
-    mutationError: ApolloError | undefined
-    mutationLoading: boolean
-} {
+function useBekreftInvalid() {
     const sykmeldingId = useGetSykmeldingIdParam()
-    const [{ loading: mutationLoading, error: mutationError }, bekreftInvalid] = useChangeSykmeldingStatus(
+    return useChangeSykmeldingStatus(
         sykmeldingId,
         SykmeldingChangeStatus.BEKREFT_AVVIST,
         () => logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn } }),
         () => logAmplitudeEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
     )
-
-    return {
-        bekreftInvalid,
-        mutationLoading,
-        mutationError,
-    }
 }
 
 export default InvalidApenSykmelding

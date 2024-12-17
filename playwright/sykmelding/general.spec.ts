@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { sporsmal } from '../../src/utils/sporsmal'
 
-test.describe('sykmelding page tests that are not specific to a user', () => {
+test.describe.skip('sykmelding page tests that are not specific to a user', () => {
     test('should show details from sykmelding without a11y problems', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)

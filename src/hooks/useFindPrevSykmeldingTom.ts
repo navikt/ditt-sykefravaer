@@ -6,7 +6,7 @@ import { Periodetype, SykmeldingFragment } from 'queries'
 import { toDate } from '../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
 
-import useSykmeldinger from './useSykmeldingerApollo'
+import useSykmeldinger from './useSykmeldingerFlexBackend'
 
 function removeInsideSykmeldinger(sykmeldinger: readonly SykmeldingFragment[]) {
     return (sykmelding: SykmeldingFragment): boolean => {
@@ -35,11 +35,11 @@ export function useFindPrevSykmeldingTom(
 ): {
     previousSykmeldingTom: Date | null
     isLoading: boolean
-    error: Error | undefined
+    error: Error | null
 } {
-    const { data, error, loading } = useSykmeldinger()
+    const { data, error, isPending: loading } = useSykmeldinger()
 
-    if (loading || error || data?.sykmeldinger == null) {
+    if (loading || error || data == null) {
         return {
             previousSykmeldingTom: null,
             isLoading: loading,
@@ -47,8 +47,8 @@ export function useFindPrevSykmeldingTom(
         }
     }
 
-    const sendtSykmeldinger = data.sykmeldinger
-        .filter(removeInsideSykmeldinger(data.sykmeldinger))
+    const sendtSykmeldinger = data
+        .filter(removeInsideSykmeldinger(data))
         .filter(isSendtSykmelding)
         .filter((it) => it.id !== sykmelding.id)
         .filter((it) => it.sykmeldingStatus.arbeidsgiver?.orgnummer == valgtArbeidsgiverOrgnummer)
@@ -64,7 +64,7 @@ export function useFindPrevSykmeldingTom(
     return {
         previousSykmeldingTom: nearestTom ?? null,
         isLoading: false,
-        error: undefined,
+        error: null,
     }
 }
 

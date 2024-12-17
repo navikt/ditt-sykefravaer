@@ -1,9 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
-import { useQuery } from '@apollo/client'
 
-import { BrukerinformasjonFragment, Periodetype, SykmeldingFragment, TidligereArbeidsgivereByIdDocument } from 'queries'
+import { BrukerinformasjonFragment, Periodetype, SykmeldingFragment } from 'queries'
 
 import { useShouldArbeidssituasjonShow } from '../shared/sykmeldingUtils'
 import { getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
@@ -11,6 +10,7 @@ import { SectionWrapper } from '../../../FormComponents/FormStructure'
 import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../../../../utils/arbeidssituasjonUtils'
 import { FormValues } from '../../SendSykmeldingForm'
 import Spinner from '../../../Spinner/Spinner'
+import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeidsgivereById'
 
 import { ArbeidssituasjonInfo } from './ArbeidssituasjonInfo'
 import ArbeidssituasjonField from './ArbeidssituasjonField'
@@ -29,9 +29,7 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
     const { watch } = useFormContext<FormValues>()
     const arbeidssituasjon = watch('arbeidssituasjon')
 
-    const { data, loading, error } = useQuery(TidligereArbeidsgivereByIdDocument, {
-        variables: { sykmeldingId: sykmelding.id },
-    })
+    const { data, isPending: loading, error } = useTidligereArbeidsgivereById(sykmelding.id)
 
     const { shouldShowArbeidsgiverOrgnummer, shouldShowFisker } = useArbeidssituasjonSubSections()
     const harAvventendePeriode = sykmelding.sykmeldingsperioder.some((it) => it.type === Periodetype.AVVENTENDE)
@@ -70,8 +68,8 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
                             </DsLink>
                         </BodyShort>
                     </Alert>
-                ) : data?.tidligereArbeidsgivere && data.tidligereArbeidsgivere.length > 0 ? (
-                    <ArbeidsledigArbeidsgiverField arbeidsgivere={data.tidligereArbeidsgivere} />
+                ) : data && data.length > 0 ? (
+                    <ArbeidsledigArbeidsgiverField arbeidsgivere={data} />
                 ) : null)}
         </SectionWrapper>
     )

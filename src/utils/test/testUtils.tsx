@@ -1,35 +1,18 @@
 import { PropsWithChildren, ReactElement } from 'react'
 import { render, renderHook, screen, RenderOptions, RenderHookOptions, RenderHookResult } from '@testing-library/react'
-import { MockedProvider, MockedResponse, MockLink } from '@apollo/client/testing'
-import { ApolloLink, Cache } from '@apollo/client'
-import { onError } from '@apollo/client/link/error'
-import { logger } from '@navikt/next-logger'
 import { configureAxe } from 'vitest-axe'
 import { IToggle } from '@unleash/nextjs'
 
 import { FlagProvider } from '../../toggles/context'
-import { createInMemoryCache } from '../../fetching/apollo'
 
 import * as customQueries from './customQueries'
 
 type ProviderProps = {
-    readonly initialState?: Cache.WriteQueryOptions<unknown, unknown>[]
-    readonly mocks?: MockedResponse[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    readonly initialState?: any[]
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    readonly mocks?: any[]
 }
-
-const errorLoggingLink = onError(({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-        graphQLErrors.forEach(({ message, locations, path, extensions }) => {
-            if (extensions?.dontLog) {
-                logger.error('[GraphQL error]:' + `Message: ${message},` + `Location: ${locations},` + `Path: ${path}`)
-            }
-        })
-    }
-
-    if (networkError) {
-        logger.error(`[Network error]: ${networkError}`)
-    }
-})
 
 const testToggles: IToggle[] = [
     {
@@ -40,21 +23,8 @@ const testToggles: IToggle[] = [
     },
 ]
 
-function AllTheProviders({ children, initialState, mocks }: PropsWithChildren<ProviderProps>): ReactElement {
-    const cache = createInMemoryCache()
-
-    initialState?.forEach((it) => cache.writeQuery(it))
-
-    const mockLink = new MockLink(mocks ?? [])
-    const link = ApolloLink.from([errorLoggingLink, mockLink])
-
-    return (
-        <FlagProvider toggles={testToggles}>
-            <MockedProvider link={link} mocks={mocks} cache={cache}>
-                {children}
-            </MockedProvider>
-        </FlagProvider>
-    )
+function AllTheProviders({ children }: PropsWithChildren<ProviderProps>): ReactElement {
+    return <FlagProvider toggles={testToggles}>{children}</FlagProvider>
 }
 
 const customRender = (

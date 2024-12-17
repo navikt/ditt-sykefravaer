@@ -1,22 +1,25 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Brukerinformasjon } from 'queries'
-
 import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function useBrukerInformasjonById(sykmeldingId: string) {
+export default function useErUtenforVentetid(sykmeldingId: string) {
     const testpersonQuery = UseTestpersonQuery()
 
-    return useQuery<Brukerinformasjon, Error>({
-        queryKey: ['brukerinformasjon', sykmeldingId],
+    return useQuery<UtenforVentetid, Error>({
+        queryKey: ['er-utenfor-ventetid', sykmeldingId],
         queryFn: () =>
             fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
                     sykmeldingId +
-                    '/brukerinformasjon' +
+                    '/er-utenfor-ventetid' +
                     testpersonQuery.query(),
             ),
     })
+}
+
+interface UtenforVentetid {
+    erUtenforVentetid: boolean
+    oppfolgingsdato?: string
 }

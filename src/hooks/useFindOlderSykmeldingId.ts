@@ -4,7 +4,7 @@ import { SykmeldingFragment } from 'queries'
 
 import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from '../utils/sykmeldingUtils'
 
-import useSykmeldinger from './useSykmeldingerApollo'
+import useSykmeldinger from './useSykmeldingerFlexBackend'
 
 /**
  * Used by reduce to find the earliest sykmelding
@@ -21,11 +21,11 @@ export function toEarliestSykmelding(acc: SykmeldingFragment, value: SykmeldingF
 export function useUnsentSykmeldinger(): {
     unsentSykmeldinger: SykmeldingFragment[] | null
     isLoading: boolean
-    error: Error | undefined
+    error: Error | null
 } {
-    const { data, error, loading } = useSykmeldinger()
+    const { data, error, isPending: loading } = useSykmeldinger()
 
-    if (loading || error || data?.sykmeldinger == null) {
+    if (loading || error || data == null) {
         return {
             unsentSykmeldinger: null,
             isLoading: loading,
@@ -33,12 +33,12 @@ export function useUnsentSykmeldinger(): {
         }
     }
 
-    const relevantSykmeldinger = data?.sykmeldinger.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
+    const relevantSykmeldinger = data?.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
 
     return {
         unsentSykmeldinger: relevantSykmeldinger,
         isLoading: false,
-        error: undefined,
+        error: null,
     }
 }
 
@@ -46,7 +46,7 @@ function useFindOlderSykmeldingId(sykmelding: SykmeldingFragment | undefined): {
     earliestSykmeldingId: string | null
     olderSykmeldingCount: number
     isLoading: boolean
-    error: Error | undefined
+    error: Error | null
 } {
     const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger()
 
@@ -72,7 +72,7 @@ function useFindOlderSykmeldingId(sykmelding: SykmeldingFragment | undefined): {
         earliestSykmeldingId: earliestId === sykmelding.id ? null : earliestId,
         olderSykmeldingCount: unsentExceptOverlappingDates.length,
         isLoading: false,
-        error: undefined,
+        error: null,
     }
 }
 
