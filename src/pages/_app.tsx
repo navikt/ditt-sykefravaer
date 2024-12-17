@@ -12,7 +12,7 @@ import { ApolloProvider } from '@apollo/client'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
 import { basePath } from '../utils/environment'
-import { LabsWarning } from '../components/labs-warning/LabsWarning'
+// import { LabsWarning } from '../components/labs-warning/LabsWarning'
 import { getFaro, initInstrumentation, pinoLevelToFaroLevel } from '../faro/faro'
 import { FlagProvider } from '../toggles/context'
 import { ServerSidePropsResult } from '../auth/beskyttetSide'
@@ -61,7 +61,7 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
                 <ApolloProvider client={apolloClient}>
                     <QueryClientProvider client={queryClient}>
                         <div id="root" className="mx-auto max-w-2xl p-4 pb-32">
-                            <LabsWarning />
+                            {/*<LabsWarning />*/}
                             <Component {...pageProps} />
                         </div>
                     </QueryClientProvider>
