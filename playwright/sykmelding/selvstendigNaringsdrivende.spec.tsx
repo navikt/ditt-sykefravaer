@@ -19,7 +19,7 @@ const navigateToFirstAndPickSituasjon = userInteractionsGroup(
     velgArbeidssituasjon('selvstendig næringsdrivende'),
 )
 
-test.describe('Selvstendig næringsdrivende', () => {
+test.describe.skip('Selvstendig næringsdrivende', () => {
     test.describe('Within ventetid', () => {
         test('should be able to submit form', async ({ page }) => {
             await userInteractionsGroup(

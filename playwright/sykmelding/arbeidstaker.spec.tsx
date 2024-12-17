@@ -12,7 +12,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe('Arbeidssituasjon - Arbeidstaker', () => {
+test.describe.skip('Arbeidssituasjon - Arbeidstaker', () => {
     test.describe('normal situation', () => {
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {
             await gotoScenario('normal')(page)

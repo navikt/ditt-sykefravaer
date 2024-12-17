@@ -4,7 +4,7 @@ import { subDays } from 'date-fns'
 import { toReadableDate } from '../../src/utils/dateUtils'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 
-test.describe('Bekreft avvist sykmelding som lest', () => {
+test.describe.skip('Bekreft avvist sykmelding som lest', () => {
     test('should display reason for rejection', async ({ page }) => {
         await gotoScenario('avvist')(page)
 

@@ -10,7 +10,7 @@ import {
 } from '../../../../utils/arbeidssituasjonUtils'
 import { hasCompletedEgenmeldingsdager } from '../../../../utils/egenmeldingsdagerUtils'
 import { FormValues } from '../../SendSykmeldingForm'
-import useSykmeldinger from '../../../../hooks/useSykmeldingerApollo'
+import useSykmeldinger from '../../../../hooks/useSykmeldingerFlexBackend'
 import { toDate } from '../../../../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
@@ -100,11 +100,11 @@ export function useShouldShowSeveralArbeidsgivereInfo(
 ): {
     shouldAskForSeveralSykmeldinger: boolean | null
     isLoading: boolean
-    error: Error | undefined
+    error: Error | null
 } {
-    const { data, error, loading } = useSykmeldinger()
+    const { data, error, isPending: loading } = useSykmeldinger()
 
-    if (loading || error || data?.sykmeldinger == null) {
+    if (loading || error || data == null) {
         return {
             shouldAskForSeveralSykmeldinger: null,
             isLoading: loading,
@@ -116,8 +116,8 @@ export function useShouldShowSeveralArbeidsgivereInfo(
         (arbeidsgiver) => arbeidsgiver.aktivtArbeidsforhold,
     )
 
-    const sykmeldingerWithSamePeriod: SykmeldingFragment[] = data?.sykmeldinger
-        .filter((it) => it.id !== sykmelding.id)
+    const sykmeldingerWithSamePeriod: SykmeldingFragment[] = data
+        ?.filter((it) => it.id !== sykmelding.id)
         .filter((it) => isFomTheSameAndTomTheSame(it, sykmelding))
 
     const isArbeidsgiverGreaterThenSykmelding: boolean =

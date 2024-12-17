@@ -1,32 +1,34 @@
-import { MutationResult, useMutation } from '@apollo/client'
+import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
-import { logger } from '@navikt/next-logger'
 import { useRef } from 'react'
 
-import {
-    ChangeSykmeldingStatusDocument,
-    ChangeSykmeldingStatusMutation,
-    SendSykmeldingDocument,
-    SendSykmeldingMutation,
-    SykmeldingChangeStatus,
-} from 'queries'
+import { ChangeSykmeldingStatusMutation, SendSykmeldingMutation, SykmeldingChangeStatus } from 'queries'
 
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { mapToSendSykmeldingValues } from '../utils/toSendSykmeldingUtils'
+import { fetchJsonMedRequestId } from '../utils/fetch'
 
 export function useChangeSykmeldingStatus(
     sykmeldingId: string,
     status: SykmeldingChangeStatus,
     onCompleted: () => void,
     onError: () => void,
-): [MutationResult<ChangeSykmeldingStatusMutation>, () => void] {
+) {
     const dedupeRef = useRef(false)
-    const [submit, result] = useMutation(ChangeSykmeldingStatusDocument, {
-        variables: {
-            sykmeldingId,
-            status,
+
+    return useMutation<ChangeSykmeldingStatusMutation, unknown, void>({
+        mutationFn: async () => {
+            return fetchJsonMedRequestId(
+                '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' + sykmeldingId + '/change-status',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(status),
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            )
         },
-        onCompleted: () => {
+
+        onSuccess: () => {
             dedupeRef.current = false
             onCompleted()
             window.scrollTo(0, 0)
@@ -36,45 +38,32 @@ export function useChangeSykmeldingStatus(
             onError()
         },
     })
-
-    return [
-        result,
-        () => {
-            if (dedupeRef.current) {
-                logger.warn(`Duplicate submit prevented for ${sykmeldingId}`)
-                return
-            }
-
-            logger.info(`Client: Changing status for sykmelding ${sykmeldingId} to ${status}`)
-            dedupeRef.current = true
-            submit()
-        },
-    ]
 }
 
 export function useSendSykmelding(
     sykmeldingId: string,
     onCompleted: (values: FormValues) => void,
     onError: () => void,
-): [MutationResult<SendSykmeldingMutation>, (values: FormValues) => void] {
+) {
     const router = useRouter()
-    const [submit, result] = useMutation(SendSykmeldingDocument, {
-        onCompleted: async () => {
+
+    return useMutation<SendSykmeldingMutation, unknown, FormValues>({
+        mutationFn: async (values) => {
+            return fetchJsonMedRequestId(
+                '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' + sykmeldingId + '/send',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(mapToSendSykmeldingValues(values)),
+                    headers: { 'Content-Type': 'application/json' },
+                },
+            )
+        },
+        onSuccess: async (_, variables) => {
             await router.push(`/sykmelding/${sykmeldingId}/kvittering`, undefined, { scroll: true })
+            onCompleted(variables)
         },
         onError: () => {
             onError()
         },
     })
-
-    return [
-        result,
-        async (values) => {
-            logger.info(`Client: Submitting sykmelding ${sykmeldingId}`)
-
-            await submit({ variables: { sykmeldingId, values: mapToSendSykmeldingValues(values) } })
-
-            onCompleted(values)
-        },
-    ]
 }

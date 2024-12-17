@@ -1,4 +1,5 @@
 import { ServerResponse } from 'http'
+import { Readable } from 'stream'
 
 import { serialize } from 'cookie'
 import { v4 as uuidv4 } from 'uuid'
@@ -6,10 +7,14 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from 'dayjs'
 import { logger } from '@navikt/next-logger'
 import { nextleton } from 'nextleton'
+import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
+
+import { SykmeldingChangeStatus } from 'queries'
 
 import { cleanPathForMetric } from '../../metrics'
 import { getSessionId } from '../../utils/userSessionId'
 import mockDb from '../../server/graphql/mock-db'
+import { SendSykmeldingValues } from '../../server/graphql/resolver-types.generated'
 
 import { Persona, testpersoner } from './testperson'
 
@@ -65,6 +70,13 @@ export function hentTestperson(req: NextApiRequest, res: NextApiResponse): Perso
     return getSession(req.cookies, res).testpersoner[nokkel(req)]
 }
 
+async function parseRequest<T>(req: NextApiRequest): Promise<T> {
+    const stream = Readable.from(req)
+    const buffer = await stream2buffer(stream)
+    const jsonString = buffer.toString()
+    return JSON.parse(jsonString)
+}
+
 async function sleep(ms: number): Promise<void> {
     return new Promise((resolve) => setTimeout(resolve, ms))
 }
@@ -116,9 +128,17 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             return sendJson(mockDb().get(sessionId).sykmeldinger())
 
         case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]':
-            const pathNumber1 = pathNumber(3)
-            console.log('sykmeldingid: ' + pathNumber1)
-            return sendJson(mockDb().get(sessionId).sykmelding(pathNumber1!))
+            return sendJson(mockDb().get(sessionId).sykmelding(pathNumber(3)!))
+
+        case 'POST /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]/send': {
+            const body = await parseRequest<SendSykmeldingValues>(req)
+            return sendJson(mockDb().get(sessionId).sendSykmelding(pathNumber(3)!, body))
+        }
+
+        case 'POST /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]/change-status': {
+            const body = await parseRequest<SykmeldingChangeStatus>(req)
+            return sendJson(mockDb().get(sessionId).changeSykmeldingStatus(pathNumber(3)!, body))
+        }
 
         case 'GET /api/sykepengedager-informasjon/api/v1/sykepenger/maxdate':
             return sendJson(testperson.maxdato)

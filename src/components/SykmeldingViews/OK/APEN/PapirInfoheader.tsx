@@ -12,7 +12,7 @@ const skjemanavn = 'avbryt åpen papirsykmelding'
 function PapirInfoheader(): ReactElement {
     const harIkkeGittVidereId = 'har-ikke-gitt-videre'
     const sykmeldingId = useGetSykmeldingIdParam()
-    const [{ loading, error }, avbryt] = useChangeSykmeldingStatus(
+    const avbrytMutation = useChangeSykmeldingStatus(
         sykmeldingId,
         SykmeldingChangeStatus.AVBRYT,
         () => logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn } }),
@@ -53,11 +53,11 @@ function PapirInfoheader(): ReactElement {
                         </Alert>
                     </div>
 
-                    <Button loading={loading} onClick={() => avbryt()}>
+                    <Button loading={avbrytMutation.isPending} onClick={() => avbrytMutation.mutate()}>
                         Avbryt sykmeldingen
                     </Button>
 
-                    {error && (
+                    {avbrytMutation.isError && (
                         <div className="mt-8">
                             <Alert variant="error">
                                 En feil oppstod som gjorde at sykmeldingen ikke kunne avbrytes. Prøv igjen senere.

@@ -8,7 +8,6 @@ import { range } from 'remeda'
 
 import { RegelStatus, StatusEvent, SykmeldingFragment } from 'queries'
 
-import useSykmeldingById from '../../../hooks/useSykmeldingById'
 import StatusBanner from '../../../components/StatusBanner/StatusBanner'
 import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
@@ -23,14 +22,15 @@ import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
+import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
-    const { data, error, loading } = useSykmeldingById(sykmeldingId)
+    const { data, error, isPending } = useSykmeldingByIdRest(sykmeldingId)
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
-    if (loading) {
+    if (isPending) {
         return (
             <KvitteringWrapper>
                 <KvitteringSkeletonTop>
@@ -50,7 +50,7 @@ function SykmeldingkvitteringPage(): ReactElement {
         )
     }
 
-    if (data?.sykmelding == null) {
+    if (data == null) {
         logger.error(`Sykmelding with id ${sykmeldingId} is undefined`)
         return (
             <KvitteringWrapper>
@@ -62,14 +62,14 @@ function SykmeldingkvitteringPage(): ReactElement {
     }
 
     if (
-        data.sykmelding.behandlingsutfall.status === RegelStatus.INVALID ||
-        ![StatusEvent.SENDT, StatusEvent.BEKREFTET].includes(data.sykmelding.sykmeldingStatus.statusEvent)
+        data.behandlingsutfall.status === RegelStatus.INVALID ||
+        ![StatusEvent.SENDT, StatusEvent.BEKREFTET].includes(data.sykmeldingStatus.statusEvent)
     ) {
         logger.error(
-            `Trying to display kvittering for sykmelding with id: ${sykmeldingId}, but the status is wrong, sykmeldingstatus: ${data.sykmelding.sykmeldingStatus.statusEvent}, behandlingsutfall: ${data.sykmelding.behandlingsutfall.status}`,
+            `Trying to display kvittering for sykmelding with id: ${sykmeldingId}, but the status is wrong, sykmeldingstatus: ${data.sykmeldingStatus.statusEvent}, behandlingsutfall: ${data.behandlingsutfall.status}`,
         )
         return (
-            <KvitteringWrapper sykmelding={data.sykmelding}>
+            <KvitteringWrapper sykmelding={data}>
                 <GuidePanel poster>
                     <Heading size="medium" level="2" spacing>
                         Klarer ikke å vise kvittering
@@ -91,33 +91,31 @@ function SykmeldingkvitteringPage(): ReactElement {
     }
 
     return (
-        <KvitteringWrapper sykmelding={data.sykmelding}>
+        <KvitteringWrapper sykmelding={data}>
             <div className="mb-8">
                 <StatusBanner
-                    sykmeldingStatus={data.sykmelding.sykmeldingStatus}
-                    behandlingsutfall={data.sykmelding.behandlingsutfall}
+                    sykmeldingStatus={data.sykmeldingStatus}
+                    behandlingsutfall={data.behandlingsutfall}
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
 
             <div className="mb-8">
                 <StatusInfo
-                    sykmeldingStatus={data.sykmelding.sykmeldingStatus}
-                    sykmeldingsperioder={data.sykmelding.sykmeldingsperioder}
-                    sykmeldingMerknader={data.sykmelding.merknader ?? []}
+                    sykmeldingStatus={data.sykmeldingStatus}
+                    sykmeldingsperioder={data.sykmeldingsperioder}
+                    sykmeldingMerknader={data.merknader ?? []}
                 />
             </div>
 
             <div className="mb-8">
                 <SykmeldingSykmeldtSection
-                    sykmelding={data.sykmelding}
-                    shouldShowEgenmeldingsdagerInfo={data.sykmelding.sykmeldingStatus.statusEvent === StatusEvent.SENDT}
+                    sykmelding={data}
+                    shouldShowEgenmeldingsdagerInfo={data.sykmeldingStatus.statusEvent === StatusEvent.SENDT}
                 />
             </div>
 
-            {data.sykmelding.sykmeldingStatus.statusEvent === 'SENDT' && (
-                <SykmeldingArbeidsgiverExpansionCard sykmelding={data.sykmelding} />
-            )}
+            {data.sykmeldingStatus.statusEvent === 'SENDT' && <SykmeldingArbeidsgiverExpansionCard sykmelding={data} />}
 
             <HintToNextOlderSykmelding />
             {flexjarToggle.enabled && <Flexjar feedbackId="sykmelding-kvittering" />}

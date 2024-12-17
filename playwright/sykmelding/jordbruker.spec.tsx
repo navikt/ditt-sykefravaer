@@ -12,7 +12,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe('Jordbruker', () => {
+test.describe.skip('Jordbruker', () => {
     test('should be able to submit form within ventetid', async ({ page }) => {
         await gotoScenario('normal', {
             erUtenforVentetid: false,

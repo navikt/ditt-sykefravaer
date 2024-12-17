@@ -6,7 +6,12 @@ import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 
 const { serverRuntimeConfig } = getConfig()
 
-const tillatteApier = ['GET /api/v1/sykmeldinger', 'GET /api/v1/sykmeldinger/[uuid]']
+const tillatteApier = [
+    'GET /api/v1/sykmeldinger',
+    'GET /api/v1/sykmeldinger/[uuid]',
+    'POST /api/v1/sykmeldinger/[uuid]/send',
+    'POST /api/v1/sykmeldinger/[uuid]/changestatus',
+]
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     await proxyKallTilBackend({

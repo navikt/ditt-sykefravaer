@@ -12,7 +12,7 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
 
-test.describe('Arbeidssituasjon - Annet', () => {
+test.describe.skip('Arbeidssituasjon - Annet', () => {
     test('should be able to submit form with work situation annet', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),

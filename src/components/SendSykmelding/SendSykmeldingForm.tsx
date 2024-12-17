@@ -82,7 +82,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
         },
     })
     const brukerinformasjonData = useBrukerinformasjonById(sykmeldingId)
-    const [sendSykmeldingResult, sendSykmelding] = useSendSykmelding(
+    const sendSmMut = useSendSykmelding(
         sykmeldingId,
         (values) => {
             logAmplitudeEvent(
@@ -125,11 +125,16 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
         <FormProvider {...form}>
             {autofillEnabled() && <AutoFillerDevTools sykmeldingId={sykmeldingId} />}
             <form
-                onSubmit={form.handleSubmit(sendSykmelding, () => {
-                    requestAnimationFrame(() => {
-                        errorSectionRef.current?.focus()
-                    })
-                })}
+                onSubmit={form.handleSubmit(
+                    () => {
+                        sendSmMut.mutate(form.getValues())
+                    },
+                    () => {
+                        requestAnimationFrame(() => {
+                            errorSectionRef.current?.focus()
+                        })
+                    },
+                )}
             >
                 <OpplysningerRiktigeSection />
                 <ArbeidssituasjonSection
@@ -139,7 +144,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
                 <ErrorSection ref={errorSectionRef} />
                 <ActionSection
                     sykmeldingId={sykmeldingId}
-                    sendResult={sendSykmeldingResult}
+                    sendResult={sendSmMut}
                     onSykmeldingAvbrutt={onSykmeldingAvbrutt}
                 />
                 {process.env.NODE_ENV !== 'production' && <FormDevTools />}
