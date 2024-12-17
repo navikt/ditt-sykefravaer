@@ -1,13 +1,22 @@
-import { useQuery, QueryResult } from '@apollo/client'
+import { useQuery } from '@tanstack/react-query'
 
-import { BrukerinformasjonDocument, BrukerinformasjonQuery, BrukerinformasjonQueryVariables } from 'queries'
+import { Brukerinformasjon } from 'queries'
 
-function useBrukerInformasjonById(
-    sykmeldingId: string,
-): QueryResult<BrukerinformasjonQuery, BrukerinformasjonQueryVariables> {
-    return useQuery(BrukerinformasjonDocument, {
-        variables: { sykmeldingId: sykmeldingId },
+import { fetchJsonMedRequestId } from '../utils/fetch'
+
+import { UseTestpersonQuery } from './useTestpersonQuery'
+
+export default function useBrukerInformasjonById(sykmeldingId: string) {
+    const testpersonQuery = UseTestpersonQuery()
+
+    return useQuery<Brukerinformasjon, Error>({
+        queryKey: ['brukerinformasjon', sykmeldingId],
+        queryFn: () =>
+            fetchJsonMedRequestId(
+                '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
+                    sykmeldingId +
+                    '/brukerinformasjon' +
+                    testpersonQuery.query(),
+            ),
     })
 }
-
-export default useBrukerInformasjonById

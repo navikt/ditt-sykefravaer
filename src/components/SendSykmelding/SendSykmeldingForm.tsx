@@ -108,7 +108,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
 
     useWarnUnsavedPopup(form.formState.isDirty && !form.formState.isSubmitSuccessful)
 
-    if (brukerinformasjonData.loading) {
+    if (brukerinformasjonData.isLoading) {
         return <Spinner headline="Henter arbeidsforhold" />
     }
 
@@ -137,10 +137,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
                 )}
             >
                 <OpplysningerRiktigeSection />
-                <ArbeidssituasjonSection
-                    sykmelding={sykmelding}
-                    brukerinformasjon={brukerinformasjonData.data.brukerinformasjon}
-                />
+                <ArbeidssituasjonSection sykmelding={sykmelding} brukerinformasjon={brukerinformasjonData.data} />
                 <ErrorSection ref={errorSectionRef} />
                 <ActionSection
                     sykmeldingId={sykmeldingId}

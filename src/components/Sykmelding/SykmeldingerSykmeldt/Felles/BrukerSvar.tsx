@@ -260,7 +260,7 @@ function ArbeidsgiverOrgnummerAnswer({
     const { data } = useBrukerInformasjonById(sykmeldingId)
 
     const relevantArbeidsgiverNavn: string | null =
-        data?.brukerinformasjon.arbeidsgivere.find((it) => it.orgnummer === response.svar)?.navn ?? null
+        data?.arbeidsgivere.find((it) => it.orgnummer === response.svar)?.navn ?? null
     const text = relevantArbeidsgiverNavn != null ? `${relevantArbeidsgiverNavn} (${response.svar})` : response.svar
 
     return (

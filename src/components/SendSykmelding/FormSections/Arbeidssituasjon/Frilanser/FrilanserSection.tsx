@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { useQuery } from '@apollo/client'
 import { Alert } from '@navikt/ds-react'
 
-import { SykmeldingErUtenforVentetidDocument, YesOrNo } from 'queries'
+import { YesOrNo } from 'queries'
 
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
+import useErUtenforVentetid from '../../../../../hooks/useErUtenforVentetid'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
@@ -23,9 +23,7 @@ interface Props {
 function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactElement | null {
     const { watch } = useFormContext<FormValues>()
     const harBruktEgenmelding = watch('harBruktEgenmelding')
-    const { data, loading, error } = useQuery(SykmeldingErUtenforVentetidDocument, {
-        variables: { sykmeldingId },
-    })
+    const { data, isPending: loading, error } = useErUtenforVentetid(sykmeldingId)
 
     const shouldShowSummaryForFrilanser = useShouldShowSummaryForFrilanser()
     if (loading) {
@@ -45,11 +43,11 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
         )
     }
 
-    if (data.sykmeldingUtenforVentetid.erUtenforVentetid) {
+    if (data.erUtenforVentetid) {
         return null
     }
 
-    const oppfolgingsdato = data?.sykmeldingUtenforVentetid.oppfolgingsdato || sykmeldingStartDato
+    const oppfolgingsdato = data?.oppfolgingsdato || sykmeldingStartDato
     const formValues = watch()
 
     return (

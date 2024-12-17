@@ -23,7 +23,7 @@ function AutoFillerDevTools({ sykmeldingId }: Props): ReactElement | null {
             erOpplysningeneRiktige: 'YES',
             arbeidssituasjon: 'ARBEIDSTAKER',
             arbeidsgiverOrgnummer:
-                extraFormDataQuery.data?.brukerinformasjon.arbeidsgivere[0].orgnummer ??
+                extraFormDataQuery.data?.arbeidsgivere[0].orgnummer ??
                 raise('Tried to devtool-auto-fill without arbeidsgiver'),
             riktigNarmesteLeder: 'YES',
             egenmeldingsdager: [{ harPerioder: 'NO', datoer: null, hasClickedVidere: null }],
@@ -44,7 +44,7 @@ function AutoFillerDevTools({ sykmeldingId }: Props): ReactElement | null {
                 document.getElementById(key)?.scrollIntoView({ behavior: 'smooth', block: 'center' })
             }, 250 * index)
         })
-    }, [extraFormDataQuery.data?.brukerinformasjon.arbeidsgivere, setValue])
+    }, [extraFormDataQuery.data?.arbeidsgivere, setValue])
 
     // enable when user presses Y, remember to clean up effects
     useEffect(() => {
