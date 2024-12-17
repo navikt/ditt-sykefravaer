@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
@@ -47,6 +47,8 @@ export function useSendSykmelding(
 ) {
     const router = useRouter()
 
+    const queryClient = useQueryClient()
+
     return useMutation<SendSykmeldingMutation, unknown, FormValues>({
         mutationFn: async (values) => {
             return fetchJsonMedRequestId(
@@ -59,6 +61,15 @@ export function useSendSykmelding(
             )
         },
         onSuccess: async (_, variables) => {
+            await queryClient.invalidateQueries({
+                queryKey: ['sykmeldinger-flex', sykmeldingId],
+            })
+            queryClient
+                .invalidateQueries({
+                    queryKey: ['sykmeldinger-flex'],
+                })
+                .catch()
+
             await router.push(`/sykmelding/${sykmeldingId}/kvittering`, undefined, { scroll: true })
             onCompleted(variables)
         },
