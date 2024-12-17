@@ -1,14 +1,8 @@
 import React, { ReactElement } from 'react'
 import { BoatIcon, BriefcaseIcon, CheckmarkCircleIcon, TasklistIcon, XMarkOctagonIcon } from '@navikt/aksel-icons'
 import { ExpansionCard } from '@navikt/ds-react'
-import { useQuery } from '@apollo/client'
 
-import {
-    BrukerSvarFragment,
-    JaEllerNei,
-    SykmeldingErUtenforVentetidDocument,
-    TidligereArbeidsgivereByIdDocument,
-} from 'queries'
+import { BrukerSvarFragment, JaEllerNei } from 'queries'
 
 import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { arbeidsSituasjonEnumToText, uriktigeOpplysningerEnumToText } from '../../../../utils/sporsmal'
@@ -18,6 +12,8 @@ import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../../../../utils/arbeidssituasjonUtils'
 import useBrukerInformasjonById from '../../../../hooks/useBrukerinformasjonById'
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
+import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeidsgivereById'
+import useErUtenforVentetid from '../../../../hooks/useErUtenforVentetid'
 
 import { mapFormValuesToBrukerSvar, mapFrilanserFormValuesToBrukerSvar, SporsmaltekstMetadata } from './BrukerSvarUtils'
 
@@ -151,13 +147,10 @@ function ArbeidsledigFraOrgnummerAnswer({
     sykmeldingId: string
 }): ReactElement | null {
     // This loading state will never be seen, so we can ignore it
-    const { data } = useQuery(TidligereArbeidsgivereByIdDocument, {
-        variables: { sykmeldingId },
-    })
+    const { data } = useTidligereArbeidsgivereById(sykmeldingId)
     if (response == null || !data) return null
 
-    const relevantArbeidsgiverNavn: string | null =
-        data?.tidligereArbeidsgivere?.find((it) => it.orgnummer === response.svar)?.orgNavn ?? null
+    const relevantArbeidsgiverNavn: string | null = data?.find((it) => it.orgnummer === response.svar)?.orgNavn ?? null
     const text = relevantArbeidsgiverNavn != null ? `${relevantArbeidsgiverNavn} (${response.svar})` : response.svar
 
     return (
@@ -177,15 +170,13 @@ function FrilanserNaeringsdrivendeBrukerSvar({
     sykmeldingId: string
 }): React.ReactElement | null {
     // This loading state will never be seen, so we can ignore it
-    const { data } = useQuery(SykmeldingErUtenforVentetidDocument, {
-        variables: { sykmeldingId },
-    })
+    const { data } = useErUtenforVentetid(sykmeldingId)
 
     if (!data) {
         return null
     }
 
-    const oppfolgingsdato = data.sykmeldingUtenforVentetid.oppfolgingsdato || sykmeldingStartDato
+    const oppfolgingsdato = data.oppfolgingsdato || sykmeldingStartDato
     const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, oppfolgingsdato)
 
     return (
