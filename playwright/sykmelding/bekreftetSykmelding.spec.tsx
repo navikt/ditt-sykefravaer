@@ -9,7 +9,7 @@ import {
     velgArbeidssituasjon,
 } from '../utils/user-actions'
 
-test.describe.skip('Bekreftet sykmelding', () => {
+test.describe('Bekreftet sykmelding', () => {
     test('should reopen brekreftet sykmelding', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)

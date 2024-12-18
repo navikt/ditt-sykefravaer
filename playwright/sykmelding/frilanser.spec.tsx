@@ -13,7 +13,7 @@ import {
 import { getRadioInGroup, userInteractionsGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe.skip('Frilanser', () => {
+test.describe('Frilanser', () => {
     test.describe('Within ventetid', () => {
         test('should be able to submit form with egenmeldingsperiode and forsikring', async ({ page }) => {
             await userInteractionsGroup(

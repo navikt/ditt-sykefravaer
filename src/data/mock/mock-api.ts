@@ -136,6 +136,9 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere':
             return sendJson(mockDb().get(sessionId).tidligereArbeidsgivere())
 
+        case 'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]/er-utenfor-ventetid':
+            return sendJson(mockDb().get(sessionId).sykeldingErUtenforVentetid())
+
         case 'POST /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/[uuid]/send': {
             const body = await parseRequest<SendSykmeldingValues>(req)
             return sendJson(mockDb().get(sessionId).sendSykmelding(pathNumber(3)!, body))
