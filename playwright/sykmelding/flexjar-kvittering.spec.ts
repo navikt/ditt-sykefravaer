@@ -2,7 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from '../fixtures'
 
-test.describe.skip('Sykmelding kvittering', () => {
+test.describe('Sykmelding kvittering', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer/sykmelding')
         const tidligereSykmeldinger = page.getByText('Tidligere sykmeldinger')

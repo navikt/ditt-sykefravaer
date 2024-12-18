@@ -13,7 +13,7 @@ import {
 import { getCheckboxInGroup, getRadioInGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe.skip('Uriktige opplysninger', () => {
+test.describe('Uriktige opplysninger', () => {
     test('should show error message when periode is wrong', async ({ page }) => {
         await opplysningNotCorrect('Periode')(page)
         await expectNotUsable(page)

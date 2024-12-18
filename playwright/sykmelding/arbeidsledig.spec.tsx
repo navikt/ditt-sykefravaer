@@ -15,7 +15,7 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
 
-test.describe.skip('Arbeidssituasjon - Arbeidsledig', () => {
+test.describe('Arbeidssituasjon - Arbeidsledig', () => {
     test('should be able to submit form with work situation arbeidsledig, without arbeidsgiver', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal', { antallArbeidsgivere: 0 }),
