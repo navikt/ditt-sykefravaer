@@ -102,7 +102,7 @@ function SykmeldingPicker() {
             <ul className={cn('mt-2 flex flex-col gap-2', {})}>
                 {R.entries(simpleScenarios).map(([key, { description }]) => {
                     return (
-                        <li key={key}>
+                        <li key={key} className="list-none">
                             <LinkPanel
                                 as="button"
                                 onClick={handleChangeUserScenario(key)}
@@ -120,7 +120,7 @@ function SykmeldingPicker() {
             <ul className={cn('mt-2 flex flex-col gap-2', {})}>
                 {R.entries(otherScenarios).map(([key, { description }]) => {
                     return (
-                        <li key={key}>
+                        <li key={key} className="list-none">
                             <LinkPanel
                                 as="button"
                                 onClick={handleChangeUserScenario(key)}
