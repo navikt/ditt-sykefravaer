@@ -1,10 +1,13 @@
-import { BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
-import React, { CSSProperties, useCallback, useRef, useState } from 'react'
+import { Alert, BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
+import React, { CSSProperties, ReactElement, useCallback, useRef, useState } from 'react'
 import { SandboxIcon } from '@navikt/aksel-icons'
+import * as R from 'remeda'
 
+import { cn } from '../../utils/tw-utils'
 import { PersonaData, PersonaGroupKey, testpersonerGruppert } from '../../data/mock/testperson'
+import { otherScenarios, Scenarios, simpleScenarios } from '../../server/graphql/mock-db/scenarios'
 
-export default function Person() {
+export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding' }): ReactElement {
     const [showHint, setShowHint] = useState(false)
     const buttonRef = useRef<HTMLButtonElement>(null)
     const [openState, setOpenState] = useState(false)
@@ -60,10 +63,76 @@ export default function Person() {
                 }}
             >
                 <Modal.Body>
-                    <PersonPicker />
+                    <Button
+                        type="button"
+                        variant="secondary"
+                        onClick={() => {
+                            document.cookie = 'mock-session= ; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+                            document.cookie = 'next-session-id= ; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+                            window.location.reload()
+                        }}
+                    >
+                        Reset testdata
+                    </Button>
+                    {side === 'dittsykefravaer' && <PersonPicker />}
+                    {side === 'sykmelding' && <SykmeldingPicker />}
                 </Modal.Body>
             </Modal>
         </>
+    )
+}
+
+function SykmeldingPicker() {
+    const handleChangeUserScenario = (scenario: Scenarios) => async () => {
+        const searchParams = new URLSearchParams({
+            scenario,
+        })
+
+        window.location.href = `/syk/sykefravaer/sykmelding/?${searchParams.toString()}`
+    }
+
+    return (
+        <div>
+            <Alert variant="warning" size="small" className="mt-2" inline>
+                Endring av scenario vil slette eventuelle innsendinger og endringer du har gjort.
+            </Alert>
+            <Heading size="small" level="4" className="mt-2">
+                Vanlige scenarioer
+            </Heading>
+            <ul className={cn('mt-2 flex flex-col gap-2', {})}>
+                {R.entries(simpleScenarios).map(([key, { description }]) => {
+                    return (
+                        <li key={key}>
+                            <LinkPanel
+                                as="button"
+                                onClick={handleChangeUserScenario(key)}
+                                className="w-full text-start"
+                            >
+                                {description}
+                            </LinkPanel>
+                        </li>
+                    )
+                })}
+            </ul>
+            <Heading size="small" level="4" className="mt-2">
+                Andre scenarioer
+            </Heading>
+            <ul className={cn('mt-2 flex flex-col gap-2', {})}>
+                {R.entries(otherScenarios).map(([key, { description }]) => {
+                    return (
+                        <li key={key}>
+                            <LinkPanel
+                                as="button"
+                                onClick={handleChangeUserScenario(key)}
+                                className="w-full text-start"
+                            >
+                                {description}
+                            </LinkPanel>
+                        </li>
+                    )
+                })}
+            </ul>
+        </div>
     )
 }
 
@@ -72,17 +141,6 @@ function PersonPicker() {
 
     return (
         <>
-            <Button
-                type="button"
-                variant="secondary"
-                onClick={() => {
-                    document.cookie = 'mock-session= ; expires = Thu, 01 Jan 1970 00:00:00 GMT; path=/'
-                    window.location.reload()
-                }}
-            >
-                Reset testdata
-            </Button>
-
             {Object.entries(testpersoner).map(([gruppe, personer]) => (
                 <PersonGruppeVisning gruppe={gruppe as PersonaGroupKey} personer={personer} key={gruppe} />
             ))}

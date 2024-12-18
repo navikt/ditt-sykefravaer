@@ -1,5 +1,8 @@
 import { BodyLong, Heading, Skeleton } from '@navikt/ds-react'
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
+
+import Person from '../person/Person'
+import { isMockBackend, isOpplaering } from '../../utils/environment'
 
 type HeaderNormalProps = {
     title: string
@@ -13,8 +16,10 @@ type HeaderSkeletonProps = {
 export type HeaderProps = HeaderNormalProps | HeaderSkeletonProps
 
 function Header(props: HeaderProps): ReactElement {
+    const kanVelgePerson = isMockBackend() || isOpplaering()
+
     return (
-        <div className="mx-auto flex max-w-2xl items-center p-4">
+        <div className="mt-4 flex items-center justify-between pb-8 ">
             <div>
                 {!('skeleton' in props) ? (
                     <Heading level="1" size="xlarge">
@@ -37,6 +42,7 @@ function Header(props: HeaderProps): ReactElement {
                     </Skeleton>
                 )}
             </div>
+            {kanVelgePerson && <Person side="sykmelding" />}
         </div>
     )
 }

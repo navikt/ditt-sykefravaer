@@ -548,12 +548,6 @@ export type Sykmelding = {
     readonly utenlandskSykmelding?: Maybe<UtenlandskSykmelding>
 }
 
-export enum SykmeldingCategory {
-    OLDER = 'OLDER',
-    PROCESSING = 'PROCESSING',
-    UNSENT = 'UNSENT',
-}
-
 export enum SykmeldingChangeStatus {
     AVBRYT = 'AVBRYT',
     BEKREFT_AVVIST = 'BEKREFT_AVVIST',

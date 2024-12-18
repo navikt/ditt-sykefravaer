@@ -20,7 +20,7 @@ export const Banner = ({ tittel, utenIkon }: { tittel: string; utenIkon?: boolea
                     {tittel}
                 </Heading>
             </div>
-            {kanVelgePerson && <Person />}
+            {kanVelgePerson && <Person side="dittsykefravaer" />}
         </div>
     )
 }
