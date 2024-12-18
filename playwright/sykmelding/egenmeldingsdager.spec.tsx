@@ -80,7 +80,7 @@ export function selectEgenmeldingsdager({
     }
 }
 
-test.describe.skip('Egenmeldingsdager', () => {
+test.describe('Egenmeldingsdager', () => {
     test.describe('Arbeidstaker', () => {
         test('should be able to submit form with one period of egenmeldingsdager', async ({ page }) => {
             await gotoScenario('normal')(page)

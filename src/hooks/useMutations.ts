@@ -15,6 +15,7 @@ export function useChangeSykmeldingStatus(
     onError: () => void,
 ) {
     const dedupeRef = useRef(false)
+    const queryClient = useQueryClient()
 
     return useMutation<ChangeSykmeldingStatusMutation, unknown, void>({
         mutationFn: async () => {
@@ -28,7 +29,16 @@ export function useChangeSykmeldingStatus(
             )
         },
 
-        onSuccess: () => {
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({
+                queryKey: ['sykmeldinger-flex', sykmeldingId],
+            })
+            queryClient
+                .invalidateQueries({
+                    queryKey: ['sykmeldinger-flex'],
+                })
+                .catch()
+
             dedupeRef.current = false
             onCompleted()
             window.scrollTo(0, 0)

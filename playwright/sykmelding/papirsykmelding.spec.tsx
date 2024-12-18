@@ -10,7 +10,7 @@ import {
     velgArbeidssituasjon,
 } from '../utils/user-actions'
 
-test.describe.skip('Papir sykmelding', () => {
+test.describe('Papir sykmelding', () => {
     test('should show information if papirsykmelding is already passed on', async ({ page }) => {
         await gotoScenario('papirsykmelding')(page)
         await navigateToFirstSykmelding('nye', 'papirsykmelding')(page)
