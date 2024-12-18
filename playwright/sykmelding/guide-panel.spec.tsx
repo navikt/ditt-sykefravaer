@@ -2,7 +2,7 @@ import test, { expect } from '@playwright/test'
 
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 
-test.describe.skip('Guide panel', () => {
+test.describe('Guide panel', () => {
     test('should show guidepanel about egenmeldt', async ({ page }) => {
         await gotoScenario('egenmeldt', {
             erUtenforVentetid: false,

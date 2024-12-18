@@ -10,7 +10,7 @@ import {
 import { userInteractionsGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
-test.describe.skip('Ugyldig tilbakedatert sykmelding', () => {
+test.describe('Ugyldig tilbakedatert sykmelding', () => {
     test('should show information about tilbakedatering and be able to submit form, without a11y issues', async ({
         page,
     }) => {

@@ -11,7 +11,7 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
 
-test.describe.skip('Arbeidssituasjon - Permittert', () => {
+test.describe('Arbeidssituasjon - Permittert', () => {
     /**
      * This fallback from PERMITTERT to ARBEIDSLEDIG used to happen in the frontend, it has been moved
      * to the mapping in the API layer
