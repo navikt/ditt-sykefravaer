@@ -57,7 +57,7 @@ export type Arbeidsgiver = {
     readonly __typename: 'Arbeidsgiver'
     readonly aktivtArbeidsforhold: Scalars['Boolean']['output']
     readonly naermesteLeder?: Maybe<NaermesteLeder>
-    readonly navn: Scalars['String']['output']
+    navn: Scalars['String']['output']
     readonly orgnummer: Scalars['String']['output']
 }
 
@@ -1790,7 +1790,7 @@ export type SykmeldingFragment = {
         readonly arbeidsgiver?: {
             readonly __typename: 'ArbeidsgiverStatus'
             readonly orgnummer: string
-            readonly orgNavn: string
+            orgNavn: string
         } | null
         readonly sporsmalOgSvarListe: ReadonlyArray<{
             readonly __typename: 'Sporsmal'
@@ -1819,7 +1819,7 @@ export type SykmeldingFragment = {
                   }
         }>
         readonly brukerSvar?: {
-            readonly __typename: 'BrukerSvar'
+            __typename: 'BrukerSvar'
             readonly erOpplysningeneRiktige: {
                 readonly __typename: 'ErOpplysningeneRiktigeBrukerSvar'
                 readonly sporsmaltekst: string
