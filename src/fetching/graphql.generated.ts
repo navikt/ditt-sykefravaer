@@ -1819,7 +1819,7 @@ export type SykmeldingFragment = {
                   }
         }>
         readonly brukerSvar?: {
-            readonly __typename: 'BrukerSvar'
+            __typename: 'BrukerSvar'
             readonly erOpplysningeneRiktige: {
                 readonly __typename: 'ErOpplysningeneRiktigeBrukerSvar'
                 readonly sporsmaltekst: string

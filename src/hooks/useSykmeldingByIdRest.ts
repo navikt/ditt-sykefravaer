@@ -11,11 +11,17 @@ export default function useSykmeldingByIdRest(sykmeldingId: string) {
 
     return useQuery<SykmeldingFragment, Error>({
         queryKey: ['sykmeldinger-flex', sykmeldingId],
-        queryFn: () =>
-            fetchJsonMedRequestId(
+        queryFn: async () => {
+            const sykmelding: SykmeldingFragment = await fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
                     sykmeldingId +
                     testpersonQuery.query(),
-            ),
+            )
+            // Midlertidig hack til typing er på plass og riktig discriminator er innført
+            if (sykmelding.sykmeldingStatus.brukerSvar) {
+                sykmelding.sykmeldingStatus.brukerSvar.__typename = 'BrukerSvar'
+            }
+            return sykmelding
+        },
     })
 }
