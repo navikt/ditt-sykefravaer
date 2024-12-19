@@ -3,11 +3,13 @@ import { useRouter } from 'next/router'
 function useGetSykmeldingIdParam(): string {
     const router = useRouter()
 
-    if (typeof router.query.sykmeldingId !== 'string') {
-        throw new Error(`Illegal param: ${router.query.sykmeldingId}`)
+    const sykmeldingId = router.query.sykmeldingId
+
+    if (typeof sykmeldingId !== 'string' || !/^[a-zA-Z0-9-]+$/.test(sykmeldingId)) {
+        throw new Error(`Illegal param: ${sykmeldingId}`)
     }
 
-    return router.query.sykmeldingId
+    return sykmeldingId
 }
 
 export default useGetSykmeldingIdParam
