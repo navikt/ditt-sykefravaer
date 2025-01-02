@@ -1,9 +1,6 @@
 import { v4 } from 'uuid'
 import * as R from 'remeda'
 
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
-import { Merknad } from '../../api-models/sykmelding/Merknad'
-import { Arbeidsgiver } from '../../api-models/Arbeidsgiver'
 import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
@@ -13,7 +10,11 @@ import {
     Periodetype,
     RegelStatus,
     StatusEvent,
-} from '../resolver-types.generated'
+} from 'queries'
+
+import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
+import { Merknad } from '../../api-models/sykmelding/Merknad'
+import { Arbeidsgiver } from '../../api-models/Arbeidsgiver'
 import { AktivitetIkkeMuligPeriode, Periode } from '../../api-models/sykmelding/Periode'
 import { RuleHit } from '../../api-models/sykmelding/Behandlingsutfall'
 import { sporsmal } from '../../../utils/sporsmal'

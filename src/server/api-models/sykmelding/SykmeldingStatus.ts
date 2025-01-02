@@ -1,6 +1,5 @@
 import { z } from 'zod'
 
-import { LocalDateSchema } from '../date'
 import {
     ShortName,
     StatusEvent,
@@ -10,7 +9,9 @@ import {
     Blad,
     LottOgHyre,
     JaEllerNei,
-} from '../../graphql/resolver-types.generated'
+} from 'queries'
+
+import { LocalDateSchema } from '../date'
 
 export enum Svartype {
     ARBEIDSSITUASJON = 'ARBEIDSSITUASJON',

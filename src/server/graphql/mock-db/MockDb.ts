@@ -1,17 +1,11 @@
 import * as R from 'remeda'
 
 import { SykmeldingChangeStatus } from 'queries'
+import { ArbeidssituasjonType, LottOgHyre, SendSykmeldingValues, ShortName, StatusEvent } from 'queries'
 
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon } from '../../api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../api-models/ErUtenforVentetid'
-import {
-    ArbeidssituasjonType,
-    LottOgHyre,
-    SendSykmeldingValues,
-    ShortName,
-    StatusEvent,
-} from '../resolver-types.generated'
 import { BrukerSvar, Sporsmal, Svartype } from '../../api-models/sykmelding/SykmeldingStatus'
 import { sporsmal } from '../../../utils/sporsmal'
 import { toDateString } from '../../../utils/dateUtils'

@@ -1,7 +1,8 @@
 import { z } from 'zod'
 
+import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from 'queries'
+
 import { LocalDateSchema } from '../date'
-import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../graphql/resolver-types.generated'
 
 const GradertPeriodeSchema = z.object({
     grad: z.number(),
