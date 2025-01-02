@@ -1,6 +1,13 @@
 import { describe, expect, it } from 'vitest'
 
-import { Blad, ArbeidssituasjonType, LottOgHyre, StatusEvent, UriktigeOpplysningerType, YesOrNo } from 'queries'
+import {
+    Blad,
+    ArbeidssituasjonType,
+    LottOgHyre,
+    StatusEvent,
+    UriktigeOpplysningerType,
+    YesOrNo,
+} from '../../src/fetching/graphql.generated'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { defaultArbeidsgivere, SykmeldingBuilder } from './graphql/mock-db/data-creators'

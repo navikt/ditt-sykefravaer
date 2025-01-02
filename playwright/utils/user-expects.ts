@@ -1,7 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 
-import { UriktigeOpplysningerType } from 'queries'
-
+import { UriktigeOpplysningerType } from '../../src/fetching/graphql.generated'
 import { raise } from '../../src/utils/ts-utils'
 
 export enum ExpectMeta {

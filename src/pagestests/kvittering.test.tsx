@@ -9,8 +9,7 @@ import {
     SykmeldingByIdDocument,
     SykmeldingerDocument,
     SykmeldingFragment,
-} from 'queries'
-
+} from '../../src/fetching/graphql.generated'
 import { render, screen } from '../utils/test/testUtils'
 import { createInitialQuery, createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 import KvitteringPage from '../pages/sykmelding/[sykmeldingId]/kvittering'

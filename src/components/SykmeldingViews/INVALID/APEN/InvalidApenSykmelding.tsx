@@ -2,14 +2,13 @@ import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { useController, useForm } from 'react-hook-form'
 import { ReactElement } from 'react'
 
-import { SykmeldingChangeStatus, SykmeldingFragment } from 'queries'
-
 import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'
 import { useChangeSykmeldingStatus } from '../../../../hooks/useMutations'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
+import { SykmeldingChangeStatus, SykmeldingFragment } from '../../../../fetching/graphql.generated'
 
 type InvalidApenSykmeldingProps = {
     sykmelding: SykmeldingFragment

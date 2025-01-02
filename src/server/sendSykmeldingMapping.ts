@@ -1,7 +1,6 @@
 import { logger } from '@navikt/next-logger'
 
-import { ArbeidssituasjonType, JaEllerNei, SendSykmeldingValues, YesOrNo } from 'queries'
-
+import { ArbeidssituasjonType, JaEllerNei, SendSykmeldingValues, YesOrNo } from '../fetching/graphql.generated'
 import { sporsmal } from '../utils/sporsmal'
 import { getSykmeldingStartDate } from '../utils/sykmeldingUtils'
 import { raise } from '../utils/ts-utils'

@@ -2,8 +2,11 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 import { useRef } from 'react'
 
-import { ChangeSykmeldingStatusMutation, SendSykmeldingMutation, SykmeldingChangeStatus } from 'queries'
-
+import {
+    ChangeSykmeldingStatusMutation,
+    SendSykmeldingMutation,
+    SykmeldingChangeStatus,
+} from '../../src/fetching/graphql.generated'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { mapToSendSykmeldingValues } from '../utils/toSendSykmeldingUtils'
 import { fetchJsonMedRequestId } from '../utils/fetch'

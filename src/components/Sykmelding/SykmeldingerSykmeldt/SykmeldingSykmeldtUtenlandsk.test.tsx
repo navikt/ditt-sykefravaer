@@ -1,7 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { BrukerinformasjonDocument } from 'queries'
-
+import { BrukerinformasjonDocument } from '../../../fetching/graphql.generated'
 import { createInitialQuery, createSykmelding } from '../../../utils/test/dataUtils'
 import { render, screen } from '../../../utils/test/testUtils'
 

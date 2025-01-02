@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype } from 'queries'
+import { Periodetype } from '../../src/fetching/graphql.generated'
 
 import { toSykmeldingAriaLabel } from './toSykmeldingAriaLabel'
 import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'

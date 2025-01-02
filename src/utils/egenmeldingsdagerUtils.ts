@@ -1,7 +1,6 @@
 import * as R from 'remeda'
 
-import { SvarUnion_DagerSvar_Fragment, SykmeldingStatusFragment, YesOrNo } from 'queries'
-
+import { SvarUnion_DagerSvar_Fragment, SykmeldingStatusFragment, YesOrNo } from '../../src/fetching/graphql.generated'
 import {
     EgenmeldingsdagerFormValue,
     MAX_EGENMELDINGSDAGER,

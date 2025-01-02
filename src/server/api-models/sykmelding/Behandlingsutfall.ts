@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { RegelStatus } from 'queries'
+import { RegelStatus } from '../../../fetching/graphql.generated'
 
 export type RuleHit = z.infer<typeof RegelInfoSchema>
 const RegelInfoSchema = z.object({

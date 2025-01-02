@@ -1,7 +1,7 @@
 import { compareAsc, isAfter } from 'date-fns'
 import { sortBy } from 'remeda'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 
 import { toDate } from './dateUtils'
 

@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { Buildings2Icon } from '@navikt/aksel-icons'
 
-import { AktivitetIkkeMuligPeriode } from 'queries'
-
+import { AktivitetIkkeMuligPeriode } from '../../../../fetching/graphql.generated'
 import { arbeidsrelatertArsakToText, medisinskArsakToText } from '../../../../utils/periodeUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import {

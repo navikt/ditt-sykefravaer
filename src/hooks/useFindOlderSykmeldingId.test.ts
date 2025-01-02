@@ -1,8 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
-import { Periodetype, StatusEvent, SykmeldingerDocument, SykmeldingFragment } from 'queries'
-
+import {
+    Periodetype,
+    StatusEvent,
+    SykmeldingerDocument,
+    SykmeldingFragment,
+} from '../../src/fetching/graphql.generated'
 import { renderHook, waitFor } from '../utils/test/testUtils'
 import { dateAdd, dateSub } from '../utils/dateUtils'
 import { createMock, createSykmelding, createUnderBehandlingMerknad } from '../utils/test/dataUtils'

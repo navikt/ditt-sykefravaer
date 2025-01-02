@@ -1,7 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 
-import { UriktigeOpplysningerType, YesOrNo } from 'queries'
-
+import { UriktigeOpplysningerType, YesOrNo } from '../../../../fetching/graphql.generated'
 import { FormValues } from '../../SendSykmeldingForm'
 
 export function useShouldArbeidssituasjonShow(): boolean {

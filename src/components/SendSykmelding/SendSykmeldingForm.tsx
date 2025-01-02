@@ -3,8 +3,14 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 import dynamic from 'next/dynamic'
 
-import { YesOrNo, UriktigeOpplysningerType, ArbeidssituasjonType, SykmeldingFragment, Blad, LottOgHyre } from 'queries'
-
+import {
+    YesOrNo,
+    UriktigeOpplysningerType,
+    ArbeidssituasjonType,
+    SykmeldingFragment,
+    Blad,
+    LottOgHyre,
+} from '../../fetching/graphql.generated'
 import useGetSykmeldingIdParam from '../../hooks/useGetSykmeldingIdParam'
 import { useSendSykmelding } from '../../hooks/useMutations'
 import Spinner from '../Spinner/Spinner'

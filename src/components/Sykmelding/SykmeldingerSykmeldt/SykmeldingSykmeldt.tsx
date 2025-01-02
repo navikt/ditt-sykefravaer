@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert } from '@navikt/ds-react'
 
-import { Periode, SykmeldingFragment, UtdypendeOpplysning } from 'queries'
-
+import { Periode, SykmeldingFragment, UtdypendeOpplysning } from '../../../fetching/graphql.generated'
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'

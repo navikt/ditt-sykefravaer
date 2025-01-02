@@ -1,7 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype, RegelStatus, StatusEvent, SykmeldingerDocument, SykmeldingFragment } from 'queries'
-
+import {
+    Periodetype,
+    RegelStatus,
+    StatusEvent,
+    SykmeldingerDocument,
+    SykmeldingFragment,
+} from '../../src/fetching/graphql.generated'
 import { toDate } from '../utils/dateUtils'
 import { createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 import { renderHook, waitFor } from '../utils/test/testUtils'

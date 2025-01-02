@@ -10,8 +10,7 @@ import {
     Periodetype,
     RegelStatus,
     StatusEvent,
-} from 'queries'
-
+} from '../../../fetching/graphql.generated'
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
 import { Merknad } from '../../api-models/sykmelding/Merknad'
 import { Arbeidsgiver } from '../../api-models/Arbeidsgiver'

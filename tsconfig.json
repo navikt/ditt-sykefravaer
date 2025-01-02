@@ -23,10 +23,7 @@
             {
                 "name": "next"
             }
-        ],
-        "paths": {
-            "queries": ["./src/fetching/graphql.generated.ts"]
-        }
+        ]
     },
     "include": ["**/*.ts", "**/*.tsx", "./vitest.setup.mts"],
     "exclude": ["node_modules"]

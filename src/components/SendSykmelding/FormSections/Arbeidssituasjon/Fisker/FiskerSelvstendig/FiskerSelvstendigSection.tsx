@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, Skeleton } from '@navikt/ds-react'
 
-import { SykmeldingFragment, YesOrNo } from 'queries'
-
+import { SykmeldingFragment, YesOrNo } from '../../../../../../fetching/graphql.generated'
 import HarBruktEgenmeldingsPerioderField from '../../Frilanser/HarBruktEgenmeldingsPerioderField'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../../SendSykmeldingForm'

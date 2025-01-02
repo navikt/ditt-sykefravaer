@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, Label } from '@navikt/ds-react'
 
-import { Behandlingsutfall } from 'queries'
+import { Behandlingsutfall } from '../../fetching/graphql.generated'
 
 interface ForklaringAndreProps {
     behandlerNavn: string

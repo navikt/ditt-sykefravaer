@@ -2,8 +2,7 @@ import React, { ReactElement } from 'react'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useFormContext } from 'react-hook-form'
 
-import { BrukerinformasjonFragment, SykmeldingFragment, YesOrNo } from 'queries'
-
+import { BrukerinformasjonFragment, SykmeldingFragment, YesOrNo } from '../../../../../fetching/graphql.generated'
 import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'

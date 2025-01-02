@@ -1,6 +1,6 @@
 import * as R from 'remeda'
 
-import { PeriodeFragment, Periodetype, SykmeldingFragment } from 'queries'
+import { PeriodeFragment, Periodetype, SykmeldingFragment } from '../../src/fetching/graphql.generated'
 
 import { getSykmeldingTitle } from './sykmeldingUtils'
 

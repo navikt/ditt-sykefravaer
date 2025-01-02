@@ -14,8 +14,7 @@ import {
     Sykmelding,
     SykmeldingFragment,
     SykmeldingStatusFragment,
-} from 'queries'
-
+} from '../../fetching/graphql.generated'
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
 

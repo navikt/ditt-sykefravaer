@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { YesOrNo } from 'queries'
-
+import { YesOrNo } from '../../../../fetching/graphql.generated'
 import { FormValues } from '../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../FormComponents/FormStructure'
 

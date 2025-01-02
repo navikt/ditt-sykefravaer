@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { YesOrNo } from 'queries'
-
+import { YesOrNo } from '../../../fetching/graphql.generated'
 import { toDate, toDateString } from '../../../utils/dateUtils'
 
 import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFieldUtils'

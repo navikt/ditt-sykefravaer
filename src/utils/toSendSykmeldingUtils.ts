@@ -1,6 +1,5 @@
-import { Blad, LottOgHyre, SendSykmeldingValues, YesOrNo } from 'queries'
-import { ArbeidssituasjonType } from 'queries'
-
+import { Blad, LottOgHyre, SendSykmeldingValues, YesOrNo } from '../../src/fetching/graphql.generated'
+import { ArbeidssituasjonType } from '../../src/fetching/graphql.generated'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { EgenmeldingsdagerFormValue } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 

@@ -1,8 +1,7 @@
 import { PropsWithChildren, ReactElement, useMemo, useState } from 'react'
 import { BodyShort, Heading, Select } from '@navikt/ds-react'
 
-import { SykmeldingFragment } from 'queries'
-
+import { SykmeldingFragment } from '../../fetching/graphql.generated'
 import { sortSykmeldingerByArbeidsgiver, sykmeldingByDateAsc } from '../../utils/sykmeldingSortUtils'
 
 import Lenkepanel from './Lenkepanel/Lenkepanel'

@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { SykmeldingFragment } from 'queries'
-
+import { SykmeldingFragment } from '../../../../../fetching/graphql.generated'
 import SykmeldingArbeidsgiverExpansionCard from '../../../../Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { toDateString } from '../../../../../utils/dateUtils'

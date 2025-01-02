@@ -1,7 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
-import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from 'queries'
-
+import {
+    AktivitetIkkeMuligPeriode,
+    ArbeidsrelatertArsakType,
+    MedisinskArsakType,
+} from '../../../../fetching/graphql.generated'
 import { render, screen, axe } from '../../../../utils/test/testUtils'
 
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'

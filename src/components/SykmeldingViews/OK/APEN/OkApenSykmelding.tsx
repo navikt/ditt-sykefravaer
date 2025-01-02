@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { GuidePanel } from '@navikt/ds-react'
 
-import { Periodetype, SykmeldingFragment } from 'queries'
-
+import { Periodetype, SykmeldingFragment } from '../../../../fetching/graphql.generated'
 import InformationBanner from '../../../InformationBanner/InformationBanner'
 import ForceUseOlderSykmelding from '../../../ForceOrder/ForceUseOlderSykmelding'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
