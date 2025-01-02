@@ -4,7 +4,7 @@ import { Sykmelding } from '../api-models/sykmelding/Sykmelding'
 import { getSykmelding } from '../sykmeldingerService'
 import mockDb from '../graphql/mock-db'
 import { isMockBackend } from '../../utils/environment'
-import { RequestContext } from '../graphql/mockResolvers'
+import { RequestContext } from '../../auth/mock-context'
 
 import SykmeldingPdf from './components/SykmeldingPdf'
 
