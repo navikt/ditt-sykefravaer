@@ -1,13 +1,12 @@
 import { describe, it, expect, beforeEach } from 'vitest'
 import mockRouter from 'next-router-mock'
-import { GraphQLError } from 'graphql'
 
 import {
     BrukerinformasjonDocument,
     SykmeldingByIdDocument,
     SykmeldingerDocument,
     TidligereArbeidsgivereByIdDocument,
-} from '../../src/fetching/graphql.generated'
+} from '../fetching/graphql.generated'
 import { render, screen } from '../utils/test/testUtils'
 import { createInitialQuery, createMock, createSykmelding } from '../utils/test/dataUtils'
 import SykmeldingPage from '../pages/sykmelding/[sykmeldingId]/index'
@@ -108,7 +107,7 @@ describe.skip('SykmeldingPage: /syk/sykmeldinger/{sykmeldingId}', () => {
                     request: { query: SykmeldingByIdDocument, variables: { id: 'sykmelding-id' } },
                     result: {
                         data: null,
-                        errors: [new GraphQLError('Some backend error')],
+                        errors: [new Error('Some backend error')],
                         extensions: { dontLog: true },
                     },
                 }),
@@ -116,7 +115,7 @@ describe.skip('SykmeldingPage: /syk/sykmeldinger/{sykmeldingId}', () => {
                     request: { query: SykmeldingerDocument },
                     result: {
                         data: null,
-                        errors: [new GraphQLError('Some backend error')],
+                        errors: [new Error('Some backend error')],
                         extensions: { dontLog: true },
                     },
                 }),
@@ -144,7 +143,7 @@ describe.skip('SykmeldingPage: /syk/sykmeldinger/{sykmeldingId}', () => {
                     request: { query: BrukerinformasjonDocument, variables: { sykmeldingId: 'sykmelding-id' } },
                     result: {
                         data: null,
-                        errors: [new GraphQLError('Some backend error')],
+                        errors: [new Error('Some backend error')],
                         extensions: { dontLog: true },
                     },
                 }),

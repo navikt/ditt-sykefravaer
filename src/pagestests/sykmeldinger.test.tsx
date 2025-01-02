@@ -1,5 +1,4 @@
 import { describe, it, expect, vi } from 'vitest'
-import { GraphQLError } from 'graphql'
 import * as dekoratoren from '@navikt/nav-dekoratoren-moduler'
 
 import { StatusEvent, SykmeldingerDocument } from '../../src/fetching/graphql.generated'
@@ -27,7 +26,7 @@ describe.skip('SykmeldingerPage: /syk/sykmeldinger', () => {
                     request: { query: SykmeldingerDocument },
                     result: {
                         data: null,
-                        errors: [new GraphQLError('Some backend error')],
+                        errors: [new Error('Some backend error')],
                         extensions: { dontLog: true },
                     },
                 }),
