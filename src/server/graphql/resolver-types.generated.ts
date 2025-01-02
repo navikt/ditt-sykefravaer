@@ -1,6 +1,6 @@
 /* eslint-disable */
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql'
-import { RequestContext } from './mockResolvers'
+import { RequestContext } from '../../auth/mock-context'
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }

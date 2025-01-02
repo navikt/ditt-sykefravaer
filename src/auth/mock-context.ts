@@ -46,3 +46,10 @@ export function handleMockContext(
 
     return handler(context)
 }
+
+export interface RequestContext {
+    pid: string
+    accessToken: string
+    requestId: string
+    sessionId: string
+}

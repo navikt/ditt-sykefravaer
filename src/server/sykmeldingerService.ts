@@ -4,6 +4,7 @@ import { requestOboToken } from '@navikt/oasis'
 import { GraphQLError } from 'graphql'
 
 import { sporsmal } from '../utils/sporsmal'
+import { RequestContext } from '../auth/mock-context'
 
 import { Sykmelding, SykmeldingSchema } from './api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon, BrukerinformasjonSchema } from './api-models/Brukerinformasjon'
@@ -12,7 +13,6 @@ import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { getErUtenforVentetid } from './flexService'
 import metrics from './metrics'
 import { TidligereArbeidsgivere, TidligereArbeidsgivereSchema } from './api-models/TidligereArbeidsgiver'
-import { RequestContext } from './graphql/mockResolvers'
 
 export async function getSykmeldinger(context: RequestContext): Promise<Sykmelding[]> {
     return fetchApi(
