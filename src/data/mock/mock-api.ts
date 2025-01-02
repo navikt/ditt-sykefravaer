@@ -11,9 +11,9 @@ import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
 
 import { cleanPathForMetric } from '../../metrics'
 import { getSessionId } from '../../utils/userSessionId'
-import mockDb from '../../server/graphql/mock-db'
 import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../fetching/graphql.generated'
 
+import mockDb from './mock-db'
 import { Persona, testpersoner } from './testperson'
 
 type session = {

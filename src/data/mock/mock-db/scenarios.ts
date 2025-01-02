@@ -1,5 +1,5 @@
 import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../../../fetching/graphql.generated'
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
+import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 
 import { SykmeldingBuilder } from './data-creators'
 

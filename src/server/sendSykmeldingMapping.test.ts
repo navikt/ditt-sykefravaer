@@ -8,9 +8,9 @@ import {
     UriktigeOpplysningerType,
     YesOrNo,
 } from '../../src/fetching/graphql.generated'
+import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
-import { defaultArbeidsgivere, SykmeldingBuilder } from './graphql/mock-db/data-creators'
 import { Sykmelding } from './api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'

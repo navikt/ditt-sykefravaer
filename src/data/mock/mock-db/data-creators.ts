@@ -11,13 +11,13 @@ import {
     RegelStatus,
     StatusEvent,
 } from '../../../fetching/graphql.generated'
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
-import { Merknad } from '../../api-models/sykmelding/Merknad'
-import { Arbeidsgiver } from '../../api-models/Arbeidsgiver'
-import { AktivitetIkkeMuligPeriode, Periode } from '../../api-models/sykmelding/Periode'
-import { RuleHit } from '../../api-models/sykmelding/Behandlingsutfall'
+import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { Merknad } from '../../../server/api-models/sykmelding/Merknad'
+import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
+import { AktivitetIkkeMuligPeriode, Periode } from '../../../server/api-models/sykmelding/Periode'
+import { RuleHit } from '../../../server/api-models/sykmelding/Behandlingsutfall'
 import { sporsmal } from '../../../utils/sporsmal'
-import { Pasient } from '../../api-models/sykmelding/Pasient'
+import { Pasient } from '../../../server/api-models/sykmelding/Pasient'
 import { dateAdd } from '../../../utils/dato-utils'
 
 export class SykmeldingBuilder {

@@ -8,15 +8,15 @@ import {
     ShortName,
     StatusEvent,
 } from '../../../fetching/graphql.generated'
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
-import { Brukerinformasjon } from '../../api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from '../../api-models/ErUtenforVentetid'
-import { BrukerSvar, Sporsmal, Svartype } from '../../api-models/sykmelding/SykmeldingStatus'
+import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
+import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
+import { BrukerSvar, Sporsmal, Svartype } from '../../../server/api-models/sykmelding/SykmeldingStatus'
 import { sporsmal } from '../../../utils/sporsmal'
 import { toDateString } from '../../../utils/dateUtils'
-import { Arbeidsgiver } from '../../api-models/Arbeidsgiver'
-import { mapSendSykmeldingValuesToV3Api } from '../../sendSykmeldingMapping'
-import { TidligereArbeidsgivere } from '../../api-models/TidligereArbeidsgiver'
+import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
+import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
+import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
 
 import { defaultArbeidsgivere } from './data-creators'
 

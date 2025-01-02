@@ -2,8 +2,8 @@ import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { v4 } from 'uuid'
 import { logger } from '@navikt/next-logger'
 
-import { isValidScenario } from '../server/graphql/mock-db/scenarios'
-import mockDb from '../server/graphql/mock-db'
+import { isValidScenario } from '../data/mock/mock-db/scenarios'
+import mockDb from '../data/mock/mock-db'
 
 import { ServerSidePropsResult } from './beskyttetSide'
 
