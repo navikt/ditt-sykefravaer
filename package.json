@@ -26,7 +26,6 @@
         "cookie": "^1.0.1",
         "date-fns": "^3.6.0",
         "dayjs": "^1.11.13",
-        "graphql": "^16.9.0",
         "html-react-parser": "^5.1.18",
         "next-logger": "^5.0.1",
         "nextleton": "^0.6.1",
