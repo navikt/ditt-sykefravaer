@@ -1,8 +1,7 @@
 import * as R from 'remeda'
 import { add, isAfter, isBefore, sub } from 'date-fns'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../../fetching/graphql.generated'
 import { toDate } from '../../../utils/dateUtils'
 import { getSykmeldingStartDate } from '../../../utils/sykmeldingUtils'
 

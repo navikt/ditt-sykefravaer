@@ -1,8 +1,7 @@
 import { expect, describe, it } from 'vitest'
 import { subDays } from 'date-fns'
 
-import { StatusEvent } from 'src/fetching/graphql.generated'
-
+import { StatusEvent } from '../../../fetching/graphql.generated'
 import { toDate } from '../../../utils/dato-utils'
 
 import { e2eScenarios } from './scenarios'

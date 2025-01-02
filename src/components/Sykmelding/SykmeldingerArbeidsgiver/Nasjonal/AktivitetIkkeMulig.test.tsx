@@ -1,7 +1,11 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from 'src/fetching/graphql.generated'
+import {
+    AktivitetIkkeMuligPeriode,
+    ArbeidsrelatertArsakType,
+    MedisinskArsakType,
+} from '../../../../fetching/graphql.generated'
 
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'
 

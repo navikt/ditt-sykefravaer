@@ -4,8 +4,6 @@ import Head from 'next/head'
 import { logger } from '@navikt/next-logger'
 import { range } from 'remeda'
 
-import { StatusEvent, SykmeldingFragment } from 'src/fetching/graphql.generated'
-
 import { getReadableSykmeldingLength, getSentSykmeldingTitle, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import OkBekreftetSykmelding from '../../../components/SykmeldingViews/OK/BEKREFTET/OkBekreftetSykmelding'
 import OkAvbruttSykmelding from '../../../components/SykmeldingViews/OK/AVBRUTT/OkAvbruttSykmelding'
@@ -27,6 +25,7 @@ import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
+import { StatusEvent, SykmeldingFragment } from '../../../fetching/graphql.generated'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()

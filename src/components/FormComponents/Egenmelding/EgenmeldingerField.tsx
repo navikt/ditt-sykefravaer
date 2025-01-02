@@ -5,8 +5,7 @@ import { ReactElement, useEffect, useLayoutEffect } from 'react'
 import * as R from 'remeda'
 import cn from 'classnames'
 
-import { YesOrNo } from 'src/fetching/graphql.generated'
-
+import { YesOrNo } from '../../../fetching/graphql.generated'
 import { sortDatesASC } from '../../../utils/dateUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
 

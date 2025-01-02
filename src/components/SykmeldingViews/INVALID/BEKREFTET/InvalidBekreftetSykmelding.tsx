@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../../../fetching/graphql.generated'
 import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'

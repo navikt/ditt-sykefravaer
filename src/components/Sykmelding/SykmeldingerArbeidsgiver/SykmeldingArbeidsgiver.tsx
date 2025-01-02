@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import * as R from 'remeda'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../../fetching/graphql.generated'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 

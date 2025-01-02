@@ -1,14 +1,13 @@
 import * as R from 'remeda'
 
-import { SykmeldingChangeStatus } from 'src/fetching/graphql.generated'
+import { SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
 import {
     ArbeidssituasjonType,
     LottOgHyre,
     SendSykmeldingValues,
     ShortName,
     StatusEvent,
-} from 'src/fetching/graphql.generated'
-
+} from '../../../fetching/graphql.generated'
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon } from '../../api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../api-models/ErUtenforVentetid'

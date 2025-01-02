@@ -10,8 +10,7 @@ import {
     SykmeldingFragment,
     Blad,
     LottOgHyre,
-} from 'src/fetching/graphql.generated'
-
+} from '../../fetching/graphql.generated'
 import useGetSykmeldingIdParam from '../../hooks/useGetSykmeldingIdParam'
 import { useSendSykmelding } from '../../hooks/useMutations'
 import Spinner from '../Spinner/Spinner'

@@ -7,8 +7,7 @@ import {
     SendSykmeldingValues,
     UriktigeOpplysningerType,
     YesOrNo,
-} from 'src/fetching/graphql.generated'
-
+} from '../../src/fetching/graphql.generated'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 
 import { mapToSendSykmeldingValues } from './toSendSykmeldingUtils'

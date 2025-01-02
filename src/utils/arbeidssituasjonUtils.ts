@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType, FiskerInput } from 'src/fetching/graphql.generated'
+import { ArbeidssituasjonType, FiskerInput } from '../../src/fetching/graphql.generated'
 
 export const isArbeidstaker = (
     arbeidssituasjon?: ArbeidssituasjonType | null,

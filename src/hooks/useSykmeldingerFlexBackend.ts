@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'

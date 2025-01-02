@@ -1,4 +1,4 @@
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
+import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 
 export type UtenlandskSykmelding = Omit<SykmeldingFragment, 'utenlandskSykmelding'> & {
     readonly utenlandskSykmelding: NonNullable<SykmeldingFragment['utenlandskSykmelding']>

@@ -1,6 +1,6 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
 
-import { RegelStatus, StatusEvent, SykmeldingFragment } from 'src/fetching/graphql.generated'
+import { RegelStatus, StatusEvent, SykmeldingFragment } from '../../src/fetching/graphql.generated'
 
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 
-import { Merknad, Merknadtype } from 'src/fetching/graphql.generated'
+import { Merknad, Merknadtype } from '../../fetching/graphql.generated'
 
 interface InfoBannerSendtProps {
     merknader: readonly Merknad[]

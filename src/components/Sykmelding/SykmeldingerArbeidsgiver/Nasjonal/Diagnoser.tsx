@@ -1,8 +1,7 @@
 import { BandageIcon } from '@navikt/aksel-icons'
 import { ReactElement } from 'react'
 
-import { MedisinskVurdering } from 'src/fetching/graphql.generated'
-
+import { MedisinskVurdering } from '../../../../fetching/graphql.generated'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingSladd } from '../../../molecules/sykmelding/SykmeldingInfo'
 

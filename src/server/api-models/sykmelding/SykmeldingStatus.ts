@@ -9,8 +9,7 @@ import {
     Blad,
     LottOgHyre,
     JaEllerNei,
-} from 'src/fetching/graphql.generated'
-
+} from '../../../fetching/graphql.generated'
 import { LocalDateSchema } from '../date'
 
 export enum Svartype {

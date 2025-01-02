@@ -7,8 +7,7 @@ import {
     NaermesteLederFragment,
     SykmeldingFragment,
     YesOrNo,
-} from 'src/fetching/graphql.generated'
-
+} from '../../../../../fetching/graphql.generated'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'

@@ -3,8 +3,7 @@ import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import { DependencyList, useCallback, useEffect, useRef } from 'react'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 

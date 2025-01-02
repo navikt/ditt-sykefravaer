@@ -1,5 +1,4 @@
-import { ArbeidssituasjonType, BrukerSvarFragment } from 'src/fetching/graphql.generated'
-
+import { ArbeidssituasjonType, BrukerSvarFragment } from '../../../../fetching/graphql.generated'
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { sporsmal } from '../../../../utils/sporsmal'
 import { yesOrNoToJaEllerNei } from '../../../../server/sendSykmeldingMapping'

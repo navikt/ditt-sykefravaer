@@ -2,8 +2,7 @@ import { BodyLong, Link, ReadMore } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
 import { differenceInDays } from 'date-fns'
 
-import { YesOrNo } from 'src/fetching/graphql.generated'
-
+import { YesOrNo } from '../../../fetching/graphql.generated'
 import { toReadableDatePeriod } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'

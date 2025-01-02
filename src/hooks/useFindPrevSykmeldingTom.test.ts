@@ -6,8 +6,7 @@ import {
     StatusEvent,
     SykmeldingerDocument,
     SykmeldingFragment,
-} from 'src/fetching/graphql.generated'
-
+} from '../../src/fetching/graphql.generated'
 import { toDate } from '../utils/dateUtils'
 import { createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 import { renderHook, waitFor } from '../utils/test/testUtils'

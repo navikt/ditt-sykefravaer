@@ -12,7 +12,7 @@ import {
     Svartype,
     SykmeldingStatusFragment,
     YesOrNo,
-} from 'src/fetching/graphql.generated'
+} from '../../fetching/graphql.generated'
 
 import StatusInfo from './StatusInfo'
 

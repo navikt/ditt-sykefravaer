@@ -7,8 +7,7 @@ import {
     SykmeldingByIdDocument,
     SykmeldingerDocument,
     TidligereArbeidsgivereByIdDocument,
-} from 'src/fetching/graphql.generated'
-
+} from '../../src/fetching/graphql.generated'
 import { render, screen } from '../utils/test/testUtils'
 import { createInitialQuery, createMock, createSykmelding } from '../utils/test/dataUtils'
 import SykmeldingPage from '../pages/sykmelding/[sykmeldingId]/index'

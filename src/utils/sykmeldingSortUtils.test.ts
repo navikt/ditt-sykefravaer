@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { StatusEvent, SykmeldingStatusFragment } from 'src/fetching/graphql.generated'
+import { StatusEvent, SykmeldingStatusFragment } from '../../src/fetching/graphql.generated'
 
 import { sortSykmeldingerByArbeidsgiver } from './sykmeldingSortUtils'
 import { createSykmelding } from './test/dataUtils'

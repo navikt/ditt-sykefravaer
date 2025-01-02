@@ -3,8 +3,7 @@ import { BandageIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 import { BodyShort } from '@navikt/ds-react'
 
-import { MedisinskVurdering } from 'src/fetching/graphql.generated'
-
+import { MedisinskVurdering } from '../../../../fetching/graphql.generated'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { annenFraverGrunnToText } from '../../../../utils/periodeUtils'

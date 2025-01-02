@@ -1,8 +1,7 @@
 import { closestTo, isBefore, isSameDay, isWithinInterval } from 'date-fns'
 import { intersection } from 'remeda'
 
-import { Periodetype, SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { Periodetype, SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { toDate } from '../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
 

@@ -1,8 +1,7 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from 'src/fetching/graphql.generated'
-
+import { SykmeldingFragment } from '../../../../fetching/graphql.generated'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'

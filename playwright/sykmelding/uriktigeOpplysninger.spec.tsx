@@ -1,7 +1,6 @@
 import { expect, Page, test } from '@playwright/test'
 
-import { UriktigeOpplysningerType } from 'src/fetching/graphql.generated'
-
+import { UriktigeOpplysningerType } from '../../src/fetching/graphql.generated'
 import {
     bekreftNarmesteleder,
     gotoScenario,

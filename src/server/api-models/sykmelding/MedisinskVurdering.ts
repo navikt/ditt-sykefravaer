@@ -1,8 +1,7 @@
 import { z } from 'zod'
 
-import { AnnenFraverGrunn } from 'src/fetching/graphql.generated'
-
 import { LocalDateSchema } from '../date'
+import { AnnenFraverGrunn } from '../../../fetching/graphql.generated'
 
 const DiagnoseSchema = z.object({
     kode: z.string(),
