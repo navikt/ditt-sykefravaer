@@ -2,7 +2,7 @@ import { expect, describe, it } from 'vitest'
 import { subDays } from 'date-fns'
 
 import { toDate } from '../../../utils/dato-utils'
-import { StatusEvent } from '../../../fetching/graphql.generated'
+import { StatusEvent } from '../resolver-types.generated'
 
 import { e2eScenarios } from './scenarios'
 
