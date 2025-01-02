@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController, useFormContext } from 'react-hook-form'
 
-import { ArbeidssituasjonType } from 'queries'
+import { ArbeidssituasjonType } from 'src/fetching/graphql.generated'
 
 import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'

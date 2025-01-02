@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { fetchJsonMedRequestId } from '../utils/fetch'
 import { prettifyOrgName } from '../utils/orgUtils'

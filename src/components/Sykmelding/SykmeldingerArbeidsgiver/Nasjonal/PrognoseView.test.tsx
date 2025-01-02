@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Prognose } from 'queries'
+import { Prognose } from 'src/fetching/graphql.generated'
 
 import PrognoseView from './PrognoseView'
 

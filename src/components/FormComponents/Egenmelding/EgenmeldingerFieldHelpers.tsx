@@ -1,4 +1,4 @@
-import { YesOrNo } from 'queries'
+import { YesOrNo } from 'src/fetching/graphql.generated'
 
 export type EgenmeldingsdagerFormValue = {
     harPerioder: YesOrNo | null

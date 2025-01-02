@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { BoatIcon, BriefcaseIcon, CheckmarkCircleIcon, TasklistIcon, XMarkOctagonIcon } from '@navikt/aksel-icons'
 import { ExpansionCard } from '@navikt/ds-react'
 
-import { BrukerSvarFragment, JaEllerNei } from 'queries'
+import { BrukerSvarFragment, JaEllerNei } from 'src/fetching/graphql.generated'
 
 import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { arbeidsSituasjonEnumToText, uriktigeOpplysningerEnumToText } from '../../../../utils/sporsmal'

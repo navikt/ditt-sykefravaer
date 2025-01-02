@@ -9,7 +9,7 @@ import { logger } from '@navikt/next-logger'
 import { nextleton } from 'nextleton'
 import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
 
-import { SendSykmeldingValues, SykmeldingChangeStatus } from 'queries'
+import { SendSykmeldingValues, SykmeldingChangeStatus } from 'src/fetching/graphql.generated'
 
 import { cleanPathForMetric } from '../../metrics'
 import { getSessionId } from '../../utils/userSessionId'

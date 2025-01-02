@@ -1,4 +1,4 @@
-import { Arbeidsgiver } from 'queries'
+import { Arbeidsgiver } from 'src/fetching/graphql.generated'
 
 export function findValgtArbeidsgiver(
     arbeidsgivere: readonly Arbeidsgiver[],

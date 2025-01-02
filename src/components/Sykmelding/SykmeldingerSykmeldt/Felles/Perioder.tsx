@@ -1,7 +1,7 @@
 import { CalendarIcon } from '@navikt/aksel-icons'
 import { PropsWithChildren, ReactElement } from 'react'
 
-import { Periode } from 'queries'
+import { Periode } from 'src/fetching/graphql.generated'
 
 import { getPeriodTitle, getReadableLength } from '../../../../utils/periodeUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'

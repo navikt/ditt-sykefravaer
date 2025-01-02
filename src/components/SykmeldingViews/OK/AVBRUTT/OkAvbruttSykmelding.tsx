@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Alert, Button, Detail, Heading } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { toReadableDate } from '../../../../utils/dateUtils'
 import HintToNextOlderSykmelding from '../../../ForceOrder/HintToNextOlderSykmelding'

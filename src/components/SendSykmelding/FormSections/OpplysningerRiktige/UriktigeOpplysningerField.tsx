@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Checkbox, CheckboxGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
-import { UriktigeOpplysningerType } from 'queries'
+import { UriktigeOpplysningerType } from 'src/fetching/graphql.generated'
 
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'

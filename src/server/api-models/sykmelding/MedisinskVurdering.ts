@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { AnnenFraverGrunn } from 'queries'
+import { AnnenFraverGrunn } from 'src/fetching/graphql.generated'
 
 import { LocalDateSchema } from '../date'
 

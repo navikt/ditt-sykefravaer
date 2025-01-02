@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'

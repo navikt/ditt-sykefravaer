@@ -2,7 +2,7 @@ import { Alert, Button, ConfirmationPanel } from '@navikt/ds-react'
 import { useController, useForm } from 'react-hook-form'
 import { ReactElement } from 'react'
 
-import { SykmeldingChangeStatus, SykmeldingFragment } from 'queries'
+import { SykmeldingChangeStatus, SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'

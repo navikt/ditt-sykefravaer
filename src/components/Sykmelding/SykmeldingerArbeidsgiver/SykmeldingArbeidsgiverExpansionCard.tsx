@@ -2,7 +2,7 @@ import { ReactElement, CSSProperties } from 'react'
 import { ExpansionCard } from '@navikt/ds-react'
 import { FileSearchIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 

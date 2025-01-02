@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { BodyShort, Button, Heading } from '@navikt/ds-react'
 import { PrinterSmallIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { toReadableDate } from '../../../utils/dateUtils'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'

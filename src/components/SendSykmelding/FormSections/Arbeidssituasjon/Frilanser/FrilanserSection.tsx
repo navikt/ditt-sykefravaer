@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 
-import { YesOrNo } from 'queries'
+import { YesOrNo } from 'src/fetching/graphql.generated'
 
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'

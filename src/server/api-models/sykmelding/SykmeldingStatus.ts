@@ -9,7 +9,7 @@ import {
     Blad,
     LottOgHyre,
     JaEllerNei,
-} from 'queries'
+} from 'src/fetching/graphql.generated'
 
 import { LocalDateSchema } from '../date'
 

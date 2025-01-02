@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { KontaktMedPasient } from 'queries'
+import { KontaktMedPasient } from 'src/fetching/graphql.generated'
 
 import Tilbakedatering from './Tilbakedatering'
 

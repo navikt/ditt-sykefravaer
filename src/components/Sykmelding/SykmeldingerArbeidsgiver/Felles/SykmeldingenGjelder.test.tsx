@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Pasient } from 'queries'
+import { Pasient } from 'src/fetching/graphql.generated'
 
 import SykmeldingenGjelder from './SykmeldingenGjelder'
 

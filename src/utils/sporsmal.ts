@@ -1,5 +1,5 @@
-import { ArbeidssituasjonType } from 'queries'
-import { UriktigeOpplysningerType } from 'queries'
+import { ArbeidssituasjonType } from 'src/fetching/graphql.generated'
+import { UriktigeOpplysningerType } from 'src/fetching/graphql.generated'
 
 import { prettifyOrgName } from './orgUtils'
 import { toReadableDate } from './dato-utils'

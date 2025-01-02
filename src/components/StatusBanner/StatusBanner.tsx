@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert, BodyShort, Detail } from '@navikt/ds-react'
 
-import { Behandlingsutfall, SykmeldingStatusFragment } from 'queries'
+import { Behandlingsutfall, SykmeldingStatusFragment } from 'src/fetching/graphql.generated'
 
 import { toReadableDate } from '../../utils/dateUtils'
 

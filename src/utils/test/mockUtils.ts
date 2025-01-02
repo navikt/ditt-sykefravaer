@@ -6,7 +6,7 @@ import {
     SykmeldingErUtenforVentetidQuery,
     TidligereArbeidsgivereByIdDocument,
     UtenforVentetid,
-} from 'queries'
+} from 'src/fetching/graphql.generated'
 
 import { createMock } from './dataUtils'
 

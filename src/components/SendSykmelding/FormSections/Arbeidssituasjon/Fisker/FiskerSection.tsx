@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { BrukerinformasjonFragment, SykmeldingFragment } from 'queries'
+import { BrukerinformasjonFragment, SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'

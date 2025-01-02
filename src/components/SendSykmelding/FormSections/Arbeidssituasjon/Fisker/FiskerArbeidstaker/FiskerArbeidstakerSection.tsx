@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { Blad, BrukerinformasjonFragment, LottOgHyre, SykmeldingFragment } from 'queries'
+import { Blad, BrukerinformasjonFragment, LottOgHyre, SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'

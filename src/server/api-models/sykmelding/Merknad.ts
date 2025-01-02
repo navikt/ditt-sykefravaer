@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { Merknadtype } from 'queries'
+import { Merknadtype } from 'src/fetching/graphql.generated'
 
 export type Merknad = z.infer<typeof MerknadSchema>
 export const MerknadSchema = z.object({

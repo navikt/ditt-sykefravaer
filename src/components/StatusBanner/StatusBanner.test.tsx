@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Behandlingsutfall, RegelStatus, StatusEvent, SykmeldingStatusFragment } from 'queries'
+import { Behandlingsutfall, RegelStatus, StatusEvent, SykmeldingStatusFragment } from 'src/fetching/graphql.generated'
 
 import StatusBanner from './StatusBanner'
 

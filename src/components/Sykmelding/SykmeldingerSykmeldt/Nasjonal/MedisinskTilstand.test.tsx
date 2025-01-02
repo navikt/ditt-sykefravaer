@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { AnnenFraverGrunn, MedisinskVurdering } from 'queries'
+import { AnnenFraverGrunn, MedisinskVurdering } from 'src/fetching/graphql.generated'
 
 import MedisinskTilstand from './MedisinskTilstand'
 

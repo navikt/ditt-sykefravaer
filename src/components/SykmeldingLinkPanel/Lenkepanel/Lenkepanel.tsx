@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import Link from 'next/link'
 import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import { getDescription } from '../../../utils/periodeUtils'

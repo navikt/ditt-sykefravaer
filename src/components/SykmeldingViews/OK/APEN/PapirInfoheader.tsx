@@ -1,7 +1,7 @@
 import { ReactElement, useState } from 'react'
 import { Alert, BodyLong, Button, Label, Radio, RadioGroup } from '@navikt/ds-react'
 
-import { SykmeldingChangeStatus } from 'queries'
+import { SykmeldingChangeStatus } from 'src/fetching/graphql.generated'
 
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
 import { useChangeSykmeldingStatus } from '../../../../hooks/useMutations'

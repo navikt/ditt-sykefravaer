@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest'
 import { GraphQLError } from 'graphql'
 import * as dekoratoren from '@navikt/nav-dekoratoren-moduler'
 
-import { StatusEvent, SykmeldingerDocument } from 'queries'
+import { StatusEvent, SykmeldingerDocument } from 'src/fetching/graphql.generated'
 
 import SykmeldingerPage from '../pages/sykmelding/index'
 import { render, screen, waitForElementToBeRemoved, within } from '../utils/test/testUtils'

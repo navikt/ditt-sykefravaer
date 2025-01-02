@@ -3,7 +3,7 @@ import { Accordion, Alert } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import * as R from 'remeda'
 
-import { SykmeldingFragment } from 'queries'
+import { SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import useFocusRefetch from '../../hooks/useFocusRefetch'
 import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'

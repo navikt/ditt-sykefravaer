@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { PersonIcon } from '@navikt/aksel-icons'
 
-import { Pasient } from 'queries'
+import { Pasient } from 'src/fetching/graphql.generated'
 
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { fnrText, getPasientName } from '../../../../utils/pasientUtils'

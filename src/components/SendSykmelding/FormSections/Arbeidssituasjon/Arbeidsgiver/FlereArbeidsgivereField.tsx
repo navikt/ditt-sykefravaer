@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { RadioGroup, Radio, ReadMore } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
-import { YesOrNo } from 'queries'
+import { YesOrNo } from 'src/fetching/graphql.generated'
 
 import { FormValues } from '../../../SendSykmeldingForm'
 import { sporsmal } from '../../../../../utils/sporsmal'

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { YesOrNo } from 'queries'
+import { YesOrNo } from 'src/fetching/graphql.generated'
 
 import { toDate, toDateString } from '../../../utils/dateUtils'
 

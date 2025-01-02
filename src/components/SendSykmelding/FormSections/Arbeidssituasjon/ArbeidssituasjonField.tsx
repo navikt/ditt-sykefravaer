@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useController } from 'react-hook-form'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 
-import { ArbeidssituasjonType } from 'queries'
+import { ArbeidssituasjonType } from 'src/fetching/graphql.generated'
 
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'

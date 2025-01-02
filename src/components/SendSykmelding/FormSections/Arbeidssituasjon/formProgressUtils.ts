@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 import { isSameDay } from 'date-fns'
 
-import { ArbeidssituasjonType, BrukerinformasjonFragment, SykmeldingFragment } from 'queries'
+import { ArbeidssituasjonType, BrukerinformasjonFragment, SykmeldingFragment } from 'src/fetching/graphql.generated'
 
 import {
     isArbeidstaker,
