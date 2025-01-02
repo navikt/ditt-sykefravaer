@@ -1,5 +1,6 @@
+import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from 'queries'
+
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
-import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../resolver-types.generated'
 
 import { SykmeldingBuilder } from './data-creators'
 

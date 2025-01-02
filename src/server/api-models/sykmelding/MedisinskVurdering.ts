@@ -1,6 +1,7 @@
 import { z } from 'zod'
 
-import { AnnenFraverGrunn } from '../../graphql/resolver-types.generated'
+import { AnnenFraverGrunn } from 'queries'
+
 import { LocalDateSchema } from '../date'
 
 const DiagnoseSchema = z.object({

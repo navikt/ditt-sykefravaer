@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType, JaEllerNei, UriktigeOpplysningerType } from '../graphql/resolver-types.generated'
+import { ArbeidssituasjonType, JaEllerNei, UriktigeOpplysningerType } from 'queries'
 
 export type SykmeldingUserEventV3Api = {
     erOpplysningeneRiktige: SporsmalSvar<JaEllerNei>

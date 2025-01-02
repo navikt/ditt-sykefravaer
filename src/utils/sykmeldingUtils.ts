@@ -72,7 +72,7 @@ export function getSentSykmeldingTitle(
  * Get the first fom date of the earliest sykmelding period
  * @return {Date} The start date
  */
-export function getSykmeldingStartDate(perioder: readonly { readonly fom: string }[]): string {
+export function getSykmeldingStartDate(perioder: { fom: string }[]): string {
     return perioder.reduce((acc, value) => (isBefore(toDate(value.fom), toDate(acc.fom)) ? value : acc)).fom
 }
 
