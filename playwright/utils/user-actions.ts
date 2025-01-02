@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test'
 
-import type { Scenarios } from '../../src/server/graphql/mock-db/scenarios'
+import type { Scenarios } from '../../src/data/mock/mock-db/scenarios'
 import { toReadableDate } from '../../src/utils/dateUtils'
 
 import { getRadioInGroup } from './test-utils'

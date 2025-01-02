@@ -5,7 +5,7 @@ import * as R from 'remeda'
 
 import { cn } from '../../utils/tw-utils'
 import { PersonaData, PersonaGroupKey, testpersonerGruppert } from '../../data/mock/testperson'
-import { otherScenarios, Scenarios, simpleScenarios } from '../../server/graphql/mock-db/scenarios'
+import { otherScenarios, Scenarios, simpleScenarios } from '../../data/mock/mock-db/scenarios'
 
 export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding' }): ReactElement {
     const [showHint, setShowHint] = useState(false)
