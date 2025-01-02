@@ -9,12 +9,11 @@ import { logger } from '@navikt/next-logger'
 import { nextleton } from 'nextleton'
 import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
 
-import { SykmeldingChangeStatus } from 'queries'
+import { SendSykmeldingValues, SykmeldingChangeStatus } from 'queries'
 
 import { cleanPathForMetric } from '../../metrics'
 import { getSessionId } from '../../utils/userSessionId'
 import mockDb from '../../server/graphql/mock-db'
-import { SendSykmeldingValues } from '../../server/graphql/resolver-types.generated'
 
 import { Persona, testpersoner } from './testperson'
 

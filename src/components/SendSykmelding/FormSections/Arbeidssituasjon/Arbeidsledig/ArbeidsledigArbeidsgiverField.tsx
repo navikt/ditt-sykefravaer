@@ -2,10 +2,11 @@ import React, { ReactElement } from 'react'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController, useFormContext } from 'react-hook-form'
 
+import { ArbeidssituasjonType } from 'queries'
+
 import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { ArbeidssituasjonType } from '../../../../../server/graphql/resolver-types.generated'
 import { logAmplitudeEvent } from '../../../../amplitude/amplitude'
 import { TidligereArbeidsgiver, TidligereArbeidsgivereArray } from '../../../../../hooks/useTidligereArbeidsgivereById'
 
