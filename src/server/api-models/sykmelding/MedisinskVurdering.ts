@@ -1,25 +1,31 @@
-import { z } from 'zod'
-
-import { LocalDateSchema } from '../date'
+// Anta at du importerer denne enum-en på samme måte som i Zod-filen
 import { AnnenFraverGrunn } from '../../../fetching/graphql.generated'
 
-const DiagnoseSchema = z.object({
-    kode: z.string(),
-    system: z.string(),
-    tekst: z.string().nullable(),
-})
+// --------------------------------------------------
+// 1) Diagnose
+// --------------------------------------------------
+export interface Diagnose {
+    kode: string
+    system: string
+    tekst: string | null
+}
 
-const AnnenFraversArsakSchema = z.object({
-    beskrivelse: z.string().nullable(),
-    grunn: z.array(z.nativeEnum(AnnenFraverGrunn)),
-})
+// --------------------------------------------------
+// 2) AnnenFraversArsak
+// --------------------------------------------------
+export interface AnnenFraversArsak {
+    beskrivelse: string | null
+    grunn: AnnenFraverGrunn[]
+}
 
-export type MedisinskVurdering = z.infer<typeof MedisinskVurderingSchema>
-export const MedisinskVurderingSchema = z.object({
-    hovedDiagnose: DiagnoseSchema.nullable(),
-    biDiagnoser: z.array(DiagnoseSchema),
-    annenFraversArsak: AnnenFraversArsakSchema.nullable(),
-    svangerskap: z.boolean(),
-    yrkesskade: z.boolean(),
-    yrkesskadeDato: LocalDateSchema.nullable(),
-})
+// --------------------------------------------------
+// 3) MedisinskVurdering
+// --------------------------------------------------
+export interface MedisinskVurdering {
+    hovedDiagnose: Diagnose | null
+    biDiagnoser: Diagnose[]
+    annenFraversArsak: AnnenFraversArsak | null
+    svangerskap: boolean
+    yrkesskade: boolean
+    yrkesskadeDato: string | null
+}

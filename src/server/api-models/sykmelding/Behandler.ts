@@ -1,18 +1,15 @@
-import { z } from 'zod'
+export interface Adresse {
+    gate: string | null
+    postnummer: number | null
+    kommune: string | null
+    postboks: string | null
+    land: string | null
+}
 
-const AdresseSchema = z.object({
-    gate: z.string().nullable(),
-    postnummer: z.number().nullable(),
-    kommune: z.string().nullable(),
-    postboks: z.string().nullable(),
-    land: z.string().nullable(),
-})
-
-export type Behandler = z.infer<typeof BehandlerSchema>
-export const BehandlerSchema = z.object({
-    fornavn: z.string(),
-    mellomnavn: z.string().nullable(),
-    etternavn: z.string(),
-    adresse: AdresseSchema,
-    tlf: z.string().nullable(),
-})
+export interface Behandler {
+    fornavn: string
+    mellomnavn: string | null
+    etternavn: string
+    adresse: Adresse
+    tlf: string | null
+}

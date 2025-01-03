@@ -1,5 +1,5 @@
-import { z } from 'zod'
-
+// Eksempel på import av enum-ene dine fra GraphQL-autogenerert kode eller egne filer.
+// Du kan tilpasse dette til ditt prosjekt.
 import {
     ShortName,
     StatusEvent,
@@ -10,8 +10,13 @@ import {
     LottOgHyre,
     JaEllerNei,
 } from '../../../fetching/graphql.generated'
-import { LocalDateSchema } from '../date'
 
+// Anta at du bruker en streng for LocalDate (f.eks. "YYYY-MM-DD").
+export type LocalDate = string
+
+// --------------------------------------------------
+// 1) Svartype
+// --------------------------------------------------
 export enum Svartype {
     ARBEIDSSITUASJON = 'ARBEIDSSITUASJON',
     PERIODER = 'PERIODER',
@@ -19,94 +24,117 @@ export enum Svartype {
     DAGER = 'DAGER',
 }
 
-const ArbeidsgiverStatusSchema = z.object({
-    orgnummer: z.string(),
-    orgNavn: z.string(),
-})
+// --------------------------------------------------
+// 2) ArbeidsgiverStatus
+// --------------------------------------------------
+export interface ArbeidsgiverStatus {
+    orgnummer: string
+    orgNavn: string
+}
 
-const JaNeiSvarSchema = z.object({
-    svarType: z.literal(Svartype.JA_NEI),
-    svar: z.nativeEnum(JaEllerNei).transform((svar) => (svar === JaEllerNei.JA ? YesOrNo.YES : YesOrNo.NO)),
-})
+// --------------------------------------------------
+// 3) Ulike varianter av "Svar"
+// --------------------------------------------------
+/**
+ * I Zod-koden utføres en transform fra JaEllerNei -> YesOrNo.
+ * Sluttresultatet er altså YesOrNo i `svar`.
+ */
+export interface JaNeiSvar {
+    svarType: Svartype.JA_NEI
+    svar: YesOrNo
+}
 
-const ArbeidssituasjonSvarSchema = z.object({
-    svarType: z.literal(Svartype.ARBEIDSSITUASJON),
-    svar: z.nativeEnum(ArbeidssituasjonType),
-})
+/**
+ * Her parses en JSON-streng til en array av LocalDate,
+ * så sluttresultatet er bare `LocalDate[]`.
+ */
+export interface DagerSvar {
+    svarType: Svartype.DAGER
+    svar: LocalDate[]
+}
 
-export type DagerSvar = z.infer<typeof DagerSvarSchema>
-const DagerSvarSchema = z.object({
-    svarType: z.literal(Svartype.DAGER),
-    svar: z.preprocess((obj: unknown) => JSON.parse(String(obj)), z.array(LocalDateSchema)),
-})
+/**
+ * En enkel enum-verdi uten transform.
+ */
+export interface ArbeidssituasjonSvar {
+    svarType: Svartype.ARBEIDSSITUASJON
+    svar: ArbeidssituasjonType
+}
 
-const PerioderSvarSchema = z.object({
-    svarType: z.literal(Svartype.PERIODER),
-    svar: z.preprocess(
-        (obj: unknown) => JSON.parse(String(obj)),
-        z.array(z.object({ fom: LocalDateSchema, tom: LocalDateSchema })),
-    ),
-})
+/**
+ * Her parses en JSON-streng til en array av perioder (fom/tom),
+ * så sluttresultatet er et array av objekter.
+ */
+export interface Periode {
+    fom: LocalDate
+    tom: LocalDate
+}
 
-export type Svar = z.infer<typeof SvarSchema>
-const SvarSchema = z.discriminatedUnion('svarType', [
-    JaNeiSvarSchema,
-    DagerSvarSchema,
-    ArbeidssituasjonSvarSchema,
-    PerioderSvarSchema,
-])
+export interface PerioderSvar {
+    svarType: Svartype.PERIODER
+    svar: Periode[]
+}
 
-export type Sporsmal = z.infer<typeof SporsmalSchema>
-const SporsmalSchema = z.object({
-    tekst: z.string(),
-    shortName: z.nativeEnum(ShortName),
-    svar: SvarSchema,
-})
+/**
+ * For å matche SvarSchema som en `discriminatedUnion` i Zod,
+ * definerer vi en union av grensesnittene over.
+ */
+export type Svar = JaNeiSvar | DagerSvar | ArbeidssituasjonSvar | PerioderSvar
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-const SporsmalSvarSchema = <T>(type: z.ZodType<T>) =>
-    z.object({
-        sporsmaltekst: z.string(),
-        svar: type,
-    })
+// --------------------------------------------------
+// 4) Sporsmal
+// --------------------------------------------------
+export interface Sporsmal {
+    tekst: string
+    shortName: ShortName
+    svar: Svar
+}
 
-export type BrukerSvar = z.infer<typeof BrukerSvarSchema>
-const BrukerSvarSchema = z.object({
-    erOpplysningeneRiktige: SporsmalSvarSchema(z.nativeEnum(JaEllerNei)),
-    uriktigeOpplysninger: SporsmalSvarSchema(z.array(z.nativeEnum(UriktigeOpplysningerType))).nullable(),
-    arbeidssituasjon: SporsmalSvarSchema(z.nativeEnum(ArbeidssituasjonType)),
-    arbeidsgiverOrgnummer: SporsmalSvarSchema(z.string()).nullable(),
-    riktigNarmesteLeder: SporsmalSvarSchema(z.nativeEnum(JaEllerNei)).nullable(),
-    harBruktEgenmelding: SporsmalSvarSchema(z.nativeEnum(JaEllerNei)).nullable(),
-    egenmeldingsperioder: SporsmalSvarSchema(
-        z.array(
-            z.object({
-                fom: LocalDateSchema,
-                tom: LocalDateSchema,
-            }),
-        ),
-    ).nullable(),
-    harForsikring: SporsmalSvarSchema(z.nativeEnum(JaEllerNei)).nullable(),
-    egenmeldingsdager: SporsmalSvarSchema(z.array(LocalDateSchema)).nullable(),
-    harBruktEgenmeldingsdager: SporsmalSvarSchema(z.nativeEnum(JaEllerNei)).nullable(),
-    fisker: z
-        .object({
-            blad: SporsmalSvarSchema(z.nativeEnum(Blad)),
-            lottOgHyre: SporsmalSvarSchema(z.nativeEnum(LottOgHyre)),
-        })
-        .nullable(),
-    arbeidsledig: z
-        .object({
-            arbeidsledigFraOrgnummer: SporsmalSvarSchema(z.string()).nullable(),
-        })
-        .nullable(),
-})
+// --------------------------------------------------
+// 5) SporsmalSvar<T>
+// --------------------------------------------------
+/**
+ * Motsvar til `SporsmalSvarSchema` som tar en generisk `T` i Zod.
+ */
+export interface SporsmalSvar<T> {
+    sporsmaltekst: string
+    svar: T
+}
 
-export type SykmeldingStatus = z.infer<typeof SykmeldingStatusSchema>
-export const SykmeldingStatusSchema = z.object({
-    statusEvent: z.nativeEnum(StatusEvent),
-    timestamp: LocalDateSchema,
-    arbeidsgiver: ArbeidsgiverStatusSchema.nullable(),
-    sporsmalOgSvarListe: z.array(SporsmalSchema),
-    brukerSvar: BrukerSvarSchema.nullable(),
-})
+// --------------------------------------------------
+// 6) BrukerSvar
+// --------------------------------------------------
+/**
+ * Motsvarer BrukerSvarSchema, med felt som enten er obligatoriske
+ * eller nullable i henhold til Zod-skjemaet.
+ */
+export interface BrukerSvar {
+    erOpplysningeneRiktige: SporsmalSvar<JaEllerNei>
+    uriktigeOpplysninger: SporsmalSvar<UriktigeOpplysningerType[]> | null
+    arbeidssituasjon: SporsmalSvar<ArbeidssituasjonType>
+    arbeidsgiverOrgnummer: SporsmalSvar<string> | null
+    riktigNarmesteLeder: SporsmalSvar<JaEllerNei> | null
+    harBruktEgenmelding: SporsmalSvar<JaEllerNei> | null
+    egenmeldingsperioder: SporsmalSvar<Array<{ fom: LocalDate; tom: LocalDate }>> | null
+    harForsikring: SporsmalSvar<JaEllerNei> | null
+    egenmeldingsdager: SporsmalSvar<LocalDate[]> | null
+    harBruktEgenmeldingsdager: SporsmalSvar<JaEllerNei> | null
+    fisker: {
+        blad: SporsmalSvar<Blad>
+        lottOgHyre: SporsmalSvar<LottOgHyre>
+    } | null
+    arbeidsledig: {
+        arbeidsledigFraOrgnummer: SporsmalSvar<string> | null
+    } | null
+}
+
+// --------------------------------------------------
+// 7) SykmeldingStatus
+// --------------------------------------------------
+export interface SykmeldingStatus {
+    statusEvent: StatusEvent
+    timestamp: LocalDate
+    arbeidsgiver: ArbeidsgiverStatus | null
+    sporsmalOgSvarListe: Sporsmal[]
+    brukerSvar: BrukerSvar | null
+}
