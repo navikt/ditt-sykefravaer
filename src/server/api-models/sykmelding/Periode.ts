@@ -1,37 +1,47 @@
-import { z } from 'zod'
-
 import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../../fetching/graphql.generated'
-import { LocalDateSchema } from '../date'
 
-const GradertPeriodeSchema = z.object({
-    grad: z.number(),
-    reisetilskudd: z.boolean(),
-})
+// --------------------------------------------------
+// 1) GradertPeriode
+// --------------------------------------------------
+export interface GradertPeriode {
+    grad: number
+    reisetilskudd: boolean
+}
 
-const MedisinskArsakSchema = z.object({
-    beskrivelse: z.string().nullable(),
-    arsak: z.array(z.nativeEnum(MedisinskArsakType)),
-})
+// --------------------------------------------------
+// 2) MedisinskArsak
+// --------------------------------------------------
+export interface MedisinskArsak {
+    beskrivelse: string | null
+    arsak: MedisinskArsakType[]
+}
 
-const ArbeidsrelatertArsakSchema = z.object({
-    beskrivelse: z.string().nullable(),
-    arsak: z.array(z.nativeEnum(ArbeidsrelatertArsakType)),
-})
+// --------------------------------------------------
+// 3) ArbeidsrelatertArsak
+// --------------------------------------------------
+export interface ArbeidsrelatertArsak {
+    beskrivelse: string | null
+    arsak: ArbeidsrelatertArsakType[]
+}
 
-export type AktivitetIkkeMuligPeriode = z.infer<typeof AktivitetIkkeMuligPeriodeSchema>
-export const AktivitetIkkeMuligPeriodeSchema = z.object({
-    medisinskArsak: MedisinskArsakSchema.nullable(),
-    arbeidsrelatertArsak: ArbeidsrelatertArsakSchema.nullable(),
-})
+// --------------------------------------------------
+// 4) AktivitetIkkeMuligPeriode
+// --------------------------------------------------
+export interface AktivitetIkkeMuligPeriode {
+    medisinskArsak: MedisinskArsak | null
+    arbeidsrelatertArsak: ArbeidsrelatertArsak | null
+}
 
-export type Periode = z.infer<typeof PeriodeSchema>
-export const PeriodeSchema = z.object({
-    fom: LocalDateSchema,
-    tom: LocalDateSchema,
-    gradert: GradertPeriodeSchema.nullable(),
-    behandlingsdager: z.number().nullable(),
-    innspillTilArbeidsgiver: z.string().nullable(),
-    type: z.nativeEnum(Periodetype),
-    aktivitetIkkeMulig: AktivitetIkkeMuligPeriodeSchema.nullable(),
-    reisetilskudd: z.boolean(),
-})
+// --------------------------------------------------
+// 5) Periode
+// --------------------------------------------------
+export interface Periode {
+    fom: string
+    tom: string
+    gradert: GradertPeriode | null
+    behandlingsdager: number | null
+    innspillTilArbeidsgiver: string | null
+    type: Periodetype
+    aktivitetIkkeMulig: AktivitetIkkeMuligPeriode | null
+    reisetilskudd: boolean
+}

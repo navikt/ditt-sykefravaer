@@ -1,49 +1,70 @@
-import { z } from 'zod'
+// Anta at LocalDate er en streng med format "YYYY-MM-DD"
+import { MeldingTilNAV } from './MeldingTilNav'
+import { KontaktMedPasient } from './KontaktMedPasient'
+import { Behandler } from './Behandler'
+import { Merknad } from './Merknad'
+import { Pasient } from './Pasient'
+import { UtenlandskSykmelding } from './UtenlandskSykmelding'
+import { UtdypendeOpplysning } from './UtdypendeOpplysninger'
+import { Behandlingsutfall } from './Behandlingsutfall'
+import { ArbeidsgiverSykmelding } from './ArbeidsgiverSykmelding'
+import { SykmeldingStatus } from './SykmeldingStatus'
+import { Periode } from './Periode'
+import { MedisinskVurdering } from './MedisinskVurdering'
+import { Prognose } from './Prognose'
 
-import { LocalDateSchema } from '../date'
+export type LocalDate = string
 
-import { ArbeidsgiverSykmeldingSchema } from './ArbeidsgiverSykmelding'
-import { BehandlerSchema } from './Behandler'
-import { BehandlingsutfallSchema } from './Behandlingsutfall'
-import { KontaktMedPasientSchema } from './KontaktMedPasient'
-import { MedisinskVurderingSchema } from './MedisinskVurdering'
-import { MeldingTilNAVSchema } from './MeldingTilNav'
-import { MerknadSchema } from './Merknad'
-import { PeriodeSchema } from './Periode'
-import { PrognoseSchema } from './Prognose'
-import { SykmeldingStatusSchema } from './SykmeldingStatus'
-import { UtdypendeOpplysningSchema } from './UtdypendeOpplysninger'
-import { PasientSchema } from './Pasient'
-import { UtenlandskSykmeldingSchema } from './UtenlandskSykmelding'
+// -- Eksempel på andre typer, hentet fra dine tidligere definisjoner --
+// import { Behandlingsutfall } from './Behandlingsutfall'
+// import { ArbeidsgiverSykmelding } from './ArbeidsgiverSykmelding'
+// import { Periode } from './Periode'
+// import { SykmeldingStatus } from './SykmeldingStatus'
+// import { MedisinskVurdering } from './MedisinskVurdering'
+// import { Prognose } from './Prognose'
+// import { UtdypendeOpplysning } from './UtdypendeOpplysninger'
+// import { MeldingTilNAV } from './MeldingTilNav'
+// import { KontaktMedPasient } from './KontaktMedPasient'
+// import { Behandler } from './Behandler'
+// import { Merknad } from './Merknad'
+// import { Pasient } from './Pasient'
+// import { UtenlandskSykmelding } from './UtenlandskSykmelding'
 
-export const RulesetVersion = z.preprocess((value: unknown) => {
-    if (!value) return 2
-    return +String(value)
-}, z.number())
-
-export type Sykmelding = z.infer<typeof SykmeldingSchema>
-export const SykmeldingSchema = z.object({
-    id: z.string(),
-    mottattTidspunkt: LocalDateSchema,
-    behandlingsutfall: BehandlingsutfallSchema,
-    arbeidsgiver: ArbeidsgiverSykmeldingSchema.nullable(),
-    sykmeldingsperioder: z.array(PeriodeSchema),
-    sykmeldingStatus: SykmeldingStatusSchema,
-    medisinskVurdering: MedisinskVurderingSchema.nullable(),
-    prognose: PrognoseSchema.nullable(),
-    utdypendeOpplysninger: z.record(z.string(), z.record(z.string(), UtdypendeOpplysningSchema)),
-    tiltakArbeidsplassen: z.string().nullable(),
-    tiltakNAV: z.string().nullable(),
-    andreTiltak: z.string().nullable(),
-    meldingTilNAV: MeldingTilNAVSchema.nullable(),
-    meldingTilArbeidsgiver: z.string().nullable(),
-    kontaktMedPasient: KontaktMedPasientSchema,
-    behandletTidspunkt: LocalDateSchema,
-    behandler: BehandlerSchema,
-    egenmeldt: z.boolean().nullable(),
-    papirsykmelding: z.boolean().nullable(),
-    merknader: z.array(MerknadSchema).nullable(),
-    pasient: PasientSchema.nullable(),
-    rulesetVersion: RulesetVersion,
-    utenlandskSykmelding: UtenlandskSykmeldingSchema.nullable(),
-})
+/**
+ * Dersom du ønsker å beholde funksjonaliteten fra
+ *   `RulesetVersion = z.preprocess(...)`,
+ * kan du bare definere `rulesetVersion` som `number`,
+ * og eventuelt håndtere default-verdien (2) i koden din
+ * i stedet for i selve type‐definisjonen.
+ */
+export interface Sykmelding {
+    id: string
+    mottattTidspunkt: LocalDate
+    behandlingsutfall: Behandlingsutfall
+    arbeidsgiver: ArbeidsgiverSykmelding | null
+    sykmeldingsperioder: Periode[]
+    sykmeldingStatus: SykmeldingStatus
+    medisinskVurdering: MedisinskVurdering | null
+    prognose: Prognose | null
+    /**
+     * Tilsvarer
+     *   z.record(z.string(), z.record(z.string(), UtdypendeOpplysningSchema))
+     * altså et objekt av form:
+     *   { [key: string]: { [key: string]: UtdypendeOpplysning } }
+     */
+    utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>
+    tiltakArbeidsplassen: string | null
+    tiltakNAV: string | null
+    andreTiltak: string | null
+    meldingTilNAV: MeldingTilNAV | null
+    meldingTilArbeidsgiver: string | null
+    kontaktMedPasient: KontaktMedPasient
+    behandletTidspunkt: LocalDate
+    behandler: Behandler
+    egenmeldt: boolean | null
+    papirsykmelding: boolean | null
+    merknader: Merknad[] | null
+    pasient: Pasient | null
+    rulesetVersion: number
+    utenlandskSykmelding: UtenlandskSykmelding | null
+}

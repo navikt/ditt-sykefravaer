@@ -1,17 +1,16 @@
-import { z } from 'zod'
+// Anta at RegelStatus er en enum du importerer
+// import { RegelStatus } from '../../../fetching/graphql.generated';
 
 import { RegelStatus } from '../../../fetching/graphql.generated'
 
-export type RuleHit = z.infer<typeof RegelInfoSchema>
-const RegelInfoSchema = z.object({
-    messageForSender: z.string(),
-    messageForUser: z.string(),
-    ruleName: z.string(),
-    ruleStatus: z.nativeEnum(RegelStatus),
-})
+export interface RuleHit {
+    messageForSender: string
+    messageForUser: string
+    ruleName: string
+    ruleStatus: RegelStatus
+}
 
-export type Behandlingsutfall = z.infer<typeof BehandlingsutfallSchema>
-export const BehandlingsutfallSchema = z.object({
-    status: z.nativeEnum(RegelStatus),
-    ruleHits: z.array(RegelInfoSchema),
-})
+export interface Behandlingsutfall {
+    status: RegelStatus
+    ruleHits: RuleHit[]
+}

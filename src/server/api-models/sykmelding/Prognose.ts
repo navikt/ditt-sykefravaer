@@ -1,24 +1,32 @@
-import { z } from 'zod'
+// date.ts
+export type LocalDate = string
+// eller et annet format om du ønsker
 
-import { LocalDateSchema } from '../date'
+// --------------------------------------------------
+// 1) ErIArbeid
+// --------------------------------------------------
+export interface ErIArbeid {
+    egetArbeidPaSikt: boolean
+    annetArbeidPaSikt: boolean
+    arbeidFOM: LocalDate | null
+    vurderingsdato: LocalDate | null
+}
 
-const ErIArbeidSchema = z.object({
-    egetArbeidPaSikt: z.boolean(),
-    annetArbeidPaSikt: z.boolean(),
-    arbeidFOM: LocalDateSchema.nullable(),
-    vurderingsdato: LocalDateSchema.nullable(),
-})
+// --------------------------------------------------
+// 2) ErIkkeIArbeid
+// --------------------------------------------------
+export interface ErIkkeIArbeid {
+    arbeidsforPaSikt: boolean
+    arbeidsforFOM: LocalDate | null
+    vurderingsdato: LocalDate | null
+}
 
-const ErIkkeIArbeid = z.object({
-    arbeidsforPaSikt: z.boolean(),
-    arbeidsforFOM: LocalDateSchema.nullable(),
-    vurderingsdato: LocalDateSchema.nullable(),
-})
-
-export type Prognose = z.infer<typeof PrognoseSchema>
-export const PrognoseSchema = z.object({
-    arbeidsforEtterPeriode: z.boolean(),
-    hensynArbeidsplassen: z.string().nullable(),
-    erIArbeid: ErIArbeidSchema.nullable(),
-    erIkkeIArbeid: ErIkkeIArbeid.nullable(),
-})
+// --------------------------------------------------
+// 3) Prognose
+// --------------------------------------------------
+export interface Prognose {
+    arbeidsforEtterPeriode: boolean
+    hensynArbeidsplassen: string | null
+    erIArbeid: ErIArbeid | null
+    erIkkeIArbeid: ErIkkeIArbeid | null
+}
