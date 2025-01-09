@@ -30,7 +30,7 @@ export class SykmeldingBuilder {
             ruleHits: [],
         },
         arbeidsgiver: {
-            navn: 'Navn Navnesen',
+            navn: 'Arbeidsgiver AS',
         },
         sykmeldingsperioder: [],
         sykmeldingStatus: {

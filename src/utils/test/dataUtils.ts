@@ -39,7 +39,7 @@ export function createSykmelding(
         },
         arbeidsgiver: {
             __typename: 'ArbeidsgiverSykmelding',
-            navn: 'Navn Navnesen',
+            navn: 'Arbeidsgiver AS',
         },
         merknader: null,
         meldingTilArbeidsgiver: null,
