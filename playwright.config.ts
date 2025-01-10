@@ -50,7 +50,10 @@ const opts = createOptions()
 
 export default defineConfig({
     testDir: './playwright',
-    timeout: 30000,
+    timeout: 30000, // Hvor lang tid kan en test kjøre?
+    expect: {
+        timeout: 10000  // Hvor lang tid vil en test vente på en expect?
+    },
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: 0,
