@@ -93,7 +93,7 @@ function SykmeldingPicker() {
 
     return (
         <div>
-            <Alert variant="warning" size="small" className="mt-2" inline>
+            <Alert variant="warning" size="small" className="mt-2" inline role="status">
                 Endring av scenario vil slette eventuelle innsendinger og endringer du har gjort.
             </Alert>
             <Heading size="small" level="4" className="mt-2">

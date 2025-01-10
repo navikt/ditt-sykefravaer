@@ -3,7 +3,7 @@ import { Alert, BodyLong, Heading } from '@navikt/ds-react'
 
 function ArbeidsgivereFiskerMissingInfo(): ReactElement {
     return (
-        <Alert className="mt-4" variant="warning">
+        <Alert className="mt-4" variant="warning" role="status">
             <Heading spacing size="small" level="2">
                 Vi finner ingen arbeidsforhold registrert på deg
             </Heading>
