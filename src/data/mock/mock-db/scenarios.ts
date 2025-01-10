@@ -6,7 +6,7 @@ import { SykmeldingBuilder } from './data-creators'
 type ScenarioCreator = () => Scenario
 
 export type Scenario = {
-    sykmeldinger: Sykmelding[] | null
+    sykmeldinger: Sykmelding[]
     error?: { message: string }
 }
 
