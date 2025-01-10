@@ -13,7 +13,8 @@ export default function UseSykmeldingerFlex() {
         queryFn: () =>
             fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger' + testpersonQuery.query(),
-            ),
-        retry: process.env.NODE_ENV === 'development' ? 0 : 3,
+            )
+        // retry: 3,
+        // retry: process.env.NODE_ENV === 'development' ? 0 : 3,
     })
 }

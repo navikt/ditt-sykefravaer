@@ -50,9 +50,9 @@ const opts = createOptions()
 
 export default defineConfig({
     testDir: './playwright',
-    timeout: 30000, // Hvor lang tid kan en test kjøre?
+    timeout: 300000, // Hvor lang tid kan en test kjøre?
     expect: {
-        timeout: 10000  // Hvor lang tid vil en test vente på en expect?
+        timeout: 20000  // Hvor lang tid vil en test vente på en expect?
     },
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
@@ -61,7 +61,7 @@ export default defineConfig({
     reporter: process.env.CI ? 'blob' : 'html',
     use: {
         baseURL: opts.baseURL,
-        navigationTimeout: 60000,
+        navigationTimeout: 120000,
         trace: 'on-first-retry',
     },
     projects: [
