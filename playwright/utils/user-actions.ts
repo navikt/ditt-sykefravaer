@@ -1,6 +1,6 @@
 import { expect, Page } from '@playwright/test'
 
-import { Scenarios } from '../../src/data/mock/mock-db/scenarios'
+import type { Scenarios } from '../../src/data/mock/mock-db/scenarios'
 import { toReadableDate } from '../../src/utils/dateUtils'
 
 import { getRadioInGroup } from './test-utils'
@@ -17,22 +17,22 @@ export function gotoScenario(
     },
 ) {
     return async (page: Page): Promise<void> => {
+        const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
+        const erUtenforVentetid = options.erUtenforVentetid ?? false
+        const oppfolgingsdato = options.oppfolgingsdato ?? null
+
+        if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
+            // Basic scenario
+            await page.goto('/syk/sykefravaer/sykmelding/')
+            return
+        }
+
         const searchParams = new URLSearchParams({
             scenario,
-            antallArbeidsgivere: options.antallArbeidsgivere?.toString() ?? '1',
-            utenforVentetid: options.erUtenforVentetid?.toString() ?? 'false',
-            oppfolgingsdato: options.oppfolgingsdato ?? '',
+            antallArbeidsgivere: antallArbeidsgivere.toString(),
+            utenforVentetid: erUtenforVentetid.toString(),
+            oppfolgingsdato: oppfolgingsdato ?? '',
         })
-
-        if (scenario === 'feilmelding') {
-            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger', (route) => {
-                route.fulfill({
-                    status: 500,
-                    contentType: 'application/json',
-                    body: JSON.stringify({ message: 'Vi har problemer med baksystemene for øyeblikket.' }),
-                })
-            })
-        }
 
         await page.goto(`/syk/sykefravaer/sykmelding/?${searchParams.toString()}`)
     }
