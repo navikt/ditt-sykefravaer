@@ -540,6 +540,25 @@ export const e2eScenarios = {
             ],
         }),
     },
+    enSentEnBekreftet: {
+        description: 'En sendt og en bekreftet',
+        scenario: () => ({
+            sykmeldinger: [
+                new SykmeldingBuilder({ offset: -45 })
+                    .send()
+                    .relativePeriode(
+                        {
+                            type: Periodetype.AKTIVITET_IKKE_MULIG,
+                            medisinskArsak: null,
+                            arbeidsrelatertArsak: null,
+                        },
+                        { offset: 0, days: 14 },
+                    )
+                    .build(),
+                new SykmeldingBuilder({ offset: -14 }).bekreft().enkelPeriode({ offset: 0, days: 12 }).build(),
+            ],
+        }),
+    },
 } satisfies Record<string, { description: string; scenario: ScenarioCreator }>
 
 export function isValidScenario(scenario: string | null | undefined): scenario is Scenarios {
