@@ -14,6 +14,5 @@ export default function UseSykmeldingerFlex() {
             fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger' + testpersonQuery.query(),
             ),
-        retry: process.env.NODE_ENV === 'development' ? 0 : 3,
     })
 }
