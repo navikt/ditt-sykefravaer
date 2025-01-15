@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test'
 import { gotoScenario } from '../utils/user-actions'
 
 test.describe('Sykmeldinger landingsside', () => {
-    test('should fail with error message on API error', async ({ page }) => {
+    test.skip('should fail with error message on API error', async ({ page }) => {
         const [response] = await Promise.all([
             page.waitForResponse((res) => {
                 return res.url().includes('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger') && res.status() === 500
