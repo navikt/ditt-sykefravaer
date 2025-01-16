@@ -67,7 +67,7 @@ export function SykmeldingListInfo({
 }): ReactElement {
     return (
         <SykmeldingInfo {...props}>
-            <ul className={"list-disc list-outside ms-4"}>
+            <ul className="list-disc list-outside ms-4">
                 {texts.map((text) => (
                     <li className="ml-4" key={text}>
                         <BodyShort>{text}</BodyShort>
