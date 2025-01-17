@@ -89,6 +89,10 @@ export function gotoScenario(
     }
 }
 
+export async function gotoRoot(page: Page): Promise<void> {
+    await page.goto(`/syk/sykefravaer/sykmelding/`)
+}
+
 export function navigateToFirstSykmelding(
     type: 'nye' | 'tidligere' | 'under-behandling',
     variant: '100%' | 'egenmelding' | 'papirsykmelding' | 'utenlandsk',
