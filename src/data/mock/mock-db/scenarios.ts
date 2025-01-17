@@ -24,6 +24,31 @@ const kunNy: ScenarioCreator = () => ({
     ],
 })
 
+const sykmeldingFeilEtterNavigasjon: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const brukerinfoFeil: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const unsentWithPreviousSent: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -30 }) // En sendt sykmelding fra 30 dager siden
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
+        new SykmeldingBuilder({ offset: -2 }) // En åpen sykmelding fra 2 dager siden
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
+    ],
+})
+
 const gradertPeriode: ScenarioCreator = () => ({
     sykmeldinger: [
         new SykmeldingBuilder({ offset: 7 })
@@ -48,7 +73,6 @@ const emptyState: ScenarioCreator = () => ({
 
 const feilmelding: ScenarioCreator = () => ({
     sykmeldinger: [],
-    error: new Error('Vi har problemer med baksystemene for øyeblikket.'),
 })
 
 const allTypeSykmeldingBortsettFraNy: ScenarioCreator = () => ({
@@ -376,6 +400,18 @@ export const simpleScenarios = {
     allTypeSykmelding: {
         description: 'Alle typer sykmelding bortsett fra ny',
         scenario: allTypeSykmeldingBortsettFraNy,
+    },
+    usendtMedTidligereSent: {
+        description: 'Usendt med en tidligere sendt',
+        scenario: unsentWithPreviousSent,
+    },
+    sykmeldingFeil: {
+        description: 'Feil ved åpnet sykmelding',
+        scenario: sykmeldingFeilEtterNavigasjon,
+    },
+    brukerinformasjonFeil: {
+        description: 'Feil ved brukerinfo',
+        scenario: brukerinfoFeil,
     },
     nyeSykmeldinger: {
         description: 'Kun nye sykmeldinger',

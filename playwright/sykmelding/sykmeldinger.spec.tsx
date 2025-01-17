@@ -3,15 +3,11 @@ import { test, expect } from '@playwright/test'
 import { gotoScenario } from '../utils/user-actions'
 
 test.describe('Sykmeldinger landingsside', () => {
-    test.skip('should fail with error message on API error', async ({ page }) => {
-        const [response] = await Promise.all([
-            page.waitForResponse((res) => {
-                return res.url().includes('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger') && res.status() === 500
-            }),
-            gotoScenario('feilmelding')(page),
-        ])
+    test('should fail with error message on API error', async ({ page }) => {
+        await gotoScenario('feilmelding')(page)
 
-        expect(response.status()).toBe(500)
+        await page.waitForSelector('text=Vi har problemer med baksystemene for øyeblikket.')
+
         await expect(page.locator('text=Vi har problemer med baksystemene for øyeblikket.')).toBeVisible()
     })
 
