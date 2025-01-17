@@ -21,9 +21,60 @@ export function gotoScenario(
         const erUtenforVentetid = options.erUtenforVentetid ?? false
         const oppfolgingsdato = options.oppfolgingsdato ?? null
 
-        if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
-            // Basic scenario
-            await page.goto('/syk/sykefravaer/sykmelding/')
+        if (scenario === 'feilmelding') {
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger', (route) => {
+                const request = route.request()
+
+                if (request.method() === 'GET') {
+                    return route.fulfill({
+                        status: 500,
+                        contentType: 'application/json',
+                        body: JSON.stringify({ message: 'Vi har problemer med baksystemene for øyeblikket.' }),
+                    })
+                }
+
+                return route.continue()
+            })
+
+            await page.goto('/syk/sykefravaer/sykmelding/?scenario=feilmelding')
+            return
+        }
+
+        if (scenario === 'sykmeldingFeil') {
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*', (route) => {
+                const request = route.request()
+
+                if (request.method() === 'GET') {
+                    return route.fulfill({
+                        status: 500,
+                        contentType: 'application/json',
+                        body: JSON.stringify({ message: 'Some backend error' }),
+                    })
+                }
+
+                return route.continue()
+            })
+
+            await page.goto('/syk/sykefravaer/sykmelding/?scenario=sykmeldingfeil')
+            return
+        }
+
+        if (scenario === 'brukerinformasjonFeil') {
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/brukerinformasjon', (route) => {
+                const request = route.request()
+
+                if (request.method() === 'GET') {
+                    return route.fulfill({
+                        status: 500,
+                        contentType: 'application/json',
+                        body: JSON.stringify({ message: 'Failed to fetch brukerinformasjon' }),
+                    })
+                }
+
+                return route.continue()
+            })
+
+            await page.goto('/syk/sykefravaer/sykmelding/?scenario=brukerinformasjonfeil')
             return
         }
 
@@ -36,10 +87,6 @@ export function gotoScenario(
 
         await page.goto(`/syk/sykefravaer/sykmelding/?${searchParams.toString()}`)
     }
-}
-
-export async function gotoRoot(page: Page): Promise<void> {
-    await page.goto(`/syk/sykefravaer/sykmelding/`)
 }
 
 export function navigateToFirstSykmelding(
