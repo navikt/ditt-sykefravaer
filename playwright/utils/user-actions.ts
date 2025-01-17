@@ -21,6 +21,11 @@ export function gotoScenario(
         const erUtenforVentetid = options.erUtenforVentetid ?? false
         const oppfolgingsdato = options.oppfolgingsdato ?? null
 
+        if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
+            await page.goto('/syk/sykefravaer/sykmelding/')
+            return
+        }
+
         if (scenario === 'feilmelding') {
             await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger', (route) => {
                 const request = route.request()
