@@ -123,6 +123,33 @@ const nyeSykmeldinger: ScenarioCreator = () => ({
     ],
 })
 
+const kvitteringScenario: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -45 })
+            .send()
+            .relativePeriode(
+                {
+                    type: Periodetype.AKTIVITET_IKKE_MULIG,
+                    medisinskArsak: null,
+                    arbeidsrelatertArsak: null,
+                },
+                { offset: 0, days: 14 },
+            )
+            .build(),
+        new SykmeldingBuilder({ offset: -14 })
+            .bekreft()
+            .relativePeriode(
+                {
+                    type: Periodetype.AKTIVITET_IKKE_MULIG,
+                    medisinskArsak: null,
+                    arbeidsrelatertArsak: null,
+                },
+                { offset: 0, days: 14 },
+            )
+            .build(),
+    ],
+})
+
 const apenMenGammelSykmelding: ScenarioCreator = () => ({
     sykmeldinger: [
         new SykmeldingBuilder({ offset: -365 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
@@ -455,6 +482,10 @@ export const otherScenarios = {
     avbruttEgenmelding: {
         description: 'Èn avbrutt egenmelding',
         scenario: avbruttEgenmelding,
+    },
+    kvittering: {
+        description: 'Info i kvittering',
+        scenario: kvitteringScenario,
     },
     harUnderBehandlingUsent: {
         description: 'Har en ny under (manuell) behandling',
