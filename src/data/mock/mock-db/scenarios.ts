@@ -7,6 +7,7 @@ type ScenarioCreator = () => Scenario
 
 export type Scenario = {
     sykmeldinger: Sykmelding[]
+    error?: { message: string }
 }
 
 const normal: ScenarioCreator = () => ({
@@ -20,6 +21,31 @@ const normal: ScenarioCreator = () => ({
 const kunNy: ScenarioCreator = () => ({
     sykmeldinger: [
         new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const sykmeldingFeilEtterNavigasjon: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const brukerinfoFeil: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const unsentWithPreviousSent: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -30 }) // En sendt sykmelding fra 30 dager siden
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
+        new SykmeldingBuilder({ offset: -2 }) // En åpen sykmelding fra 2 dager siden
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
     ],
 })
 
@@ -38,6 +64,95 @@ const gradertPeriode: ScenarioCreator = () => ({
                 { offset: 0, days: 14 },
             )
             .build(),
+    ],
+})
+
+const emptyState: ScenarioCreator = () => ({
+    sykmeldinger: [],
+})
+
+const feilmelding: ScenarioCreator = () => ({
+    sykmeldinger: [],
+})
+
+const allTypeSykmeldingBortsettFraNy: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.UTGATT).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.AVBRUTT).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder({ offset: 7 }).bekreft().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder({ offset: 7 })
+            .behandlingsutfall(RegelStatus.INVALID, [
+                {
+                    messageForSender:
+                        'Sykmeldingen er tilbakedatert uten tilstrekkelig begrunnelse fra den som sykmeldte deg.',
+                    messageForUser:
+                        'Sykmeldingen er tilbakedatert uten tilstrekkelig begrunnelse fra den som sykmeldte deg.',
+                    ruleName: 'INNTIL_8_DAGER',
+                    ruleStatus: RegelStatus.INVALID,
+                },
+            ])
+            .bekreft()
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
+        new SykmeldingBuilder({ offset: -45 }).send().enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
+const nyeSykmeldinger: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -2 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder({ offset: -6 })
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .papir()
+            .build(),
+        new SykmeldingBuilder({ offset: -4 })
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .behandlingsutfall(RegelStatus.INVALID, [
+                {
+                    messageForSender:
+                        'Sykmeldingen kan ikke rettes, det må skrives en ny. Pasienten har fått beskjed om å vente på ny sykmelding fra deg. Grunnet følgende: Første sykmelding er tilbakedatert uten at begrunnelse (felt 11.2) er tilstrekkelig utfylt',
+                    messageForUser:
+                        'Sykmeldingen er tilbakedatert uten tilstrekkelig begrunnelse fra den som sykmeldte deg.',
+                    ruleName: 'INNTIL_8_DAGER',
+                    ruleStatus: RegelStatus.INVALID,
+                },
+            ])
+            .build(),
+    ],
+})
+
+const kvitteringScenario: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -45 })
+            .send()
+            .relativePeriode(
+                {
+                    type: Periodetype.AKTIVITET_IKKE_MULIG,
+                    medisinskArsak: null,
+                    arbeidsrelatertArsak: null,
+                },
+                { offset: 0, days: 14 },
+            )
+            .build(),
+        new SykmeldingBuilder({ offset: -14 })
+            .bekreft()
+            .relativePeriode(
+                {
+                    type: Periodetype.AKTIVITET_IKKE_MULIG,
+                    medisinskArsak: null,
+                    arbeidsrelatertArsak: null,
+                },
+                { offset: 0, days: 14 },
+            )
+            .build(),
+    ],
+})
+
+const apenMenGammelSykmelding: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder({ offset: -365 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
     ],
 })
 
@@ -223,7 +338,7 @@ const reisetilskudd: ScenarioCreator = () => ({
 
 const harUnderBehandling: ScenarioCreator = () => ({
     sykmeldinger: [
-        ...normal().sykmeldinger,
+        ...(normal().sykmeldinger ?? []),
         new SykmeldingBuilder({ offset: 7 })
             .send()
             .enkelPeriode({ offset: 0, days: 7 })
@@ -305,9 +420,37 @@ export const simpleScenarios = {
         description: 'En ny og en gammel papirsykmelding',
         scenario: papirSykmelding,
     },
-    emptyState: {
+    ingenSykmeldinger: {
         description: 'Ingen sykmeldinger',
-        scenario: () => ({ sykmeldinger: [] }),
+        scenario: emptyState,
+    },
+    allTypeSykmelding: {
+        description: 'Alle typer sykmelding bortsett fra ny',
+        scenario: allTypeSykmeldingBortsettFraNy,
+    },
+    usendtMedTidligereSent: {
+        description: 'Usendt med en tidligere sendt',
+        scenario: unsentWithPreviousSent,
+    },
+    sykmeldingFeil: {
+        description: 'Feil ved åpnet sykmelding',
+        scenario: sykmeldingFeilEtterNavigasjon,
+    },
+    brukerinformasjonFeil: {
+        description: 'Feil ved brukerinfo',
+        scenario: brukerinfoFeil,
+    },
+    nyeSykmeldinger: {
+        description: 'Kun nye sykmeldinger',
+        scenario: nyeSykmeldinger,
+    },
+    apenMenGammelSykmelding: {
+        description: 'Åpen men gammel sykmelding',
+        scenario: apenMenGammelSykmelding,
+    },
+    feilmelding: {
+        description: 'Kaster 500 error',
+        scenario: feilmelding,
     },
 } satisfies Record<string, { description: string; scenario: ScenarioCreator }>
 
@@ -339,6 +482,10 @@ export const otherScenarios = {
     avbruttEgenmelding: {
         description: 'Èn avbrutt egenmelding',
         scenario: avbruttEgenmelding,
+    },
+    kvittering: {
+        description: 'Info i kvittering',
+        scenario: kvitteringScenario,
     },
     harUnderBehandlingUsent: {
         description: 'Har en ny under (manuell) behandling',
@@ -457,6 +604,25 @@ export const e2eScenarios = {
                     .send()
                     .noBrukerSvar()
                     .build(),
+            ],
+        }),
+    },
+    enSentEnBekreftet: {
+        description: 'En sendt og en bekreftet',
+        scenario: () => ({
+            sykmeldinger: [
+                new SykmeldingBuilder({ offset: -45 })
+                    .send()
+                    .relativePeriode(
+                        {
+                            type: Periodetype.AKTIVITET_IKKE_MULIG,
+                            medisinskArsak: null,
+                            arbeidsrelatertArsak: null,
+                        },
+                        { offset: 0, days: 14 },
+                    )
+                    .build(),
+                new SykmeldingBuilder({ offset: -14 }).bekreft().enkelPeriode({ offset: 0, days: 12 }).build(),
             ],
         }),
     },
