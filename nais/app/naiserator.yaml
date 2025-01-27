@@ -22,7 +22,7 @@ spec:
       port: 3000
   observability:
     autoInstrumentation:
-      enabled: true
+      enabled: false
       runtime: nodejs
     logging:
       destinations:
