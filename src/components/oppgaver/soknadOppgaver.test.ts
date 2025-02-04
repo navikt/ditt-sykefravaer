@@ -28,6 +28,25 @@ it('Returnerer en oppgave når det er en arbeidstakersøknad', () => {
     ])
 })
 
+it('Returnerer en oppgave når det er en friskmeldt til arbeidsformidling soknad', () => {
+    const soknader: Soknad[] = [
+        {
+            id: '123',
+            arbeidssituasjon: null,
+            soknadstype: 'FRISKMELDT_TIL_ARBEIDSFORMIDLING',
+            status: 'NY',
+            opprettetDato: null,
+        },
+    ]
+    const oppgaver = skapSoknadOppgaver(soknader, 'http://soknad')
+    expect(oppgaver).toEqual([
+        {
+            lenke: 'http://soknad/soknader/123',
+            tekst: 'Du har en ny søknad om sykepenger',
+        },
+    ])
+})
+
 it('Returnerer flere oppgaver når det er mange forskjellige søknader', () => {
     const soknader: Soknad[] = [
         {
