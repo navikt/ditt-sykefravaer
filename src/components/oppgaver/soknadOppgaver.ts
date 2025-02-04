@@ -45,6 +45,7 @@ export const skapSoknadOppgaver = (soknader: Soknad[] | undefined, sykepengesokn
         'ANNET_ARBEIDSFORHOLD',
         'BEHANDLINGSDAGER',
         'SELVSTENDIGE_OG_FRILANSERE',
+        'FRISKMELDT_TIL_ARBEIDSFORMIDLING',
     ]
 
     return [
