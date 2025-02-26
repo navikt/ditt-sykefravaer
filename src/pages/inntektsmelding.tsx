@@ -17,7 +17,8 @@ const Inntektsmelding = () => {
             <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiveren din" />
 
             <BodyLong spacing>
-                Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke fått den enda. Nav trenger opplysninger fra inntektsmeldingen for å behandle søknaden din om sykepenger.
+                Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke fått den enda. Nav trenger
+                opplysninger fra inntektsmeldingen for å behandle søknaden din om sykepenger.
             </BodyLong>
             <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small" spacing>
