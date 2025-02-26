@@ -12,7 +12,6 @@ const Inntektsmelding = () => {
         () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Venter på inntektsmelding' }],
         [],
     )
-    /* du trenger arbeidsgiver her? */
     return (
         <>
             <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiveren din" />
