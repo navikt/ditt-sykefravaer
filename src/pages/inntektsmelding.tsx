@@ -12,14 +12,13 @@ const Inntektsmelding = () => {
         () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Venter på inntektsmelding' }],
         [],
     )
-
+    /* du trenger arbeidsgiver her? */
     return (
         <>
             <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiveren din" />
 
             <BodyLong spacing>
-                Vi har ikke fått inntektsmelding fra arbeidsgiveren din. Nav trenger opplysninger fra inntektsmeldingen
-                for å behandle søknaden din om sykepenger.
+                Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke fått den enda. Nav trenger opplysninger fra inntektsmeldingen for å behandle søknaden din om sykepenger.
             </BodyLong>
             <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
                 <Heading level="2" size="small" spacing>
