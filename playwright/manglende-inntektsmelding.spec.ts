@@ -21,7 +21,11 @@ test.describe('Tester inntektsmelding', () => {
 
         await expect(header).toContainText('Vi venter på inntektsmelding fra arbeidsgiver')
 
-        await expect(page.locator('text=Vi har ikke fått inntektsmelding fra arbeidsgiveren din')).toBeVisible()
+        await expect(
+            page.locator(
+                'text=Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke fått den enda. Nav trenger opplysninger fra inntektsmeldingen for å behandle søknaden din om sykepenger.',
+            ),
+        ).toBeVisible()
     })
 
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
