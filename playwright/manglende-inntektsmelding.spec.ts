@@ -34,8 +34,9 @@ test.describe('Tester inntektsmelding', () => {
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
         await expect(navdsAlert).toHaveCount(1)
-        const alertText =
-            'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.'
+
+        const alertText = 'Status i saken din om sykepenger: ' + 'Vi venter på inntektsmelding fra Posten Norge AS'
+
         await expect(navdsAlert).toContainText(alertText)
 
         const closeButton = oppgaver.locator('.navds-alert .navds-button')
