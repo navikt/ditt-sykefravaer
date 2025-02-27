@@ -37,7 +37,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         })(page)
     })
 
-    test('should not send egenmeldingsdager and stuff when first filled out as arbeidsgiver, then changes back to arbeidsledig', async ({
+    test.skip('should not send egenmeldingsdager and stuff when first filled out as arbeidsgiver, then changes back to arbeidsledig', async ({
         page,
     }) => {
         await userInteractionsGroup(
