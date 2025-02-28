@@ -60,7 +60,7 @@ test.describe('Keyboard navigering', () => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
             page.locator(
-                'text=Vi venter på inntektsmelding fra Flex AS. Når vi får den kan vi behandle søknaden om sykepenger du sendte 1. juli 2022.',
+                'text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
             ),
         ).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
@@ -70,7 +70,7 @@ test.describe('Keyboard navigering', () => {
 
         // Første lenke er fokusert med riktig styling
         await expect(page.locator(':focus')).toHaveText(
-            'Vi venter på inntektsmelding fra Flex AS. Når vi får den kan vi behandle søknaden om sykepenger du sendte 1. juli 2022.',
+            'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
         )
         await expect(page.locator(':focus')).toHaveCSS('color', 'rgb(255, 255, 255)')
         await expect(page.locator(':focus')).toHaveCSS('background-color', 'rgb(0, 52, 125)')

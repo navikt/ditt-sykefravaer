@@ -9,7 +9,7 @@ export const manglerInntektsmelding: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Vi venter på inntektsmelding fra Flex AS. Når vi får den kan vi behandle søknaden om sykepenger du sendte 1. juli 2022.',
+            tekst: "Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.",
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
@@ -26,7 +26,8 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Saksbehandlingen for søknaden om sykepenger du sendte 1. juli 2022 er forsinket fordi vi fortsatt venter på inntektsmelding fra Flex AS.',
+            tekst: 'Vi mangler fortsatt inntektsmelding fra Flex AS og har sendt en påminnelse til arbeidsgiveren din om dette.' +
+                'Når vi får den kan vi begynne å behandle søknaden din.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
@@ -43,7 +44,7 @@ export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Status i saken din om sykepenger: Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen`,
             variant: 'info',
             meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
@@ -70,7 +71,7 @@ export const henterInntektsmeldingFraAaregMed1ManedInntekt: Persona = {
     meldinger: [
         {
             uuid: '123456y8',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Status i saken din om sykepenger: Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned`,
             variant: 'info',
             meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
@@ -97,7 +98,7 @@ export const henterInntektsmeldingFraAaregMedIngenManedsInntekt: Persona = {
     meldinger: [
         {
             uuid: '123456y9',
-            tekst: 'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.',
+            tekst: 'Status i saken din om sykepenger: Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.',
             lenke: `/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen`,
             variant: 'info',
             meldingType: 'FORELAGT_INNTEKT_FRA_AAREG',
@@ -124,8 +125,7 @@ export const venterPaSaksbehandlingNummer1: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Behandlingen av søknaden din om sykepenger tar lengre tid enn forventet. Vi beklager eventuelle ulemper dette medfører. Se vår oversikt over forventet saksbehandlingstid.',
-            lenke: 'https://www.nav.no/saksbehandlingstider#sykepenger',
+            tekst: 'Status i saken din om sykepenger: Vi beklager! Saksbehandlingen tar dessverre lengre tid enn forventet. Vi regner med at saken din vil være ferdigbehandlet i løpet av de neste 4 ukene.',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
             lukkbar: false,
@@ -141,8 +141,7 @@ export const venterPaSaksbehandlingNummer2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Beklager, men behandlingen av søknaden din om sykepenger tar enda lengre tid enn forventet. Vi beklager eventuelle ulemper dette medfører.',
-            lenke: 'https://www.nav.no/saksbehandlingstider#sykepenger',
+            tekst: 'Status i saken din om sykepenger: Vi beklager! Saksbehandlingen tar dessverre lengre tid enn forventet. Vi regner med at søknaden din om sykepenger vil være ferdigbehandlet i løpet av de neste 4 ukene.',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
             lukkbar: false,
@@ -158,7 +157,7 @@ export const mottattInntektsmelding: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.',
+            tekst: 'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Posten Norge AS.',
             variant: 'success',
             meldingType: 'mottatt inntektsmelding',
             lukkbar: true,
