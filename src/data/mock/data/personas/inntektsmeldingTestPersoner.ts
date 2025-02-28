@@ -26,10 +26,9 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst:
-            lenke: '/syk/sykefravaer/inntektsmelding',
-                'Vi mangler fortsatt inntektsmelding fra Flex AS og har sendt en påminnelse til arbeidsgiveren din om dette.' +
+            tekst: 'Vi mangler fortsatt inntektsmelding fra Flex AS og har sendt en påminnelse til arbeidsgiveren din om dette.' +
                 'Når vi får den kan vi begynne å behandle søknaden din.',
+            lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
             lukkbar: false,
