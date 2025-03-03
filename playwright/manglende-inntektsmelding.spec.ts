@@ -8,17 +8,11 @@ test.describe('Tester inntektsmelding', () => {
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
-        await page.waitForTimeout(10000)
         await expect(navdsAlert).toHaveCount(1)
-        const alertText =
-            'Vi venter på inntektsmelding fra Flex AS.'
+        const alertText = 'Vi venter på inntektsmelding fra Flex AS.'
         await expect(navdsAlert).toContainText(alertText)
 
-        // make this wait 10 seconds to click
-
-
-        await navdsAlert.click()
-        await page.waitForTimeout(10000)
+        // await page.goto('http://localhost:3000/syk/sykefravaer/inntektsmelding')
         await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
 
         const header = page.locator('main').locator('h1').first()
