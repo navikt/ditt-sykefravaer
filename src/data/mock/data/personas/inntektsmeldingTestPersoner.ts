@@ -158,7 +158,7 @@ export const mottattInntektsmelding: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Posten Norge AS.',
+            tekst: 'Vi har mottatt inntektsmeldingen fra Posten Norge AS for sykefraværet som startet 15. mars 2022.', // 'Vi venter på inntektsmelding fra Posten Norge AS.', //Status i saken din om sykepenger:
             variant: 'success',
             meldingType: 'mottatt inntektsmelding',
             lukkbar: true,
