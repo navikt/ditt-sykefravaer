@@ -59,9 +59,7 @@ test.describe('Keyboard navigering', () => {
     test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
-            page.locator(
-                'text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
-            ),
+            page.locator('text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.'),
         ).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 

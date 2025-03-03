@@ -9,7 +9,7 @@ export const manglerInntektsmelding: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: "Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.",
+            tekst: 'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
@@ -26,7 +26,8 @@ export const manglerInntektsmeldingVarsel2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Vi mangler fortsatt inntektsmelding fra Flex AS og har sendt en påminnelse til arbeidsgiveren din om dette.' +
+            tekst:
+                'Vi mangler fortsatt inntektsmelding fra Flex AS og har sendt en påminnelse til arbeidsgiveren din om dette.' +
                 'Når vi får den kan vi begynne å behandle søknaden din.',
             lenke: '/syk/sykefravaer/inntektsmelding',
             variant: 'info',

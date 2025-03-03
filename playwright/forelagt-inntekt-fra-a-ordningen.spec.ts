@@ -81,7 +81,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.' // Status i saken din om sykepenger: 
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.' // Status i saken din om sykepenger:
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
