@@ -59,7 +59,8 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         const sixteenDaysAgo = sub(today, { days: 16 })
         // det er her den failer
         await page
-            .getByRole('button', { name: format(today, 'EEEE d', { locale: nb }), includeHidden: false, exact: true }).nth(1)
+            .getByRole('button', { name: format(today, 'EEEE d', { locale: nb }), includeHidden: false, exact: true })
+            .nth(1)
             .click()
         await page.getByRole('button', { name: /Videre/ }).click()
         await page
