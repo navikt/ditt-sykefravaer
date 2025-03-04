@@ -11,7 +11,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
@@ -51,7 +51,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
@@ -81,7 +81,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
-            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet som startet 05.02.2024. Vi trenger at du sjekker om de stemmer.'
+            'Vi har hentet opplysninger om inntekten din fra a-ordningen for sykefraværet. Vi trenger at du sjekker om de stemmer.'
 
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
