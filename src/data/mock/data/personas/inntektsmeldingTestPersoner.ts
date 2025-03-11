@@ -133,7 +133,7 @@ export const venterPaSaksbehandlingNummer1: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Venter på saksbehandlet etter 28 dager',
+    beskrivelse: 'Venter på saksbehandling etter 56 dager',
 }
 
 export const venterPaSaksbehandlingNummer2: Persona = {
