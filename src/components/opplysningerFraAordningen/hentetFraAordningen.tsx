@@ -41,7 +41,7 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
             <BodyLong spacing>
                 Vi har fortsatt ikke mottatt inntektsmelding fra {melding?.metadata?.orgnavn} og har derfor hentet
                 opplysninger om inntekten din fra a-ordningen. Vi vil bruke opplysningene til å behandle søknaden din og
-                vurdere hvor mye sykepenger du eventuelt kan få.
+                beregne hvor mye sykepenger du kan få.
             </BodyLong>
 
             <ForelagteInntektInfoBoks grupperteInntekter={grupperteInntekter} />
@@ -52,7 +52,7 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
 
             <BodyLong spacing>
                 Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før den måneden du ble syk
-                for å beregne hvor mye sykepenger du kan få. Hvis situasjonen din har endret seg i løpet av denne
+                for å beregne hvor mye sykepenger du kan få. Hvis inntekten din har endret seg i løpet av denne
                 perioden, kan det være andre regler for hvordan vi skal beregne. Da må du gi oss beskjed. Det kan for
                 eksempel være hvis:
             </BodyLong>
@@ -85,10 +85,9 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                     Ta kontakt hvis inntekten ikke stemmer
                 </Heading>
                 <BodyLong className="mt-4">
-                    Har det vært endringer i situasjonen din eller har spørsmål til opplysningene hentet fra
-                    a-ordningen,{' '}
-                    <Link href="https://www.nav.no/kontaktoss#skriv-til-oss" target="_blank">
-                        ta kontakt med Nav
+                    Har det vært endringer i situasjonen din som gjør at vi mangler opplysninger om inntekten din,{' '}
+                    <Link href="https://innboks.nav.no/s/beskjed-til-oss?category=Endring-sykepenger" target="_blank">
+                        gi beskjed til Nav om endringen
                     </Link>{' '}
                     innen{' '}
                     {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''}.
