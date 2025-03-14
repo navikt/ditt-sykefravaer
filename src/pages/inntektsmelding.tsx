@@ -58,7 +58,10 @@ const Inntektsmelding = () => {
             </Heading>
             <BodyLong>
                 {'Hvis det er noe du lurer på, kan du '}
-                <LenkeMedAmplitude url="https://www.nav.no/kontaktoss" tekst="ta kontakt med oss."></LenkeMedAmplitude>
+                <LenkeMedAmplitude
+                    url="https://innboks.nav.no/s/skriv-til-oss?category=Helse"
+                    tekst="ta kontakt med oss."
+                ></LenkeMedAmplitude>
             </BodyLong>
 
             <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />

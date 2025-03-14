@@ -75,7 +75,7 @@ export function SerIkkeSykmelding(): ReactElement {
 
                 <div className="mb-4">
                     <BodyShort>
-                        <Link href="https://www.nav.no/kontaktoss" target="_blank">
+                        <Link href="https://innboks.nav.no/s/skriv-til-oss?category=Helse" target="_blank">
                             Kontakt oss
                         </Link>{' '}
                         om du fortsatt ikke finner det du leter etter.
