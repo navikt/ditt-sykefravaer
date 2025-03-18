@@ -13,8 +13,11 @@ export const InfoOmDigitalSykmelding = (): ReactElement => (
                     <Link href={basePath() || '#'}>Ditt sykefravær</Link>, der du er logget inn nå.
                 </BodyLong>
                 <BodyLong spacing>
-                    Du kan kreve at NAV sletter sykmeldingen din. Da kan du bruke{' '}
-                    <Link href="https://nav.no/skrivtiloss">nav.no/skrivtiloss</Link> eller ringe 55 55 33 33.
+                    Du kan kreve at Nav sletter sykmeldingen din. Ta kontakt enten ved å{' '}
+                    <Link href="https://innboks.nav.no/s/beskjed-til-oss?category=Endring-sykepenger">
+                        skrive til oss
+                    </Link>{' '}
+                    eller <Link href="https://www.nav.no/kontaktoss#ring-oss">ringe til oss</Link>.
                 </BodyLong>
             </section>
 
@@ -25,11 +28,11 @@ export const InfoOmDigitalSykmelding = (): ReactElement => (
                 <BodyLong>Ifølge folketrygdloven har den to formål:</BodyLong>
                 <ul>
                     <BodyLong as="li">
-                        - Melde fra om sykefravær til NAV og arbeidsgiveren slik at du kan få hjelp til å komme tilbake
-                        i jobb.
+                        Melde fra om sykefravær til NAV og arbeidsgiveren slik at du kan få hjelp til å komme tilbake i
+                        jobb.
                     </BodyLong>
                     <BodyLong as="li" spacing>
-                        - Legge til rette for at du kan søke om sykepenger.
+                        Legge til rette for at du kan søke om sykepenger.
                     </BodyLong>
                 </ul>
             </section>
