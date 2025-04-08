@@ -1,8 +1,8 @@
-import { Sykmelding } from '../types/sykmelding'
+import { TsmSykmelding } from '../types/tsmSykmelding'
 
 const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 4
 
-export const erSykmeldingGyldigForOppfolgingMedGrensedato = (sykmelding: Sykmelding, dato: Date): boolean => {
+export const erSykmeldingGyldigForOppfolgingMedGrensedato = (sykmelding: TsmSykmelding, dato: Date): boolean => {
     return (
         sykmelding.sykmeldingsperioder.filter((periode) => {
             const tomGrenseDato = new Date(dato)

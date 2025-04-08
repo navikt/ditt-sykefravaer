@@ -5,7 +5,7 @@ import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
@@ -121,7 +121,7 @@ const OppgaveLista = ({ oppgaver, pushLukket, lasterData }: OppgaveProps) => {
 
 function Oppgaver() {
     const { data: meldinger, isLoading: meldingerLaster } = useMeldinger()
-    const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useSykmeldinger()
+    const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useTsmSykmeldinger()
     const { data: soknader, isLoading: soknaderLaster } = useSoknader()
     const { data: oppfolgingsplaner, isLoading: oppfolgingsplanerLaster } = useOppfolgingsplaner()
     const { data: dialogmoteBehov, isLoading: dialogmoteBehovLaster } = useDialogmoteBehov()

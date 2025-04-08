@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
-import { Sykmelding } from '../../types/sykmelding'
+import { TsmSykmelding } from '../../types/tsmSykmelding'
 
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 
@@ -28,7 +28,7 @@ it('Returnerer false hvis ingen sykmeldinger og ingen oppfølgingsplaner', () =>
 
 it('Returnerer false hvis en gammel sykmelding og ingen oppfølgingsplaner', () => {
     const fireMånederOgToDagerSiden = dayjs().subtract(4, 'months').subtract(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: Sykmelding = {
+    const sykmelding: TsmSykmelding = {
         id: 'APEN',
         sykmeldingStatus: {
             statusEvent: 'APEN',
@@ -43,7 +43,7 @@ it('Returnerer false hvis en gammel sykmelding og ingen oppfølgingsplaner', () 
 
 it('Returnerer true hvis en nesten 4 måneder gammel sykmelding og ingen oppfølgingsplaner', () => {
     const nestenFireMånederSiden = dayjs().subtract(4, 'months').add(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: Sykmelding = {
+    const sykmelding: TsmSykmelding = {
         id: 'APEN',
         sykmeldingStatus: {
             statusEvent: 'APEN',

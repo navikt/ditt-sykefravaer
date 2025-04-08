@@ -4,14 +4,14 @@ import { Skeleton } from '@navikt/ds-react'
 
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 
 const Oppfolgingsplan = () => {
-    const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useSykmeldinger()
+    const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useTsmSykmeldinger()
     const { data: oppfolgingsplaner, isLoading: oppfolginsplanerLaster } = useOppfolgingsplaner()
 
     if (sykmeldingerLaster || oppfolginsplanerLaster) {

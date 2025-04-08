@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs'
 
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import useMaxDate from '../../hooks/useMaxDate'
 import { erSykmeldingInnafor } from '../maksdato/skalViseMaksDato'
 
@@ -30,7 +30,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
         setActiveState,
     }
 
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: sykmeldinger } = useTsmSykmeldinger()
     const { data: maxdate } = useMaxDate(
         sykmeldinger?.some((sykmelding) => erSykmeldingInnafor(sykmelding, 17)) ?? false,
     )

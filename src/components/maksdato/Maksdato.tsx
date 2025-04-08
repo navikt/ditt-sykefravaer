@@ -4,14 +4,14 @@ import dayjs from 'dayjs'
 
 import useMaxDate from '../../hooks/useMaxDate'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { logEvent } from '../amplitude/amplitude'
 import { LenkeMedAmplitude } from '../lenke/lenke-med-amplitude'
 
 import { skalViseMaksDato, erSykmeldingInnafor } from './skalViseMaksDato'
 
 const Maksdato = () => {
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: sykmeldinger } = useTsmSykmeldinger()
     const { data: maxdate } = useMaxDate(
         sykmeldinger?.some((sykmelding) => erSykmeldingInnafor(sykmelding, 17)) ?? false,
     )

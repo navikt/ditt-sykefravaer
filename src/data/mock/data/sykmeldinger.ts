@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 
-import { Sykmelding } from '../../../types/sykmelding'
+import { TsmSykmelding } from '../../../types/tsmSykmelding'
 
-export const nySykmelding: Sykmelding = {
+export const nySykmelding: TsmSykmelding = {
     id: 'APEN',
     sykmeldingStatus: { statusEvent: 'APEN' },
     behandlingsutfall: { status: 'OK' },
@@ -15,7 +15,7 @@ export const nySykmelding: Sykmelding = {
     syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
 }
 
-export const sendtSykmelding: Sykmelding = {
+export const sendtSykmelding: TsmSykmelding = {
     id: 'SENDT',
     sykmeldingStatus: {
         statusEvent: 'SENDT',
@@ -34,7 +34,7 @@ export const sendtSykmelding: Sykmelding = {
     syketilfelleStartDato: dayjs().format('YYYY-MM-DD'),
 }
 
-export const bekreftetSykmelding: Sykmelding = {
+export const bekreftetSykmelding: TsmSykmelding = {
     id: 'APEN',
     sykmeldingStatus: {
         statusEvent: 'BEKREFTET',
@@ -61,7 +61,7 @@ export const bekreftetSykmelding: Sykmelding = {
     syketilfelleStartDato: '2021-03-01',
 }
 
-export const avvistSykmelding: Sykmelding = {
+export const avvistSykmelding: TsmSykmelding = {
     id: 'AVVIST',
     sykmeldingStatus: { statusEvent: 'APEN' },
     behandlingsutfall: { status: 'INVALID' },

@@ -4,7 +4,7 @@ import { Buildings2Icon } from '@navikt/aksel-icons'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 import ArbeidsgiverAccordion from './ArbeidsgiverAccordion'
@@ -13,7 +13,7 @@ import { finnAktuelleArbeidsgivere } from './arbeidssituasjonHjelpefunksjoner'
 
 const Arbeidssituasjon = () => {
     const { data: narmesteLedere, isLoading: nlLaster } = useNarmesteledere()
-    const { data: sykmeldinger, isLoading: smLaster } = useSykmeldinger()
+    const { data: sykmeldinger, isLoading: smLaster } = useTsmSykmeldinger()
 
     if (nlLaster || smLaster) {
         return (

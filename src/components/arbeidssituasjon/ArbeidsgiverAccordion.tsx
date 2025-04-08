@@ -2,7 +2,7 @@ import { Accordion, BodyShort } from '@navikt/ds-react'
 import React from 'react'
 
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 import NarmesteLeder from './NarmesteLeder'
@@ -12,7 +12,7 @@ interface ArbeidsgiverAccordionProps {
 }
 
 const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: sykmeldinger } = useTsmSykmeldinger()
     const { data: narmesteLedere } = useNarmesteledere()
 
     const orgNavn = sykmeldinger?.find(

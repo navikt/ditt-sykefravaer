@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { Sykmelding } from '../types/sykmelding'
+import { TsmSykmelding } from '../types/tsmSykmelding'
 import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function UseSykmeldinger() {
+export default function UseTsmSykmeldinger() {
     const testpersonQuery = UseTestpersonQuery()
 
-    return useQuery<Sykmelding[], Error>({
+    return useQuery<TsmSykmelding[], Error>({
         queryKey: ['sykmeldinger'],
         queryFn: () =>
             fetchJsonMedRequestId(
