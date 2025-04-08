@@ -1,20 +1,8 @@
-/* eslint-disable */
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
-export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] }
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-    ID: { input: string; output: string }
-    String: { input: string; output: string }
-    Boolean: { input: boolean; output: boolean }
-    Int: { input: number; output: number }
-    Float: { input: number; output: number }
-    Date: { input: string; output: string }
-    DateTime: { input: string; output: string }
-    JSON: { input: unknown; output: unknown }
-}
+import { BrukerSvar } from './sykmeldingBrukerSvar'
+import { Sporsmal } from './sykmeldingSporsmalSvarListe'
 
-export type Sykmelding = {
+// TODO: Rename this after Sykmelding is renamed to TsmSykmelding
+export type FlexSykmelding = {
     readonly id: string
     readonly andreTiltak?: string
     readonly arbeidsgiver?: ArbeidsgiverSykmelding
@@ -65,7 +53,6 @@ export type Behandlingsutfall = {
     readonly status: RegelStatus
 }
 
-
 export type AktivitetIkkeMuligPeriode = {
     readonly arbeidsrelatertArsak?: ArbeidsrelatertArsak
     readonly medisinskArsak?: MedisinskArsak
@@ -89,20 +76,9 @@ export type AnnenFraversArsak = {
     readonly grunn: ReadonlyArray<AnnenFraverGrunn>
 }
 
-export type FormSporsmalSvar<T> = {
-    readonly sporsmaltekst: string
-    readonly svar: T,
-}
-
 export type ArbeidsgiverStatus = {
     readonly orgNavn: string
     readonly orgnummer: string
-}
-
-
-
-export type ArbeidsledigBrukerSvar = {
-    readonly arbeidsledigFraOrgnummer?: FormSporsmalSvar<string>
 }
 
 export type ArbeidsrelatertArsak = {
@@ -113,48 +89,6 @@ export type ArbeidsrelatertArsak = {
 export enum ArbeidsrelatertArsakType {
     ANNET = 'ANNET',
     MANGLENDE_TILRETTELEGGING = 'MANGLENDE_TILRETTELEGGING',
-}
-
-
-export type ArbeidssituasjonSvar = {
-    readonly svar: ArbeidssituasjonType
-    readonly svarType: Svartype
-}
-
-export enum ArbeidssituasjonType {
-    ANNET = 'ANNET',
-    ARBEIDSLEDIG = 'ARBEIDSLEDIG',
-    ARBEIDSTAKER = 'ARBEIDSTAKER',
-    FISKER = 'FISKER',
-    FRILANSER = 'FRILANSER',
-    JORDBRUKER = 'JORDBRUKER',
-    NAERINGSDRIVENDE = 'NAERINGSDRIVENDE',
-    PERMITTERT = 'PERMITTERT',
-}
-
-export enum Blad {
-    A = 'A',
-    B = 'B',
-}
-
-export type BrukerSvar = {
-    readonly arbeidsgiverOrgnummer?: FormSporsmalSvar<string>
-    readonly arbeidsledig?: ArbeidsledigBrukerSvar
-    readonly arbeidssituasjon: FormSporsmalSvar<ArbeidssituasjonType>
-    readonly egenmeldingsdager?: FormSporsmalSvar<ReadonlyArray<string>>
-    readonly egenmeldingsperioder?: FormSporsmalSvar<ReadonlyArray<FomTom>>
-    readonly erOpplysningeneRiktige: FormSporsmalSvar<JaEllerNei>
-    readonly fisker?: FiskerBrukerSvar
-    readonly harBruktEgenmelding?: FormSporsmalSvar<JaEllerNei>
-    readonly harBruktEgenmeldingsdager?: FormSporsmalSvar<JaEllerNei>
-    readonly harForsikring?: FormSporsmalSvar<JaEllerNei>
-    readonly riktigNarmesteLeder?: FormSporsmalSvar<JaEllerNei>
-    readonly uriktigeOpplysninger?: FormSporsmalSvar<ReadonlyArray<UriktigeOpplysningerType>>
-}
-
-export type DagerSvar = {
-    readonly svar: ReadonlyArray<string>
-    readonly svarType: Svartype
 }
 
 export type Diagnose = {
@@ -176,41 +110,14 @@ export type ErIkkeIArbeid = {
     readonly vurderingsdato?: string
 }
 
-export type FiskerBrukerSvar = {
-    readonly blad: FormSporsmalSvar<Blad>
-    readonly lottOgHyre: FormSporsmalSvar<LottOgHyre>
-}
-
-export type FomTom = {
-    readonly fom: string
-    readonly tom: string
-}
-
 export type GradertPeriode = {
     readonly grad: number
     readonly reisetilskudd: boolean
 }
 
-
-export enum JaEllerNei {
-    JA = 'JA',
-    NEI = 'NEI',
-}
-
-export type JaNeiSvar = {
-    readonly svar: YesOrNo
-    readonly svarType: Svartype
-}
-
 export type KontaktMedPasient = {
     readonly begrunnelseIkkeKontakt?: string
     readonly kontaktDato?: string
-}
-
-export enum LottOgHyre {
-    BEGGE = 'BEGGE',
-    HYRE = 'HYRE',
-    LOTT = 'LOTT',
 }
 
 export type MedisinskArsak = {
@@ -228,7 +135,7 @@ export enum MedisinskArsakType {
 export type MedisinskVurdering = {
     readonly annenFraversArsak?: AnnenFraversArsak
     readonly biDiagnoser: ReadonlyArray<Diagnose>
-    readonly hovedDiagnose?: Maybe<Diagnose>
+    readonly hovedDiagnose?: Diagnose
     readonly svangerskap: boolean
     readonly yrkesskade: boolean
     readonly yrkesskadeDato?: string
@@ -270,11 +177,6 @@ export type Periode = {
     readonly reisetilskudd: boolean
 }
 
-export type PerioderSvar = {
-    readonly svar: ReadonlyArray<FomTom>
-    readonly svarType: Svartype
-}
-
 export enum Periodetype {
     AKTIVITET_IKKE_MULIG = 'AKTIVITET_IKKE_MULIG',
     AVVENTENDE = 'AVVENTENDE',
@@ -303,21 +205,6 @@ export enum RegelStatus {
     OK = 'OK',
 }
 
-export enum ShortName {
-    ARBEIDSSITUASJON = 'ARBEIDSSITUASJON',
-    EGENMELDINGSDAGER = 'EGENMELDINGSDAGER',
-    FORSIKRING = 'FORSIKRING',
-    FRAVAER = 'FRAVAER',
-    NY_NARMESTE_LEDER = 'NY_NARMESTE_LEDER',
-    PERIODE = 'PERIODE',
-}
-
-export type Sporsmal = {
-    readonly shortName: ShortName
-    readonly svar: SvarTypeUnion
-    readonly tekst: string
-}
-
 export enum StatusEvent {
     APEN = 'APEN',
     AVBRUTT = 'AVBRUTT',
@@ -325,19 +212,6 @@ export enum StatusEvent {
     SENDT = 'SENDT',
     UTGATT = 'UTGATT',
 }
-
-export enum SvarRestriksjon {}
-
-export type SvarTypeUnion = ArbeidssituasjonSvar | DagerSvar | JaNeiSvar | PerioderSvar
-
-export enum Svartype {
-    ARBEIDSSITUASJON = 'ARBEIDSSITUASJON',
-    DAGER = 'DAGER',
-    JA_NEI = 'JA_NEI',
-    PERIODER = 'PERIODER',
-}
-
-
 
 export type SykmeldingStatus = {
     readonly arbeidsgiver?: ArbeidsgiverStatus
@@ -347,13 +221,8 @@ export type SykmeldingStatus = {
     readonly timestamp: string
 }
 
-export enum UriktigeOpplysningerType {
-    ANDRE_OPPLYSNINGER = 'ANDRE_OPPLYSNINGER',
-    ARBEIDSGIVER = 'ARBEIDSGIVER',
-    DIAGNOSE = 'DIAGNOSE',
-    PERIODE = 'PERIODE',
-    SYKMELDINGSGRAD_FOR_HOY = 'SYKMELDINGSGRAD_FOR_HOY',
-    SYKMELDINGSGRAD_FOR_LAV = 'SYKMELDINGSGRAD_FOR_LAV',
+export type UtenlandskSykmelding = {
+    readonly land: string
 }
 
 export type UtdypendeOpplysning = {
@@ -362,11 +231,4 @@ export type UtdypendeOpplysning = {
     readonly svar: string
 }
 
-export type UtenlandskSykmelding = {
-    readonly land: string
-}
-
-export enum YesOrNo {
-    NO = 'NO',
-    YES = 'YES',
-}
+export enum SvarRestriksjon {}
