@@ -1,11 +1,11 @@
 import { NarmesteLeder } from '../../types/narmesteLeder'
-import { Sykmelding } from '../../types/sykmelding'
+import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/sykmeldingerUtils'
 
-export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykmeldinger?: Sykmelding[]) => {
+export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykmeldinger?: TsmSykmelding[]) => {
     let aktiveLedereOrgnummer: string[] = []
-    let sykmeldingerMedAktivNaermesteLeder: Sykmelding[] = []
-    let sykmeldingerFiltrertPaPeriode: Sykmelding[] = []
+    let sykmeldingerMedAktivNaermesteLeder: TsmSykmelding[] = []
+    let sykmeldingerFiltrertPaPeriode: TsmSykmelding[] = []
 
     if (narmesteLedere) {
         aktiveLedereOrgnummer = narmesteLedere.filter((nl) => !nl.aktivTom && nl.navn).map((nl) => nl.orgnummer)
@@ -20,7 +20,7 @@ export const finnAktuelleArbeidsgivere = (narmesteLedere?: NarmesteLeder[], sykm
         )
     }
 
-    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: Sykmelding[] = [
+    const sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel: TsmSykmelding[] = [
         ...sykmeldingerFiltrertPaPeriode,
         ...sykmeldingerMedAktivNaermesteLeder,
     ]

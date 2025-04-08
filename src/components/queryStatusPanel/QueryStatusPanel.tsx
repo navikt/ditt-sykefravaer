@@ -7,7 +7,7 @@ import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import useVedtak from '../../hooks/useVedtak'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 
@@ -18,7 +18,7 @@ interface QueryOgFeilmelding {
 
 const QueryStatusPanel = () => {
     const sykmeldinger: QueryOgFeilmelding = {
-        query: useSykmeldinger(),
+        query: useTsmSykmeldinger(),
         message: 'Kunne ikke hente dine sykmeldinger',
     }
     const soknader: QueryOgFeilmelding = {

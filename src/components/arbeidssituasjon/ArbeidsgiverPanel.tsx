@@ -2,7 +2,7 @@ import { BodyShort, Panel } from '@navikt/ds-react'
 import React from 'react'
 
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 import NarmesteLeder from './NarmesteLeder'
@@ -12,7 +12,7 @@ interface ArbeidsgiverPanelProps {
 }
 
 const ArbeidsgiverPanel = ({ orgnummer }: ArbeidsgiverPanelProps) => {
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: sykmeldinger } = useTsmSykmeldinger()
     const { data: narmesteLedere } = useNarmesteledere()
 
     const navn = sykmeldinger?.find(

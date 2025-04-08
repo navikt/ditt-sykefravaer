@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
 
-import { Sykmelding } from '../../types/sykmelding'
+import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { tekst } from '../../utils/tekster'
 
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
-function hentSykmeldingSluttdato(sykmelding: Sykmelding) {
+function hentSykmeldingSluttdato(sykmelding: TsmSykmelding) {
     if (sykmelding.sykmeldingsperioder.length == 0) {
         return dayjs()
     }
@@ -20,18 +20,18 @@ function hentSykmeldingSluttdato(sykmelding: Sykmelding) {
     return dayjs(tom)
 }
 
-export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
+export const skapSykmeldingoppgaver = (sykmeldinger: TsmSykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
     if (!sykmeldinger) {
         return []
     }
 
-    function erGammelSykmelding(sykmelding: Sykmelding) {
+    function erGammelSykmelding(sykmelding: TsmSykmelding) {
         return hentSykmeldingSluttdato(sykmelding).isBefore(dayjs().subtract(3, 'months'))
     }
 
     const ikkeGamleSykmeldinger = sykmeldinger.filter((s) => !erGammelSykmelding(s))
 
-    const skapVanligeOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapVanligeOppgaver = (sykmeldinger: TsmSykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status === 'MANUAL_PROCESSING')
@@ -59,7 +59,7 @@ export const skapSykmeldingoppgaver = (sykmeldinger: Sykmelding[] | undefined, s
         ]
     }
 
-    const skapAvvisteOppgaver = (sykmeldinger: Sykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapAvvisteOppgaver = (sykmeldinger: TsmSykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'INVALID')

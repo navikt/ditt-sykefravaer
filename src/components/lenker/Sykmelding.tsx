@@ -4,12 +4,12 @@ import { Skeleton } from '@navikt/ds-react'
 
 import { sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
 
 const SykmeldingLenkepanel = () => {
-    const { data: sykmeldinger, isLoading } = useSykmeldinger()
+    const { data: sykmeldinger, isLoading } = useTsmSykmeldinger()
     if (isLoading) return <Skeleton variant="rectangle" height="64px" className="mb-2" />
     if (!sykmeldinger || sykmeldinger.length === 0) {
         return null

@@ -1,8 +1,8 @@
 import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
-import { Sykmelding } from '../../types/sykmelding'
+import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
 
-const sykmeldtHarGyldigSykmelding = (sykmeldinger: Sykmelding[] | undefined): boolean => {
+const sykmeldtHarGyldigSykmelding = (sykmeldinger: TsmSykmelding[] | undefined): boolean => {
     const tomGrenseDato = new Date()
     if (!sykmeldinger) {
         return false
@@ -26,7 +26,7 @@ const sykmeldtHarOppfolgingsplan = (oppfolgingsplaner: Oppfolgingsplan[] | undef
 }
 
 export const skalViseOppfoelgingsplanLenke = (
-    sykmeldinger: Sykmelding[] | undefined,
+    sykmeldinger: TsmSykmelding[] | undefined,
     oppfolgingsplaner: Oppfolgingsplan[] | undefined,
 ): boolean => {
     return sykmeldtHarGyldigSykmelding(sykmeldinger) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)

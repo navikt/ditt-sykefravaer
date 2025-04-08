@@ -3,11 +3,11 @@ import React from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import { veileder } from '../../grafikk/Veileder'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 export const IngenSykmelding = () => {
-    const { data: sykmeldinger } = useSykmeldinger()
+    const { data: sykmeldinger } = useTsmSykmeldinger()
 
     if (!sykmeldinger || sykmeldinger.length > 0) {
         return null
