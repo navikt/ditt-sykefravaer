@@ -19,7 +19,7 @@ function AnnenInfoUtenlandsk({ sykmelding, parentId }: Props): ReactElement {
             <SykmeldingInfo heading="Dato sykmeldingen ble skrevet" variant="blue">
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
-            <SykmeldingInfo heading="Landet sykmeldingen ble skrevet" variant="blue">
+            <SykmeldingInfo heading="Landet sykmeldingen ble skrevet i" variant="blue">
                 {hentLandNavn(sykmelding.utenlandskSykmelding.land)}
             </SykmeldingInfo>
             {sykmelding.medisinskVurdering?.hovedDiagnose?.tekst && (
