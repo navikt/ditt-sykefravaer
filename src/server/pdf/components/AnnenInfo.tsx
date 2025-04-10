@@ -8,6 +8,7 @@ import { getBehandlerName } from '../../../utils/behandlerUtils'
 import Information from './icons/Information'
 import { Section } from './Section'
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
+import { getCountryName } from 'src/components/Sykmelding/SykmeldingerArbeidsgiver/Utenlandsk/countries-norwegian'
 
 interface Props {
     sykmelding: Sykmelding
@@ -38,7 +39,7 @@ function AnnenInfo({ sykmelding }: Props): ReactElement | null {
                 {sykmelding.utenlandskSykmelding ? (
                     <View style={styles.view}>
                         <Text style={styles.title}>Landet sykmeldingen ble skrevet</Text>
-                        <Text style={styles.text}>{sykmelding.utenlandskSykmelding.land}</Text>
+                        <Text style={styles.text}>{getCountryName(sykmelding.utenlandskSykmelding.land)}</Text>
                     </View>
                 ) : (
                     <>
