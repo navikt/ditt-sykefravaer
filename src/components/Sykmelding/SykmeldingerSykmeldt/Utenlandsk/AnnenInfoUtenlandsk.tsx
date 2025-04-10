@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
-import { hentLandNavn } from 'src/utils/landKodeOversetter'
+import { hentLandNavn } from '../../../../utils/landKodeOversetter'
 
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { UtenlandskSykmelding } from '../../../../utils/utenlanskUtils'
