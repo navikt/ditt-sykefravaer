@@ -1,4 +1,4 @@
-const countries = [
+const land = [
     { id: 4, alpha2: 'af', alpha3: 'afg', name: 'Afghanistan' },
     { id: 8, alpha2: 'al', alpha3: 'alb', name: 'Albania' },
     { id: 12, alpha2: 'dz', alpha3: 'dza', name: 'Algerie' },
@@ -194,8 +194,8 @@ const countries = [
     { id: 626, alpha2: 'tl', alpha3: 'tls', name: 'Øst-Timor' },
 ]
 
-export function getCountryName(code: string): string {
+export function hentLandNavn(code: string): string {
     const normalized = code.toLowerCase()
-    const match = countries.find((country) => country.alpha2 === normalized || country.alpha3 === normalized)
+    const match = land.find((landet) => landet.alpha2 === normalized || landet.alpha3 === normalized)
     return match ? match.name : code
 }

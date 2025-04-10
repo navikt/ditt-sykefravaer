@@ -5,9 +5,8 @@ import { toReadableDate } from '../../../../utils/dateUtils'
 import { UtenlandskSykmelding } from '../../../../utils/utenlanskUtils'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
-import { getCountryName } from '../../SykmeldingerArbeidsgiver/Utenlandsk/countries-norwegian'
+import { hentLandNavn } from 'src/utils/landKodeOversetter'
 
-// {sykmelding.utenlandskSykmelding.land}
 interface Props {
     sykmelding: UtenlandskSykmelding
     parentId: string
@@ -20,7 +19,7 @@ function AnnenInfoUtenlandsk({ sykmelding, parentId }: Props): ReactElement {
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
             <SykmeldingInfo heading="Landet sykmeldingen ble skrevet" variant="blue">
-                {getCountryName(sykmelding.utenlandskSykmelding.land)}
+                {hentLandNavn(sykmelding.utenlandskSykmelding.land)}
             </SykmeldingInfo>
             {sykmelding.medisinskVurdering?.hovedDiagnose?.tekst && (
                 <SykmeldingInfo heading="Diagnose" variant="blue">

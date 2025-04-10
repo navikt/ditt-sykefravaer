@@ -5,8 +5,7 @@ import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { UtenlandskSykmelding } from '../../../../utils/utenlanskUtils'
 import { SykmeldingInfo, SykmeldingSladd } from '../../../molecules/sykmelding/SykmeldingInfo'
-
-import { getCountryName } from './countries-norwegian'
+import { hentLandNavn } from 'src/utils/landKodeOversetter'
 
 interface Props {
     sykmelding: UtenlandskSykmelding
@@ -20,7 +19,7 @@ function AnnenInfo({ sykmelding, parentId }: Props): ReactElement {
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
             <SykmeldingInfo heading="Landet sykmeldingen ble skrevet">
-                {getCountryName(sykmelding.utenlandskSykmelding.land)}
+                {hentLandNavn(sykmelding.utenlandskSykmelding.land)}
             </SykmeldingInfo>
             {sykmelding.medisinskVurdering?.hovedDiagnose?.tekst && <SykmeldingSladd heading="Diagnose" />}
         </SykmeldingGroup>
