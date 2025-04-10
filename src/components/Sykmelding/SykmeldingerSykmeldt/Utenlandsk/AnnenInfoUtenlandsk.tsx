@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
+import { hentLandNavn } from '../../../../utils/landKodeOversetter'
+
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { UtenlandskSykmelding } from '../../../../utils/utenlanskUtils'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
@@ -18,7 +20,7 @@ function AnnenInfoUtenlandsk({ sykmelding, parentId }: Props): ReactElement {
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
             <SykmeldingInfo heading="Landet sykmeldingen ble skrevet" variant="blue">
-                {sykmelding.utenlandskSykmelding.land}
+                {hentLandNavn(sykmelding.utenlandskSykmelding.land)}
             </SykmeldingInfo>
             {sykmelding.medisinskVurdering?.hovedDiagnose?.tekst && (
                 <SykmeldingInfo heading="Diagnose" variant="blue">

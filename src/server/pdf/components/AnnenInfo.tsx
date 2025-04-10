@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
+import { hentLandNavn } from '../../../utils/landKodeOversetter'
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { getBehandlerName } from '../../../utils/behandlerUtils'
@@ -38,7 +39,7 @@ function AnnenInfo({ sykmelding }: Props): ReactElement | null {
                 {sykmelding.utenlandskSykmelding ? (
                     <View style={styles.view}>
                         <Text style={styles.title}>Landet sykmeldingen ble skrevet</Text>
-                        <Text style={styles.text}>{sykmelding.utenlandskSykmelding.land}</Text>
+                        <Text style={styles.text}>{hentLandNavn(sykmelding.utenlandskSykmelding.land)}</Text>
                     </View>
                 ) : (
                     <>
