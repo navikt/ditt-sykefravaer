@@ -1,11 +1,12 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
+import { hentLandNavn } from 'src/utils/landKodeOversetter'
+
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { UtenlandskSykmelding } from '../../../../utils/utenlanskUtils'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
-import { hentLandNavn } from 'src/utils/landKodeOversetter'
 
 interface Props {
     sykmelding: UtenlandskSykmelding
