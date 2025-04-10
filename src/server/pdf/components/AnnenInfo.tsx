@@ -1,6 +1,8 @@
 import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
+import { getCountryName } from 'src/components/Sykmelding/SykmeldingerArbeidsgiver/Utenlandsk/countries-norwegian'
+
 import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { getBehandlerName } from '../../../utils/behandlerUtils'
@@ -8,7 +10,6 @@ import { getBehandlerName } from '../../../utils/behandlerUtils'
 import Information from './icons/Information'
 import { Section } from './Section'
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
-import { getCountryName } from 'src/components/Sykmelding/SykmeldingerArbeidsgiver/Utenlandsk/countries-norwegian'
 
 interface Props {
     sykmelding: Sykmelding

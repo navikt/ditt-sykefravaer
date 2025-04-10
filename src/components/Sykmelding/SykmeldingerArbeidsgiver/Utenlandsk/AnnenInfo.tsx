@@ -13,7 +13,6 @@ interface Props {
     parentId: string
 }
 
-
 function AnnenInfo({ sykmelding, parentId }: Props): ReactElement {
     return (
         <SykmeldingGroup parentId={parentId} heading="Annen info" Icon={InformationIcon} tight>
@@ -21,7 +20,7 @@ function AnnenInfo({ sykmelding, parentId }: Props): ReactElement {
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
             <SykmeldingInfo heading="Landet sykmeldingen ble skrevet">
-                { getCountryName(sykmelding.utenlandskSykmelding.land)}
+                {getCountryName(sykmelding.utenlandskSykmelding.land)}
             </SykmeldingInfo>
             {sykmelding.medisinskVurdering?.hovedDiagnose?.tekst && <SykmeldingSladd heading="Diagnose" />}
         </SykmeldingGroup>
