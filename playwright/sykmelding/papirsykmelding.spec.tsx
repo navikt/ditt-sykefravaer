@@ -83,7 +83,7 @@ test.describe('Papir sykmelding', () => {
 
             const annenInfoSection = page.getByRole('region', { name: 'Annen info' })
             await expect(
-                annenInfoSection.getByRole('heading', { name: 'Landet sykmeldingen ble skrevet' }),
+                annenInfoSection.getByRole('heading', { name: 'Landet sykmeldingen ble skrevet i' }),
             ).toBeVisible()
             await expect(annenInfoSection.getByText('Sverige', { exact: true })).toBeVisible()
         })

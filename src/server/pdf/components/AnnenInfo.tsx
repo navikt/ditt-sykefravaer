@@ -38,7 +38,7 @@ function AnnenInfo({ sykmelding }: Props): ReactElement | null {
                 </View>
                 {sykmelding.utenlandskSykmelding ? (
                     <View style={styles.view}>
-                        <Text style={styles.title}>Landet sykmeldingen ble skrevet</Text>
+                        <Text style={styles.title}>Landet sykmeldingen ble skrevet i</Text>
                         <Text style={styles.text}>{hentLandNavn(sykmelding.utenlandskSykmelding.land)}</Text>
                     </View>
                 ) : (

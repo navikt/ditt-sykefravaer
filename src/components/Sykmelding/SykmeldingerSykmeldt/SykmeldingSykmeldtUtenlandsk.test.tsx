@@ -29,7 +29,7 @@ describe('SykmeldingSykmeldtUtenlandsk', () => {
             },
         )
 
-        expect(screen.getByRole('heading', { name: 'Landet sykmeldingen ble skrevet' })).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: 'Landet sykmeldingen ble skrevet i' })).toBeInTheDocument()
         expect(screen.getByText('Finnland')).toBeInTheDocument()
     })
 })
