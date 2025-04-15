@@ -126,7 +126,7 @@ export const venterPaSaksbehandlingNummer1: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Status i saken din om sykepenger: Vi beklager! Saksbehandlingen tar dessverre lengre tid enn forventet. Vi regner med at saken din vil være ferdigbehandlet i løpet av de neste 4 ukene.',
+            tekst: 'Status i saken din om sykepenger: Vi beklager at saksbehandlingen tar lenger tid enn forventet. Vi behandler søknaden din så raskt vi kan. Trenger du mer informasjon om saken din, kan du skrive til oss eller ringe 55 55 33 33.',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
             lukkbar: false,
@@ -142,7 +142,7 @@ export const venterPaSaksbehandlingNummer2: Persona = {
     meldinger: [
         {
             uuid: '123456y7',
-            tekst: 'Status i saken din om sykepenger: Vi beklager! Saksbehandlingen tar dessverre lengre tid enn forventet. Vi regner med at søknaden din om sykepenger vil være ferdigbehandlet i løpet av de neste 4 ukene.',
+            tekst: 'Status i saken din om sykepenger: Vi beklager at saksbehandlingen tar lenger tid enn forventet. Vi behandler søknaden din så raskt vi kan. Trenger du mer informasjon om saken din, kan du skrive til oss eller ringe 55 55 33 33.',
             variant: 'info',
             meldingType: 'mangler inntektsmelding',
             lukkbar: false,
