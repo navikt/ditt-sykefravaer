@@ -5,9 +5,10 @@ import {
     Arbeidsgiver,
     BrukerinformasjonFragment,
     NaermesteLederFragment,
-    SykmeldingFragment,
-    YesOrNo,
 } from '../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../types/sykmelding'
+import { YesOrNo } from '../../../../../types/sykmeldingSporsmalSvarListe'
+
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'
@@ -23,7 +24,7 @@ import ArbeidsgiverField from './ArbeidsgiverField'
 import FlereArbeidsgivereSection from './FlereArbeidsgivereSection'
 
 type Props = {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
 }
 

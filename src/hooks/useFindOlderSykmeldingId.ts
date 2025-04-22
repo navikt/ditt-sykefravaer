@@ -1,14 +1,14 @@
 import { isBefore, parseISO } from 'date-fns'
 
-import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from '../utils/sykmeldingUtils'
 
 import useSykmeldinger from './useSykmeldingerFlexBackend'
+import { Sykmelding } from '../types/sykmelding'
 
 /**
  * Used by reduce to find the earliest sykmelding
  */
-export function toEarliestSykmelding(acc: SykmeldingFragment, value: SykmeldingFragment): SykmeldingFragment {
+export function toEarliestSykmelding(acc: Sykmelding, value: Sykmelding): Sykmelding {
     const valuePerioder = value.sykmeldingsperioder
     const accPerioder = acc.sykmeldingsperioder
 
@@ -18,7 +18,7 @@ export function toEarliestSykmelding(acc: SykmeldingFragment, value: SykmeldingF
 }
 
 export function useUnsentSykmeldinger(): {
-    unsentSykmeldinger: SykmeldingFragment[] | null
+    unsentSykmeldinger: Sykmelding[] | null
     isLoading: boolean
     error: Error | null
 } {
@@ -41,7 +41,7 @@ export function useUnsentSykmeldinger(): {
     }
 }
 
-function useFindOlderSykmeldingId(sykmelding: SykmeldingFragment | undefined): {
+function useFindOlderSykmeldingId(sykmelding: Sykmelding | undefined): {
     earliestSykmeldingId: string | null
     olderSykmeldingCount: number
     isLoading: boolean

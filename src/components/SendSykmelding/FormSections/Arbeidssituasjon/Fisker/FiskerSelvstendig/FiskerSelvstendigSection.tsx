@@ -2,7 +2,8 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, Skeleton } from '@navikt/ds-react'
 
-import { SykmeldingFragment, YesOrNo } from '../../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../../types/sykmelding'
+import { YesOrNo } from '../../../../../../types/sykmeldingSporsmalSvarListe'
 import HarBruktEgenmeldingsPerioderField from '../../Frilanser/HarBruktEgenmeldingsPerioderField'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../../SendSykmeldingForm'
@@ -12,7 +13,7 @@ import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
 import useErUtenforVentetid from '../../../../../../hooks/useErUtenforVentetid'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     askForsikring: boolean
 }
 

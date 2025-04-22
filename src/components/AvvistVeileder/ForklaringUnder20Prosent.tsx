@@ -1,10 +1,10 @@
 import { ReactElement } from 'react'
 import { BodyShort, Link } from '@navikt/ds-react'
 
-import { Periodetype, SykmeldingFragment } from '../../fetching/graphql.generated'
+import { Periodetype, Sykmelding } from '../../types/sykmelding'
 
 type Props = {
-    perioder: SykmeldingFragment['sykmeldingsperioder']
+    perioder: Sykmelding['sykmeldingsperioder']
 }
 
 function ForklaringUnder20Prosent({ perioder }: Props): ReactElement {

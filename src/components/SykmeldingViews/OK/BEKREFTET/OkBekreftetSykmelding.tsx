@@ -2,12 +2,12 @@ import { ReactElement } from 'react'
 import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from '../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../types/sykmelding'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 
 interface OkBekreftetSykmeldingProps {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     reopen: () => void
 }
 

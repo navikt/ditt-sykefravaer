@@ -1,14 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
-import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
+import { Sykmelding } from '../types/sykmelding'
 
-export default function UseSykmeldingerFlex() {
+export default function UseSykmeldingerFlex(): UseQueryResult<Sykmelding[], Error> {
     const testpersonQuery = UseTestpersonQuery()
 
-    return useQuery<SykmeldingFragment[], Error>({
+    return useQuery<Sykmelding[], Error>({
         queryKey: ['sykmeldinger-flex'],
         queryFn: () =>
             fetchJsonMedRequestId(

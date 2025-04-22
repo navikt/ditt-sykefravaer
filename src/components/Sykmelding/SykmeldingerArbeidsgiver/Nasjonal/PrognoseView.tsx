@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ClockDashedIcon } from '@navikt/aksel-icons'
 
-import { Prognose } from '../../../../fetching/graphql.generated'
+import { Prognose } from '../../../../types/sykmelding'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo, SykmeldingJaInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 

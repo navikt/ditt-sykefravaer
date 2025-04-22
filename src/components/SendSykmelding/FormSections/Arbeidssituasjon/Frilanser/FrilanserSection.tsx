@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 
-import { YesOrNo } from '../../../../../fetching/graphql.generated'
+import { YesOrNo } from '../../../../../types/sykmeldingSporsmalSvarListe'
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'

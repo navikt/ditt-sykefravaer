@@ -1,17 +1,17 @@
 import React, { ReactElement } from 'react'
 
-import {
-    Blad,
-    BrukerinformasjonFragment,
-    LottOgHyre,
-    SykmeldingFragment,
-} from '../../../../../../fetching/graphql.generated'
+import { BrukerinformasjonFragment } from '../../../../../../fetching/graphql.generated'
+
+import { Blad, LottOgHyre } from '../../../../../../types/sykmeldingCommon'
+
+import { Sykmelding } from '../../../../../../types/sykmelding'
+
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'
 import ArbeidsgivereFiskerMissingInfo from '../../Arbeidsgiver/ArbeidsgivereFiskerMissingInfo'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     brukerinformasjon: BrukerinformasjonFragment
     metadata: {
         blad: Blad | null

@@ -2,11 +2,6 @@ import { useFormContext } from 'react-hook-form'
 import { isSameDay } from 'date-fns'
 
 import {
-    ArbeidssituasjonType,
-    BrukerinformasjonFragment,
-    SykmeldingFragment,
-} from '../../../../fetching/graphql.generated'
-import {
     isArbeidstaker,
     isFisker,
     isFrilanserOrNaeringsdrivendeOrJordbruker,
@@ -17,6 +12,9 @@ import useSykmeldinger from '../../../../hooks/useSykmeldingerFlexBackend'
 import { toDate } from '../../../../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
+import { Sykmelding } from '../../../../types/sykmelding'
+import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
+import { BrukerinformasjonFragment } from '../../../../fetching/graphql.generated'
 
 type UseDynamicSubSections = {
     shouldShowArbeidsgiverOrgnummer: boolean
@@ -99,7 +97,7 @@ function isEgenmeldingsdagerCompleteOrSkipped(
 
 export function useShouldShowSeveralArbeidsgivereInfo(
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere'],
-    sykmelding: SykmeldingFragment,
+    sykmelding: Sykmelding,
 ): {
     shouldAskForSeveralSykmeldinger: boolean | null
     isLoading: boolean
@@ -119,7 +117,7 @@ export function useShouldShowSeveralArbeidsgivereInfo(
         (arbeidsgiver) => arbeidsgiver.aktivtArbeidsforhold,
     )
 
-    const sykmeldingerWithSamePeriod: SykmeldingFragment[] = data
+    const sykmeldingerWithSamePeriod: Sykmelding[] = data
         ?.filter((it) => it.id !== sykmelding.id)
         .filter((it) => isFomTheSameAndTomTheSame(it, sykmelding))
 
@@ -133,7 +131,7 @@ export function useShouldShowSeveralArbeidsgivereInfo(
     }
 }
 
-function isFomTheSameAndTomTheSame(sykmelding: SykmeldingFragment, relevantSykmelding: SykmeldingFragment): boolean {
+function isFomTheSameAndTomTheSame(sykmelding: Sykmelding, relevantSykmelding: Sykmelding): boolean {
     const sykmeldingFom = toDate(getSykmeldingStartDate(sykmelding.sykmeldingsperioder))
     const sykmeldingTom = toDate(getSykmeldingEndDate(sykmelding.sykmeldingsperioder))
 

@@ -3,7 +3,6 @@ import { Accordion, Alert } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import * as R from 'remeda'
 
-import { SykmeldingFragment } from '../../fetching/graphql.generated'
 import useFocusRefetch from '../../hooks/useFocusRefetch'
 import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'
 import { InfoOmDigitalSykmelding, SerIkkeSykmelding } from '../InfoOmDigitalSykmelding/InfoOmDigitalSykmelding'
@@ -11,6 +10,7 @@ import { isActiveSykmelding, isUnderbehandling } from '../../utils/sykmeldingUti
 import UseSykmeldingerFlex from '../../hooks/useSykmeldingerFlexBackend'
 
 import { SykmeldingerListSkeleton } from './SykmeldingerSkeletons'
+import { Sykmelding } from '../../types/sykmelding'
 
 function SykmeldingerListAll(): ReactElement {
     const { data, isLoading, error, refetch } = UseSykmeldingerFlex()
@@ -59,21 +59,20 @@ function SykmeldingerListAll(): ReactElement {
 }
 
 type SykmeldingSections = {
-    apenSykmeldinger: SykmeldingFragment[]
-    pastSykmeldinger: SykmeldingFragment[]
-    underBehandling: SykmeldingFragment[]
+    apenSykmeldinger: Sykmelding[]
+    pastSykmeldinger: Sykmelding[]
+    underBehandling: Sykmelding[]
 }
 
-const groupByPredicate = (sykmelding: SykmeldingFragment): keyof SykmeldingSections => {
+const groupByPredicate = (sykmelding: Sykmelding): keyof SykmeldingSections => {
     if (isUnderbehandling(sykmelding)) return 'underBehandling'
     else if (isActiveSykmelding(sykmelding)) return 'apenSykmeldinger'
     else return 'pastSykmeldinger'
 }
 
-function filterSykmeldinger(sykmeldinger: readonly SykmeldingFragment[]): SykmeldingSections {
-    const grouped: Partial<Record<keyof SykmeldingSections, SykmeldingFragment[]>> = R.groupBy(
-        sykmeldinger,
-        (sykmelding) => groupByPredicate(sykmelding),
+function filterSykmeldinger(sykmeldinger: readonly Sykmelding[]): SykmeldingSections {
+    const grouped: Partial<Record<keyof SykmeldingSections, Sykmelding[]>> = R.groupBy(sykmeldinger, (sykmelding) =>
+        groupByPredicate(sykmelding),
     )
 
     return {

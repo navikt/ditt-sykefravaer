@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { Alert } from '@navikt/ds-react'
 
-import { Periode, SykmeldingFragment, UtdypendeOpplysning } from '../../../fetching/graphql.generated'
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
@@ -20,9 +19,10 @@ import Arbeidsevne from './Nasjonal/Arbeidsevne'
 import MeldingTilArbeidsgiver from './Nasjonal/MeldingTilArbeidsgiver'
 import Tilbakedatering from './Nasjonal/Tilbakedatering'
 import { BrukerSvarExpansionCard } from './Felles/BrukerSvar'
+import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     shouldShowEgenmeldingsdagerInfo: boolean
 }
 
@@ -40,7 +40,7 @@ function SykmeldingSykmeldt({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Pro
                 isV3={isV3Sykmelding}
                 parentId={sectionId}
             >
-                {egenmeldingsdager && egenmeldingsdager.dager.length > 0 && (
+                {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
                     <Egenmeldingsdager
                         sykmeldingId={sykmelding.id}
                         egenmeldingsdager={egenmeldingsdager}

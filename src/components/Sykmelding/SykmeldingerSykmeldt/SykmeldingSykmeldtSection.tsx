@@ -2,16 +2,16 @@ import { ReactElement } from 'react'
 import { BodyShort, Button, Heading } from '@navikt/ds-react'
 import { PrinterSmallIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from '../../../fetching/graphql.generated'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { basePath } from '../../../utils/environment'
 
 import SykmeldingSykmeldtUtenlandsk from './SykmeldingSykmeldtUtenlandsk'
 import SykmeldingSykmeldt from './SykmeldingSykmeldt'
+import { Sykmelding } from '../../../types/sykmelding'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     shouldShowEgenmeldingsdagerInfo?: boolean
 }
 

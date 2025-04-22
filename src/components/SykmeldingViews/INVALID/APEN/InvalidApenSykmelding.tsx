@@ -8,10 +8,11 @@ import { getBehandlerName } from '../../../../utils/behandlerUtils'
 import { useChangeSykmeldingStatus } from '../../../../hooks/useMutations'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
-import { SykmeldingChangeStatus, SykmeldingFragment } from '../../../../fetching/graphql.generated'
+import { SykmeldingChangeStatus } from '../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../types/sykmelding'
 
 type InvalidApenSykmeldingProps = {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
 }
 
 interface FormData {

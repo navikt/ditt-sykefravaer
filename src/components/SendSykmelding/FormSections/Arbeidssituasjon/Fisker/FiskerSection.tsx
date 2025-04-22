@@ -1,7 +1,8 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { BrukerinformasjonFragment, SykmeldingFragment } from '../../../../../fetching/graphql.generated'
+import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../types/sykmelding'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
 
@@ -11,7 +12,7 @@ import FiskerArbeidstakerSection from './FiskerArbeidstaker/FiskerArbeidstakerSe
 import FiskerSelvstendigSection from './FiskerSelvstendig/FiskerSelvstendigSection'
 
 type Props = {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     brukerinformasjon: BrukerinformasjonFragment
 }
 

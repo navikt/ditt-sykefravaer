@@ -22,7 +22,7 @@ function FrilanserOppsummeringSection({ sykmeldingId, metadata }: Props): ReactE
         <SectionWrapper>
             <BrukerSvarExpansionCard
                 title="Oppsummering av dine svar"
-                brukerSvar={{
+                formBrukerSvar={{
                     values: formValues,
                     sporsmaltekstMetadata: metadata,
                 }}

@@ -1,10 +1,11 @@
 import * as R from 'remeda'
 
-import { SvarUnion_DagerSvar_Fragment, SykmeldingStatusFragment, YesOrNo } from '../../src/fetching/graphql.generated'
 import {
     EgenmeldingsdagerFormValue,
     MAX_EGENMELDINGSDAGER,
 } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
+import { SykmeldingStatus } from '../types/sykmelding'
+import { DagerSvar, Svartype, YesOrNo } from '../types/sykmeldingSporsmalSvarListe'
 
 const hasMoreThan16Dates: (perioder: EgenmeldingsdagerFormValue[]) => boolean = R.piped(
     R.flatMap(R.prop('datoer')),
@@ -23,12 +24,9 @@ export const hasCompletedEgenmeldingsdager = (egenmeldingsperioder?: Egenmelding
     return lastElement.harPerioder === YesOrNo.NO
 }
 
-export function findEgenmeldingsdager(
-    sporsmalOgSvarListe: SykmeldingStatusFragment['sporsmalOgSvarListe'],
-): SvarUnion_DagerSvar_Fragment | null {
+export function findEgenmeldingsdager(sporsmalOgSvarListe: SykmeldingStatus['sporsmalOgSvarListe']): DagerSvar | null {
     return (
-        sporsmalOgSvarListe
-            .flatMap((it) => it.svar)
-            .find((it): it is SvarUnion_DagerSvar_Fragment => it.__typename === 'DagerSvar') ?? null
+        sporsmalOgSvarListe.flatMap((it) => it.svar).find((it): it is DagerSvar => it.svarType === Svartype.DAGER) ??
+        null
     )
 }

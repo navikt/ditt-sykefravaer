@@ -1,14 +1,14 @@
 import { closestTo, isBefore, isSameDay, isWithinInterval } from 'date-fns'
 import { intersection } from 'remeda'
 
-import { Periodetype, SykmeldingFragment } from '../../src/fetching/graphql.generated'
 import { toDate } from '../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
 
 import useSykmeldinger from './useSykmeldingerFlexBackend'
+import { Periodetype, Sykmelding } from '../types/sykmelding'
 
-function removeInsideSykmeldinger(sykmeldinger: readonly SykmeldingFragment[]) {
-    return (sykmelding: SykmeldingFragment): boolean => {
+function removeInsideSykmeldinger(sykmeldinger: readonly Sykmelding[]) {
+    return (sykmelding: Sykmelding): boolean => {
         const others = sykmeldinger
             .filter(isSendtSykmelding)
             .filter(isValidRange)
@@ -29,7 +29,7 @@ function removeInsideSykmeldinger(sykmeldinger: readonly SykmeldingFragment[]) {
 }
 
 export function useFindPrevSykmeldingTom(
-    sykmelding: SykmeldingFragment,
+    sykmelding: Sykmelding,
     valgtArbeidsgiverOrgnummer: string | null | undefined,
 ): {
     previousSykmeldingTom: Date | null
@@ -67,7 +67,7 @@ export function useFindPrevSykmeldingTom(
     }
 }
 
-function removeAvventende(sykmelding: SykmeldingFragment): boolean {
+function removeAvventende(sykmelding: Sykmelding): boolean {
     return (
         intersection(
             [Periodetype.AVVENTENDE],

@@ -1,13 +1,14 @@
 import { ReactElement } from 'react'
 
-import { SvarUnion_DagerSvar_Fragment, SykmeldingFragment } from '../../../../fetching/graphql.generated'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { Sykmelding } from '../../../../types/sykmelding'
+import { DagerSvar } from '../../../../types/sykmeldingSporsmalSvarListe'
 
 interface EgenmeldingsdagerProps {
     sykmeldingId: string
-    egenmeldingsdager: SvarUnion_DagerSvar_Fragment
-    sykmelding: SykmeldingFragment
+    egenmeldingsdager: DagerSvar
+    sykmelding: Sykmelding
 }
 
 function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): ReactElement | null {
@@ -15,8 +16,8 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
         <SykmeldingListInfo
             heading="Egenmeldingsdager (lagt til av deg)"
             texts={[
-                ...[...egenmeldingsdager.dager].sort().map(toReadableDate),
-                `(${egenmeldingsdager.dager.length} dager)`,
+                ...[...egenmeldingsdager.svar].sort().map(toReadableDate),
+                `(${egenmeldingsdager.svar.length} dager)`,
             ]}
             variant="blue"
         />

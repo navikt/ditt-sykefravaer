@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { SykmeldingFragment } from '../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../types/sykmelding'
 import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'
@@ -8,7 +8,7 @@ import HintToNextOlderSykmelding from '../../../ForceOrder/HintToNextOlderSykmel
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 
 interface InvalidBekreftetSykmeldingProps {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
 }
 
 function InvalidBekreftetSykmelding({ sykmelding }: InvalidBekreftetSykmeldingProps): ReactElement {

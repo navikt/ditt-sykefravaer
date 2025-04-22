@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { BoatIcon, BriefcaseIcon, CheckmarkCircleIcon, TasklistIcon, XMarkOctagonIcon } from '@navikt/aksel-icons'
 import { ExpansionCard } from '@navikt/ds-react'
 
-import { BrukerSvarFragment, JaEllerNei } from '../../../../fetching/graphql.generated'
 import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { arbeidsSituasjonEnumToText, uriktigeOpplysningerEnumToText } from '../../../../utils/sporsmal'
 import { capitalizeFirstLetter, pluralize } from '../../../../utils/stringUtils'
@@ -15,17 +14,28 @@ import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeids
 import useErUtenforVentetid from '../../../../hooks/useErUtenforVentetid'
 
 import { mapFormValuesToBrukerSvar, mapFrilanserFormValuesToBrukerSvar, SporsmaltekstMetadata } from './BrukerSvarUtils'
+import { BrukerSvar, JaEllerNei } from '../../../../types/sykmeldingBrukerSvar'
 
 export type { SporsmaltekstMetadata }
 
 type Props = {
     title: 'Oppsummering av dine svar' | 'Dine svar'
-    brukerSvar: BrukerSvarFragment | { values: FormValues; sporsmaltekstMetadata: SporsmaltekstMetadata }
-    sykmeldingId?: string | undefined
+    brukerSvar?: BrukerSvar
+    formBrukerSvar?: { values: FormValues; sporsmaltekstMetadata: SporsmaltekstMetadata }
+    sykmeldingId?: string
     className?: string
 }
 
-export function BrukerSvarExpansionCard({ title, brukerSvar, sykmeldingId, className }: Props): ReactElement {
+export function BrukerSvarExpansionCard({
+    title,
+    brukerSvar,
+    formBrukerSvar,
+    sykmeldingId,
+    className,
+}: Props): ReactElement {
+    if (!brukerSvar && !formBrukerSvar) {
+        throw Error("BrukerSvarExpansionCard must have either 'brukerSvar' or 'formBrukerSvar' prop")
+    }
     return (
         <ExpansionCard
             aria-labelledby="oppsummering-bruker-svar-heading"
@@ -37,7 +47,7 @@ export function BrukerSvarExpansionCard({ title, brukerSvar, sykmeldingId, class
                         data: { tekst: title },
                     },
                     {
-                        status: '__typename' in brukerSvar ? 'sendt/bekreftet' : 'ikke sendt',
+                        status: brukerSvar ? 'sendt/bekreftet' : 'ikke sendt',
                     },
                 )
             }}
@@ -53,11 +63,8 @@ export function BrukerSvarExpansionCard({ title, brukerSvar, sykmeldingId, class
                 </div>
             </ExpansionCard.Header>
             <ExpansionCard.Content>
-                {'__typename' in brukerSvar ? (
-                    <SentSykmeldingBrukerSvar brukerSvar={brukerSvar} sykmeldingId={sykmeldingId} />
-                ) : (
-                    <CurrentFormValuesBrukerSvar brukerSvar={brukerSvar} />
-                )}
+                {brukerSvar && <SentSykmeldingBrukerSvar brukerSvar={brukerSvar} sykmeldingId={sykmeldingId} />}
+                {formBrukerSvar && <CurrentFormValuesBrukerSvar brukerSvar={formBrukerSvar} />}
             </ExpansionCard.Content>
         </ExpansionCard>
     )
@@ -67,7 +74,7 @@ function SentSykmeldingBrukerSvar({
     brukerSvar,
     sykmeldingId,
 }: {
-    brukerSvar: BrukerSvarFragment
+    brukerSvar: BrukerSvar
     sykmeldingId: string | undefined
 }): ReactElement {
     return (
@@ -138,7 +145,7 @@ function ArbeidsledigFraOrgnummerAnswer({
 }: {
     response:
         | Pick<
-              NonNullable<NonNullable<BrukerSvarFragment['arbeidsledig']>['arbeidsledigFraOrgnummer']>,
+              NonNullable<NonNullable<BrukerSvar['arbeidsledig']>['arbeidsledigFraOrgnummer']>,
               'sporsmaltekst' | 'svar'
           >
         | null
@@ -190,7 +197,7 @@ function FrilanserNaeringsdrivendeBrukerSvar({
 function UriktigeOpplysningerAnswer({
     response,
 }: {
-    response: Pick<NonNullable<BrukerSvarFragment['uriktigeOpplysninger']>, 'sporsmaltekst' | 'svar'> | null | undefined
+    response: Pick<NonNullable<BrukerSvar['uriktigeOpplysninger']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
@@ -211,10 +218,7 @@ function UriktigeOpplysningerAnswer({
 function YesNoAnswer({
     response,
 }: {
-    response:
-        | Pick<NonNullable<BrukerSvarFragment['erOpplysningeneRiktige']>, 'sporsmaltekst' | 'svar'>
-        | null
-        | undefined
+    response: Pick<NonNullable<BrukerSvar['erOpplysningeneRiktige']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
@@ -228,7 +232,7 @@ function YesNoAnswer({
 function ArbeidssituasjonAnswer({
     response,
 }: {
-    response: Pick<NonNullable<BrukerSvarFragment['arbeidssituasjon']>, 'sporsmaltekst' | 'svar'> | null | undefined
+    response: Pick<NonNullable<BrukerSvar['arbeidssituasjon']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
@@ -243,7 +247,7 @@ function ArbeidsgiverOrgnummerAnswer({
     response,
     sykmeldingId,
 }: {
-    response: Pick<NonNullable<BrukerSvarFragment['arbeidsgiverOrgnummer']>, 'sporsmaltekst' | 'svar'>
+    response: Pick<NonNullable<BrukerSvar['arbeidsgiverOrgnummer']>, 'sporsmaltekst' | 'svar'>
     sykmeldingId: string
 }): ReactElement {
     // This loading state will never be seen, so we can ignore it
@@ -263,10 +267,7 @@ function ArbeidsgiverOrgnummerAnswer({
 function FiskerBladAnswer({
     response,
 }: {
-    response:
-        | Pick<NonNullable<NonNullable<BrukerSvarFragment['fisker']>['blad']>, 'sporsmaltekst' | 'svar'>
-        | null
-        | undefined
+    response: Pick<NonNullable<NonNullable<BrukerSvar['fisker']>['blad']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
@@ -281,7 +282,7 @@ function FiskerLottOgHyreAnswer({
     response,
 }: {
     response:
-        | Pick<NonNullable<NonNullable<BrukerSvarFragment['fisker']>['lottOgHyre']>, 'sporsmaltekst' | 'svar'>
+        | Pick<NonNullable<NonNullable<BrukerSvar['fisker']>['lottOgHyre']>, 'sporsmaltekst' | 'svar'>
         | null
         | undefined
 }): ReactElement | null {
@@ -297,7 +298,7 @@ function FiskerLottOgHyreAnswer({
 function EgenmeldingsdagerAnswer({
     response,
 }: {
-    response: Pick<NonNullable<BrukerSvarFragment['egenmeldingsdager']>, 'sporsmaltekst' | 'svar'> | null | undefined
+    response: Pick<NonNullable<BrukerSvar['egenmeldingsdager']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
@@ -313,7 +314,7 @@ function EgenmeldingsdagerAnswer({
 function FrilanserEgenmeldingsperioderAnswer({
     response,
 }: {
-    response: Pick<NonNullable<BrukerSvarFragment['egenmeldingsperioder']>, 'sporsmaltekst' | 'svar'> | null | undefined
+    response: Pick<NonNullable<BrukerSvar['egenmeldingsperioder']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 
