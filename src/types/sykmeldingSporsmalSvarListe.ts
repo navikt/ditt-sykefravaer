@@ -10,22 +10,22 @@ export type SvarTypeUnion = ArbeidssituasjonSvar | DagerSvar | JaNeiSvar | Perio
 
 export type ArbeidssituasjonSvar = {
     readonly svar: ArbeidssituasjonType
-    readonly svarType: Svartype
+    readonly svarType: Svartype.ARBEIDSSITUASJON
 }
 
 export type DagerSvar = {
-    readonly svar: ReadonlyArray<string>
-    readonly svarType: Svartype
+    readonly svar: string[]
+    readonly svarType: Svartype.DAGER
 }
 
 export type PerioderSvar = {
-    readonly svar: ReadonlyArray<FomTom>
-    readonly svarType: Svartype
+    readonly svar: FomTom[]
+    readonly svarType: Svartype.PERIODER
 }
 
 export type JaNeiSvar = {
     readonly svar: YesOrNo
-    readonly svarType: Svartype
+    readonly svarType: Svartype.JA_NEI
 }
 
 export enum Svartype {

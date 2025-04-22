@@ -4,15 +4,15 @@ export type BrukerSvar = {
     readonly arbeidsgiverOrgnummer?: FormSporsmalSvar<string>
     readonly arbeidsledig?: ArbeidsledigBrukerSvar
     readonly arbeidssituasjon: FormSporsmalSvar<ArbeidssituasjonType>
-    readonly egenmeldingsdager?: FormSporsmalSvar<ReadonlyArray<string>>
-    readonly egenmeldingsperioder?: FormSporsmalSvar<ReadonlyArray<FomTom>>
+    readonly egenmeldingsdager?: FormSporsmalSvar<string[]>
+    readonly egenmeldingsperioder?: FormSporsmalSvar<FomTom[]>
     readonly erOpplysningeneRiktige: FormSporsmalSvar<JaEllerNei>
     readonly fisker?: FiskerBrukerSvar
     readonly harBruktEgenmelding?: FormSporsmalSvar<JaEllerNei>
     readonly harBruktEgenmeldingsdager?: FormSporsmalSvar<JaEllerNei>
     readonly harForsikring?: FormSporsmalSvar<JaEllerNei>
     readonly riktigNarmesteLeder?: FormSporsmalSvar<JaEllerNei>
-    readonly uriktigeOpplysninger?: FormSporsmalSvar<ReadonlyArray<UriktigeOpplysningerType>>
+    readonly uriktigeOpplysninger?: FormSporsmalSvar<UriktigeOpplysningerType[]>
 }
 
 export type FormSporsmalSvar<T> = {

@@ -13,17 +13,17 @@ export type Sykmelding = {
     readonly medisinskVurdering?: MedisinskVurdering
     readonly meldingTilArbeidsgiver?: string
     readonly meldingTilNAV?: MeldingTilNav
-    readonly merknader?: ReadonlyArray<Merknad>
+    readonly merknader?: Merknad[]
     readonly mottattTidspunkt: string
     readonly papirsykmelding?: boolean
     readonly pasient?: Pasient
     readonly prognose?: Prognose
     readonly rulesetVersion: number
     readonly sykmeldingStatus: SykmeldingStatus
-    readonly sykmeldingsperioder: ReadonlyArray<Periode>
+    readonly sykmeldingsperioder: Periode[]
     readonly tiltakArbeidsplassen?: string
     readonly tiltakNAV?: string
-    readonly utdypendeOpplysninger: ReadonlyMap<string, ReadonlyMap<string, UtdypendeOpplysning>>
+    readonly utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>
     readonly utenlandskSykmelding?: UtenlandskSykmelding
 }
 
@@ -48,7 +48,7 @@ export type Adresse = {
 }
 
 export type Behandlingsutfall = {
-    readonly ruleHits: ReadonlyArray<RegelInfo>
+    readonly ruleHits: RegelInfo[]
     readonly status: RegelStatus
 }
 
@@ -72,7 +72,7 @@ export enum AnnenFraverGrunn {
 
 export type AnnenFraversArsak = {
     readonly beskrivelse?: string
-    readonly grunn: ReadonlyArray<AnnenFraverGrunn>
+    readonly grunn: AnnenFraverGrunn[]
 }
 
 export type ArbeidsgiverStatus = {
@@ -81,7 +81,7 @@ export type ArbeidsgiverStatus = {
 }
 
 export type ArbeidsrelatertArsak = {
-    readonly arsak: ReadonlyArray<ArbeidsrelatertArsakType>
+    readonly arsak: ArbeidsrelatertArsakType[]
     readonly beskrivelse?: string
 }
 
@@ -120,7 +120,7 @@ export type KontaktMedPasient = {
 }
 
 export type MedisinskArsak = {
-    readonly arsak: ReadonlyArray<MedisinskArsakType>
+    readonly arsak: MedisinskArsakType[]
     readonly beskrivelse?: string
 }
 
@@ -133,7 +133,7 @@ export enum MedisinskArsakType {
 
 export type MedisinskVurdering = {
     readonly annenFraversArsak?: AnnenFraversArsak
-    readonly biDiagnoser: ReadonlyArray<Diagnose>
+    readonly biDiagnoser: Diagnose[]
     readonly hovedDiagnose?: Diagnose
     readonly svangerskap: boolean
     readonly yrkesskade: boolean
@@ -215,7 +215,7 @@ export enum StatusEvent {
 export type SykmeldingStatus = {
     readonly arbeidsgiver?: ArbeidsgiverStatus
     readonly brukerSvar?: BrukerSvar
-    readonly sporsmalOgSvarListe: ReadonlyArray<Sporsmal>
+    readonly sporsmalOgSvarListe: Sporsmal[]
     readonly statusEvent: StatusEvent
     readonly timestamp: string
 }
@@ -225,7 +225,7 @@ export type UtenlandskSykmelding = {
 }
 
 export type UtdypendeOpplysning = {
-    readonly restriksjoner: ReadonlyArray<SvarRestriksjon>
+    readonly restriksjoner: SvarRestriksjon[]
     readonly sporsmal?: string
     readonly svar: string
 }
