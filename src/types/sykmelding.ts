@@ -1,8 +1,7 @@
 import { BrukerSvar } from './sykmeldingBrukerSvar'
 import { Sporsmal } from './sykmeldingSporsmalSvarListe'
 
-// TODO: Rename this after Sykmelding is renamed to TsmSykmelding
-export type FlexSykmelding = {
+export type Sykmelding = {
     readonly id: string
     readonly andreTiltak?: string
     readonly arbeidsgiver?: ArbeidsgiverSykmelding
