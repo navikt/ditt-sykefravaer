@@ -1,4 +1,4 @@
-import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../../fetching/graphql.generated'
+import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../../types/sykmelding'
 
 // --------------------------------------------------
 // 1) GradertPeriode

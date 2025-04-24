@@ -1,5 +1,5 @@
 // Anta at du importerer denne enum-en på samme måte som i Zod-filen
-import { AnnenFraverGrunn } from '../../../fetching/graphql.generated'
+import { AnnenFraverGrunn } from '../../../types/sykmelding'
 
 // --------------------------------------------------
 // 1) Diagnose
