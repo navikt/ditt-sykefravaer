@@ -1,8 +1,9 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
 
+import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'
-import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 
 export function isActiveSykmelding(sykmelding: Sykmelding): boolean {
     // Alt som ikke er APEN status, er inaktive

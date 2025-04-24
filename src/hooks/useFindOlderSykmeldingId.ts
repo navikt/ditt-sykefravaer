@@ -1,9 +1,9 @@
 import { isBefore, parseISO } from 'date-fns'
 
 import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from '../utils/sykmeldingUtils'
+import { Sykmelding } from '../types/sykmelding'
 
 import useSykmeldinger from './useSykmeldingerFlexBackend'
-import { Sykmelding } from '../types/sykmelding'
 
 /**
  * Used by reduce to find the earliest sykmelding

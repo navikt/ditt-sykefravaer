@@ -8,9 +8,9 @@ import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'
 import { InfoOmDigitalSykmelding, SerIkkeSykmelding } from '../InfoOmDigitalSykmelding/InfoOmDigitalSykmelding'
 import { isActiveSykmelding, isUnderbehandling } from '../../utils/sykmeldingUtils'
 import UseSykmeldingerFlex from '../../hooks/useSykmeldingerFlexBackend'
+import { Sykmelding } from '../../types/sykmelding'
 
 import { SykmeldingerListSkeleton } from './SykmeldingerSkeletons'
-import { Sykmelding } from '../../types/sykmelding'
 
 function SykmeldingerListAll(): ReactElement {
     const { data, isLoading, error, refetch } = UseSykmeldingerFlex()

@@ -1,8 +1,9 @@
 import { compareAsc, isAfter } from 'date-fns'
 import { sortBy } from 'remeda'
 
-import { toDate } from './dateUtils'
 import { Sykmelding } from '../types/sykmelding'
+
+import { toDate } from './dateUtils'
 
 /**
  * Used by reduce to get the latest tom date

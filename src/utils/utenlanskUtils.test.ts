@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest'
+
 import { createSykmelding } from './test/dataUtils'
 import { isUtenlandsk } from './utenlanskUtils'
 

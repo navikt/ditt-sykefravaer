@@ -1,9 +1,9 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
 import { fetchJsonMedRequestId } from '../utils/fetch'
+import { Sykmelding } from '../types/sykmelding'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
-import { Sykmelding } from '../types/sykmelding'
 
 export default function UseSykmeldingerFlex(): UseQueryResult<Sykmelding[], Error> {
     const testpersonQuery = UseTestpersonQuery()

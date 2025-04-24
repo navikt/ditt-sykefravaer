@@ -2,10 +2,10 @@ import { PropsWithChildren, ReactElement, useMemo, useState } from 'react'
 import { BodyShort, Heading, Select } from '@navikt/ds-react'
 
 import { sortSykmeldingerByArbeidsgiver, sykmeldingByDateAsc } from '../../utils/sykmeldingSortUtils'
+import { Sykmelding } from '../../types/sykmelding'
 
 import Lenkepanel from './Lenkepanel/Lenkepanel'
 import styles from './SykmeldingLinkPanel.module.css'
-import { Sykmelding } from '../../types/sykmelding'
 
 export enum SortBy {
     DATE = 'DATE',

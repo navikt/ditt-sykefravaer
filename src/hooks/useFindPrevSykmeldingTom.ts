@@ -3,9 +3,9 @@ import { intersection } from 'remeda'
 
 import { toDate } from '../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
+import { Periodetype, Sykmelding } from '../types/sykmelding'
 
 import useSykmeldinger from './useSykmeldingerFlexBackend'
-import { Periodetype, Sykmelding } from '../types/sykmelding'
 
 function removeInsideSykmeldinger(sykmeldinger: readonly Sykmelding[]) {
     return (sykmelding: Sykmelding): boolean => {

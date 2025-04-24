@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 
 import { SykmeldingerDocument } from '../fetching/graphql.generated'
 import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
-
 import { toDate } from '../utils/dateUtils'
 import { createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 import { renderHook, waitFor } from '../utils/test/testUtils'

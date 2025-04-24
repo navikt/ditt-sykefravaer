@@ -12,7 +12,6 @@ import {
 } from '../../types/sykmelding'
 import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
 import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
-
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
 import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'

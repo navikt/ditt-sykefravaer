@@ -4,6 +4,7 @@ import { Alert } from '@navikt/ds-react'
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding'
 
 import Perioder from './Felles/Perioder'
 import SykmeldingenGjelder from './Felles/SykmeldingenGjelder'
@@ -19,7 +20,6 @@ import Arbeidsevne from './Nasjonal/Arbeidsevne'
 import MeldingTilArbeidsgiver from './Nasjonal/MeldingTilArbeidsgiver'
 import Tilbakedatering from './Nasjonal/Tilbakedatering'
 import { BrukerSvarExpansionCard } from './Felles/BrukerSvar'
-import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding'
 
 interface Props {
     sykmelding: Sykmelding

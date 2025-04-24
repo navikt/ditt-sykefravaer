@@ -6,9 +6,9 @@ import InformationBanner from '../../../InformationBanner/InformationBanner'
 import ForceUseOlderSykmelding from '../../../ForceOrder/ForceUseOlderSykmelding'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import SendSykmeldingForm from '../../../SendSykmelding/SendSykmeldingForm'
+import { Sykmelding } from '../../../../types/sykmelding'
 
 import PapirInfoheader from './PapirInfoheader'
-import { Sykmelding } from '../../../../types/sykmelding'
 
 type OkApenSykmeldingProps = {
     sykmelding: Sykmelding

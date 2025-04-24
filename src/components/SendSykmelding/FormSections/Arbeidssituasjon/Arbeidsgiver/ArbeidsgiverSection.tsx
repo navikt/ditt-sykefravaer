@@ -8,7 +8,6 @@ import {
 } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
 import { YesOrNo } from '../../../../../types/sykmeldingSporsmalSvarListe'
-
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'
