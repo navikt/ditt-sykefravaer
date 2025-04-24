@@ -26,12 +26,13 @@ import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
+import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
 
     const { data, error, isLoading: loading, refetch } = useSykmeldingByIdRest(sykmeldingId)
-    const olderSykmelding = useFindOlderSykmeldingId(data)
+    const olderSykmelding = useFindOlderSykmeldingId(data, useSykmeldinger)
 
     useFocusRefetch(refetch)
 

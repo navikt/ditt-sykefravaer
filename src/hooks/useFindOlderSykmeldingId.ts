@@ -3,8 +3,6 @@ import { isBefore, parseISO } from 'date-fns'
 import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from '../utils/sykmeldingUtils'
 import { Sykmelding } from '../types/sykmelding'
 
-import useSykmeldinger from './useSykmeldingerFlexBackend'
-
 /**
  * Used by reduce to find the earliest sykmelding
  */
@@ -17,12 +15,18 @@ export function toEarliestSykmelding(acc: Sykmelding, value: Sykmelding): Sykmel
         : acc
 }
 
-export function useUnsentSykmeldinger(): {
+type SykmeldingerHook = () => {
+    data?: Sykmelding[]
+    error: Error | null
+    isPending: boolean
+}
+
+export function useUnsentSykmeldinger(sykmeldingerHook: SykmeldingerHook): {
     unsentSykmeldinger: Sykmelding[] | null
     isLoading: boolean
     error: Error | null
 } {
-    const { data, error, isPending: loading } = useSykmeldinger()
+    const { data, error, isPending: loading } = sykmeldingerHook()
 
     if (loading || error || data == null) {
         return {
@@ -41,13 +45,16 @@ export function useUnsentSykmeldinger(): {
     }
 }
 
-function useFindOlderSykmeldingId(sykmelding: Sykmelding | undefined): {
+function useFindOlderSykmeldingId(
+    sykmelding: Sykmelding | undefined,
+    sykmeldingerHook: SykmeldingerHook,
+): {
     earliestSykmeldingId: string | null
     olderSykmeldingCount: number
     isLoading: boolean
     error: Error | null
 } {
-    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger()
+    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger(sykmeldingerHook)
 
     if (sykmelding == null || isLoading || error || unsentSykmeldinger == null) {
         return {

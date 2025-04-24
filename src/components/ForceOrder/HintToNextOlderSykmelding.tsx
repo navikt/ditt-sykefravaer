@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { ReactElement, useEffect } from 'react'
 
 import { toEarliestSykmelding, useUnsentSykmeldinger } from '../../hooks/useFindOlderSykmeldingId'
+import useSykmeldinger from '../../hooks/useSykmeldingerFlexBackend'
 import { pluralize } from '../../utils/stringUtils'
 import { logAmplitudeEvent } from '../amplitude/amplitude'
 
 function HintToNextOlderSykmelding(): ReactElement | null {
-    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger()
-    const dontShowYet = isLoading || error || unsentSykmeldinger == null
+    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger(useSykmeldinger)
+    const dontShowYet = isLoading || error || unsentSykmeldinger == undefined
     const isDone = unsentSykmeldinger?.length === 0
 
     useEffect(() => {

@@ -1,15 +1,14 @@
 import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
-import { SykmeldingerDocument } from '../fetching/graphql.generated'
 import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding'
 import { renderHook, waitFor } from '../utils/test/testUtils'
 import { dateAdd, dateSub } from '../utils/dateUtils'
-import { createMock, createSykmelding, createUnderBehandlingMerknad } from '../utils/test/dataUtils'
+import { createSykmelding, createUnderBehandlingMerknad } from '../utils/test/dataUtils'
 
 import useFindOlderSykmeldingId from './useFindOlderSykmeldingId'
 
-describe.skip('useFindOlderSykmeldingId', () => {
+describe('useFindOlderSykmeldingId', () => {
     it('should find the earlier sykmelding when there is one APEN before', async () => {
         const sykmeldinger = [
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
@@ -17,9 +16,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[1]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[1], lagSykmeldingerHook(sykmeldinger)),
+        )
 
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
@@ -34,9 +33,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[2]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[2], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toEqual('SYKME-1')
@@ -53,9 +52,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[2]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[2], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toEqual('SYKME-1')
@@ -69,9 +68,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'previous-sykmelding' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[0]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[0], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toEqual('previous-sykmelding')
@@ -89,9 +88,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[2]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[2], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toEqual('SYKME-1')
@@ -104,9 +103,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[0]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[0], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toBeNull()
@@ -118,9 +117,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 7 }), id: 'SYKME-2' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[1]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[1], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toBeNull()
@@ -133,9 +132,9 @@ describe.skip('useFindOlderSykmeldingId', () => {
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 7 }), id: 'SYKME-3' }),
         ]
 
-        const { result } = renderHook(() => useFindOlderSykmeldingId(sykmeldinger[2]), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const { result } = renderHook(() =>
+            useFindOlderSykmeldingId(sykmeldinger[2], lagSykmeldingerHook(sykmeldinger)),
+        )
         await waitFor(() => expect(result.current.isLoading).toBe(false))
 
         expect(result.current.earliestSykmeldingId).toEqual('SYKME-1')
@@ -162,18 +161,14 @@ describe.skip('useFindOlderSykmeldingId', () => {
         const oldest = createSingle10PeriodApen(dateSub(new Date(), { days: 7 }), 'SYKME-2')
 
         it('newest should point to oldest', async () => {
-            const { result } = renderHook(() => useFindOlderSykmeldingId(newest), {
-                mocks: [sykmeldingerMock([newest, oldest])],
-            })
+            const { result } = renderHook(() => useFindOlderSykmeldingId(newest, lagSykmeldingerHook([newest, oldest])))
             await waitFor(() => expect(result.current.isLoading).toBe(false))
 
             expect(result.current.earliestSykmeldingId).toEqual('SYKME-2')
         })
 
         it('oldest should NOT point to newest', async () => {
-            const { result } = renderHook(() => useFindOlderSykmeldingId(oldest), {
-                mocks: [sykmeldingerMock([newest, oldest])],
-            })
+            const { result } = renderHook(() => useFindOlderSykmeldingId(oldest, lagSykmeldingerHook([newest, oldest])))
             await waitFor(() => expect(result.current.isLoading).toBe(false))
 
             expect(result.current.earliestSykmeldingId).toBeNull()
@@ -181,14 +176,10 @@ describe.skip('useFindOlderSykmeldingId', () => {
     })
 })
 
-function sykmeldingerMock(sykmeldinger: Sykmelding[]) {
-    return createMock({
-        request: { query: SykmeldingerDocument },
-        result: {
-            data: {
-                __typename: 'Query',
-                sykmeldinger,
-            },
-        },
+function lagSykmeldingerHook(sykmeldinger: Sykmelding[]) {
+    return () => ({
+        data: sykmeldinger,
+        error: null,
+        isPending: false,
     })
 }
