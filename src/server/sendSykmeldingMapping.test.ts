@@ -1,13 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-    Blad,
-    ArbeidssituasjonType,
-    LottOgHyre,
-    StatusEvent,
-    UriktigeOpplysningerType,
-    YesOrNo,
-} from '../../src/fetching/graphql.generated'
+import { YesOrNo } from '../fetching/graphql.generated'
+import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmeldingCommon'
+import { StatusEvent } from '../types/sykmelding'
+import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
 import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'

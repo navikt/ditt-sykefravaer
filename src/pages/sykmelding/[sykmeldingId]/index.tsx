@@ -25,8 +25,7 @@ import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
-import { StatusEvent, SykmeldingFragment } from '../../../fetching/graphql.generated'
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()

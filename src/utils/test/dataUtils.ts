@@ -34,8 +34,8 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         arbeidsgiver: {
             navn: 'Arbeidsgiver AS',
         },
-        merknader: undefined,
-        meldingTilArbeidsgiver: undefined,
+        merknader: null,
+        meldingTilArbeidsgiver: null,
         sykmeldingsperioder: [
             createSykmeldingPeriode({
                 fom: mottatt,
@@ -98,8 +98,8 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         prognose: {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'Du må ta det rolig på jobben',
-            erIArbeid: undefined,
-            erIkkeIArbeid: undefined,
+            erIArbeid: null,
+            erIkkeIArbeid: null,
         },
         utdypendeOpplysninger: {
             '6.1': {
@@ -136,7 +136,7 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         behandletTidspunkt: dateAdd(mottatt, { days: 10 }),
         behandler: {
             fornavn: 'Fornavn',
-            mellomnavn: undefined,
+            mellomnavn: null,
             etternavn: 'Etternavn',
             adresse: {
                 gate: 'Gateveien 4',
@@ -152,11 +152,11 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         pasient: {
             fnr: '12345678901',
             fornavn: 'Ola',
-            mellomnavn: undefined,
+            mellomnavn: null,
             etternavn: 'Nordmann',
-            overSyttiAar: undefined,
+            overSyttiAar: null,
         },
-        utenlandskSykmelding: undefined,
+        utenlandskSykmelding: null,
         rulesetVersion: 2,
         ...overrides,
     }
@@ -181,16 +181,16 @@ export const createSykmeldingStatus = (
             sporsmaltekst: sporsmal.erOpplysningeneRiktige,
             svar: JaEllerNei.JA,
         },
-        uriktigeOpplysninger: undefined,
-        arbeidsgiverOrgnummer: undefined,
-        riktigNarmesteLeder: undefined,
-        harBruktEgenmeldingsdager: undefined,
-        egenmeldingsdager: undefined,
-        harBruktEgenmelding: undefined,
-        egenmeldingsperioder: undefined,
-        harForsikring: undefined,
-        fisker: undefined,
-        arbeidsledig: undefined,
+        uriktigeOpplysninger: null,
+        arbeidsgiverOrgnummer: null,
+        riktigNarmesteLeder: null,
+        harBruktEgenmeldingsdager: null,
+        egenmeldingsdager: null,
+        harBruktEgenmelding: null,
+        egenmeldingsperioder: null,
+        harForsikring: null,
+        fisker: null,
+        arbeidsledig: null,
     },
     ...overrides,
 })
@@ -199,16 +199,16 @@ export const createSykmeldingPeriode = (overrides?: Partial<Periode>): Periode =
     type: Periodetype.REISETILSKUDD,
     fom: '2020-04-01',
     tom: '2020-04-15',
-    gradert: undefined,
-    behandlingsdager: undefined,
-    innspillTilArbeidsgiver: undefined,
-    aktivitetIkkeMulig: undefined,
+    gradert: null,
+    behandlingsdager: null,
+    innspillTilArbeidsgiver: null,
+    aktivitetIkkeMulig: null,
     reisetilskudd: false,
     ...overrides,
 })
 
 export function createUnderBehandlingMerknad(): Pick<Sykmelding, 'merknader'> {
-    return { merknader: [{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: undefined }] }
+    return { merknader: [{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }] }
 }
 
 export function createAvvistBehandlingsutfall(

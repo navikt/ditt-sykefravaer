@@ -3,7 +3,7 @@ import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import { DependencyList, useCallback, useEffect, useRef } from 'react'
 
-import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { Sykmelding } from '../types/sykmelding'
 import { minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 
@@ -72,13 +72,13 @@ export function createForelagtInntektBreadcrumbs(): [Breadcrumb, LastCrumb] {
     return [baseCrumb, { title: 'Din inntektsmelding fra Aareg' }]
 }
 
-export function createSykmeldingBreadcrumbs(sykmelding: SykmeldingFragment | undefined): [LastCrumb] {
+export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [LastCrumb] {
     return [{ title: getSykmeldingTitle(sykmelding) }]
 }
 
 export function createKvitteringBreadcrumbs(
     sykmeldingId: string,
-    sykmelding: SykmeldingFragment | undefined,
+    sykmelding: Sykmelding | undefined,
 ): [Breadcrumb, LastCrumb] {
     return [{ title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` }, { title: 'Kvittering' }]
 }

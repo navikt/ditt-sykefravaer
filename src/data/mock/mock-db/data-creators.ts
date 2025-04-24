@@ -4,13 +4,11 @@ import * as R from 'remeda'
 import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
-    ArbeidssituasjonType,
-    JaEllerNei,
     MedisinskArsakType,
     Periodetype,
     RegelStatus,
     StatusEvent,
-} from '../../../fetching/graphql.generated'
+} from '../../../types/sykmelding'
 import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { Merknad } from '../../../server/api-models/sykmelding/Merknad'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
@@ -19,6 +17,8 @@ import { RuleHit } from '../../../server/api-models/sykmelding/Behandlingsutfall
 import { sporsmal } from '../../../utils/sporsmal'
 import { Pasient } from '../../../server/api-models/sykmelding/Pasient'
 import { dateAdd } from '../../../utils/dato-utils'
+import { JaEllerNei } from '../../../types/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType } from '../../../types/sykmeldingCommon'
 
 export class SykmeldingBuilder {
     private readonly mottatt: string = '2020-02-01'

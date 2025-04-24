@@ -1,13 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-    ArbeidssituasjonType,
-    Blad,
-    LottOgHyre,
-    SendSykmeldingValues,
-    UriktigeOpplysningerType,
-    YesOrNo,
-} from '../../src/fetching/graphql.generated'
+import { SendSykmeldingValues, YesOrNo } from '../fetching/graphql.generated'
+import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 
 import { mapToSendSykmeldingValues } from './toSendSykmeldingUtils'

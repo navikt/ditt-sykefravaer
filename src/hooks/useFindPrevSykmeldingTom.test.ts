@@ -1,12 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import {
-    Periodetype,
-    RegelStatus,
-    StatusEvent,
-    SykmeldingerDocument,
-    SykmeldingFragment,
-} from '../../src/fetching/graphql.generated'
+import { SykmeldingerDocument } from '../fetching/graphql.generated'
+import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+
 import { toDate } from '../utils/dateUtils'
 import { createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 import { renderHook, waitFor } from '../utils/test/testUtils'
@@ -123,7 +119,6 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                 },
                 behandlingsutfall: {
-                    __typename: 'Behandlingsutfall',
                     status: RegelStatus.INVALID,
                     ruleHits: [],
                 },
@@ -167,7 +162,6 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                 },
                 behandlingsutfall: {
-                    __typename: 'Behandlingsutfall',
                     status: RegelStatus.OK,
                     ruleHits: [],
                 },
@@ -316,7 +310,6 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                 },
                 behandlingsutfall: {
-                    __typename: 'Behandlingsutfall',
                     status: RegelStatus.INVALID,
                     ruleHits: [],
                 },
@@ -469,7 +462,6 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                         ...createSykmelding().sykmeldingStatus,
                         statusEvent: StatusEvent.SENDT,
                         arbeidsgiver: {
-                            __typename: 'ArbeidsgiverStatus',
                             orgNavn: 'Arby Giver',
                             orgnummer: 'arbeidsgiver-a',
                         },
@@ -487,7 +479,6 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                         ...createSykmelding().sykmeldingStatus,
                         statusEvent: StatusEvent.BEKREFTET,
                         arbeidsgiver: {
-                            __typename: 'ArbeidsgiverStatus',
                             orgNavn: 'Arby Taker',
                             orgnummer: 'arbeidsgiver-b',
                         },
@@ -577,7 +568,7 @@ describe.skip('useFindPrevSykmeldingTom', () => {
     })
 })
 
-function sykmeldingerMock(sykmeldinger: SykmeldingFragment[]) {
+function sykmeldingerMock(sykmeldinger: Sykmelding[]) {
     return createMock({
         request: { query: SykmeldingerDocument },
         result: {
