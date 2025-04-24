@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Prognose } from '../../../../fetching/graphql.generated'
+import { Prognose } from '../../../../types/sykmelding'
 
 import PrognoseSykmeldt from './Prognose'
 
 describe('Prognose', () => {
     it('Renders section title ', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -18,9 +17,8 @@ describe('Prognose', () => {
         expect(screen.getByText('Prognose')).toBeInTheDocument()
     })
 
-    it('Does not render section if arbeidsforEtterPeriode is false and all other properties are undefined', () => {
+    it('Does not render section if arbeidsforEtterPeriode is false and all other properties are null', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: null,
             erIkkeIArbeid: null,
@@ -33,7 +31,6 @@ describe('Prognose', () => {
 
     it('Renders arbeidsforEtterPeriode if true', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -45,7 +42,6 @@ describe('Prognose', () => {
 
     it('Does not renders arbeidsforEtterPeriode if false', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -57,7 +53,6 @@ describe('Prognose', () => {
 
     it('Renders hensynArbeidsplassen', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -70,11 +65,9 @@ describe('Prognose', () => {
 
     it('Renders erIArbeid egetArbeidPaSikt true', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: {
-                __typename: 'ErIArbeid',
                 egetArbeidPaSikt: true,
                 annetArbeidPaSikt: false,
                 arbeidFOM: '2021-04-10',
@@ -99,11 +92,9 @@ describe('Prognose', () => {
 
     it('Renders erIArbeid annetArbeidPaSikt true', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: {
-                __typename: 'ErIArbeid',
                 egetArbeidPaSikt: false,
                 annetArbeidPaSikt: true,
                 arbeidFOM: '2021-04-10',
@@ -130,11 +121,9 @@ describe('Prognose', () => {
 
     it('Renders erIkkeIArbeid arbeidsforPaSikt true', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIkkeIArbeid: {
-                __typename: 'ErIkkeIArbeid',
                 arbeidsforPaSikt: true,
                 arbeidsforFOM: '2021-04-10',
                 vurderingsdato: '2021-04-15',
@@ -153,11 +142,9 @@ describe('Prognose', () => {
 
     it('Renders erIkkeIArbeid when arbeidsforPaSikt is false', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIkkeIArbeid: {
-                __typename: 'ErIkkeIArbeid',
                 arbeidsforPaSikt: false,
                 vurderingsdato: '2021-04-15',
                 arbeidsforFOM: null,

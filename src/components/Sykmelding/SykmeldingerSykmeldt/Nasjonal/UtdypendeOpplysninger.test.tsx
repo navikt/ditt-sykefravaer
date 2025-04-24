@@ -1,26 +1,23 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { UtdypendeOpplysning } from '../../../../fetching/graphql.generated'
+import { UtdypendeOpplysning } from '../../../../types/sykmelding'
 
 import UtdypendeOpplysninger from './UtdypendeOpplysninger'
 
 describe('UtdypendeOpplysninger', () => {
     it('Renders utdypende opplysninger', () => {
         const utdypende: UtdypendeOpplysning = {
-            __typename: 'UtdypendeOpplysning',
             sporsmal: 'dette er det første spørsmålet',
             svar: 'dette er det første svaret',
             restriksjoner: [],
         }
         const utdypende2: UtdypendeOpplysning = {
-            __typename: 'UtdypendeOpplysning',
             sporsmal: 'dette er det andre spørsmålet',
             svar: 'dette er det andre svaret',
             restriksjoner: [],
         }
         const utdypende3: UtdypendeOpplysning = {
-            __typename: 'UtdypendeOpplysning',
             sporsmal: 'dette er det tredje spørsmålet',
             svar: 'dette er det tredje svaret',
             restriksjoner: [],

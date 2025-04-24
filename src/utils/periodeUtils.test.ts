@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { Periode, PeriodeFragment, Periodetype } from '../../src/fetching/graphql.generated'
+import { Periode, Periodetype } from '../types/sykmelding'
 
 import { getDescription, getPeriodTitle, getReadableLength, getSykmeldingperioderSorted } from './periodeUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'
@@ -9,7 +9,6 @@ describe('periodeUtils', () => {
     describe('getPeriodTitle', () => {
         it('Avventende periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -25,7 +24,6 @@ describe('periodeUtils', () => {
 
         it('100% periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -33,7 +31,6 @@ describe('periodeUtils', () => {
                 innspillTilArbeidsgiver: null,
                 type: Periodetype.AKTIVITET_IKKE_MULIG,
                 aktivitetIkkeMulig: {
-                    __typename: 'AktivitetIkkeMuligPeriode',
                     medisinskArsak: null,
                     arbeidsrelatertArsak: null,
                 },
@@ -44,11 +41,9 @@ describe('periodeUtils', () => {
 
         it('Gradert periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: {
-                    __typename: 'GradertPeriode',
                     grad: 80,
                     reisetilskudd: false,
                 },
@@ -63,7 +58,6 @@ describe('periodeUtils', () => {
 
         it('Reisetilskudd periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -78,7 +72,6 @@ describe('periodeUtils', () => {
 
         it('Behandlingsdager periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -95,7 +88,6 @@ describe('periodeUtils', () => {
     describe('getReadableLength', () => {
         it('1 dag returnerer', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-01',
                 gradert: null,
@@ -110,7 +102,6 @@ describe('periodeUtils', () => {
 
         it('Avventende periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -125,7 +116,6 @@ describe('periodeUtils', () => {
 
         it('100% periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -133,7 +123,6 @@ describe('periodeUtils', () => {
                 innspillTilArbeidsgiver: null,
                 type: Periodetype.AKTIVITET_IKKE_MULIG,
                 aktivitetIkkeMulig: {
-                    __typename: 'AktivitetIkkeMuligPeriode',
                     medisinskArsak: null,
                     arbeidsrelatertArsak: null,
                 },
@@ -144,11 +133,9 @@ describe('periodeUtils', () => {
 
         it('Gradert periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: {
-                    __typename: 'GradertPeriode',
                     grad: 80,
                     reisetilskudd: false,
                 },
@@ -163,7 +150,6 @@ describe('periodeUtils', () => {
 
         it('Reisetilskudd periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -178,7 +164,6 @@ describe('periodeUtils', () => {
 
         it('1 behandlingsdag periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -193,7 +178,6 @@ describe('periodeUtils', () => {
 
         it('Flere behandlingsdager periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -210,7 +194,6 @@ describe('periodeUtils', () => {
     describe('getDescription', () => {
         it('Avventende periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -225,7 +208,6 @@ describe('periodeUtils', () => {
 
         it('100% periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -233,7 +215,6 @@ describe('periodeUtils', () => {
                 innspillTilArbeidsgiver: null,
                 type: Periodetype.AKTIVITET_IKKE_MULIG,
                 aktivitetIkkeMulig: {
-                    __typename: 'AktivitetIkkeMuligPeriode',
                     medisinskArsak: null,
                     arbeidsrelatertArsak: null,
                 },
@@ -244,7 +225,6 @@ describe('periodeUtils', () => {
 
         it('100% periode med arbeidsgiver', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -252,7 +232,6 @@ describe('periodeUtils', () => {
                 innspillTilArbeidsgiver: null,
                 type: Periodetype.AKTIVITET_IKKE_MULIG,
                 aktivitetIkkeMulig: {
-                    __typename: 'AktivitetIkkeMuligPeriode',
                     medisinskArsak: null,
                     arbeidsrelatertArsak: null,
                 },
@@ -263,11 +242,9 @@ describe('periodeUtils', () => {
 
         it('Gradert periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: {
-                    __typename: 'GradertPeriode',
                     grad: 80,
                     reisetilskudd: false,
                 },
@@ -282,11 +259,9 @@ describe('periodeUtils', () => {
 
         it('Gradert periode med arbeidsgiver', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: {
-                    __typename: 'GradertPeriode',
                     grad: 80,
                     reisetilskudd: false,
                 },
@@ -301,7 +276,6 @@ describe('periodeUtils', () => {
 
         it('Reisetilskudd periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -316,7 +290,6 @@ describe('periodeUtils', () => {
 
         it('1 behandlingsdag periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -331,7 +304,6 @@ describe('periodeUtils', () => {
 
         it('Flere behandlingsdager periode', () => {
             const periode: Periode = {
-                __typename: 'Periode',
                 fom: '2021-04-01',
                 tom: '2021-04-03',
                 gradert: null,
@@ -347,7 +319,7 @@ describe('periodeUtils', () => {
 
     describe('getSykmeldingperioderSorted', () => {
         it('sorts by fom and tom', () => {
-            const perioder: PeriodeFragment[] = [
+            const perioder: Periode[] = [
                 createSykmeldingPeriode({ fom: '2021-06-01', tom: '2021-06-03' }),
                 createSykmeldingPeriode({ fom: '2021-05-01', tom: '2021-05-03' }),
                 createSykmeldingPeriode({ fom: '2021-04-01', tom: '2021-04-03' }),

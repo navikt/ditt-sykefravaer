@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Prognose } from '../../../../fetching/graphql.generated'
+import { Prognose } from '../../../../types/sykmelding'
 
 import PrognoseView from './PrognoseView'
 
 describe('PrognoseView', () => {
     it('Renders section title ', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -20,7 +19,6 @@ describe('PrognoseView', () => {
 
     it('Renders arbeidsforEtterPeriode if true', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -32,7 +30,6 @@ describe('PrognoseView', () => {
 
     it('Does not renders arbeidsforEtterPeriode if false', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -44,7 +41,6 @@ describe('PrognoseView', () => {
 
     it('Renders hensynArbeidsplassen', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
             erIArbeid: null,
@@ -57,7 +53,6 @@ describe('PrognoseView', () => {
 
     it('Dose not render hensynArbeidsplassen if null', () => {
         const prognose: Prognose = {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: null,
             erIArbeid: null,

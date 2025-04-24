@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Merknad, Merknadtype } from '../../fetching/graphql.generated'
+import { Merknad, Merknadtype } from '../../types/sykmelding'
 
 import InformationBanner from './InformationBanner'
 
 describe('InformationBanner', () => {
     it('Renders view for merknad UGYLDIG_TILBAKEDATERING', async () => {
         const merknad: Merknad = {
-            __typename: 'Merknad',
             type: Merknadtype.UGYLDIG_TILBAKEDATERING,
             beskrivelse: null,
         }
@@ -21,7 +20,6 @@ describe('InformationBanner', () => {
 
     it('Renders view for merknad TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER', () => {
         const merknad: Merknad = {
-            __typename: 'Merknad',
             type: Merknadtype.TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER,
             beskrivelse: null,
         }
@@ -34,7 +32,6 @@ describe('InformationBanner', () => {
 
     it('Renders view for merknad TILBAKEDATERING_UNDER_BEHANDLING', () => {
         const merknad: Merknad = {
-            __typename: 'Merknad',
             type: Merknadtype.UNDER_BEHANDLING,
             beskrivelse: null,
         }

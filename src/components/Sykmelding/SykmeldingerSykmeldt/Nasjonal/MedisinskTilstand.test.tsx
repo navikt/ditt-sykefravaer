@@ -1,18 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { AnnenFraverGrunn, MedisinskVurdering } from '../../../../fetching/graphql.generated'
+import { AnnenFraverGrunn, MedisinskVurdering } from '../../../../types/sykmelding'
 
 import MedisinskTilstand from './MedisinskTilstand'
 
 describe('MedisinskTilstand', () => {
     it('Renders annenFraversArsak if it exits', () => {
         const medisinskVurdering: MedisinskVurdering = {
-            __typename: 'MedisinskVurdering',
             hovedDiagnose: null,
             biDiagnoser: [],
             annenFraversArsak: {
-                __typename: 'AnnenFraversArsak',
                 beskrivelse: 'Dette er en beskrivelse',
                 grunn: [AnnenFraverGrunn.DONOR],
             },
@@ -31,7 +29,6 @@ describe('MedisinskTilstand', () => {
 
     it('Renders svangerskapsrelatert if it exits', () => {
         const medisinskVurdering: MedisinskVurdering = {
-            __typename: 'MedisinskVurdering',
             hovedDiagnose: null,
             biDiagnoser: [],
             svangerskap: true,
@@ -46,7 +43,6 @@ describe('MedisinskTilstand', () => {
 
     it('Renders yrkesskade if it exits', () => {
         const medisinskVurdering: MedisinskVurdering = {
-            __typename: 'MedisinskVurdering',
             hovedDiagnose: null,
             biDiagnoser: [],
             svangerskap: false,
@@ -64,15 +60,12 @@ describe('MedisinskTilstand', () => {
 
     it('should render Bidiagnose', () => {
         const medisinskVurdering: MedisinskVurdering = {
-            __typename: 'MedisinskVurdering',
             annenFraversArsak: {
-                __typename: 'AnnenFraversArsak',
                 beskrivelse: '',
                 grunn: [],
             },
             biDiagnoser: [
                 {
-                    __typename: 'Diagnose',
                     kode: '',
                     system: '',
                     tekst: 'Vondt i foten',
@@ -90,9 +83,7 @@ describe('MedisinskTilstand', () => {
 
     it('should not render Bidiagnose if tekst is missing', () => {
         const medisinskVurdering: MedisinskVurdering = {
-            __typename: 'MedisinskVurdering',
             annenFraversArsak: {
-                __typename: 'AnnenFraversArsak',
                 beskrivelse: '',
                 grunn: [],
             },

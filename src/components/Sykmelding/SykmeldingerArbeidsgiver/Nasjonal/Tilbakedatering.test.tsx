@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { KontaktMedPasient } from '../../../../fetching/graphql.generated'
+import { KontaktMedPasient } from '../../../../types/sykmelding'
 
 import Tilbakedatering from './Tilbakedatering'
 
 describe('TilbakedateringView', () => {
     it('Renders kontaktdato', () => {
         const kontaktMedPasient: KontaktMedPasient = {
-            __typename: 'KontaktMedPasient',
             kontaktDato: '2021-04-01',
             begrunnelseIkkeKontakt: null,
         }
@@ -21,7 +20,6 @@ describe('TilbakedateringView', () => {
 
     it('Not render it kontaktDato is missing', () => {
         const kontaktMedPasient: KontaktMedPasient = {
-            __typename: 'KontaktMedPasient',
             kontaktDato: null,
             begrunnelseIkkeKontakt: null,
         }

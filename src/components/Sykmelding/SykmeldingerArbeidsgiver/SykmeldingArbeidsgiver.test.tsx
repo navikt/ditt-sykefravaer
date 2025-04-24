@@ -1,23 +1,20 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Periodetype, RegelStatus, StatusEvent, SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding'
 
 import SykmeldingArbeidsgiver from './SykmeldingArbeidsgiver'
 
-const minimalSykmelding: SykmeldingFragment = {
-    __typename: 'Sykmelding',
+const minimalSykmelding: Sykmelding = {
     id: '123',
     mottattTidspunkt: '2020-01-10',
     behandlingsutfall: {
-        __typename: 'Behandlingsutfall',
         status: RegelStatus.OK,
         ruleHits: [],
     },
     arbeidsgiver: null,
     sykmeldingsperioder: [
         {
-            __typename: 'Periode',
             fom: '2020-02-10',
             tom: '2020-02-15',
             behandlingsdager: 2,
@@ -29,7 +26,6 @@ const minimalSykmelding: SykmeldingFragment = {
         },
     ],
     sykmeldingStatus: {
-        __typename: 'SykmeldingStatus',
         timestamp: '2020-01-01',
         statusEvent: StatusEvent.APEN,
         sporsmalOgSvarListe: [],
@@ -44,18 +40,15 @@ const minimalSykmelding: SykmeldingFragment = {
     meldingTilNAV: null,
     meldingTilArbeidsgiver: null,
     kontaktMedPasient: {
-        __typename: 'KontaktMedPasient',
         kontaktDato: '2020-04-01',
         begrunnelseIkkeKontakt: 'Han var kjempesyk',
     },
     behandletTidspunkt: '2020-01-01',
     behandler: {
-        __typename: 'Behandler',
         fornavn: 'Frida',
         mellomnavn: 'Perma',
         etternavn: 'Frost',
         adresse: {
-            __typename: 'Adresse',
             gate: null,
             postnummer: null,
             kommune: null,
@@ -68,7 +61,6 @@ const minimalSykmelding: SykmeldingFragment = {
     papirsykmelding: null,
     merknader: null,
     pasient: {
-        __typename: 'Pasient',
         fnr: '123456789',
         fornavn: null,
         mellomnavn: null,

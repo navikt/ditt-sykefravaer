@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Merknadtype, RegelStatus, StatusEvent, SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 
 import {
     getReadableSykmeldingLength,
@@ -12,19 +12,16 @@ import {
 import { dateSub } from './dateUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'
 
-const minimalSykmelding: SykmeldingFragment = {
-    __typename: 'Sykmelding',
+const minimalSykmelding: Sykmelding = {
     id: 'APEN_PAPIR',
     mottattTidspunkt: dateSub(new Date(), { days: 1 }),
     behandlingsutfall: {
-        __typename: 'Behandlingsutfall',
         status: RegelStatus.OK,
         ruleHits: [],
     },
     arbeidsgiver: null,
     sykmeldingsperioder: [],
     sykmeldingStatus: {
-        __typename: 'SykmeldingStatus',
         timestamp: '2020-01-01',
         statusEvent: StatusEvent.APEN,
         sporsmalOgSvarListe: [],
@@ -32,15 +29,13 @@ const minimalSykmelding: SykmeldingFragment = {
     },
     medisinskVurdering: null,
     utdypendeOpplysninger: {},
-    kontaktMedPasient: { __typename: 'KontaktMedPasient', kontaktDato: null, begrunnelseIkkeKontakt: null },
+    kontaktMedPasient: { kontaktDato: null, begrunnelseIkkeKontakt: null },
     behandletTidspunkt: '2020-01-01',
     behandler: {
-        __typename: 'Behandler',
         fornavn: 'Fornavn',
         mellomnavn: null,
         etternavn: 'Etternavn',
         adresse: {
-            __typename: 'Adresse',
             gate: null,
             postnummer: null,
             kommune: null,
@@ -53,7 +48,6 @@ const minimalSykmelding: SykmeldingFragment = {
     papirsykmelding: null,
     merknader: null,
     pasient: {
-        __typename: 'Pasient',
         fnr: '123456789',
         fornavn: null,
         mellomnavn: null,
@@ -103,7 +97,7 @@ describe('isActiveSykmelding', () => {
                     ...minimalSykmelding.sykmeldingStatus,
                     statusEvent: StatusEvent.SENDT,
                 },
-                merknader: [{ __typename: 'Merknad', type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }],
+                merknader: [{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }],
             }),
         ).toBe(false)
     })
@@ -136,14 +130,14 @@ describe('isActiveSykmelding', () => {
 
 describe('getSykmeldingTitle', () => {
     it('Gets standard sykmelding title', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
         }
         expect(getSykmeldingTitle(sykmelding)).toEqual('Sykmelding')
     })
 
     it('Gets papirsykmelding title', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             papirsykmelding: true,
         }
@@ -151,7 +145,7 @@ describe('getSykmeldingTitle', () => {
     })
 
     it('Gets egenmeldt title', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             egenmeldt: true,
         }
@@ -159,10 +153,9 @@ describe('getSykmeldingTitle', () => {
     })
 
     it('Gets utenlandsk title', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             utenlandskSykmelding: {
-                __typename: 'UtenlandskSykmelding',
                 land: 'Sverige',
             },
         }
@@ -172,7 +165,7 @@ describe('getSykmeldingTitle', () => {
 
 describe('getSykmeldingStartDate', () => {
     it('Gets fom of the earliest period', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [
                 createSykmeldingPeriode({ fom: '2021-05-01', tom: '2021-05-03' }),
@@ -186,7 +179,7 @@ describe('getSykmeldingStartDate', () => {
 
 describe('getSykmeldingEndDate', () => {
     it('Gets tom of the latest period', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [
                 createSykmeldingPeriode({ fom: '2021-06-01', tom: '2021-06-03' }),
@@ -200,7 +193,7 @@ describe('getSykmeldingEndDate', () => {
 
 describe('getReadableSykmeldingLength', () => {
     it('Lenght is one day', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [createSykmeldingPeriode({ fom: '2021-06-01', tom: '2021-06-01' })],
         }
@@ -208,7 +201,7 @@ describe('getReadableSykmeldingLength', () => {
     })
 
     it('Within same year', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [
                 createSykmeldingPeriode({ fom: '2021-06-01', tom: '2021-06-03' }),
@@ -220,7 +213,7 @@ describe('getReadableSykmeldingLength', () => {
     })
 
     it('Within same year and month', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [
                 createSykmeldingPeriode({ fom: '2021-06-20', tom: '2021-06-24' }),
@@ -232,7 +225,7 @@ describe('getReadableSykmeldingLength', () => {
     })
 
     it('Different years', () => {
-        const sykmelding: SykmeldingFragment = {
+        const sykmelding: Sykmelding = {
             ...minimalSykmelding,
             sykmeldingsperioder: [
                 createSykmeldingPeriode({ fom: '2020-12-25', tom: '2020-12-31' }),

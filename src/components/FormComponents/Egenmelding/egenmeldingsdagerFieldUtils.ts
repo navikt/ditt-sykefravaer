@@ -1,7 +1,7 @@
 import * as R from 'remeda'
 import { add, isAfter, isBefore, sub } from 'date-fns'
 
-import { SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../types/sykmelding'
 import { toDate } from '../../../utils/dateUtils'
 import { getSykmeldingStartDate } from '../../../utils/sykmeldingUtils'
 
@@ -27,10 +27,7 @@ export function currentPeriodDatePicker(
     }
 }
 
-export function hasHitPreviousSykmeldingTom(
-    sykmelding: SykmeldingFragment,
-    previousSykmeldingTom: Date | null,
-): boolean {
+export function hasHitPreviousSykmeldingTom(sykmelding: Sykmelding, previousSykmeldingTom: Date | null): boolean {
     const [earliestPossibleDate, latestPossibleDate] = currentPeriodDatePicker(
         {
             earliestPossibleDate: toDate(getSykmeldingStartDate(sykmelding.sykmeldingsperioder)),

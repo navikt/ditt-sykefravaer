@@ -1,18 +1,18 @@
 import { ArbeidssituasjonType, Blad, FomTom, LottOgHyre } from './sykmeldingCommon'
 
 export type BrukerSvar = {
-    readonly arbeidsgiverOrgnummer?: FormSporsmalSvar<string>
-    readonly arbeidsledig?: ArbeidsledigBrukerSvar
+    readonly arbeidsgiverOrgnummer?: FormSporsmalSvar<string> | null
+    readonly arbeidsledig?: ArbeidsledigBrukerSvar | null
     readonly arbeidssituasjon: FormSporsmalSvar<ArbeidssituasjonType>
-    readonly egenmeldingsdager?: FormSporsmalSvar<string[]>
-    readonly egenmeldingsperioder?: FormSporsmalSvar<FomTom[]>
+    readonly egenmeldingsdager?: FormSporsmalSvar<string[]> | null
+    readonly egenmeldingsperioder?: FormSporsmalSvar<FomTom[]> | null
     readonly erOpplysningeneRiktige: FormSporsmalSvar<JaEllerNei>
-    readonly fisker?: FiskerBrukerSvar
-    readonly harBruktEgenmelding?: FormSporsmalSvar<JaEllerNei>
-    readonly harBruktEgenmeldingsdager?: FormSporsmalSvar<JaEllerNei>
-    readonly harForsikring?: FormSporsmalSvar<JaEllerNei>
-    readonly riktigNarmesteLeder?: FormSporsmalSvar<JaEllerNei>
-    readonly uriktigeOpplysninger?: FormSporsmalSvar<UriktigeOpplysningerType[]>
+    readonly fisker?: FiskerBrukerSvar | null
+    readonly harBruktEgenmelding?: FormSporsmalSvar<JaEllerNei> | null
+    readonly harBruktEgenmeldingsdager?: FormSporsmalSvar<JaEllerNei> | null
+    readonly harForsikring?: FormSporsmalSvar<JaEllerNei> | null
+    readonly riktigNarmesteLeder?: FormSporsmalSvar<JaEllerNei> | null
+    readonly uriktigeOpplysninger?: FormSporsmalSvar<UriktigeOpplysningerType[]> | null
 }
 
 export type FormSporsmalSvar<T> = {
@@ -21,7 +21,7 @@ export type FormSporsmalSvar<T> = {
 }
 
 export type ArbeidsledigBrukerSvar = {
-    readonly arbeidsledigFraOrgnummer?: FormSporsmalSvar<string>
+    readonly arbeidsledigFraOrgnummer?: FormSporsmalSvar<string> | null
 }
 
 export type FiskerBrukerSvar = {

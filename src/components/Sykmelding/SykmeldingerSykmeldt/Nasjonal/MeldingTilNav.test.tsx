@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { MeldingTilNav } from '../../../../fetching/graphql.generated'
+import { MeldingTilNav } from '../../../../types/sykmelding'
 
 import MeldingTilNavView from './MeldingTilNav'
 
 describe('MeldingTilNavView', () => {
     it('Renders ønsker bistand if bistandUmiddelbart is true', () => {
         const meldingTilNav: MeldingTilNav = {
-            __typename: 'MeldingTilNAV',
             bistandUmiddelbart: true,
             beskrivBistand: null,
         }
@@ -19,7 +18,6 @@ describe('MeldingTilNavView', () => {
 
     it('Does not render ønsker bistand if bistandUmiddelbart is false', () => {
         const meldingTilNav: MeldingTilNav = {
-            __typename: 'MeldingTilNAV',
             bistandUmiddelbart: false,
             beskrivBistand: null,
         }
@@ -34,7 +32,6 @@ describe('MeldingTilNavView', () => {
 
     it('Renders beskrivelse', () => {
         const meldingTilNav: MeldingTilNav = {
-            __typename: 'MeldingTilNAV',
             bistandUmiddelbart: true,
             beskrivBistand: 'beskrivelse av bistanden',
         }

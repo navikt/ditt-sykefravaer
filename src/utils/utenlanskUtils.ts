@@ -5,5 +5,5 @@ export type UtenlandskSykmelding = Omit<Sykmelding, 'utenlandskSykmelding'> & {
 }
 
 export function isUtenlandsk(sykmelding: Sykmelding): sykmelding is UtenlandskSykmelding {
-    return sykmelding.utenlandskSykmelding !== null
+    return sykmelding.utenlandskSykmelding != null
 }

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { StatusEvent, SykmeldingStatusFragment } from '../../src/fetching/graphql.generated'
+import { StatusEvent, SykmeldingStatus } from '../types/sykmelding'
 
 import { sortSykmeldingerByArbeidsgiver } from './sykmeldingSortUtils'
 import { createSykmelding } from './test/dataUtils'
@@ -27,14 +27,12 @@ describe('sortSykmeldingerByArbeidsgiver', () => {
     })
 })
 
-function createSykmeldingStatusWithArbeidsgiver(orgNavn: string): SykmeldingStatusFragment {
+function createSykmeldingStatusWithArbeidsgiver(orgNavn: string): SykmeldingStatus {
     return {
-        __typename: 'SykmeldingStatus',
         timestamp: '2020-01-01',
         statusEvent: StatusEvent.APEN,
         sporsmalOgSvarListe: [],
         arbeidsgiver: {
-            __typename: 'ArbeidsgiverStatus',
             orgNavn,
             orgnummer: '123',
         },

@@ -3,48 +3,48 @@ import { Sporsmal } from './sykmeldingSporsmalSvarListe'
 
 export type Sykmelding = {
     readonly id: string
-    readonly andreTiltak?: string
-    readonly arbeidsgiver?: ArbeidsgiverSykmelding
+    readonly andreTiltak?: string | null
+    readonly arbeidsgiver?: ArbeidsgiverSykmelding | null
     readonly behandler: Behandler
     readonly behandletTidspunkt: string
     readonly behandlingsutfall: Behandlingsutfall
-    readonly egenmeldt?: boolean
+    readonly egenmeldt?: boolean | null
     readonly kontaktMedPasient: KontaktMedPasient
-    readonly medisinskVurdering?: MedisinskVurdering
-    readonly meldingTilArbeidsgiver?: string
-    readonly meldingTilNAV?: MeldingTilNav
-    readonly merknader?: Merknad[]
+    readonly medisinskVurdering?: MedisinskVurdering | null
+    readonly meldingTilArbeidsgiver?: string | null
+    readonly meldingTilNAV?: MeldingTilNav | null
+    readonly merknader?: Merknad[] | null
     readonly mottattTidspunkt: string
-    readonly papirsykmelding?: boolean
-    readonly pasient?: Pasient
-    readonly prognose?: Prognose
+    readonly papirsykmelding?: boolean | null
+    readonly pasient?: Pasient | null
+    readonly prognose?: Prognose | null
     readonly rulesetVersion: number
     readonly sykmeldingStatus: SykmeldingStatus
     readonly sykmeldingsperioder: Periode[]
-    readonly tiltakArbeidsplassen?: string
-    readonly tiltakNAV?: string
+    readonly tiltakArbeidsplassen?: string | null
+    readonly tiltakNAV?: string | null
     readonly utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>
-    readonly utenlandskSykmelding?: UtenlandskSykmelding
+    readonly utenlandskSykmelding?: UtenlandskSykmelding | null
 }
 
 export type ArbeidsgiverSykmelding = {
-    readonly navn?: string
+    readonly navn?: string | null
 }
 
 export type Behandler = {
-    readonly adresse?: Adresse
+    readonly adresse?: Adresse | null
     readonly etternavn: string
     readonly fornavn: string
-    readonly mellomnavn?: string
-    readonly tlf?: string
+    readonly mellomnavn?: string | null
+    readonly tlf?: string | null
 }
 
 export type Adresse = {
-    readonly gate?: string
-    readonly kommune?: string
-    readonly land?: string
-    readonly postboks?: string
-    readonly postnummer?: number
+    readonly gate?: string | null
+    readonly kommune?: string | null
+    readonly land?: string | null
+    readonly postboks?: string | null
+    readonly postnummer?: number | null
 }
 
 export type Behandlingsutfall = {
@@ -53,8 +53,8 @@ export type Behandlingsutfall = {
 }
 
 export type AktivitetIkkeMuligPeriode = {
-    readonly arbeidsrelatertArsak?: ArbeidsrelatertArsak
-    readonly medisinskArsak?: MedisinskArsak
+    readonly arbeidsrelatertArsak?: ArbeidsrelatertArsak | null
+    readonly medisinskArsak?: MedisinskArsak | null
 }
 
 export enum AnnenFraverGrunn {
@@ -71,7 +71,7 @@ export enum AnnenFraverGrunn {
 }
 
 export type AnnenFraversArsak = {
-    readonly beskrivelse?: string
+    readonly beskrivelse?: string | null
     readonly grunn: AnnenFraverGrunn[]
 }
 
@@ -82,7 +82,7 @@ export type ArbeidsgiverStatus = {
 
 export type ArbeidsrelatertArsak = {
     readonly arsak: ArbeidsrelatertArsakType[]
-    readonly beskrivelse?: string
+    readonly beskrivelse?: string | null
 }
 
 export enum ArbeidsrelatertArsakType {
@@ -93,20 +93,20 @@ export enum ArbeidsrelatertArsakType {
 export type Diagnose = {
     readonly kode: string
     readonly system: string
-    readonly tekst?: string
+    readonly tekst?: string | null
 }
 
 export type ErIArbeid = {
     readonly annetArbeidPaSikt: boolean
-    readonly arbeidFOM?: string
+    readonly arbeidFOM?: string | null
     readonly egetArbeidPaSikt: boolean
-    readonly vurderingsdato?: string
+    readonly vurderingsdato?: string | null
 }
 
 export type ErIkkeIArbeid = {
-    readonly arbeidsforFOM?: string
+    readonly arbeidsforFOM?: string | null
     readonly arbeidsforPaSikt: boolean
-    readonly vurderingsdato?: string
+    readonly vurderingsdato?: string | null
 }
 
 export type GradertPeriode = {
@@ -115,13 +115,13 @@ export type GradertPeriode = {
 }
 
 export type KontaktMedPasient = {
-    readonly begrunnelseIkkeKontakt?: string
-    readonly kontaktDato?: string
+    readonly begrunnelseIkkeKontakt?: string | null
+    readonly kontaktDato?: string | null
 }
 
 export type MedisinskArsak = {
     readonly arsak: MedisinskArsakType[]
-    readonly beskrivelse?: string
+    readonly beskrivelse?: string | null
 }
 
 export enum MedisinskArsakType {
@@ -132,21 +132,21 @@ export enum MedisinskArsakType {
 }
 
 export type MedisinskVurdering = {
-    readonly annenFraversArsak?: AnnenFraversArsak
+    readonly annenFraversArsak?: AnnenFraversArsak | null
     readonly biDiagnoser: Diagnose[]
-    readonly hovedDiagnose?: Diagnose
+    readonly hovedDiagnose?: Diagnose | null
     readonly svangerskap: boolean
     readonly yrkesskade: boolean
-    readonly yrkesskadeDato?: string
+    readonly yrkesskadeDato?: string | null
 }
 
 export type MeldingTilNav = {
-    readonly beskrivBistand?: string
+    readonly beskrivBistand?: string | null
     readonly bistandUmiddelbart: boolean
 }
 
 export type Merknad = {
-    readonly beskrivelse?: string
+    readonly beskrivelse?: string | null
     readonly type: Merknadtype
 }
 
@@ -158,21 +158,21 @@ export enum Merknadtype {
 }
 
 export type Pasient = {
-    readonly etternavn?: string
-    readonly fnr?: string
-    readonly fornavn?: string
-    readonly mellomnavn?: string
-    readonly overSyttiAar?: boolean
+    readonly etternavn?: string | null
+    readonly fnr?: string | null
+    readonly fornavn?: string | null
+    readonly mellomnavn?: string | null
+    readonly overSyttiAar?: boolean | null
 }
 
 export type Periode = {
     readonly type: Periodetype
     readonly fom: string
     readonly tom: string
-    readonly aktivitetIkkeMulig?: AktivitetIkkeMuligPeriode
-    readonly behandlingsdager?: number
-    readonly gradert?: GradertPeriode
-    readonly innspillTilArbeidsgiver?: string
+    readonly aktivitetIkkeMulig?: AktivitetIkkeMuligPeriode | null
+    readonly behandlingsdager?: number | null
+    readonly gradert?: GradertPeriode | null
+    readonly innspillTilArbeidsgiver?: string | null
     readonly reisetilskudd: boolean
 }
 
@@ -186,9 +186,9 @@ export enum Periodetype {
 
 export type Prognose = {
     readonly arbeidsforEtterPeriode: boolean
-    readonly erIArbeid?: ErIArbeid
-    readonly erIkkeIArbeid?: ErIkkeIArbeid
-    readonly hensynArbeidsplassen?: string
+    readonly erIArbeid?: ErIArbeid | null
+    readonly erIkkeIArbeid?: ErIkkeIArbeid | null
+    readonly hensynArbeidsplassen?: string | null
 }
 
 export type RegelInfo = {
@@ -213,8 +213,8 @@ export enum StatusEvent {
 }
 
 export type SykmeldingStatus = {
-    readonly arbeidsgiver?: ArbeidsgiverStatus
-    readonly brukerSvar?: BrukerSvar
+    readonly arbeidsgiver?: ArbeidsgiverStatus | null
+    readonly brukerSvar?: BrukerSvar | null
     readonly sporsmalOgSvarListe: Sporsmal[]
     readonly statusEvent: StatusEvent
     readonly timestamp: string
@@ -226,7 +226,7 @@ export type UtenlandskSykmelding = {
 
 export type UtdypendeOpplysning = {
     readonly restriksjoner: SvarRestriksjon[]
-    readonly sporsmal?: string
+    readonly sporsmal?: string | null
     readonly svar: string
 }
 

@@ -2,7 +2,6 @@ import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
     MedisinskArsakType,
-    Merknad,
     Merknadtype,
     Periode,
     Periodetype,
@@ -10,7 +9,10 @@ import {
     StatusEvent,
     Sykmelding,
     SykmeldingStatus,
-} from 'src/types/sykmelding'
+} from '../../types/sykmelding'
+import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
+import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
+
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
 import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
@@ -124,23 +126,19 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         tiltakNAV: 'Tiltak NAV',
         andreTiltak: 'Du må gjøre andre tiltak',
         meldingTilNAV: {
-            __typename: 'MeldingTilNAV',
             bistandUmiddelbart: true,
             beskrivBistand: 'Trenger hjelp med penger',
         },
         kontaktMedPasient: {
-            __typename: 'KontaktMedPasient',
             kontaktDato: '2020-04-01',
             begrunnelseIkkeKontakt: 'Han var kjempesyk',
         },
         behandletTidspunkt: dateAdd(mottatt, { days: 10 }),
         behandler: {
-            __typename: 'Behandler',
             fornavn: 'Fornavn',
-            mellomnavn: null,
+            mellomnavn: undefined,
             etternavn: 'Etternavn',
             adresse: {
-                __typename: 'Adresse',
                 gate: 'Gateveien 4',
                 postnummer: 1001,
                 kommune: 'Oslo',
@@ -152,14 +150,13 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         egenmeldt: false,
         papirsykmelding: false,
         pasient: {
-            __typename: 'Pasient',
             fnr: '12345678901',
             fornavn: 'Ola',
-            mellomnavn: null,
+            mellomnavn: undefined,
             etternavn: 'Nordmann',
-            overSyttiAar: null,
+            overSyttiAar: undefined,
         },
-        utenlandskSykmelding: null,
+        utenlandskSykmelding: undefined,
         rulesetVersion: 2,
         ...overrides,
     }
@@ -168,37 +165,32 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
 export const createSykmeldingStatus = (
     overrides?: Partial<Sykmelding['sykmeldingStatus']>,
 ): Sykmelding['sykmeldingStatus'] => ({
-    __typename: 'SykmeldingStatus',
     timestamp: '2020-04-01',
     statusEvent: StatusEvent.SENDT,
     sporsmalOgSvarListe: [],
     arbeidsgiver: {
-        __typename: 'ArbeidsgiverStatus',
         orgnummer: 'default-arbeidsgiver',
         orgNavn: 'Default Arbeidsgiverssen AS',
     },
     brukerSvar: {
-        __typename: 'BrukerSvar',
         arbeidssituasjon: {
-            __typename: 'ArbeidssituasjonBrukerSvar',
             sporsmaltekst: sporsmal.arbeidssituasjon,
             svar: ArbeidssituasjonType.ARBEIDSTAKER,
         },
         erOpplysningeneRiktige: {
-            __typename: 'ErOpplysningeneRiktigeBrukerSvar',
             sporsmaltekst: sporsmal.erOpplysningeneRiktige,
             svar: JaEllerNei.JA,
         },
-        uriktigeOpplysninger: null,
-        arbeidsgiverOrgnummer: null,
-        riktigNarmesteLeder: null,
-        harBruktEgenmeldingsdager: null,
-        egenmeldingsdager: null,
-        harBruktEgenmelding: null,
-        egenmeldingsperioder: null,
-        harForsikring: null,
-        fisker: null,
-        arbeidsledig: null,
+        uriktigeOpplysninger: undefined,
+        arbeidsgiverOrgnummer: undefined,
+        riktigNarmesteLeder: undefined,
+        harBruktEgenmeldingsdager: undefined,
+        egenmeldingsdager: undefined,
+        harBruktEgenmelding: undefined,
+        egenmeldingsperioder: undefined,
+        harForsikring: undefined,
+        fisker: undefined,
+        arbeidsledig: undefined,
     },
     ...overrides,
 })
