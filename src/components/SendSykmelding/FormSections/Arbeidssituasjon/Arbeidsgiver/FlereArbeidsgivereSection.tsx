@@ -4,10 +4,10 @@ import { useFormContext } from 'react-hook-form'
 
 import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
-import { YesOrNo } from '../../../../../types/sykmeldingSporsmalSvarListe'
 import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
+import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 
 import FlereArbeidsgivereField from './FlereArbeidsgivereField'
 import FlereArbeidsgivereInfo from './FlereArbeidsgivereInfo'

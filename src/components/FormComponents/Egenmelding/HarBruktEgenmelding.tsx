@@ -2,12 +2,12 @@ import { BodyLong, Link, ReadMore } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
 import { differenceInDays } from 'date-fns'
 
-import { YesOrNo } from '../../../types/sykmeldingSporsmalSvarListe'
 import { toReadableDatePeriod } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
 import YesNoField from '../YesNoField/YesNoField'
 import { QuestionWrapper } from '../FormStructure'
+import { YesOrNo } from '../../../types/sykmeldingCommon'
 
 import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 

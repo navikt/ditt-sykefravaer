@@ -7,7 +7,6 @@ import {
     NaermesteLederFragment,
 } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
-import { YesOrNo } from '../../../../../types/sykmeldingSporsmalSvarListe'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'
@@ -17,6 +16,7 @@ import { toDate } from '../../../../../utils/dateUtils'
 import EgenmeldingerField from '../../../../FormComponents/Egenmelding/EgenmeldingerField'
 import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeidsgiverInfo'
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
+import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'

@@ -5,9 +5,9 @@ import { ReactElement, useEffect, useLayoutEffect } from 'react'
 import * as R from 'remeda'
 import cn from 'classnames'
 
-import { YesOrNo } from '../../../types/sykmeldingSporsmalSvarListe'
 import { sortDatesASC } from '../../../utils/dateUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
+import { YesOrNo } from '../../../types/sykmeldingCommon'
 
 import HarBruktEgenmelding from './HarBruktEgenmelding'
 import ValgtEgenmeldingsdager from './ValgtEgenmeldingsdager'

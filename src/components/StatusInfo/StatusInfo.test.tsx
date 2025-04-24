@@ -2,9 +2,8 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 import { Merknad, Merknadtype, Periode, Periodetype, StatusEvent, SykmeldingStatus } from '../../types/sykmelding'
-import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
+import { ArbeidssituasjonType, YesOrNo } from '../../types/sykmeldingCommon'
 import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
-import { YesOrNo } from '../../fetching/graphql.generated'
 
 import StatusInfo from './StatusInfo'
 

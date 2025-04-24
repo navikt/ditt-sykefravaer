@@ -5,7 +5,8 @@ import {
     MAX_EGENMELDINGSDAGER,
 } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { SykmeldingStatus } from '../types/sykmelding'
-import { DagerSvar, Svartype, YesOrNo } from '../types/sykmeldingSporsmalSvarListe'
+import { DagerSvar, Svartype } from '../types/sykmeldingSporsmalSvarListe'
+import { YesOrNo } from '../types/sykmeldingCommon'
 
 const hasMoreThan16Dates: (perioder: EgenmeldingsdagerFormValue[]) => boolean = R.piped(
     R.flatMap(R.prop('datoer')),

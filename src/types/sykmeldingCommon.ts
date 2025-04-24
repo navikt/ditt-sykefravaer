@@ -24,3 +24,8 @@ export type FomTom = {
     readonly fom: string
     readonly tom: string
 }
+
+export enum YesOrNo {
+    NO = 'NO',
+    YES = 'YES',
+}

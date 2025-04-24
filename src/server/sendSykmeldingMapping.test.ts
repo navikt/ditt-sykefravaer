@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { YesOrNo } from '../fetching/graphql.generated'
-import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmeldingCommon'
 import { StatusEvent } from '../types/sykmelding'
 import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
 import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'

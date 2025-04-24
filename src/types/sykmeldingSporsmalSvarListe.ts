@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType, FomTom } from './sykmeldingCommon'
+import { ArbeidssituasjonType, FomTom, YesOrNo } from './sykmeldingCommon'
 
 export type Sporsmal = {
     readonly shortName: ShortName
@@ -42,9 +42,4 @@ export enum ShortName {
     FRAVAER = 'FRAVAER',
     NY_NARMESTE_LEDER = 'NY_NARMESTE_LEDER',
     PERIODE = 'PERIODE',
-}
-
-export enum YesOrNo {
-    NO = 'NO',
-    YES = 'YES',
 }
