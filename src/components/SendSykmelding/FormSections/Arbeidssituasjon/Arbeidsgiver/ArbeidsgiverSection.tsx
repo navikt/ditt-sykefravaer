@@ -10,13 +10,14 @@ import { Sykmelding } from '../../../../../types/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'
-import { useFindPrevSykmeldingTom } from '../../../../../hooks/useFindPrevSykmeldingTom'
+import { findPrevSykmeldingTom } from '../../../../../hooks/useFindPrevSykmeldingTom'
 import { getSykmeldingStartDate } from '../../../../../utils/sykmeldingUtils'
 import { toDate } from '../../../../../utils/dateUtils'
 import EgenmeldingerField from '../../../../FormComponents/Egenmelding/EgenmeldingerField'
 import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeidsgiverInfo'
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import useSykmeldinger from '../../../../../hooks/useSykmeldingerFlexBackend'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'
@@ -34,7 +35,10 @@ function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement
         'erSykmeldtFraFlereArbeidsforhold',
     ])
 
-    const { previousSykmeldingTom, error, isLoading } = useFindPrevSykmeldingTom(sykmelding, valgtArbeidsgiverOrgnummer)
+    const { data: alleSykmeldinger, error, isPending: isLoading } = useSykmeldinger()
+    const previousSykmeldingTom = alleSykmeldinger
+        ? findPrevSykmeldingTom(sykmelding, valgtArbeidsgiverOrgnummer, alleSykmeldinger)
+        : null
     const { hasAktiv, shouldShowEgenmeldingsdager } = useArbeidsgiverSubSections(arbeidsgivere)
     const { shouldAskForSeveralSykmeldinger } = useShouldShowSeveralArbeidsgivereInfo(arbeidsgivere, sykmelding)
     const shouldShowSendesTilArbeidsgiverInfo = useShouldShowSendesTilArbeidsgiverInfo()
