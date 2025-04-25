@@ -15,55 +15,24 @@ export function toEarliestSykmelding(acc: Sykmelding, value: Sykmelding): Sykmel
         : acc
 }
 
-type SykmeldingerHook = () => {
-    data?: Sykmelding[]
-    error: Error | null
-    isPending: boolean
+export function filterUnsentSykmeldinger(sykmeldinger: Sykmelding[]): Sykmelding[] {
+    return sykmeldinger.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
 }
 
-export function useUnsentSykmeldinger(sykmeldingerHook: SykmeldingerHook): {
-    unsentSykmeldinger: Sykmelding[] | null
-    isLoading: boolean
-    error: Error | null
-} {
-    const { data, error, isPending: loading } = sykmeldingerHook()
-
-    if (loading || error || data == null) {
-        return {
-            unsentSykmeldinger: null,
-            isLoading: loading,
-            error,
-        }
-    }
-
-    const relevantSykmeldinger = data?.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
-
-    return {
-        unsentSykmeldinger: relevantSykmeldinger,
-        isLoading: false,
-        error: null,
-    }
-}
-
-function useFindOlderSykmeldingId(
+export function findOlderSykmeldingId(
     sykmelding: Sykmelding | undefined,
-    sykmeldingerHook: SykmeldingerHook,
+    alleSykmeldinger: Sykmelding[],
 ): {
     earliestSykmeldingId: string | null
     olderSykmeldingCount: number
-    isLoading: boolean
-    error: Error | null
 } {
-    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger(sykmeldingerHook)
-
-    if (sykmelding == null || isLoading || error || unsentSykmeldinger == null) {
+    if (sykmelding == null) {
         return {
             earliestSykmeldingId: null,
             olderSykmeldingCount: 0,
-            isLoading,
-            error,
         }
     }
+    const unsentSykmeldinger = filterUnsentSykmeldinger(alleSykmeldinger)
 
     const startDate: string = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
     const unsentExceptOverlappingDates = unsentSykmeldinger.filter(
@@ -77,9 +46,5 @@ function useFindOlderSykmeldingId(
         // When the earliest sykmelding is the provided sykmelding, it's the very first
         earliestSykmeldingId: earliestId === sykmelding.id ? null : earliestId,
         olderSykmeldingCount: unsentExceptOverlappingDates.length,
-        isLoading: false,
-        error: null,
     }
 }
-
-export default useFindOlderSykmeldingId

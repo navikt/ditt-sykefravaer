@@ -1,9 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { Periodetype, RegelStatus, StatusEvent } from '../types/sykmelding'
 import { toDate } from '../utils/dateUtils'
 import { createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
-import { renderHook, waitFor } from '../utils/test/testUtils'
 
 import { findPrevSykmeldingTom } from './useFindPrevSykmeldingTom'
 

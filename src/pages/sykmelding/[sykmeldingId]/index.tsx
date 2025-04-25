@@ -20,7 +20,7 @@ import { createSykmeldingBreadcrumbs, useUpdateBreadcrumbs } from '../../../hook
 import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
-import useFindOlderSykmeldingId from '../../../hooks/useFindOlderSykmeldingId'
+import { findOlderSykmeldingId } from '../../../hooks/useFindOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
@@ -32,11 +32,18 @@ function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
 
     const { data, error, isLoading: loading, refetch } = useSykmeldingByIdRest(sykmeldingId)
-    const olderSykmelding = useFindOlderSykmeldingId(data, useSykmeldinger)
+    const {
+        data: alleSykmeldinger,
+        error: alleSykmeldingerError,
+        isPending: isAlleSykmeldingerLoading,
+    } = useSykmeldinger()
+    const olderSykmelding = alleSykmeldinger != null ? findOlderSykmeldingId(data, alleSykmeldinger) : null
+    const isOlderSykmeldingLoading = isAlleSykmeldingerLoading
+    const olderSykmeldingError = alleSykmeldingerError
 
     useFocusRefetch(refetch)
 
-    if (data == null && (loading || olderSykmelding.isLoading)) {
+    if (data == null && (loading || isOlderSykmeldingLoading)) {
         return (
             <SykmeldingerWrapper>
                 <SykmeldingSkeleton />
@@ -44,7 +51,7 @@ function SykmeldingPage(): ReactElement {
         )
     }
 
-    if (olderSykmelding.error || (error && data == null)) {
+    if (olderSykmeldingError || (error && data == null)) {
         return (
             <SykmeldingerWrapper>
                 <Alert variant="error" role="alert" aria-live="polite">
@@ -90,8 +97,8 @@ function SykmeldingPage(): ReactElement {
         <SykmeldingerWrapper sykmelding={data}>
             <SykmeldingComponent
                 sykmelding={data}
-                olderSykmeldingId={olderSykmelding.earliestSykmeldingId}
-                olderSykmeldingCount={olderSykmelding.olderSykmeldingCount}
+                olderSykmeldingId={olderSykmelding?.earliestSykmeldingId ?? null}
+                olderSykmeldingCount={olderSykmelding?.olderSykmeldingCount ?? 0}
             />
         </SykmeldingerWrapper>
     )

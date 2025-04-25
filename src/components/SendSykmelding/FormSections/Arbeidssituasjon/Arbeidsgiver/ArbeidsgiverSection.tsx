@@ -36,9 +36,10 @@ function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement
     ])
 
     const { data: alleSykmeldinger, error, isPending: isLoading } = useSykmeldinger()
-    const previousSykmeldingTom = alleSykmeldinger
-        ? findPrevSykmeldingTom(sykmelding, valgtArbeidsgiverOrgnummer, alleSykmeldinger)
-        : null
+    const previousSykmeldingTom =
+        alleSykmeldinger != null
+            ? findPrevSykmeldingTom(sykmelding, valgtArbeidsgiverOrgnummer, alleSykmeldinger)
+            : null
     const { hasAktiv, shouldShowEgenmeldingsdager } = useArbeidsgiverSubSections(arbeidsgivere)
     const { shouldAskForSeveralSykmeldinger } = useShouldShowSeveralArbeidsgivereInfo(arbeidsgivere, sykmelding)
     const shouldShowSendesTilArbeidsgiverInfo = useShouldShowSendesTilArbeidsgiverInfo()

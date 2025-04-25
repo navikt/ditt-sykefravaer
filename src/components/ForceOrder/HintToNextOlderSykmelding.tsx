@@ -2,13 +2,14 @@ import { BodyLong, Button, GuidePanel } from '@navikt/ds-react'
 import Link from 'next/link'
 import { ReactElement, useEffect } from 'react'
 
-import { toEarliestSykmelding, useUnsentSykmeldinger } from '../../hooks/useFindOlderSykmeldingId'
+import { toEarliestSykmelding, filterUnsentSykmeldinger } from '../../hooks/useFindOlderSykmeldingId'
 import useSykmeldinger from '../../hooks/useSykmeldingerFlexBackend'
 import { pluralize } from '../../utils/stringUtils'
 import { logAmplitudeEvent } from '../amplitude/amplitude'
 
 function HintToNextOlderSykmelding(): ReactElement | null {
-    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger(useSykmeldinger)
+    const { data: alleSykmeldinger, error, isPending: isLoading } = useSykmeldinger()
+    const unsentSykmeldinger = alleSykmeldinger != null ? filterUnsentSykmeldinger(alleSykmeldinger) : null
     const dontShowYet = isLoading || error || unsentSykmeldinger == undefined
     const isDone = unsentSykmeldinger?.length === 0
 
