@@ -2,12 +2,12 @@ import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
 import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding'
-import { dateAdd, dateSub } from '../utils/dateUtils'
-import { createSykmelding, createUnderBehandlingMerknad } from '../utils/test/dataUtils'
 
-import { findOlderSykmeldingId } from './useFindOlderSykmeldingId'
+import { dateAdd, dateSub } from './dateUtils'
+import { createSykmelding, createUnderBehandlingMerknad } from './test/dataUtils'
+import { findOlderSykmeldingId } from './findOlderSykmeldingId'
 
-describe('useFindOlderSykmeldingId', () => {
+describe('findOlderSykmeldingId', () => {
     it('should find the earlier sykmelding when there is one APEN before', async () => {
         const sykmeldinger = [
             createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),

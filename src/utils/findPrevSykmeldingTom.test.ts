@@ -1,12 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
 import { Periodetype, RegelStatus, StatusEvent } from '../types/sykmelding'
-import { toDate } from '../utils/dateUtils'
-import { createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
 
-import { findPrevSykmeldingTom } from './useFindPrevSykmeldingTom'
+import { toDate } from './dateUtils'
+import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'
+import { findPrevSykmeldingTom } from './findPrevSykmeldingTom'
 
-describe('useFindPrevSykmeldingTom', () => {
+describe('findPrevSykmeldingTom', () => {
     it('should find previous sykmelding tom closest and before given sykmelding tom', async () => {
         const sykmeldinger = [
             createSykmelding({

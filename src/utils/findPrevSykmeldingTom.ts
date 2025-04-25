@@ -1,9 +1,10 @@
 import { closestTo, isBefore, isSameDay, isWithinInterval } from 'date-fns'
 import { intersection } from 'remeda'
 
-import { toDate } from '../utils/dateUtils'
-import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
 import { Periodetype, Sykmelding } from '../types/sykmelding'
+
+import { toDate } from './dateUtils'
+import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from './sykmeldingUtils'
 
 function removeInsideSykmeldinger(sykmeldinger: readonly Sykmelding[]) {
     return (sykmelding: Sykmelding): boolean => {

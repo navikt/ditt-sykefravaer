@@ -20,7 +20,7 @@ import { createSykmeldingBreadcrumbs, useUpdateBreadcrumbs } from '../../../hook
 import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
-import { findOlderSykmeldingId } from '../../../hooks/useFindOlderSykmeldingId'
+import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'

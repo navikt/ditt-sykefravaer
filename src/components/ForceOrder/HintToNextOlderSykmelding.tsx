@@ -2,7 +2,7 @@ import { BodyLong, Button, GuidePanel } from '@navikt/ds-react'
 import Link from 'next/link'
 import { ReactElement, useEffect } from 'react'
 
-import { toEarliestSykmelding, filterUnsentSykmeldinger } from '../../hooks/useFindOlderSykmeldingId'
+import { toEarliestSykmelding, filterUnsentSykmeldinger } from '../../utils/findOlderSykmeldingId'
 import useSykmeldinger from '../../hooks/useSykmeldingerFlexBackend'
 import { pluralize } from '../../utils/stringUtils'
 import { logAmplitudeEvent } from '../amplitude/amplitude'
