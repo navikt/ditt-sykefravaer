@@ -2,17 +2,17 @@ import { ReactElement } from 'react'
 import Link from 'next/link'
 import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 
-import { SykmeldingFragment } from '../../../fetching/graphql.generated'
 import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import { getDescription } from '../../../utils/periodeUtils'
 import { cn } from '../../../utils/tw-utils'
 import { toSykmeldingAriaLabel } from '../../../utils/toSykmeldingAriaLabel'
+import { Sykmelding } from '../../../types/sykmelding'
 
 import LenkepanelIcon from './LenkepanelIcon'
 import LenkepanelEtikett from './LenkepanelEtikett'
 
 interface LenkepanelProps {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     notifying: boolean
 }
 

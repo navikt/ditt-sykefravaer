@@ -1,14 +1,14 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from '../../../../fetching/graphql.generated'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'
 import { SykmeldingInfo, SykmeldingMultilineInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { Sykmelding } from '../../../../types/sykmelding'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     parentId: string
 }
 

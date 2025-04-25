@@ -1,12 +1,13 @@
 import React, { ReactElement } from 'react'
 
-import { BrukerinformasjonFragment, SykmeldingFragment } from '../../../../../fetching/graphql.generated'
+import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../types/sykmelding'
 
 import ArbeidsgivereMissingInfo from './ArbeidsgivereMissingInfo'
 import ArbeidsgiverSection from './ArbeidsgiverSection'
 
 type Props = {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
 }
 

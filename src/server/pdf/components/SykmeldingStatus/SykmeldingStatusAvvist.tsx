@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer'
 import { Sykmelding } from '../../../api-models/sykmelding/Sykmelding'
 import { sykmeldingStatusMarginBottom, textMarginBottom } from '../constants'
 import Warning from '../icons/Warning'
-import { Merknadtype } from '../../../../fetching/graphql.generated'
+import { Merknadtype } from '../../../../types/sykmelding'
 
 interface Props {
     sykmelding: Sykmelding

@@ -2,14 +2,14 @@ import { ReactElement, CSSProperties } from 'react'
 import { ExpansionCard } from '@navikt/ds-react'
 import { FileSearchIcon } from '@navikt/aksel-icons'
 
-import { SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../types/sykmelding'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 
 import SykmeldingArbeidsgiver from './SykmeldingArbeidsgiver'
 import SykmeldingArbeidsgiverUtenlandsk from './SykmeldingArbeidsgiverUtenlandsk'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     chosenEgenmeldingsdager?: string[]
 }
 

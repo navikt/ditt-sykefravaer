@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
-import { YesOrNo } from '../../../fetching/graphql.generated'
 import { toDate } from '../../../utils/dateUtils'
+import { YesOrNo } from '../../../types/sykmeldingCommon'
 
 import { laterPeriodsRemoved } from './EgenmeldingerField'
 

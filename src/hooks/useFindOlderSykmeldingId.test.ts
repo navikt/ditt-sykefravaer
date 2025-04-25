@@ -1,12 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
-import {
-    Periodetype,
-    StatusEvent,
-    SykmeldingerDocument,
-    SykmeldingFragment,
-} from '../../src/fetching/graphql.generated'
+import { SykmeldingerDocument } from '../fetching/graphql.generated'
+import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding'
 import { renderHook, waitFor } from '../utils/test/testUtils'
 import { dateAdd, dateSub } from '../utils/dateUtils'
 import { createMock, createSykmelding, createUnderBehandlingMerknad } from '../utils/test/dataUtils'
@@ -146,11 +142,10 @@ describe.skip('useFindOlderSykmeldingId', () => {
     })
 
     describe('should work when there is overlap between sykmeldinger', () => {
-        const createSingle10PeriodApen = (date: string, id: string): SykmeldingFragment => ({
+        const createSingle10PeriodApen = (date: string, id: string): Sykmelding => ({
             ...createSykmelding({ mottattTidspunkt: date, id }),
             sykmeldingsperioder: [
                 {
-                    __typename: 'Periode',
                     fom: date,
                     tom: dateAdd(date, { days: 10 }),
                     type: Periodetype.AKTIVITET_IKKE_MULIG,
@@ -186,7 +181,7 @@ describe.skip('useFindOlderSykmeldingId', () => {
     })
 })
 
-function sykmeldingerMock(sykmeldinger: SykmeldingFragment[]) {
+function sykmeldingerMock(sykmeldinger: Sykmelding[]) {
     return createMock({
         request: { query: SykmeldingerDocument },
         result: {

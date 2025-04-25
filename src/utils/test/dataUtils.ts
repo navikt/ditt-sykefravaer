@@ -1,31 +1,25 @@
 import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
-    ArbeidssituasjonType,
-    JaEllerNei,
     MedisinskArsakType,
     Merknadtype,
-    PeriodeFragment,
+    Periode,
     Periodetype,
     RegelStatus,
-    ShortName,
     StatusEvent,
-    Svartype,
     Sykmelding,
-    SykmeldingFragment,
-    SykmeldingStatusFragment,
-} from '../../fetching/graphql.generated'
+    SykmeldingStatus,
+} from '../../types/sykmelding'
+import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
+import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
+import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
 
-export function createSykmelding(
-    overrides?: Partial<SykmeldingFragment>,
-    statusEvent = StatusEvent.APEN,
-): SykmeldingFragment {
+export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = StatusEvent.APEN): Sykmelding {
     const mottatt = overrides?.mottattTidspunkt ?? dateSub(new Date(), { days: 2 })
 
     return {
-        __typename: 'Sykmelding',
         id: 'test-sykmelding',
         mottattTidspunkt: mottatt,
         sykmeldingStatus: createSykmeldingStatus({
@@ -33,12 +27,10 @@ export function createSykmelding(
             statusEvent,
         }),
         behandlingsutfall: {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.OK,
             ruleHits: [],
         },
         arbeidsgiver: {
-            __typename: 'ArbeidsgiverSykmelding',
             navn: 'Arbeidsgiver AS',
         },
         merknader: null,
@@ -55,14 +47,11 @@ export function createSykmelding(
                 tom: dateAdd(mottatt, { days: 5 }),
                 type: Periodetype.AKTIVITET_IKKE_MULIG,
                 aktivitetIkkeMulig: {
-                    __typename: 'AktivitetIkkeMuligPeriode',
                     medisinskArsak: {
-                        __typename: 'MedisinskArsak',
                         arsak: [MedisinskArsakType.ANNET, MedisinskArsakType.AKTIVITET_FORVERRER_TILSTAND],
                         beskrivelse: 'Dette er en beskrivelse av den medisinske årsaken.',
                     },
                     arbeidsrelatertArsak: {
-                        __typename: 'ArbeidsrelatertArsak',
                         arsak: [ArbeidsrelatertArsakType.ANNET],
                         beskrivelse: 'Dette er en beskrivelse av den arbeidsrelaterte årsaken',
                     },
@@ -73,29 +62,24 @@ export function createSykmelding(
                 tom: dateAdd(mottatt, { days: 11 }),
                 type: Periodetype.GRADERT,
                 gradert: {
-                    __typename: 'GradertPeriode',
                     grad: 20,
                     reisetilskudd: false,
                 },
             }),
         ],
         medisinskVurdering: {
-            __typename: 'MedisinskVurdering',
             hovedDiagnose: {
-                __typename: 'Diagnose',
                 system: '2.16.578.1.12.4.1.1.7170',
                 kode: 'K24',
                 tekst: 'Rar sykdom',
             },
             biDiagnoser: [
                 {
-                    __typename: 'Diagnose',
                     system: '2.16.578.1.12.4.1.1.7170',
                     kode: '-57',
                     tekst: 'Rar sykdom',
                 },
                 {
-                    __typename: 'Diagnose',
                     system: '2.16.578.1.12.4.1.1.7170',
                     kode: '-59',
                     tekst: 'Sykdom0',
@@ -105,14 +89,12 @@ export function createSykmelding(
             yrkesskade: true,
             yrkesskadeDato: '2018-10-18',
             annenFraversArsak: {
-                __typename: 'AnnenFraversArsak',
                 beskrivelse:
                     'word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word word',
                 grunn: [AnnenFraverGrunn.NODVENDIG_KONTROLLUNDENRSOKELSE],
             },
         },
         prognose: {
-            __typename: 'Prognose',
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'Du må ta det rolig på jobben',
             erIArbeid: null,
@@ -143,23 +125,19 @@ export function createSykmelding(
         tiltakNAV: 'Tiltak NAV',
         andreTiltak: 'Du må gjøre andre tiltak',
         meldingTilNAV: {
-            __typename: 'MeldingTilNAV',
             bistandUmiddelbart: true,
             beskrivBistand: 'Trenger hjelp med penger',
         },
         kontaktMedPasient: {
-            __typename: 'KontaktMedPasient',
             kontaktDato: '2020-04-01',
             begrunnelseIkkeKontakt: 'Han var kjempesyk',
         },
         behandletTidspunkt: dateAdd(mottatt, { days: 10 }),
         behandler: {
-            __typename: 'Behandler',
             fornavn: 'Fornavn',
             mellomnavn: null,
             etternavn: 'Etternavn',
             adresse: {
-                __typename: 'Adresse',
                 gate: 'Gateveien 4',
                 postnummer: 1001,
                 kommune: 'Oslo',
@@ -171,7 +149,6 @@ export function createSykmelding(
         egenmeldt: false,
         papirsykmelding: false,
         pasient: {
-            __typename: 'Pasient',
             fnr: '12345678901',
             fornavn: 'Ola',
             mellomnavn: null,
@@ -185,26 +162,21 @@ export function createSykmelding(
 }
 
 export const createSykmeldingStatus = (
-    overrides?: Partial<SykmeldingFragment['sykmeldingStatus']>,
-): SykmeldingFragment['sykmeldingStatus'] => ({
-    __typename: 'SykmeldingStatus',
+    overrides?: Partial<Sykmelding['sykmeldingStatus']>,
+): Sykmelding['sykmeldingStatus'] => ({
     timestamp: '2020-04-01',
     statusEvent: StatusEvent.SENDT,
     sporsmalOgSvarListe: [],
     arbeidsgiver: {
-        __typename: 'ArbeidsgiverStatus',
         orgnummer: 'default-arbeidsgiver',
         orgNavn: 'Default Arbeidsgiverssen AS',
     },
     brukerSvar: {
-        __typename: 'BrukerSvar',
         arbeidssituasjon: {
-            __typename: 'ArbeidssituasjonBrukerSvar',
             sporsmaltekst: sporsmal.arbeidssituasjon,
             svar: ArbeidssituasjonType.ARBEIDSTAKER,
         },
         erOpplysningeneRiktige: {
-            __typename: 'ErOpplysningeneRiktigeBrukerSvar',
             sporsmaltekst: sporsmal.erOpplysningeneRiktige,
             svar: JaEllerNei.JA,
         },
@@ -222,8 +194,7 @@ export const createSykmeldingStatus = (
     ...overrides,
 })
 
-export const createSykmeldingPeriode = (overrides?: Partial<PeriodeFragment>): PeriodeFragment => ({
-    __typename: 'Periode',
+export const createSykmeldingPeriode = (overrides?: Partial<Periode>): Periode => ({
     type: Periodetype.REISETILSKUDD,
     fom: '2020-04-01',
     tom: '2020-04-15',
@@ -236,7 +207,7 @@ export const createSykmeldingPeriode = (overrides?: Partial<PeriodeFragment>): P
 })
 
 export function createUnderBehandlingMerknad(): Pick<Sykmelding, 'merknader'> {
-    return { merknader: [{ __typename: 'Merknad', type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }] }
+    return { merknader: [{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }] }
 }
 
 export function createAvvistBehandlingsutfall(
@@ -244,11 +215,9 @@ export function createAvvistBehandlingsutfall(
 ): Pick<Sykmelding, 'behandlingsutfall'> {
     return {
         behandlingsutfall: {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [
                 {
-                    __typename: 'RegelInfo',
                     messageForSender: reason,
                     messageForUser: reason,
                     ruleName: 'INNTIL_8_DAGER',
@@ -287,15 +256,13 @@ any {
     return mockedResponse
 }
 
-export function createEgenmeldingsdagerSporsmal(dates: string[]): SykmeldingStatusFragment['sporsmalOgSvarListe'][0] {
+export function createEgenmeldingsdagerSporsmal(dates: string[]): SykmeldingStatus['sporsmalOgSvarListe'][0] {
     return {
-        __typename: 'Sporsmal',
         tekst: '',
         shortName: ShortName.EGENMELDINGSDAGER,
         svar: {
-            __typename: 'DagerSvar',
             svarType: Svartype.DAGER,
-            dager: dates,
+            svar: dates,
         },
     }
 }

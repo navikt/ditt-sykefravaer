@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Pasient } from '../../../../fetching/graphql.generated'
+import { Pasient } from '../../../../types/sykmelding'
 
 import SykmeldingenGjelder from './SykmeldingenGjelder'
 
 describe('SykmeldingenGjelderView', () => {
     it('Does not render if name is undefined', () => {
         const pasient: Pasient = {
-            __typename: 'Pasient',
             fnr: '12345678901',
             fornavn: null,
             mellomnavn: null,
@@ -23,7 +22,6 @@ describe('SykmeldingenGjelderView', () => {
 
     it('Renders name and fnr if arbeidsgiver', () => {
         const pasient: Pasient = {
-            __typename: 'Pasient',
             fnr: '12345678901',
             fornavn: 'Ola',
             mellomnavn: null,

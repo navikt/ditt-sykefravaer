@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { SykmeldingFragment } from '../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../types/sykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../../Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { toDateString } from '../../../../../utils/dateUtils'
@@ -14,7 +14,7 @@ import {
 import VeilederSenderSykmeldingenInfo from './VeilederSenderSykmeldingenInfo'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     metadata: SporsmaltekstMetadata
 }
 
@@ -37,7 +37,7 @@ function SendesTilArbeidsgiverInfo({ sykmelding, metadata }: Props): ReactElemen
             />
             <BrukerSvarExpansionCard
                 title="Oppsummering av dine svar"
-                brukerSvar={{
+                formBrukerSvar={{
                     values: formValues,
                     sporsmaltekstMetadata: metadata,
                 }}

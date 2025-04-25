@@ -1,9 +1,9 @@
-import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { Sykmelding } from '../types/sykmelding'
 
-export type UtenlandskSykmelding = Omit<SykmeldingFragment, 'utenlandskSykmelding'> & {
-    readonly utenlandskSykmelding: NonNullable<SykmeldingFragment['utenlandskSykmelding']>
+export type UtenlandskSykmelding = Omit<Sykmelding, 'utenlandskSykmelding'> & {
+    readonly utenlandskSykmelding: NonNullable<Sykmelding['utenlandskSykmelding']>
 }
 
-export function isUtenlandsk(sykmelding: SykmeldingFragment): sykmelding is UtenlandskSykmelding {
-    return sykmelding.utenlandskSykmelding !== null
+export function isUtenlandsk(sykmelding: Sykmelding): sykmelding is UtenlandskSykmelding {
+    return sykmelding.utenlandskSykmelding != null
 }

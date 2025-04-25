@@ -25,7 +25,7 @@ import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
-import { StatusEvent, SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -101,7 +101,7 @@ function SykmeldingComponent({
     olderSykmeldingId,
     olderSykmeldingCount,
 }: {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     olderSykmeldingId: string | null
     olderSykmeldingCount: number
 }): ReactElement | null {
@@ -172,7 +172,7 @@ function SykmeldingComponent({
     return null
 }
 
-function useLogSykmeldingPageAmplitude(sykmelding: SykmeldingFragment, olderSykmeldingCount: number): void {
+function useLogSykmeldingPageAmplitude(sykmelding: Sykmelding, olderSykmeldingCount: number): void {
     useLogAmplitudeEvent(
         { eventName: 'komponent vist', data: { komponent: 'Sykmelding Page' } },
         {
@@ -184,10 +184,7 @@ function useLogSykmeldingPageAmplitude(sykmelding: SykmeldingFragment, olderSykm
     )
 }
 
-function SykmeldingerWrapper({
-    sykmelding,
-    children,
-}: PropsWithChildren<{ sykmelding?: SykmeldingFragment }>): ReactElement {
+function SykmeldingerWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {
     useUpdateBreadcrumbs(() => createSykmeldingBreadcrumbs(sykmelding))
 
     useEffect(() => {

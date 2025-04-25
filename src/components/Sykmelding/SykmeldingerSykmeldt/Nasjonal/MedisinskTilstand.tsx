@@ -3,11 +3,11 @@ import { BandageIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 import { BodyShort } from '@navikt/ds-react'
 
-import { MedisinskVurdering } from '../../../../fetching/graphql.generated'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { annenFraverGrunnToText } from '../../../../utils/periodeUtils'
 import { SykmeldingInfo, SykmeldingJaInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { MedisinskVurdering } from '../../../../types/sykmelding'
 
 interface Props {
     medisinskVurdering: MedisinskVurdering | null | undefined

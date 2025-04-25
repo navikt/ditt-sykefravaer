@@ -1,25 +1,25 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
 
-import { RegelStatus, StatusEvent, SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'
 
-export function isActiveSykmelding(sykmelding: SykmeldingFragment): boolean {
+export function isActiveSykmelding(sykmelding: Sykmelding): boolean {
     // Alt som ikke er APEN status, er inaktive
     if (sykmelding.sykmeldingStatus.statusEvent !== 'APEN') return false
     // APEN sykmeldinger blir inaktive etter 12 måneder
     return differenceInDays(new Date(), parseISO(sykmelding.mottattTidspunkt)) < 365
 }
 
-export function isUnderbehandling(sykmelding: SykmeldingFragment): boolean {
+export function isUnderbehandling(sykmelding: Sykmelding): boolean {
     return (
         sykmelding.sykmeldingStatus.statusEvent === StatusEvent.SENDT &&
         sykmelding.merknader?.find((it) => it.type === 'UNDER_BEHANDLING') != null
     )
 }
 
-export function isSendtSykmelding(sykmelding: SykmeldingFragment): boolean {
+export function isSendtSykmelding(sykmelding: Sykmelding): boolean {
     const isNormalSendt = sykmelding.sykmeldingStatus.statusEvent === StatusEvent.SENDT
     const isBekreftetSendt =
         sykmelding.sykmeldingStatus.statusEvent === StatusEvent.BEKREFTET &&
@@ -34,7 +34,7 @@ export function isSendtSykmelding(sykmelding: SykmeldingFragment): boolean {
  * @return {string}
  */
 export function getSykmeldingTitle(
-    sykmelding: SykmeldingFragment | undefined,
+    sykmelding: Sykmelding | undefined,
 ): 'Sykmelding' | 'Papirsykmelding' | 'Egenmelding' | 'Utenlandsk sykmelding' {
     if (sykmelding && isUtenlandsk(sykmelding)) {
         return 'Utenlandsk sykmelding'
@@ -52,7 +52,7 @@ export function getSykmeldingTitle(
  * @return {string}
  */
 export function getSentSykmeldingTitle(
-    sykmelding: SykmeldingFragment | undefined,
+    sykmelding: Sykmelding | undefined,
 ):
     | 'Sykmeldingen er sendt'
     | 'Papirsykmeldingen er sendt'
@@ -88,7 +88,7 @@ export function getSykmeldingEndDate(perioder: readonly { readonly fom: string; 
  * Get the text representation of the sykmelding length from start date to end date
  * @return {string} The sykmelding length
  */
-export function getReadableSykmeldingLength(sykmelding: SykmeldingFragment): string {
+export function getReadableSykmeldingLength(sykmelding: Sykmelding): string {
     const perioder = sykmelding.sykmeldingsperioder
 
     const startDate = getSykmeldingStartDate(perioder)
@@ -97,11 +97,11 @@ export function getReadableSykmeldingLength(sykmelding: SykmeldingFragment): str
     return toReadableDatePeriod(startDate, endDate)
 }
 
-export function isV3(sykmelding: SykmeldingFragment): boolean {
+export function isV3(sykmelding: Sykmelding): boolean {
     return sykmelding.rulesetVersion === 3
 }
 
-export function isValidRange(sykmelding: SykmeldingFragment): boolean {
+export function isValidRange(sykmelding: Sykmelding): boolean {
     const start = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
     const end = getSykmeldingEndDate(sykmelding.sykmeldingsperioder)
 

@@ -1,11 +1,11 @@
 import { ReactElement } from 'react'
 import { Alert, BodyShort, Detail } from '@navikt/ds-react'
 
-import { Behandlingsutfall, SykmeldingStatusFragment } from '../../fetching/graphql.generated'
+import { Behandlingsutfall, SykmeldingStatus } from '../../types/sykmelding'
 import { toReadableDate } from '../../utils/dateUtils'
 
 interface StatusBannerProps {
-    sykmeldingStatus: SykmeldingStatusFragment
+    sykmeldingStatus: SykmeldingStatus
     behandlingsutfall: Behandlingsutfall
     isEgenmeldingsKvittering?: boolean
     egenmeldt?: boolean | null

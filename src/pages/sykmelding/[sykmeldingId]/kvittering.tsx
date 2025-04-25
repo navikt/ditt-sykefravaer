@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { range } from 'remeda'
 
-import { RegelStatus, StatusEvent, SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding'
 import StatusBanner from '../../../components/StatusBanner/StatusBanner'
 import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
@@ -122,10 +122,7 @@ function SykmeldingkvitteringPage(): ReactElement {
     )
 }
 
-function KvitteringWrapper({
-    sykmelding,
-    children,
-}: PropsWithChildren<{ sykmelding?: SykmeldingFragment }>): ReactElement {
+function KvitteringWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
     useUpdateBreadcrumbs(() => createKvitteringBreadcrumbs(sykmeldingId, sykmelding), [sykmeldingId, sykmelding])
 

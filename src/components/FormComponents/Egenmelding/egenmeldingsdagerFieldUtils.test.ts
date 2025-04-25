@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { YesOrNo } from '../../../fetching/graphql.generated'
 import { toDate, toDateString } from '../../../utils/dateUtils'
+import { YesOrNo } from '../../../types/sykmeldingCommon'
 
 import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFieldUtils'
 import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'

@@ -13,7 +13,6 @@ describe('SykmeldingSykmeldtUtenlandsk', () => {
                 sykmelding={{
                     ...createSykmelding(),
                     utenlandskSykmelding: {
-                        __typename: 'UtenlandskSykmelding',
                         land: 'Finnland',
                     },
                 }}

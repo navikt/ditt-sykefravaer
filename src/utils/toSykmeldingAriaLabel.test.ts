@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype } from '../../src/fetching/graphql.generated'
+import { Periodetype } from '../types/sykmelding'
 
 import { toSykmeldingAriaLabel } from './toSykmeldingAriaLabel'
 import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'
@@ -16,7 +16,6 @@ describe('toSykmeldingAriaLabel', () => {
                         tom: '2022-07-05',
                         type: Periodetype.GRADERT,
                         gradert: {
-                            __typename: 'GradertPeriode',
                             grad: 80,
                             reisetilskudd: false,
                         },
@@ -41,7 +40,6 @@ describe('toSykmeldingAriaLabel', () => {
                         tom: '2022-07-28',
                         type: Periodetype.GRADERT,
                         gradert: {
-                            __typename: 'GradertPeriode',
                             grad: 80,
                             reisetilskudd: false,
                         },
@@ -51,7 +49,6 @@ describe('toSykmeldingAriaLabel', () => {
                         tom: '2022-08-20',
                         type: Periodetype.GRADERT,
                         gradert: {
-                            __typename: 'GradertPeriode',
                             grad: 60,
                             reisetilskudd: false,
                         },
@@ -61,7 +58,6 @@ describe('toSykmeldingAriaLabel', () => {
                         tom: '2022-08-15',
                         type: Periodetype.GRADERT,
                         gradert: {
-                            __typename: 'GradertPeriode',
                             grad: 70,
                             reisetilskudd: false,
                         },
@@ -134,7 +130,6 @@ describe('toSykmeldingAriaLabel', () => {
         it('should return text for Utenlandsk sykmelding', () => {
             const sykmelding = createSykmelding({
                 utenlandskSykmelding: {
-                    __typename: 'UtenlandskSykmelding',
                     land: 'Frankrike',
                 },
                 sykmeldingsperioder: [
@@ -175,7 +170,6 @@ describe('toSykmeldingAriaLabel', () => {
                         tom: '2024-02-14',
                         type: Periodetype.GRADERT,
                         gradert: {
-                            __typename: 'GradertPeriode',
                             grad: 70,
                             reisetilskudd: false,
                         },

@@ -1,10 +1,10 @@
 import * as R from 'remeda'
 
-import { PeriodeFragment, Periodetype, SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { Periode, Periodetype, Sykmelding } from '../types/sykmelding'
 
 import { getSykmeldingTitle } from './sykmeldingUtils'
 
-export function toSykmeldingAriaLabel(sykmelding: SykmeldingFragment, sykmeldingPeriod: string): string {
+export function toSykmeldingAriaLabel(sykmelding: Sykmelding, sykmeldingPeriod: string): string {
     const { period, periodLength } = findHighestPriorityPeriod(sykmelding)
     const periodLengthText: string = periodLength > 1 ? `(${periodLength} sykmeldingsperioder)` : ''
 
@@ -24,10 +24,10 @@ export function toSykmeldingAriaLabel(sykmelding: SykmeldingFragment, sykmelding
     return `${getPeriodTitle(period)} ${getSykmeldingTitle(sykmelding)} ${sykmeldingPeriod} ${periodLengthText}`
 }
 
-function findHighestPriorityPeriod(sykmelding: SykmeldingFragment): { period: PeriodeFragment; periodLength: number } {
-    const periodList: PeriodeFragment[] = sykmelding.sykmeldingsperioder.map((period: PeriodeFragment) => period)
+function findHighestPriorityPeriod(sykmelding: Sykmelding): { period: Periode; periodLength: number } {
+    const periodList: Periode[] = sykmelding.sykmeldingsperioder.map((period: Periode) => period)
 
-    const period: PeriodeFragment =
+    const period: Periode =
         (periodList.find((el) => el.type === Periodetype.AKTIVITET_IKKE_MULIG) ||
             periodList.find((el) => el.type === Periodetype.GRADERT) ||
             periodList.find((el) => el.type === Periodetype.BEHANDLINGSDAGER) ||
@@ -38,7 +38,7 @@ function findHighestPriorityPeriod(sykmelding: SykmeldingFragment): { period: Pe
     return { period: period, periodLength: periodList.length }
 }
 
-function getPeriodTitle(period: PeriodeFragment): string {
+function getPeriodTitle(period: Periode): string {
     switch (period.type) {
         case Periodetype.AVVENTENDE:
             return 'Avventende'

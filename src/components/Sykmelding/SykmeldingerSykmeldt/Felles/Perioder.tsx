@@ -1,7 +1,6 @@
 import { CalendarIcon } from '@navikt/aksel-icons'
 import { PropsWithChildren, ReactElement } from 'react'
 
-import { Periode } from '../../../../fetching/graphql.generated'
 import { getPeriodTitle, getReadableLength } from '../../../../utils/periodeUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDatePeriod } from '../../../../utils/dateUtils'
@@ -11,6 +10,7 @@ import {
     SykmeldingJaInfo,
     SykmeldingMultilineInfo,
 } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { Periode } from '../../../../types/sykmelding'
 
 interface Props {
     perioder: Periode[]

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, BodyShort, GuidePanel, Heading } from '@navikt/ds-react'
 
-import { Behandlingsutfall, SykmeldingFragment } from '../../fetching/graphql.generated'
+import { Behandlingsutfall, Sykmelding } from '../../types/sykmelding'
 
 import ForklaringZDiagnose from './ForklaringZDiagnose'
 import ForklaringAndre from './ForklaringAndre'
@@ -11,7 +11,7 @@ import ForklaringUnder20Prosent from './ForklaringUnder20Prosent'
 interface AvvistVeilederProps {
     behandlerNavn: string
     behandlingsutfall: Behandlingsutfall
-    perioder: SykmeldingFragment['sykmeldingsperioder']
+    perioder: Sykmelding['sykmeldingsperioder']
 }
 
 function AvvistVeileder({ behandlerNavn, behandlingsutfall, perioder }: AvvistVeilederProps): ReactElement {

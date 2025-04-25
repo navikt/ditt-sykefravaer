@@ -1,4 +1,5 @@
-import { ArbeidssituasjonType, JaEllerNei, UriktigeOpplysningerType } from '../../fetching/graphql.generated'
+import { JaEllerNei, UriktigeOpplysningerType } from '../../types/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
 
 export type SykmeldingUserEventV3Api = {
     erOpplysningeneRiktige: SporsmalSvar<JaEllerNei>

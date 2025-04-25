@@ -1,25 +1,22 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Behandlingsutfall, RegelStatus, StatusEvent, SykmeldingStatusFragment } from '../../fetching/graphql.generated'
+import { Behandlingsutfall, RegelStatus, StatusEvent, SykmeldingStatus } from '../../types/sykmelding'
 
 import StatusBanner from './StatusBanner'
 
 describe('StatusBanner', () => {
     it('Renders Sendt banner with arbeidsgiver', () => {
-        const sykmeldingStatus: SykmeldingStatusFragment = {
-            __typename: 'SykmeldingStatus',
+        const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.SENDT,
             timestamp: '2021-05-01',
             arbeidsgiver: {
-                __typename: 'ArbeidsgiverStatus',
                 orgnummer: '123456',
                 orgNavn: 'Politiet',
             },
             sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.OK,
             ruleHits: [],
         }
@@ -29,15 +26,13 @@ describe('StatusBanner', () => {
     })
 
     it('Renders Bekreftet banner', () => {
-        const sykmeldingStatus: SykmeldingStatusFragment = {
-            __typename: 'SykmeldingStatus',
+        const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
             sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.OK,
             ruleHits: [],
         }
@@ -47,15 +42,13 @@ describe('StatusBanner', () => {
     })
 
     it('Renders Bekreftet egenmelding banner', () => {
-        const sykmeldingStatus: SykmeldingStatusFragment = {
-            __typename: 'SykmeldingStatus',
+        const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
             sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.OK,
             ruleHits: [],
         }
@@ -65,15 +58,13 @@ describe('StatusBanner', () => {
     })
 
     it('Renders bekreftet avvist banner', () => {
-        const sykmeldingStatus: SykmeldingStatusFragment = {
-            __typename: 'SykmeldingStatus',
+        const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
             sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [],
         }

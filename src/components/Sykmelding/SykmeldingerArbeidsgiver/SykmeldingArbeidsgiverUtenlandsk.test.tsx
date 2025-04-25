@@ -12,7 +12,6 @@ describe('SykmeldingArbeidsgiverUtenlandsk', () => {
                 sykmelding={{
                     ...createSykmelding(),
                     utenlandskSykmelding: {
-                        __typename: 'UtenlandskSykmelding',
                         land: 'Polen',
                     },
                 }}

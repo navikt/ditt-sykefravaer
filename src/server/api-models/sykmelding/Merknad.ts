@@ -1,4 +1,4 @@
-import { Merknadtype } from '../../../fetching/graphql.generated'
+import { Merknadtype } from '../../../types/sykmelding'
 
 export interface Merknad {
     type: Merknadtype

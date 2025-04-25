@@ -1,7 +1,6 @@
 // Anta at RegelStatus er en enum du importerer
-// import { RegelStatus } from '../../../fetching/graphql.generated';
 
-import { RegelStatus } from '../../../fetching/graphql.generated'
+import { RegelStatus } from '../../../types/sykmelding'
 
 export interface RuleHit {
     messageForSender: string

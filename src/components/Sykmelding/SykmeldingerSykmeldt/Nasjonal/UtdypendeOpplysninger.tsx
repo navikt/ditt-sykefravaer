@@ -2,9 +2,9 @@ import { ReactElement } from 'react'
 import { FileTextIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 
-import { UtdypendeOpplysning } from '../../../../fetching/graphql.generated'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { UtdypendeOpplysning } from '../../../../types/sykmelding'
 
 interface Props {
     utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>

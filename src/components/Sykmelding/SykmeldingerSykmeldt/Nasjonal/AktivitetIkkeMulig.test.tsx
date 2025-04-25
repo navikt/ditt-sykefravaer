@@ -1,10 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import {
-    AktivitetIkkeMuligPeriode,
-    ArbeidsrelatertArsakType,
-    MedisinskArsakType,
-} from '../../../../fetching/graphql.generated'
+import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from '../../../../types/sykmelding'
 import { render, screen, axe } from '../../../../utils/test/testUtils'
 
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'
@@ -12,14 +8,11 @@ import AktivitetIkkeMulig from './AktivitetIkkeMulig'
 describe('AktivitetIkkeMulig', () => {
     it('Renders aktivitet ikke mulig periode with specified medisinsk- and arbeidsrelatert arsak', async () => {
         const periode: AktivitetIkkeMuligPeriode = {
-            __typename: 'AktivitetIkkeMuligPeriode',
             medisinskArsak: {
-                __typename: 'MedisinskArsak',
                 beskrivelse: 'medisinsk beskrivelse',
                 arsak: [MedisinskArsakType.TILSTAND_HINDRER_AKTIVITET],
             },
             arbeidsrelatertArsak: {
-                __typename: 'ArbeidsrelatertArsak',
                 beskrivelse: 'arbeidsrelatert beskrivelse',
                 arsak: [ArbeidsrelatertArsakType.MANGLENDE_TILRETTELEGGING],
             },
@@ -43,7 +36,6 @@ describe('AktivitetIkkeMulig', () => {
 
     it('should display text if medisinskArsak and arbeidsrelatertArsak is missing', () => {
         const periode: AktivitetIkkeMuligPeriode = {
-            __typename: 'AktivitetIkkeMuligPeriode',
             medisinskArsak: null,
             arbeidsrelatertArsak: null,
         }

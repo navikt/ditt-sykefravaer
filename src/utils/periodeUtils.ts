@@ -1,11 +1,6 @@
 import { sortBy } from 'remeda'
 
-import {
-    AnnenFraverGrunn,
-    ArbeidsrelatertArsakType,
-    MedisinskArsakType,
-    Periodetype,
-} from '../../src/fetching/graphql.generated'
+import { AnnenFraverGrunn, ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../types/sykmelding'
 
 import { diffInDays } from './dateUtils'
 

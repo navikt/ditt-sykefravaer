@@ -1,7 +1,7 @@
 import { compareAsc, isAfter } from 'date-fns'
 import { sortBy } from 'remeda'
 
-import { SykmeldingFragment } from '../../src/fetching/graphql.generated'
+import { Sykmelding } from '../types/sykmelding'
 
 import { toDate } from './dateUtils'
 
@@ -13,7 +13,7 @@ export const toLatestTom = <Tommable extends { tom: string }>(
     currentValue: Tommable,
 ): Tommable => (isAfter(toDate(previousValue.tom), toDate(currentValue.tom)) ? previousValue : currentValue)
 
-export function sykmeldingByDateAsc(a: SykmeldingFragment, b: SykmeldingFragment): number {
+export function sykmeldingByDateAsc(a: Sykmelding, b: Sykmelding): number {
     const latestA = a.sykmeldingsperioder.reduce(toLatestTom)
     const latestB = b.sykmeldingsperioder.reduce(toLatestTom)
 
@@ -25,7 +25,7 @@ export function sykmeldingByDateAsc(a: SykmeldingFragment, b: SykmeldingFragment
  * @param {Sykmelding[]} sykmeldinger A list of sykmeldinger
  * @return {Sykmeldinger[]} A new list of sorted sykmeldinger
  */
-export function sortSykmeldingerByArbeidsgiver(sykmeldinger: SykmeldingFragment[]): SykmeldingFragment[] {
+export function sortSykmeldingerByArbeidsgiver(sykmeldinger: Sykmelding[]): Sykmelding[] {
     if (sykmeldinger.length === 0) return sykmeldinger
 
     return sortBy(sykmeldinger, [(sykmelding) => sykmelding.sykmeldingStatus.arbeidsgiver?.orgNavn ?? '', 'asc'])

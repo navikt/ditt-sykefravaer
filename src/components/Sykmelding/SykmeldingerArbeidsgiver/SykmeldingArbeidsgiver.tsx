@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import * as R from 'remeda'
 
-import { SykmeldingFragment } from '../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../types/sykmelding'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
@@ -16,7 +16,7 @@ import Diagnoser from './Nasjonal/Diagnoser'
 import AnnenInfo from './Nasjonal/AnnenInfo'
 
 interface SykmeldingviewProps {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     chosenEgenmeldingsdager?: string[]
 }
 

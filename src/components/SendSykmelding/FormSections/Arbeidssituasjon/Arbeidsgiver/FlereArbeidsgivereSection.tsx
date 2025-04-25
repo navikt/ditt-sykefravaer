@@ -2,16 +2,18 @@ import React, { ReactElement } from 'react'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useFormContext } from 'react-hook-form'
 
-import { BrukerinformasjonFragment, SykmeldingFragment, YesOrNo } from '../../../../../fetching/graphql.generated'
+import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
+import { Sykmelding } from '../../../../../types/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
+import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 
 import FlereArbeidsgivereField from './FlereArbeidsgivereField'
 import FlereArbeidsgivereInfo from './FlereArbeidsgivereInfo'
 
 interface Props {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
 }
 

@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { CalendarIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 
-import { Periode, SvarUnion_DagerSvar_Fragment } from '../../../../fetching/graphql.generated'
+import { Periode } from '../../../../types/sykmelding'
 import { getPeriodTitle, getReadableLength } from '../../../../utils/periodeUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate, toReadableDatePeriod } from '../../../../utils/dateUtils'
@@ -13,13 +13,14 @@ import {
     SykmeldingListInfo,
     SykmeldingMultilineInfo,
 } from '../../../molecules/sykmelding/SykmeldingInfo'
+import { DagerSvar } from '../../../../types/sykmeldingSporsmalSvarListe'
 
 interface PerioderProps {
     perioder: Periode[]
     /**
      * Egenmeldingsdager can either be the answer from a sykmelding, or the current values in the form.
      */
-    egenmeldingsdager?: (SvarUnion_DagerSvar_Fragment | string[]) | null
+    egenmeldingsdager?: (DagerSvar | string[]) | null
     parentId: string
 }
 
@@ -49,13 +50,13 @@ function Perioder({ perioder, egenmeldingsdager, parentId }: PerioderProps): Rea
 
 interface EgenmeldingsdagerProps {
     className?: string
-    egenmeldingsdager: SvarUnion_DagerSvar_Fragment | readonly string[]
+    egenmeldingsdager: DagerSvar | readonly string[]
 }
 
 function Egenmeldingsdager({ className, egenmeldingsdager }: EgenmeldingsdagerProps): ReactElement | null {
     const dager = R.pipe(
         egenmeldingsdager,
-        (it) => ('dager' in it ? it.dager : it),
+        (it) => ('svar' in it ? it.svar : it),
         R.sortBy((it) => it),
         R.map(toReadableDate),
     )

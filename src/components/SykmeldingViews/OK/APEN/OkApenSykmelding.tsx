@@ -1,16 +1,17 @@
 import { ReactElement } from 'react'
 import { GuidePanel } from '@navikt/ds-react'
 
-import { Periodetype, SykmeldingFragment } from '../../../../fetching/graphql.generated'
+import { Periodetype } from '../../../../types/sykmelding'
 import InformationBanner from '../../../InformationBanner/InformationBanner'
 import ForceUseOlderSykmelding from '../../../ForceOrder/ForceUseOlderSykmelding'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import SendSykmeldingForm from '../../../SendSykmelding/SendSykmeldingForm'
+import { Sykmelding } from '../../../../types/sykmelding'
 
 import PapirInfoheader from './PapirInfoheader'
 
 type OkApenSykmeldingProps = {
-    sykmelding: SykmeldingFragment
+    sykmelding: Sykmelding
     olderSykmeldingId: string | null
     olderSykmeldingCount: number
     onSykmeldingAvbrutt: () => void

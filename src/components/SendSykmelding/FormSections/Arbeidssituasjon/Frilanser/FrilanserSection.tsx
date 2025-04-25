@@ -2,12 +2,12 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 
-import { YesOrNo } from '../../../../../fetching/graphql.generated'
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
 import useErUtenforVentetid from '../../../../../hooks/useErUtenforVentetid'
+import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'

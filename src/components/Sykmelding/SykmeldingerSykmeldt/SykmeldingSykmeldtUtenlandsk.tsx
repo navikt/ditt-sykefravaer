@@ -28,7 +28,7 @@ function SykmeldingSykmeldtUtenlandsk({ sykmelding, shouldShowEgenmeldingsdagerI
                 isV3={isV3(sykmelding)}
                 parentId="sykmelding-sykmeldt-utenlandsk"
             >
-                {egenmeldingsdager && egenmeldingsdager.dager.length > 0 && (
+                {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
                     <Egenmeldingsdager
                         sykmeldingId={sykmelding.id}
                         egenmeldingsdager={egenmeldingsdager}

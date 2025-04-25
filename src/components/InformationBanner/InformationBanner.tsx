@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, GuidePanel, Heading, Chat } from '@navikt/ds-react'
 
-import { Merknad, Merknadtype } from '../../fetching/graphql.generated'
+import { Merknad, Merknadtype } from '../../types/sykmelding'
 import VeilederMaleSvg from '../Veileder/svg/VeilederMaleSvg'
 
 import ForklaringOverSyttiInfo from './ForklaringOverSyttiInfo'

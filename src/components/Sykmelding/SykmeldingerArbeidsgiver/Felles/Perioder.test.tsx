@@ -1,14 +1,13 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Periode, Periodetype } from '../../../../fetching/graphql.generated'
+import { Periode, Periodetype } from '../../../../types/sykmelding'
 
 import Perioder from './Perioder'
 
 describe('Perioder', () => {
     it('Renders avventende periode', () => {
         const periode: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             innspillTilArbeidsgiver: 'innspill til arbeidsgiver',
@@ -30,12 +29,10 @@ describe('Perioder', () => {
 
     it('Renders gradert periode', () => {
         const periode: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             type: Periodetype.GRADERT,
             gradert: {
-                __typename: 'GradertPeriode',
                 grad: 20,
                 reisetilskudd: true,
             },
@@ -55,7 +52,6 @@ describe('Perioder', () => {
 
     it('Renders reisetilskudd periode', () => {
         const periode: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             type: Periodetype.REISETILSKUDD,
@@ -75,7 +71,6 @@ describe('Perioder', () => {
 
     it('Renders behandlingsdager periode', () => {
         const periode: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             type: Periodetype.BEHANDLINGSDAGER,
@@ -95,7 +90,6 @@ describe('Perioder', () => {
 
     it('Renders more than one period', () => {
         const reisetilskudd: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             type: Periodetype.REISETILSKUDD,
@@ -106,7 +100,6 @@ describe('Perioder', () => {
             aktivitetIkkeMulig: null,
         }
         const behandlingsdager: Periode = {
-            __typename: 'Periode',
             fom: '2021-04-01',
             tom: '2021-04-05',
             type: Periodetype.BEHANDLINGSDAGER,

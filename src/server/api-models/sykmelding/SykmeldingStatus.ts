@@ -1,15 +1,9 @@
 // Eksempel på import av enum-ene dine fra GraphQL-autogenerert kode eller egne filer.
 // Du kan tilpasse dette til ditt prosjekt.
-import {
-    ShortName,
-    StatusEvent,
-    UriktigeOpplysningerType,
-    ArbeidssituasjonType,
-    YesOrNo,
-    Blad,
-    LottOgHyre,
-    JaEllerNei,
-} from '../../../fetching/graphql.generated'
+import { StatusEvent } from '../../../types/sykmelding'
+import { ArbeidssituasjonType, YesOrNo, Blad, LottOgHyre } from '../../../types/sykmeldingCommon'
+import { JaEllerNei, UriktigeOpplysningerType } from '../../../types/sykmeldingBrukerSvar'
+import { ShortName } from '../../../types/sykmeldingSporsmalSvarListe'
 
 // Anta at du bruker en streng for LocalDate (f.eks. "YYYY-MM-DD").
 export type LocalDate = string

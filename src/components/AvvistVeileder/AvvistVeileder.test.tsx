@@ -1,18 +1,16 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Behandlingsutfall, RegelStatus } from '../../fetching/graphql.generated'
+import { Behandlingsutfall, RegelStatus } from '../../types/sykmelding'
 
 import AvvistVeileder from './AvvistVeileder'
 
 describe('AvvistVeileder', () => {
     it('Renders custom message if the therapist is missing authorization', () => {
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [
                 {
-                    __typename: 'RegelInfo',
                     messageForSender: '',
                     messageForUser: '',
                     ruleName: 'BEHANDLER_MANGLER_AUTORISASJON_I_HPR',
@@ -28,11 +26,9 @@ describe('AvvistVeileder', () => {
 
     it('Renders custom message for people over 70', () => {
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [
                 {
-                    __typename: 'RegelInfo',
                     messageForSender: '',
                     messageForUser: '',
                     ruleName: 'PASIENT_ELDRE_ENN_70',
@@ -48,11 +44,9 @@ describe('AvvistVeileder', () => {
 
     it('Renders custom message if z diagnose', () => {
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [
                 {
-                    __typename: 'RegelInfo',
                     messageForSender: '',
                     messageForUser: '',
                     ruleName: 'ICPC_2_Z_DIAGNOSE',
@@ -69,11 +63,9 @@ describe('AvvistVeileder', () => {
 
     it('Renders normal message for other rulehits', () => {
         const behandlingsutfall: Behandlingsutfall = {
-            __typename: 'Behandlingsutfall',
             status: RegelStatus.INVALID,
             ruleHits: [
                 {
-                    __typename: 'RegelInfo',
                     messageForSender: '',
                     messageForUser: 'Dessverre avvist',
                     ruleName: 'SOMETHING_ELSE',

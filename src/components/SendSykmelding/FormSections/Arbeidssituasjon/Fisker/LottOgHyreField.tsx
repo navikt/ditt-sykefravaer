@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { BodyShort, Radio, RadioGroup, ReadMore, Link as AkselLink } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
-import { LottOgHyre } from '../../../../../fetching/graphql.generated'
+import { LottOgHyre } from '../../../../../types/sykmeldingCommon'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
