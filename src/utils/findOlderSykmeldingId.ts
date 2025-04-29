@@ -1,9 +1,8 @@
 import { isBefore, parseISO } from 'date-fns'
 
-import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from '../utils/sykmeldingUtils'
 import { Sykmelding } from '../types/sykmelding'
 
-import useSykmeldinger from './useSykmeldingerFlexBackend'
+import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from './sykmeldingUtils'
 
 /**
  * Used by reduce to find the earliest sykmelding
@@ -17,46 +16,24 @@ export function toEarliestSykmelding(acc: Sykmelding, value: Sykmelding): Sykmel
         : acc
 }
 
-export function useUnsentSykmeldinger(): {
-    unsentSykmeldinger: Sykmelding[] | null
-    isLoading: boolean
-    error: Error | null
-} {
-    const { data, error, isPending: loading } = useSykmeldinger()
-
-    if (loading || error || data == null) {
-        return {
-            unsentSykmeldinger: null,
-            isLoading: loading,
-            error,
-        }
-    }
-
-    const relevantSykmeldinger = data?.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
-
-    return {
-        unsentSykmeldinger: relevantSykmeldinger,
-        isLoading: false,
-        error: null,
-    }
+export function filterUnsentSykmeldinger(sykmeldinger: Sykmelding[]): Sykmelding[] {
+    return sykmeldinger.filter((it) => isActiveSykmelding(it) && !isUnderbehandling(it))
 }
 
-function useFindOlderSykmeldingId(sykmelding: Sykmelding | undefined): {
+export function findOlderSykmeldingId(
+    sykmelding: Sykmelding | undefined,
+    alleSykmeldinger: Sykmelding[],
+): {
     earliestSykmeldingId: string | null
     olderSykmeldingCount: number
-    isLoading: boolean
-    error: Error | null
 } {
-    const { unsentSykmeldinger, error, isLoading } = useUnsentSykmeldinger()
-
-    if (sykmelding == null || isLoading || error || unsentSykmeldinger == null) {
+    if (sykmelding == null) {
         return {
             earliestSykmeldingId: null,
             olderSykmeldingCount: 0,
-            isLoading,
-            error,
         }
     }
+    const unsentSykmeldinger = filterUnsentSykmeldinger(alleSykmeldinger)
 
     const startDate: string = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
     const unsentExceptOverlappingDates = unsentSykmeldinger.filter(
@@ -70,9 +47,5 @@ function useFindOlderSykmeldingId(sykmelding: Sykmelding | undefined): {
         // When the earliest sykmelding is the provided sykmelding, it's the very first
         earliestSykmeldingId: earliestId === sykmelding.id ? null : earliestId,
         olderSykmeldingCount: unsentExceptOverlappingDates.length,
-        isLoading: false,
-        error: null,
     }
 }
-
-export default useFindOlderSykmeldingId

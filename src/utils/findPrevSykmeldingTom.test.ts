@@ -1,14 +1,12 @@
 import { describe, expect, it } from 'vitest'
 
-import { SykmeldingerDocument } from '../fetching/graphql.generated'
-import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
-import { toDate } from '../utils/dateUtils'
-import { createMock, createSykmelding, createSykmeldingPeriode } from '../utils/test/dataUtils'
-import { renderHook, waitFor } from '../utils/test/testUtils'
+import { Periodetype, RegelStatus, StatusEvent } from '../types/sykmelding'
 
-import { useFindPrevSykmeldingTom } from './useFindPrevSykmeldingTom'
+import { toDate } from './dateUtils'
+import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'
+import { findPrevSykmeldingTom } from './findPrevSykmeldingTom'
 
-describe.skip('useFindPrevSykmeldingTom', () => {
+describe('findPrevSykmeldingTom', () => {
     it('should find previous sykmelding tom closest and before given sykmelding tom', async () => {
         const sykmeldinger = [
             createSykmelding({
@@ -61,13 +59,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(toDate('2022-10-29'))
+        expect(previousSykmeldingTom).toEqual(toDate('2022-10-29'))
     })
 
     it('should not find previous sykmelding tom if the same day as given sykmelding tom', async () => {
@@ -100,13 +94,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(null)
+        expect(previousSykmeldingTom).toEqual(null)
     })
 
     it('should only look back to non-INVALID "BEKREFTET" sykmeldinger', async () => {
@@ -143,13 +133,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toBeNull()
+        expect(previousSykmeldingTom).toBeNull()
     })
 
     it('should look back to "OK" "BEKREFTET" sykmeldinger', async () => {
@@ -186,13 +172,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(toDate('2022-08-18'))
+        expect(previousSykmeldingTom).toEqual(toDate('2022-08-18'))
     })
 
     it('should return null if there is no previous sykmelding', async () => {
@@ -208,13 +190,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(null)
+        expect(previousSykmeldingTom).toEqual(null)
     })
 
     it('should return null if other sykmelding tom is after given sykmelding tom', async () => {
@@ -239,13 +217,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(null)
+        expect(previousSykmeldingTom).toEqual(null)
     })
 
     it('should ignore sykmelding inside given sykmelding', async () => {
@@ -278,13 +252,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(null)
+        expect(previousSykmeldingTom).toEqual(null)
     })
 
     it('should handle other sykmeldinger with inverse fom/tom when avvist', async () => {
@@ -321,13 +291,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
             }),
         ]
 
-        const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver'), {
-            mocks: [sykmeldingerMock(sykmeldinger)],
-        })
+        const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[0], 'default-arbeidsgiver', sykmeldinger)
 
-        await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-        expect(result.current.previousSykmeldingTom).toEqual(null)
+        expect(previousSykmeldingTom).toEqual(null)
     })
 
     describe('only check sykmeldinger with status SENDT or BEKREFTET', () => {
@@ -383,13 +349,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                 }),
             ]
 
-            const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver'), {
-                mocks: [sykmeldingerMock(sykmeldinger)],
-            })
+            const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver', sykmeldinger)
 
-            await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-            expect(result.current.previousSykmeldingTom).toEqual(toDate('2023-01-29'))
+            expect(previousSykmeldingTom).toEqual(toDate('2023-01-29'))
         })
 
         it('should return the closest tom for sykmelding with status BEKREFTET', async () => {
@@ -444,13 +406,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                 }),
             ]
 
-            const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver'), {
-                mocks: [sykmeldingerMock(sykmeldinger)],
-            })
+            const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver', sykmeldinger)
 
-            await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-            expect(result.current.previousSykmeldingTom).toEqual(toDate('2023-01-29'))
+            expect(previousSykmeldingTom).toEqual(toDate('2023-01-29'))
         })
 
         it('should only return closest tom for sykmelding with same arbeidsgiver', async () => {
@@ -491,13 +449,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                 }),
             ]
 
-            const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver'), {
-                mocks: [sykmeldingerMock(sykmeldinger)],
-            })
+            const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[1], 'default-arbeidsgiver', sykmeldinger)
 
-            await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-            expect(result.current.previousSykmeldingTom).toEqual(null)
+            expect(previousSykmeldingTom).toEqual(null)
         })
     })
 
@@ -556,25 +510,9 @@ describe.skip('useFindPrevSykmeldingTom', () => {
                 }),
             ]
 
-            const { result } = renderHook(() => useFindPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver'), {
-                mocks: [sykmeldingerMock(sykmeldinger)],
-            })
+            const previousSykmeldingTom = findPrevSykmeldingTom(sykmeldinger[3], 'default-arbeidsgiver', sykmeldinger)
 
-            await waitFor(() => expect(result.current.isLoading).toBe(false))
-
-            expect(result.current.previousSykmeldingTom).toEqual(toDate('2023-01-25'))
+            expect(previousSykmeldingTom).toEqual(toDate('2023-01-25'))
         })
     })
 })
-
-function sykmeldingerMock(sykmeldinger: Sykmelding[]) {
-    return createMock({
-        request: { query: SykmeldingerDocument },
-        result: {
-            data: {
-                __typename: 'Query',
-                sykmeldinger,
-            },
-        },
-    })
-}

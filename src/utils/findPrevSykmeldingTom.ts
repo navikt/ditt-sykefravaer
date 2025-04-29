@@ -1,11 +1,10 @@
 import { closestTo, isBefore, isSameDay, isWithinInterval } from 'date-fns'
 import { intersection } from 'remeda'
 
-import { toDate } from '../utils/dateUtils'
-import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from '../utils/sykmeldingUtils'
 import { Periodetype, Sykmelding } from '../types/sykmelding'
 
-import useSykmeldinger from './useSykmeldingerFlexBackend'
+import { toDate } from './dateUtils'
+import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from './sykmeldingUtils'
 
 function removeInsideSykmeldinger(sykmeldinger: readonly Sykmelding[]) {
     return (sykmelding: Sykmelding): boolean => {
@@ -28,26 +27,13 @@ function removeInsideSykmeldinger(sykmeldinger: readonly Sykmelding[]) {
     }
 }
 
-export function useFindPrevSykmeldingTom(
+export function findPrevSykmeldingTom(
     sykmelding: Sykmelding,
     valgtArbeidsgiverOrgnummer: string | null | undefined,
-): {
-    previousSykmeldingTom: Date | null
-    isLoading: boolean
-    error: Error | null
-} {
-    const { data, error, isPending: loading } = useSykmeldinger()
-
-    if (loading || error || data == null) {
-        return {
-            previousSykmeldingTom: null,
-            isLoading: loading,
-            error,
-        }
-    }
-
-    const sendtSykmeldinger = data
-        .filter(removeInsideSykmeldinger(data))
+    alleSykmeldinger: Sykmelding[],
+): Date | null {
+    const sendtSykmeldinger = alleSykmeldinger
+        .filter(removeInsideSykmeldinger(alleSykmeldinger))
         .filter(isSendtSykmelding)
         .filter((it) => it.id !== sykmelding.id)
         .filter((it) => it.sykmeldingStatus.arbeidsgiver?.orgnummer == valgtArbeidsgiverOrgnummer)
@@ -60,11 +46,7 @@ export function useFindPrevSykmeldingTom(
 
     const nearestTom: Date | undefined = closestTo(latestTomForGivenSykmelding, latestTomList)
 
-    return {
-        previousSykmeldingTom: nearestTom ?? null,
-        isLoading: false,
-        error: null,
-    }
+    return nearestTom ?? null
 }
 
 function removeAvventende(sykmelding: Sykmelding): boolean {
