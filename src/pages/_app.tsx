@@ -54,6 +54,7 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
                 src="https://survey.skyra.no/skyra-survey.js"
                 strategy="afterInteractive"
                 onLoad={() => {
+                    // eslint-disable-next-line no-console
                     console.log('Skyra script loaded:', window.skyra)
                     window.skyra?.start({
                         org: 'arbeids-og-velferdsetaten-nav',
