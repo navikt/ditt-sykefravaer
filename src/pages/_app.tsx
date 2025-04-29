@@ -54,10 +54,10 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
                 src="https://survey.skyra.no/skyra-survey.js"
                 strategy="afterInteractive"
                 onLoad={() => {
-                    // eslint-disable-next-line no-console
-                    // @ts-expect-error
+                    // eslint-disable-next-line no-console 
+                    // @ts-expect-error skyra is not defined but will work
                     console.log('Skyra script loaded:', window.skyra)
-                    // @ts-expect-error
+                    // @ts-expect-error skyra is not defined but will work
                     window.skyra?.start({
                         org: 'arbeids-og-velferdsetaten-nav',
                     })
