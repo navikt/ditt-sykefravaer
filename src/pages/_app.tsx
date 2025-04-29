@@ -55,7 +55,9 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
                 strategy="afterInteractive"
                 onLoad={() => {
                     // eslint-disable-next-line no-console
+                    // @ts-ignore
                     console.log('Skyra script loaded:', window.skyra)
+                    // @ts-ignore
                     window.skyra?.start({
                         org: 'arbeids-og-velferdsetaten-nav',
                     })
