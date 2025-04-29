@@ -8,6 +8,7 @@ import Head from 'next/head'
 import React, { ReactElement } from 'react'
 import { QueryClient } from '@tanstack/query-core'
 import { QueryClientProvider } from '@tanstack/react-query'
+import Script from 'next/script'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
 import { basePath } from '../utils/environment'
@@ -33,8 +34,6 @@ configureLogger({
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            // Setting this to true causes query request after initial
-            // mount even if the query was hydrated from the server side.
             refetchOnMount: false,
             refetchOnWindowFocus: false,
         },
@@ -51,6 +50,16 @@ function MyApp({ Component, pageProps }: AppProps<ServerSidePropsResult>): React
                 <meta name="robots" content="noindex" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
             </Head>
+            <Script
+                src="https://survey.skyra.no/skyra-survey.js"
+                strategy="afterInteractive"
+                onLoad={() => {
+                    console.log('Skyra script loaded:', window.skyra)
+                    window.skyra?.start({
+                        org: 'arbeids-og-velferdsetaten-nav',
+                    })
+                }}
+            />
             <FlagProvider toggles={pageProps.toggles}>
                 <QueryClientProvider client={queryClient}>
                     <div id="root" className="mx-auto max-w-2xl p-4 pb-32">
