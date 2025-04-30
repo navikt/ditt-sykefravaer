@@ -5,11 +5,11 @@ export type Sykmelding = {
     readonly id: string
     readonly andreTiltak?: string | null
     readonly arbeidsgiver?: ArbeidsgiverSykmelding | null
-    readonly behandler: Behandler
+    readonly behandler?: Behandler | null
     readonly behandletTidspunkt: string
     readonly behandlingsutfall: Behandlingsutfall
     readonly egenmeldt?: boolean | null
-    readonly kontaktMedPasient: KontaktMedPasient
+    readonly kontaktMedPasient?: KontaktMedPasient | null
     readonly medisinskVurdering?: MedisinskVurdering | null
     readonly meldingTilArbeidsgiver?: string | null
     readonly meldingTilNAV?: MeldingTilNav | null
