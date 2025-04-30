@@ -18,13 +18,15 @@ function AnnenInfo({ sykmelding, parentId }: Props): ReactElement {
             <SykmeldingInfo heading="Dato sykmeldingen ble skrevet">
                 {toReadableDate(sykmelding.behandletTidspunkt)}
             </SykmeldingInfo>
-            <SykmeldingMultilineInfo
-                heading="Sykmeldingen ble skrevet av"
-                lines={[
-                    getBehandlerName(sykmelding.behandler),
-                    sykmelding.behandler.tlf ? `Tlf: ${sykmelding.behandler.tlf}` : 'Tlf: mangler',
-                ]}
-            />
+            {sykmelding.behandler && (
+                <SykmeldingMultilineInfo
+                    heading="Sykmeldingen ble skrevet av"
+                    lines={[
+                        getBehandlerName(sykmelding.behandler),
+                        sykmelding.behandler.tlf ? `Tlf: ${sykmelding.behandler.tlf}` : 'Tlf: mangler',
+                    ]}
+                />
+            )}
         </SykmeldingGroup>
     )
 }

@@ -105,10 +105,12 @@ function SykmeldingSykmeldt({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Pro
                     meldingTilArbeidsgiver={sykmelding.meldingTilArbeidsgiver}
                     parentId={`${sectionId}flere-opplysninger`}
                 />
-                <Tilbakedatering
-                    kontaktMedPasient={sykmelding.kontaktMedPasient}
-                    parentId={`${sectionId}flere-opplysninger`}
-                />
+                {sykmelding.kontaktMedPasient && (
+                    <Tilbakedatering
+                        kontaktMedPasient={sykmelding.kontaktMedPasient}
+                        parentId={`${sectionId}flere-opplysninger`}
+                    />
+                )}
             </FlereOpplysningerSykmeldt>
         </div>
     )
