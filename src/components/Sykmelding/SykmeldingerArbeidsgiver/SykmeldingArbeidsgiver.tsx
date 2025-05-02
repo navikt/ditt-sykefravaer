@@ -57,7 +57,9 @@ function SykmeldingArbeidsgiver({ sykmelding, chosenEgenmeldingsdager }: Sykmeld
                 meldingTilArbeidsgiver={sykmelding.meldingTilArbeidsgiver}
                 parentId={sectionId}
             />
-            <Tilbakedatering kontaktMedPasient={sykmelding.kontaktMedPasient} parentId={sectionId} />
+            {sykmelding.kontaktMedPasient && (
+                <Tilbakedatering kontaktMedPasient={sykmelding.kontaktMedPasient} parentId={sectionId} />
+            )}
         </div>
     )
 }
