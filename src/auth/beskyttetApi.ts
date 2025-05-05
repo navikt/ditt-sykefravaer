@@ -10,6 +10,7 @@ type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => void | Promise<
 export function beskyttetApi(handler: ApiHandler): ApiHandler {
     return async function withBearerTokenHandler(req, res) {
         function send401() {
+            logger.warn('beskyttetApi: 401 Unauthorized')
             res.status(401).json({ message: 'Access denied' })
         }
 

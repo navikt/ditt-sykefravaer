@@ -3,6 +3,8 @@ import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
 import { requestOboToken } from '@navikt/oasis'
 
+import { UUID_REGEX } from 'src/utils/sykmeldingUtils'
+
 import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
@@ -10,10 +12,17 @@ import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
-
 const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
+
+export const validerSykmeldingIdFraRequest = (sykmeldingId: string): boolean => {
+    const isValid = UUID_REGEX.test(sykmeldingId)
+    if (!isValid) {
+        logger.error(`Invalid sykmeldingId: ${sykmeldingId}`)
+    }
+    return isValid
+}
 
 function createBackendHeaders(
     req: NextApiRequest,
@@ -60,7 +69,11 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+        throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
+    }
+
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
@@ -77,6 +90,10 @@ async function getBrukerinformasjonById(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<Brukerinformasjon> {
+    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+        throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
+    }
+
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
         `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
@@ -96,6 +113,10 @@ async function getErUtenforVentetidResponse(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<ErUtenforVentetid> {
+    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+        throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
+    }
+
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
         `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
@@ -116,6 +137,10 @@ async function sendSykmelding(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<SykmeldingUserEventV3Api> {
+    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+        throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
+    }
+
     const backendHeaders = createBackendHeaders(req, oboToken, true)
     const result = await fetchMedRequestId(
         `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/send`,
@@ -132,9 +157,16 @@ async function sendSykmelding(
     return result.response.json()
 }
 
-export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const sendSykmeldingHandler = async (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    sykmeldingUuid: string | null,
+) => {
     const pathSegments = req.query.path as string[] | undefined
-    const uuid = pathSegments?.[3]
+    const uuid = sykmeldingUuid
+    if (!validerSykmeldingIdFraRequest(sykmeldingUuid || '')) {
+        throw new Error(`Invalid sykmeldingId: ${sykmeldingUuid}`)
+    }
 
     if (req.method !== 'POST') {
         logger.warn(`Method Not Allowed: ${req.method} for sendSykmeldingHandler`)
