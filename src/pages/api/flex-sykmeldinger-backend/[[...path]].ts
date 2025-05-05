@@ -14,9 +14,21 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/er-utenfor-ventetid',
     'GET /api/v1/sykmeldinger/[uuid]/brukerinformasjon',
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
+    // Add your intercepted endpoint here if needed
 ]
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
+    const method = req.method ?? ''
+    const url = req.url ?? ''
+
+    if (
+        url.includes('/api/v1/sykmeldinger/') &&
+        url.includes('/question-validation')
+    ) {
+        // Intercepted logic goes here
+        return res.status(403).json({ error: 'Access to question-validation is denied.' })
+    }
+
     await proxyKallTilBackend({
         req,
         res,
