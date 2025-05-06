@@ -22,9 +22,9 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     const url = req.url ?? ''
 
     if (
-        url.includes('/api/v1/sykmeldinger/') &&
-        url.includes('/question-validation')
-    ) {
+        // url.includes('/api/v1/sykmeldinger/[uuid]/send') 
+        /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url)
+       ) {
         // Intercepted logic goes here
         return res.status(403).json({ error: 'Access to question-validation is denied.' })
     }
