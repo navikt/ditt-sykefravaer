@@ -3,6 +3,7 @@ import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
+import * as sykmeldingerService from '../../../services/sykmeldingerService'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -22,11 +23,14 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     const url = req.url ?? ''
 
     if (
+        url.includes('/api/v1/sykmeldinger/[uuid]/send') &&
         // url.includes('/api/v1/sykmeldinger/[uuid]/send') 
         /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url)
        ) {
+        // sendSykmelding
+
         // Intercepted logic goes here
-        return res.status(403).json({ error: 'Access to question-validation is denied.' })
+        sykmeldingerService.logSendSykmeldingEvent(req, res)
     }
 
     await proxyKallTilBackend({
