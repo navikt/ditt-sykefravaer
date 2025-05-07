@@ -5,7 +5,7 @@ import { GraphQLError } from 'graphql'
 
 import { getServerEnv } from '../utils/env'
 
-import { Sykmelding, SykmeldingSchema } from './api-models/sykmelding/Sykmelding'
+import { Sykmelding } from  'src/server/api-models/sykmelding/Sykmelding' // './server-models/sykmelding/Sykmelding'
 import { Brukerinformasjon, BrukerinformasjonSchema } from './api-models/Brukerinformasjon'
 import { SendSykmeldingValues, SykmeldingChangeStatus } from './graphql/resolver-types.generated'
 import { RequestContext } from './graphql/resolvers'
@@ -20,7 +20,8 @@ export async function getSykmeldinger(context: RequestContext): Promise<Sykmeldi
     return fetchApi(
         { type: 'GET' },
         'v2/sykmeldinger',
-        (it) => z.array(SykmeldingSchema).parse(it),
+        // (it) => z.array(SykmeldingSchema).parse(it),
+        (it) =>it as Sykmelding[],
         context,
         'GET: sykmeldinger',
     )
