@@ -48,7 +48,7 @@ export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]
         {
             method: 'GET',
             credentials: 'include',
-            headers: getHeadersFromRequest(req),
+            headers: await getHeadersFromRequest(req.url!),
         },
     )
     return res.json()
