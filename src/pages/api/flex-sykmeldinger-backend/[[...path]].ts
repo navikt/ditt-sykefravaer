@@ -42,13 +42,29 @@ export function mapSendSykmeldingValuesToV3Api(
 
 */
 
+function forwardRequestHeaders(req: NextApiRequest): HeadersInit {
+    const headers: Record<string, string> = {}
+
+    for (const [key, value] of Object.entries(req.headers)) {
+        if (typeof value === 'string') {
+            headers[key] = value
+        } else if (Array.isArray(value)) {
+            headers[key] = value.join(',')
+        }
+    }
+
+    return headers
+}
+
+
 export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]> {
     const res = await fetchMedRequestId(
         '/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger',
         {
             method: 'GET',
             credentials: 'include',
-            headers: await getHeadersFromRequest(req.url!),
+            headers: forwardRequestHeaders(req),
+
         },
     )
     return res.response.json()
@@ -60,7 +76,8 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): 
         {
             method: 'GET',
             credentials: 'include',
-            headers: getHeadersFromRequest(req),
+            headers: forwardRequestHeaders(req),
+
         },
     )
     return res.response.json()
@@ -75,7 +92,8 @@ export async function getBrukerinformasjonById(
         {
             method: 'GET',
             credentials: 'include',
-            headers: getHeadersFromRequest(req),
+            headers: forwardRequestHeaders(req),
+
         },
     )
     return res.response.json()
@@ -87,7 +105,8 @@ export async function getBrukerinformasjon(req: NextApiRequest): Promise<Brukeri
         {
             method: 'GET',
             credentials: 'include',
-            headers: getHeadersFromRequest(req),
+            headers: forwardRequestHeaders(req),
+
         },
     )
     return res.response.json()
