@@ -51,7 +51,7 @@ export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]
             headers: await getHeadersFromRequest(req.url!),
         },
     )
-    return res.json()
+    return res.response.json()
 }
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): Promise<Sykmelding> {
@@ -63,7 +63,7 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): 
             headers: getHeadersFromRequest(req),
         },
     )
-    return res.json()
+    return res.response.json()
 }
 
 export async function getBrukerinformasjonById(
@@ -78,7 +78,7 @@ export async function getBrukerinformasjonById(
             headers: getHeadersFromRequest(req),
         },
     )
-    return res.json()
+    return res.response.json()
 }
 
 export async function getBrukerinformasjon(req: NextApiRequest): Promise<Brukerinformasjon> {
@@ -90,7 +90,7 @@ export async function getBrukerinformasjon(req: NextApiRequest): Promise<Brukeri
             headers: getHeadersFromRequest(req),
         },
     )
-    return res.json()
+    return res.response.json()
 }
 
 
