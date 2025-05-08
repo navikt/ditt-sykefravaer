@@ -1,4 +1,3 @@
-
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 
