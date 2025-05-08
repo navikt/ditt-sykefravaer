@@ -12,6 +12,8 @@ import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 
+import { logger } from '@navikt/next-logger'
+
 const { serverRuntimeConfig } = getConfig()
 
 const tillatteApier = [
@@ -124,7 +126,7 @@ export async function getErUtenforVentetidResponse(
 
 export async function sendSykmelding(
     sykmeldingId: string,
-    sendSykmeldingValues: SykmeldingUserEventV3Api,
+    sendSykmeldingValuesPostMapping: SykmeldingUserEventV3Api,
     req: NextApiRequest,
 ): Promise<SykmeldingUserEventV3Api> {
     const res = await fetchMedRequestId(
@@ -133,7 +135,7 @@ export async function sendSykmelding(
             method: 'POST',
             credentials: 'include',
             headers: forwardRequestHeaders(req),
-            body: JSON.stringify(sendSykmeldingValues),
+            body: JSON.stringify(sendSykmeldingValuesPostMapping),
         },
     )
     return res.response.json()
@@ -142,35 +144,44 @@ export async function sendSykmelding(
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const url = req.url ?? ''
 
-    if (
-        url.includes('/api/v1/sykmeldinger/') &&
-        url.includes('/send') &&
-        /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url) &&
-        req.query.path &&
-        Array.isArray(req.query.path) &&
-        req.query.path.length > 2
-    ) {
+    if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
+        logger.info('Handling send sykmelding request første filter')
+        if (
+            /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url) &&
+            req.query.path &&
+            Array.isArray(req.query.path) &&
+            req.query.path.length > 2
+        ) {
+            logger.info('Handling send sykmelding request andre')
+            const pathSegments = req.query.path as string[]
+            const uuid = pathSegments?.[2] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
+
+            if (uuid) {
+                const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
+                const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
+                const erUtenforVentetid = await getErUtenforVentetidResponse(req.query.path[2] as string, req)
+                const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
+
+                const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
+                    sendSykmeldingValues,
+                    sykmeldingen,
+                    brukerinformasjon,
+                    erUtenforVentetid,
+                )
+                logger.info('SendSykmeldingValues', sendSykmeldingValues)
+                logger.info('SendSykmeldingValuesPostMapping', sendSykmeldingValuesPostMapping)
+
+                const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
+                res.status(200).json(sendSykmeldingResponse)
+            }
+        }
+
+        return res.status(500).json({
+            message: 'Invalid request',
+        })
+
         // Get UUID from req.query.path array
         // In a catch-all route like [[...path]], the dynamic segments are in the path array
-        const pathSegments = req.query.path as string[]
-        const uuid = pathSegments?.[2] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
-
-        if (uuid) {
-            const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
-            const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
-            const erUtenforVentetid = await getErUtenforVentetidResponse(req.query.path[2] as string, req)
-            const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
-
-            const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
-                sendSykmeldingValues,
-                sykmeldingen,
-                brukerinformasjon,
-                erUtenforVentetid,
-            )
-
-            const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
-            res.status(200).json(sendSykmeldingResponse)
-        }
     }
 
     await proxyKallTilBackend({
