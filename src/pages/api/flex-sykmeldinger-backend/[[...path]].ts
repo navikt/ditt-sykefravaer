@@ -3,13 +3,15 @@ import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
-import { SendSykmeldingValues } from 'src/server/api-models/SendSykmelding'
+import { SendSykmeldingValues } from 'src/fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from 'src/server/api-models/SendSykmelding'
 import { Brukerinformasjon } from 'src/server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from 'src/server/api-models/ErUtenforVentetid'
 import { Sykmelding } from 'src/server/api-models/sykmelding/Sykmelding'
 import { fetchMedRequestId } from 'src/utils/fetch'
 import getHeadersFromRequest from 'src/utils/fetch'
+import { send } from 'process'
+import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping'
 
 
 const { serverRuntimeConfig } = getConfig()
@@ -37,8 +39,29 @@ export function mapSendSykmeldingValuesToV3Api(
     values: SendSykmeldingValues,
     sykmelding: Sykmelding,
     brukerinformasjon: Brukerinformasjon,
-    erUtenforVentetid: ErUtenforVentetid,
+    erUtenforVentetid: ErUtenforVentetid, api endepunkt som returnerer dette: 
+    
+    data class ErUtenforVentetidResponse(
+    val erUtenforVentetid: Boolean,
+    val oppfolgingsdato: LocalDate?,    
 )
+
+)
+
+input SendSykmeldingValues {
+    erOpplysningeneRiktige: YesOrNo
+    uriktigeOpplysninger: [UriktigeOpplysningerType!]
+    arbeidssituasjon: ArbeidssituasjonType
+    arbeidsgiverOrgnummer: String
+    riktigNarmesteLeder: YesOrNo
+    harBruktEgenmelding: YesOrNo
+    egenmeldingsperioder: [DateRange!]
+    harForsikring: YesOrNo
+    egenmeldingsdager: [Date!]
+    harEgenmeldingsdager: YesOrNo
+    fisker: FiskerInput
+    arbeidsledig: ArbeidsledigInput
+}
 
 */
 
@@ -99,31 +122,34 @@ export async function getBrukerinformasjonById(
     return res.response.json()
 }
 
-export async function getBrukerinformasjon(req: NextApiRequest): Promise<Brukerinformasjon> {
+export async function getErUtenforVentetidResponse(sykmeldingId: string, req: NextApiRequest): Promise<ErUtenforVentetid> {
     const res = await fetchMedRequestId(
-        '/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger/brukerinformasjon',
+        `/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
         {
             method: 'GET',
             credentials: 'include',
             headers: forwardRequestHeaders(req),
-
         },
     )
     return res.response.json()
 }
 
-/*
-
-these are the values you need:
-
-    values: SendSykmeldingValues,
-    sykmelding: Sykmelding,
-    brukerinformasjon: Brukerinformasjon,
-    erUtenforVentetid: ErUtenforVentetid,
-
-
-*/
-
+export async function sendSykmelding(
+    sykmeldingId: string,
+    sendSykmeldingValues: SykmeldingUserEventV3Api,
+    req: NextApiRequest,
+): Promise<SykmeldingUserEventV3Api> {
+    const res = await fetchMedRequestId(
+        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
+        {
+            method: 'POST',
+            credentials: 'include',
+            headers: forwardRequestHeaders(req),
+            body: JSON.stringify(sendSykmeldingValues),
+        },
+    )
+    return res.response.json()
+}
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const method = req.method ?? ''
@@ -138,21 +164,27 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         req.query.path.length > 2 
     ) {
 
-        const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
-        const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
         // Get UUID from req.query.path array
         // In a catch-all route like [[...path]], the dynamic segments are in the path array
         const pathSegments = req.query.path as string[]
         const uuid = pathSegments?.[2] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
         
         if (uuid) {
-            console.log('Intercepted sykmelding with UUID:', uuid)
-            // return 200
-            res.status(200).json({ message: 'Sykmelding intercepted successfully', uuid })
-            // Use the uuid
-            //  here
+            const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
+            const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
+            const erUtenforVentetid = await getErUtenforVentetidResponse(req.query.path[2] as string, req)
+            const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
+
             
-            
+            const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
+                sendSykmeldingValues,
+                sykmeldingen,
+                brukerinformasjon,
+                erUtenforVentetid,
+            )
+
+            const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
+            res.status(200).json(sendSykmeldingResponse)
         }
     }
     
