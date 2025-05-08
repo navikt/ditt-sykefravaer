@@ -1,4 +1,3 @@
-import { send } from 'process'
 
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
@@ -9,7 +8,6 @@ import { Brukerinformasjon } from 'src/server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from 'src/server/api-models/ErUtenforVentetid'
 import { Sykmelding } from 'src/server/api-models/sykmelding/Sykmelding'
 import { fetchMedRequestId } from 'src/utils/fetch'
-import getHeadersFromRequest from 'src/utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping'
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
@@ -143,7 +141,6 @@ export async function sendSykmelding(
 }
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
-    const method = req.method ?? ''
     const url = req.url ?? ''
 
     if (
