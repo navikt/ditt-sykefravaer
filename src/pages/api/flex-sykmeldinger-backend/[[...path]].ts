@@ -112,6 +112,18 @@ export async function getBrukerinformasjon(req: NextApiRequest): Promise<Brukeri
     return res.response.json()
 }
 
+/*
+
+these are the values you need:
+
+    values: SendSykmeldingValues,
+    sykmelding: Sykmelding,
+    brukerinformasjon: Brukerinformasjon,
+    erUtenforVentetid: ErUtenforVentetid,
+
+
+*/
+
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const method = req.method ?? ''
@@ -120,8 +132,14 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     if (
         url.includes('/api/v1/sykmeldinger/') && 
         url.includes('/send') &&
-        /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url)
+        /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url) &&
+        req.query.path &&
+        Array.isArray(req.query.path) &&
+        req.query.path.length > 2 
     ) {
+
+        const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
+        const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
         // Get UUID from req.query.path array
         // In a catch-all route like [[...path]], the dynamic segments are in the path array
         const pathSegments = req.query.path as string[]
