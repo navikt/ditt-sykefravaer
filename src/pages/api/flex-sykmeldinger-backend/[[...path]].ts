@@ -172,7 +172,9 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
                 logger.info('SendSykmeldingValuesPostMapping', sendSykmeldingValuesPostMapping)
 
                 const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
-                res.status(200).json(sendSykmeldingResponse)
+                logger.info('success: SendSykmeldingResponse', sendSykmeldingResponse)
+                return res.status(200).json(sendSykmeldingResponse)
+
             }
         }
 
