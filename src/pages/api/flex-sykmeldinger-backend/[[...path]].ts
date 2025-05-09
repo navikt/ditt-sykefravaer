@@ -176,8 +176,8 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
             }
         }
 
-        return res.status(500).json({
-            message: 'Invalid request',
+        return res.status(401).json({
+            message: 'hello from the send thing',
         })
 
         // Get UUID from req.query.path array
