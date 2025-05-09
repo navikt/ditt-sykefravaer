@@ -144,8 +144,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     const url = req.url ?? ''
 
     if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
-        logger.info('Handling send sykmelding request første filter url is: ', req.url)
-        if (
+        logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)        if (
             /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url) &&
             req.query.path &&
             Array.isArray(req.query.path) &&
@@ -167,16 +166,22 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
                     brukerinformasjon,
                     erUtenforVentetid,
                 )
-                logger.info('SendSykmeldingValues', sendSykmeldingValues)
-                logger.info('SendSykmeldingValuesPostMapping', sendSykmeldingValuesPostMapping)
-
+                logger.info(`SendSykmeldingValues: ${JSON.stringify(sendSykmeldingValues)}`)
+                logger.info(`SendSykmeldingValuesPostMapping: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`)
+                
                 const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
-                logger.info('success: SendSykmeldingResponse', sendSykmeldingResponse)
+                logger.info(`success: SendSykmeldingResponse: ${JSON.stringify(sendSykmeldingResponse)}`)
+                
                 return res.status(200).json(sendSykmeldingResponse)
+            } else {
+                logger.error(`UUID not found in path segments: ${JSON.stringify(req.query.path)}`)
+                return res.status(400).json({ error: 'UUID not found in path segments' })
+
             }
+
         }
 
-        return res.status(401).json({
+        return res.status(402).json({
             message: 'hello from the send thing',
         })
 
