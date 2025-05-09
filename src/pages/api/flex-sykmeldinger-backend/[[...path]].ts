@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
+import { logger } from '@navikt/next-logger'
 
 import { SendSykmeldingValues } from 'src/fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from 'src/server/api-models/SendSykmelding'
@@ -11,8 +12,6 @@ import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
-
-import { logger } from '@navikt/next-logger'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -174,7 +173,6 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
                 const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
                 logger.info('success: SendSykmeldingResponse', sendSykmeldingResponse)
                 return res.status(200).json(sendSykmeldingResponse)
-
             }
         }
 
