@@ -145,7 +145,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     const url = req.url ?? ''
 
     if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
-        logger.info('Handling send sykmelding request første filter')
+        logger.info('Handling send sykmelding request første filter url is: ', req.url)
         if (
             /^\/api\/v1\/sykmeldinger\/[^/]+\/send$/.test(url) &&
             req.query.path &&
