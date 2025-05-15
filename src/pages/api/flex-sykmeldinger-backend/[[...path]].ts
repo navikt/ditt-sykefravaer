@@ -26,6 +26,8 @@ const tillatteApier = [
     // Add your intercepted endpoint here if needed
 ]
 
+// todo remove me
+
 /*
 
 import { SendSykmeldingValues } from '../fetching/graphql.generated'
