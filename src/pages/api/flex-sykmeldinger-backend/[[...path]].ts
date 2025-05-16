@@ -1,3 +1,5 @@
+import { send } from 'process'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
@@ -12,7 +14,6 @@ import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
-import { send } from 'process'
 
 const { serverRuntimeConfig } = getConfig()
 
