@@ -1,4 +1,3 @@
-import { send } from 'process'
 
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
@@ -164,12 +163,10 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
         const uuid = pathSegments?.[3] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
 
         if (uuid) {
-            console.log('1')
-            console.log(req.query.path[3])
             const sykmeldingen = await getSykmelding(uuid, req)
-            console.log('2')
+
             const brukerinformasjon = await getBrukerinformasjonById(uuid, req)
-            console.log('3')
+
             const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req)
             const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
 
