@@ -82,7 +82,7 @@ function forwardRequestHeaders(req: NextApiRequest): HeadersInit {
 }
 
 export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]> {
-    const res = await fetchMedRequestId('/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger', {
+    const res = await fetchMedRequestId('http://flex-sykmeldinger-backend/api/v1/sykmeldinger/', {  // '/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger', {
         method: 'GET',
         credentials: 'include',
         headers: forwardRequestHeaders(req),
@@ -92,7 +92,7 @@ export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): Promise<Sykmelding> {
     const res = await fetchMedRequestId(
-        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger/${sykmeldingId}`,
+        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}`,
         {
             method: 'GET',
             credentials: 'include',
@@ -104,7 +104,7 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): 
 
 export async function getBrukerinformasjonById(sykmeldingId: string, req: NextApiRequest): Promise<Brukerinformasjon> {
     const res = await fetchMedRequestId(
-        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
+        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
         {
             method: 'GET',
             credentials: 'include',
@@ -118,7 +118,7 @@ export async function getErUtenforVentetidResponse(
     sykmeldingId: string,
     req: NextApiRequest,
 ): Promise<ErUtenforVentetid> {
-    const res = await fetchMedRequestId(`/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`, {
+    const res = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`, {
         method: 'GET',
         credentials: 'include',
         headers: forwardRequestHeaders(req),
@@ -132,7 +132,7 @@ export async function sendSykmelding(
     req: NextApiRequest,
 ): Promise<SykmeldingUserEventV3Api> {
     const res = await fetchMedRequestId(
-        `/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
+        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
         {
             method: 'POST',
             credentials: 'include',
@@ -145,7 +145,7 @@ export async function sendSykmelding(
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (!(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
+    if (req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send')) {
             const url = req.url ?? ''
 
              if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
@@ -166,12 +166,16 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
         if (req.query.path && Array.isArray(req.query.path) && req.query.path.length > 2) {
             logger.info('Handling send sykmelding request andre')
             const pathSegments = req.query.path as string[]
-            const uuid = pathSegments?.[2] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
+            const uuid = pathSegments?.[3] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
 
             if (uuid) {
-                const sykmeldingen = await getSykmelding(req.query.path[2] as string, req)
-                const brukerinformasjon = await getBrukerinformasjonById(req.query.path[2] as string, req)
-                const erUtenforVentetid = await getErUtenforVentetidResponse(req.query.path[2] as string, req)
+                console.log('1')
+                console.log(req.query.path[3])
+                const sykmeldingen = await getSykmelding(uuid, req)
+                console.log('2')
+                const brukerinformasjon = await getBrukerinformasjonById(uuid, req)
+                console.log('3')
+                const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req)
                 const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
 
                 const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
