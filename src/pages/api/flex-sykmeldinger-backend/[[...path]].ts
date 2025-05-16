@@ -198,11 +198,6 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
 }
 
 const handlerOld = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
-
-   
-
-
-    
     await proxyKallTilBackend({
         req,
         res,
@@ -212,12 +207,7 @@ const handlerOld = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse
         backendClientId: serverRuntimeConfig.flexSykmeldingerBackendClientId,
         https: false,
     })
-
-      
-        // Get UUID from req.query.path array
-        // In a catch-all route like [[...path]], the dynamic segments are in the path array
-    }
-
+})
 
 
 export const config = {
