@@ -147,6 +147,8 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
 
     if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
         logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
+        logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
+
         if (req.query.path && Array.isArray(req.query.path) && req.query.path.length > 2) {
             logger.info('Handling send sykmelding request andre')
             const pathSegments = req.query.path as string[]
