@@ -12,6 +12,7 @@ import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
+import { send } from 'process'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -142,11 +143,24 @@ export async function sendSykmelding(
     return res.response.json()
 }
 
-const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
-    const url = req.url ?? ''
 
-    if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
-        logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+    if (!(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
+            const url = req.url ?? ''
+
+             if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
+            sendSykmeldingHandler(req, res)
+        }
+    }
+    else {  
+
+        handlerOld(req, res)
+    }
+}       
+
+
+const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+   logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
         logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
 
         if (req.query.path && Array.isArray(req.query.path) && req.query.path.length > 2) {
@@ -177,16 +191,18 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
                 logger.error(`UUID not found in path segments: ${JSON.stringify(req.query.path)}`)
                 return res.status(400).json({ error: 'UUID not found in path segments' })
             }
-        }
-
-        return res.status(402).json({
+              return res.status(402).json({
             message: 'hello from the send thing',
         })
-
-        // Get UUID from req.query.path array
-        // In a catch-all route like [[...path]], the dynamic segments are in the path array
     }
+}
 
+const handlerOld = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
+
+   
+
+
+    
     await proxyKallTilBackend({
         req,
         res,
@@ -196,7 +212,13 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         backendClientId: serverRuntimeConfig.flexSykmeldingerBackendClientId,
         https: false,
     })
-})
+
+      
+        // Get UUID from req.query.path array
+        // In a catch-all route like [[...path]], the dynamic segments are in the path array
+    }
+
+
 
 export const config = {
     api: {

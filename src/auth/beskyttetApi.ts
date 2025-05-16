@@ -13,7 +13,7 @@ export function beskyttetApi(handler: ApiHandler): ApiHandler {
             res.status(401).json({ message: 'Access denied' })
         }
 
-        if (isMockBackend()) {
+        if (isMockBackend() && !(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
             return mockApi(req, res)
         }
 
