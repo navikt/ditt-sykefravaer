@@ -1,9 +1,10 @@
 import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
+import { testDato } from '../../data/mock/mock-db/data-creators'
 
 const sykmeldtHarGyldigSykmelding = (sykmeldinger: TsmSykmelding[] | undefined): boolean => {
-    const tomGrenseDato = new Date()
+    const tomGrenseDato = testDato
     if (!sykmeldinger) {
         return false
     }

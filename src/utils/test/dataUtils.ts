@@ -15,9 +15,10 @@ import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
 import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
+import { testDato } from '../../data/mock/mock-db/data-creators'
 
 export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = StatusEvent.APEN): Sykmelding {
-    const mottatt = overrides?.mottattTidspunkt ?? dateSub(new Date(), { days: 2 })
+    const mottatt = overrides?.mottattTidspunkt ?? dateSub(testDato, { days: 2 })
 
     return {
         id: 'test-sykmelding',

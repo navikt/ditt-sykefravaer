@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { testDato } from '../data/mock/mock-db/data-creators'
 
 import {
     getReadableSykmeldingLength,
@@ -14,7 +15,7 @@ import { createSykmeldingPeriode } from './test/dataUtils'
 
 const minimalSykmelding: Sykmelding = {
     id: 'APEN_PAPIR',
-    mottattTidspunkt: dateSub(new Date(), { days: 1 }),
+    mottattTidspunkt: dateSub(testDato, { days: 1 }),
     behandlingsutfall: {
         status: RegelStatus.OK,
         ruleHits: [],
@@ -118,7 +119,7 @@ describe('isActiveSykmelding', () => {
         expect(
             isActiveSykmelding({
                 ...minimalSykmelding,
-                mottattTidspunkt: dateSub(new Date(), { days: 365 }),
+                mottattTidspunkt: dateSub(testDato, { days: 365 }),
                 sykmeldingStatus: {
                     ...minimalSykmelding.sykmeldingStatus,
                     statusEvent: StatusEvent.APEN,

@@ -11,6 +11,7 @@ import {
     velgArbeidstaker,
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 export function selectEgenmeldingsdager({
     daysToSelect,
@@ -89,7 +90,7 @@ test.describe.skip('Egenmeldingsdager', () => {
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expect(page).toHaveNoViolations()
@@ -122,7 +123,7 @@ test.describe.skip('Egenmeldingsdager', () => {
             await bekreftNarmesteleder('Station Officer Steele')(page)
             await selectEgenmeldingsdager({
                 daysToSelect: [[13, 12], [2, 3], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expect(page).toHaveNoViolations()
@@ -156,7 +157,7 @@ test.describe.skip('Egenmeldingsdager', () => {
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], [1, 2], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             // Edit the second period to be no instead of 2 dates
@@ -229,7 +230,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await pickArbeidsgiverAndBoss(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
@@ -241,7 +242,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await pickArbeidsgiverAndBoss(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [2], ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
@@ -261,7 +262,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                         [3, 5, 7, 9],
                         ExpectMeta.NotInDom,
                     ],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
@@ -275,7 +276,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await bekreftNarmesteleder('Station Officer Steele')(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [...R.range(0, 16).map(() => [0]), ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
@@ -291,7 +292,7 @@ test.describe.skip('Egenmeldingsdager', () => {
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)

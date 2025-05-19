@@ -20,6 +20,8 @@ import { dateAdd } from '../../../utils/dato-utils'
 import { JaEllerNei } from '../../../types/sykmeldingBrukerSvar'
 import { ArbeidssituasjonType } from '../../../types/sykmeldingCommon'
 
+export const testDato = new Date('2025-01-01T00:00:00.000Z')
+
 export class SykmeldingBuilder {
     private readonly mottatt: string = '2020-02-01'
     private readonly _sykmelding: Sykmelding = {
@@ -110,16 +112,15 @@ export class SykmeldingBuilder {
         rulesetVersion: 3,
     }
 
-    constructor(mottatt: string | { offset: number } = '2020-01-01', id: string = v4()) {
+    constructor(offset: number = 0, id: string = v4()) {
         this._sykmelding.id = id
-        if (typeof mottatt === 'string') {
-            this.mottatt = mottatt
-            this._sykmelding.mottattTidspunkt = mottatt
-        } else {
-            const mottattDate = dateAdd(new Date(), { days: mottatt.offset })
-            this.mottatt = mottattDate
-            this._sykmelding.mottattTidspunkt = mottattDate
-        }
+
+        // Always use testDato with the provided offset
+        const mottattDate = dateAdd(testDato, { days: offset })
+
+        // Convert to string format if needed, or keep as Date if your API expects Date objects
+        this.mottatt = mottattDate
+        this._sykmelding.mottattTidspunkt = mottattDate
     }
 
     periode(periode: BuilderPeriode): SykmeldingBuilder {

@@ -14,6 +14,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Arbeidsledig', () => {
     test('should be able to submit form with work situation arbeidsledig, without arbeidsgiver', async ({ page }) => {
@@ -55,11 +56,10 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .getByRole('radio', { name: /Ja/ })
             .click()
 
-        const today = new Date()
-        const sixteenDaysAgo = sub(today, { days: 16 })
+        const sixteenDaysAgo = sub(testDato, { days: 16 })
 
         await page
-            .getByRole('button', { name: format(today, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
+            .getByRole('button', { name: format(testDato, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
             .click()
         await page.getByRole('button', { name: /Videre/ }).click()
         await page

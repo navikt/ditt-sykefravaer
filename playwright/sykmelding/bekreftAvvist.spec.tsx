@@ -3,6 +3,7 @@ import { subDays } from 'date-fns'
 
 import { toReadableDate } from '../../src/utils/dateUtils'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Bekreft avvist sykmelding som lest', () => {
     test('should display reason for rejection', async ({ page }) => {
@@ -96,7 +97,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
             await expect(
                 page.getByText(
                     `Du bekreftet at du har lest at sykmeldingen er avvist den ${toReadableDate(
-                        subDays(new Date(), 7),
+                        subDays(testDato, 7),
                     )}`,
                 ),
             ).toBeVisible()

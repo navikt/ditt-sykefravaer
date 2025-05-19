@@ -14,7 +14,7 @@ import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
 
-import { defaultArbeidsgivere } from './data-creators'
+import { defaultArbeidsgivere, testDato } from './data-creators'
 
 class MockDb {
     private readonly _sykmeldinger: Sykmelding[]
@@ -171,7 +171,7 @@ class MockDb {
             sykmelding.sykmeldingStatus.sporsmalOgSvarListe.push(egenmeldingssporsmal)
         }
 
-        sykmelding.sykmeldingStatus.timestamp = toDateString(new Date())
+        sykmelding.sykmeldingStatus.timestamp = toDateString(testDato)
 
         return sykmelding
     }
