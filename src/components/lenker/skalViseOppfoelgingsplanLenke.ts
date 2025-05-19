@@ -1,10 +1,8 @@
 import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
-import { testDato } from '../../data/mock/mock-db/data-creators'
 
-const sykmeldtHarGyldigSykmelding = (sykmeldinger: TsmSykmelding[] | undefined): boolean => {
-    const tomGrenseDato = testDato
+const sykmeldtHarGyldigSykmelding = (sykmeldinger: TsmSykmelding[] | undefined, dagensDato: Date): boolean => {
     if (!sykmeldinger) {
         return false
     }
@@ -14,7 +12,7 @@ const sykmeldtHarGyldigSykmelding = (sykmeldinger: TsmSykmelding[] | undefined):
                 return sykmelding.sykmeldingStatus.arbeidsgiver?.orgnummer !== null
             })
             .filter((sykmelding) => {
-                return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, tomGrenseDato)
+                return erSykmeldingGyldigForOppfolgingMedGrensedato(sykmelding, dagensDato)
             }).length > 0
     )
 }
@@ -29,6 +27,7 @@ const sykmeldtHarOppfolgingsplan = (oppfolgingsplaner: Oppfolgingsplan[] | undef
 export const skalViseOppfoelgingsplanLenke = (
     sykmeldinger: TsmSykmelding[] | undefined,
     oppfolgingsplaner: Oppfolgingsplan[] | undefined,
+    dagensDato: Date,
 ): boolean => {
-    return sykmeldtHarGyldigSykmelding(sykmeldinger) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
+    return sykmeldtHarGyldigSykmelding(sykmeldinger, dagensDato) || sykmeldtHarOppfolgingsplan(oppfolgingsplaner)
 }

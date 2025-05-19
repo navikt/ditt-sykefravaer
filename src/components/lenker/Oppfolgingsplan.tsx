@@ -18,7 +18,7 @@ const Oppfolgingsplan = () => {
         return <Skeleton variant="rectangle" height="86px" className="mb-2" />
     }
 
-    if (skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner)) {
+    if (skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner, new Date())) {
         return (
             <FellesLenkepanel
                 ikon={HandshakeIcon}
