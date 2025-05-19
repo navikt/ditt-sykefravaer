@@ -83,7 +83,7 @@ export function selectEgenmeldingsdager({
 
 test.describe.skip('Egenmeldingsdager', () => {
     test.describe('Arbeidstaker', () => {
-        test('should be able to submit form with one period of egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med en periode med egenmelding', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -117,7 +117,7 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test('should be able to submit form with two periods of egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med to perioder med egenmelding', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -150,7 +150,9 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test('should be able to submit form after editing previous period with egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding etter å redigere forride periode med egenmeldingsdager', async ({
+            page,
+        }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -189,7 +191,7 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test.describe('limiting to 16 egenmeldingsdager', () => {
+        test.describe('begrenser til 16 egenmeldingsdager', () => {
             const pickArbeidsgiverAndBoss = async (page: Page): Promise<void> => {
                 await gotoScenario('kunNy')(page)
                 await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
@@ -224,7 +226,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 })(page)
             }
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager on a single period', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager i en enkelt periode', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
@@ -236,7 +238,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager over two periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager over to perioder', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
@@ -248,7 +250,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager over multiple periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager over flere perioder', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
@@ -268,7 +270,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager 16 single day periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager i 16 enkeldager-perioder', async ({
                 page,
             }) => {
                 await gotoScenario('kunNy')(page)
@@ -284,7 +286,7 @@ test.describe.skip('Egenmeldingsdager', () => {
         })
     })
     test.describe('Fisker', () => {
-        test('should be able to submit form with egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med egenmeldingsdager', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Hyre')(page)
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
