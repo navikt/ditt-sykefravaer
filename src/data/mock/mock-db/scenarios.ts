@@ -12,37 +12,31 @@ export type Scenario = {
 
 const normal: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: -45 }).send().enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: -65 }).send().enkelPeriode({ offset: 0, days: 14 }).build(),
+        new SykmeldingBuilder(7).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(-45).send().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(-65).send().enkelPeriode({ offset: 0, days: 14 }).build(),
     ],
 })
 
 const kunNy: ScenarioCreator = () => ({
-    sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-    ],
+    sykmeldinger: [new SykmeldingBuilder(7).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const sykmeldingFeilEtterNavigasjon: ScenarioCreator = () => ({
-    sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-    ],
+    sykmeldinger: [new SykmeldingBuilder(7).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const brukerinfoFeil: ScenarioCreator = () => ({
-    sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-    ],
+    sykmeldinger: [new SykmeldingBuilder(7).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const unsentWithPreviousSent: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -30 }) // En sendt sykmelding fra 30 dager siden
+        new SykmeldingBuilder(-30) // En sendt sykmelding fra 30 dager siden
             .status(StatusEvent.APEN)
             .enkelPeriode({ offset: 0, days: 7 })
             .build(),
-        new SykmeldingBuilder({ offset: -2 }) // En åpen sykmelding fra 2 dager siden
+        new SykmeldingBuilder(-2) // En åpen sykmelding fra 2 dager siden
             .status(StatusEvent.APEN)
             .enkelPeriode({ offset: 0, days: 7 })
             .build(),
@@ -51,7 +45,7 @@ const unsentWithPreviousSent: ScenarioCreator = () => ({
 
 const gradertPeriode: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .status(StatusEvent.APEN)
             .relativePeriode(
                 {
@@ -77,10 +71,10 @@ const feilmelding: ScenarioCreator = () => ({
 
 const allTypeSykmeldingBortsettFraNy: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.UTGATT).enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: 7 }).status(StatusEvent.AVBRUTT).enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: 7 }).bekreft().enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7).status(StatusEvent.UTGATT).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(7).status(StatusEvent.AVBRUTT).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(7).bekreft().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(7)
             .behandlingsutfall(RegelStatus.INVALID, [
                 {
                     messageForSender:
@@ -94,19 +88,15 @@ const allTypeSykmeldingBortsettFraNy: ScenarioCreator = () => ({
             .bekreft()
             .enkelPeriode({ offset: 0, days: 7 })
             .build(),
-        new SykmeldingBuilder({ offset: -45 }).send().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(-45).send().enkelPeriode({ offset: 0, days: 7 }).build(),
     ],
 })
 
 const nyeSykmeldinger: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -2 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-        new SykmeldingBuilder({ offset: -6 })
-            .status(StatusEvent.APEN)
-            .enkelPeriode({ offset: 0, days: 7 })
-            .papir()
-            .build(),
-        new SykmeldingBuilder({ offset: -4 })
+        new SykmeldingBuilder(-2).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(-6).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).papir().build(),
+        new SykmeldingBuilder(-4)
             .status(StatusEvent.APEN)
             .enkelPeriode({ offset: 0, days: 7 })
             .behandlingsutfall(RegelStatus.INVALID, [
@@ -125,7 +115,7 @@ const nyeSykmeldinger: ScenarioCreator = () => ({
 
 const kvitteringScenario: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -45 })
+        new SykmeldingBuilder(-45)
             .send()
             .relativePeriode(
                 {
@@ -136,7 +126,7 @@ const kvitteringScenario: ScenarioCreator = () => ({
                 { offset: 0, days: 14 },
             )
             .build(),
-        new SykmeldingBuilder({ offset: -14 })
+        new SykmeldingBuilder(-14)
             .bekreft()
             .relativePeriode(
                 {
@@ -151,30 +141,28 @@ const kvitteringScenario: ScenarioCreator = () => ({
 })
 
 const apenMenGammelSykmelding: ScenarioCreator = () => ({
-    sykmeldinger: [
-        new SykmeldingBuilder({ offset: -365 }).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
-    ],
+    sykmeldinger: [new SykmeldingBuilder(-365).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const papirSykmelding: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).enkelPeriode().papir().status(StatusEvent.APEN).build(),
-        new SykmeldingBuilder({ offset: 7 }).enkelPeriode().papir().send().build(),
+        new SykmeldingBuilder(7).enkelPeriode().papir().status(StatusEvent.APEN).build(),
+        new SykmeldingBuilder(7).enkelPeriode().papir().send().build(),
     ],
 })
 
 const utenlandsk: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 }).enkelPeriode().utenlandsk().status(StatusEvent.APEN).build(),
-        new SykmeldingBuilder({ offset: 14 }).enkelPeriode().utenlandsk().papir().status(StatusEvent.APEN).build(),
-        new SykmeldingBuilder({ offset: 21 }).enkelPeriode().utenlandsk().papir().send().build(),
-        new SykmeldingBuilder({ offset: 29 }).enkelPeriode().utenlandsk().send().build(),
+        new SykmeldingBuilder(7).enkelPeriode().utenlandsk().status(StatusEvent.APEN).build(),
+        new SykmeldingBuilder(14).enkelPeriode().utenlandsk().papir().status(StatusEvent.APEN).build(),
+        new SykmeldingBuilder(21).enkelPeriode().utenlandsk().papir().send().build(),
+        new SykmeldingBuilder(29).enkelPeriode().utenlandsk().send().build(),
     ],
 })
 
 const overSytti: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .enkelPeriode()
             .pasient({
                 fnr: '88888823456',
@@ -189,16 +177,16 @@ const overSytti: ScenarioCreator = () => ({
 })
 
 const avbrutt: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder({ offset: 7 }).enkelPeriode().status(StatusEvent.AVBRUTT).build()],
+    sykmeldinger: [new SykmeldingBuilder(7).enkelPeriode().status(StatusEvent.AVBRUTT).build()],
 })
 
 const avbruttEgenmelding: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder({ offset: 7 }).egenmeldt().enkelPeriode().status(StatusEvent.AVBRUTT).build()],
+    sykmeldinger: [new SykmeldingBuilder(7).egenmeldt().enkelPeriode().status(StatusEvent.AVBRUTT).build()],
 })
 
 const avvistTilbakedateringer: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -7 })
+        new SykmeldingBuilder(-7)
             .enkelPeriode()
             .status(StatusEvent.APEN)
             .behandlingsutfall(RegelStatus.INVALID, [
@@ -212,7 +200,7 @@ const avvistTilbakedateringer: ScenarioCreator = () => ({
                 },
             ])
             .build(),
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .enkelPeriode()
             .bekreft()
             .behandlingsutfall(RegelStatus.INVALID, [
@@ -231,7 +219,7 @@ const avvistTilbakedateringer: ScenarioCreator = () => ({
 
 const ugyldigTilbakedatering: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -7 })
+        new SykmeldingBuilder(-7)
             .enkelPeriode()
             .status(StatusEvent.APEN)
             .merknader([{ type: Merknadtype.UGYLDIG_TILBAKEDATERING, beskrivelse: null }])
@@ -241,7 +229,7 @@ const ugyldigTilbakedatering: ScenarioCreator = () => ({
 
 const delvisGodkjentTilbakedatering: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -7 })
+        new SykmeldingBuilder(-7)
             .enkelPeriode()
             .status(StatusEvent.APEN)
             .merknader([{ type: Merknadtype.DELVIS_GODKJENT, beskrivelse: null }])
@@ -251,7 +239,7 @@ const delvisGodkjentTilbakedatering: ScenarioCreator = () => ({
 
 const tilbakedateringKreverMerInfo: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: -7 })
+        new SykmeldingBuilder(-7)
             .enkelPeriode()
             .status(StatusEvent.APEN)
             .merknader([{ type: Merknadtype.TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER, beskrivelse: null }])
@@ -260,12 +248,12 @@ const tilbakedateringKreverMerInfo: ScenarioCreator = () => ({
 })
 
 const utgatt: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder({ offset: 7 }).enkelPeriode().status(StatusEvent.UTGATT).build()],
+    sykmeldinger: [new SykmeldingBuilder(7).enkelPeriode().status(StatusEvent.UTGATT).build()],
 })
 
 const avvistData: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .enkelPeriode()
             .status(StatusEvent.APEN)
             .behandlingsutfall(RegelStatus.INVALID, [
@@ -283,7 +271,7 @@ const avvistData: ScenarioCreator = () => ({
 
 const under20Prosent: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .relativePeriode(
                 {
                     type: Periodetype.GRADERT,
@@ -301,12 +289,12 @@ const under20Prosent: ScenarioCreator = () => ({
 })
 
 const egenmeldt: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder({ offset: 7 }).enkelPeriode().status(StatusEvent.APEN).egenmeldt().build()],
+    sykmeldinger: [new SykmeldingBuilder(7).enkelPeriode().status(StatusEvent.APEN).egenmeldt().build()],
 })
 
 const behandlingsdager: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .relativePeriode({ type: Periodetype.BEHANDLINGSDAGER, behandlingsdager: 1 }, { offset: 0, days: 1 })
             .status(StatusEvent.APEN)
             .build(),
@@ -315,7 +303,7 @@ const behandlingsdager: ScenarioCreator = () => ({
 
 const avventene: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .relativePeriode(
                 { type: Periodetype.AVVENTENDE, tilrettelegging: 'Bedre transport til jobb' },
                 { offset: 0, days: 7 },
@@ -328,7 +316,7 @@ const avventene: ScenarioCreator = () => ({
 
 const reisetilskudd: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .relativePeriode({ type: Periodetype.REISETILSKUDD }, { offset: 0, days: 7 })
             .status(StatusEvent.APEN)
             .egenmeldt()
@@ -339,7 +327,7 @@ const reisetilskudd: ScenarioCreator = () => ({
 const harUnderBehandling: ScenarioCreator = () => ({
     sykmeldinger: [
         ...(normal().sykmeldinger ?? []),
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .send()
             .enkelPeriode({ offset: 0, days: 7 })
             .merknader([{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }])
@@ -349,7 +337,7 @@ const harUnderBehandling: ScenarioCreator = () => ({
 
 const harUnderBehandlingUsent: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 7 })
+        new SykmeldingBuilder(7)
             .enkelPeriode({ offset: 0, days: 7 })
             .merknader([{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }])
             .build(),
@@ -358,7 +346,7 @@ const harUnderBehandlingUsent: ScenarioCreator = () => ({
 
 const mangeGamleSykmeldinger: ScenarioCreator = () => {
     const basicSykmelding = (offset: number): SykmeldingBuilder =>
-        new SykmeldingBuilder({ offset: offset }).enkelPeriode({ offset: 0, days: 14 })
+        new SykmeldingBuilder(offset).enkelPeriode({ offset: 0, days: 14 })
 
     return {
         sykmeldinger: [
@@ -382,7 +370,7 @@ const mangeGamleSykmeldinger: ScenarioCreator = () => {
 
 const flerePerioder: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder({ offset: 0 })
+        new SykmeldingBuilder(0)
             .status(StatusEvent.APEN)
             .enkelPeriode({ offset: 0, days: 7 })
             .enkelPeriode({ offset: -7, days: 7 })
@@ -530,11 +518,8 @@ export const e2eScenarios = {
         description: 'En usendt sykmelding kant i kant med en tidligere sykmelding',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -14 }).enkelPeriode({ offset: 0, days: 7 }).send().build(),
-                new SykmeldingBuilder({ offset: -7 })
-                    .enkelPeriode({ offset: 1, days: 7 })
-                    .status(StatusEvent.APEN)
-                    .build(),
+                new SykmeldingBuilder(-14).enkelPeriode({ offset: 0, days: 7 }).send().build(),
+                new SykmeldingBuilder(-7).enkelPeriode({ offset: 1, days: 7 }).status(StatusEvent.APEN).build(),
             ],
         }),
     },
@@ -542,7 +527,7 @@ export const e2eScenarios = {
         description: 'En sendt sykmelding kant i kant med en tidligere sykmelding med AVVENTENDE periode',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -14 })
+                new SykmeldingBuilder(-14)
                     .relativePeriode(
                         {
                             type: Periodetype.AVVENTENDE,
@@ -552,10 +537,7 @@ export const e2eScenarios = {
                     )
                     .send()
                     .build(),
-                new SykmeldingBuilder({ offset: -7 })
-                    .enkelPeriode({ offset: 1, days: 7 })
-                    .status(StatusEvent.APEN)
-                    .build(),
+                new SykmeldingBuilder(-7).enkelPeriode({ offset: 1, days: 7 }).status(StatusEvent.APEN).build(),
             ],
         }),
     },
@@ -563,7 +545,7 @@ export const e2eScenarios = {
         description: 'En sendt sykmelding kant i kant med en tidligere sykmelding med AVVENTENDE periode',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -14 })
+                new SykmeldingBuilder(-14)
                     .relativePeriode(
                         {
                             type: Periodetype.AVVENTENDE,
@@ -573,7 +555,7 @@ export const e2eScenarios = {
                     )
                     .send()
                     .build(),
-                new SykmeldingBuilder({ offset: -7 }).enkelPeriode({ offset: 1, days: 7 }).send().build(),
+                new SykmeldingBuilder(-7).enkelPeriode({ offset: 1, days: 7 }).send().build(),
             ],
         }),
     },
@@ -581,7 +563,7 @@ export const e2eScenarios = {
         description: 'En sendte sykmelding kant i kant med en tidligere sykmelding med gradert periode',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -14 })
+                new SykmeldingBuilder(-14)
                     .relativePeriode(
                         {
                             type: Periodetype.GRADERT,
@@ -591,7 +573,7 @@ export const e2eScenarios = {
                     )
                     .send()
                     .build(),
-                new SykmeldingBuilder({ offset: -7 }).enkelPeriode({ offset: 1, days: 7 }).send().build(),
+                new SykmeldingBuilder(-7).enkelPeriode({ offset: 1, days: 7 }).send().build(),
             ],
         }),
     },
@@ -599,11 +581,7 @@ export const e2eScenarios = {
         description: 'En sykmelding som ble sendt inn før vi lagret brukersvar i databasen',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -14 })
-                    .enkelPeriode({ offset: 0, days: 7 })
-                    .send()
-                    .noBrukerSvar()
-                    .build(),
+                new SykmeldingBuilder(-14).enkelPeriode({ offset: 0, days: 7 }).send().noBrukerSvar().build(),
             ],
         }),
     },
@@ -611,7 +589,7 @@ export const e2eScenarios = {
         description: 'En sendt og en bekreftet',
         scenario: () => ({
             sykmeldinger: [
-                new SykmeldingBuilder({ offset: -45 })
+                new SykmeldingBuilder(-45)
                     .send()
                     .relativePeriode(
                         {
@@ -622,7 +600,7 @@ export const e2eScenarios = {
                         { offset: 0, days: 14 },
                     )
                     .build(),
-                new SykmeldingBuilder({ offset: -14 }).bekreft().enkelPeriode({ offset: 0, days: 12 }).build(),
+                new SykmeldingBuilder(-14).bekreft().enkelPeriode({ offset: 0, days: 12 }).build(),
             ],
         }),
     },

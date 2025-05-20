@@ -2,6 +2,7 @@ import { Godkjenning, Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
 import { tekst } from '../../utils/tekster'
+import { testDato } from '../../data/mock/mock-db/data-creators'
 
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
@@ -10,7 +11,7 @@ const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (
     oppfolgingsdialog: Oppfolgingsplan,
     sykmeldinger: TsmSykmelding[],
 ) => {
-    const dagensDato = new Date()
+    const dagensDato = testDato
     return (
         sykmeldinger.filter((sykmelding) => {
             return (

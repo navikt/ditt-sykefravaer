@@ -11,6 +11,7 @@ import {
     velgArbeidstaker,
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 export function selectEgenmeldingsdager({
     daysToSelect,
@@ -82,14 +83,14 @@ export function selectEgenmeldingsdager({
 
 test.describe.skip('Egenmeldingsdager', () => {
     test.describe('Arbeidstaker', () => {
-        test('should be able to submit form with one period of egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med en periode med egenmelding', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expect(page).toHaveNoViolations()
@@ -116,13 +117,13 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test('should be able to submit form with two periods of egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med to perioder med egenmelding', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
             await selectEgenmeldingsdager({
                 daysToSelect: [[13, 12], [2, 3], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expect(page).toHaveNoViolations()
@@ -149,14 +150,16 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test('should be able to submit form after editing previous period with egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding etter å redigere forride periode med egenmeldingsdager', async ({
+            page,
+        }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], [1, 2], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             // Edit the second period to be no instead of 2 dates
@@ -188,7 +191,7 @@ test.describe.skip('Egenmeldingsdager', () => {
             })(page)
         })
 
-        test.describe('limiting to 16 egenmeldingsdager', () => {
+        test.describe('begrenser til 16 egenmeldingsdager', () => {
             const pickArbeidsgiverAndBoss = async (page: Page): Promise<void> => {
                 await gotoScenario('kunNy')(page)
                 await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
@@ -223,31 +226,31 @@ test.describe.skip('Egenmeldingsdager', () => {
                 })(page)
             }
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager on a single period', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager i en enkelt periode', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15], ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager over two periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager over to perioder', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], [2], ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager over multiple periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager over flere perioder', async ({
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
@@ -261,13 +264,13 @@ test.describe.skip('Egenmeldingsdager', () => {
                         [3, 5, 7, 9],
                         ExpectMeta.NotInDom,
                     ],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
             })
 
-            test('should be warned and allowed to submit when selecting 16 egenmeldingsdager 16 single day periods', async ({
+            test('burde få advarsel, men kunne sende inn sykmelding når man velger 16 egenmeldingsdager i 16 enkeldager-perioder', async ({
                 page,
             }) => {
                 await gotoScenario('kunNy')(page)
@@ -275,7 +278,7 @@ test.describe.skip('Egenmeldingsdager', () => {
                 await bekreftNarmesteleder('Station Officer Steele')(page)
                 await selectEgenmeldingsdager({
                     daysToSelect: [...R.range(0, 16).map(() => [0]), ExpectMeta.NotInDom],
-                    initialDate: sub(new Date(), { days: 9 }),
+                    initialDate: sub(testDato, { days: 9 }),
                 })(page)
 
                 await expect16EgenmeldingsdagerAndEverythingGood(page)
@@ -283,7 +286,7 @@ test.describe.skip('Egenmeldingsdager', () => {
         })
     })
     test.describe('Fisker', () => {
-        test('should be able to submit form with egenmeldingsdager', async ({ page }) => {
+        test('burde kunne sende inn sykmelding med egenmeldingsdager', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Hyre')(page)
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
@@ -291,7 +294,7 @@ test.describe.skip('Egenmeldingsdager', () => {
 
             await selectEgenmeldingsdager({
                 daysToSelect: [[14, 13], 'Nei'],
-                initialDate: sub(new Date(), { days: 9 }),
+                initialDate: sub(testDato, { days: 9 }),
             })(page)
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)

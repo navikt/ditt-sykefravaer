@@ -14,9 +14,10 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Arbeidsledig', () => {
-    test('should be able to submit form with work situation arbeidsledig, without arbeidsgiver', async ({ page }) => {
+    test('burde kunne sende inn skjema med arbeidssituasjon arbeidsledig, uten arbeidsgiver', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal', { antallArbeidsgivere: 0 }),
             navigateToFirstSykmelding('nye', '100%'),
@@ -37,7 +38,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         })(page)
     })
 
-    test('should not send egenmeldingsdager and stuff when first filled out as arbeidsgiver, then changes back to arbeidsledig', async ({
+    test('skal ikke sende egenmeldingsdager og slikt når først fylt ut som arbeidsgiver, deretter endrer tilbake til arbeidsledig', async ({
         page,
     }) => {
         await userInteractionsGroup(
@@ -55,11 +56,10 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .getByRole('radio', { name: /Ja/ })
             .click()
 
-        const today = new Date()
-        const sixteenDaysAgo = sub(today, { days: 16 })
+        const sixteenDaysAgo = sub(testDato, { days: 16 })
 
         await page
-            .getByRole('button', { name: format(today, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
+            .getByRole('button', { name: format(testDato, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
             .click()
         await page.getByRole('button', { name: /Videre/ }).click()
         await page
@@ -72,7 +72,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .getByRole('radio', { name: /Nei/ })
             .click()
 
-        // Change to arbeidsledig
+        // Endre til arbeidsledig
         await page
             .getByRole('group', { name: /Jeg er sykmeldt som/i })
             .getByRole('radio', { name: /arbeidsledig/ })
@@ -94,7 +94,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         })(page)
     })
 
-    test('should be able to submit form with work situation arbeidsledig, with arbeidsgiver', async ({ page }) => {
+    test('skal kunne sende inn skjema med arbeidssituasjon arbeidsledig, med arbeidsgiver', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal', { antallArbeidsgivere: 2 }),
             navigateToFirstSykmelding('nye', '100%'),
@@ -118,7 +118,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         })(page)
     })
 
-    test('should be able to submit form with work situation arbeidsledig, when arbeidsgiver is "Ikke relevant"', async ({
+    test('skal kunne sende inn skjema med arbeidssituasjon arbeidsledig, når arbeidsgiver er "Ikke relevant"', async ({
         page,
     }) => {
         await userInteractionsGroup(

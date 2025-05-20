@@ -3,9 +3,10 @@ import { subDays } from 'date-fns'
 
 import { toReadableDate } from '../../src/utils/dateUtils'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
+import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Bekreft avvist sykmelding som lest', () => {
-    test('should display reason for rejection', async ({ page }) => {
+    test('burde vise begrunnelse for avvist sykmelding', async ({ page }) => {
         await gotoScenario('avvist')(page)
 
         await page
@@ -17,13 +18,13 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
         await expect(page).toHaveNoViolations()
     })
 
-    test.describe('tests that toggle', () => {
+    test.describe('tester sjekkbokser', () => {
         test.beforeEach(async ({ page }) => {
             // The axe check sometimes checks for contrast mid-animation, which fails
             await page.emulateMedia({ reducedMotion: 'reduce' })
         })
 
-        test('should get error message when trying to submit without checking checkbox', async ({ page }) => {
+        test('burde vise feilmelding når man prøver å sende inn uten å huke av i sjekkboksen', async ({ page }) => {
             await gotoScenario('avvist')(page)
 
             await page
@@ -43,7 +44,8 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
             await expect(page).toHaveNoViolations()
         })
 
-        test('should remove error message after clicking checkbox', async ({ page }) => {
+        test('skal fjerne feilmelding etter at man klikker på avkrysningsboksen', async ({ page }) => {
+            await gotoScenario('avvist')(page)
             await gotoScenario('avvist')(page)
 
             await page
@@ -79,7 +81,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
             await expect(page).toHaveNoViolations()
         })
 
-        test('should show confirmation after submitting', async ({ page }) => {
+        test('Burde vise bekreftelse etter innsending', async ({ page }) => {
             await gotoScenario('avvist')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
 
@@ -95,9 +97,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
             await expect(
                 page.getByText(
-                    `Du bekreftet at du har lest at sykmeldingen er avvist den ${toReadableDate(
-                        subDays(new Date(), 7),
-                    )}`,
+                    `Du bekreftet at du har lest at sykmeldingen er avvist den ${toReadableDate(subDays(testDato, 7))}`,
                 ),
             ).toBeVisible()
 

@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
 import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { testDato } from '../data/mock/mock-db/data-creators'
 
 import { dateAdd, dateSub } from './dateUtils'
 import { createSykmelding, createUnderBehandlingMerknad } from './test/dataUtils'
@@ -10,9 +11,9 @@ import { findOlderSykmeldingId } from './findOlderSykmeldingId'
 describe('findOlderSykmeldingId', () => {
     it('should find the earlier sykmelding when there is one APEN before', async () => {
         const sykmeldinger = [
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateAdd(testDato, { days: 15 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[1], sykmeldinger)
@@ -22,10 +23,10 @@ describe('findOlderSykmeldingId', () => {
 
     it('should find the earlier sykmelding but disregard the sykmelding that is older than 12 months', async () => {
         const sykmeldinger = [
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { months: 12, days: 16 }), id: 'SYKME-0' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { months: 12, days: 16 }), id: 'SYKME-0' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateAdd(testDato, { days: 15 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[2], sykmeldinger)
@@ -35,13 +36,10 @@ describe('findOlderSykmeldingId', () => {
 
     it('should find the earlier sykmelding but disregard the sykmelding that does not have APEN status', async () => {
         const sykmeldinger = [
-            createSykmelding(
-                { mottattTidspunkt: dateSub(new Date(), { days: 40 }), id: 'SYKME-0' },
-                StatusEvent.AVBRUTT,
-            ),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 40 }), id: 'SYKME-0' }, StatusEvent.AVBRUTT),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateAdd(testDato, { days: 15 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[2], sykmeldinger)
@@ -52,9 +50,9 @@ describe('findOlderSykmeldingId', () => {
     it('should find the earliest sykmelding', async () => {
         const sykmeldinger = [
             // 2 dager siden
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'this-sykmelding' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'this-sykmelding' }),
             // 30 dager siden
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'previous-sykmelding' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'previous-sykmelding' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[0], sykmeldinger)
@@ -64,13 +62,13 @@ describe('findOlderSykmeldingId', () => {
     it('should find the earlier sykmelding but disregard the sykmelding that is APEN but UNDER_BEHANDLING', async () => {
         const sykmeldinger = [
             createSykmelding({
-                mottattTidspunkt: formatISO(sub(new Date(), { days: 366 })),
+                mottattTidspunkt: formatISO(sub(testDato, { days: 366 })),
                 id: 'SYKME-0',
                 ...createUnderBehandlingMerknad(),
             }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateAdd(new Date(), { days: 15 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateAdd(testDato, { days: 15 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[2], sykmeldinger)
@@ -79,9 +77,9 @@ describe('findOlderSykmeldingId', () => {
 
     it('should handle being the first sykmelding', async () => {
         const sykmeldinger = [
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 15 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 2 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 15 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 2 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[0], sykmeldinger)
@@ -90,8 +88,8 @@ describe('findOlderSykmeldingId', () => {
 
     it('should allow two sykmeldinger with the exact same period', async () => {
         const sykmeldinger = [
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 7 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 7 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 7 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 7 }), id: 'SYKME-2' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[1], sykmeldinger)
@@ -100,9 +98,9 @@ describe('findOlderSykmeldingId', () => {
 
     it('should still work when the two first sykmeldinger has same date but the provided sykmelding is later', async () => {
         const sykmeldinger = [
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-1' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 30 }), id: 'SYKME-2' }),
-            createSykmelding({ mottattTidspunkt: dateSub(new Date(), { days: 7 }), id: 'SYKME-3' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-1' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 30 }), id: 'SYKME-2' }),
+            createSykmelding({ mottattTidspunkt: dateSub(testDato, { days: 7 }), id: 'SYKME-3' }),
         ]
 
         const result = findOlderSykmeldingId(sykmeldinger[2], sykmeldinger)
@@ -127,8 +125,8 @@ describe('findOlderSykmeldingId', () => {
             ],
         })
 
-        const newest = createSingle10PeriodApen(dateSub(new Date(), { days: 1 }), 'SYKME-1')
-        const oldest = createSingle10PeriodApen(dateSub(new Date(), { days: 7 }), 'SYKME-2')
+        const newest = createSingle10PeriodApen(dateSub(testDato, { days: 1 }), 'SYKME-1')
+        const oldest = createSingle10PeriodApen(dateSub(testDato, { days: 7 }), 'SYKME-2')
 
         it('newest should point to oldest', async () => {
             const result = findOlderSykmeldingId(newest, [newest, oldest])
