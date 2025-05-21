@@ -3,6 +3,7 @@ import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
+import { log } from 'node:console'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -17,6 +18,10 @@ const tillatteApier = [
 ]
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
+
+    if (req.url?.includes('api/v1/sykmeldinger/') && req.url?.includes('send')) {
+        log("send body" + req.body)
+    }
     await proxyKallTilBackend({
         req,
         res,
