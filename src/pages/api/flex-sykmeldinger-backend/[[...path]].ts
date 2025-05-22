@@ -1,4 +1,3 @@
-
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
@@ -164,7 +163,7 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
 
         if (uuid) {
             logger.info('1')
-            console.log(req.query.path[3])
+            logger.info(req.query.path[3])
             const sykmeldingen = await getSykmelding(uuid, req)
             logger.info('2')
             const brukerinformasjon = await getBrukerinformasjonById(uuid, req)
