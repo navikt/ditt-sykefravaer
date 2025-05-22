@@ -1,3 +1,5 @@
+import { send } from 'process'
+
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
@@ -12,7 +14,6 @@ import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
-import { send } from 'process'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -82,7 +83,8 @@ function forwardRequestHeaders(req: NextApiRequest): HeadersInit {
 }
 
 export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]> {
-    const res = await fetchMedRequestId('http://flex-sykmeldinger-backend/api/v1/sykmeldinger/', {  // '/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger', {
+    const res = await fetchMedRequestId('http://flex-sykmeldinger-backend/api/v1/sykmeldinger/', {
+        // '/syk/sykefravaer/api/ditt-sykefravaer-backend/api/v1/sykmeldinger', {
         method: 'GET',
         credentials: 'include',
         headers: forwardRequestHeaders(req),
@@ -91,14 +93,11 @@ export async function getSykmeldinger(req: NextApiRequest): Promise<Sykmelding[]
 }
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest): Promise<Sykmelding> {
-    const res = await fetchMedRequestId(
-        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}`,
-        {
-            method: 'GET',
-            credentials: 'include',
-            headers: forwardRequestHeaders(req),
-        },
-    )
+    const res = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: forwardRequestHeaders(req),
+    })
     return res.response.json()
 }
 
@@ -118,11 +117,14 @@ export async function getErUtenforVentetidResponse(
     sykmeldingId: string,
     req: NextApiRequest,
 ): Promise<ErUtenforVentetid> {
-    const res = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`, {
-        method: 'GET',
-        credentials: 'include',
-        headers: forwardRequestHeaders(req),
-    })
+    const res = await fetchMedRequestId(
+        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
+        {
+            method: 'GET',
+            credentials: 'include',
+            headers: forwardRequestHeaders(req),
+        },
+    )
     return res.response.json()
 }
 
@@ -131,71 +133,64 @@ export async function sendSykmelding(
     sendSykmeldingValuesPostMapping: SykmeldingUserEventV3Api,
     req: NextApiRequest,
 ): Promise<SykmeldingUserEventV3Api> {
-    const res = await fetchMedRequestId(
-        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
-        {
-            method: 'POST',
-            credentials: 'include',
-            headers: forwardRequestHeaders(req),
-            body: JSON.stringify(sendSykmeldingValuesPostMapping),
-        },
-    )
+    const res = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/send`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: forwardRequestHeaders(req),
+        body: JSON.stringify(sendSykmeldingValuesPostMapping),
+    })
     return res.response.json()
 }
 
-
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send')) {
-            const url = req.url ?? ''
+        const url = req.url ?? ''
 
-             if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
+        if (url.includes('/api/v1/sykmeldinger/') && url.includes('/send')) {
             sendSykmeldingHandler(req, res)
         }
-    }
-    else {  
-
+    } else {
         handlerOld(req, res)
     }
-}       
-
+}
 
 const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-   logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
-        logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
+    logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
+    logger.info(`Handling send sykmelding request første filter url is: ${req.url}`)
 
-        if (req.query.path && Array.isArray(req.query.path) && req.query.path.length > 2) {
-            logger.info('Handling send sykmelding request andre')
-            const pathSegments = req.query.path as string[]
-            const uuid = pathSegments?.[3] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
+    if (req.query.path && Array.isArray(req.query.path) && req.query.path.length > 2) {
+        logger.info('Handling send sykmelding request andre')
+        const pathSegments = req.query.path as string[]
+        const uuid = pathSegments?.[3] // Index 2 would be the UUID in /api/v1/sykmeldinger/[uuid]/send
 
-            if (uuid) {
-                console.log('1')
-                console.log(req.query.path[3])
-                const sykmeldingen = await getSykmelding(uuid, req)
-                console.log('2')
-                const brukerinformasjon = await getBrukerinformasjonById(uuid, req)
-                console.log('3')
-                const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req)
-                const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
+        if (uuid) {
+            logger.info('1')
+            console.log(req.query.path[3])
+            const sykmeldingen = await getSykmelding(uuid, req)
+            logger.info('2')
+            const brukerinformasjon = await getBrukerinformasjonById(uuid, req)
+            logger.info('3')
+            const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req)
+            const sendSykmeldingValues: SendSykmeldingValues = req.body as SendSykmeldingValues
 
-                const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
-                    sendSykmeldingValues,
-                    sykmeldingen,
-                    brukerinformasjon,
-                    erUtenforVentetid,
-                )
-                logger.info(`SendSykmeldingValues: ${JSON.stringify(sendSykmeldingValues)}`)
-                logger.info(`SendSykmeldingValuesPostMapping: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`)
+            const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
+                sendSykmeldingValues,
+                sykmeldingen,
+                brukerinformasjon,
+                erUtenforVentetid,
+            )
+            logger.info(`SendSykmeldingValues: ${JSON.stringify(sendSykmeldingValues)}`)
+            logger.info(`SendSykmeldingValuesPostMapping: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`)
 
-                const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
-                logger.info(`success: SendSykmeldingResponse: ${JSON.stringify(sendSykmeldingResponse)}`)
+            const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
+            logger.info(`success: SendSykmeldingResponse: ${JSON.stringify(sendSykmeldingResponse)}`)
 
-                return res.status(200).json(sendSykmeldingResponse)
-            } else {
-                logger.error(`UUID not found in path segments: ${JSON.stringify(req.query.path)}`)
-                return res.status(400).json({ error: 'UUID not found in path segments' })
-            }
-              return res.status(402).json({
+            return res.status(200).json(sendSykmeldingResponse)
+        } else {
+            logger.error(`UUID not found in path segments: ${JSON.stringify(req.query.path)}`)
+            return res.status(400).json({ error: 'UUID not found in path segments' })
+        }
+        return res.status(402).json({
             message: 'hello from the send thing',
         })
     }
@@ -212,7 +207,6 @@ const handlerOld = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse
         https: false,
     })
 })
-
 
 export const config = {
     api: {
