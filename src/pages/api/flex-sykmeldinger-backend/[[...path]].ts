@@ -180,6 +180,8 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
             logger.info(`SendSykmeldingValues: ${JSON.stringify(sendSykmeldingValues)}`)
             logger.info(`SendSykmeldingValuesPostMapping: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`)
 
+            return res.status(200).json(sendSykmeldingValuesPostMapping)
+
             const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req)
             logger.info(`success: SendSykmeldingResponse: ${JSON.stringify(sendSykmeldingResponse)}`)
 
