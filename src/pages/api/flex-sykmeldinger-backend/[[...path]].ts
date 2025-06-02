@@ -277,7 +277,9 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
                 brukerinformasjon,
                 erUtenforVentetid,
             )
-            logger.info(`Mapped SendSykmeldingValuesPostMapping for ${uuid}: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`)
+            logger.info(
+                `Mapped SendSykmeldingValuesPostMapping for ${uuid}: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`,
+            )
 
             const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req, oboToken)
             logger.info(`Successfully sent sykmelding ${uuid}: ${JSON.stringify(sendSykmeldingResponse)}`)
