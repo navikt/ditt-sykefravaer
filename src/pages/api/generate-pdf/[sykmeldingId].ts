@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next'
 import { logger } from '@navikt/next-logger'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
-import { handlePdfError, sendPdfResponse } from '../../../utils/pdf-utils'
+import sendSykmeldingPdf from '../../../server/pdf/sykmeldingPdf'
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const sykmeldingId = req.query.sykmeldingId
@@ -16,11 +16,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         return res.status(405).json({ error: 'Method Not Allowed' })
     }
 
-    try {
-        await sendPdfResponse(req, res)
-    } catch (error) {
-        handlePdfError(res, sykmeldingId, error)
-    }
+    await sendSykmeldingPdf(req, res)
 })
 
 export default handler

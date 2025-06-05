@@ -28,16 +28,7 @@ export class ApiError extends Error {
     }
 }
 
-export const generateSykmeldingPdfServerSide = async (req: NextApiRequest): Promise<Buffer> => {
-    const sykmeldingId = req.query.sykmeldingId as string | undefined
-
-    if (!sykmeldingId || sykmeldingId.trim() === '') {
-        logger.error(
-            `sykmeldingId not found or invalid in generateSykmeldingPdfServerSide. URL: ${req.url}, Query: ${JSON.stringify(req.query)}`,
-        )
-        throw new ApiError(400, 'Invalid request: sykmeldingId missing or not a string.')
-    }
-
+export const generateSykmeldingPdfServerSide = async (req: NextApiRequest, sykmeldingId: string): Promise<Buffer> => {
     let oboToken: string | undefined
     let sykmelding: Sykmelding
 
