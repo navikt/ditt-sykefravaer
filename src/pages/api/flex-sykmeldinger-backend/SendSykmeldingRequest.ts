@@ -1,4 +1,3 @@
-
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
@@ -259,4 +258,3 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
         return res.status(400).json({ error: 'Invalid request path or UUID missing' })
     }
 }
-

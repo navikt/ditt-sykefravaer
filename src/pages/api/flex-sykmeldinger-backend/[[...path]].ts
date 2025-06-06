@@ -1,9 +1,10 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
 
-import { sendSykmeldingHandler } from './SendSykmeldingRequest'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
+
+import { sendSykmeldingHandler } from './SendSykmeldingRequest'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -16,7 +17,6 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/brukerinformasjon',
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
-
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const currentUrl = req.url || ''
