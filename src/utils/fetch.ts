@@ -44,7 +44,9 @@ export const fetchMedRequestId = async (
     const response = await fetchUrl()
 
     if (response.status == 401) {
-        window.location.reload()
+        if (typeof window !== 'undefined') {
+            window.location.reload()
+        }
         throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
     }
 
