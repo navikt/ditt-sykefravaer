@@ -26,8 +26,6 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
 
-
-
 function createBackendHeaders(
     req: NextApiRequest,
     oboToken: string,
@@ -276,7 +274,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
             backend: 'flex-sykmeldinger-backend',
             hostname: 'flex-sykmeldinger-backend',
             backendClientId: serverRuntimeConfig.flexSykmeldingerBackendClientId,
-            https: false, 
+            https: false,
         })
     }
 })

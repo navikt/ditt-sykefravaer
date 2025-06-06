@@ -1,4 +1,4 @@
-import { logger } from '@navikt/next-logger';
+import { logger } from '@navikt/next-logger'
 import { v4 as uuidv4 } from 'uuid'
 
 export type FetchResult = { requestId: string; response: Response }
@@ -44,14 +44,16 @@ export const fetchMedRequestId = async (
 
     const response = await fetchUrl()
 
-if (response.status == 401) {
-    if (typeof window !== 'undefined') {
-        window.location.reload();
-    } else {
-        logger.error('Feil: Forsøkte å laste siden på backend (window.location.reload()). Denne koden skal kun kjøres clientside.');
+    if (response.status == 401) {
+        if (typeof window !== 'undefined') {
+            window.location.reload()
+        } else {
+            logger.error(
+                'Feil: Forsøkte å laste siden på backend (window.location.reload()). Denne koden skal kun kjøres clientside.',
+            )
+        }
+        throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
     }
-    throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.');
-}
 
     if (!response.ok) {
         const defaultErrorHandler = () => {
