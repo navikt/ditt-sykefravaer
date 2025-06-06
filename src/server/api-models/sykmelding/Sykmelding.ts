@@ -58,7 +58,7 @@ export interface Sykmelding {
     andreTiltak: string | null
     meldingTilNAV: MeldingTilNAV | null
     meldingTilArbeidsgiver: string | null
-    kontaktMedPasient: KontaktMedPasient
+    kontaktMedPasient: KontaktMedPasient | null
     behandletTidspunkt: LocalDate
     behandler: Behandler
     egenmeldt: boolean | null
