@@ -49,7 +49,7 @@ export const fetchMedRequestId = async (
             window.location.reload()
         } else {
             logger.error(
-                'Feil: Forsøkte å laste siden på backend (window.location.reload()). Denne koden skal kun kjøres clientside.',
+                'Feil: Forsøkte å bruke en fetch funksjon ment for clientside på backend.',
             )
         }
         throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
