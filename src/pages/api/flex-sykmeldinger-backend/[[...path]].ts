@@ -26,47 +26,8 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
 
-// todo remove me
 
-/*
 
-import { SendSykmeldingValues } from '../fetching/graphql.generated'
-import { SykmeldingUserEventV3Api } from './api-models/SendSykmelding'
-import { Brukerinformasjon } from './api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
-import { Sykmelding } from './api-models/sykmelding/Sykmelding'
-
-export function mapSendSykmeldingValuesToV3Api(
-    values: SendSykmeldingValues,
-    sykmelding: Sykmelding,
-    brukerinformasjon: Brukerinformasjon,
-    erUtenforVentetid: ErUtenforVentetid, api endepunkt som returnerer dette: 
-    
-    data class ErUtenforVentetidResponse(
-    val erUtenforVentetid: Boolean,
-    val oppfolgingsdato: LocalDate?,    
-)
-
-)
-
-input SendSykmeldingValues {
-    erOpplysningeneRiktige: YesOrNo
-    uriktigeOpplysninger: [UriktigeOpplysningerType!]
-    arbeidssituasjon: ArbeidssituasjonType
-    arbeidsgiverOrgnummer: String
-    riktigNarmesteLeder: YesOrNo
-    harBruktEgenmelding: YesOrNo
-    egenmeldingsperioder: [DateRange!]
-    harForsikring: YesOrNo
-    egenmeldingsdager: [Date!]
-    harEgenmeldingsdager: YesOrNo
-    fisker: FiskerInput
-    arbeidsledig: ArbeidsledigInput
-}
-
-*/
-
-// Helper function to create backend headers with OBO token and trace headers
 function createBackendHeaders(
     req: NextApiRequest,
     oboToken: string,
@@ -92,7 +53,6 @@ function createBackendHeaders(
 }
 
 export async function getSykmeldinger(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-    logger.info('Fetching sykmeldinger via proxy')
     await proxyKallTilBackend({
         req,
         res,
@@ -105,13 +65,11 @@ export async function getSykmeldinger(req: NextApiRequest, res: NextApiResponse)
 }
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
-    logger.info(`Fetching sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
         headers: backendHeaders,
     })
-    logger.info(`Response from sykmelding: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorText = await result.response.text()
         throw new Error(
@@ -126,7 +84,6 @@ export async function getBrukerinformasjonById(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<Brukerinformasjon> {
-    logger.info(`Fetching brukerinformasjon for sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
         `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
@@ -135,7 +92,6 @@ export async function getBrukerinformasjonById(
             headers: backendHeaders,
         },
     )
-    logger.info(`Response from brukerinformasjon: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorText = await result.response.text()
         throw new Error(
@@ -153,7 +109,6 @@ export async function getErUtenforVentetidResponse(
     logger.info(`Fetching erUtenforVentetid for sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
-        // Ensuring this endpoint matches the function's purpose
         `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
         {
             method: 'GET',
@@ -176,8 +131,7 @@ export async function sendSykmelding(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<SykmeldingUserEventV3Api> {
-    logger.info(`Sending sykmelding with ID: ${sykmeldingId}`)
-    const backendHeaders = createBackendHeaders(req, oboToken, true) // true for JSON payload
+    const backendHeaders = createBackendHeaders(req, oboToken, true)
     const result = await fetchMedRequestId(
         `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
         {
@@ -199,7 +153,6 @@ export async function sendSykmelding(
     return result.response.json()
 }
 
-// Helper function to parse JSON body when bodyParser is false
 async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     return new Promise((resolve, reject) => {
         let data = ''
