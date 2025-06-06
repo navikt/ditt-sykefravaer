@@ -1,16 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
-import { logger } from '@navikt/next-logger'
-import { requestOboToken } from '@navikt/oasis'
 
-import { SendSykmeldingValues } from 'src/fetching/graphql.generated'
-import { SykmeldingUserEventV3Api } from 'src/server/api-models/SendSykmelding'
-import { Brukerinformasjon } from 'src/server/api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from 'src/server/api-models/ErUtenforVentetid'
-import { Sykmelding } from 'src/server/api-models/sykmelding/Sykmelding'
-import { fetchMedRequestId } from 'src/utils/fetch' // Assuming fetchMedRequestId returns { response: Response, ... }
-import { mapSendSykmeldingValuesToV3Api } from 'src/server/sendSykmeldingMapping'
-
+import { sendSykmeldingHandler } from './SendSykmeldingRequest'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 

@@ -1,4 +1,29 @@
 
+import { NextApiRequest, NextApiResponse } from 'next'
+import getConfig from 'next/config'
+import { logger } from '@navikt/next-logger'
+import { requestOboToken } from '@navikt/oasis'
+
+import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
+import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
+import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
+import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
+import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { fetchMedRequestId } from '../../../utils/fetch'
+import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
+import { proxyKallTilBackend } from '../../../proxy/backendproxy'
+
+const { serverRuntimeConfig } = getConfig()
+const tillatteApier = [
+    'GET /api/v1/sykmeldinger',
+    'GET /api/v1/sykmeldinger/[uuid]',
+    'POST /api/v1/sykmeldinger/[uuid]/send',
+    'POST /api/v1/sykmeldinger/[uuid]/change-status',
+    'GET /api/v1/sykmeldinger/[uuid]/er-utenfor-ventetid',
+    'GET /api/v1/sykmeldinger/[uuid]/brukerinformasjon',
+    'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
+]
+
 function createBackendHeaders(
     req: NextApiRequest,
     oboToken: string,
@@ -145,7 +170,7 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     logger.info(`Handling send sykmelding request: ${req.url}`)
 
     // req.query.path is typically an array of path segments for dynamic routes like /api/[...path].ts
@@ -234,3 +259,4 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
         return res.status(400).json({ error: 'Invalid request path or UUID missing' })
     }
 }
+
