@@ -20,7 +20,7 @@ const tillatteApier = [
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const currentUrl = req.url || ''
-    if (currentUrl.includes('/api/v1/sykmeldinger/') && currentUrl.includes('/send')) {
+    if (currentUrl.includes('/api/v1/sykmeldinger/') && currentUrl.endsWith('/send')) {
         await sendSykmeldingHandler(req, res)
     } else {
         await proxyKallTilBackend({
@@ -37,7 +37,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
 
 export const config = {
     api: {
-        bodyParser: false, // Manual parsing is implemented in sendSykmeldingHandler
+        bodyParser: false,
         externalResolver: true,
     },
 }
