@@ -265,7 +265,6 @@ const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) 
 }
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
-    // Ensure req.url is defined before using .includes
     const currentUrl = req.url || ''
     if (currentUrl.includes('/api/v1/sykmeldinger/') && currentUrl.includes('/send')) {
         await sendSykmeldingHandler(req, res)
@@ -277,7 +276,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
             backend: 'flex-sykmeldinger-backend',
             hostname: 'flex-sykmeldinger-backend',
             backendClientId: serverRuntimeConfig.flexSykmeldingerBackendClientId,
-            https: false, // Assuming HTTP for internal cluster communication
+            https: false, 
         })
     }
 })
@@ -290,41 +289,3 @@ export const config = {
 }
 
 export default handler
-
-/*
-
-import { logger } from '@navikt/next-logger'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { validateIdportenToken } from '@navikt/oasis'
-
-import { isMockBackend } from '../utils/environment'
-import { mockApi } from '../data/mock/mock-api'
-
-type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>
-
-export function beskyttetApi(handler: ApiHandler): ApiHandler {
-    return async function withBearerTokenHandler(req, res) {
-        function send401() {
-            res.status(401).json({ message: 'Access denied' })
-        }
-
-        if (isMockBackend() && !(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
-            return mockApi(req, res)
-        }
-
-        const bearerToken: string | null | undefined = req.headers['authorization']
-        if (!bearerToken) {
-            return send401()
-        }
-        const result = await validateIdportenToken(bearerToken)
-        if (!result.ok) {
-            logger.warn('kunne ikke validere idportentoken i beskyttetApi')
-            return send401()
-        }
-
-        return handler(req, res)
-    }
-}
-
-
-*/
