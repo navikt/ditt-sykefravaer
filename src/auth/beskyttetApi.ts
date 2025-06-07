@@ -18,6 +18,7 @@ export function beskyttetApi(handler: ApiHandler): ApiHandler {
         }
 
         const bearerToken: string | null | undefined = req.headers['authorization']
+
         if (!bearerToken) {
             return send401()
         }

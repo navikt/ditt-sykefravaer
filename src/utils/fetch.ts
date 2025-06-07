@@ -1,3 +1,4 @@
+import { logger } from '@navikt/next-logger'
 import { v4 as uuidv4 } from 'uuid'
 
 export type FetchResult = { requestId: string; response: Response }
@@ -44,7 +45,11 @@ export const fetchMedRequestId = async (
     const response = await fetchUrl()
 
     if (response.status == 401) {
-        window.location.reload()
+        if (typeof window !== 'undefined') {
+            window.location.reload()
+        } else {
+            logger.error('Feil: Forsøkte å bruke en fetch funksjon ment for clientside på backend.')
+        }
         throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
     }
 
