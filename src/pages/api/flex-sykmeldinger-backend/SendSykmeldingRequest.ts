@@ -10,18 +10,8 @@ import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
-import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 
 const { serverRuntimeConfig } = getConfig()
-const tillatteApier = [
-    'GET /api/v1/sykmeldinger',
-    'GET /api/v1/sykmeldinger/[uuid]',
-    'POST /api/v1/sykmeldinger/[uuid]/send',
-    'POST /api/v1/sykmeldinger/[uuid]/change-status',
-    'GET /api/v1/sykmeldinger/[uuid]/er-utenfor-ventetid',
-    'GET /api/v1/sykmeldinger/[uuid]/brukerinformasjon',
-    'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
-]
 
 function createBackendHeaders(
     req: NextApiRequest,
@@ -46,8 +36,6 @@ function createBackendHeaders(
     }
     return headers
 }
-
-
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
