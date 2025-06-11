@@ -58,13 +58,10 @@ export async function getBrukerinformasjonById(
     oboToken: string,
 ): Promise<Brukerinformasjon> {
     const backendHeaders = createBackendHeaders(req, oboToken)
-    const result = await fetchMedRequestId(
-        `/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
-        {
-            method: 'GET',
-            headers: backendHeaders,
-        },
-    )
+    const result = await fetchMedRequestId(`/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`, {
+        method: 'GET',
+        headers: backendHeaders,
+    })
     if (!result.response.ok) {
         const errorText = await result.response.text()
         throw new Error(
@@ -81,13 +78,10 @@ export async function getErUtenforVentetidResponse(
 ): Promise<ErUtenforVentetid> {
     logger.info(`Fetching erUtenforVentetid for sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
-    const result = await fetchMedRequestId(
-        `/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
-        {
-            method: 'GET',
-            headers: backendHeaders,
-        },
-    )
+    const result = await fetchMedRequestId(`/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`, {
+        method: 'GET',
+        headers: backendHeaders,
+    })
     logger.info(`Response from erUtenforVentetid: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorText = await result.response.text()
@@ -105,14 +99,11 @@ export async function sendSykmelding(
     oboToken: string,
 ): Promise<SykmeldingUserEventV3Api> {
     const backendHeaders = createBackendHeaders(req, oboToken, true)
-    const result = await fetchMedRequestId(
-        `/api/v1/sykmeldinger/${sykmeldingId}/send`,
-        {
-            method: 'POST',
-            headers: backendHeaders,
-            body: JSON.stringify(sendSykmeldingValuesPostMapping),
-        },
-    )
+    const result = await fetchMedRequestId(`/api/v1/sykmeldinger/${sykmeldingId}/send`, {
+        method: 'POST',
+        headers: backendHeaders,
+        body: JSON.stringify(sendSykmeldingValuesPostMapping),
+    })
     logger.info(`Response from send sykmelding: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorBody = await result.response.text()
