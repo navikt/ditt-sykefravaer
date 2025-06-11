@@ -57,7 +57,9 @@ const SykmeldingPdf = ({ sykmelding, timestamp }: Props): ReactElement => {
                         <Arbeidsevne tiltakArbeidsplassen={sykmelding.tiltakArbeidsplassen} />
                         <MeldingTilNav meldingTilNav={sykmelding.meldingTilNAV} />
                         <MeldingTilArbeidsgiver meldingTilArbeidsgiver={sykmelding.meldingTilArbeidsgiver} />
-                        <Tilbakedatering kontaktMedPasient={sykmelding.kontaktMedPasient} />
+                        {sykmelding.kontaktMedPasient && (
+                            <Tilbakedatering kontaktMedPasient={sykmelding.kontaktMedPasient} />
+                        )}
                         <PageNumbers />
                         <GeneratedTimestamp timestamp={timestamp} />
                     </>

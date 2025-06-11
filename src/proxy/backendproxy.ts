@@ -15,6 +15,26 @@ interface Opts {
     https: boolean
 }
 
+/*
+
+const { serverRuntimeConfig } = getConfig()
+
+const tillatteApier = ['GET /api/v2/sykmeldinger']
+
+const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
+    await proxyKallTilBackend({
+        req,
+        res,
+        tillatteApier,
+        backend: 'sykmeldinger-backend',
+        hostname: 'sykmeldinger-backend.teamsykmelding',
+        backendClientId: serverRuntimeConfig.sykmeldingerBackendClientId,
+        https: false,
+    })
+})
+
+*/
+
 export async function proxyKallTilBackend(opts: Opts) {
     if (!opts.req.url) return null
     const rewritedPath = opts.req.url.replace(`/api/${opts.backend}`, '')

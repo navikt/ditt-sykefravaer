@@ -32,7 +32,7 @@ function SykmeldingSykmeldtSection({ sykmelding, shouldShowEgenmeldingsdagerInfo
                         <Button
                             className="absolute right-0 top-0 hidden md:block"
                             as="a"
-                            href={`${basePath()}/${sykmelding.id}/pdf`} //TODO denne må verifieres
+                            href={`${basePath()}/${sykmelding.id}/pdf`}
                             target="_blank"
                             rel="noopener noreferrer"
                             variant="tertiary"

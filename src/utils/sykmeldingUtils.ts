@@ -1,4 +1,5 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
+import { NextApiRequest } from 'next'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
@@ -107,4 +108,14 @@ export function isValidRange(sykmelding: Sykmelding): boolean {
     const end = getSykmeldingEndDate(sykmelding.sykmeldingsperioder)
 
     return isBefore(toDate(start), toDate(end))
+}
+
+export const validerSykmeldingIdFraRequest = (req: NextApiRequest): string => {
+    const sykmeldingId = req.query.sykmeldingId as string | undefined
+
+    if (!sykmeldingId || sykmeldingId.trim() === '') {
+        throw new Error('Ugyldig forespoersel: sykmeldingId mangler eller er ikke en streng.')
+    }
+
+    return sykmeldingId as string
 }

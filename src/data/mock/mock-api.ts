@@ -12,6 +12,8 @@ import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
 import { cleanPathForMetric } from '../../metrics'
 import { getSessionId } from '../../utils/userSessionId'
 import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../fetching/graphql.generated'
+import { validerSykmeldingIdFraRequest } from '../../utils/sykmeldingUtils'
+import sendSykmeldingPdf from '../../server/pdf/sykmeldingPdf'
 
 import mockDb from './mock-db'
 import { Persona, testpersoner } from './testperson'
@@ -190,6 +192,16 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
                 })
             }
             return sendJson({ status: 200 })
+
+        case 'GET /[uuid]/pdf':
+            const sykmeldingId = validerSykmeldingIdFraRequest(req)
+            if (!sykmeldingId) {
+                logger.warn(`Mock API: PDF generation requested without sykmeldingId for URL: ${url}`)
+                return sendJson({ error: 'Missing sykmelding ID' }, 400)
+            }
+
+            await sendSykmeldingPdf(req, res)
+            return
 
         default:
             logger.error(`Ukjent api ${url}`)
