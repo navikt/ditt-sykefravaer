@@ -47,17 +47,7 @@ function createBackendHeaders(
     return headers
 }
 
-export async function getSykmeldinger(req: NextApiRequest, res: NextApiResponse): Promise<void> {
-    await proxyKallTilBackend({
-        req,
-        res,
-        tillatteApier,
-        backend: 'flex-sykmeldinger-backend',
-        hostname: 'flex-sykmeldinger-backend',
-        backendClientId: serverRuntimeConfig.flexSykmeldingerBackendClientId,
-        https: false,
-    })
-}
+
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
@@ -171,13 +161,8 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
 
 export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     logger.info(`Handling send sykmelding request: ${req.url}`)
-
-    // req.query.path is typically an array of path segments for dynamic routes like /api/[...path].ts
-    // Example: /api/v1/sykmeldinger/the-uuid/send -> req.query.path = ['v1', 'sykmeldinger', 'the-uuid', 'send']
-    // Verify the index for 'uuid' based on your file structure and routing.
-    // If file is pages/api/v1/sykmeldinger/[uuid]/send.ts, req.query.uuid would be simpler.
     const pathSegments = req.query.path as string[] | undefined
-    const uuid = pathSegments?.[3] // Verify this index. If path = ['v1','sykmeldinger','uuid','send'], then pathSegments[2] is uuid.
+    const uuid = pathSegments?.[3]
 
     if (req.method !== 'POST') {
         logger.warn(`Method Not Allowed: ${req.method} for sendSykmeldingHandler`)
