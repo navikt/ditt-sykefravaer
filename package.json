@@ -60,7 +60,7 @@
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.3.3",
         "next": "^15.3.3",
-        "next-router-mock": "^0.9.13",
+        "next-router-mock": "^1.0.2",
         "open": "^10.1.2",
         "playwright-core": "^1.50.1",
         "postcss": "^8.5.4",
