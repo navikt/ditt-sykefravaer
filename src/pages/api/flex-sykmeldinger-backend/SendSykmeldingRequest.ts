@@ -135,10 +135,10 @@ export async function sendSykmelding(
     if (!result.response.ok) {
         const errorBody = await result.response.text()
         logger.error(
-            `Error sending sykmelding: ${result.response.status} ${result.response.statusText} - Body: ${errorBody}`,
+            `Error sending sykmelding: ${result.response.status} ${result.response.statusText}`,
         )
         throw new Error(
-            `Failed to send sykmelding: ${result.response.status} ${result.response.statusText}. Body: ${errorBody}`,
+            `Failed to send sykmelding: ${result.response.status} ${result.response.statusText}`,
         )
     }
     return result.response.json()
