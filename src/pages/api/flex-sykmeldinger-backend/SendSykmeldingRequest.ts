@@ -68,9 +68,8 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, o
         headers: backendHeaders,
     })
     if (!result.response.ok) {
-        const errorText = await result.response.text()
         throw new Error(
-            `Failed to fetch sykmelding: ${result.response.status} ${result.response.statusText}. Body: ${errorText}`,
+            `Failed to fetch sykmelding: ${result.response.status} ${result.response.statusText}.`,
         )
     }
     return result.response.json()
@@ -90,9 +89,8 @@ export async function getBrukerinformasjonById(
         },
     )
     if (!result.response.ok) {
-        const errorText = await result.response.text()
         throw new Error(
-            `Failed to fetch brukerinformasjon: ${result.response.status} ${result.response.statusText}. Body: ${errorText}`,
+            `Failed to fetch brukerinformasjon: ${result.response.status} ${result.response.statusText}.`,
         )
     }
     return result.response.json()
@@ -112,9 +110,8 @@ export async function getErUtenforVentetidResponse(
         },
     )
     if (!result.response.ok) {
-        const errorText = await result.response.text()
         throw new Error(
-            `Failed to fetch erUtenforVentetid: ${result.response.status} ${result.response.statusText}. Body: ${errorText}`,
+            `Failed to fetch erUtenforVentetid: ${result.response.status} ${result.response.statusText}.`,
         )
     }
     return result.response.json()
