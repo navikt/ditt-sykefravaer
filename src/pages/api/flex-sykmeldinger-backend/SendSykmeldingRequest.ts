@@ -37,9 +37,11 @@ function createBackendHeaders(
     return headers
 }
 
+
+const flexSykmeldingerHostname = "flex-sykmeldinger-backend"
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
-    const result = await fetchMedRequestId(`http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}`, {
+    const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
         headers: backendHeaders,
     })
@@ -59,7 +61,7 @@ export async function getBrukerinformasjonById(
 ): Promise<Brukerinformasjon> {
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
-        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
+        `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/brukerinformasjon`,
         {
             method: 'GET',
             headers: backendHeaders,
@@ -82,7 +84,7 @@ export async function getErUtenforVentetidResponse(
     logger.info(`Fetching erUtenforVentetid for sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
-        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
+        `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
         {
             method: 'GET',
             headers: backendHeaders,
@@ -106,7 +108,7 @@ export async function sendSykmelding(
 ): Promise<SykmeldingUserEventV3Api> {
     const backendHeaders = createBackendHeaders(req, oboToken, true)
     const result = await fetchMedRequestId(
-        `http://flex-sykmeldinger-backend/api/v1/sykmeldinger/${sykmeldingId}/send`,
+        `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/send`,
         {
             method: 'POST',
             headers: backendHeaders,
