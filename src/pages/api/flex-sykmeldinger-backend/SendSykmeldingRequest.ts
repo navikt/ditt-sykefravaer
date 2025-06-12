@@ -194,19 +194,26 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
             const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req, oboToken)
 
             return res.status(200).json(sendSykmeldingResponse)
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        } catch (error: any) {
-            logger.error(`Error in sendSykmeldingHandler for ${uuid}: ${error.message}`, {
-                stack: error.stack,
-                cause: error.cause,
+        } catch (error: unknown) {
+            const err = error as Error & {
+                response?: { status: number };
+                stack?: string;
+                cause?: unknown;
+            };
+            
+            logger.error(`Error in sendSykmeldingHandler for ${uuid}`, {
+                stack: err.stack,
+                cause: err.cause,
             })
-            if (error.message.toLowerCase().includes('invalid json body')) {
+            
+            if (typeof err.message === 'string' && err.message.toLowerCase().includes('invalid json body')) {
                 return res.status(400).json({ error: 'Invalid JSON in request body' })
             }
+            
             if (
-                error.message.includes('Failed to fetch') ||
-                error.message.includes('Failed to send') ||
-                (error.response && error.response.status >= 500) // For errors from fetchMedRequestId if structured that way
+                (typeof err.message === 'string' && 
+                    (err.message.includes('Failed to fetch') || err.message.includes('Failed to send'))) ||
+                (err.response && err.response.status >= 500)
             ) {
                 return res.status(502).json({ error: 'Error communicating with backend service' })
             }
