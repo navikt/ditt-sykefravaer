@@ -81,7 +81,6 @@ export async function getErUtenforVentetidResponse(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<ErUtenforVentetid> {
-    logger.info(`Fetching erUtenforVentetid for sykmelding with ID: ${sykmeldingId}`)
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(
         `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
@@ -90,7 +89,6 @@ export async function getErUtenforVentetidResponse(
             headers: backendHeaders,
         },
     )
-    logger.info(`Response from erUtenforVentetid: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorText = await result.response.text()
         throw new Error(
@@ -115,7 +113,6 @@ export async function sendSykmelding(
             body: JSON.stringify(sendSykmeldingValuesPostMapping),
         },
     )
-    logger.info(`Response from send sykmelding: ${result.response.status} ${result.response.statusText}`)
     if (!result.response.ok) {
         const errorBody = await result.response.text()
         logger.error(
@@ -150,7 +147,6 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
 }
 
 export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-    logger.info(`Handling send sykmelding request: ${req.url}`)
     const pathSegments = req.query.path as string[] | undefined
     const uuid = pathSegments?.[3]
 
@@ -181,18 +177,14 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
                 return res.status(502).json({ error: 'Failed to authenticate with backend service (OBO)' })
             }
             const oboToken = oboTokenResponse.token
-            logger.info(`Successfully obtained OBO token for sykmelding ID: ${uuid}`)
 
-            // Manually parse body as bodyParser is false
             const sendSykmeldingValues = await parseJsonBody<SendSykmeldingValues>(req)
 
-            // Fetch all required data using the OBO token
             const sykmeldingen = await getSykmelding(uuid, req, oboToken)
-            logger.info(`Sykmeldingen variable for ${uuid}: ${JSON.stringify(sykmeldingen)}`)
+
             const brukerinformasjon = await getBrukerinformasjonById(uuid, req, oboToken)
-            logger.info(`Brukerinformasjon for ${uuid}: ${JSON.stringify(brukerinformasjon)}`)
+
             const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req, oboToken)
-            logger.info(`ErUtenforVentetid for ${uuid}: ${JSON.stringify(erUtenforVentetid)}`)
 
             const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
                 sendSykmeldingValues,
@@ -200,12 +192,9 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
                 brukerinformasjon,
                 erUtenforVentetid,
             )
-            logger.info(
-                `Mapped SendSykmeldingValuesPostMapping for ${uuid}: ${JSON.stringify(sendSykmeldingValuesPostMapping)}`,
-            )
+         
 
             const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req, oboToken)
-            logger.info(`Successfully sent sykmelding ${uuid}: ${JSON.stringify(sendSykmeldingResponse)}`)
 
             return res.status(200).json(sendSykmeldingResponse)
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
