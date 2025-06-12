@@ -37,6 +37,27 @@ function createBackendHeaders(
     return headers
 }
 
+async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
+    return new Promise((resolve, reject) => {
+        let data = ''
+        req.on('data', (chunk) => {
+            data += chunk
+        })
+        req.on('end', () => {
+            try {
+                resolve(JSON.parse(data))
+            } catch (e) {
+                logger.error('Failed to parse JSON body:', e)
+                reject(new Error('Invalid JSON body'))
+            }
+        })
+        req.on('error', (err) => {
+            logger.error('Error reading request stream for body parsing:', err)
+            reject(err)
+        })
+    })
+}
+
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
@@ -122,27 +143,6 @@ export async function sendSykmelding(
         )
     }
     return result.response.json()
-}
-
-async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
-    return new Promise((resolve, reject) => {
-        let data = ''
-        req.on('data', (chunk) => {
-            data += chunk
-        })
-        req.on('end', () => {
-            try {
-                resolve(JSON.parse(data))
-            } catch (e) {
-                logger.error('Failed to parse JSON body:', e)
-                reject(new Error('Invalid JSON body'))
-            }
-        })
-        req.on('error', (err) => {
-            logger.error('Error reading request stream for body parsing:', err)
-            reject(err)
-        })
-    })
 }
 
 export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
