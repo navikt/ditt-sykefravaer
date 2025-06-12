@@ -15,7 +15,6 @@ const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
 
-
 function createBackendHeaders(
     req: NextApiRequest,
     oboToken: string,
@@ -68,9 +67,7 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, o
         headers: backendHeaders,
     })
     if (!result.response.ok) {
-        throw new Error(
-            `Failed to fetch sykmelding: ${result.response.status} ${result.response.statusText}.`,
-        )
+        throw new Error(`Failed to fetch sykmelding: ${result.response.status} ${result.response.statusText}.`)
     }
     return result.response.json()
 }
@@ -89,9 +86,7 @@ export async function getBrukerinformasjonById(
         },
     )
     if (!result.response.ok) {
-        throw new Error(
-            `Failed to fetch brukerinformasjon: ${result.response.status} ${result.response.statusText}.`,
-        )
+        throw new Error(`Failed to fetch brukerinformasjon: ${result.response.status} ${result.response.statusText}.`)
     }
     return result.response.json()
 }
@@ -110,9 +105,7 @@ export async function getErUtenforVentetidResponse(
         },
     )
     if (!result.response.ok) {
-        throw new Error(
-            `Failed to fetch erUtenforVentetid: ${result.response.status} ${result.response.statusText}.`,
-        )
+        throw new Error(`Failed to fetch erUtenforVentetid: ${result.response.status} ${result.response.statusText}.`)
     }
     return result.response.json()
 }
@@ -134,12 +127,8 @@ export async function sendSykmelding(
     )
     if (!result.response.ok) {
         const errorBody = await result.response.text()
-        logger.error(
-            `Error sending sykmelding: ${result.response.status} ${result.response.statusText}`,
-        )
-        throw new Error(
-            `Failed to send sykmelding: ${result.response.status} ${result.response.statusText}`,
-        )
+        logger.error(`Error sending sykmelding: ${result.response.status} ${result.response.statusText}`)
+        throw new Error(`Failed to send sykmelding: ${result.response.status} ${result.response.statusText}`)
     }
     return result.response.json()
 }
@@ -196,22 +185,22 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
             return res.status(200).json(sendSykmeldingResponse)
         } catch (error: unknown) {
             const err = error as Error & {
-                response?: { status: number };
-                stack?: string;
-                cause?: unknown;
-            };
-            
+                response?: { status: number }
+                stack?: string
+                cause?: unknown
+            }
+
             logger.error(`Error in sendSykmeldingHandler for ${uuid}`, {
                 stack: err.stack,
                 cause: err.cause,
             })
-            
+
             if (typeof err.message === 'string' && err.message.toLowerCase().includes('invalid json body')) {
                 return res.status(400).json({ error: 'Invalid JSON in request body' })
             }
-            
+
             if (
-                (typeof err.message === 'string' && 
+                (typeof err.message === 'string' &&
                     (err.message.includes('Failed to fetch') || err.message.includes('Failed to send'))) ||
                 (err.response && err.response.status >= 500)
             ) {
