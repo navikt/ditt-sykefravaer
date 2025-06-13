@@ -30,7 +30,8 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
     const currentUrl = req.url || ''
     if (currentUrl.includes('/api/v1/sykmeldinger/') && currentUrl.endsWith('/send')) {
         logger.info(`Handling POST 1 /api/v1/sykmeldinger/[uuid]/send: ${currentUrl}`)
-    } else if (isPostSykmeldingSend(currentUrl)) {
+    }
+    if (isPostSykmeldingSend(currentUrl)) {
         logger.info(`Handling POST 2 /api/v1/sykmeldinger/[uuid]/send: ${currentUrl}`)
         await sendSykmeldingHandler(req, res)
     } else {
