@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
-import { logger } from '@navikt/next-logger'
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
