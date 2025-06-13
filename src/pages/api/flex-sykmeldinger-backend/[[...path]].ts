@@ -20,7 +20,7 @@ const tillatteApier = [
 ]
 
 const POST_SYKMELDING_SEND_REGEX =
-    /^(\/flex-sykmeldinger-backend)?\/api\/v1\/sykmeldinger\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\/send$/
+    /^\/(api\/)?(flex-sykmeldinger-backend\/)?api\/v1\/sykmeldinger\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\/send$/
 
 function isPostSykmeldingSend(url: string): boolean {
     return POST_SYKMELDING_SEND_REGEX.test(url)
