@@ -1,11 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
+import { logger } from '@navikt/next-logger'
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 
 import { sendSykmeldingHandler } from './SendSykmeldingRequest'
-import { logger } from '@navikt/next-logger'
 
 const { serverRuntimeConfig } = getConfig()
 
@@ -19,12 +19,10 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
 
-
 const POST_SYKMELDING_SEND_REGEX =
     /^\/api\/v1\/sykmeldinger\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\/send$/
 
-function isPostSykmeldingSend(url : string): boolean {
-  
+function isPostSykmeldingSend(url: string): boolean {
     return POST_SYKMELDING_SEND_REGEX.test(url)
 }
 
