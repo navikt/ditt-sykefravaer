@@ -189,10 +189,7 @@ export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiRes
                 cause?: unknown
             }
 
-            logger.error(`Error in sendSykmeldingHandler for ${uuid}`, {
-                stack: err.stack,
-                cause: err.cause,
-            })
+            logger.error(`Error in sendSykmeldingHandler for ${uuid}`)
 
             if (typeof err.message === 'string' && err.message.toLowerCase().includes('invalid json body')) {
                 return res.status(400).json({ error: 'Invalid JSON in request body' })
