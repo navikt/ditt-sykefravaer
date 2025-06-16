@@ -62,7 +62,11 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
 
 async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
-    const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
+    const allowedHostnames = ['flex-sykmeldinger-backend.nav.no']; // Example allow-list
+    if (!allowedHostnames.includes(flexSykmeldingerHostname)) {
+        throw new Error(`Invalid hostname: ${flexSykmeldingerHostname}`);
+    }
+    const result = await fetchMedRequestId(`https://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
         headers: backendHeaders,
     })
@@ -135,6 +139,13 @@ async function sendSykmelding(
 export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     const pathSegments = req.query.path as string[] | undefined
     const uuid = pathSegments?.[3]
+
+    // Validate UUID format
+    const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+    if (!uuid || !uuidRegex.test(uuid)) {
+        logger.warn(`Invalid UUID: ${uuid} for sendSykmeldingHandler`);
+        return res.status(400).json({ error: 'Invalid UUID in path' });
+    }
 
     if (req.method !== 'POST') {
         logger.warn(`Method Not Allowed: ${req.method} for sendSykmeldingHandler`)
