@@ -60,7 +60,7 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
@@ -72,7 +72,7 @@ export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, o
     return result.response.json()
 }
 
-export async function getBrukerinformasjonById(
+async function getBrukerinformasjonById(
     sykmeldingId: string,
     req: NextApiRequest,
     oboToken: string,
@@ -91,7 +91,7 @@ export async function getBrukerinformasjonById(
     return result.response.json()
 }
 
-export async function getErUtenforVentetidResponse(
+async function getErUtenforVentetidResponse(
     sykmeldingId: string,
     req: NextApiRequest,
     oboToken: string,
@@ -110,7 +110,7 @@ export async function getErUtenforVentetidResponse(
     return result.response.json()
 }
 
-export async function sendSykmelding(
+async function sendSykmelding(
     sykmeldingId: string,
     sendSykmeldingValuesPostMapping: SykmeldingUserEventV3Api,
     req: NextApiRequest,
