@@ -45,47 +45,9 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
 
 export const config = {
     api: {
-        bodyParser: false, // Manual parsing is implemented in sendSykmeldingHandler
+        bodyParser: false,
         externalResolver: true,
     },
 }
 
 export default handler
-
-/*
-
-import { logger } from '@navikt/next-logger'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { validateIdportenToken } from '@navikt/oasis'
-
-import { isMockBackend } from '../utils/environment'
-import { mockApi } from '../data/mock/mock-api'
-
-type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>
-
-export function beskyttetApi(handler: ApiHandler): ApiHandler {
-    return async function withBearerTokenHandler(req, res) {
-        function send401() {
-            res.status(401).json({ message: 'Access denied' })
-        }
-
-        if (isMockBackend() && !(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
-            return mockApi(req, res)
-        }
-
-        const bearerToken: string | null | undefined = req.headers['authorization']
-        if (!bearerToken) {
-            return send401()
-        }
-        const result = await validateIdportenToken(bearerToken)
-        if (!result.ok) {
-            logger.warn('kunne ikke validere idportentoken i beskyttetApi')
-            return send401()
-        }
-
-        return handler(req, res)
-    }
-}
-
-
-*/
