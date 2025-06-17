@@ -60,7 +60,7 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
@@ -132,10 +132,13 @@ async function sendSykmelding(
     return result.response.json()
 }
 
-export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const sendSykmeldingHandler = async (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    sykmeldingUuid: string | null,
+) => {
     const pathSegments = req.query.path as string[] | undefined
-    const uuid = pathSegments?.[3]
-
+    const uuid = sykmeldingUuid
     if (req.method !== 'POST') {
         logger.warn(`Method Not Allowed: ${req.method} for sendSykmeldingHandler`)
         return res.status(405).json({ error: 'Method Not Allowed' })

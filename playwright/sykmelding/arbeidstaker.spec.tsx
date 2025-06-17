@@ -12,24 +12,53 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const pdf = require('pdf-parse')
+
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
     test.describe('normal situation', () => {
-        test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
+        test('burde kunne printe ut info om sykmeldingen, bruker bør få riktig tekst', async ({ page }) => {
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-            const newTabPromise = page.waitForEvent('popup')
-            await page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click()
-            const newTab = await newTabPromise
+            const downloadPath = await page
+                .getByRole('button', { name: 'Åpne PDF av sykmeldingen' })
+                .getAttribute('href')
+            expect(downloadPath).toBeTruthy()
 
-            await newTab.waitForLoadState('networkidle')
-            await expect(newTab).toHaveURL(/.*\/sykmelding\/pdf/)
+            if (typeof downloadPath !== 'string') {
+                throw new Error('Download path is not a string')
+            }
 
-            // Wait for PDF viewer to load (adjust selector based on your PDF viewer)
-            await newTab.waitForSelector('embed[type="application/pdf"], object[type="application/pdf"]', {
-                timeout: 10000,
-            })
+            const baseURL = process.env.BASE_URL || new URL(page.url()).origin
+            const downloadUrl = new URL(downloadPath, baseURL).toString()
+
+            const [download] = await Promise.all([
+                page.waitForEvent('download'),
+                page.evaluate((url) => {
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = ''
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                }, downloadUrl),
+            ])
+
+            expect(download.suggestedFilename()).toMatch(/\.pdf$/)
+
+            const stream = await download.createReadStream()
+            const chunks: Buffer[] = []
+            for await (const chunk of stream) {
+                chunks.push(chunk as Buffer)
+            }
+            const buffer = Buffer.concat(chunks)
+
+            const data = await pdf(buffer)
+            expect(data.text).toContain('Opplysninger fra sykmeldingen')
+            expect(data.text).toContain('Sendt til oss 8. januar 2025')
+            expect(data.text).toContain('Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet')
         })
 
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {

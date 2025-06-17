@@ -41,12 +41,23 @@ export const fetchMedRequestId = async (
         }
     }
 
+    function isAllowedUrl(url: string): boolean {
+        if (url.startsWith('/')) return true
+        const allowedHostnames = ['flex-sykmeldinger-backend']
+        return allowedHostnames.some((hostname) => new RegExp(`^https?://${hostname}`).test(url))
+    }
+
+    if (!isAllowedUrl(url)) {
+        throw new FetchError(
+            `Ugyldig URL: ${url}. Kun relative URL-er eller URL-er med tillatte hostnames er tillatt.`,
+            -1,
+        )
+    }
+
     const response = await fetchUrl()
 
     if (response.status == 401) {
-        if (typeof window !== 'undefined') {
-            window.location.reload()
-        }
+        window.location.reload()
         throw new AuthenticationError('Reloader siden på grunn av HTTP-kode 401 fra backend.')
     }
 

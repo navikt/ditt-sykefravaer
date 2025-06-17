@@ -1,7 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import getConfig from 'next/config'
-import { logger } from '@navikt/next-logger'
-import { requestOboToken } from '@navikt/oasis'
 
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { beskyttetApi } from '../../../auth/beskyttetApi'
@@ -20,18 +18,27 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
 
-const POST_SYKMELDING_SEND_REGEX =
-    /^\/api\/flex-sykmeldinger-backend\/api\/v1\/sykmeldinger\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}\/send$/
+const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
+const POST_SYKMELDING_SEND_REGEX = new RegExp(
+    `^/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/(${UUID_REGEX.source})/send$`,
+)
 
 function isPostSykmeldingSend(url: string): boolean {
     return POST_SYKMELDING_SEND_REGEX.test(url)
+}
+
+function extractSykmeldingIdFromUrl(url: string): string | null {
+    const match = url.match(POST_SYKMELDING_SEND_REGEX)
+    return match ? match[1] : null
 }
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const currentUrl = req.url || ''
 
     if (isPostSykmeldingSend(currentUrl)) {
-        await sendSykmeldingHandler(req, res)
+        const sykmeldingId = extractSykmeldingIdFromUrl(currentUrl)
+
+        await sendSykmeldingHandler(req, res, sykmeldingId as string | null)
     } else {
         await proxyKallTilBackend({
             req,
@@ -47,47 +54,9 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
 
 export const config = {
     api: {
-        bodyParser: false, // Manual parsing is implemented in sendSykmeldingHandler
+        bodyParser: false,
         externalResolver: true,
     },
 }
 
 export default handler
-
-/*
-
-import { logger } from '@navikt/next-logger'
-import { NextApiRequest, NextApiResponse } from 'next'
-import { validateIdportenToken } from '@navikt/oasis'
-
-import { isMockBackend } from '../utils/environment'
-import { mockApi } from '../data/mock/mock-api'
-
-type ApiHandler = (req: NextApiRequest, res: NextApiResponse) => void | Promise<void>
-
-export function beskyttetApi(handler: ApiHandler): ApiHandler {
-    return async function withBearerTokenHandler(req, res) {
-        function send401() {
-            res.status(401).json({ message: 'Access denied' })
-        }
-
-        if (isMockBackend() && !(req.url && req.url.includes('/api/v1/sykmeldinger/') && req.url.includes('/send'))) {
-            return mockApi(req, res)
-        }
-
-        const bearerToken: string | null | undefined = req.headers['authorization']
-        if (!bearerToken) {
-            return send401()
-        }
-        const result = await validateIdportenToken(bearerToken)
-        if (!result.ok) {
-            logger.warn('kunne ikke validere idportentoken i beskyttetApi')
-            return send401()
-        }
-
-        return handler(req, res)
-    }
-}
-
-
-*/
