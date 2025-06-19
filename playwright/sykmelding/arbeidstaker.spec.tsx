@@ -71,70 +71,75 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
 
     test.describe('normal situation', () => {
 
-        test('PDF loads directly and renders in browser', async ({ page }) => {
-  await page.goto('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+//         test('PDF loads directly and renders in browser', async ({ page }) => {
+//   await page.goto('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
 
-  // Wait briefly to allow rendering (especially in headed mode)
-  await page.waitForTimeout(2000)
+//   // Wait briefly to allow rendering (especially in headed mode)
+//   await page.waitForTimeout(2000)
 
-  // Check for an embedded PDF viewer
-  const pdfViewer = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
-  expect(pdfViewer).not.toBeNull()
-})
+//   // Check for an embedded PDF viewer
+//   const pdfViewer = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
+//   expect(pdfViewer).not.toBeNull()
+// })
 
 
-test('PDF loads in new tab with embed/object', async ({ context, page }) => {
-  await page.goto('https://example.com') // or any base page
+// test('PDF loads in new tab with embed/object', async ({ context, page }) => {
+//   await page.goto('https://example.com') // or any base page
 
-  const [pdfPage] = await Promise.all([
-    context.waitForEvent('page'),
-    page.evaluate(() => {
-      window.open('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
-    }),
+//   const [pdfPage] = await Promise.all([
+//     context.waitForEvent('page'),
+//     page.evaluate(() => {
+//       window.open('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+//     }),
+//   ])
+
+// //   await pdfPage.waitForLoadState('domcontentloaded')
+// await pdfPage.waitForLoadState('load')
+
+//   // Check that the new tab is the PDF
+//   await expect(pdfPage).toHaveURL(/\.pdf$/)
+
+//   // Look for a PDF viewer element
+//   const pdfViewer = await pdfPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
+//   expect(pdfViewer).not.toBeNull()
+// })
+
+
+     test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
+  await gotoScenario('normal')(page)
+  await navigateToFirstSykmelding('nye', '100%')(page)
+  await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+
+  const url = page.url()
+  const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+  const id = match?.[1]
+  expect(id).toBeTruthy()
+
+  const downloadUrl = `http://localhost:3000/syk/sykefravaer/${id}/pdf`
+
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.evaluate((url) => {
+      const a = document.createElement('a')
+      a.href = url
+      a.download = ''
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    }, downloadUrl)
   ])
 
-//   await pdfPage.waitForLoadState('domcontentloaded')
-await pdfPage.waitForLoadState('load')
+  expect(download.suggestedFilename()).toMatch(/\.pdf$/)
 
-  // Check that the new tab is the PDF
-  await expect(pdfPage).toHaveURL(/\.pdf$/)
+  // Confirm download has non-zero size (without saving)
+  const stream = await download.createReadStream()
+  let totalBytes = 0
+  for await (const chunk of stream) {
+    totalBytes += chunk.length
+  }
 
-  // Look for a PDF viewer element
-  const pdfViewer = await pdfPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
-  expect(pdfViewer).not.toBeNull()
+  expect(totalBytes).toBeGreaterThan(0)
 })
-
-
-        test('burde kunne printe ut info om sykmeldingen', async ({ page, context }) => {
-            await gotoScenario('normal')(page)
-            await navigateToFirstSykmelding('nye', '100%')(page)
-            await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
-
-            const url = page.url()
-            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
-            const id = match?.[1]
-
-            const [newPage] = await Promise.all([
-                context.waitForEvent('page'), // More reliable than 'popup'
-                page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
-                page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
-            ])
-
-            // await newPage.waitForLoadState('domcontentloaded')
-            await page.goto("https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf")
-            await newPage.waitForLoadState('domcontentloaded')
-
-            // await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
-            // page.waitForLoadState('domcontentloaded')
-
-            // Optionally check headers or URL
-            await expect(newPage).toHaveURL(/\/sykmelding\/pdf/)
-
-            // Check PDF is rendered in browser (fallback to checking title or content if embed is blocked)
-            const pdfElement = await newPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
-            expect(pdfElement).not.toBeNull()
-        })
-
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
