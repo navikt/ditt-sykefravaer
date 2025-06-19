@@ -78,7 +78,7 @@ export function selectEgenmeldingsdager({
             daysToSelect: restDays as [...number[][], 'Nei'],
             initialDate: sub(earliestDate, { days: 16 }),
         })(page)
-    }
+    };
 }
 
 test.describe.skip('Egenmeldingsdager', () => {

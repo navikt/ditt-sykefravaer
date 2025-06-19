@@ -86,7 +86,7 @@ function SentSykmeldingBrukerSvar({
             <FiskerLottOgHyreAnswer response={brukerSvar.fisker?.lottOgHyre} />
             {brukerSvar.arbeidsgiverOrgnummer && sykmeldingId && (
                 // This component does some data-fetching, avoid rendering it to avoid unnecessary requests
-                <ArbeidsgiverOrgnummerAnswer response={brukerSvar.arbeidsgiverOrgnummer} sykmeldingId={sykmeldingId} />
+                (<ArbeidsgiverOrgnummerAnswer response={brukerSvar.arbeidsgiverOrgnummer} sykmeldingId={sykmeldingId} />)
             )}
             <YesNoAnswer response={brukerSvar.riktigNarmesteLeder} />
             <YesNoAnswer response={brukerSvar.harBruktEgenmeldingsdager} />
@@ -101,7 +101,7 @@ function SentSykmeldingBrukerSvar({
                 />
             )}
         </>
-    )
+    );
 }
 
 function CurrentFormValuesBrukerSvar({
@@ -120,10 +120,10 @@ function CurrentFormValuesBrukerSvar({
             <FiskerLottOgHyreAnswer response={mappedValues.fisker?.lottOgHyre} />
             {mappedValues.arbeidsgiverOrgnummer && (
                 // This component does some data-fetching, avoid rendering it to avoid unnecessary requests
-                <ArbeidsgiverOrgnummerAnswer
+                (<ArbeidsgiverOrgnummerAnswer
                     response={mappedValues.arbeidsgiverOrgnummer}
                     sykmeldingId={brukerSvar.sporsmaltekstMetadata.sykmeldingId}
-                />
+                />)
             )}
             <YesNoAnswer response={mappedValues.riktigNarmesteLeder} />
             <YesNoAnswer response={mappedValues.harBruktEgenmeldingsdager} />
@@ -136,7 +136,7 @@ function CurrentFormValuesBrukerSvar({
                 />
             )}
         </>
-    )
+    );
 }
 
 function ArbeidsledigFraOrgnummerAnswer({

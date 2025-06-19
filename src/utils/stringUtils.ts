@@ -7,7 +7,7 @@ export function cleanId(input: string): string {
         .trim()
         .toLowerCase()
         .replace(/\s+/g, '-')
-        .replace(/[^a-z0-9\-]/g, '')
+        .replace(/[^a-z0-9\-]/g, '');
 }
 
 export function capitalizeFirstLetter(str: string): string {

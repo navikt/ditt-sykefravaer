@@ -164,7 +164,7 @@ function opplysningNotCorrect(
         for (const it of whatsNotCorrect) {
             await getCheckboxInGroup(page)({ name: /Hvilke opplysninger stemmer ikke?/i }, { name: it }).click()
         }
-    }
+    };
 }
 
 async function expectNotUsable(page: Page): Promise<void> {
@@ -178,5 +178,5 @@ function expectUseable(explanationText: string) {
         await expect(page.getByText(explanationText)).toBeVisible()
         await expect(page.getByText('Hvilken arbeidssituasjon gjelder sykmeldingen for?')).toBeVisible()
         await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeVisible()
-    }
+    };
 }

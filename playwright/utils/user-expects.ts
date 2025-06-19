@@ -33,7 +33,7 @@ export function expectKvittering(opts: {
         } else {
             await expect(page.getByText(egenmeldingsdagerInfoText)).toBeVisible()
         }
-    }
+    };
 }
 
 export function expectDineSvar(svar: {
@@ -182,7 +182,7 @@ export function expectDineSvar(svar: {
                 )
             }
         }
-    }
+    };
 }
 
 function getInfoItem(name: RegExp | string) {
