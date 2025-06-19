@@ -60,7 +60,7 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
     const backendHeaders = createBackendHeaders(req, oboToken)
     const result = await fetchMedRequestId(`http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}`, {
         method: 'GET',
