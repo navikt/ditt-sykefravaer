@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test'
+import { p } from '@tanstack/query-core/build/legacy/hydration-BaHDIfRR'
 
 import { getRadioInGroup } from '../utils/test-utils'
 import {
@@ -11,7 +12,8 @@ import {
     velgArbeidssituasjon,
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
-import { p } from '@tanstack/query-core/build/legacy/hydration-BaHDIfRR'
+
+const pdf = require('pdf-parse')
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
     // test('should load PDF page directly by URL', async ({ page }) => {
@@ -37,109 +39,144 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
     //     //await expect(page).toHaveURL(/\/sykefravaer\/.*\/pdf/)
     // })
 
-
-
-
     test('confirm PDF download from regnskapnorge without saving', async ({ page }) => {
-  const url = 'https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf'
+        const url =
+            'https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf'
 
-  const [download] = await Promise.all([
-    page.waitForEvent('download'),
-    page.evaluate((url) => {
-      const a = document.createElement('a')
-      a.href = url
-      a.download = ''
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
-    }, url)
-  ])
+        const [download] = await Promise.all([
+            page.waitForEvent('download'),
+            page.evaluate((url) => {
+                const a = document.createElement('a')
+                a.href = url
+                a.download = ''
+                document.body.appendChild(a)
+                a.click()
+                a.remove()
+            }, url),
+        ])
 
-  const filename = download.suggestedFilename()
-  expect(filename).toMatch(/\.pdf$/)
+        const filename = download.suggestedFilename()
+        expect(filename).toMatch(/\.pdf$/)
 
-  // Optional: confirm it's a non-empty file (buffer in memory)
-  const stream = await download.createReadStream()
-  let totalBytes = 0
-  for await (const chunk of stream) {
-    totalBytes += chunk.length
-  }
+        // Optional: confirm it's a non-empty file (buffer in memory)
+        const stream = await download.createReadStream()
+        let totalBytes = 0
+        for await (const chunk of stream) {
+            totalBytes += chunk.length
+        }
 
-  expect(totalBytes).toBeGreaterThan(0)
-})
-
+        expect(totalBytes).toBeGreaterThan(0)
+    })
 
     test.describe('normal situation', () => {
+        //         test('PDF loads directly and renders in browser', async ({ page }) => {
+        //   await page.goto('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
 
-//         test('PDF loads directly and renders in browser', async ({ page }) => {
-//   await page.goto('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+        //   // Wait briefly to allow rendering (especially in headed mode)
+        //   await page.waitForTimeout(2000)
 
-//   // Wait briefly to allow rendering (especially in headed mode)
-//   await page.waitForTimeout(2000)
+        //   // Check for an embedded PDF viewer
+        //   const pdfViewer = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
+        //   expect(pdfViewer).not.toBeNull()
+        // })
 
-//   // Check for an embedded PDF viewer
-//   const pdfViewer = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
-//   expect(pdfViewer).not.toBeNull()
-// })
+        // test('PDF loads in new tab with embed/object', async ({ context, page }) => {
+        //   await page.goto('https://example.com') // or any base page
 
+        //   const [pdfPage] = await Promise.all([
+        //     context.waitForEvent('page'),
+        //     page.evaluate(() => {
+        //       window.open('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+        //     }),
+        //   ])
 
-// test('PDF loads in new tab with embed/object', async ({ context, page }) => {
-//   await page.goto('https://example.com') // or any base page
+        // //   await pdfPage.waitForLoadState('domcontentloaded')
+        // await pdfPage.waitForLoadState('load')
 
-//   const [pdfPage] = await Promise.all([
-//     context.waitForEvent('page'),
-//     page.evaluate(() => {
-//       window.open('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
-//     }),
-//   ])
+        //   // Check that the new tab is the PDF
+        //   await expect(pdfPage).toHaveURL(/\.pdf$/)
 
-// //   await pdfPage.waitForLoadState('domcontentloaded')
-// await pdfPage.waitForLoadState('load')
+        //   // Look for a PDF viewer element
+        //   const pdfViewer = await pdfPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
+        //   expect(pdfViewer).not.toBeNull()
+        // })
 
-//   // Check that the new tab is the PDF
-//   await expect(pdfPage).toHaveURL(/\.pdf$/)
+        test('burde kunne printe ut info om sykmeldingen, tester tekst', async ({ page }) => {
+            await gotoScenario('normal')(page)
+            await navigateToFirstSykmelding('nye', '100%')(page)
+            await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-//   // Look for a PDF viewer element
-//   const pdfViewer = await pdfPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
-//   expect(pdfViewer).not.toBeNull()
-// })
+            const url = page.url()
+            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+            const id = match?.[1]
+            expect(id).toBeTruthy()
 
+            const downloadUrl = `http://localhost:3000/syk/sykefravaer/${id}/pdf`
 
-     test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
-  await gotoScenario('normal')(page)
-  await navigateToFirstSykmelding('nye', '100%')(page)
-  await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+            const [download] = await Promise.all([
+                page.waitForEvent('download'),
+                page.evaluate((url) => {
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = ''
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                }, downloadUrl),
+            ])
 
-  const url = page.url()
-  const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
-  const id = match?.[1]
-  expect(id).toBeTruthy()
+            expect(download.suggestedFilename()).toMatch(/\.pdf$/)
 
-  const downloadUrl = `http://localhost:3000/syk/sykefravaer/${id}/pdf`
+            const stream = await download.createReadStream()
+            const chunks: Buffer[] = []
+            for await (const chunk of stream) {
+                chunks.push(chunk as Buffer)
+            }
+            const buffer = Buffer.concat(chunks)
 
-  const [download] = await Promise.all([
-    page.waitForEvent('download'),
-    page.evaluate((url) => {
-      const a = document.createElement('a')
-      a.href = url
-      a.download = ''
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
-    }, downloadUrl)
-  ])
+            
+            const data = await pdf(buffer)
+            expect(data.text).toContain('Opplysninger fra sykmeldingen')
+            expect(data.text).toContain('Sendt til oss 8. januar 2025')
+            expect(data.text).toContain('Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet') 
 
-  expect(download.suggestedFilename()).toMatch(/\.pdf$/)
+        })
 
-  // Confirm download has non-zero size (without saving)
-  const stream = await download.createReadStream()
-  let totalBytes = 0
-  for await (const chunk of stream) {
-    totalBytes += chunk.length
-  }
+        test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
+            await gotoScenario('normal')(page)
+            await navigateToFirstSykmelding('nye', '100%')(page)
+            await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-  expect(totalBytes).toBeGreaterThan(0)
-})
+            const url = page.url()
+            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+            const id = match?.[1]
+            expect(id).toBeTruthy()
+
+            const downloadUrl = `http://localhost:3000/syk/sykefravaer/${id}/pdf`
+
+            const [download] = await Promise.all([
+                page.waitForEvent('download'),
+                page.evaluate((url) => {
+                    const a = document.createElement('a')
+                    a.href = url
+                    a.download = ''
+                    document.body.appendChild(a)
+                    a.click()
+                    a.remove()
+                }, downloadUrl),
+            ])
+
+            expect(download.suggestedFilename()).toMatch(/\.pdf$/)
+
+            // Confirm download has non-zero size (without saving)
+            const stream = await download.createReadStream()
+            let totalBytes = 0
+            for await (const chunk of stream) {
+                totalBytes += chunk.length
+            }
+
+            expect(totalBytes).toBeGreaterThan(0)
+        })
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
