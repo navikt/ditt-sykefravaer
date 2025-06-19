@@ -18,16 +18,13 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
         await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-
-        const url = page.url();
-        const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/);
-        const id = match?.[1];
+        const url = page.url()
+        const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+        const id = match?.[1]
         await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
 
         // sleep for 20 seconds
-        await new Promise(resolve => setTimeout(resolve, 20000))
-
-       
+        await new Promise((resolve) => setTimeout(resolve, 20000))
 
         await page.waitForLoadState('domcontentloaded')
 
@@ -50,8 +47,6 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
                 page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
                 page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
             ])
-
-            
 
             await newPage.waitForLoadState('domcontentloaded')
 
