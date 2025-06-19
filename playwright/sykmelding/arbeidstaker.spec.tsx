@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test'
-import { p } from '@tanstack/query-core/build/legacy/hydration-BaHDIfRR'
 
 import { getRadioInGroup } from '../utils/test-utils'
 import {
@@ -13,6 +12,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const pdf = require('pdf-parse')
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
@@ -134,12 +134,10 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
             }
             const buffer = Buffer.concat(chunks)
 
-            
             const data = await pdf(buffer)
             expect(data.text).toContain('Opplysninger fra sykmeldingen')
             expect(data.text).toContain('Sendt til oss 8. januar 2025')
-            expect(data.text).toContain('Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet') 
-
+            expect(data.text).toContain('Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet')
         })
 
         test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
