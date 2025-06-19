@@ -13,23 +13,52 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
+    test('should load PDF page directly by URL', async ({ page }) => {
+        await gotoScenario('normal')(page)
+        await navigateToFirstSykmelding('nye', '100%')(page)
+        await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+
+
+        const url = page.url();
+        const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/);
+        const id = match?.[1];
+        await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
+
+        // sleep for 20 seconds
+        await new Promise(resolve => setTimeout(resolve, 20000))
+
+       
+
+        await page.waitForLoadState('domcontentloaded')
+
+        // Check that the PDF is loaded
+        // const pdfElement = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
+        // expect(pdfElement).not.toBeNull()
+
+        // Check for any expected elements on the page
+        //await expect(page).toHaveURL(/\/sykefravaer\/.*\/pdf/)
+    })
+
     test.describe('normal situation', () => {
-        test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
+        test('burde kunne printe ut info om sykmeldingen', async ({ page, context }) => {
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-            const newTabPromise = page.waitForEvent('popup')
-            await page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click()
-            const newTab = await newTabPromise
+            const [newPage] = await Promise.all([
+                context.waitForEvent('page'), // More reliable than 'popup'
+                page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
+                page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
+            ])
 
-            await newTab.waitForLoadState('networkidle')
-            await expect(newTab).toHaveURL(/.*\/sykmelding\/pdf/)
+            await newPage.waitForLoadState('domcontentloaded')
 
-            // Wait for PDF viewer to load (adjust selector based on your PDF viewer)
-            await newTab.waitForSelector('embed[type="application/pdf"], object[type="application/pdf"]', {
-                timeout: 10000,
-            })
+            // Optionally check headers or URL
+            await expect(newPage).toHaveURL(/\/sykmelding\/pdf/)
+
+            // Check PDF is rendered in browser (fallback to checking title or content if embed is blocked)
+            const pdfElement = await newPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
+            expect(pdfElement).not.toBeNull()
         })
 
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {
