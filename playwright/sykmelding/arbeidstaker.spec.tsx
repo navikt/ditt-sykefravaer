@@ -11,36 +11,108 @@ import {
     velgArbeidssituasjon,
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { p } from '@tanstack/query-core/build/legacy/hydration-BaHDIfRR'
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
-    test('should load PDF page directly by URL', async ({ page }) => {
-        await gotoScenario('normal')(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+    // test('should load PDF page directly by URL', async ({ page }) => {
+    //     await gotoScenario('normal')(page)
+    //     await navigateToFirstSykmelding('nye', '100%')(page)
+    //     await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-        const url = page.url()
-        const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
-        const id = match?.[1]
-        await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
+    //     const url = page.url()
+    //     const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+    //     const id = match?.[1]
+    //     await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
 
-        // sleep for 20 seconds
-        await new Promise((resolve) => setTimeout(resolve, 20000))
+    //     // sleep for 20 seconds
+    //     await new Promise((resolve) => setTimeout(resolve, 20000))
 
-        await page.waitForLoadState('domcontentloaded')
+    //     await page.waitForLoadState('domcontentloaded')
 
-        // Check that the PDF is loaded
-        // const pdfElement = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
-        // expect(pdfElement).not.toBeNull()
+    //     // Check that the PDF is loaded
+    //     // const pdfElement = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
+    //     // expect(pdfElement).not.toBeNull()
 
-        // Check for any expected elements on the page
-        //await expect(page).toHaveURL(/\/sykefravaer\/.*\/pdf/)
-    })
+    //     // Check for any expected elements on the page
+    //     //await expect(page).toHaveURL(/\/sykefravaer\/.*\/pdf/)
+    // })
+
+
+
+
+    test('confirm PDF download from regnskapnorge without saving', async ({ page }) => {
+  const url = 'https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf'
+
+  const [download] = await Promise.all([
+    page.waitForEvent('download'),
+    page.evaluate((url) => {
+      const a = document.createElement('a')
+      a.href = url
+      a.download = ''
+      document.body.appendChild(a)
+      a.click()
+      a.remove()
+    }, url)
+  ])
+
+  const filename = download.suggestedFilename()
+  expect(filename).toMatch(/\.pdf$/)
+
+  // Optional: confirm it's a non-empty file (buffer in memory)
+  const stream = await download.createReadStream()
+  let totalBytes = 0
+  for await (const chunk of stream) {
+    totalBytes += chunk.length
+  }
+
+  expect(totalBytes).toBeGreaterThan(0)
+})
+
 
     test.describe('normal situation', () => {
+
+        test('PDF loads directly and renders in browser', async ({ page }) => {
+  await page.goto('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+
+  // Wait briefly to allow rendering (especially in headed mode)
+  await page.waitForTimeout(2000)
+
+  // Check for an embedded PDF viewer
+  const pdfViewer = await page.$('embed[type="application/pdf"], object[type="application/pdf"]')
+  expect(pdfViewer).not.toBeNull()
+})
+
+
+test('PDF loads in new tab with embed/object', async ({ context, page }) => {
+  await page.goto('https://example.com') // or any base page
+
+  const [pdfPage] = await Promise.all([
+    context.waitForEvent('page'),
+    page.evaluate(() => {
+      window.open('https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf')
+    }),
+  ])
+
+//   await pdfPage.waitForLoadState('domcontentloaded')
+await pdfPage.waitForLoadState('load')
+
+  // Check that the new tab is the PDF
+  await expect(pdfPage).toHaveURL(/\.pdf$/)
+
+  // Look for a PDF viewer element
+  const pdfViewer = await pdfPage.$('embed[type="application/pdf"], object[type="application/pdf"]')
+  expect(pdfViewer).not.toBeNull()
+})
+
+
         test('burde kunne printe ut info om sykmeldingen', async ({ page, context }) => {
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+
+            const url = page.url()
+            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
+            const id = match?.[1]
 
             const [newPage] = await Promise.all([
                 context.waitForEvent('page'), // More reliable than 'popup'
@@ -48,7 +120,12 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
                 page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click(),
             ])
 
+            // await newPage.waitForLoadState('domcontentloaded')
+            await page.goto("https://www.regnskapnorge.no/globalassets/naringspolitikk/kartlegging-av-administrative-sanksjoner-i-naringslivet-31.1-nyanalyse---endelig-rapport.pdf")
             await newPage.waitForLoadState('domcontentloaded')
+
+            // await page.goto(`http://localhost:3000/syk/sykefravaer/${id}/pdf`)
+            // page.waitForLoadState('domcontentloaded')
 
             // Optionally check headers or URL
             await expect(newPage).toHaveURL(/\/sykmelding\/pdf/)
