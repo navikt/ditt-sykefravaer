@@ -17,37 +17,22 @@ const pdf = require('pdf-parse')
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
     test.describe('normal situation', () => {
-
-/* 
-
-        test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
-            await gotoScenario('normal')(page)
-            await navigateToFirstSykmelding('nye', '100%')(page)
-            await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
-
-            const newTabPromise = page.waitForEvent('popup')
-            await page.getByRole('button', { name: 'Åpne PDF av sykmeldingen' }).click()
-            const newTab = await newTabPromise
-
-            await newTab.waitForEvent('download')
-            await expect(newTab).toHaveURL(/.*\/sykmelding\/pdf/)
-
-           
-        }) */
-
         test('burde kunne printe ut info om sykmeldingen, tester tekst', async ({ page }) => {
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
 
-            const url = page.url()
-            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
-            const id = match?.[1]
-            expect(id).toBeTruthy()
+            const downloadPath = await page
+                .getByRole('button', { name: 'Åpne PDF av sykmeldingen' })
+                .getAttribute('href')
+            expect(downloadPath).toBeTruthy()
 
-            // Use Playwright's baseURL from config instead of hardcoded hostname
+            if (typeof downloadPath !== 'string') {
+                throw new Error('Download path is not a string')
+            }
+
             const baseURL = process.env.BASE_URL || new URL(page.url()).origin
-            const downloadUrl = `${baseURL}/syk/sykefravaer/${id}/pdf`
+            const downloadUrl = new URL(downloadPath, baseURL).toString()
 
             const [download] = await Promise.all([
                 page.waitForEvent('download'),
@@ -76,43 +61,6 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
             expect(data.text).toContain('Forhold på arbeidsplassen vanskeliggjør arbeidsrelatert aktivitet')
         })
 
-        test('burde kunne printe ut info om sykmeldingen', async ({ page }) => {
-            await gotoScenario('normal')(page)
-            await navigateToFirstSykmelding('nye', '100%')(page)
-            await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
-
-            const url = page.url()
-            const match = url.match(/\/sykmelding\/([0-9a-fA-F-]{36})/)
-            const id = match?.[1]
-            expect(id).toBeTruthy()
-
-            // Use Playwright's baseURL from config instead of hardcoded hostname
-            const baseURL = process.env.BASE_URL || new URL(page.url()).origin
-            const downloadUrl = `${baseURL}/syk/sykefravaer/${id}/pdf`
-
-            const [download] = await Promise.all([
-                page.waitForEvent('download'),
-                page.evaluate((url) => {
-                    const a = document.createElement('a')
-                    a.href = url
-                    a.download = ''
-                    document.body.appendChild(a)
-                    a.click()
-                    a.remove()
-                }, downloadUrl),
-            ])
-
-            expect(download.suggestedFilename()).toMatch(/\.pdf$/)
-
-            // Confirm download has non-zero size (without saving)
-            const stream = await download.createReadStream()
-            let totalBytes = 0
-            for await (const chunk of stream) {
-                totalBytes += chunk.length
-            }
-
-            expect(totalBytes).toBeGreaterThan(0)
-        })
         test('should be able to submit form with active arbeidsgiver and nærmeste leder', async ({ page }) => {
             await gotoScenario('normal')(page)
             await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
