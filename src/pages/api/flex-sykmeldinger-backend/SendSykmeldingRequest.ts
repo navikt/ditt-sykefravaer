@@ -132,10 +132,13 @@ async function sendSykmelding(
     return result.response.json()
 }
 
-export const sendSykmeldingHandler = async (req: NextApiRequest, res: NextApiResponse) => {
+export const sendSykmeldingHandler = async (
+    req: NextApiRequest,
+    res: NextApiResponse,
+    sykmeldingUuid: string | null,
+) => {
     const pathSegments = req.query.path as string[] | undefined
-    const uuid = pathSegments?.[3]
-
+    const uuid = sykmeldingUuid
     if (req.method !== 'POST') {
         logger.warn(`Method Not Allowed: ${req.method} for sendSykmeldingHandler`)
         return res.status(405).json({ error: 'Method Not Allowed' })
