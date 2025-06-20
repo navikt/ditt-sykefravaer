@@ -17,7 +17,7 @@ const pdf = require('pdf-parse')
 
 test.describe('Arbeidssituasjon - Arbeidstaker', () => {
     test.describe('normal situation', () => {
-        test('burde kunne printe ut info om sykmeldingen, tester tekst', async ({ page }) => {
+        test('burde kunne printe ut info om sykmeldingen, bruker bør få riktig tekst', async ({ page }) => {
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
