@@ -211,7 +211,7 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
             })(page)
         })
 
-        test('should show info about flere arbeidsforhold and be able to submit form when only one sykmelding for a period but several active arbeidsgiver', async ({
+        test('should show info about several arbeidsforhold and be able to submit form when only one sykmelding for a period but several active arbeidsgiver', async ({
             page,
         }) => {
             await gotoScenario('normal', {
