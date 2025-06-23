@@ -17,15 +17,12 @@ const { serverRuntimeConfig } = getConfig()
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
 
 export const validerSykmeldingIdFraRequest = (sykmeldingId: string): boolean => {
-    // Validate the sykmeldingId against the UUID regex
     const isValid = UUID_REGEX.test(sykmeldingId)
     if (!isValid) {
         logger.error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }
     return isValid
 }
-
-// import uuid regex from ...path file
 
 function createBackendHeaders(
     req: NextApiRequest,
