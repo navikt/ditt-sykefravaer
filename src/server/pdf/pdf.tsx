@@ -4,7 +4,7 @@ import { NextApiRequest } from 'next'
 import { logger } from '@navikt/next-logger'
 import getConfig from 'next/config'
 
-import { getSykmelding } from '../../pages/api/flex-sykmeldinger-backend/SendSykmeldingRequest' // Import from the correct file
+import { getSykmelding } from '../../pages/api/flex-sykmeldinger-backend/SendSykmeldingRequest'
 import { Sykmelding } from '../api-models/sykmelding/Sykmelding'
 import { isMockBackend } from '../../utils/environment'
 import mockDb from '../../data/mock/mock-db'
