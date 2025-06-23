@@ -11,7 +11,6 @@ import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { UUID_REGEX } from 'src/pages/api/flex-sykmeldinger-backend/[[...path]]'
-import { s } from '@tanstack/query-core/build/legacy/hydration-BaHDIfRR'
 const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
