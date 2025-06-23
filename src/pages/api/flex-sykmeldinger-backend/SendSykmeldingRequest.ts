@@ -3,7 +3,7 @@ import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
 import { requestOboToken } from '@navikt/oasis'
 
-import { UUID_REGEX } from 'src/pages/api/flex-sykmeldinger-backend/[[...path]]'
+import { UUID_REGEX } from 'src/utils/sykmeldingUtils'
 
 import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
