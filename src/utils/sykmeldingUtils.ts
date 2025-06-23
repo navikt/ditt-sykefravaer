@@ -117,5 +117,23 @@ export const validerSykmeldingIdFraRequest = (req: NextApiRequest): string => {
         throw new Error('Ugyldig forespoersel: sykmeldingId mangler eller er ikke en streng.')
     }
 
+    if (!UUID_REGEX.test(sykmeldingId)) {
+        throw new Error(`Ugyldig forespoersel: sykmeldingId er ikke en gyldig UUID: ${sykmeldingId}`)
+    }
+
     return sykmeldingId as string
+}
+
+export const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
+const POST_SYKMELDING_SEND_REGEX = new RegExp(
+    `^/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/(${UUID_REGEX.source})/send$`,
+)
+
+export function isPostSykmeldingSend(url: string): boolean {
+    return POST_SYKMELDING_SEND_REGEX.test(url)
+}
+
+export function extractSykmeldingIdFromUrl(url: string): string | null {
+    const match = url.match(POST_SYKMELDING_SEND_REGEX)
+    return match ? match[1] : null
 }
