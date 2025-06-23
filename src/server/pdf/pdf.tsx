@@ -79,13 +79,12 @@ async function generatePdfBuffer(sykmelding: Sykmelding, timestamp: string): Pro
 
 export const generateSykmeldingPdfServerSide = async (req: NextApiRequest, sykmeldingId: string): Promise<Buffer> => {
     let oboToken: string | undefined
-    let sykmelding: Sykmelding
 
     if (!isMockBackend()) {
         oboToken = await getOboTokenOrThrow(req, sykmeldingId)
     }
 
-    sykmelding = await fetchSykmelding(req, sykmeldingId, oboToken)
+    const sykmelding = await fetchSykmelding(req, sykmeldingId, oboToken)
     const timestamp = new Date().toISOString()
 
     try {
