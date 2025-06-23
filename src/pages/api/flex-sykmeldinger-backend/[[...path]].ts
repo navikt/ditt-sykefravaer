@@ -18,7 +18,7 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]
 
-const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
+export const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
 const POST_SYKMELDING_SEND_REGEX = new RegExp(
     `^/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/(${UUID_REGEX.source})/send$`,
 )
