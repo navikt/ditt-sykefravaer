@@ -28,55 +28,68 @@ export class ApiError extends Error {
     }
 }
 
+async function getOboTokenOrThrow(req: NextApiRequest, sykmeldingId: string): Promise<string> {
+    logger.info('Non-mock environment: Attempting OBO token exchange.')
+    const authorizationHeader = req.headers.authorization
+    if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+        logger.warn('Authorization header missing or not Bearer token for generateSykmeldingPdfServerSide')
+        throw new ApiError(401, 'Invalid or missing authorization header.')
+    }
+    const idPortenToken = authorizationHeader.split(' ')[1]
+
+    try {
+        const oboTokenResponse = await requestOboToken(
+            idPortenToken,
+            serverRuntimeConfig.flexSykmeldingerBackendClientId,
+        )
+        if (!oboTokenResponse.ok) {
+            logger.error(
+                `OBO token exchange failed for ${serverRuntimeConfig.flexSykmeldingerBackendClientId}: ${oboTokenResponse.error.message}`,
+                oboTokenResponse.error,
+            )
+            throw new ApiError(502, 'Failed to authenticate with backend service (OBO).', oboTokenResponse.error)
+        }
+        logger.info(`Successfully obtained OBO token for sykmelding ID: ${sykmeldingId}`)
+        return oboTokenResponse.token
+    } catch (error) {
+        logger.error(
+            `Error during OBO token exchange for sykmelding ID ${sykmeldingId}: ${error instanceof Error ? error.message : 'Unknown error'}`,
+            error,
+        )
+        throw new ApiError(
+            401,
+            'Authentication failed during OBO token exchange.',
+            error instanceof Error ? error : new Error(String(error)),
+        )
+    }
+}
+
+async function fetchSykmelding(req: NextApiRequest, sykmeldingId: string, oboToken?: string): Promise<Sykmelding> {
+    if (!isMockBackend()) {
+        return await getSykmelding(sykmeldingId, req, oboToken!)
+    } else {
+        logger.info('Local/Demo environment: Bypassing OBO token exchange and using mock sykmelding.')
+        return mockDb().get(getSessionId(req)).sykmelding(sykmeldingId)
+    }
+}
+
+async function generatePdfBuffer(sykmelding: Sykmelding, timestamp: string): Promise<Buffer> {
+    return await renderToBuffer(<SykmeldingPdf sykmelding={sykmelding} timestamp={timestamp} />)
+}
+
 export const generateSykmeldingPdfServerSide = async (req: NextApiRequest, sykmeldingId: string): Promise<Buffer> => {
     let oboToken: string | undefined
     let sykmelding: Sykmelding
 
     if (!isMockBackend()) {
-        logger.info('Non-mock environment: Attempting OBO token exchange.')
-        const authorizationHeader = req.headers.authorization
-        if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
-            logger.warn('Authorization header missing or not Bearer token for generateSykmeldingPdfServerSide')
-            throw new ApiError(401, 'Invalid or missing authorization header.')
-        }
-        const idPortenToken = authorizationHeader.split(' ')[1]
-
-        try {
-            const oboTokenResponse = await requestOboToken(
-                idPortenToken,
-                serverRuntimeConfig.flexSykmeldingerBackendClientId,
-            )
-
-            if (!oboTokenResponse.ok) {
-                logger.error(
-                    `OBO token exchange failed for ${serverRuntimeConfig.flexSykmeldingerBackendClientId}: ${oboTokenResponse.error.message}`,
-                    oboTokenResponse.error,
-                )
-                throw new ApiError(502, 'Failed to authenticate with backend service (OBO).', oboTokenResponse.error)
-            }
-            oboToken = oboTokenResponse.token
-            logger.info(`Successfully obtained OBO token for sykmelding ID: ${sykmeldingId}`)
-        } catch (error) {
-            logger.error(
-                `Error during OBO token exchange for sykmelding ID ${sykmeldingId}: ${error instanceof Error ? error.message : 'Unknown error'}`,
-                error,
-            )
-            throw new ApiError(
-                401,
-                'Authentication failed during OBO token exchange.',
-                error instanceof Error ? error : new Error(String(error)),
-            )
-        }
-        sykmelding = await getSykmelding(sykmeldingId, req, oboToken!)
-    } else {
-        logger.info('Local/Demo environment: Bypassing OBO token exchange and using mock sykmelding.')
-        sykmelding = mockDb().get(getSessionId(req)).sykmelding(sykmeldingId)
+        oboToken = await getOboTokenOrThrow(req, sykmeldingId)
     }
 
+    sykmelding = await fetchSykmelding(req, sykmeldingId, oboToken)
     const timestamp = new Date().toISOString()
 
     try {
-        return await renderToBuffer(<SykmeldingPdf sykmelding={sykmelding} timestamp={timestamp} />)
+        return await generatePdfBuffer(sykmelding, timestamp)
     } catch (error: unknown) {
         logger.error(
             `Error in generateSykmeldingPdfServerSide (rendering) for ${sykmeldingId}: ${error instanceof Error ? error.message : 'Unknown error'}`,
