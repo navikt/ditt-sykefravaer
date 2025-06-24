@@ -15,6 +15,14 @@ const appDirectives = {
  * @type {import('next').NextConfig}
  */
 const nextConfig = {
+    async rewrites() {
+        return [
+            {
+                source: '/:sykmeldingId/pdf',
+                destination: '/api/generate-pdf/:sykmeldingId',
+            },
+        ]
+    },
     async headers() {
         const csp = await buildCspHeader(appDirectives, { env: process.env.ENVIRONMENT })
 
