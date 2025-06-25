@@ -125,15 +125,26 @@ export const validerSykmeldingIdFraRequest = (req: NextApiRequest): string => {
 }
 
 export const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
-const POST_SYKMELDING_SEND_REGEX = new RegExp(
-    `^/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/(${UUID_REGEX.source})/send$`,
-)
 
-export function isPostSykmeldingSend(url: string): boolean {
-    return POST_SYKMELDING_SEND_REGEX.test(url)
-}
+// Det er nødvendig å støtte disse ID formatene fordi de var i bruk i en periode i 2016
+export const legacyFormat1 = /^\d{10}[a-z]{4}\d{5}\.\d{1}$/
+export const legacyFormat2 = /^\d{11}[a-z]{3}\d{5}\.\d{1}$/
+export const legacyFormat3 = /^ID:[0-9A-Fa-f ]{48}$/
+
+const SYKMELDING_ID_FORMATS = [UUID_REGEX, legacyFormat1, legacyFormat2, legacyFormat3]
+
+const API_PATH_REGEX = /^\/api\/flex-sykmeldinger-backend\/api\/v1\/sykmeldinger\/([^/]+)\/send$/
 
 export function extractSykmeldingIdFromUrl(url: string): string | null {
-    const match = url.match(POST_SYKMELDING_SEND_REGEX)
+    const match = url.match(API_PATH_REGEX)
     return match ? match[1] : null
+}
+
+export function isValidSykmeldingId(id: string): boolean {
+    return SYKMELDING_ID_FORMATS.some((regex) => regex.test(id))
+}
+
+export function isPostSykmeldingSend(url: string): boolean {
+    const id = extractSykmeldingIdFromUrl(url)
+    return id !== null && isValidSykmeldingId(id)
 }
