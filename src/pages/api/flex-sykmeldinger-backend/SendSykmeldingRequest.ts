@@ -3,7 +3,7 @@ import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
 import { requestOboToken } from '@navikt/oasis'
 
-import { UUID_REGEX } from 'src/utils/sykmeldingUtils'
+import { isValidSykmeldingId } from 'src/utils/sykmeldingUtils'
 
 import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
@@ -15,14 +15,6 @@ import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMa
 const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
-
-export const validerSykmeldingIdFraRequest = (sykmeldingId: string): boolean => {
-    const isValid = UUID_REGEX.test(sykmeldingId)
-    if (!isValid) {
-        logger.error(`Invalid sykmeldingId: ${sykmeldingId}`)
-    }
-    return isValid
-}
 
 function createBackendHeaders(
     req: NextApiRequest,
@@ -70,7 +62,7 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
 }
 
 export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
-    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+    if (!isValidSykmeldingId(sykmeldingId)) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }
 
@@ -90,7 +82,7 @@ async function getBrukerinformasjonById(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<Brukerinformasjon> {
-    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+    if (!isValidSykmeldingId(sykmeldingId)) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }
 
@@ -113,7 +105,7 @@ async function getErUtenforVentetidResponse(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<ErUtenforVentetid> {
-    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+    if (!isValidSykmeldingId(sykmeldingId)) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }
 
@@ -137,7 +129,7 @@ async function sendSykmelding(
     req: NextApiRequest,
     oboToken: string,
 ): Promise<SykmeldingUserEventV3Api> {
-    if (!validerSykmeldingIdFraRequest(sykmeldingId)) {
+    if (!isValidSykmeldingId(sykmeldingId)) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }
 
@@ -164,7 +156,7 @@ export const sendSykmeldingHandler = async (
 ) => {
     const pathSegments = req.query.path as string[] | undefined
     const uuid = sykmeldingUuid
-    if (!validerSykmeldingIdFraRequest(sykmeldingUuid || '')) {
+    if (!isValidSykmeldingId(sykmeldingUuid || '')) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingUuid}`)
     }
 
