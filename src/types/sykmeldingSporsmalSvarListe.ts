@@ -1,31 +1,6 @@
-import { ArbeidssituasjonType, FomTom, YesOrNo } from './sykmeldingCommon'
-
-export type Sporsmal = {
-    readonly shortName: ShortName
-    readonly svar: SvarTypeUnion
-    readonly tekst: string
-}
-
-export type SvarTypeUnion = ArbeidssituasjonSvar | DagerSvar | JaNeiSvar | PerioderSvar
-
-export type ArbeidssituasjonSvar = {
-    readonly svar: ArbeidssituasjonType
-    readonly svarType: Svartype.ARBEIDSSITUASJON
-}
-
 export type DagerSvar = {
     readonly svar: string[]
     readonly svarType: Svartype.DAGER
-}
-
-export type PerioderSvar = {
-    readonly svar: FomTom[]
-    readonly svarType: Svartype.PERIODER
-}
-
-export type JaNeiSvar = {
-    readonly svar: YesOrNo
-    readonly svarType: Svartype.JA_NEI
 }
 
 export enum Svartype {
