@@ -39,7 +39,7 @@ export class SykmeldingBuilder {
             timestamp: this.mottatt,
             statusEvent: StatusEvent.APEN,
             arbeidsgiver: null,
-            sporsmalOgSvarListe: [],
+
             brukerSvar: null,
         },
         medisinskVurdering: {

@@ -25,9 +25,11 @@ export const hasCompletedEgenmeldingsdager = (egenmeldingsperioder?: Egenmelding
     return lastElement.harPerioder === YesOrNo.NO
 }
 
-export function findEgenmeldingsdager(sporsmalOgSvarListe: SykmeldingStatus['sporsmalOgSvarListe']): DagerSvar | null {
-    return (
-        sporsmalOgSvarListe.flatMap((it) => it.svar).find((it): it is DagerSvar => it.svarType === Svartype.DAGER) ??
-        null
-    )
+export function finnEgenmeldingsdager(brukerSvar: SykmeldingStatus['brukerSvar']): DagerSvar | null {
+    const svar = brukerSvar?.egenmeldingsdager?.svar
+    if (!svar) return null
+    return {
+        svar: svar,
+        svarType: Svartype.DAGER,
+    }
 }

@@ -12,7 +12,7 @@ interface Props {
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
 }
 
-export const missingAgError = 'For å sende inn sykmeldingen må du fylle ut hvilken arbeidsforhold du er sykmeldt fra.'
+export const missingAgError = 'For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra.'
 
 function ArbeidsgiverField({ arbeidsgivere }: Props): ReactElement | null {
     const { field, fieldState } = useController<FormValues>({

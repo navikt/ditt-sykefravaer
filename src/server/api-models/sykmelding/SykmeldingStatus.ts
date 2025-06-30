@@ -129,6 +129,6 @@ export interface SykmeldingStatus {
     statusEvent: StatusEvent
     timestamp: LocalDate
     arbeidsgiver: ArbeidsgiverStatus | null
-    sporsmalOgSvarListe: Sporsmal[]
+    sporsmalOgSvarListe?: Sporsmal[] | null
     brukerSvar: BrukerSvar | null
 }

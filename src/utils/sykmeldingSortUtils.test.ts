@@ -31,7 +31,6 @@ function createSykmeldingStatusWithArbeidsgiver(orgNavn: string): SykmeldingStat
     return {
         timestamp: '2020-01-01',
         statusEvent: StatusEvent.APEN,
-        sporsmalOgSvarListe: [],
         arbeidsgiver: {
             orgNavn,
             orgnummer: '123',

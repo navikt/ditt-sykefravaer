@@ -8,13 +8,11 @@ import {
     RegelStatus,
     StatusEvent,
     Sykmelding,
-    SykmeldingStatus,
 } from '../../types/sykmelding'
 import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
 import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
-import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
 import { testDato } from '../../data/mock/mock-db/data-creators'
 
 export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = StatusEvent.APEN): Sykmelding {
@@ -167,7 +165,6 @@ export const createSykmeldingStatus = (
 ): Sykmelding['sykmeldingStatus'] => ({
     timestamp: '2020-04-01',
     statusEvent: StatusEvent.SENDT,
-    sporsmalOgSvarListe: [],
     arbeidsgiver: {
         orgnummer: 'default-arbeidsgiver',
         orgNavn: 'Default Arbeidsgiverssen AS',
@@ -240,30 +237,5 @@ any {
         query: typedDocumentNode,
         data,
         variables,
-    }
-}
-
-export function createMock(mockedResponse: {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    request: any
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    result?: any
-    error?: Error
-    delay?: number
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    newData?: any
-}): // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any {
-    return mockedResponse
-}
-
-export function createEgenmeldingsdagerSporsmal(dates: string[]): SykmeldingStatus['sporsmalOgSvarListe'][0] {
-    return {
-        tekst: '',
-        shortName: ShortName.EGENMELDINGSDAGER,
-        svar: {
-            svarType: Svartype.DAGER,
-            svar: dates,
-        },
     }
 }
