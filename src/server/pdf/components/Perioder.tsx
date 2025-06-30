@@ -2,12 +2,12 @@ import * as R from 'remeda'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 import { ReactElement } from 'react'
 
-import { DagerSvar } from '../../api-models/sykmelding/SykmeldingStatus'
 import { Periode } from '../../api-models/sykmelding/Periode'
 import { getPeriodTitle, getReadableLength } from '../../../utils/periodeUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../utils/dateUtils'
 import { BrukerSvar } from '../../../types/sykmeldingBrukerSvar'
 import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { DagerSvar } from '../../../types/sykmeldingSporsmalSvarListe'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 import Calender from './icons/Calender'

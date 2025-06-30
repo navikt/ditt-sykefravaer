@@ -1,13 +1,10 @@
-import * as R from 'remeda'
-
 import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
 import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding'
-import { ShortName } from '../../../types/sykmeldingSporsmalSvarListe'
 import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
-import { BrukerSvar, Svartype } from '../../../server/api-models/sykmelding/SykmeldingStatus'
+import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStatus'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
@@ -96,29 +93,6 @@ class MockDb {
                 }
             }
         }
-        R.filter(
-            [
-                {
-                    tekst: 'Hvilken arbeidssituasjon gjelder sykmeldingen for?',
-                    shortName: ShortName.ARBEIDSSITUASJON,
-                    svar: {
-                        svarType: Svartype.ARBEIDSSITUASJON as Svartype.ARBEIDSSITUASJON,
-                        svar: values.arbeidssituasjon as ArbeidssituasjonType,
-                    },
-                },
-                values.egenmeldingsdager != null && values.egenmeldingsdager.length > 0
-                    ? {
-                          tekst: 'Brukte du egenmeldingsdager?',
-                          shortName: ShortName.EGENMELDINGSDAGER,
-                          svar: {
-                              svarType: Svartype.DAGER as Svartype.DAGER,
-                              svar: values.egenmeldingsdager as string[],
-                          },
-                      }
-                    : null,
-            ],
-            R.isTruthy,
-        )
         if (
             values.arbeidssituasjon === ArbeidssituasjonType.ARBEIDSTAKER ||
             (values.arbeidssituasjon === ArbeidssituasjonType.FISKER &&
