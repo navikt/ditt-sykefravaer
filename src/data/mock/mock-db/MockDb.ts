@@ -7,14 +7,12 @@ import { ShortName } from '../../../types/sykmeldingSporsmalSvarListe'
 import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
-import { BrukerSvar, Sporsmal, Svartype } from '../../../server/api-models/sykmelding/SykmeldingStatus'
-import { sporsmal } from '../../../utils/sporsmal'
-import { toDateString } from '../../../utils/dateUtils'
+import { BrukerSvar, Svartype } from '../../../server/api-models/sykmelding/SykmeldingStatus'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
 
-import { defaultArbeidsgivere, testDato } from './data-creators'
+import { defaultArbeidsgivere } from './data-creators'
 
 class MockDb {
     private readonly _sykmeldinger: Sykmelding[]
@@ -98,8 +96,7 @@ class MockDb {
                 }
             }
         }
-
-        const sporsmalOgSvarListe: Sporsmal[] = R.filter(
+        R.filter(
             [
                 {
                     tekst: 'Hvilken arbeidssituasjon gjelder sykmeldingen for?',
@@ -122,7 +119,6 @@ class MockDb {
             ],
             R.isTruthy,
         )
-
         if (
             values.arbeidssituasjon === ArbeidssituasjonType.ARBEIDSTAKER ||
             (values.arbeidssituasjon === ArbeidssituasjonType.FISKER &&
@@ -143,35 +139,7 @@ class MockDb {
             sykmelding.sykmeldingStatus.statusEvent = StatusEvent.BEKREFTET
         }
 
-        sykmelding.sykmeldingStatus.sporsmalOgSvarListe = sporsmalOgSvarListe
         sykmelding.sykmeldingStatus.brukerSvar = apiValues as unknown as BrukerSvar
-
-        return sykmelding
-    }
-
-    updateEgenmeldingsdager(id: string, egenmeldingsdager: string[]): Sykmelding {
-        const sykmelding = this.sykmelding(id)
-        const index = sykmelding.sykmeldingStatus.sporsmalOgSvarListe.findIndex(
-            (it) => it.shortName === ShortName.EGENMELDINGSDAGER,
-        )
-
-        const egenmeldingssporsmal: Sporsmal = {
-            tekst:
-                index >= 0 ? sykmelding.sykmeldingStatus.sporsmalOgSvarListe[index].tekst : sporsmal.egenmeldingsdager,
-            shortName: ShortName.EGENMELDINGSDAGER,
-            svar: {
-                svarType: Svartype.DAGER,
-                svar: egenmeldingsdager,
-            },
-        }
-
-        if (index >= 0) {
-            sykmelding.sykmeldingStatus.sporsmalOgSvarListe[index] = egenmeldingssporsmal
-        } else if (egenmeldingssporsmal.svar.svar.length > 0) {
-            sykmelding.sykmeldingStatus.sporsmalOgSvarListe.push(egenmeldingssporsmal)
-        }
-
-        sykmelding.sykmeldingStatus.timestamp = toDateString(testDato)
 
         return sykmelding
     }

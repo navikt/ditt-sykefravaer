@@ -2,10 +2,12 @@ import * as R from 'remeda'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 import { ReactElement } from 'react'
 
-import { DagerSvar, Sporsmal, Svartype } from '../../api-models/sykmelding/SykmeldingStatus'
+import { DagerSvar } from '../../api-models/sykmelding/SykmeldingStatus'
 import { Periode } from '../../api-models/sykmelding/Periode'
 import { getPeriodTitle, getReadableLength } from '../../../utils/periodeUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../utils/dateUtils'
+import { BrukerSvar } from '../../../types/sykmeldingBrukerSvar'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 import Calender from './icons/Calender'
@@ -13,7 +15,7 @@ import { Section } from './Section'
 
 interface Props {
     perioder: Periode[]
-    sporsmalOgSvarListe?: Sporsmal[]
+    brukerSvar: BrukerSvar | null
 }
 
 const styles = StyleSheet.create({
@@ -32,8 +34,8 @@ const styles = StyleSheet.create({
     list: { marginBottom: 12 },
 })
 
-const Perioder = ({ perioder, sporsmalOgSvarListe }: Props): ReactElement | null => {
-    const egenmeldingsdager = sporsmalOgSvarListe ? findEgenmeldingsdager(sporsmalOgSvarListe) : null
+const Perioder = ({ perioder, brukerSvar }: Props): ReactElement | null => {
+    const egenmeldingsdager = brukerSvar ? finnEgenmeldingsdager(brukerSvar) : null
     return (
         <Section title="Perioder (f.o.m. - t.o.m.)" Icon={Calender} shouldWrap={perioder.length >= 5}>
             {perioder.map((periode, index) => (
@@ -90,10 +92,6 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
             </ul>
         </View>
     )
-}
-
-export function findEgenmeldingsdager(sporsmalOgSvarListe: Sporsmal[]): DagerSvar | undefined {
-    return sporsmalOgSvarListe.flatMap((it) => it.svar).find((it): it is DagerSvar => it.svarType === Svartype.DAGER)
 }
 
 export default Perioder

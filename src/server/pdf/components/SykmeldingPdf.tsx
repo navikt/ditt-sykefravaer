@@ -42,7 +42,7 @@ const SykmeldingPdf = ({ sykmelding, timestamp }: Props): ReactElement => {
                 <SykmeldingenGjelder pasient={sykmelding.pasient} />
                 <Perioder
                     perioder={getSykmeldingperioderSorted(sykmelding.sykmeldingsperioder)}
-                    sporsmalOgSvarListe={sykmelding.sykmeldingStatus.sporsmalOgSvarListe}
+                    brukerSvar={sykmelding.sykmeldingStatus.brukerSvar}
                 />
                 <AnnenInfo sykmelding={sykmelding} />
                 {!sykmelding.utenlandskSykmelding && (
