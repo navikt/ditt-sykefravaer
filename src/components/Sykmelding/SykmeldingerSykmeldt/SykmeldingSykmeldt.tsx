@@ -40,7 +40,7 @@ function SykmeldingSykmeldt({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Pro
                 isV3={isV3Sykmelding}
                 parentId={sectionId}
             >
-                {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
+                {egenmeldingsdager && egenmeldingsdager.length > 0 && (
                     <Egenmeldingsdager
                         sykmeldingId={sykmelding.id}
                         egenmeldingsdager={egenmeldingsdager}

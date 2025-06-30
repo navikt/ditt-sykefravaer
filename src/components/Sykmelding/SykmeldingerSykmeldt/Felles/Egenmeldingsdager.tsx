@@ -3,11 +3,10 @@ import { ReactElement } from 'react'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { Sykmelding } from '../../../../types/sykmelding'
-import { DagerSvar } from '../../../../types/sykmeldingSporsmalSvarListe'
 
 interface EgenmeldingsdagerProps {
     sykmeldingId: string
-    egenmeldingsdager: DagerSvar
+    egenmeldingsdager: readonly string[]
     sykmelding: Sykmelding
 }
 
@@ -15,10 +14,7 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
     return (
         <SykmeldingListInfo
             heading="Egenmeldingsdager (lagt til av deg)"
-            texts={[
-                ...[...egenmeldingsdager.svar].sort().map(toReadableDate),
-                `(${egenmeldingsdager.svar.length} dager)`,
-            ]}
+            texts={[...[...egenmeldingsdager].sort().map(toReadableDate), `(${egenmeldingsdager.length} dager)`]}
             variant="blue"
         />
     )

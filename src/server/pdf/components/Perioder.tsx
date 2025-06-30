@@ -7,7 +7,6 @@ import { getPeriodTitle, getReadableLength } from '../../../utils/periodeUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../utils/dateUtils'
 import { BrukerSvar } from '../../../types/sykmeldingBrukerSvar'
 import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
-import { DagerSvar } from '../../../types/sykmeldingSporsmalSvarListe'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 import Calender from './icons/Calender'
@@ -61,7 +60,7 @@ const Perioder = ({ perioder, brukerSvar }: Props): ReactElement | null => {
                     )}
                 </View>
             ))}
-            {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
+            {egenmeldingsdager && egenmeldingsdager.length > 0 && (
                 <Egenmeldingsdager egenmeldingsdager={egenmeldingsdager} />
             )}
         </Section>
@@ -69,7 +68,7 @@ const Perioder = ({ perioder, brukerSvar }: Props): ReactElement | null => {
 }
 
 interface EgenmeldingsdagerProps {
-    egenmeldingsdager: DagerSvar
+    egenmeldingsdager: string[]
 }
 
 function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): ReactElement {
@@ -78,7 +77,7 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
             <Text style={styles.title}>Egenmeldingsdager (lagt til av deg)</Text>
             <ul style={styles.list}>
                 {R.pipe(
-                    egenmeldingsdager.svar,
+                    egenmeldingsdager,
                     R.sortBy((it) => it),
                     R.map((date: string) => (
                         <li style={styles.view} key={toReadableDate(date)}>
@@ -87,7 +86,7 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
                     )),
                 )}
                 <li>
-                    <Text>{`(${egenmeldingsdager.svar.length} dager)`}</Text>
+                    <Text>{`(${egenmeldingsdager.length} dager)`}</Text>
                 </li>
             </ul>
         </View>
