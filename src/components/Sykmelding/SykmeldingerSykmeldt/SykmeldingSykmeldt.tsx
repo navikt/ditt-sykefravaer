@@ -3,7 +3,7 @@ import { Alert } from '@navikt/ds-react'
 
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
-import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding'
 
 import Perioder from './Felles/Perioder'
@@ -30,7 +30,7 @@ const sectionId = 'sykmelding-sykmeldt'
 
 function SykmeldingSykmeldt({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Props): ReactElement {
     const isV3Sykmelding = isV3(sykmelding)
-    const egenmeldingsdager = findEgenmeldingsdager(sykmelding.sykmeldingStatus.sporsmalOgSvarListe)
+    const egenmeldingsdager = finnEgenmeldingsdager(sykmelding.sykmeldingStatus.brukerSvar)
 
     return (
         <div>
@@ -40,7 +40,7 @@ function SykmeldingSykmeldt({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Pro
                 isV3={isV3Sykmelding}
                 parentId={sectionId}
             >
-                {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
+                {egenmeldingsdager && egenmeldingsdager.length > 0 && (
                     <Egenmeldingsdager
                         sykmeldingId={sykmelding.id}
                         egenmeldingsdager={egenmeldingsdager}

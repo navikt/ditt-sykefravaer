@@ -13,14 +13,13 @@ import {
     SykmeldingListInfo,
     SykmeldingMultilineInfo,
 } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { DagerSvar } from '../../../../types/sykmeldingSporsmalSvarListe'
 
 interface PerioderProps {
     perioder: Periode[]
     /**
      * Egenmeldingsdager can either be the answer from a sykmelding, or the current values in the form.
      */
-    egenmeldingsdager?: (DagerSvar | string[]) | null
+    egenmeldingsdager?: string[] | null
     parentId: string
 }
 
@@ -50,13 +49,12 @@ function Perioder({ perioder, egenmeldingsdager, parentId }: PerioderProps): Rea
 
 interface EgenmeldingsdagerProps {
     className?: string
-    egenmeldingsdager: DagerSvar | readonly string[]
+    egenmeldingsdager: readonly string[]
 }
 
 function Egenmeldingsdager({ className, egenmeldingsdager }: EgenmeldingsdagerProps): ReactElement | null {
     const dager = R.pipe(
         egenmeldingsdager,
-        (it) => ('svar' in it ? it.svar : it),
         R.sortBy((it) => it),
         R.map(toReadableDate),
     )

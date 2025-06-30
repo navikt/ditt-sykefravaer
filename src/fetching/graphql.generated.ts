@@ -1626,28 +1626,6 @@ export const SykmeldingerDocument = {
                     },
                     {
                         kind: 'Field',
-                        name: { kind: 'Name', value: 'sporsmalOgSvarListe' },
-                        selectionSet: {
-                            kind: 'SelectionSet',
-                            selections: [
-                                { kind: 'Field', name: { kind: 'Name', value: 'tekst' } },
-                                { kind: 'Field', name: { kind: 'Name', value: 'shortName' } },
-                                {
-                                    kind: 'Field',
-                                    name: { kind: 'Name', value: 'svar' },
-                                    selectionSet: {
-                                        kind: 'SelectionSet',
-                                        selections: [
-                                            { kind: 'Field', name: { kind: 'Name', value: '__typename' } },
-                                            { kind: 'FragmentSpread', name: { kind: 'Name', value: 'SvarUnion' } },
-                                        ],
-                                    },
-                                },
-                            ],
-                        },
-                    },
-                    {
-                        kind: 'Field',
                         name: { kind: 'Name', value: 'brukerSvar' },
                         selectionSet: {
                             kind: 'SelectionSet',

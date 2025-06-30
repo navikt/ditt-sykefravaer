@@ -14,7 +14,6 @@ describe('StatusBanner', () => {
                 orgnummer: '123456',
                 orgNavn: 'Politiet',
             },
-            sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
@@ -30,7 +29,6 @@ describe('StatusBanner', () => {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
-            sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
@@ -46,7 +44,6 @@ describe('StatusBanner', () => {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
-            sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
@@ -62,7 +59,6 @@ describe('StatusBanner', () => {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
-            sporsmalOgSvarListe: [],
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,

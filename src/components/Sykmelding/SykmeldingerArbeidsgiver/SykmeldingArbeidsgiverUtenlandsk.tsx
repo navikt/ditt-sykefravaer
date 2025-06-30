@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 
 import { UtenlandskSykmelding } from '../../../utils/utenlanskUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
-import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import Perioder from './Felles/Perioder'
 import SykmeldingenGjelder from './Felles/SykmeldingenGjelder'
@@ -20,7 +20,7 @@ function SykmeldingArbeidsgiverUtenlandsk({ sykmelding, chosenEgenmeldingsdager 
             <Perioder
                 perioder={getSykmeldingperioderSorted(sykmelding.sykmeldingsperioder)}
                 egenmeldingsdager={
-                    chosenEgenmeldingsdager ?? findEgenmeldingsdager(sykmelding.sykmeldingStatus.sporsmalOgSvarListe)
+                    chosenEgenmeldingsdager ?? finnEgenmeldingsdager(sykmelding.sykmeldingStatus.brukerSvar)
                 }
                 parentId="sykmelding-arbeidsgiver-utenlandsk"
             />

@@ -81,7 +81,7 @@ export function selectEgenmeldingsdager({
     }
 }
 
-test.describe.skip('Egenmeldingsdager', () => {
+test.describe('Egenmeldingsdager', () => {
     test.describe('Arbeidstaker', () => {
         test('burde kunne sende inn sykmelding med en periode med egenmelding', async ({ page }) => {
             await gotoScenario('normal')(page)

@@ -30,7 +30,6 @@ describe('AnnenInfo', () => {
             sykmeldingStatus: {
                 timestamp: '2020-01-01',
                 statusEvent: StatusEvent.APEN,
-                sporsmalOgSvarListe: [],
                 arbeidsgiver: null,
             },
             medisinskVurdering: null,
@@ -100,7 +99,6 @@ describe('AnnenInfo', () => {
             sykmeldingStatus: {
                 timestamp: '2020-01-01',
                 statusEvent: StatusEvent.APEN,
-                sporsmalOgSvarListe: [],
                 arbeidsgiver: null,
             },
             medisinskVurdering: null,

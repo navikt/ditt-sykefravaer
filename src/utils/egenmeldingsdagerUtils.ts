@@ -5,7 +5,6 @@ import {
     MAX_EGENMELDINGSDAGER,
 } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { SykmeldingStatus } from '../types/sykmelding'
-import { DagerSvar, Svartype } from '../types/sykmeldingSporsmalSvarListe'
 import { YesOrNo } from '../types/sykmeldingCommon'
 
 const hasMoreThan16Dates: (perioder: EgenmeldingsdagerFormValue[]) => boolean = R.piped(
@@ -25,9 +24,11 @@ export const hasCompletedEgenmeldingsdager = (egenmeldingsperioder?: Egenmelding
     return lastElement.harPerioder === YesOrNo.NO
 }
 
-export function findEgenmeldingsdager(sporsmalOgSvarListe: SykmeldingStatus['sporsmalOgSvarListe']): DagerSvar | null {
-    return (
-        sporsmalOgSvarListe.flatMap((it) => it.svar).find((it): it is DagerSvar => it.svarType === Svartype.DAGER) ??
-        null
-    )
+export function finnEgenmeldingsdager(brukerSvar: SykmeldingStatus['brukerSvar']): string[] | null {
+    const svar = brukerSvar?.egenmeldingsdager?.svar
+    if (!svar) {
+        return null
+    } else {
+        return svar
+    }
 }

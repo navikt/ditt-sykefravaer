@@ -3,7 +3,7 @@ import * as R from 'remeda'
 
 import { Sykmelding } from '../../../types/sykmelding'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
-import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import Perioder from './Felles/Perioder'
 import SykmeldingenGjelder from './Felles/SykmeldingenGjelder'
@@ -29,7 +29,7 @@ function SykmeldingArbeidsgiver({ sykmelding, chosenEgenmeldingsdager }: Sykmeld
             <Perioder
                 perioder={getSykmeldingperioderSorted(sykmelding.sykmeldingsperioder)}
                 egenmeldingsdager={
-                    chosenEgenmeldingsdager ?? findEgenmeldingsdager(sykmelding.sykmeldingStatus.sporsmalOgSvarListe)
+                    chosenEgenmeldingsdager ?? finnEgenmeldingsdager(sykmelding.sykmeldingStatus.brukerSvar)
                 }
                 parentId={sectionId}
             />

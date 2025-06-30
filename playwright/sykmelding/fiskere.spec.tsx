@@ -248,7 +248,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await page.getByRole('button', { name: /Send sykmelding/ }).click()
             await expect(
                 page.getByText(
-                    /For å sende inn sykmeldingen må du fylle ut hvilken arbeidsforhold du er sykmeldt fra./,
+                    /Sykmeldingen ble ikke sendt.*For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra/,
                 ),
             ).toBeVisible()
             await expect(page).toHaveNoViolations()

@@ -2,10 +2,11 @@ import * as R from 'remeda'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 import { ReactElement } from 'react'
 
-import { DagerSvar, Sporsmal, Svartype } from '../../api-models/sykmelding/SykmeldingStatus'
 import { Periode } from '../../api-models/sykmelding/Periode'
 import { getPeriodTitle, getReadableLength } from '../../../utils/periodeUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../utils/dateUtils'
+import { BrukerSvar } from '../../../types/sykmeldingBrukerSvar'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 import Calender from './icons/Calender'
@@ -13,7 +14,7 @@ import { Section } from './Section'
 
 interface Props {
     perioder: Periode[]
-    sporsmalOgSvarListe?: Sporsmal[]
+    brukerSvar: BrukerSvar | null
 }
 
 const styles = StyleSheet.create({
@@ -32,8 +33,8 @@ const styles = StyleSheet.create({
     list: { marginBottom: 12 },
 })
 
-const Perioder = ({ perioder, sporsmalOgSvarListe }: Props): ReactElement | null => {
-    const egenmeldingsdager = sporsmalOgSvarListe ? findEgenmeldingsdager(sporsmalOgSvarListe) : null
+const Perioder = ({ perioder, brukerSvar }: Props): ReactElement | null => {
+    const egenmeldingsdager = brukerSvar ? finnEgenmeldingsdager(brukerSvar) : null
     return (
         <Section title="Perioder (f.o.m. - t.o.m.)" Icon={Calender} shouldWrap={perioder.length >= 5}>
             {perioder.map((periode, index) => (
@@ -59,7 +60,7 @@ const Perioder = ({ perioder, sporsmalOgSvarListe }: Props): ReactElement | null
                     )}
                 </View>
             ))}
-            {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
+            {egenmeldingsdager && egenmeldingsdager.length > 0 && (
                 <Egenmeldingsdager egenmeldingsdager={egenmeldingsdager} />
             )}
         </Section>
@@ -67,7 +68,7 @@ const Perioder = ({ perioder, sporsmalOgSvarListe }: Props): ReactElement | null
 }
 
 interface EgenmeldingsdagerProps {
-    egenmeldingsdager: DagerSvar
+    egenmeldingsdager: string[]
 }
 
 function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): ReactElement {
@@ -76,7 +77,7 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
             <Text style={styles.title}>Egenmeldingsdager (lagt til av deg)</Text>
             <ul style={styles.list}>
                 {R.pipe(
-                    egenmeldingsdager.svar,
+                    egenmeldingsdager,
                     R.sortBy((it) => it),
                     R.map((date: string) => (
                         <li style={styles.view} key={toReadableDate(date)}>
@@ -85,15 +86,11 @@ function Egenmeldingsdager({ egenmeldingsdager }: EgenmeldingsdagerProps): React
                     )),
                 )}
                 <li>
-                    <Text>{`(${egenmeldingsdager.svar.length} dager)`}</Text>
+                    <Text>{`(${egenmeldingsdager.length} dager)`}</Text>
                 </li>
             </ul>
         </View>
     )
-}
-
-export function findEgenmeldingsdager(sporsmalOgSvarListe: Sporsmal[]): DagerSvar | undefined {
-    return sporsmalOgSvarListe.flatMap((it) => it.svar).find((it): it is DagerSvar => it.svarType === Svartype.DAGER)
 }
 
 export default Perioder

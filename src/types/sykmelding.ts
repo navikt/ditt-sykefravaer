@@ -1,5 +1,4 @@
 import { BrukerSvar } from './sykmeldingBrukerSvar'
-import { Sporsmal } from './sykmeldingSporsmalSvarListe'
 
 export type Sykmelding = {
     readonly id: string
@@ -215,7 +214,6 @@ export enum StatusEvent {
 export type SykmeldingStatus = {
     readonly arbeidsgiver?: ArbeidsgiverStatus | null
     readonly brukerSvar?: BrukerSvar | null
-    readonly sporsmalOgSvarListe: Sporsmal[]
     readonly statusEvent: StatusEvent
     readonly timestamp: string
 }

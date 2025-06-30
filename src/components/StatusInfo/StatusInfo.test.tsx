@@ -2,8 +2,6 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
 import { Merknad, Merknadtype, Periode, Periodetype, StatusEvent, SykmeldingStatus } from '../../types/sykmelding'
-import { ArbeidssituasjonType, YesOrNo } from '../../types/sykmeldingCommon'
-import { ShortName, Svartype } from '../../types/sykmeldingSporsmalSvarListe'
 
 import StatusInfo from './StatusInfo'
 
@@ -25,7 +23,6 @@ describe('StatusInfo', () => {
             statusEvent: StatusEvent.APEN,
             timestamp: '2021-05-01',
             arbeidsgiver: null,
-            sporsmalOgSvarListe: [],
         }
 
         render(<StatusInfo sykmeldingStatus={sykmeldingStatus} sykmeldingsperioder={[]} sykmeldingMerknader={[]} />)
@@ -38,7 +35,6 @@ describe('StatusInfo', () => {
                 statusEvent: StatusEvent.SENDT,
                 timestamp: '2021-05-01',
                 arbeidsgiver: null,
-                sporsmalOgSvarListe: [],
             }
             const avventendePeriode: Periode = {
                 fom: '2021-05-01',
@@ -69,7 +65,6 @@ describe('StatusInfo', () => {
                 statusEvent: StatusEvent.BEKREFTET,
                 timestamp: '2021-05-01',
                 arbeidsgiver: null,
-                sporsmalOgSvarListe: [],
             }
             const avventendePeriode: Periode = {
                 fom: '2021-05-01',
@@ -98,7 +93,6 @@ describe('StatusInfo', () => {
                 statusEvent: StatusEvent.SENDT,
                 timestamp: '2021-05-01',
                 arbeidsgiver: null,
-                sporsmalOgSvarListe: [],
             }
             const merknad: Merknad = {
                 type: Merknadtype.UNDER_BEHANDLING,
@@ -129,7 +123,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -156,7 +149,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -196,16 +188,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.ARBEIDSTAKER,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -245,24 +227,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.FRILANSER,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -289,24 +253,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.NAERINGSDRIVENDE,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -333,24 +279,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.ARBEIDSLEDIG,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -377,7 +305,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [],
                 }
                 const gradertReisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -409,7 +336,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -436,7 +362,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -476,24 +401,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.FRILANSER,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -520,24 +427,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.NAERINGSDRIVENDE,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -564,24 +453,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.ARBEIDSLEDIG,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const reisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -608,24 +479,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.NAERINGSDRIVENDE,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const gradertReisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',
@@ -655,24 +508,6 @@ describe('StatusInfo', () => {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
                     arbeidsgiver: null,
-                    sporsmalOgSvarListe: [
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.ARBEIDSSITUASJON,
-                            svar: {
-                                svarType: Svartype.ARBEIDSSITUASJON,
-                                svar: ArbeidssituasjonType.ARBEIDSLEDIG,
-                            },
-                        },
-                        {
-                            tekst: 'sporsmalstekst',
-                            shortName: ShortName.FORSIKRING,
-                            svar: {
-                                svarType: Svartype.JA_NEI,
-                                svar: YesOrNo.NO,
-                            },
-                        },
-                    ],
                 }
                 const gradertReisetilskuddPeriode: Periode = {
                     fom: '2021-05-01',

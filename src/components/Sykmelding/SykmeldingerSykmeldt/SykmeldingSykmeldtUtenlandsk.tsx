@@ -4,7 +4,7 @@ import { Alert } from '@navikt/ds-react'
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { UtenlandskSykmelding } from '../../../utils/utenlanskUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
-import { findEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
+import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import Perioder from './Felles/Perioder'
 import SykmeldingenGjelder from './Felles/SykmeldingenGjelder'
@@ -18,7 +18,7 @@ interface Props {
 }
 
 function SykmeldingSykmeldtUtenlandsk({ sykmelding, shouldShowEgenmeldingsdagerInfo }: Props): ReactElement {
-    const egenmeldingsdager = findEgenmeldingsdager(sykmelding.sykmeldingStatus.sporsmalOgSvarListe)
+    const egenmeldingsdager = finnEgenmeldingsdager(sykmelding.sykmeldingStatus.brukerSvar)
 
     return (
         <div>
@@ -28,7 +28,7 @@ function SykmeldingSykmeldtUtenlandsk({ sykmelding, shouldShowEgenmeldingsdagerI
                 isV3={isV3(sykmelding)}
                 parentId="sykmelding-sykmeldt-utenlandsk"
             >
-                {egenmeldingsdager && egenmeldingsdager.svar.length > 0 && (
+                {egenmeldingsdager && egenmeldingsdager.length > 0 && (
                     <Egenmeldingsdager
                         sykmeldingId={sykmelding.id}
                         egenmeldingsdager={egenmeldingsdager}
