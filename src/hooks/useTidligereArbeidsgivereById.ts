@@ -18,8 +18,6 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
                     testpersonQuery.query(),
             )
 
-            console.log(`Tidligere arbeidsgivere for sykmeldingId ${sykmeldingId} hentet:`, tidligereArbeidsgivere)
-
             const seen = new Set()
             const dedupliserteArbeidsgivere = tidligereArbeidsgivere
                 .map((arbeidsgiver) => ({
