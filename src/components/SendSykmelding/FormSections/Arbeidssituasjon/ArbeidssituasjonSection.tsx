@@ -29,7 +29,6 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
     const { watch } = useFormContext<FormValues>()
     const arbeidssituasjon = watch('arbeidssituasjon')
 
-
     // Fetch tidligere arbeidsgivere by sykmelding ID
     const { data, isPending: loading, error } = useTidligereArbeidsgivereById(sykmelding.id)
 
