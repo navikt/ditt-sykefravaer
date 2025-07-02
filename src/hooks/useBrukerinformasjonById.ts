@@ -21,6 +21,7 @@ export default function useBrukerInformasjonById(sykmeldingId: string) {
             res.arbeidsgivere.forEach((arbeidsgiver) => {
                 arbeidsgiver.navn = prettifyOrgName(arbeidsgiver.navn)
             })
+            console.log(`Brukerinformasjon for sykmeldingId ${sykmeldingId} hentet:`, res)
             return res
         },
     })
