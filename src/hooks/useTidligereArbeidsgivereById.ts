@@ -22,7 +22,7 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
 
             const seen = new Set()
             const dedupliserteArbeidsgivere = tidligereArbeidsgivere
-                .map(arbeidsgiver => ({
+                .map((arbeidsgiver) => ({
                     orgNavn: prettifyOrgName(arbeidsgiver.orgNavn),
                     orgnummer: arbeidsgiver.orgnummer,
                 }))
