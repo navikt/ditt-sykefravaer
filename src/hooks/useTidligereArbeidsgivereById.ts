@@ -17,10 +17,14 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
                     '/tidligere-arbeidsgivere' +
                     testpersonQuery.query(),
             )
+            
+            console.log(`Tidligere arbeidsgivere for sykmeldingId ${sykmeldingId} hentet:`, tidligereArbeidsgivere)
             return tidligereArbeidsgivere.map((arbeidsgiver) => ({
                 orgNavn: prettifyOrgName(arbeidsgiver.orgNavn),
                 orgnummer: arbeidsgiver.orgnummer,
             }))
+
+
         },
     })
 }
