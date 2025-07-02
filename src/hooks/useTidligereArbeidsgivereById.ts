@@ -19,10 +19,21 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
             )
 
             console.log(`Tidligere arbeidsgivere for sykmeldingId ${sykmeldingId} hentet:`, tidligereArbeidsgivere)
-            return tidligereArbeidsgivere.map((arbeidsgiver) => ({
-                orgNavn: prettifyOrgName(arbeidsgiver.orgNavn),
-                orgnummer: arbeidsgiver.orgnummer,
-            }))
+
+            const seen = new Set()
+            const dedupliserteArbeidsgivere = tidligereArbeidsgivere
+                .map(arbeidsgiver => ({
+                    orgNavn: prettifyOrgName(arbeidsgiver.orgNavn),
+                    orgnummer: arbeidsgiver.orgnummer,
+                }))
+                .filter(({ orgNavn, orgnummer }) => {
+                    const key = `${orgNavn}-${orgnummer}`
+                    if (seen.has(key)) return false
+                    seen.add(key)
+                    return true
+                })
+
+            return dedupliserteArbeidsgivere
         },
     })
 }
