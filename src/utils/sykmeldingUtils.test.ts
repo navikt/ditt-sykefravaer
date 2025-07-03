@@ -322,18 +322,24 @@ describe('isValidSykmeldingId', () => {
 })
 
 describe('isPostSykmeldingSend', () => {
-    it('returns true for valid url and valid id', () => {
+    it('returns true for valid url and valid UUID format', () => {
         expect(
             isPostSykmeldingSend(
                 '/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/123e4567-e89b-12d3-a456-426614174000/send',
             ),
         ).toBe(true)
+    })
+    it('returns true for valid url and valid id (legacyFormat1)', () => {
         expect(
             isPostSykmeldingSend('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/1611032236vert68525.1/send'),
         ).toBe(true)
+    })
+    it('returns true for valid url and valid id (legacyFormat2)', () => {
         expect(
             isPostSykmeldingSend('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/16092333673beg74487.1/send'),
         ).toBe(true)
+    })
+    it('returns true for valid url and valid id (legacyFormat3)', () => {
         expect(
             isPostSykmeldingSend(
                 '/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/ID:616d51316d516c53633133313131313185683857e96df313/send',
