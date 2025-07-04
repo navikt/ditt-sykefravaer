@@ -33,7 +33,6 @@ describe('arbeidssituasjonUtils', () => {
 
     describe('deduplisterteArbeidsgivere', () => {
         it('should remove duplicates based on prettified org name and orgnummer', () => {
-            // Removed mocking of prettifyOrgName to use the real implementation
 
             const arbeidsgivere: TidligereArbeidsgivereArray = [
                 { orgNavn: 'Firma AS', orgnummer: '123' },
