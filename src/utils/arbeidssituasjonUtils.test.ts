@@ -1,11 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect } from 'vitest'
 
 import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
 import { TidligereArbeidsgivereArray } from '../hooks/useTidligereArbeidsgivereById'
 
 import { isArbeidstaker, isFrilanserOrNaeringsdrivendeOrJordbruker } from './arbeidssituasjonUtils'
 import { deduplisterteArbeidsgivere } from './arbeidsgiverUtils'
-import * as orgUtils from './orgUtils'
 
 describe('arbeidssituasjonUtils', () => {
     describe('isArbeidstaker', () => {
