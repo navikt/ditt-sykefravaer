@@ -1,8 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 
 import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
+import { TidligereArbeidsgivereArray } from '../hooks/useTidligereArbeidsgivereById'
 
 import { isArbeidstaker, isFrilanserOrNaeringsdrivendeOrJordbruker } from './arbeidssituasjonUtils'
+import { deduplisterteArbeidsgivere } from './arbeidsgiverUtils'
+import * as orgUtils from './orgUtils'
 
 describe('arbeidssituasjonUtils', () => {
     describe('isArbeidstaker', () => {
@@ -26,6 +29,27 @@ describe('arbeidssituasjonUtils', () => {
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.ARBEIDSTAKER)).toBe(false)
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.ANNET)).toBe(false)
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.FISKER)).toBe(false)
+        })
+    })
+
+    describe('deduplisterteArbeidsgivere', () => {
+        it('should remove duplicates based on prettified org name and orgnummer', () => {
+            // Mock prettifyOrgName to just return the name in uppercase for test
+            vi.spyOn(orgUtils, 'prettifyOrgName').mockImplementation((name) => name.toUpperCase())
+
+            const arbeidsgivere: TidligereArbeidsgivereArray = [
+                { orgNavn: 'Firma AS', orgnummer: '123' },
+                { orgNavn: 'firma as', orgnummer: '123' }, // same orgNavn, liten/stor bokstav
+                { orgNavn: 'Firma AS', orgnummer: '456' }, // samme orgNavn, annet orgnummer
+                { orgNavn: 'Annet AS', orgnummer: '789' },
+            ]
+
+            const result = deduplisterteArbeidsgivere(arbeidsgivere)
+            expect(result).toEqual([
+                { orgNavn: 'FIRMA AS', orgnummer: '123' },
+                { orgNavn: 'FIRMA AS', orgnummer: '456' },
+                { orgNavn: 'ANNET AS', orgnummer: '789' },
+            ])
         })
     })
 })
