@@ -33,7 +33,6 @@ describe('arbeidssituasjonUtils', () => {
 
     describe('deduplisterteArbeidsgivere', () => {
         it('should remove duplicates based on prettified org name and orgnummer', () => {
-
             const arbeidsgivere: TidligereArbeidsgivereArray = [
                 { orgNavn: 'Firma AS', orgnummer: '123' },
                 { orgNavn: 'firma as', orgnummer: '123' }, // same orgNavn, liten/stor bokstav
