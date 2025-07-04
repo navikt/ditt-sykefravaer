@@ -1,8 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
 import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
+import { TidligereArbeidsgivereArray } from '../hooks/useTidligereArbeidsgivereById'
 
 import { isArbeidstaker, isFrilanserOrNaeringsdrivendeOrJordbruker } from './arbeidssituasjonUtils'
+import { deduplisterteArbeidsgivere } from './arbeidsgiverUtils'
 
 describe('arbeidssituasjonUtils', () => {
     describe('isArbeidstaker', () => {
@@ -26,6 +28,24 @@ describe('arbeidssituasjonUtils', () => {
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.ARBEIDSTAKER)).toBe(false)
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.ANNET)).toBe(false)
             expect(isFrilanserOrNaeringsdrivendeOrJordbruker(ArbeidssituasjonType.FISKER)).toBe(false)
+        })
+    })
+
+    describe('deduplisterteArbeidsgivere', () => {
+        it('should remove duplicates based on prettified org name and orgnummer', () => {
+            const arbeidsgivere: TidligereArbeidsgivereArray = [
+                { orgNavn: 'Firma AS', orgnummer: '123' },
+                { orgNavn: 'firma as', orgnummer: '123' }, // same orgNavn, liten/stor bokstav
+                { orgNavn: 'Firma AS', orgnummer: '456' }, // samme orgNavn, annet orgnummer
+                { orgNavn: 'Annet AS', orgnummer: '789' },
+            ]
+
+            const result = deduplisterteArbeidsgivere(arbeidsgivere)
+            expect(result).toEqual([
+                { orgNavn: 'Firma AS', orgnummer: '123' },
+                { orgNavn: 'Firma AS', orgnummer: '456' },
+                { orgNavn: 'Annet AS', orgnummer: '789' },
+            ])
         })
     })
 })
