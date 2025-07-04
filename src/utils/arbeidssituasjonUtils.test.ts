@@ -34,8 +34,7 @@ describe('arbeidssituasjonUtils', () => {
 
     describe('deduplisterteArbeidsgivere', () => {
         it('should remove duplicates based on prettified org name and orgnummer', () => {
-            // Mock prettifyOrgName to just return the name in uppercase for test
-            vi.spyOn(orgUtils, 'prettifyOrgName').mockImplementation((name) => name.toUpperCase())
+            // Removed mocking of prettifyOrgName to use the real implementation
 
             const arbeidsgivere: TidligereArbeidsgivereArray = [
                 { orgNavn: 'Firma AS', orgnummer: '123' },
@@ -46,9 +45,9 @@ describe('arbeidssituasjonUtils', () => {
 
             const result = deduplisterteArbeidsgivere(arbeidsgivere)
             expect(result).toEqual([
-                { orgNavn: 'FIRMA AS', orgnummer: '123' },
-                { orgNavn: 'FIRMA AS', orgnummer: '456' },
-                { orgNavn: 'ANNET AS', orgnummer: '789' },
+                { orgNavn: 'Firma AS', orgnummer: '123' },
+                { orgNavn: 'Firma AS', orgnummer: '456' },
+                { orgNavn: 'Annet AS', orgnummer: '789' },
             ])
         })
     })
