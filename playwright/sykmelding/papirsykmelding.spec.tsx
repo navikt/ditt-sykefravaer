@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test'
-
 import { getRadioInGroup, userInteractionsGroup } from '../utils/test-utils'
 import {
     bekreftSykmelding,
@@ -9,6 +7,7 @@ import {
     opplysingeneStemmer,
     velgArbeidssituasjon,
 } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Papir sykmelding', () => {
     test('should show information if papirsykmelding is already passed on', async ({ page }) => {
@@ -22,7 +21,6 @@ test.describe('Papir sykmelding', () => {
                 'Hør med arbeidsgiveren din om det er greit at du sender sykmeldingen herfra i stedet. Det er en fordel for begge: Da får dere alt her, både sykepengesøknaden og andre meldinger som handler om sykefraværet. Papirsykmeldingen kan du legge bort. Det du gjør her, erstatter papiret.',
             ),
         ).toBeVisible()
-        await expect(page).toHaveNoViolations()
     })
 
     test('should show information if papirsykmelding is not passed on', async ({ page }) => {
@@ -36,7 +34,6 @@ test.describe('Papir sykmelding', () => {
         ).click()
 
         await expect(page.getByText('Da kan du sende sykmeldingen herfra')).toBeVisible()
-        await expect(page).toHaveNoViolations()
     })
 
     test('should avbryte papirsykmelding', async ({ page }) => {

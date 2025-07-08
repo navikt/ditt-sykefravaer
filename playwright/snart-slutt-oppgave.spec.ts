@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 
-import { test } from './fixtures'
+import { test } from './utils/fixtures'
 
 test.describe('Tester snart slutt oppgave', () => {
     test('Har riktig lenke', async ({ page }) => {

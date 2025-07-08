@@ -1,5 +1,3 @@
-import { test } from '@playwright/test'
-
 import {
     bekreftSykmelding,
     gotoScenario,
@@ -10,6 +8,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
+import { test } from '../utils/fixtures'
 
 test.describe('Arbeidssituasjon - Permittert', () => {
     /**

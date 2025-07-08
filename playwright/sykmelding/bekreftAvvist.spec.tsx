@@ -1,9 +1,9 @@
-import { test, expect } from '@playwright/test'
 import { subDays } from 'date-fns'
 
 import { toReadableDate } from '../../src/utils/dateUtils'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { testDato } from '../../src/data/mock/mock-db/data-creators'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Bekreft avvist sykmelding som lest', () => {
     test('burde vise begrunnelse for avvist sykmelding', async ({ page }) => {
@@ -15,7 +15,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
             .click()
 
         await expect(page.getByText(/Du trenger en ny sykmelding/)).toBeVisible()
-        await expect(page).toHaveNoViolations()
     })
 
     test.describe('tester sjekkbokser', () => {
@@ -40,8 +39,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
                     name: 'Jeg bekrefter at jeg har lest at sykmeldingen er avvist',
                 }),
             ).toHaveDescriptiveText('Du må bekrefte at du har lest at sykmeldingen er avvist.')
-
-            await expect(page).toHaveNoViolations()
         })
 
         test('skal fjerne feilmelding etter at man klikker på avkrysningsboksen', async ({ page }) => {
@@ -64,8 +61,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
                 }),
             ).toHaveDescriptiveText('Du må bekrefte at du har lest at sykmeldingen er avvist.')
 
-            await expect(page).toHaveNoViolations()
-
             await page
                 .getByRole('checkbox', {
                     name: 'Jeg bekrefter at jeg har lest at sykmeldingen er avvist',
@@ -77,8 +72,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
                     name: 'Jeg bekrefter at jeg har lest at sykmeldingen er avvist',
                 }),
             ).not.toHaveDescriptiveText()
-
-            await expect(page).toHaveNoViolations()
         })
 
         test('Burde vise bekreftelse etter innsending', async ({ page }) => {
@@ -91,8 +84,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
                 })
                 .click()
 
-            await expect(page).toHaveNoViolations()
-
             await page.getByRole('button', { name: 'Bekreft' }).click()
 
             await expect(
@@ -102,7 +93,6 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
             ).toBeVisible()
 
             await expect(page.getByRole('link', { name: 'Tilbake til Ditt sykefravær' })).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
     })
 })

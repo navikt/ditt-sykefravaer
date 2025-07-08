@@ -93,8 +93,6 @@ test.describe('Egenmeldingsdager', () => {
                 initialDate: sub(testDato, { days: 9 }),
             })(page)
 
-            await expect(page).toHaveNoViolations()
-
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
 
             await page.getByRole('button', { name: /Send sykmelding/ }).click()
@@ -125,8 +123,6 @@ test.describe('Egenmeldingsdager', () => {
                 daysToSelect: [[13, 12], [2, 3], 'Nei'],
                 initialDate: sub(testDato, { days: 9 }),
             })(page)
-
-            await expect(page).toHaveNoViolations()
 
             await expectNumberOfEgenmeldingsdagerInput(4)(page)
 
@@ -202,7 +198,6 @@ test.describe('Egenmeldingsdager', () => {
                 await expect(
                     page.getByText('Du har valgt 16 egenmeldingsdager, og trenger ikke å velge flere.'),
                 ).toBeVisible()
-                await expect(page).toHaveNoViolations()
 
                 await expectNumberOfEgenmeldingsdagerInput(16)(page)
 

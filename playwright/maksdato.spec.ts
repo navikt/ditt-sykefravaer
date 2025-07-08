@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 
 import { tilLesbarDatoMedArstall } from '../src/utils/dato-utils'
 
-import { test } from './fixtures'
+import { test } from './utils/fixtures'
 
 test.describe('Maksdato', () => {
     test.beforeEach(async ({ page }) => {

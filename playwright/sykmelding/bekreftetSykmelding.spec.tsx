@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test'
-
 import {
     bekreftSykmelding,
     gotoRoot,
@@ -8,6 +6,7 @@ import {
     opplysingeneStemmer,
     velgArbeidssituasjon,
 } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Bekreftet sykmelding', () => {
     test('should reopen brekreftet sykmelding', async ({ page }) => {
@@ -23,6 +22,5 @@ test.describe('Bekreftet sykmelding', () => {
 
         await page.getByRole('button', { name: 'GJØR UTFYLLINGEN PÅ NYTT' }).click()
         await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).toBeVisible()
-        await expect(page).toHaveNoViolations()
     })
 })

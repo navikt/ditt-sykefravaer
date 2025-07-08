@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 
-import { test } from './fixtures'
+import { test } from './utils/fixtures'
 
 test.describe('Keyboard navigering', () => {
     test('Vi navigerer forsiden med mange elementer', async ({ page }) => {

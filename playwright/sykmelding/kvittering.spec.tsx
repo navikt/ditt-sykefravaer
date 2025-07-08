@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test'
-
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Kvittering', () => {
     test('should NOT show egenmeldingsdager info when status is bekreftet', async ({ page }) => {
