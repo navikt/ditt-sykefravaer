@@ -55,7 +55,7 @@ function SykmeldingPage(): ReactElement {
         return (
             <SykmeldingerWrapper>
                 <Alert variant="error" role="alert" aria-live="polite">
-                    <Heading level="2" size="medium" spacing>
+                    <Heading level="1" size="medium" spacing>
                         Det har oppstått en feil
                     </Heading>
                     <BodyShort spacing>

@@ -116,7 +116,6 @@ test.describe('Frilanser', () => {
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
             await expect(page.getByRole('link', { name: 'Du må fylle inn fra dato.' })).toBeVisible()
             await expect(page.getByRole('link', { name: 'Du må fylle inn til dato.' })).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should show error message with link if date is invalid format', async ({ page }) => {
@@ -131,7 +130,6 @@ test.describe('Frilanser', () => {
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
             await expect(page.getByRole('link', { name: 'Fra dato må være på formatet DD.MM.YYYY.' })).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should show error message with link if fom is after oppfølgingsdato', async ({ page }) => {
@@ -149,7 +147,6 @@ test.describe('Frilanser', () => {
             await expect(
                 page.getByRole('link', { name: 'Fra dato kan ikke være oppfølgingsdato eller senere.' }),
             ).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should show error message with link if tom is after oppfølgingsdato', async ({ page }) => {
@@ -167,7 +164,6 @@ test.describe('Frilanser', () => {
             await expect(
                 page.getByRole('link', { name: 'Til dato kan ikke være oppfølgingsdato eller senere.' }),
             ).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should show error message with link if fom is after tom', async ({ page }) => {
@@ -182,7 +178,6 @@ test.describe('Frilanser', () => {
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
             await expect(page.getByRole('link', { name: 'Fra kan ikke være etter til dato.' })).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should be able to remove period', async ({ page }) => {
@@ -201,8 +196,6 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('textbox', { name: /(Fra|Til) og med/ })).toHaveCount(4)
             await page.getByRole('button', { name: 'Fjern periode' }).click()
             await expect(page.getByRole('textbox', { name: /(Fra|Til) og med/ })).toHaveCount(2)
-
-            await expect(page).toHaveNoViolations()
         })
 
         test('should be able to submit form without egenmeldingsperioder and forsikring', async ({ page }) => {

@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test'
-
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Feilhåndtering', () => {
     test('should display sykmelding and form when all requests are successful', async ({ page }) => {

@@ -272,7 +272,6 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
                     /Før du går videre, må du be arbeidsgiveren din om å registrere deg i A-meldingen. Når det er gjort blir det oppdatert her, og du kan sende inn sykmeldingen./,
                 ),
             ).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
 
         test('should show error if user tries to send sykmelding without arbeidsgiver', async ({ page }) => {
@@ -289,7 +288,6 @@ test.describe('Arbeidssituasjon - Arbeidstaker', () => {
                     /Sykmeldingen ble ikke sendt.*For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra/,
                 ),
             ).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
     })
 })

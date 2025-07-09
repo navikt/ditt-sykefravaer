@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 
-import { test } from './fixtures'
+import { test } from './utils/fixtures'
 
 test.describe('Tester helt frisk person', () => {
     test.beforeEach(async ({ page }) => {

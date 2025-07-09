@@ -232,13 +232,11 @@ export function bekreftNarmesteleder(narmesteleder: string, svar: 'Ja' | 'Nei' =
 }
 
 export async function sendSykmelding(page: Page): Promise<void> {
-    await expect(page).toHaveNoViolations()
     await page.getByRole('button', { name: /Send sykmelding/ }).click()
     await page.waitForURL('**/kvittering')
 }
 
 export async function bekreftSykmelding(page: Page): Promise<void> {
-    await expect(page).toHaveNoViolations()
     await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
     await page.waitForURL('**/kvittering')
 }

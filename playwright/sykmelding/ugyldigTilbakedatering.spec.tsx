@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test'
-
 import {
     bekreftSykmelding,
     gotoScenario,
@@ -9,6 +7,7 @@ import {
 } from '../utils/user-actions'
 import { userInteractionsGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Ugyldig tilbakedatert sykmelding', () => {
     test('should show information about tilbakedatering and be able to submit form, without a11y issues', async ({

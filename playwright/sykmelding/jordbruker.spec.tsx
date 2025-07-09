@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test'
-
 import {
     bekreftSykmelding,
     expectOppfolgingsdato,
@@ -11,6 +9,7 @@ import {
     velgForsikring,
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { test } from '../utils/fixtures'
 
 test.describe('Jordbruker', () => {
     test('should be able to submit form within ventetid', async ({ page }) => {
@@ -49,8 +48,6 @@ test.describe('Jordbruker', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('jordbruker')(page)
-
-        await expect(page).toHaveNoViolations()
 
         await bekreftSykmelding(page)
 

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
 import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from '../../../../types/sykmelding'
-import { render, screen, axe } from '../../../../utils/test/testUtils'
+import { render, screen } from '../../../../utils/test/testUtils'
 
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'
 
@@ -18,7 +18,7 @@ describe('AktivitetIkkeMulig', () => {
             },
         }
 
-        const { container } = render(<AktivitetIkkeMulig aktivitetIkkeMulig={periode} isV3={false} parentId="test" />)
+        render(<AktivitetIkkeMulig aktivitetIkkeMulig={periode} isV3={false} parentId="test" />)
 
         expect(screen.getByText('Medisinske årsaker hindrer arbeidsrelatert aktivitet')).toBeInTheDocument()
         expect(screen.getByText('Helsetilstanden hindrer pasienten i å være i aktivitet')).toBeInTheDocument()
@@ -29,9 +29,6 @@ describe('AktivitetIkkeMulig', () => {
         ).toBeInTheDocument()
         expect(screen.getByText('Manglende tilrettelegging på arbeidsplassen')).toBeInTheDocument()
         expect(screen.getByText('arbeidsrelatert beskrivelse')).toBeInTheDocument()
-
-        // @ts-expect-error vitest-axe doesn't work with vitest v1
-        expect(await axe(container)).toHaveNoViolations()
     })
 
     it('should display text if medisinskArsak and arbeidsrelatertArsak is missing', () => {

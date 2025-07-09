@@ -1,6 +1,5 @@
-import { test, expect } from '@playwright/test'
-
 import { gotoScenario } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Sykmeldinger landingsside', () => {
     test('should fail with error message on API error', async ({ page }) => {

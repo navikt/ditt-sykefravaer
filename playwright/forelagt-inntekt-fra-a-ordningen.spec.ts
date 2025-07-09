@@ -1,6 +1,6 @@
 import { expect } from '@playwright/test'
 
-import { test } from './fixtures'
+import { test } from './utils/fixtures'
 
 test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     test('Tester når vi har tre månedsinntekter', async ({ page }) => {

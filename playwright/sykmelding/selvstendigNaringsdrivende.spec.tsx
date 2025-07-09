@@ -1,5 +1,3 @@
-import { test } from '@playwright/test'
-
 import {
     bekreftSykmelding,
     expectOppfolgingsdato,
@@ -12,6 +10,7 @@ import {
 } from '../utils/user-actions'
 import { userInteractionsGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { test } from '../utils/fixtures'
 
 const navigateToFirstAndPickSituasjon = userInteractionsGroup(
     navigateToFirstSykmelding('nye', '100%'),

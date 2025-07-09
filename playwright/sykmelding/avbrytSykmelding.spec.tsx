@@ -1,5 +1,3 @@
-import { test, expect } from '@playwright/test'
-
 import {
     gotoRoot,
     gotoScenario,
@@ -8,6 +6,7 @@ import {
     velgArbeidssituasjon,
     velgArbeidstakerArbeidsledig,
 } from '../utils/user-actions'
+import { test, expect } from '../utils/fixtures'
 
 test.describe('Avbryt sykmelding', () => {
     test('should show sykmelding as avbrutt', async ({ page }) => {
@@ -17,8 +16,6 @@ test.describe('Avbryt sykmelding', () => {
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
         await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).not.toBeVisible()
         await expect(page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ })).toBeVisible()
-
-        await expect(page).toHaveNoViolations()
     })
 
     test('should reopen avbrutt sykmelding', async ({ page }) => {
@@ -45,8 +42,6 @@ test.describe('Avbryt sykmelding', () => {
 
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
         await expect(page.getByRole('link', { name: 'Tilbake til Ditt sykefravær' })).toBeVisible()
-
-        await expect(page).toHaveNoViolations()
     })
 
     test('should be able to re-open and and avbryte bekreftet sykmelding', async ({ page }) => {
@@ -71,7 +66,6 @@ test.describe('Avbryt sykmelding', () => {
 
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
         await expect(page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ })).toBeVisible()
-        await expect(page).toHaveNoViolations()
     })
 
     test('should show details for avbrutt egenmelding sykmelding', async ({ page }) => {
@@ -79,7 +73,5 @@ test.describe('Avbryt sykmelding', () => {
         await navigateToFirstSykmelding('tidligere', 'egenmelding')(page)
 
         await expect(page.getByRole('heading', { name: 'Egenmeldingen ble avbrutt av deg' })).toBeVisible()
-
-        await expect(page).toHaveNoViolations()
     })
 })

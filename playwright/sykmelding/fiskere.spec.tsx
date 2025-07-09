@@ -251,7 +251,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
                     /Sykmeldingen ble ikke sendt.*For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra/,
                 ),
             ).toBeVisible()
-            await expect(page).toHaveNoViolations()
         })
     })
 })
