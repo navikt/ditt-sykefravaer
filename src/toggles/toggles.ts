@@ -4,4 +4,5 @@ export const EXPECTED_TOGGLES = [
     'ditt-sykefravaer-maxdato',
     'flexjar-ditt-sykefravaer-inntektsmelding-visning',
     'flexjar-sykmelding-kvittering',
+    'ditt-sykefravaer-sykmelding-gradual-rollout',
 ] as const
