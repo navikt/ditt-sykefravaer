@@ -9,6 +9,7 @@ import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
 import { getFlagsServerSide } from '../../toggles/ssr'
+import { sykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
     useUpdateBreadcrumbs(() => [])
@@ -32,27 +33,22 @@ function SykmeldingerPage(): ReactElement {
 export async function getServerSideProps(
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> {
-    // Get flags first to check gradual rollout toggle
     const flags = await getFlagsServerSide(context.req, context.res)
-
     const gradualRolloutToggle = flags.toggles.find(
-        (toggle) => toggle.name === 'ditt-sykefravaer-sykmelding-gradual-rollout',
+        (toggle) => toggle.name === 'ditt-sykefravaer-sykmelding-gradvis-utrulling',
     )
 
     if (!gradualRolloutToggle?.enabled) {
-        // TODO: Replace with the actual URL of the old sykmelding app
-        const oldAppUrl = process.env.OLD_SYKMELDING_APP_URL || 'https://old-sykmelding-app.nav.no/sykmelding'
-
+        const oldAppUrl = sykmeldingUrl()
         return {
             redirect: {
                 destination: oldAppUrl,
                 permanent: false,
             },
         }
+    } else {
+        return beskyttetSideUtenProps(context)
     }
-
-    // If toggle is enabled, use the standard beskyttetSideUtenProps flow
-    return beskyttetSideUtenProps(context)
 }
 
 export default SykmeldingerPage
