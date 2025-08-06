@@ -1,13 +1,12 @@
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
-import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next/types'
 
 import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
 import TilHovedsiden from '../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
-import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
+import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
 
 function SykmeldingerPage(): ReactElement {
     useUpdateBreadcrumbs(() => [])
@@ -28,10 +27,6 @@ function SykmeldingerPage(): ReactElement {
     )
 }
 
-export async function getServerSideProps(
-    context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<ServerSidePropsResult>> {
-    return beskyttetSideUtenProps(context)
-}
+export const getServerSideProps = beskyttetSideUtenProps
 
 export default SykmeldingerPage
