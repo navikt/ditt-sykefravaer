@@ -1,17 +1,36 @@
-import { GetServerSideProps } from 'next'
-import React from 'react'
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 
-import { Redirect } from '../components/redirect/redirect'
 import { sykmeldingUrl } from '../utils/environment'
+import { getFlagsServerSide } from '../toggles/ssr'
+import { ServerSidePropsResult } from '../auth/beskyttetSide'
 
+// This component should never render since we always redirect
 export const RedirectSykmeldinger = () => {
-    return <Redirect addresse={`${sykmeldingUrl()}`} />
+    return null
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    // Disable static rendring
-    return {
-        props: {},
+export const getServerSideProps: GetServerSideProps = async (
+    context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
+    const flags = await getFlagsServerSide(context.req, context.res)
+    const gradualRolloutToggle = flags.toggles.find(
+        (toggle) => toggle.name === 'ditt-sykefravaer-sykmelding-gradvis-utrulling',
+    )
+
+    if (gradualRolloutToggle?.enabled) {
+        return {
+            redirect: {
+                destination: '/sykmelding',
+                permanent: false,
+            },
+        }
+    } else {
+        return {
+            redirect: {
+                destination: sykmeldingUrl(),
+                permanent: false,
+            },
+        }
     }
 }
 
