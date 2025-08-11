@@ -12,16 +12,15 @@ import { getUnleashEnvironment, localDevelopmentToggles } from './utils'
 import { EXPECTED_TOGGLES } from './toggles'
 
 export async function getFlagsServerSide(
-    req: GetServerSidePropsContext['req'],
-    res: GetServerSidePropsContext['res'],
+    context: Pick<GetServerSidePropsContext, 'req' | 'res' | 'query'>,
 ): Promise<{ toggles: IToggle[] }> {
     if (isMockBackend()) {
         logger.warn('Running in local or demo mode, falling back to development toggles.')
-        return { toggles: localDevelopmentToggles() }
+        return { toggles: localDevelopmentToggles(context) }
     }
 
     try {
-        const { userId } = handleUnleashIds(req, res)
+        const { userId } = handleUnleashIds(context.req, context.res)
         const definitions = await getAndValidateDefinitions()
         return evaluateFlags(definitions, {
             userId,

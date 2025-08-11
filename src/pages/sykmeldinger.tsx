@@ -12,7 +12,7 @@ export const RedirectSykmeldinger = () => {
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsServerSide(context.req, context.res)
+    const flags = await getFlagsServerSide(context)
     const gradualRolloutToggle = flags.toggles.find(
         (toggle) => toggle.name === 'ditt-sykefravaer-sykmelding-gradvis-utrulling',
     )

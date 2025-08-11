@@ -69,7 +69,7 @@ function beskyttetSide(handler: PageHandler) {
 }
 
 export const beskyttetSideUtenProps = beskyttetSide(async (context): Promise<{ props: ServerSidePropsResult }> => {
-    const flags = await getFlagsServerSide(context.req, context.res)
+    const flags = await getFlagsServerSide(context)
     return {
         props: { toggles: flags.toggles },
     }
