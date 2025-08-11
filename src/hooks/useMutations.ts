@@ -83,7 +83,7 @@ export function useSendSykmelding(
                 })
                 .catch()
 
-            await router.push(`/sykmelding/${sykmeldingId}/kvittering`, undefined, { scroll: true })
+            await router.push(`/sykmeldinger/${sykmeldingId}/kvittering`, undefined, { scroll: true })
             onCompleted(variables)
         },
         onError: () => {
