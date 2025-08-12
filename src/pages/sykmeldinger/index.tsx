@@ -1,6 +1,9 @@
+import { ParsedUrlQuery } from 'querystring'
+
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { IToggle } from '@unleash/nextjs'
 
 import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
@@ -34,11 +37,12 @@ export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
     const flags = await getFlagsServerSide(context)
-    const gradualRolloutToggle = flags.toggles.find(
-        (toggle) => toggle.name === 'ditt-sykefravaer-sykmelding-gradvis-utrulling',
-    )
+    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+    const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
-    if (gradualRolloutToggle?.enabled) {
+    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
+
+    if (stayInApp) {
         return beskyttetSideUtenProps(context)
     } else {
         return {
@@ -48,6 +52,17 @@ export const getServerSideProps: GetServerSideProps = async (
             },
         }
     }
+}
+
+function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 'flex' | 'tsm' | undefined {
+    const appRawQueryParam = query[param]
+    const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
+    return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
+}
+
+function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
+    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
+    return gradualRolloutToggle?.enabled ?? false
 }
 
 export default SykmeldingerPage
