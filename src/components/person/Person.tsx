@@ -88,7 +88,7 @@ function SykmeldingPicker() {
             scenario,
         })
 
-        window.location.href = `/syk/sykefravaer/sykmelding/?${searchParams.toString()}`
+        window.location.href = `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
     }
 
     return (

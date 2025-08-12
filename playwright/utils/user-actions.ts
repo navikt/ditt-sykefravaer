@@ -22,7 +22,7 @@ export function gotoScenario(
         const oppfolgingsdato = options.oppfolgingsdato ?? null
 
         if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
-            await page.goto('/syk/sykefravaer/sykmelding/')
+            await page.goto('/syk/sykefravaer/sykmeldinger/')
             return
         }
 
@@ -41,7 +41,7 @@ export function gotoScenario(
                 return route.continue()
             })
 
-            await page.goto('/syk/sykefravaer/sykmelding/?scenario=feilmelding')
+            await page.goto('/syk/sykefravaer/sykmeldinger/?scenario=feilmelding')
             return
         }
 
@@ -60,7 +60,7 @@ export function gotoScenario(
                 return route.continue()
             })
 
-            await page.goto('/syk/sykefravaer/sykmelding/?scenario=sykmeldingfeil')
+            await page.goto('/syk/sykefravaer/sykmeldinger/?scenario=sykmeldingfeil')
             return
         }
 
@@ -79,7 +79,7 @@ export function gotoScenario(
                 return route.continue()
             })
 
-            await page.goto('/syk/sykefravaer/sykmelding/?scenario=brukerinformasjonfeil')
+            await page.goto('/syk/sykefravaer/sykmeldinger/?scenario=brukerinformasjonfeil')
             return
         }
 
@@ -90,12 +90,12 @@ export function gotoScenario(
             oppfolgingsdato: oppfolgingsdato ?? '',
         })
 
-        await page.goto(`/syk/sykefravaer/sykmelding/?${searchParams.toString()}`)
+        await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)
     }
 }
 
 export async function gotoRoot(page: Page): Promise<void> {
-    await page.goto(`/syk/sykefravaer/sykmelding/`)
+    await page.goto(`/syk/sykefravaer/sykmeldinger/`)
 }
 
 export function navigateToFirstSykmelding(
