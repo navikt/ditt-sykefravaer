@@ -6,7 +6,7 @@ import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
-import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, sykmeldingUrl } from '../../utils/environment'
+import { dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl, tsmSykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 import { fetchMedRequestId } from '../../utils/fetch'
@@ -133,7 +133,7 @@ function Oppgaver() {
     }
 
     const soknadOppgaver = skapSoknadOppgaver(soknader, sykepengesoknadUrl())
-    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, sykmeldingUrl())
+    const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, tsmSykmeldingUrl())
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
     const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)
 

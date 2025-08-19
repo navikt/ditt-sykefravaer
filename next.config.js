@@ -84,7 +84,7 @@ const nextConfig = {
         spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,
         sykepengesoknadUrl: process.env.SYKEPENGESOKNAD_URL,
         spinnsynUrl: process.env.SPINNSYN_URL,
-        sykmeldingUrl: process.env.SYKMELDING_URL,
+        tsmSykmeldingUrl: process.env.SYKMELDING_URL,
         aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
         oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
         dialogmoteUrl: process.env.DIALOGMOTE_URL,
