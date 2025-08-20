@@ -3,7 +3,7 @@ import { ParsedUrlQuery } from 'querystring'
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { IToggle } from '@unleash/nextjs'
+import { flagsClient } from '@unleash/nextjs'
 
 import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
@@ -36,20 +36,30 @@ function SykmeldingerPage(): ReactElement {
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsServerSide(context)
-    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+    const { toggles } = await getFlagsServerSide(context)
+    const flags = flagsClient(toggles)
     const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
-    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
-
-    if (stayInApp) {
+    if (forceSpecificApp === 'flex') {
         return beskyttetSideUtenProps(context)
-    } else {
+    } else if (forceSpecificApp === 'tsm') {
         return {
             redirect: {
                 destination: sykmeldingUrl(),
                 permanent: false,
             },
+        }
+    } else {
+        const bliHosFlex = flags.isEnabled('ditt-sykefravaer-sykmelding-gradvis-utrulling')
+        if (bliHosFlex) {
+            return beskyttetSideUtenProps(context)
+        } else {
+            return {
+                redirect: {
+                    destination: sykmeldingUrl(),
+                    permanent: false,
+                },
+            }
         }
     }
 }
@@ -58,11 +68,6 @@ function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 
     const appRawQueryParam = query[param]
     const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
     return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
-}
-
-function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
-    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
-    return gradualRolloutToggle?.enabled ?? false
 }
 
 export default SykmeldingerPage
