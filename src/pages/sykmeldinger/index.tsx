@@ -3,7 +3,6 @@ import { ParsedUrlQuery } from 'querystring'
 import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { IToggle } from '@unleash/nextjs'
 
 import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
@@ -11,7 +10,7 @@ import TilHovedsiden from '../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
-import { getFlagsServerSide } from '../../toggles/ssr'
+import { getFlagsClientServerSide } from '../../toggles/ssr'
 import { tsmSykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
@@ -36,20 +35,38 @@ function SykmeldingerPage(): ReactElement {
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsServerSide(context)
-    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+    const flags = await getFlagsClientServerSide(context)
     const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
-    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
-
-    if (stayInApp) {
+    if (forceSpecificApp === 'flex') {
         return beskyttetSideUtenProps(context)
-    } else {
+    } else if (forceSpecificApp === 'tsm') {
         return {
             redirect: {
                 destination: tsmSykmeldingUrl(),
                 permanent: false,
             },
+        }
+    } else {
+        const bliHosFlex = flags.isEnabled('ditt-sykefravaer-sykmelding-gradvis-utrulling')
+        // await flags
+        //     .sendMetrics()
+        //     .then(() => {
+        //         logger.info('Unleash metrics sent successfully')
+        //     })
+        //     .catch((err) => {
+        //         logger.error('Failed to send Unleash metrics', err)
+        //     })
+
+        if (bliHosFlex) {
+            return beskyttetSideUtenProps(context)
+        } else {
+            return {
+                redirect: {
+                    destination: tsmSykmeldingUrl(),
+                    permanent: false,
+                },
+            }
         }
     }
 }
@@ -58,11 +75,6 @@ function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 
     const appRawQueryParam = query[param]
     const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
     return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
-}
-
-function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
-    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
-    return gradualRolloutToggle?.enabled ?? false
 }
 
 export default SykmeldingerPage

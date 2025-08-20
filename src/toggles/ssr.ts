@@ -1,6 +1,6 @@
 import { IncomingHttpHeaders } from 'http'
 
-import { IToggle, getDefinitions, evaluateFlags } from '@unleash/nextjs'
+import { IToggle, getDefinitions, evaluateFlags, flagsClient } from '@unleash/nextjs'
 import { logger } from '@navikt/next-logger'
 import { GetServerSidePropsContext } from 'next/types'
 import * as R from 'remeda'
@@ -10,6 +10,19 @@ import { isMockBackend } from '../utils/environment'
 
 import { getUnleashEnvironment, localDevelopmentToggles } from './utils'
 import { EXPECTED_TOGGLES } from './toggles'
+
+export async function getFlagsClientServerSide(context: GetServerSidePropsContext) {
+    const { toggles } = await getFlagsServerSide(context)
+    const unleashServerUrl = process.env.UNLEASH_SERVER_API_URL
+        ? `${process.env.UNLEASH_SERVER_API_URL}/api`
+        : undefined
+    if (!unleashServerUrl) {
+        logger.warn("Missing UNLEASH_SERVER_API_URL, can't send Unleash metrics")
+    }
+    return flagsClient(toggles, {
+        url: unleashServerUrl,
+    })
+}
 
 export async function getFlagsServerSide(
     context: Pick<GetServerSidePropsContext, 'req' | 'res' | 'query'>,
