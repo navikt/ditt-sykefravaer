@@ -51,6 +51,8 @@ export const getServerSideProps: GetServerSideProps = async (
         }
     } else {
         const bliHosFlex = flags.isEnabled('ditt-sykefravaer-sykmelding-gradvis-utrulling')
+        flags.sendMetrics().catch(() => {})
+
         if (bliHosFlex) {
             return beskyttetSideUtenProps(context)
         } else {
