@@ -15,7 +15,7 @@ import { getFlagsServerSide } from '../../toggles/ssr'
 import { tsmSykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
-    useUpdateBreadcrumbs(() => [])
+    useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Sykmeldinger' }])
 
     return (
         <>
