@@ -4,6 +4,7 @@ import React, { ReactElement } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { flagsClient } from '@unleash/nextjs'
+import { logger } from '@navikt/next-logger'
 
 import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
@@ -51,7 +52,14 @@ export const getServerSideProps: GetServerSideProps = async (
         }
     } else {
         const bliHosFlex = flags.isEnabled('ditt-sykefravaer-sykmelding-gradvis-utrulling')
-        flags.sendMetrics().catch(() => {})
+        await flags
+            .sendMetrics()
+            .then(() => {
+                logger.info('Unleash metrics sent successfully')
+            })
+            .catch((err) => {
+                logger.error('Failed to send Unleash metrics', err)
+            })
 
         if (bliHosFlex) {
             return beskyttetSideUtenProps(context)
