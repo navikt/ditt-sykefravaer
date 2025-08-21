@@ -72,15 +72,23 @@ export function createForelagtInntektBreadcrumbs(): [Breadcrumb, LastCrumb] {
     return [baseCrumb, { title: 'Din inntektsmelding fra Aareg' }]
 }
 
-export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [LastCrumb] {
-    return [{ title: getSykmeldingTitle(sykmelding) }]
+export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [...CompleteCrumb[], LastCrumb] {
+    return [
+        { title: 'Ditt sykefravær', url: '/', handleInApp: true },
+        { title: 'Sykmeldinger', url: '/sykmeldinger', handleInApp: true },
+        { title: getSykmeldingTitle(sykmelding) },
+    ]
 }
 
-export function createKvitteringBreadcrumbs(
+export function createSykmeldingKvitteringBreadcrumbs(
     sykmeldingId: string,
     sykmelding: Sykmelding | undefined,
-): [Breadcrumb, LastCrumb] {
-    return [{ title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` }, { title: 'Kvittering' }]
+): [CompleteCrumb, Breadcrumb, LastCrumb] {
+    return [
+        { title: 'Ditt sykefravær', url: '/', handleInApp: true },
+        { title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` },
+        { title: 'Kvittering' },
+    ]
 }
 
 export enum SsrPathVariants {
