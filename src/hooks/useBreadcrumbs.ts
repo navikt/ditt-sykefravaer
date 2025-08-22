@@ -64,7 +64,7 @@ export function useHandleDecoratorClicks(): void {
     })
 }
 
-export function createInntektsmeldingBreadcrumbs(): [LastCrumb] {
+export function createManglendeInntektsmeldingBreadcrumbs(): [LastCrumb] {
     return [{ title: 'Manglende inntektsmelding' }]
 }
 
@@ -89,4 +89,33 @@ export function createSykmeldingKvitteringBreadcrumbs(
         { title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` },
         { title: 'Kvittering' },
     ]
+}
+enum SsrPathVariants {
+    NotFound = '/404',
+    ServerError = '/500',
+    DittSykefravaer = '/',
+    Inntektsmelding = '/inntektsmelding',
+    Inntektsmeldinger = '/inntektsmeldinger',
+    Beskjed = '/beskjed/[id]',
+}
+
+export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
+    switch (pathname) {
+        case SsrPathVariants.NotFound:
+        case SsrPathVariants.ServerError:
+        case SsrPathVariants.DittSykefravaer:
+            return createCompleteCrumbs([])
+        case SsrPathVariants.Inntektsmeldinger:
+            return createCompleteCrumbs([baseCrumb, { title: 'Inntektsmeldinger' }])
+
+        case SsrPathVariants.Inntektsmelding:
+            return createCompleteCrumbs(createManglendeInntektsmeldingBreadcrumbs())
+
+        case SsrPathVariants.Beskjed:
+            return createCompleteCrumbs(createForelagtInntektBreadcrumbs())
+
+        default:
+            logger.info(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)
+            return createCompleteCrumbs([])
+    }
 }
