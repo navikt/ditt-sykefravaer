@@ -64,18 +64,18 @@ export function useHandleDecoratorClicks(): void {
     })
 }
 
-export function createInntektsmeldingBreadcrumbs(): [Breadcrumb, LastCrumb] {
-    return [baseCrumb, { title: 'Manglende inntektsmelding' }]
+export function createInntektsmeldingBreadcrumbs(): [LastCrumb] {
+    return [{ title: 'Manglende inntektsmelding' }]
 }
 
-export function createForelagtInntektBreadcrumbs(): [Breadcrumb, LastCrumb] {
-    return [baseCrumb, { title: 'Din inntektsmelding fra Aareg' }]
+export function createForelagtInntektBreadcrumbs(): [LastCrumb] {
+    return [{ title: 'Din inntektsmelding fra Aareg' }]
 }
 
-export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [...CompleteCrumb[], LastCrumb] {
+export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [Breadcrumb, Breadcrumb, LastCrumb] {
     return [
-        { title: 'Ditt sykefravær', url: '/', handleInApp: true },
-        { title: 'Sykmeldinger', url: '/sykmeldinger', handleInApp: true },
+        { title: 'Ditt sykefravær', url: '/' },
+        { title: 'Sykmeldinger', url: '/sykmeldinger' },
         { title: getSykmeldingTitle(sykmelding) },
     ]
 }
@@ -83,40 +83,10 @@ export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined):
 export function createSykmeldingKvitteringBreadcrumbs(
     sykmeldingId: string,
     sykmelding: Sykmelding | undefined,
-): [CompleteCrumb, Breadcrumb, LastCrumb] {
+): [Breadcrumb, Breadcrumb, LastCrumb] {
     return [
-        { title: 'Ditt sykefravær', url: '/', handleInApp: true },
+        { title: 'Ditt sykefravær', url: '/' },
         { title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` },
         { title: 'Kvittering' },
     ]
-}
-
-export enum SsrPathVariants {
-    NotFound = '/404',
-    ServerError = '/500',
-    DittSykefravaer = '/',
-    Inntektsmelding = '/inntektsmelding',
-    Inntektsmeldinger = '/inntektsmeldinger',
-    Beskjed = '/beskjed/[id]',
-}
-
-export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
-    switch (pathname) {
-        case SsrPathVariants.NotFound:
-        case SsrPathVariants.ServerError:
-        case SsrPathVariants.DittSykefravaer:
-            return createCompleteCrumbs([])
-        case SsrPathVariants.Inntektsmeldinger:
-            return createCompleteCrumbs([baseCrumb, { title: 'Inntektsmeldinger' }])
-
-        case SsrPathVariants.Inntektsmelding:
-            return createCompleteCrumbs(createInntektsmeldingBreadcrumbs())
-
-        case SsrPathVariants.Beskjed:
-            return createCompleteCrumbs(createForelagtInntektBreadcrumbs())
-
-        default:
-            logger.info(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)
-            return createCompleteCrumbs([])
-    }
 }
