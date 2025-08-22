@@ -16,7 +16,7 @@ import { getReadableSykmeldingLength, getSentSykmeldingTitle } from '../../../ut
 import HintToNextOlderSykmelding from '../../../components/ForceOrder/HintToNextOlderSykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../components/Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import SykmeldingSykmeldtSection from '../../../components/Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
-import { createSykmeldingKvitteringBreadcrumbs, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
+import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
@@ -125,7 +125,7 @@ function SykmeldingkvitteringPage(): ReactElement {
 function KvitteringWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
     useUpdateBreadcrumbs(
-        () => createSykmeldingKvitteringBreadcrumbs(sykmeldingId, sykmelding),
+        () => breadcrumbBuilders.sykmeldingKvittering(sykmeldingId, sykmelding),
         [sykmeldingId, sykmelding],
     )
 

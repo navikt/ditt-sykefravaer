@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Heading } from '@navikt/ds-react'
 
-import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
 import { InntektsmeldingVisning } from '../../components/inntektsmelding/InntektsmeldingVisning'
@@ -17,20 +17,8 @@ const Inntektsmeldinger = () => {
         (inntektsmelding) => inntektsmelding.inntektsmeldingId === inntektsmeldingId,
     )
     useUpdateBreadcrumbs(
-        () => [
-            {
-                title: 'Ditt sykefravær',
-                url: '/',
-                handleInApp: true,
-            },
-            {
-                title: 'Inntektsmeldinger',
-                url: '/inntektsmeldinger',
-                handleInApp: true,
-            },
-            { title: inntektsmelding?.organisasjonsnavn || '...' },
-        ],
-        [inntektsmelding?.organisasjonsnavn],
+        () => breadcrumbBuilders.inntektsmelding(inntektsmelding?.organisasjonsnavn || '...', inntektsmeldingId || ''),
+        [inntektsmelding?.organisasjonsnavn, inntektsmeldingId],
     )
 
     if (inntektsmeldinger && !inntektsmelding)

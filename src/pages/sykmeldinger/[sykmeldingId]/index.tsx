@@ -16,7 +16,7 @@ import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
 import Header from '../../../components/Header/Header'
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
-import { createSykmeldingBreadcrumbs, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
+import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
 import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
@@ -42,6 +42,8 @@ function SykmeldingPage(): ReactElement {
     const olderSykmeldingError = alleSykmeldingerError
 
     useFocusRefetch(refetch)
+
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmelding(data), [data])
 
     if (data == null && (loading || isOlderSykmeldingLoading)) {
         return (
@@ -193,8 +195,6 @@ function useLogSykmeldingPageAmplitude(sykmelding: Sykmelding, olderSykmeldingCo
 }
 
 function SykmeldingerWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {
-    useUpdateBreadcrumbs(() => createSykmeldingBreadcrumbs(sykmelding))
-
     useEffect(() => {
         const listener = (e: KeyboardEvent): void => {
             if ((e.ctrlKey || e.metaKey) && e.key === 'p' && sykmelding?.id) {

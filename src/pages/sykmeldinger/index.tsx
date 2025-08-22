@@ -9,13 +9,13 @@ import Header from '../../components/Header/Header'
 import SykmeldingerListAll from '../../components/SykmeldingerList/SykmeldingerListAll'
 import TilHovedsiden from '../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../components/PageWrapper/PageWrapper'
-import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
 import { getFlagsServerSide } from '../../toggles/ssr'
 import { sykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
-    useUpdateBreadcrumbs(() => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Sykmeldinger' }])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmeldinger(), [])
 
     return (
         <>
