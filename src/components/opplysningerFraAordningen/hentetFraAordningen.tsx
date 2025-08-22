@@ -4,7 +4,7 @@ import React from 'react'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 import { Flexjar } from '../flexjar/flexjar'
 import { Banner } from '../banner/Banner'
-import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { Inntekt } from '../../pages/beskjed/[id]'
 import { Melding } from '../../types/melding'
 import TilHovedsiden from '../TilHovedsiden/TilHovedsiden'
@@ -12,10 +12,7 @@ import TilHovedsiden from '../TilHovedsiden/TilHovedsiden'
 import { ForelagteInntektInfoBoks } from './forelagteInntektInfoBoks'
 
 export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) => {
-    useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Opplysninger fra a-ordningen' }],
-        [],
-    )
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.opplysningerFraAordningen(), [])
 
     const grupperInntekterEtterAarr = (inntekter: Inntekt[]): Record<string, Inntekt[]> => {
         return inntekter.reduce(
