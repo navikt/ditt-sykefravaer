@@ -4,15 +4,15 @@ import { test } from '../utils/fixtures'
 import { navigateToFirstSykmelding } from '../utils/user-actions'
 
 async function expectToBeRedirected(page: Page) {
-    // Redirect url inkluderer '?app=flex'. Se .env
+    // Redirect url inkluderer query param 'redirected-to-tsm'. Se .env
     await expect(page).toHaveURL((url) => {
-        return url.searchParams.get('app') === 'flex'
+        return url.searchParams.has('redirected-to-tsm')
     })
 }
 
 async function expectToStayOnPage(page: Page) {
     await expect(page).not.toHaveURL((url) => {
-        return url.searchParams.get('app') === 'flex'
+        return url.searchParams.has('redirected-to-tsm')
     })
 }
 
