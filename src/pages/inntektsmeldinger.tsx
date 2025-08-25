@@ -9,7 +9,7 @@ import { Banner } from '../components/banner/Banner'
 import { formatDateFromString } from '../utils/dato-utils'
 
 const Inntektsmeldinger = () => {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.inntektsmeldinger(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.inntektsmeldinger())
     const { data: inntektsmeldinger } = useInntektsmeldinger()
     return (
         <>

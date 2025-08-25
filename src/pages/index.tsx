@@ -14,7 +14,7 @@ import { useToggle } from '../toggles/context'
 import Maksdato from '../components/maksdato/Maksdato'
 
 const Index = () => {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.dittSykefravaer(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.dittSykefravaer())
     const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
     const maksdatoToggle = useToggle('ditt-sykefravaer-maxdato')
 

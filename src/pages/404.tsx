@@ -4,7 +4,7 @@ import React, { useEffect } from 'react'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 
 function NotFound(): JSX.Element | boolean {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.notFound(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.notFound())
 
     useEffect(() => {
         if (window.location.pathname === '/') {

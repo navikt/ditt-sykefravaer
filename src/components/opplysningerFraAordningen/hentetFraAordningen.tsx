@@ -12,7 +12,7 @@ import TilHovedsiden from '../TilHovedsiden/TilHovedsiden'
 import { ForelagteInntektInfoBoks } from './forelagteInntektInfoBoks'
 
 export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) => {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.opplysningerFraAordningen(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.opplysningerFraAordningen())
 
     const grupperInntekterEtterAarr = (inntekter: Inntekt[]): Record<string, Inntekt[]> => {
         return inntekter.reduce(

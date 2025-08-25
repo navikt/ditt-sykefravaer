@@ -8,7 +8,7 @@ import { Flexjar } from '../components/flexjar/flexjar'
 import { LenkeMedAmplitude } from '../components/lenke/lenke-med-amplitude'
 
 const Inntektsmelding = () => {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.manglendeInntektsmelding(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.manglendeInntektsmelding())
 
     return (
         <>
