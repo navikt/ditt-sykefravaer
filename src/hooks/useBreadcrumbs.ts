@@ -13,7 +13,6 @@ export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder): void 
             try {
                 const breadcrumbs = buildBreadcrumbs()
                 const completeBreadcrumbs = createCompleteBreadcrumbs(breadcrumbs)
-                console.log('Setting breadcrumbs:', completeBreadcrumbs)
                 await setBreadcrumbs(completeBreadcrumbs)
             } catch (error) {
                 logger.error(error, `Failed to update breadcrumbs on ${location.pathname}`)
@@ -66,7 +65,7 @@ export const breadcrumbBuilders = {
     sykmeldingKvittering: (sykmeldingId: string, sykmelding: Sykmelding | undefined): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
         BREADCRUMB_ITEMS.SYKMELDINGER,
-        createBreadcrumbItem(getSykmeldingTitle(sykmelding), `/${sykmeldingId}`, true),
+        createBreadcrumbItem(getSykmeldingTitle(sykmelding), `/sykmeldinger/${sykmeldingId}`),
         createBreadcrumbItem('Kvittering'),
     ],
 
@@ -123,27 +122,11 @@ type CompleteBreadcrumb = Parameters<typeof setBreadcrumbs>[0][0]
 type BreadcrumbBuilder = () => CompleteBreadcrumb[]
 
 const BREADCRUMB_ITEMS = {
-    MIN_SIDE: {
-        title: 'Min side',
-        url: minSideUrl(),
-        handleInApp: true,
-    } as CompleteBreadcrumb,
-    DITT_SYKEFRAVAER: {
-        title: 'Ditt sykefravær',
-        url: '/',
-        handleInApp: true,
-    } as CompleteBreadcrumb,
-    SYKMELDINGER: {
-        title: 'Sykmeldinger',
-        url: '/sykmeldinger',
-        handleInApp: true,
-    } as CompleteBreadcrumb,
-    INNTEKTSMELDINGER: {
-        title: 'Inntektsmeldinger',
-        url: '/inntektsmeldinger',
-        handleInApp: true,
-    } as CompleteBreadcrumb,
-} as const
+    MIN_SIDE: createBreadcrumbItem('Min side', minSideUrl()),
+    DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', '/'),
+    SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', '/sykmeldinger'),
+    INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', '/inntektsmeldinger'),
+}
 
 enum SsrPathVariants {
     NotFound = '/404',
@@ -158,10 +141,10 @@ function createCompleteBreadcrumbs(breadcrumbs: CompleteBreadcrumb[]): CompleteB
     return [BREADCRUMB_ITEMS.MIN_SIDE, ...breadcrumbs]
 }
 
-function createBreadcrumbItem(title: string, url?: string, handleInApp = true): CompleteBreadcrumb {
+function createBreadcrumbItem(title: string, url?: string): CompleteBreadcrumb {
     return {
         title,
         url: url || '/',
-        handleInApp,
+        handleInApp: true,
     }
 }
