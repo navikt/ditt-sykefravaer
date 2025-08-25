@@ -10,15 +10,13 @@ import { InntektsmeldingVisning } from '../../components/inntektsmelding/Inntekt
 const Inntektsmeldinger = () => {
     const { data: inntektsmeldinger } = useInntektsmeldinger()
     const router = useRouter()
-    const { id: inntektsmeldingId } = router.query as {
-        id?: string
-    }
+    const inntektsmeldingId = router.query.id as string | undefined
+
     const inntektsmelding = inntektsmeldinger?.find(
         (inntektsmelding) => inntektsmelding.inntektsmeldingId === inntektsmeldingId,
     )
-    useUpdateBreadcrumbs(
-        () => breadcrumbBuilders.inntektsmelding(inntektsmelding?.organisasjonsnavn || '...', inntektsmeldingId || ''),
-        [inntektsmelding?.organisasjonsnavn, inntektsmeldingId],
+    useUpdateBreadcrumbs(() =>
+        breadcrumbBuilders.inntektsmelding(inntektsmeldingId || '', inntektsmelding?.organisasjonsnavn),
     )
 
     if (inntektsmeldinger && !inntektsmelding)

@@ -33,7 +33,7 @@ export const breadcrumbBuilders = {
         BREADCRUMB_ITEMS.INNTEKTSMELDINGER,
     ],
 
-    inntektsmelding: (organisasjonsnavn: string, inntektsmeldingId: string): CompleteBreadcrumb[] => [
+    inntektsmelding: (inntektsmeldingId: string, organisasjonsnavn?: string): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
         BREADCRUMB_ITEMS.INNTEKTSMELDINGER,
         createBreadcrumbItem(organisasjonsnavn || '...', `/inntektsmeldinger/${inntektsmeldingId}`),
