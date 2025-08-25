@@ -1,8 +1,12 @@
+import { ParsedUrlQuery } from 'querystring'
+
 import { Fragment, PropsWithChildren, ReactElement, useCallback, useEffect, useState } from 'react'
 import { Alert, BodyLong, BodyShort, GuidePanel, Heading, Link, Skeleton } from '@navikt/ds-react'
 import Head from 'next/head'
 import { logger } from '@navikt/next-logger'
 import { range } from 'remeda'
+import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
+import { IToggle } from '@unleash/nextjs'
 
 import { getReadableSykmeldingLength, getSentSykmeldingTitle, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import OkBekreftetSykmelding from '../../../components/SykmeldingViews/OK/BEKREFTET/OkBekreftetSykmelding'
@@ -22,8 +26,9 @@ import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
-import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
-import { basePath } from '../../../utils/environment'
+import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../../auth/beskyttetSide'
+import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
+import { getFlagsServerSide } from '../../../toggles/ssr'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
@@ -273,6 +278,37 @@ function SykmeldingSkeleton(): ReactElement {
     )
 }
 
-export const getServerSideProps = beskyttetSideUtenProps
+export const getServerSideProps: GetServerSideProps = async (
+    context: GetServerSidePropsContext,
+): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
+    const flags = await getFlagsServerSide(context)
+    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+    const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
+
+    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
+
+    if (stayInApp) {
+        return beskyttetSideUtenProps(context)
+    } else {
+        const sykmeldingId = context.params?.sykmeldingId as string
+        return {
+            redirect: {
+                destination: `${tsmSykmeldingUrl()}/${sykmeldingId}`,
+                permanent: false,
+            },
+        }
+    }
+}
+
+function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 'flex' | 'tsm' | undefined {
+    const appRawQueryParam = query[param]
+    const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
+    return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
+}
+
+function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
+    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
+    return gradualRolloutToggle?.enabled ?? false
+}
 
 export default SykmeldingPage
