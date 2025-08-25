@@ -124,10 +124,7 @@ function SykmeldingkvitteringPage(): ReactElement {
 
 function KvitteringWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
-    useUpdateBreadcrumbs(
-        () => breadcrumbBuilders.sykmeldingKvittering(sykmeldingId, sykmelding),
-        [sykmeldingId, sykmelding],
-    )
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmeldingKvittering(sykmeldingId, sykmelding))
 
     return (
         <>
