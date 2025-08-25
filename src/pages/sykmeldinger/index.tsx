@@ -1,6 +1,6 @@
 import { ParsedUrlQuery } from 'querystring'
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { IToggle } from '@unleash/nextjs'
