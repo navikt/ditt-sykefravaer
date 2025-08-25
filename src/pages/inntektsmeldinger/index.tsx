@@ -2,17 +2,14 @@ import React from 'react'
 import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import Link from 'next/link'
 
-import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
-import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
-import { useInntektsmeldinger } from '../hooks/useInntektsmeldinger'
-import { Banner } from '../components/banner/Banner'
-import { formatDateFromString } from '../utils/dato-utils'
+import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
+import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
+import { Banner } from '../../components/banner/Banner'
+import { formatDateFromString } from '../../utils/dato-utils'
 
-const Inntektsmeldinger = () => {
-    useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Inntektsmeldinger' }],
-        [],
-    )
+const InntektsmeldingerPage = () => {
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.inntektsmeldinger())
     const { data: inntektsmeldinger } = useInntektsmeldinger()
     return (
         <>
@@ -54,4 +51,4 @@ const Inntektsmeldinger = () => {
 
 export const getServerSideProps = beskyttetSideUtenProps
 
-export default Inntektsmeldinger
+export default InntektsmeldingerPage
