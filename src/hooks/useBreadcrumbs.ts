@@ -13,7 +13,6 @@ export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder): void 
             try {
                 const breadcrumbs = buildBreadcrumbs()
                 const completeBreadcrumbs = createCompleteBreadcrumbs(breadcrumbs)
-                console.log('Setting breadcrumbs:', completeBreadcrumbs)
                 await setBreadcrumbs(completeBreadcrumbs)
             } catch (error) {
                 logger.error(error, `Failed to update breadcrumbs on ${location.pathname}`)
