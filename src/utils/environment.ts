@@ -30,8 +30,8 @@ export function spinnsynUrl() {
     return publicRuntimeConfig.spinnsynUrl
 }
 
-export function sykmeldingUrl() {
-    return publicRuntimeConfig.sykmeldingUrl
+export function tsmSykmeldingUrl() {
+    return publicRuntimeConfig.tsmSykmeldingUrl
 }
 
 export function aktivitetsplanUrl() {

@@ -2,7 +2,6 @@ import React from 'react'
 import { BandageIcon } from '@navikt/aksel-icons'
 import { Skeleton } from '@navikt/ds-react'
 
-import { sykmeldingUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
 
@@ -14,7 +13,7 @@ const SykmeldingLenkepanel = () => {
     if (!sykmeldinger || sykmeldinger.length === 0) {
         return null
     }
-    return <FellesLenkepanel ikon={BandageIcon} url={sykmeldingUrl()} tekst={tekst('lenker.sykmelding')} />
+    return <FellesLenkepanel ikon={BandageIcon} url="/sykmeldinger" tekst={tekst('lenker.sykmelding')} />
 }
 
 export default SykmeldingLenkepanel

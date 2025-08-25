@@ -12,7 +12,7 @@ import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
 import { getFlagsServerSide } from '../../toggles/ssr'
-import { sykmeldingUrl } from '../../utils/environment'
+import { tsmSykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
     useUpdateBreadcrumbs(() => [])
@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (
     } else {
         return {
             redirect: {
-                destination: sykmeldingUrl(),
+                destination: tsmSykmeldingUrl(),
                 permanent: false,
             },
         }
