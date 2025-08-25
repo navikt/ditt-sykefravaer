@@ -1,18 +1,19 @@
 import { onBreadcrumbClick, setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
-import { DependencyList, useCallback, useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import { Sykmelding } from '../types/sykmelding'
 import { minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 
-export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder, deps?: DependencyList): void {
+export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder): void {
     useEffect(() => {
         const updateBreadcrumbs = async () => {
             try {
                 const breadcrumbs = buildBreadcrumbs()
                 const completeBreadcrumbs = createCompleteBreadcrumbs(breadcrumbs)
+                console.log('Setting breadcrumbs:', completeBreadcrumbs)
                 await setBreadcrumbs(completeBreadcrumbs)
             } catch (error) {
                 logger.error(error, `Failed to update breadcrumbs on ${location.pathname}`)
@@ -22,8 +23,7 @@ export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder, deps?:
         updateBreadcrumbs().catch((error) => {
             logger.error(error, `Unexpected error in breadcrumb update on ${location.pathname}`)
         })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps)
+    }, [buildBreadcrumbs])
 }
 
 export const breadcrumbBuilders = {

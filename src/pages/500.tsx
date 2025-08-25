@@ -4,7 +4,7 @@ import React from 'react'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 
 function ServerError(): JSX.Element | boolean {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.serverError(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.serverError())
 
     return (
         <Page>

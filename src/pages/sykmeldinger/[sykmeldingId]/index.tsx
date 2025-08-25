@@ -43,7 +43,7 @@ function SykmeldingPage(): ReactElement {
 
     useFocusRefetch(refetch)
 
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmelding(data), [data])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmelding(data))
 
     if (data == null && (loading || isOlderSykmeldingLoading)) {
         return (

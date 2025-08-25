@@ -1,6 +1,6 @@
 import { ParsedUrlQuery } from 'querystring'
 
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useCallback } from 'react'
 import Head from 'next/head'
 import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { IToggle } from '@unleash/nextjs'
@@ -15,7 +15,7 @@ import { getFlagsServerSide } from '../../toggles/ssr'
 import { sykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
-    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmeldinger(), [])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmeldinger())
 
     return (
         <>
