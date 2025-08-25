@@ -44,11 +44,6 @@ export const breadcrumbBuilders = {
         createBreadcrumbItem('Manglende inntektsmelding'),
     ],
 
-    forelagtInntekt: (): CompleteBreadcrumb[] => [
-        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
-        createBreadcrumbItem('Din inntektsmelding fra Aareg'),
-    ],
-
     opplysningerFraAordningen: (): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
         createBreadcrumbItem('Opplysninger fra a-ordningen'),
@@ -72,7 +67,7 @@ export const breadcrumbBuilders = {
     notFound: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent side', '/404')],
 
     serverError: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent feil', '/500')],
-} as const
+}
 
 export function useHandleDecoratorClicks(): void {
     const router = useRouter()
@@ -93,24 +88,6 @@ export function useHandleDecoratorClicks(): void {
     }, [handleBreadcrumbClick])
 }
 
-export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteBreadcrumb[] {
-    switch (pathname) {
-        case SsrPathVariants.NotFound:
-        case SsrPathVariants.ServerError:
-        case SsrPathVariants.DittSykefravaer:
-            return createCompleteBreadcrumbs([])
-        case SsrPathVariants.Inntektsmeldinger:
-            return createCompleteBreadcrumbs(breadcrumbBuilders.inntektsmeldinger())
-        case SsrPathVariants.ManglendeInntektsmelding:
-            return createCompleteBreadcrumbs(breadcrumbBuilders.manglendeInntektsmelding())
-        case SsrPathVariants.Beskjed:
-            return createCompleteBreadcrumbs(breadcrumbBuilders.forelagtInntekt())
-        default:
-            logger.info(`Unknown initial path (${pathname}), defaulting to base breadcrumb`)
-            return createCompleteBreadcrumbs([])
-    }
-}
-
 type BreadcrumbItem = {
     title: string
     url: string
@@ -126,15 +103,6 @@ const BREADCRUMB_ITEMS = {
     DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', '/'),
     SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', '/sykmeldinger'),
     INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', '/inntektsmeldinger'),
-}
-
-enum SsrPathVariants {
-    NotFound = '/404',
-    ServerError = '/500',
-    DittSykefravaer = '/',
-    ManglendeInntektsmelding = '/inntektsmelding',
-    Inntektsmeldinger = '/inntektsmeldinger',
-    Beskjed = '/beskjed/[id]',
 }
 
 function createCompleteBreadcrumbs(breadcrumbs: CompleteBreadcrumb[]): CompleteBreadcrumb[] {
