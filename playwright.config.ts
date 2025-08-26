@@ -1,17 +1,18 @@
-import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
+
+type TestConfigWebServer = NonNullable<Parameters<typeof defineConfig>[0]['webServer']>
+type SingleWebServer = Exclude<TestConfigWebServer, Array<any>>
 
 type OptionsType = {
     baseURL: string
     timeout: number
-    server: PlaywrightTestConfig['webServer'] | undefined
+    server: SingleWebServer | undefined
 }
-
-type WebServerConfig = NonNullable<PlaywrightTestConfig['webServer']>
 
 const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     const timeout = process.env.CI ? 30 * 1000 : 120 * 2 * 1000
-
     const baseURL = `http://localhost:${port}`
+
     if (process.env.CI) {
         return {
             baseURL,
@@ -35,25 +36,22 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         }
     }
 
-    // Lokal dev server
-    const baseEnv = { ...process.env }
-    if (medDekorator) {
-        delete baseEnv.NO_DECORATOR
-    } else {
-        baseEnv.NO_DECORATOR = 'true'
+    // Build environment variables properly
+    const serverEnv = {
+        ...process.env,
+        MOCK_BACKEND: 'true',
+        ...(medDekorator ? {} : { NO_DECORATOR: 'true' }),
     }
 
     return {
         baseURL,
         timeout,
         server: {
-            command: medDekorator
-                ? 'MOCK_BACKEND=true next dev -p ' + port + ' | pino-pretty'
-                : 'MOCK_BACKEND=true NO_DECORATOR=true next dev -p ' + port + ' | pino-pretty',
+            command: `next dev -p ${port}`,
             port,
-            timeout: 120 * 1000, // Vent opptil 2 minutter for at serveren skal starte
-            reuseExistingServer: true,
-            env: baseEnv as Record<string, string>,
+            timeout: 120 * 1000,
+            reuseExistingServer: false,
+            env: serverEnv,
         },
     }
 }
@@ -61,10 +59,8 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
 const opts = createOptions(false, 3000)
 const optsMedDekorator = createOptions(true, 3001)
 
-// Bygg webServer array bare hvis servere eksisterer
-const webServere = []
-if (opts.server && !Array.isArray(opts.server)) webServere.push(opts.server)
-if (optsMedDekorator.server && !Array.isArray(optsMedDekorator.server)) webServere.push(optsMedDekorator.server)
+// Build the webServer configuration
+const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as SingleWebServer[]
 
 export default defineConfig({
     testDir: './playwright',
@@ -103,5 +99,5 @@ export default defineConfig({
               ]
             : []),
     ],
-    webServer: webServere as WebServerConfig,
+    webServer: servers.length > 1 ? servers : servers[0],
 })
