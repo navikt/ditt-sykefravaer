@@ -29,7 +29,7 @@ import {
     henterInntektsmeldingFraAaregMed1ManedInntekt,
     henterInntektsmeldingFraAaregMedIngenManedsInntekt,
 } from './data/personas/inntektsmeldingTestPersoner'
-import { enAvvistSykmeldingPerson, enNySykmelding } from './data/personas/sykmeldingPersoner'
+import { enAvvistSykmeldingPerson, enNySykmelding, flereNyeSykmeldinger } from './data/personas/sykmeldingPersoner'
 import { kunEnSoknadPerson } from './data/personas/kunEnSoknadPerson'
 import { heltFriskPerson } from './data/personas/heltFriskPerson'
 import {
@@ -60,6 +60,7 @@ export type PersonaKey =
     | 'default'
     | 'helt-frisk'
     | 'en-ny-sykmelding'
+    | 'flere-nye-sykmeldinger'
     | 'en-avvist-sykmelding'
     | 'en-ny-oppfolgingsplan'
     | 'to-nye-oppfolgingsplaner'
@@ -108,6 +109,7 @@ export function testpersonerGruppert(): PersonaGroup {
             ['kun-en-soknad']: jsonDeepCopy(kunEnSoknadPerson),
             ['flere-soknader']: jsonDeepCopy(flereSoknaderPerson),
             ['en-ny-sykmelding']: jsonDeepCopy(enNySykmelding),
+            ['flere-nye-sykmeldinger']: jsonDeepCopy(flereNyeSykmeldinger),
             ['en-avvist-sykmelding']: jsonDeepCopy(enAvvistSykmeldingPerson),
         },
         ['maksdato']: {
