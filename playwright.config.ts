@@ -6,10 +6,12 @@ type OptionsType = {
     server: PlaywrightTestConfig['webServer'] | undefined
 }
 
-const createOptions = (): OptionsType => {
+type WebServerConfig = NonNullable<PlaywrightTestConfig['webServer']>
+
+const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     const timeout = process.env.CI ? 30 * 1000 : 120 * 2 * 1000
 
-    const baseURL = `http://localhost:3000`
+    const baseURL = `http://localhost:${port}`
     if (process.env.CI) {
         return {
             baseURL,
@@ -24,7 +26,7 @@ const createOptions = (): OptionsType => {
             timeout: 30 * 1000,
             server: {
                 command: 'npm run start',
-                port: 3000,
+                port,
                 timeout: 120 * 1000,
                 reuseExistingServer: false,
                 stderr: 'pipe',
@@ -33,20 +35,36 @@ const createOptions = (): OptionsType => {
         }
     }
 
-    // Local dev server
+    // Lokal dev server
+    const baseEnv = { ...process.env }
+    if (medDekorator) {
+        delete baseEnv.NO_DECORATOR
+    } else {
+        baseEnv.NO_DECORATOR = 'true'
+    }
+
     return {
         baseURL,
         timeout,
         server: {
-            command: 'npm run dev-ingen-dekorator',
-            port: 3000,
-            timeout: 120 * 1000, // Wait up to 2 minutes for the server to start
+            command: medDekorator
+                ? 'MOCK_BACKEND=true next dev -p ' + port + ' | pino-pretty'
+                : 'MOCK_BACKEND=true NO_DECORATOR=true next dev -p ' + port + ' | pino-pretty',
+            port,
+            timeout: 120 * 1000, // Vent opptil 2 minutter for at serveren skal starte
             reuseExistingServer: true,
+            env: baseEnv as Record<string, string>,
         },
     }
 }
 
-const opts = createOptions()
+const opts = createOptions(false, 3000)
+const optsMedDekorator = createOptions(true, 3001)
+
+// Bygg webServer array bare hvis servere eksisterer
+const webServere = []
+if (opts.server && !Array.isArray(opts.server)) webServere.push(opts.server)
+if (optsMedDekorator.server && !Array.isArray(optsMedDekorator.server)) webServere.push(optsMedDekorator.server)
 
 export default defineConfig({
     testDir: './playwright',
@@ -65,15 +83,25 @@ export default defineConfig({
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
+            testIgnore: '**/brodsmuler.spec.ts',
+        },
+        {
+            name: 'brodsmuler-med-dekorator',
+            use: {
+                ...devices['Desktop Chrome'],
+                baseURL: optsMedDekorator.baseURL,
+            },
+            testMatch: '**/brodsmuler.spec.ts',
         },
         ...(process.env.CI
             ? [
                   {
                       name: 'firefox',
                       use: { ...devices['Desktop Firefox'] },
+                      testIgnore: '**/brodsmuler.spec.ts',
                   },
               ]
             : []),
     ],
-    webServer: opts.server,
+    webServer: webServere as WebServerConfig,
 })

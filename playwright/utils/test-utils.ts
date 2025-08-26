@@ -1,6 +1,5 @@
 import './custom-matchers'
-
-import { Locator, type Page } from '@playwright/test'
+import { expect, Locator, Page } from '@playwright/test'
 
 type ByRoleOptions = Parameters<Page['getByRole']>['1']
 
@@ -21,4 +20,10 @@ export function userInteractionsGroup(...actions: CurriedAction[]) {
             await action(page)
         }
     }
+}
+
+export async function harSynligOverskrift(page: Page, tittelTekst: string, level: number, exact: boolean = false) {
+    const locator = page.getByRole('heading', { level, name: tittelTekst, exact: exact })
+    await expect(locator).toBeVisible()
+    return locator
 }
