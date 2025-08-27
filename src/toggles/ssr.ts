@@ -13,43 +13,6 @@ import { EXPECTED_TOGGLES } from './toggles'
 
 type UnleashClient = ReturnType<typeof flagsClient>
 
-export async function getFlagsClientServerSide(context: GetServerSidePropsContext): Promise<UnleashClient> {
-    /**
-     * Burde kun brukes server-side
-     * Bruk sammen med checkToggleAndReportMetrics for å rapportere metrics tilbake til Unleash
-     */
-    const { toggles } = await getFlagsServerSide(context)
-    if (isMockBackend()) {
-        logger.info('Running in local or demo mode, will not report Unleash metrics')
-        return flagsClient(toggles)
-    }
-    const unleashServerUrl = process.env.UNLEASH_SERVER_API_URL
-        ? `${process.env.UNLEASH_SERVER_API_URL}/api`
-        : undefined
-    if (!unleashServerUrl) {
-        logger.warn("Missing env var UNLEASH_SERVER_API_URL, can't send Unleash metrics")
-    }
-    try {
-        return flagsClient(toggles, {
-            url: unleashServerUrl,
-        })
-    } catch (e) {
-        logger.error("Failed to set up Unleash for metrics reporting, can't send Unleash metrics", e)
-        return flagsClient(toggles)
-    }
-}
-
-export function checkToggleAndReportMetrics(client: UnleashClient, toggleName: string): boolean {
-    const enabled = client.isEnabled(toggleName)
-    if (isMockBackend()) {
-        return enabled
-    }
-    client.sendMetrics().catch((err) => {
-        logger.warn(new Error('Tried to report Unleash metrics, but failed', { cause: err }))
-    })
-    return enabled
-}
-
 export async function getFlagsServerSide(
     context: Pick<GetServerSidePropsContext, 'req' | 'res' | 'query'>,
 ): Promise<{ toggles: IToggle[] }> {
@@ -81,6 +44,42 @@ export async function getFlagsServerSide(
             ),
         }
     }
+}
+
+export function createFlagsClient(flags: { toggles: IToggle[] }): UnleashClient {
+    /**
+     * Burde kun brukes server-side
+     * Bruk sammen med checkToggleAndReportMetrics for å rapportere metrics tilbake til Unleash
+     */
+    if (isMockBackend()) {
+        logger.info('Running in local or demo mode, will not report Unleash metrics')
+        return flagsClient(flags.toggles)
+    }
+    const unleashServerUrl = process.env.UNLEASH_SERVER_API_URL
+        ? `${process.env.UNLEASH_SERVER_API_URL}/api`
+        : undefined
+    if (!unleashServerUrl) {
+        logger.warn("Missing env var UNLEASH_SERVER_API_URL, can't send Unleash metrics")
+    }
+    try {
+        return flagsClient(flags.toggles, {
+            url: unleashServerUrl,
+        })
+    } catch (e) {
+        logger.error("Failed to set up Unleash for metrics reporting, can't send Unleash metrics", e)
+        return flagsClient(flags.toggles)
+    }
+}
+
+export function checkToggleAndReportMetrics(client: UnleashClient, toggleName: string): boolean {
+    const enabled = client.isEnabled(toggleName)
+    if (isMockBackend()) {
+        return enabled
+    }
+    client.sendMetrics().catch((err) => {
+        logger.warn(new Error('Tried to report Unleash metrics, but failed', { cause: err }))
+    })
+    return enabled
 }
 
 const unleashCache = new NodeCache({ stdTTL: 15 })
@@ -126,7 +125,7 @@ async function getAndValidateDefinitions(): Promise<ReturnType<typeof getDefinit
 
 const unleashCookieName = 'sykepengesoknad-frontend-unleash-session-id'
 
-export function handleUnleashIds(
+function handleUnleashIds(
     req: GetServerSidePropsContext['req'],
     res: GetServerSidePropsContext['res'],
 ): {

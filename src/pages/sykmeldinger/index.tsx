@@ -10,7 +10,7 @@ import TilHovedsiden from '../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
-import { checkToggleAndReportMetrics, getFlagsClientServerSide } from '../../toggles/ssr'
+import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../toggles/ssr'
 import { tsmSykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
@@ -35,7 +35,6 @@ function SykmeldingerPage(): ReactElement {
 export const getServerSideProps: GetServerSideProps = async (
     context: GetServerSidePropsContext,
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsClientServerSide(context)
     const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
     if (forceSpecificApp === 'flex') {
@@ -48,6 +47,7 @@ export const getServerSideProps: GetServerSideProps = async (
             },
         }
     } else {
+        const flags = createFlagsClient(await getFlagsServerSide(context))
         const bliHosFlex = checkToggleAndReportMetrics(flags, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
 
         if (bliHosFlex) {
