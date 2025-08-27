@@ -64,7 +64,10 @@ export const breadcrumbBuilders = {
         createBreadcrumbItem('Kvittering'),
     ],
 
-    notFound: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent side', '/404')],
+    notFound: (): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        createBreadcrumbItem('Ukjent side', '/404'),
+    ],
 
     serverError: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent feil', '/500')],
 }

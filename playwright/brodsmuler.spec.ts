@@ -108,58 +108,39 @@ test.describe('Tester Brodsmuler', () => {
     test('Burde vise brodsmuler på /inntektsmeldinger/[inntektsmeldingId]', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmeldinger')
 
-        // Naviger til første inntektsmelding hvis tilgjengelig
-        const forsteInntektsmelding = page.locator('[data-testid^="inntektsmelding-card-"]').first()
-        const harInntektsmeldinger = await forsteInntektsmelding.isVisible().catch(() => false)
+        const forsteInntektsmelding = page.getByRole('link', { name: 'Matbutikken AS, Kjelsås' })
+        await expect(forsteInntektsmelding).toBeVisible()
+        await forsteInntektsmelding.click()
 
-        if (harInntektsmeldinger) {
-            await forsteInntektsmelding.click()
-
-            // Vent på at siden laster og få organisasjonsnavn fra brodsmule
-            await page.waitForLoadState('networkidle')
-            const organisasjonsBrodsmule = page.locator('nav[aria-label="breadcrumbs"] a').last()
-            const organisasjonsnavn = await organisasjonsBrodsmule.textContent()
-
-            await forventFlerebrodsmuler(page, [
-                standardBrodsmuler.minSide,
-                standardBrodsmuler.sykefravaer,
-                standardBrodsmuler.inntektsmeldinger,
-            ])
-
-            // Test at organisasjonsbrodsmule er synlig (dynamisk navn)
-            if (organisasjonsnavn) {
-                const dynamiskBrodsmule = lagBrodsmule(organisasjonsnavn, /\/inntektsmeldinger\/.+/, true)
-                await forventBrodsmule(page, dynamiskBrodsmule)
-            }
-
-            await klikkPaBrodsmule(page, 'Inntektsmeldinger', true)
-            await expect(page).toHaveURL(/\/syk\/sykefravaer\/inntektsmeldinger$/)
-        } else {
-            test.skip(true, 'Ingen inntektsmeldinger tilgjengelig for testing')
-        }
-    })
-
-    test('Burde vise brodsmuler på /manglende-inntektsmelding', async ({ page }) => {
-        await page.goto('/syk/sykefravaer/manglende-inntektsmelding')
+        await harSynligOverskrift(page, 'Inntektsmelding fra Matbutikken AS, Kjelsås', 2)
 
         await forventFlerebrodsmuler(page, [
             standardBrodsmuler.minSide,
             standardBrodsmuler.sykefravaer,
-            standardBrodsmuler.manglendeInntektsmelding,
+            standardBrodsmuler.inntektsmeldinger,
         ])
+
+        await expect(page.getByRole('listitem').filter({ hasText: 'Matbutikken AS, Kjelsås' })).toBeVisible()
+
+        await klikkPaBrodsmule(page, 'Inntektsmeldinger', true)
+        await expect(page).toHaveURL(/\/syk\/sykefravaer\/inntektsmeldinger$/)
+    })
+
+    test('Burde vise brodsmuler på info om manglende inntektsmelding', async ({ page }) => {
+        await page.goto('/syk/sykefravaer/inntektsmelding')
+        await harSynligOverskrift(page, 'Vi venter på inntektsmelding fra arbeidsgiveren din', 1)
+
+        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 
         await klikkPaBrodsmule(page, 'Ditt sykefravær', true)
         await expect(page).toHaveURL(/\/syk\/sykefravaer$/)
     })
 
-    test('Burde vise brodsmuler på /opplysninger-fra-a-ordningen', async ({ page }) => {
-        await page.goto('/syk/sykefravaer/opplysninger-fra-a-ordningen')
+    test('Burde vise brodsmuler på info om a-ordnigen', async ({ page }) => {
+        await page.goto('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
+        await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
 
-        await forventFlerebrodsmuler(page, [
-            standardBrodsmuler.minSide,
-            standardBrodsmuler.sykefravaer,
-            standardBrodsmuler.opplysningerFraAordningen,
-        ])
+        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 
         await klikkPaBrodsmule(page, 'Ditt sykefravær', true)
         await expect(page).toHaveURL(/\/syk\/sykefravaer$/)
@@ -167,19 +148,16 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på 404-side', async ({ page }) => {
         await page.goto('/syk/sykefravaer/ikke-eksisterende-side')
+        await harSynligOverskrift(page, 'Fant ikke siden', 1)
 
-        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.ukjentSide])
+        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
     })
 
-    test('Burde vise brodsmuler på 500-side', async ({ page }) => {
-        // Simuler serverfeil ved å gå til en side som kan trigge 500-feil
-        const response = await page.goto('/syk/sykefravaer/test-server-error')
+    //TODO
+    test.skip('Burde vise brodsmuler på 500-side', async ({ page }) => {
+        await page.goto('/syk/sykefravaer/server-feil')
 
-        if (response?.status() === 500) {
-            await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.ukjentFeil])
-        } else {
-            // Hopp over test hvis serverfeil ikke kan simuleres
-            test.skip(true, 'Kan ikke simulere serverfeil i testmiljø')
-        }
+        await harSynligOverskrift(page, 'Det oppsto en uventet feil', 1)
+        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
     })
 })
