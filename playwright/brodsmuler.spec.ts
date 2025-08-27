@@ -7,13 +7,7 @@ import {
     sendSykmelding,
 } from './utils/user-actions'
 import { getRadioInGroup, harSynligOverskrift } from './utils/test-utils'
-import {
-    forventBrodsmule,
-    forventFlerebrodsmuler,
-    klikkPaBrodsmule,
-    lagBrodsmule,
-    standardBrodsmuler,
-} from './utils/brodsmule-utils'
+import { forventBrodsmule, forventFlerebrodsmuler, klikkPaBrodsmule, standardBrodsmuler } from './utils/brodsmule-utils'
 import { expectKvittering, ExpectMeta } from './utils/user-expects'
 
 test.describe('Tester Brodsmuler', () => {
