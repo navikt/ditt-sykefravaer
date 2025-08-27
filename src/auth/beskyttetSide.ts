@@ -17,7 +17,7 @@ export interface ServerSidePropsResult {
     toggles: IToggle[]
 }
 
-function beskyttetSide(handler: PageHandler) {
+export function beskyttetSide(handler: PageHandler) {
     return async function withBearerTokenHandler(
         context: GetServerSidePropsContext,
     ): Promise<ReturnType<typeof handler>> {
