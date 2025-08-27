@@ -14,3 +14,9 @@ export const enNySykmelding: Persona = {
     sykmeldinger: [nySykmelding],
     beskrivelse: 'En ny sykmelding',
 }
+
+export const flereNyeSykmeldinger: Persona = {
+    ...commonPersona(),
+    sykmeldinger: [nySykmelding, nySykmelding, nySykmelding],
+    beskrivelse: 'Flere nye sykmeldinger',
+}
