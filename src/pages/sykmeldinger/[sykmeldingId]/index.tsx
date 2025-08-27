@@ -26,9 +26,9 @@ import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
-import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../../auth/beskyttetSide'
+import { beskyttetSide, beskyttetSideUtenProps, ServerSidePropsResult } from '../../../auth/beskyttetSide'
 import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
-import { getFlagsServerSide } from '../../../toggles/ssr'
+import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
@@ -278,27 +278,36 @@ function SykmeldingSkeleton(): ReactElement {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-    context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsServerSide(context)
-    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
-    const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
+export const getServerSideProps = beskyttetSide(
+    async (context): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
+        const flags = await getFlagsServerSide(context)
+        const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
-    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
-
-    if (stayInApp) {
-        return beskyttetSideUtenProps(context)
-    } else {
+        const bliHosFlexResultat = { props: { toggles: flags.toggles } }
         const sykmeldingId = context.params?.sykmeldingId as string
-        return {
+        const omrutingResultat = {
             redirect: {
-                destination: `${tsmSykmeldingUrl()}/${sykmeldingId}`,
+                destination: leggTilPathOgBeholdQuery(tsmSykmeldingUrl(), `/${sykmeldingId}`),
                 permanent: false,
             },
         }
-    }
-}
+
+        if (forceSpecificApp === 'flex') {
+            return bliHosFlexResultat
+        } else if (forceSpecificApp === 'tsm') {
+            return omrutingResultat
+        } else {
+            const flagsClient = createFlagsClient(flags)
+            const bliHosFlex = checkToggleAndReportMetrics(flagsClient, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+
+            if (bliHosFlex) {
+                return bliHosFlexResultat
+            } else {
+                return omrutingResultat
+            }
+        }
+    },
+)
 
 function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 'flex' | 'tsm' | undefined {
     const appRawQueryParam = query[param]
@@ -306,9 +315,13 @@ function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 
     return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
 }
 
-function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
-    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
-    return gradualRolloutToggle?.enabled ?? false
+function leggTilPathOgBeholdQuery(partialUrl: string, pathSegment: string): string {
+    if (partialUrl.includes('?')) {
+        const [path, query] = partialUrl.split('?', 2)
+        return `${path}${pathSegment}?${query}`
+    } else {
+        return partialUrl + pathSegment
+    }
 }
 
 export default SykmeldingPage
