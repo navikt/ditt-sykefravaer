@@ -11,7 +11,13 @@ import { isMockBackend } from '../utils/environment'
 import { getUnleashEnvironment, localDevelopmentToggles } from './utils'
 import { EXPECTED_TOGGLES } from './toggles'
 
-export async function getFlagsClientServerSide(context: GetServerSidePropsContext) {
+type UnleashClient = ReturnType<typeof flagsClient>
+
+export async function getFlagsClientServerSide(context: GetServerSidePropsContext): Promise<UnleashClient> {
+    /**
+     * Burde kun brukes server-side
+     * Bruk sammen med checkToggleAndReportMetrics for å rapportere metrics tilbake til Unleash
+     */
     const { toggles } = await getFlagsServerSide(context)
     if (isMockBackend()) {
         logger.info('Running in local or demo mode, will not report Unleash metrics')
@@ -31,6 +37,17 @@ export async function getFlagsClientServerSide(context: GetServerSidePropsContex
         logger.error("Failed to set up Unleash for metrics reporting, can't send Unleash metrics", e)
         return flagsClient(toggles)
     }
+}
+
+export function checkToggleAndReportMetrics(client: UnleashClient, toggleName: string): boolean {
+    const enabled = client.isEnabled(toggleName)
+    if (isMockBackend()) {
+        return enabled
+    }
+    client.sendMetrics().catch((err) => {
+        logger.warn(new Error('Tried to report Unleash metrics, but failed', { cause: err }))
+    })
+    return enabled
 }
 
 export async function getFlagsServerSide(

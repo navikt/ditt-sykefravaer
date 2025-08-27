@@ -10,7 +10,7 @@ import TilHovedsiden from '../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../components/PageWrapper/PageWrapper'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../auth/beskyttetSide'
-import { getFlagsClientServerSide } from '../../toggles/ssr'
+import { checkToggleAndReportMetrics, getFlagsClientServerSide } from '../../toggles/ssr'
 import { tsmSykmeldingUrl } from '../../utils/environment'
 
 function SykmeldingerPage(): ReactElement {
@@ -48,15 +48,7 @@ export const getServerSideProps: GetServerSideProps = async (
             },
         }
     } else {
-        const bliHosFlex = flags.isEnabled('ditt-sykefravaer-sykmelding-gradvis-utrulling')
-        // await flags
-        //     .sendMetrics()
-        //     .then(() => {
-        //         logger.info('Unleash metrics sent successfully')
-        //     })
-        //     .catch((err) => {
-        //         logger.error('Failed to send Unleash metrics', err)
-        //     })
+        const bliHosFlex = checkToggleAndReportMetrics(flags, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
 
         if (bliHosFlex) {
             return beskyttetSideUtenProps(context)
