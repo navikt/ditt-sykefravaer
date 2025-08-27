@@ -1,10 +1,10 @@
 import { Page } from '@navikt/ds-react'
 import React, { useEffect } from 'react'
 
-import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 
 function NotFound(): JSX.Element | boolean {
-    useUpdateBreadcrumbs(() => [{ title: 'Ukjent side' }])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.notFound())
 
     useEffect(() => {
         if (window.location.pathname === '/') {

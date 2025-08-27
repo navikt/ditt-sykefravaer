@@ -13,6 +13,15 @@ export const test = base.extend<{ uuOptions: UUOptions }>({
     uuOptions: [{ skipUU: false, disableRules: [] }, { option: true }],
 })
 
+test.beforeEach(async ({ context, page }) => {
+    // Skjuler hint så den ikke ligger over andre elementer
+    await page.addInitScript(() => {
+        window.localStorage.setItem('devtools-hint', 'false')
+    })
+    // Resetter cookies før hver test
+    await context.clearCookies()
+})
+
 // Automatisk UU-validering for ALLE tester (med mindre eksplisitt skrudd av)
 test.afterEach(async ({ page, uuOptions }, testInfo) => {
     if (!uuOptions.skipUU) {

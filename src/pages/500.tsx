@@ -1,10 +1,10 @@
 import { Page } from '@navikt/ds-react'
 import React from 'react'
 
-import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 
 function ServerError(): JSX.Element | boolean {
-    useUpdateBreadcrumbs(() => [{ title: 'Ukjent feil' }])
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.serverError())
 
     return (
         <Page>

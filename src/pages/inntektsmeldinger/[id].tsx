@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Heading } from '@navikt/ds-react'
 
-import { useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
+import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
 import { InntektsmeldingVisning } from '../../components/inntektsmelding/InntektsmeldingVisning'
@@ -10,27 +10,13 @@ import { InntektsmeldingVisning } from '../../components/inntektsmelding/Inntekt
 const Inntektsmeldinger = () => {
     const { data: inntektsmeldinger } = useInntektsmeldinger()
     const router = useRouter()
-    const { id: inntektsmeldingId } = router.query as {
-        id?: string
-    }
+    const inntektsmeldingId = router.query.id as string | undefined
+
     const inntektsmelding = inntektsmeldinger?.find(
         (inntektsmelding) => inntektsmelding.inntektsmeldingId === inntektsmeldingId,
     )
-    useUpdateBreadcrumbs(
-        () => [
-            {
-                title: 'Ditt sykefravær',
-                url: '/',
-                handleInApp: true,
-            },
-            {
-                title: 'Inntektsmeldinger',
-                url: '/inntektsmeldinger',
-                handleInApp: true,
-            },
-            { title: inntektsmelding?.organisasjonsnavn || '...' },
-        ],
-        [inntektsmelding?.organisasjonsnavn],
+    useUpdateBreadcrumbs(() =>
+        breadcrumbBuilders.inntektsmelding(inntektsmeldingId || '', inntektsmelding?.organisasjonsnavn),
     )
 
     if (inntektsmeldinger && !inntektsmelding)

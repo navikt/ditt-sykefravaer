@@ -2,16 +2,14 @@ import { BodyLong, Box, Heading, ReadMore } from '@navikt/ds-react'
 import React from 'react'
 
 import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
-import { useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
+import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { Banner } from '../components/banner/Banner'
 import { Flexjar } from '../components/flexjar/flexjar'
 import { LenkeMedAmplitude } from '../components/lenke/lenke-med-amplitude'
 
 const Inntektsmelding = () => {
-    useUpdateBreadcrumbs(
-        () => [{ title: 'Ditt sykefravær', url: '/', handleInApp: true }, { title: 'Venter på inntektsmelding' }],
-        [],
-    )
+    useUpdateBreadcrumbs(() => breadcrumbBuilders.manglendeInntektsmelding())
+
     return (
         <>
             <Banner utenIkon={true} tittel="Vi venter på inntektsmelding fra arbeidsgiveren din" />

@@ -1,15 +1,18 @@
-import { defineConfig, devices, PlaywrightTestConfig } from '@playwright/test'
+import { defineConfig, devices } from '@playwright/test'
+
+type TestConfigWebServer = NonNullable<Parameters<typeof defineConfig>[0]['webServer']>
+type SingleWebServer = Exclude<TestConfigWebServer, Array<any>>
 
 type OptionsType = {
     baseURL: string
     timeout: number
-    server: PlaywrightTestConfig['webServer'] | undefined
+    server: SingleWebServer | undefined
 }
 
-const createOptions = (): OptionsType => {
+const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     const timeout = process.env.CI ? 30 * 1000 : 120 * 2 * 1000
+    const baseURL = `http://localhost:${port}`
 
-    const baseURL = `http://localhost:3000`
     if (process.env.CI) {
         return {
             baseURL,
@@ -24,7 +27,7 @@ const createOptions = (): OptionsType => {
             timeout: 30 * 1000,
             server: {
                 command: 'npm run start',
-                port: 3000,
+                port,
                 timeout: 120 * 1000,
                 reuseExistingServer: false,
                 stderr: 'pipe',
@@ -33,20 +36,29 @@ const createOptions = (): OptionsType => {
         }
     }
 
-    // Local dev server
+    const serverEnv = {
+        ...process.env,
+        MOCK_BACKEND: 'true',
+        ...(medDekorator ? {} : { NO_DECORATOR: 'true' }),
+    }
+
     return {
         baseURL,
         timeout,
         server: {
-            command: 'npm run dev-ingen-dekorator',
-            port: 3000,
-            timeout: 120 * 1000, // Wait up to 2 minutes for the server to start
-            reuseExistingServer: true,
+            command: `next dev -p ${port}`,
+            port,
+            timeout: 120 * 1000,
+            reuseExistingServer: false,
+            env: serverEnv,
         },
     }
 }
 
-const opts = createOptions()
+const opts = createOptions(false, 3000)
+const optsMedDekorator = createOptions(true, 3001)
+
+const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as SingleWebServer[]
 
 export default defineConfig({
     testDir: './playwright',
@@ -65,15 +77,25 @@ export default defineConfig({
         {
             name: 'chromium',
             use: { ...devices['Desktop Chrome'] },
+            testIgnore: '**/brodsmuler.spec.ts',
+        },
+        {
+            name: 'chromium-med-dekorator',
+            use: {
+                ...devices['Desktop Chrome'],
+                baseURL: optsMedDekorator.baseURL,
+            },
+            testMatch: '**/brodsmuler.spec.ts',
         },
         ...(process.env.CI
             ? [
                   {
                       name: 'firefox',
                       use: { ...devices['Desktop Firefox'] },
+                      testIgnore: '**/brodsmuler.spec.ts',
                   },
               ]
             : []),
     ],
-    webServer: opts.server,
+    webServer: servers.length > 1 ? servers : servers[0],
 })

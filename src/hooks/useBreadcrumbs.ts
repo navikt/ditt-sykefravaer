@@ -1,114 +1,121 @@
 import { onBreadcrumbClick, setBreadcrumbs } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
-import { DependencyList, useCallback, useEffect, useRef } from 'react'
+import { useCallback, useEffect } from 'react'
 
 import { Sykmelding } from '../types/sykmelding'
 import { minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 
-type Breadcrumb = { title: string; url: string }
-type LastCrumb = { title: string }
-type CompleteCrumb = Parameters<typeof setBreadcrumbs>[0][0]
-
-const baseCrumb: CompleteCrumb = {
-    title: 'Min side',
-    url: minSideUrl(),
-}
-
-function createCompleteCrumbs(breadcrumbs: [...Breadcrumb[], LastCrumb] | []): CompleteCrumb[] {
-    const prefixedCrumbs: CompleteCrumb[] = breadcrumbs.map(
-        (it): CompleteCrumb => ({
-            ...it,
-            url: 'url' in it ? it.url : '/',
-            handleInApp: true,
-        }),
-    )
-
-    return [baseCrumb, ...prefixedCrumbs]
-}
-
-export function useUpdateBreadcrumbs(makeCrumbs: () => [...Breadcrumb[], LastCrumb] | [], deps?: DependencyList): void {
-    const makeCrumbsRef = useRef(makeCrumbs)
-
+export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder): void {
     useEffect(() => {
-        makeCrumbsRef.current = makeCrumbs
-    }, [makeCrumbs])
-
-    useEffect(() => {
-        ;(async () => {
+        const updateBreadcrumbs = async () => {
             try {
-                const prefixedCrumbs = createCompleteCrumbs(makeCrumbsRef.current())
-                await setBreadcrumbs(prefixedCrumbs)
-            } catch (e) {
-                logger.error(e, `Klarte ikke å oppdatere breadcrumbs på ${location.pathname}.`)
+                const breadcrumbs = buildBreadcrumbs()
+                const completeBreadcrumbs = createCompleteBreadcrumbs(breadcrumbs)
+                await setBreadcrumbs(completeBreadcrumbs)
+            } catch (error) {
+                logger.error(error, `Failed to update breadcrumbs on ${location.pathname}`)
             }
-        })()
-        // Custom hook that passes deps array to useEffect, linting will be done where useUpdateBreadcrumbs is used
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, deps)
+        }
+
+        updateBreadcrumbs().catch((error) => {
+            logger.error(error, `Unexpected error in breadcrumb update on ${location.pathname}`)
+        })
+    }, [buildBreadcrumbs])
+}
+
+export const breadcrumbBuilders = {
+    dittSykefravaer: (): CompleteBreadcrumb[] => [BREADCRUMB_ITEMS.DITT_SYKEFRAVAER],
+
+    inntektsmeldinger: (): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        BREADCRUMB_ITEMS.INNTEKTSMELDINGER,
+    ],
+
+    inntektsmelding: (inntektsmeldingId: string, organisasjonsnavn?: string): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        BREADCRUMB_ITEMS.INNTEKTSMELDINGER,
+        createBreadcrumbItem(organisasjonsnavn || '...', `/inntektsmeldinger/${inntektsmeldingId}`),
+    ],
+
+    manglendeInntektsmelding: (): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        createBreadcrumbItem('Manglende inntektsmelding'),
+    ],
+
+    opplysningerFraAordningen: (): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        createBreadcrumbItem('Opplysninger fra a-ordningen'),
+    ],
+
+    sykmeldinger: (): CompleteBreadcrumb[] => [BREADCRUMB_ITEMS.DITT_SYKEFRAVAER, BREADCRUMB_ITEMS.SYKMELDINGER],
+
+    sykmelding: (sykmelding: Sykmelding | undefined): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        BREADCRUMB_ITEMS.SYKMELDINGER,
+        createBreadcrumbItem(getSykmeldingTitle(sykmelding)),
+    ],
+
+    sykmeldingKvittering: (sykmeldingId: string, sykmelding: Sykmelding | undefined): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        BREADCRUMB_ITEMS.SYKMELDINGER,
+        createBreadcrumbItem(getSykmeldingTitle(sykmelding), `/sykmeldinger/${sykmeldingId}`),
+        createBreadcrumbItem('Kvittering'),
+    ],
+
+    notFound: (): CompleteBreadcrumb[] => [
+        BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
+        createBreadcrumbItem('Ukjent side', '/404'),
+    ],
+
+    serverError: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent feil', '/500')],
 }
 
 export function useHandleDecoratorClicks(): void {
     const router = useRouter()
-    const callback = useCallback(
-        (breadcrumb: Breadcrumb) => {
-            // router.push automatically pre-pends the base route of the application
-            router.push(breadcrumb.url)
+
+    const handleBreadcrumbClick = useCallback(
+        (breadcrumb: BreadcrumbItem) => {
+            try {
+                router.push(breadcrumb.url)
+            } catch (error) {
+                logger.error(error, `Failed to navigate to breadcrumb URL: ${breadcrumb.url}`)
+            }
         },
         [router],
     )
 
     useEffect(() => {
-        onBreadcrumbClick(callback)
-    })
+        onBreadcrumbClick(handleBreadcrumbClick)
+    }, [handleBreadcrumbClick])
 }
 
-export function createInntektsmeldingBreadcrumbs(): [Breadcrumb, LastCrumb] {
-    return [baseCrumb, { title: 'Manglende inntektsmelding' }]
+type BreadcrumbItem = {
+    title: string
+    url: string
+    handleInApp?: boolean
 }
 
-export function createForelagtInntektBreadcrumbs(): [Breadcrumb, LastCrumb] {
-    return [baseCrumb, { title: 'Din inntektsmelding fra Aareg' }]
+type CompleteBreadcrumb = Parameters<typeof setBreadcrumbs>[0][0]
+
+type BreadcrumbBuilder = () => CompleteBreadcrumb[]
+
+const BREADCRUMB_ITEMS = {
+    MIN_SIDE: createBreadcrumbItem('Min side', minSideUrl()),
+    DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', '/'),
+    SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', '/sykmeldinger'),
+    INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', '/inntektsmeldinger'),
 }
 
-export function createSykmeldingBreadcrumbs(sykmelding: Sykmelding | undefined): [LastCrumb] {
-    return [{ title: getSykmeldingTitle(sykmelding) }]
+function createCompleteBreadcrumbs(breadcrumbs: CompleteBreadcrumb[]): CompleteBreadcrumb[] {
+    return [BREADCRUMB_ITEMS.MIN_SIDE, ...breadcrumbs]
 }
 
-export function createKvitteringBreadcrumbs(
-    sykmeldingId: string,
-    sykmelding: Sykmelding | undefined,
-): [Breadcrumb, LastCrumb] {
-    return [{ title: getSykmeldingTitle(sykmelding), url: `/${sykmeldingId}` }, { title: 'Kvittering' }]
-}
-
-export enum SsrPathVariants {
-    NotFound = '/404',
-    ServerError = '/500',
-    DittSykefravaer = '/',
-    Inntektsmelding = '/inntektsmelding',
-    Inntektsmeldinger = '/inntektsmeldinger',
-    Beskjed = '/beskjed/[id]',
-}
-
-export function createInitialServerSideBreadcrumbs(pathname: SsrPathVariants | string): CompleteCrumb[] {
-    switch (pathname) {
-        case SsrPathVariants.NotFound:
-        case SsrPathVariants.ServerError:
-        case SsrPathVariants.DittSykefravaer:
-            return createCompleteCrumbs([])
-        case SsrPathVariants.Inntektsmeldinger:
-            return createCompleteCrumbs([baseCrumb, { title: 'Inntektsmeldinger' }])
-
-        case SsrPathVariants.Inntektsmelding:
-            return createCompleteCrumbs(createInntektsmeldingBreadcrumbs())
-
-        case SsrPathVariants.Beskjed:
-            return createCompleteCrumbs(createForelagtInntektBreadcrumbs())
-
-        default:
-            logger.info(`Unknown initial path (${pathname}), defaulting to just base breadcrumb`)
-            return createCompleteCrumbs([])
+function createBreadcrumbItem(title: string, url?: string): CompleteBreadcrumb {
+    return {
+        title,
+        url: url || '/',
+        handleInApp: true,
     }
 }
