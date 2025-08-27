@@ -13,15 +13,24 @@ import { EXPECTED_TOGGLES } from './toggles'
 
 export async function getFlagsClientServerSide(context: GetServerSidePropsContext) {
     const { toggles } = await getFlagsServerSide(context)
+    if (isMockBackend()) {
+        logger.info('Running in local or demo mode, will not report Unleash metrics')
+        return flagsClient(toggles)
+    }
     const unleashServerUrl = process.env.UNLEASH_SERVER_API_URL
         ? `${process.env.UNLEASH_SERVER_API_URL}/api`
         : undefined
     if (!unleashServerUrl) {
-        logger.warn("Missing UNLEASH_SERVER_API_URL, can't send Unleash metrics")
+        logger.warn("Missing env var UNLEASH_SERVER_API_URL, can't send Unleash metrics")
     }
-    return flagsClient(toggles, {
-        url: unleashServerUrl,
-    })
+    try {
+        return flagsClient(toggles, {
+            url: unleashServerUrl,
+        })
+    } catch (e) {
+        logger.error("Failed to set up Unleash for metrics reporting, can't send Unleash metrics", e)
+        return flagsClient(toggles)
+    }
 }
 
 export async function getFlagsServerSide(
