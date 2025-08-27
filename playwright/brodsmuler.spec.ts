@@ -13,16 +13,13 @@ import { expectKvittering, ExpectMeta } from './utils/user-expects'
 test.describe('Tester Brodsmuler', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/syk/sykefravaer')
-        // Vent på at siden laster helt før vi fortsetter
         await page.waitForLoadState('networkidle')
 
-        // Klikk bort cookie-banner først
         const neiTilCookies = page.getByTestId('consent-banner-refuse-optional')
         if (await neiTilCookies.isVisible()) {
             await neiTilCookies.click()
         }
 
-        // Så sjekk at hovedoverskriften er synlig
         await harSynligOverskrift(page, 'Ditt sykefravær', 1)
     })
 
@@ -144,14 +141,6 @@ test.describe('Tester Brodsmuler', () => {
         await page.goto('/syk/sykefravaer/ikke-eksisterende-side')
         await harSynligOverskrift(page, 'Fant ikke siden', 1)
 
-        await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
-    })
-
-    //TODO
-    test.skip('Burde vise brodsmuler på 500-side', async ({ page }) => {
-        await page.goto('/syk/sykefravaer/server-feil')
-
-        await harSynligOverskrift(page, 'Det oppsto en uventet feil', 1)
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
     })
 })

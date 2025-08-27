@@ -36,7 +36,6 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         }
     }
 
-    // Build environment variables properly
     const serverEnv = {
         ...process.env,
         MOCK_BACKEND: 'true',
@@ -59,7 +58,6 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
 const opts = createOptions(false, 3000)
 const optsMedDekorator = createOptions(true, 3001)
 
-// Build the webServer configuration
 const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as SingleWebServer[]
 
 export default defineConfig({
@@ -82,7 +80,7 @@ export default defineConfig({
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'brodsmuler-med-dekorator',
+            name: 'chromium-med-dekorator',
             use: {
                 ...devices['Desktop Chrome'],
                 baseURL: optsMedDekorator.baseURL,
