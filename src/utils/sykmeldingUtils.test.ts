@@ -9,12 +9,9 @@ import {
     getSykmeldingStartDate,
     getSykmeldingTitle,
     isActiveSykmelding,
-    UUID_REGEX,
-    legacyFormat1,
-    legacyFormat2,
-    legacyFormat3,
     extractSykmeldingIdFromUrl,
     isValidSykmeldingId,
+    validateSykmeldingId,
     isPostSykmeldingSend,
 } from './sykmeldingUtils'
 import { dateSub } from './dateUtils'
@@ -243,48 +240,6 @@ describe('getReadableSykmeldingLength', () => {
     })
 })
 
-describe('UUID_REGEX', () => {
-    it('matches valid UUIDs', () => {
-        expect(UUID_REGEX.test('123e4567-e89b-12d3-a456-426614174000')).toBe(true)
-        expect(UUID_REGEX.test('abcdefab-1234-1abc-8abc-abcdefabcdef')).toBe(true)
-    })
-    it('does not match invalid UUIDs', () => {
-        expect(UUID_REGEX.test('not-a-uuid')).toBe(false)
-        expect(UUID_REGEX.test('123e4567e89b12d3a456426614174000')).toBe(false)
-        expect(UUID_REGEX.test('123e4567-e89b-12d3-a456-42661417400')).toBe(false)
-    })
-})
-
-describe('legacyFormat1', () => {
-    it('matches valid legacyFormat1', () => {
-        expect(legacyFormat1.test('1234567890abcd12345.1')).toBe(true)
-    })
-    it('does not match invalid legacyFormat1', () => {
-        expect(legacyFormat1.test('123456789abcd12345.1')).toBe(false)
-        expect(legacyFormat1.test('1234567890abcd1234.1')).toBe(false)
-    })
-})
-
-describe('legacyFormat2', () => {
-    it('matches valid legacyFormat2', () => {
-        expect(legacyFormat2.test('12345678901abc12345.1')).toBe(true)
-    })
-    it('does not match invalid legacyFormat2', () => {
-        expect(legacyFormat2.test('1234567890abc12345.1')).toBe(false)
-        expect(legacyFormat2.test('12345678901abc1234.1')).toBe(false)
-    })
-})
-
-describe('legacyFormat3', () => {
-    it('matches valid legacyFormat3', () => {
-        expect(legacyFormat3.test('ID:616d51316d516c53633133313131313185683857e96df313')).toBe(true)
-    })
-    it('does not match invalid legacyFormat3', () => {
-        expect(legacyFormat3.test('ID:12345678 12345678')).toBe(false)
-        expect(legacyFormat3.test('12345678 12345678 12345678 12345678 12345678 12345678')).toBe(false)
-    })
-})
-
 describe('extractSykmeldingIdFromUrl', () => {
     it('extracts id from valid url', () => {
         expect(
@@ -317,7 +272,19 @@ describe('isValidSykmeldingId', () => {
         expect(isValidSykmeldingId('ID:616d51316d516c53633133313131313185683857e96df313')).toBe(true)
     })
     it('returns false for invalid id', () => {
-        expect(isValidSykmeldingId('not-valid')).toBe(false)
+        expect(isValidSykmeldingId('not/valid')).toBe(false)
+    })
+})
+
+describe('validateSykmeldingId', () => {
+    it('returns the id when valid', () => {
+        expect(validateSykmeldingId('1')).toBe('1')
+    })
+    it('throws when id invalid', () => {
+        expect(() => validateSykmeldingId('not/valid')).toThrowError()
+    })
+    it('returns trimmed id', () => {
+        expect(validateSykmeldingId('1 ')).toBe('1')
     })
 })
 
@@ -347,7 +314,7 @@ describe('isPostSykmeldingSend', () => {
         ).toBe(true)
     })
     it('returns false for valid url but invalid id', () => {
-        expect(isPostSykmeldingSend('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/not-valid/send')).toBe(false)
+        expect(isPostSykmeldingSend('/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/not&valid/send')).toBe(false)
     })
     it('returns false for invalid url', () => {
         expect(isPostSykmeldingSend('/api/other/123e4567-e89b-12d3-a456-426614174000/send')).toBe(false)

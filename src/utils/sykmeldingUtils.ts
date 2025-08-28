@@ -1,5 +1,4 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
-import { NextApiRequest } from 'next'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
@@ -110,29 +109,6 @@ export function isValidRange(sykmelding: Sykmelding): boolean {
     return isBefore(toDate(start), toDate(end))
 }
 
-export const validerSykmeldingIdFraRequest = (req: NextApiRequest): string => {
-    const sykmeldingId = req.query.sykmeldingId as string | undefined
-
-    if (!sykmeldingId || sykmeldingId.trim() === '') {
-        throw new Error('Ugyldig forespoersel: sykmeldingId mangler eller er ikke en streng.')
-    }
-
-    if (!UUID_REGEX.test(sykmeldingId)) {
-        throw new Error(`Ugyldig forespoersel: sykmeldingId er ikke en gyldig UUID: ${sykmeldingId}`)
-    }
-
-    return sykmeldingId as string
-}
-
-export const UUID_REGEX = /[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}/
-
-// Det er nødvendig å støtte disse ID formatene fordi de var i bruk i en periode i 2016
-export const legacyFormat1 = /^\d{10}[a-z]{4}\d{5}\.\d{1}$/
-export const legacyFormat2 = /^\d{11}[a-z]{3}\d{5}\.\d{1}$/
-export const legacyFormat3 = /^ID:[0-9A-Fa-f ]{48}$/
-
-const SYKMELDING_ID_FORMATS = [UUID_REGEX, legacyFormat1, legacyFormat2, legacyFormat3]
-
 const API_PATH_REGEX = /^\/api\/flex-sykmeldinger-backend\/api\/v1\/sykmeldinger\/([^/]+)\/send$/
 
 export function extractSykmeldingIdFromUrl(url: string): string | null {
@@ -140,8 +116,20 @@ export function extractSykmeldingIdFromUrl(url: string): string | null {
     return match ? match[1] : null
 }
 
-export function isValidSykmeldingId(id: string): boolean {
-    return SYKMELDING_ID_FORMATS.some((regex) => regex.test(id))
+const SAFE_ID_REGEX = /^[a-zA-Z0-9:._-]{1,80}$/
+
+export function validateSykmeldingId(sykmeldingId?: string | string[] | null): string {
+    if (!isValidSykmeldingId(sykmeldingId)) {
+        throw new Error(`sykmeldingId inneholder ugyldige tegn: ${sykmeldingId}`)
+    }
+    return sykmeldingId.trim()
+}
+
+export function isValidSykmeldingId(sykmeldingId?: string | string[] | null): sykmeldingId is string {
+    if (!sykmeldingId || typeof sykmeldingId !== 'string' || sykmeldingId.trim() === '') {
+        return false
+    }
+    return SAFE_ID_REGEX.test(sykmeldingId.trim())
 }
 
 export function isPostSykmeldingSend(url: string): boolean {

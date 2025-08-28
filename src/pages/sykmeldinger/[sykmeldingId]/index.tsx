@@ -5,8 +5,7 @@ import { Alert, BodyLong, BodyShort, GuidePanel, Heading, Link, Skeleton } from 
 import Head from 'next/head'
 import { logger } from '@navikt/next-logger'
 import { range } from 'remeda'
-import { GetServerSideProps, GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
-import { IToggle } from '@unleash/nextjs'
+import { GetServerSidePropsResult } from 'next'
 
 import { getReadableSykmeldingLength, getSentSykmeldingTitle, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import OkBekreftetSykmelding from '../../../components/SykmeldingViews/OK/BEKREFTET/OkBekreftetSykmelding'
@@ -26,12 +25,13 @@ import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
-import { beskyttetSideUtenProps, ServerSidePropsResult } from '../../../auth/beskyttetSide'
+import { beskyttetSide, ServerSidePropsResult } from '../../../auth/beskyttetSide'
 import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
-import { getFlagsServerSide } from '../../../toggles/ssr'
+import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
+import { urlAppendPath } from '../../../utils/urlUtils'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -278,37 +278,41 @@ function SykmeldingSkeleton(): ReactElement {
     )
 }
 
-export const getServerSideProps: GetServerSideProps = async (
-    context: GetServerSidePropsContext,
-): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-    const flags = await getFlagsServerSide(context)
-    const gradualRolloutToggle = checkFeatureToggle(flags.toggles, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
-    const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
+export const getServerSideProps = beskyttetSide(
+    async (context): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
+        const flags = await getFlagsServerSide(context)
+        const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
 
-    const stayInApp = forceSpecificApp === undefined ? gradualRolloutToggle : forceSpecificApp === 'flex'
-
-    if (stayInApp) {
-        return beskyttetSideUtenProps(context)
-    } else {
+        const bliHosFlexResultat = { props: { toggles: flags.toggles } }
         const sykmeldingId = context.params?.sykmeldingId as string
-        return {
+        const omrutingResultat = {
             redirect: {
-                destination: `${tsmSykmeldingUrl()}/${sykmeldingId}`,
+                destination: urlAppendPath(tsmSykmeldingUrl(), `/${sykmeldingId}`),
                 permanent: false,
             },
         }
-    }
-}
+
+        if (forceSpecificApp === 'flex') {
+            return bliHosFlexResultat
+        } else if (forceSpecificApp === 'tsm') {
+            return omrutingResultat
+        } else {
+            const flagsClient = createFlagsClient(flags)
+            const bliHosFlex = checkToggleAndReportMetrics(flagsClient, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
+
+            if (bliHosFlex) {
+                return bliHosFlexResultat
+            } else {
+                return omrutingResultat
+            }
+        }
+    },
+)
 
 function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 'flex' | 'tsm' | undefined {
     const appRawQueryParam = query[param]
     const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
     return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
-}
-
-function checkFeatureToggle(toggles: IToggle[], name: string): boolean {
-    const gradualRolloutToggle = toggles.find((toggle) => toggle.name === name)
-    return gradualRolloutToggle?.enabled ?? false
 }
 
 export default SykmeldingPage

@@ -1,12 +1,12 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 
 import { handterPdfFeil, sendPdfResponse } from '../../utils/pdfUtils'
-import { validerSykmeldingIdFraRequest } from '../../utils/sykmeldingUtils'
+import { validateSykmeldingId } from '../../utils/sykmeldingUtils'
 
 import { generateSykmeldingPdfServerSide } from './pdf'
 
 const sendSykmeldingPdf = async (req: NextApiRequest, res: NextApiResponse) => {
-    const sykmeldingId = validerSykmeldingIdFraRequest(req)
+    const sykmeldingId = validateSykmeldingId(req.query.sykmeldingId)
 
     try {
         const pdfBuffer = await generateSykmeldingPdfServerSide(req, sykmeldingId)
