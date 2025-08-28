@@ -1,7 +1,6 @@
 import { expect, Page } from '@playwright/test'
 
 import { test } from '../utils/fixtures'
-import { navigateToFirstSykmelding } from '../utils/user-actions'
 
 const SYKMELDINGER_PATH = '/syk/sykefravaer/sykmeldinger'
 
