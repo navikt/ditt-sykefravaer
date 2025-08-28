@@ -32,6 +32,7 @@ import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } fr
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
+import { urlAppendPath } from '../../../utils/urlUtils'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -287,7 +288,7 @@ export const getServerSideProps = beskyttetSide(
         const sykmeldingId = context.params?.sykmeldingId as string
         const omrutingResultat = {
             redirect: {
-                destination: leggTilPathOgBeholdQuery(tsmSykmeldingUrl(), `/${sykmeldingId}`),
+                destination: urlAppendPath(tsmSykmeldingUrl(), `/${sykmeldingId}`),
                 permanent: false,
             },
         }
@@ -313,15 +314,6 @@ function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 
     const appRawQueryParam = query[param]
     const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
     return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
-}
-
-function leggTilPathOgBeholdQuery(partialUrl: string, pathSegment: string): string {
-    if (partialUrl.includes('?')) {
-        const [path, query] = partialUrl.split('?', 2)
-        return `${path}${pathSegment}?${query}`
-    } else {
-        return partialUrl + pathSegment
-    }
 }
 
 export default SykmeldingPage
