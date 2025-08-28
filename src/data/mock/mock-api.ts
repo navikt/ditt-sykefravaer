@@ -213,13 +213,18 @@ async function handleRoutes(
 }
 
 function requestMatches(req: { url?: string; method?: string }, route: string): Record<string, string> | false {
-    const [method, path] = route.split(' ')
-    if (req.method !== method) {
+    const [expecteMethod, expectedPath] = route.split(' ')
+    if (req.method !== expecteMethod) {
         return false
     }
     if (!req.url) {
         return false
     }
-    const matcher = getPathMatch(path)
-    return matcher(req.url)
+    const urlPath = extractUrlPath(req.url)
+    const matcher = getPathMatch(expectedPath)
+    return matcher(urlPath)
+}
+
+function extractUrlPath(url: string): string {
+    return new URL(url, 'http://dummy').pathname
 }
