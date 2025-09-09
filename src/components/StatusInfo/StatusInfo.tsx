@@ -58,7 +58,7 @@ function StatusInfo({
                     </div>
                     <div className="mb-4">
                         <BodyShort>
-                            Siden legen har skrevet at sykmeldingen startet før dere hadde kontakt, må NAV først vurdere
+                            Siden legen har skrevet at sykmeldingen startet før dere hadde kontakt, må Nav først vurdere
                             om det var en gyldig grunn til dette.
                         </BodyShort>
                     </div>
@@ -80,7 +80,7 @@ function StatusInfo({
                 </Heading>
                 <BodyShort spacing>
                     Hvis du skal reise utenfor EU/EØS når du er sykmeldt, kan du miste retten til sykepenger. Du kan
-                    søke NAV om å beholde sykepengene dine mens du er på reise. Du bør sende søknaden på forhånd, og jo
+                    søke Nav om å beholde sykepengene dine mens du er på reise. Du bør sende søknaden på forhånd, og jo
                     tidligere du søker, jo bedre.
                 </BodyShort>
                 <Link
