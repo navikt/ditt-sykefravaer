@@ -55,7 +55,7 @@
         "@vitejs/plugin-react": "^4.7.0",
         "autoprefixer": "^10.4.21",
         "axe-core": "^4.10.3",
-        "axe-playwright": "^2.1.0",
+        "axe-playwright": "^2.2.1",
         "dotenv": "^16.5.0",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.5.2",
