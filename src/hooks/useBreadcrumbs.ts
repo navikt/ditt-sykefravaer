@@ -102,7 +102,7 @@ type CompleteBreadcrumb = Parameters<typeof setBreadcrumbs>[0][0]
 type BreadcrumbBuilder = () => CompleteBreadcrumb[]
 
 const BREADCRUMB_ITEMS = {
-    MIN_SIDE: createBreadcrumbItem('Min side', minSideUrl()),
+    MIN_SIDE: createBreadcrumbItem('Min side', minSideUrl(), false),
     DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', '/'),
     SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', '/sykmeldinger'),
     INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', '/inntektsmeldinger'),
@@ -112,10 +112,10 @@ function createCompleteBreadcrumbs(breadcrumbs: CompleteBreadcrumb[]): CompleteB
     return [BREADCRUMB_ITEMS.MIN_SIDE, ...breadcrumbs]
 }
 
-function createBreadcrumbItem(title: string, url?: string): CompleteBreadcrumb {
+function createBreadcrumbItem(title: string, url?: string, handleInApp: boolean = true): CompleteBreadcrumb {
     return {
         title,
         url: url || '/',
-        handleInApp: true,
+        handleInApp,
     }
 }
