@@ -118,16 +118,19 @@ describe('isActiveSykmelding', () => {
         ).toBe(true)
     })
 
-    it('should be inactive if status is APEN but older than a year', () => {
+    it('burde være inaktiv dersom status er APEN, men er eldre enn ett år', () => {
         expect(
-            isActiveSykmelding({
-                ...minimalSykmelding,
-                mottattTidspunkt: dateSub(testDato, { days: 365 }),
-                sykmeldingStatus: {
-                    ...minimalSykmelding.sykmeldingStatus,
-                    statusEvent: StatusEvent.APEN,
+            isActiveSykmelding(
+                {
+                    ...minimalSykmelding,
+                    mottattTidspunkt: dateSub(testDato, { days: 365 }),
+                    sykmeldingStatus: {
+                        ...minimalSykmelding.sykmeldingStatus,
+                        statusEvent: StatusEvent.APEN,
+                    },
                 },
-            }),
+                testDato,
+            ),
         ).toBe(false)
     })
 })
