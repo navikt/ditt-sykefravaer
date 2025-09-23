@@ -5,11 +5,11 @@ import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'
 
-export function isActiveSykmelding(sykmelding: Sykmelding): boolean {
+export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = new Date()): boolean {
     // Alt som ikke er APEN status, er inaktive
     if (sykmelding.sykmeldingStatus.statusEvent !== 'APEN') return false
     // APEN sykmeldinger blir inaktive etter 12 måneder
-    return differenceInDays(new Date(), parseISO(sykmelding.mottattTidspunkt)) < 365
+    return differenceInDays(dagensDato, parseISO(sykmelding.mottattTidspunkt)) < 365
 }
 
 export function isUnderbehandling(sykmelding: Sykmelding): boolean {
