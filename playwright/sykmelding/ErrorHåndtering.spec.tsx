@@ -26,6 +26,10 @@ test.describe('Feilhåndtering', () => {
         await expect(forceBoks.getByRole('button', { name: /Gå til sykmeldingen/i })).toBeVisible()
         await expect(forceBoks.getByRole('link')).toHaveAttribute('href', /sykefravaer\/sykmeldinger/)
 
+        await forceBoks.getByRole('link').click()
+        await expect(page).toHaveURL(/\/sykefravaer\/sykmeldinger\/[a-z0-9-]+/)
+        await harSynligOverskrift(page, 'Sykmelding', 1)
+
         await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).not.toBeVisible()
     })
 
