@@ -1,5 +1,6 @@
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { test, expect } from '../utils/fixtures'
+import { harSynligOverskrift } from '../utils/test-utils'
 
 test.describe('Feilhåndtering', () => {
     test('should display sykmelding and form when all requests are successful', async ({ page }) => {
@@ -18,7 +19,13 @@ test.describe('Feilhåndtering', () => {
         const secondSykmelding = newSection.locator('a').nth(1)
         await secondSykmelding.click()
 
-        await expect(page.locator('text=Du har 1 sykmelding du må velge om du skal bruke')).toBeVisible()
+        const forceOverskrift = await harSynligOverskrift(page, 'Før du kan begynne', 2)
+        const forceBoks = forceOverskrift.locator('..')
+
+        await expect(forceBoks.getByText('Du har 1 sykmelding du må velge om du skal bruke')).toBeVisible()
+        await expect(forceBoks.getByRole('button', { name: /Gå til sykmeldingen/i })).toBeVisible()
+        await expect(forceBoks.getByRole('link')).toHaveAttribute('href', /sykefravaer\/sykmeldinger/)
+
         await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).not.toBeVisible()
     })
 
