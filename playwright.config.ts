@@ -1,4 +1,6 @@
-import { defineConfig, devices } from '@playwright/test'
+import { defineConfig } from '@playwright/test'
+
+import { commonBrowserConfigs, velgBrowserConfigs, type NamedProject } from './playwright/config/browser-config'
 
 type TestConfigWebServer = NonNullable<Parameters<typeof defineConfig>[0]['webServer']>
 type SingleWebServer = Exclude<TestConfigWebServer, Array<any>>
@@ -14,11 +16,7 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     const baseURL = `http://localhost:${port}`
 
     if (process.env.CI) {
-        return {
-            baseURL,
-            timeout: 30 * 1000,
-            server: undefined,
-        }
+        return { baseURL, timeout: 30 * 1000, server: undefined }
     }
 
     if (process.env.FAST) {
@@ -57,8 +55,18 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
 
 const opts = createOptions(false, 3000)
 const optsMedDekorator = createOptions(true, 3001)
-
 const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as SingleWebServer[]
+
+const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDekorator)
+
+const ciBrowserConfigs = velgBrowserConfigs(
+    alleBrowserConfigs,
+    (config) =>
+        config.name === 'Desktop Chromium' ||
+        config.name === 'chromium-med-dekorator' ||
+        config.name === 'Desktop Firefox' ||
+        config.name === 'firefox-med-dekorator',
+)
 
 export default defineConfig({
     testDir: './playwright',
@@ -73,29 +81,6 @@ export default defineConfig({
         navigationTimeout: 60000,
         trace: 'on-first-retry',
     },
-    projects: [
-        {
-            name: 'chromium',
-            use: { ...devices['Desktop Chrome'] },
-            testIgnore: '**/brodsmuler.spec.ts',
-        },
-        {
-            name: 'chromium-med-dekorator',
-            use: {
-                ...devices['Desktop Chrome'],
-                baseURL: optsMedDekorator.baseURL,
-            },
-            testMatch: '**/brodsmuler.spec.ts',
-        },
-        ...(process.env.CI
-            ? [
-                  {
-                      name: 'firefox',
-                      use: { ...devices['Desktop Firefox'] },
-                      testIgnore: '**/brodsmuler.spec.ts',
-                  },
-              ]
-            : []),
-    ],
+    projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
     webServer: servers.length > 1 ? servers : servers[0],
 })

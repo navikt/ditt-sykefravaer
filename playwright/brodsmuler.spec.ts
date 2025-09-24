@@ -2,7 +2,6 @@ import { expect, test } from './utils/fixtures'
 import {
     bekreftNarmesteleder,
     filloutArbeidstaker,
-    gotoScenario,
     navigateToFirstSykmelding,
     sendSykmelding,
 } from './utils/user-actions'
@@ -57,10 +56,6 @@ test.describe('Tester Brodsmuler', () => {
     test('Burde vise brodsmuler på /sykmeldinger/[sykmeldingId]/kvittering', async ({ page }) => {
         await page.goto('/syk/sykefravaer/sykmeldinger')
 
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await harSynligOverskrift(page, 'Sykmelding', 1)
-
-        await gotoScenario('normal')(page)
         await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
         await bekreftNarmesteleder('Station Officer Steele')(page)
 

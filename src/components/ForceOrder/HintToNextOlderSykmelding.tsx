@@ -27,7 +27,7 @@ function HintToNextOlderSykmelding(): ReactElement | null {
             <BodyLong spacing>
                 Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
             </BodyLong>
-            <Link passHref href={`/${earliestId}`} legacyBehavior>
+            <Link passHref href={`/sykmeldinger/${earliestId}`}>
                 <Button
                     as="a"
                     variant="primary"
