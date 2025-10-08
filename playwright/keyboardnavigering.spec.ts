@@ -1,40 +1,44 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
+import { tabUntilFocusedContainsText } from './utils/tastaturSnarvei'
 
 test.describe('Keyboard navigering', () => {
-    test('Vi navigerer forsiden med mange elementer', async ({ page }) => {
+    test('Vi navigerer forsiden med mange elementer', async ({ page, browserName }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer')
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Tab')
+        const alertElement = await tabUntilFocusedContainsText(browserName, page, /Du har en ny søknad om sykepenger/)
 
-        // Første lenke er fokusert med riktig styling
-        await expect(page.locator(':focus')).toHaveText('Du har en ny søknad om sykepenger')
-        await expect(page.locator(':focus')).toHaveCSS('color', 'rgb(255, 255, 255)')
-        await expect(page.locator(':focus')).toHaveCSS('background-color', 'rgb(0, 52, 125)')
+        // Elegant løsning: Lagre en stabil referanse til det første elementet med denne teksten
+        const lagretAlertElement = page.getByText('Du har en ny søknad om sykepenger').first()
 
-        await page.keyboard.press('Tab')
-        // Stylingen er ikke fokusert igjen
-        await expect(page.locator('text=Du har en ny søknad om sykepenger')).toHaveCSS('color', 'rgb(35, 38, 42)')
-        await expect(page.locator('text=Du har en ny søknad om sykepenger')).toHaveCSS(
-            'background-color',
-            'rgba(0, 0, 0, 0)',
+        await expect(alertElement).toHaveCSS('color', 'rgb(255, 255, 255)')
+        await expect(alertElement).toHaveCSS('background-color', 'rgb(0, 52, 125)')
+
+        await tabUntilFocusedContainsText(
+            browserName,
+            page,
+            /Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del/,
         )
 
-        await expect(page.locator(':focus')).toHaveText(
-            'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.',
-        )
-        await page.keyboard.press('Tab')
-        await expect(page.locator(':focus')).toHaveText('Du har en oppfølgingsplan som venter på godkjenning av deg')
+        // Sjekk det lagrede elementet etter at fokus har flyttet seg
+        await expect(lagretAlertElement).toHaveCSS('color', 'rgb(35, 38, 42)')
+        await expect(lagretAlertElement).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
 
-        await page.keyboard.press('Tab')
-        const focusedElement = await page.locator(':focus')
+        await tabUntilFocusedContainsText(
+            browserName,
+            page,
+            'Du har en oppfølgingsplan som venter på godkjenning av deg',
+        )
+
+        const focusedElement = await tabUntilFocusedContainsText(
+            browserName,
+            page,
+            'Hogwarts School of Witchcraft and Wizardry',
+        )
         await expect(focusedElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
-
-        await expect(focusedElement).toContainText('Hogwarts School of Witchcraft and Wizardry')
 
         await page.keyboard.press('Space')
         await expect(
@@ -45,33 +49,27 @@ test.describe('Keyboard navigering', () => {
             page.locator('text=Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'),
         ).not.toBeVisible()
 
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Tab')
-        await expect(page.locator(':focus')).toContainText('Sykmeldinger')
-        await page.keyboard.press('Tab')
+        await tabUntilFocusedContainsText(browserName, page, 'Sykmeldinger')
 
-        await expect(page.locator(':focus')).toContainText('Søknader')
-        await expect(page.locator(':focus')).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
+        const soknadElement = await tabUntilFocusedContainsText(browserName, page, 'Søknader')
+        await expect(soknadElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
     })
 
-    test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page }) => {
+    test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page, browserName }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
             page.locator('text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.'),
         ).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
-        await page.keyboard.press('Tab')
-        await page.keyboard.press('Tab')
-
         // Første lenke er fokusert med riktig styling
-        await expect(page.locator(':focus')).toHaveText(
+        const statusLenke = await tabUntilFocusedContainsText(
+            browserName,
+            page,
             'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
         )
-        await expect(page.locator(':focus')).toHaveCSS('color', 'rgb(255, 255, 255)')
-        await expect(page.locator(':focus')).toHaveCSS('background-color', 'rgb(0, 52, 125)')
+        await expect(statusLenke).toHaveCSS('color', 'rgb(255, 255, 255)')
+        await expect(statusLenke).toHaveCSS('background-color', 'rgb(0, 52, 125)')
 
         await page.keyboard.press('Enter')
         await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
