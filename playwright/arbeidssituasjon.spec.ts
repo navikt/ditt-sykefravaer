@@ -1,10 +1,10 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
-import { sjekkCLS } from './utils/cls-simple'
+import { validerCLS } from './utils/cls-validering'
 
 test.describe('Tester arbeidssituasjon', () => {
-    test('Bruker med flere arbeidsgivere', async ({ page }) => {
+    test('Bruker med flere arbeidsgivere', async ({ page, getCLS }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer?testperson=default')
 
         const dinSituasjon = page.getByTestId('din-situasjon')
@@ -30,7 +30,31 @@ test.describe('Tester arbeidssituasjon', () => {
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
 
-        await sjekkCLS(page, 'arbeidsgiver accordion and modal')
+        const secondEmployer = dinSituasjon.locator(':scope > *').nth(2)
+        await expect(secondEmployer).toContainText('Diagon Alley')
+        await secondEmployer.click()
+
+        const arbeidsgiverAccordion2 = page.getByTestId('arbeidsgiver-accordion').nth(1)
+        await expect(arbeidsgiverAccordion2).toContainText(
+            'Betaler lønn også etter de 16 første dagene i sykefraværet.',
+        )
+        await expect(arbeidsgiverAccordion2).toContainText(
+            'Arbeidsgiveren har meldt  inn at Severus Snape skal følge deg opp mens du er syk.',
+        )
+        const meldFraOmEndringSecond = arbeidsgiverAccordion2.locator('text=Meld fra om endring')
+        await meldFraOmEndringSecond.click()
+
+        const modal2 = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
+
+        await expect(modal2).toContainText('Endre nærmeste leder')
+        const bekreftButtonSecond = modal2.locator('text=Ja, jeg er sikker')
+        await bekreftButtonSecond.click()
+
+        await expect(arbeidsgiverAccordion2).not.toContainText(
+            'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
+        )
+
+        await validerCLS(getCLS, 'arbeidsgiver accordion and modal')
     })
 
     test('Avkreft nærmeste leder feiler', async ({ page }) => {

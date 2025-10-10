@@ -1,14 +1,14 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
-import { sjekkCLS } from './utils/cls-simple'
+import { validerCLS } from './utils/cls-validering'
 
 test.describe('Flexjar', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer')
     })
 
-    test('Kan gi ja feedback', async ({ page }) => {
+    test('Kan gi ja feedback', async ({ page, getCLS }) => {
         await expect(page.locator('text=Svar på søknader')).toBeVisible()
         const feedbackTittel = page.getByText('Hjelp oss med å gjøre denne siden bedre')
         const section = page.getByRole('region').filter({ has: feedbackTittel })
@@ -19,10 +19,10 @@ test.describe('Flexjar', () => {
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
         await page.getByText('Takk for tilbakemeldingen!').isVisible()
 
-        await sjekkCLS(page, 'feedback form submission')
+        await validerCLS(getCLS, 'feedback form submission')
     })
 
-    test('Kan gi nei feedback', async ({ page }) => {
+    test('Kan gi nei feedback', async ({ page, getCLS }) => {
         await expect(page.locator('text=Svar på søknader')).toBeVisible()
         const feedbackTittel = page.getByText('Hjelp oss med å gjøre denne siden bedre')
         const section = page.getByRole('region').filter({ has: feedbackTittel })
@@ -33,6 +33,6 @@ test.describe('Flexjar', () => {
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
         await page.getByText('Takk for tilbakemeldingen!').isVisible()
 
-        await sjekkCLS(page, 'negative feedback form')
+        await validerCLS(getCLS, 'negative feedback form')
     })
 })

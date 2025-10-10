@@ -1,21 +1,21 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
-import { sjekkCLS } from './utils/cls-simple'
+import { validerCLS } from './utils/cls-validering'
 
 test.describe('Inntektsmeldinger', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('http://localhost:3000/syk/sykefravaer')
     })
 
-    test('Går til listevisning av inntektsmeldinger', async ({ page }) => {
+    test('Går til listevisning av inntektsmeldinger', async ({ page, getCLS }) => {
         await page.getByRole('link', { name: /inntektsmeldinger/i }).click()
         await expect(page.locator('text=Inntektsmeldinger')).toBeVisible()
 
-        await sjekkCLS(page, 'inntektsmeldinger list view')
+        await validerCLS(getCLS, 'inntektsmeldinger list view')
     })
 
-    test('Åpner inntektsmelding', async ({ page }) => {
+    test('Åpner inntektsmelding', async ({ page, getCLS }) => {
         await expect(page.locator('text=Inntektsmeldinger')).toBeVisible()
 
         await page.locator('text=Inntektsmeldinger').click()
@@ -28,7 +28,7 @@ test.describe('Inntektsmeldinger', () => {
         await expect(page.locator('text=Matbutikken AS, Kjelsås')).toBeVisible()
         await expect(page.locator('text=Vi betviler at ansatt er ute av stand til å jobbe')).toBeVisible()
 
-        await sjekkCLS(page, 'inntektsmelding detail view')
+        await validerCLS(getCLS, 'inntektsmelding detail view')
     })
 
     test('Går til listevisning uten inntektsmeldinger', async ({ page }) => {
