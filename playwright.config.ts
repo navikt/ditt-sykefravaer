@@ -80,6 +80,7 @@ export default defineConfig({
         baseURL: opts.baseURL,
         navigationTimeout: 60000,
         trace: 'on-first-retry',
+        bypassCSP: true,
     },
     projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
     webServer: servers.length > 1 ? servers : servers[0],
