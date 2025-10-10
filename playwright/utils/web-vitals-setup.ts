@@ -10,60 +10,45 @@ interface PerformanceMetric {
     navigationType?: string
 }
 
-export async function measureCLSWithWebVitals(page: Page): Promise<number | null> {
+export async function measureCLSWithWebVitals(page: Page): Promise<void> {
     const webVitalsPath = path.resolve(__dirname, '../../node_modules/web-vitals/dist/web-vitals.iife.js')
 
     await page.addScriptTag({
         path: webVitalsPath,
     })
 
-    await page.waitForTimeout(500)
-
-    return await page.evaluate(async (): Promise<number | null> => {
+    await page.evaluate(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const win = window as any
 
-        if (!win.webVitals || typeof win.webVitals.onCLS !== 'function') {
-            return null
+        if (win.webVitals && typeof win.webVitals.onCLS === 'function') {
+            win._clsValues = []
+
+            win.webVitals.onCLS(
+                (metric: PerformanceMetric) => {
+                    win._clsValues.push(metric.value)
+                },
+                { reportAllChanges: true },
+            )
         }
+    })
+}
 
-        try {
-            const { onCLS } = win.webVitals
+export async function getCLSValue(page: Page): Promise<number | null> {
+    await page.evaluate(() => {
+        const visibilityEvent = new Event('visibilitychange')
+        document.dispatchEvent(visibilityEvent)
 
-            return new Promise<number | null>((resolve) => {
-                let resolved = false
-                let metricsReceived = false
+        const pagehideEvent = new Event('pagehide')
+        document.dispatchEvent(pagehideEvent)
+    })
 
-                onCLS(
-                    (metric: PerformanceMetric) => {
-                        if (!resolved) {
-                            metricsReceived = true
-                            resolved = true
-                            resolve(metric.value)
-                        }
-                    },
-                    { reportAllChanges: true },
-                )
+    await page.waitForTimeout(500)
 
-                setTimeout(() => {
-                    if (!resolved) {
-                        const visibilityEvent = new Event('visibilitychange')
-                        document.dispatchEvent(visibilityEvent)
-
-                        const pagehideEvent = new Event('pagehide')
-                        document.dispatchEvent(pagehideEvent)
-                    }
-                }, 1000)
-
-                setTimeout(() => {
-                    if (!resolved) {
-                        resolved = true
-                        resolve(metricsReceived ? 0 : 0)
-                    }
-                }, 4000)
-            })
-        } catch (e) {
-            return null
-        }
+    return await page.evaluate(() => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const win = window as any
+        const values = win._clsValues || []
+        return values.length > 0 ? values[values.length - 1] : 0
     })
 }
