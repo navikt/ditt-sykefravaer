@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
+import { sjekkCLS } from './utils/cls-simple'
 
 test.describe('Inntektsmeldinger', () => {
     test.beforeEach(async ({ page }) => {
@@ -10,6 +11,8 @@ test.describe('Inntektsmeldinger', () => {
     test('Går til listevisning av inntektsmeldinger', async ({ page }) => {
         await page.getByRole('link', { name: /inntektsmeldinger/i }).click()
         await expect(page.locator('text=Inntektsmeldinger')).toBeVisible()
+
+        await sjekkCLS(page, 'inntektsmeldinger list view')
     })
 
     test('Åpner inntektsmelding', async ({ page }) => {
@@ -24,6 +27,8 @@ test.describe('Inntektsmeldinger', () => {
         await expect(page.locator('text=Bestemmende fraværsdag').first()).toBeVisible()
         await expect(page.locator('text=Matbutikken AS, Kjelsås')).toBeVisible()
         await expect(page.locator('text=Vi betviler at ansatt er ute av stand til å jobbe')).toBeVisible()
+
+        await sjekkCLS(page, 'inntektsmelding detail view')
     })
 
     test('Går til listevisning uten inntektsmeldinger', async ({ page }) => {

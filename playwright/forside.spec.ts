@@ -2,6 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
 import { harSynligOverskrift } from './utils/test-utils'
+import { sjekkCLS } from './utils/cls-simple'
 
 test.describe('Tester visning av forside', () => {
     test.beforeEach(async ({ page }) => {
@@ -18,6 +19,8 @@ test.describe('Tester visning av forside', () => {
         await expect(sykmeldingerLenke).toBeVisible()
         await sykmeldingerLenke.click()
         await harSynligOverskrift(page, 'Sykmeldinger', 1)
+
+        await sjekkCLS(page, 'sykmeldinger navigation')
     })
 
     test('Kan trykke inn på inntektsmeldinger via knapp', async ({ page }) => {
@@ -25,6 +28,8 @@ test.describe('Tester visning av forside', () => {
         await expect(sykmeldingerLenke).toBeVisible()
         await sykmeldingerLenke.click()
         await harSynligOverskrift(page, 'Inntektsmeldinger', 1)
+
+        await sjekkCLS(page, 'inntektsmeldinger navigation')
     })
 
     test('Kan trykke inn på sykmeldinger via notifikasjon (oppgave)', async ({ page }) => {

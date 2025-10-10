@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
+import { sjekkCLS } from './utils/cls-simple'
 
 test.describe('Flexjar', () => {
     test.beforeEach(async ({ page }) => {
@@ -17,6 +18,8 @@ test.describe('Flexjar', () => {
         await section.getByRole('textbox').fill('Dette er en test')
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
         await page.getByText('Takk for tilbakemeldingen!').isVisible()
+
+        await sjekkCLS(page, 'feedback form submission')
     })
 
     test('Kan gi nei feedback', async ({ page }) => {
@@ -29,5 +32,7 @@ test.describe('Flexjar', () => {
         await section.getByRole('textbox').fill('Dette er en test')
         await section.getByRole('button', { name: 'Send tilbakemelding' }).click()
         await page.getByText('Takk for tilbakemeldingen!').isVisible()
+
+        await sjekkCLS(page, 'negative feedback form')
     })
 })
