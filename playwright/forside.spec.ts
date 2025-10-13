@@ -2,6 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
 import { harSynligOverskrift } from './utils/test-utils'
+import { validerCLS } from './utils/cls-validering'
 
 test.describe('Tester visning av forside', () => {
     test.beforeEach(async ({ page }) => {
@@ -13,18 +14,22 @@ test.describe('Tester visning av forside', () => {
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
     })
 
-    test('Kan trykke inn på sykmeldinger via knapp', async ({ page }) => {
+    test('Kan trykke inn på sykmeldinger via knapp', async ({ page, getCLS }) => {
         const sykmeldingerLenke = page.getByRole('link', { name: 'Sykmeldinger' })
         await expect(sykmeldingerLenke).toBeVisible()
         await sykmeldingerLenke.click()
         await harSynligOverskrift(page, 'Sykmeldinger', 1)
+
+        await validerCLS(getCLS, 'sykmeldinger navigation')
     })
 
-    test('Kan trykke inn på inntektsmeldinger via knapp', async ({ page }) => {
+    test('Kan trykke inn på inntektsmeldinger via knapp', async ({ page, getCLS }) => {
         const sykmeldingerLenke = page.getByRole('link', { name: 'Inntektsmeldinger' })
         await expect(sykmeldingerLenke).toBeVisible()
         await sykmeldingerLenke.click()
         await harSynligOverskrift(page, 'Inntektsmeldinger', 1)
+
+        await validerCLS(getCLS, 'inntektsmeldinger navigation')
     })
 
     test('Kan trykke inn på sykmeldinger via notifikasjon (oppgave)', async ({ page }) => {

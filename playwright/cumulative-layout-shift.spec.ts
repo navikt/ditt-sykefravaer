@@ -1,25 +1,24 @@
-import { expect } from '@playwright/test'
+import { test, expect } from './utils/fixtures'
 
-import { test } from './utils/fixtures'
+test.describe('Homepage Performance', () => {
+    const GOOD_CLS_THRESHOLD: number = 0.1
 
-test.describe('Tester cumulative-layout-shift', () => {
-    test('Height does not change in happy case after data is loaded', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=cummulative-layout-shift')
-        await page.waitForSelector('h1', { timeout: 10000 })
-        await expect(page.locator('h1').first()).toBeVisible()
-        const skeletons = page.locator('.navds-skeleton')
-        await expect(skeletons).toHaveCount(7)
+    test('burde ha en god CLS score på første last', async ({ page, getCLS }) => {
+        await page.goto('http://localhost:3000/syk/sykefravaer')
+        await page.waitForLoadState('domcontentloaded')
 
-        // Sjekk dokumentets høyde
-        const expectedHeight = 1387
-        const initialHeight = await page.evaluate(() => document.documentElement.scrollHeight)
-        expect(initialHeight).toBe(expectedHeight)
+        page.setDefaultTimeout(10000)
 
-        // Venter på at alle dataene er fetchet og rendret
-        await expect(page.locator('text=Du har en ny sykmelding')).toBeVisible()
-        await expect(skeletons).toHaveCount(0)
+        const cls: number | null = await getCLS()
 
-        const finalHeight = await page.evaluate(() => document.documentElement.scrollHeight)
-        expect(finalHeight).toBe(expectedHeight)
+        if (cls === null) {
+            expect(cls, 'CLS measurement failed: returned null').not.toBeNull()
+            return
+        }
+
+        expect(
+            cls,
+            `CLS score (${cls}) is too high on the homepage. Expected <= ${GOOD_CLS_THRESHOLD}.`,
+        ).toBeLessThanOrEqual(GOOD_CLS_THRESHOLD)
     })
 })

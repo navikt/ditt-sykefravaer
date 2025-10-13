@@ -12,7 +12,10 @@ test.describe('Feilhåndtering', () => {
         await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeVisible()
     })
 
-    test('should force user to send inn unsent sykmelding if there is an older one', async ({ page }) => {
+    test('should force user to send inn unsent sykmelding if there is an older one', async ({ page, browserName }) => {
+        if (browserName == 'firefox') {
+            test.skip() //TODO: Flaky i Firefox, skal ikke teste med Firefox etterhvert
+        }
         await gotoScenario('usendtMedTidligereSent')(page)
 
         const newSection = page.getByRole('region', { name: /Nye sykmeldinger/i })

@@ -1,43 +1,54 @@
 import { test as base, expect } from '@playwright/test'
 
+import { measureCLSWithWebVitals, getCLSValue } from './web-vitals-setup'
 import { validerAxe } from './uuvalidering'
 
-// Definer options for UU-validering
 type UUOptions = {
     skipUU?: boolean
     disableRules?: string[]
 }
 
-// Utvid base test med UU-options
-export const test = base.extend<{ uuOptions: UUOptions }>({
+type CLSOptions = {
+    enableCLS?: boolean
+}
+
+export const test = base.extend<{
+    uuOptions: UUOptions
+    clsOptions: CLSOptions
+    getCLS: () => Promise<number | null>
+}>({
     uuOptions: [{ skipUU: false, disableRules: [] }, { option: true }],
+    clsOptions: [{ enableCLS: true }, { option: true }],
+
+    getCLS: async ({ page, clsOptions }, use) => {
+        if (clsOptions.enableCLS) {
+            await measureCLSWithWebVitals(page)
+        }
+
+        // eslint-disable-next-line react-hooks/rules-of-hooks
+        await use(async () => {
+            if (!clsOptions.enableCLS) {
+                return null
+            }
+            return await getCLSValue(page)
+        })
+    },
 })
 
 test.beforeEach(async ({ context, page }) => {
-    // Skjuler hint så den ikke ligger over andre elementer
+    // Reset cookies før hver test
+    await context.clearCookies()
+
+    // Skjul hint så de ikke er i veien for visuelle tester
     await page.addInitScript(() => {
         window.localStorage.setItem('devtools-hint', 'false')
     })
-    // Resetter cookies før hver test
-    await context.clearCookies()
 })
 
-// Automatisk UU-validering for ALLE tester (med mindre eksplisitt skrudd av)
 test.afterEach(async ({ page, uuOptions }, testInfo) => {
     if (!uuOptions.skipUU) {
         await validerAxe(page, testInfo, uuOptions.disableRules)
     }
 })
 
-// Eksporter også expect for enkelhets skyld
 export { expect }
-
-// Convenience functions for spesielle tilfeller
-export const testUtenUU = base.extend<{ uuOptions: UUOptions }>({
-    uuOptions: [{ skipUU: true, disableRules: [] }, { option: true }],
-})
-
-export const testMedDisabledRules = (rules: string[]) =>
-    base.extend<{ uuOptions: UUOptions }>({
-        uuOptions: [{ skipUU: false, disableRules: rules }, { option: true }],
-    })
