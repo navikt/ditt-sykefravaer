@@ -7,7 +7,7 @@ export type NamedProject = Project & { name: string }
 export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator: { baseURL: string }): NamedProject[] {
     return [
         {
-            name: 'Desktop Chromium',
+            name: 'Desktop Chrome',
             use: {
                 ...devices['Desktop Chrome'],
                 viewport: { width: 1920, height: 1080 },
@@ -16,7 +16,7 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'chromium-med-dekorator',
+            name: 'Desktop Chrome med dekorator',
             use: {
                 ...devices['Desktop Chrome'],
                 viewport: { width: 1920, height: 1080 },
@@ -35,7 +35,7 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'mobile-chromium-med-dekorator',
+            name: 'Mobile Chromium med dekorator',
             use: {
                 ...devices['Pixel 5'],
                 viewport: { width: 375, height: 667 },
@@ -54,7 +54,7 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'firefox-med-dekorator',
+            name: 'Desktop Firefox med dekorator',
             use: {
                 ...devices['Desktop Firefox'],
                 viewport: { width: 1920, height: 1080 },
@@ -63,17 +63,18 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testMatch: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'Mobile Firefox',
+            name: 'Firefox (responsive)',
             use: {
-                ...devices['Pixel 5'],
+                browserName: 'firefox',
                 viewport: { width: 375, height: 667 },
-                isMobile: true,
+                userAgent:
+                    'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/40.0 Mobile/15E148 Safari/605.1.15',
                 baseURL: opts.baseURL,
             },
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'mobile-firefox-med-dekorator',
+            name: 'Mobile Firefox med dekorator',
             use: {
                 ...devices['Pixel 5'],
                 viewport: { width: 375, height: 667 },
@@ -92,7 +93,7 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'webkit-med-dekorator',
+            name: 'Desktop WebKit med dekorator',
             use: {
                 ...devices['Desktop Safari'],
                 viewport: { width: 1920, height: 1080 },
@@ -111,7 +112,7 @@ export function commonBrowserConfigs(opts: { baseURL: string }, optsMedDekorator
             testIgnore: '**/brodsmuler.spec.ts',
         },
         {
-            name: 'mobile-webkit-med-dekorator',
+            name: 'Mobile WebKit med dekorator',
             use: {
                 ...devices['iPhone 12'],
                 viewport: { width: 375, height: 667 },
