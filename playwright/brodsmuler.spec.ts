@@ -1,3 +1,5 @@
+import { Page } from '@playwright/test'
+
 import { expect, test } from './utils/fixtures'
 import {
     bekreftNarmesteleder,
@@ -9,27 +11,26 @@ import { getRadioInGroup, harSynligOverskrift } from './utils/test-utils'
 import { forventBrodsmule, forventFlerebrodsmuler, klikkPaBrodsmule, standardBrodsmuler } from './utils/brodsmule-utils'
 import { expectKvittering, ExpectMeta } from './utils/user-expects'
 
+async function neiTilCookies(page: Page) {
+    await page.waitForLoadState('networkidle')
+
+    const neiTilCookies = page.getByTestId('consent-banner-refuse-optional')
+    if (await neiTilCookies.isVisible()) {
+        await neiTilCookies.click()
+    }
+}
+
 test.describe('Tester Brodsmuler', () => {
-    test.beforeEach(async ({ page }) => {
-        await page.goto('/syk/sykefravaer')
-        await page.waitForLoadState('networkidle')
-
-        const neiTilCookies = page.getByTestId('consent-banner-refuse-optional')
-        if (await neiTilCookies.isVisible()) {
-            await neiTilCookies.click()
-        }
-
-        await harSynligOverskrift(page, 'Ditt sykefravær', 1)
-    })
-
     test('Burde vise brodsmuler på forsiden', async ({ page }) => {
         await page.goto('/syk/sykefravaer')
+        await neiTilCookies(page)
 
         await forventBrodsmule(page, standardBrodsmuler.minSide)
     })
 
     test('Burde vise brodsmuler på /sykmeldinger', async ({ page }) => {
         await page.goto('/syk/sykefravaer/sykmeldinger')
+        await neiTilCookies(page)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 
@@ -39,6 +40,7 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på /sykmeldinger/[sykmeldingId]', async ({ page }) => {
         await page.goto('/syk/sykefravaer/sykmeldinger')
+        await neiTilCookies(page)
 
         await navigateToFirstSykmelding('nye', '100%')(page)
         await harSynligOverskrift(page, 'Sykmelding', 1)
@@ -55,6 +57,7 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på /sykmeldinger/[sykmeldingId]/kvittering', async ({ page }) => {
         await page.goto('/syk/sykefravaer/sykmeldinger')
+        await neiTilCookies(page)
 
         await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
         await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -84,6 +87,7 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på /inntektsmeldinger', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmeldinger')
+        await neiTilCookies(page)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 
@@ -93,6 +97,7 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på /inntektsmeldinger/[inntektsmeldingId]', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmeldinger')
+        await neiTilCookies(page)
 
         const forsteInntektsmelding = page.getByRole('link', { name: 'Matbutikken AS, Kjelsås' })
         await expect(forsteInntektsmelding).toBeVisible()
@@ -114,6 +119,8 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på info om manglende inntektsmelding', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmelding')
+        await neiTilCookies(page)
+
         await harSynligOverskrift(page, 'Vi venter på inntektsmelding fra arbeidsgiveren din', 1)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
@@ -124,6 +131,8 @@ test.describe('Tester Brodsmuler', () => {
 
     test('Burde vise brodsmuler på info om a-ordnigen', async ({ page }) => {
         await page.goto('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
+        await neiTilCookies(page)
+
         await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
