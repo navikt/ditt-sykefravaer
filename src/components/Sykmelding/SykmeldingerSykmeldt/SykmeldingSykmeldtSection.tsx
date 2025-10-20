@@ -30,7 +30,7 @@ function SykmeldingSykmeldtSection({ sykmelding, shouldShowEgenmeldingsdagerInfo
                             {`Sendt til oss ${toReadableDate(sykmelding.mottattTidspunkt)}`}
                         </BodyShort>
                         <Button
-                            className="absolute right-0 top-0 hidden md:block"
+                            className="absolute right-0 top-0 md:block"
                             as="a"
                             href={`${basePath()}/${sykmelding.id}/pdf`}
                             target="_blank"

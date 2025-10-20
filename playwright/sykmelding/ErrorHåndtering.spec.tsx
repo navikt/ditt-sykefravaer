@@ -12,10 +12,7 @@ test.describe('Feilhåndtering', () => {
         await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeVisible()
     })
 
-    test('should force user to send inn unsent sykmelding if there is an older one', async ({ page, browserName }) => {
-        if (browserName == 'firefox') {
-            test.skip() //TODO: Flaky i Firefox, skal ikke teste med Firefox etterhvert
-        }
+    test('burde tvinge bruker til å sende inn usendt sykmelding hvis det finnes en eldre', async ({ page }) => {
         await gotoScenario('usendtMedTidligereSent')(page)
 
         const newSection = page.getByRole('region', { name: /Nye sykmeldinger/i })
@@ -30,10 +27,8 @@ test.describe('Feilhåndtering', () => {
         await expect(forceBoks.getByRole('link')).toHaveAttribute('href', /sykefravaer\/sykmeldinger/)
 
         await forceBoks.getByRole('link').click()
-        await expect(page).toHaveURL(/\/sykefravaer\/sykmeldinger\/[a-z0-9-]+/)
-        await harSynligOverskrift(page, 'Sykmelding', 1)
-
-        await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).not.toBeVisible()
+        await harSynligOverskrift(page, 'Opplysninger fra sykmeldingen', 2)
+        await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).toBeVisible()
     })
 
     test('should fail with error message when sykmelding can’t be fetched', async ({ page }) => {

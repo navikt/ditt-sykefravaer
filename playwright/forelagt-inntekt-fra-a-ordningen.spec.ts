@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
+import { harSynligOverskrift } from './utils/test-utils'
 
 test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     test('Tester når vi har tre månedsinntekter', async ({ page }) => {
@@ -16,6 +17,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
+        await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
         await expect(page).toHaveURL(
             'http://localhost:3000/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen',
         )

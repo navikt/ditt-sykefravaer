@@ -1,14 +1,18 @@
-import { defineConfig } from '@playwright/test'
+import { defineConfig, PlaywrightTestConfig } from '@playwright/test'
 
-import { commonBrowserConfigs, velgBrowserConfigs, type NamedProject } from './playwright/config/browser-config'
+import {
+    commonBrowserConfigs,
+    velgBrowserConfigs,
+    type NamedProject,
+    Nettlesernavn,
+} from './playwright/config/browser-config'
 
-type TestConfigWebServer = NonNullable<Parameters<typeof defineConfig>[0]['webServer']>
-type SingleWebServer = Exclude<TestConfigWebServer, Array<any>>
+type TestConfigWebServer = PlaywrightTestConfig['webServer']
 
 type OptionsType = {
     baseURL: string
     timeout: number
-    server: SingleWebServer | undefined
+    server: TestConfigWebServer
 }
 
 const createOptions = (medDekorator = false, port = 3000): OptionsType => {
@@ -55,17 +59,19 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
 
 const opts = createOptions(false, 3000)
 const optsMedDekorator = createOptions(true, 3001)
-const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as SingleWebServer[]
+const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as TestConfigWebServer
 
 const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDekorator)
 
 const ciBrowserConfigs = velgBrowserConfigs(
     alleBrowserConfigs,
     (config) =>
-        config.name === 'Desktop Chromium' ||
-        config.name === 'chromium-med-dekorator' ||
-        config.name === 'Desktop Firefox' ||
-        config.name === 'firefox-med-dekorator',
+        config.name === Nettlesernavn.DESKTOP_CHROME ||
+        config.name === Nettlesernavn.DESKTOP_CHROME_MED_DEKORATOR ||
+        config.name === Nettlesernavn.MOBILE_CHROME ||
+        config.name === Nettlesernavn.MOBILE_CHROMIUM_MED_DEKORATOR ||
+        config.name === Nettlesernavn.MOBILE_WEBKIT ||
+        config.name === Nettlesernavn.MOBILE_WEBKIT_MED_DEKORATOR,
 )
 
 export default defineConfig({
@@ -73,8 +79,8 @@ export default defineConfig({
     timeout: 30000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
-    retries: 0,
-    workers: process.env.CI ? 1 : undefined,
+    retries: 1,
+    workers: process.env.CI ? 2 : undefined,
     reporter: process.env.CI ? 'blob' : 'html',
     use: {
         baseURL: opts.baseURL,
@@ -83,5 +89,5 @@ export default defineConfig({
         bypassCSP: true,
     },
     projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
-    webServer: servers.length > 1 ? servers : servers[0],
+    webServer: servers,
 })
