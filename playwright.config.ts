@@ -1,6 +1,11 @@
 import { defineConfig, PlaywrightTestConfig } from '@playwright/test'
 
-import { commonBrowserConfigs, velgBrowserConfigs, type NamedProject } from './playwright/config/browser-config'
+import {
+    commonBrowserConfigs,
+    velgBrowserConfigs,
+    type NamedProject,
+    Nettlesernavn,
+} from './playwright/config/browser-config'
 
 type TestConfigWebServer = PlaywrightTestConfig['webServer']
 
@@ -61,12 +66,12 @@ const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDek
 const ciBrowserConfigs = velgBrowserConfigs(
     alleBrowserConfigs,
     (config) =>
-        config.name === 'Desktop Chromium' ||
-        config.name === 'Desktop Chromium med dekorator' ||
-        config.name === 'Mobile Chromium' ||
-        config.name === 'Mobile Chromium med dekorator' ||
-        config.name === 'Mobile WebKit' ||
-        config.name === 'Mobile WebKit med dekorator',
+        config.name === Nettlesernavn.DESKTOP_CHROME ||
+        config.name === Nettlesernavn.DESKTOP_CHROME_MED_DEKORATOR ||
+        config.name === Nettlesernavn.MOBILE_CHROME ||
+        config.name === Nettlesernavn.MOBILE_CHROMIUM_MED_DEKORATOR ||
+        config.name === Nettlesernavn.MOBILE_WEBKIT ||
+        config.name === Nettlesernavn.MOBILE_WEBKIT_MED_DEKORATOR,
 )
 
 export default defineConfig({
