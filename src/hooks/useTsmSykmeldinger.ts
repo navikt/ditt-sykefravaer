@@ -1,18 +1,22 @@
-import { useQuery } from '@tanstack/react-query'
+import { UseQueryResult } from '@tanstack/react-query'
 
 import { TsmSykmelding } from '../types/tsmSykmelding'
-import { fetchJsonMedRequestId } from '../utils/fetch'
+import { Sykmelding } from '../types/sykmelding'
 
-import { UseTestpersonQuery } from './useTestpersonQuery'
+import UseSykmeldingerFlex from './useSykmeldingerFlexBackend'
 
-export default function UseTsmSykmeldinger() {
-    const testpersonQuery = UseTestpersonQuery()
+export default function UseTsmSykmeldinger(): UseQueryResult<TsmSykmelding[], Error> {
+    const { data, ...rest } = UseSykmeldingerFlex()
+    const konvertertData = data && konverterTilTsmSykmeldinger(data)
+    return { data: konvertertData, ...rest } as UseQueryResult<TsmSykmelding[], Error>
+}
 
-    return useQuery<TsmSykmelding[], Error>({
-        queryKey: ['sykmeldinger'],
-        queryFn: () =>
-            fetchJsonMedRequestId(
-                '/syk/sykefravaer/api/sykmeldinger-backend/api/v2/sykmeldinger' + testpersonQuery.query(),
-            ),
-    })
+function konverterTilTsmSykmeldinger(sykmeldinger: Sykmelding[]): TsmSykmelding[] {
+    return sykmeldinger.map((sykmelding) => ({
+        ...sykmelding,
+        sykmeldingStatus: {
+            ...sykmelding.sykmeldingStatus,
+            arbeidsgiver: sykmelding.sykmeldingStatus.arbeidsgiver || undefined,
+        },
+    }))
 }
