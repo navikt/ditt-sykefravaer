@@ -97,10 +97,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             if (erClsTestperson) await sleep(500)
             return sendJson(testperson.soknader)
         },
-        'GET /api/sykmeldinger-backend/api/v2/sykmeldinger': async () => {
-            if (erClsTestperson) await sleep(1000)
-            return sendJson(testperson.sykmeldinger)
-        },
         'GET /api/ditt-sykefravaer-backend/api/v1/meldinger': async () => {
             if (erClsTestperson) await sleep(750)
             return sendJson(testperson.meldinger)
