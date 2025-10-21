@@ -16,11 +16,6 @@ export const commonPersona = (): PersonaUtenBeskrivelse => {
         maxdato: { maxDate: null, utbetaltTom: null },
         arbeidsrettetOppfolging: { erUnderOppfolging: false },
         oppfolgingsplaner: [],
-        dialogmoteBehov: {
-            visMotebehov: false,
-            skjemaType: null,
-            motebehov: null,
-        },
         meldinger: [],
     }
 }
@@ -30,7 +25,6 @@ export const defaultPersona: Persona = {
     meldinger: [],
     vedtak: [vedtakMed100Grad, nyttVedtakMed100Grad],
     oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
-    dialogmoteBehov: { visMotebehov: false, skjemaType: null, motebehov: null },
     inntektsmeldinger: [altinnInntektsmelding, altinnInntektsmelding2],
     sykmeldinger: [
         sendtSykmelding,

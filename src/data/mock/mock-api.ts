@@ -149,9 +149,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
                 if (erClsTestperson) await sleep(250)
                 return sendJson(testperson.oppfolgingsplaner)
             },
-        'GET /api/syfomotebehov/syfomotebehov/api/v3/arbeidstaker/motebehov': () => {
-            return sendJson(testperson.dialogmoteBehov)
-        },
         'POST /api/flexjar-backend/api/v2/feedback': () => {
             return sendJson({ id: uuidv4() }, 201)
         },

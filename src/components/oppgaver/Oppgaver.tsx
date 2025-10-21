@@ -1,17 +1,15 @@
 import { Alert, BodyShort, Detail, Link as Lenke, Skeleton } from '@navikt/ds-react'
 import React, { useEffect, useState } from 'react'
 
-import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
-import { basePath, dialogmoteUrl, oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
+import { basePath, oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../amplitude/amplitude'
 import { fetchMedRequestId } from '../../utils/fetch'
 
-import { skapDialogmoteBehovOppgaver } from './dialogmoteBehovOppgaver'
 import { skapMeldinger } from './meldinger'
 import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
@@ -124,7 +122,6 @@ function Oppgaver() {
     const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useTsmSykmeldinger()
     const { data: soknader, isLoading: soknaderLaster } = useSoknader()
     const { data: oppfolgingsplaner, isLoading: oppfolgingsplanerLaster } = useOppfolgingsplaner()
-    const { data: dialogmoteBehov, isLoading: dialogmoteBehovLaster } = useDialogmoteBehov()
 
     const [lukkede, setLukkede] = useState([] as string[])
 
@@ -135,19 +132,13 @@ function Oppgaver() {
     const soknadOppgaver = skapSoknadOppgaver(soknader, sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, basePath() + '/sykmeldinger')
     const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
-    const dialogmoteBehovOppgaver = skapDialogmoteBehovOppgaver(dialogmoteBehov, `${dialogmoteUrl()}/motebehov/svar`)
 
     const meldingerOppgaver = skapMeldinger(meldinger)
 
-    const tasks = [
-        ...sykmeldingOppgaver,
-        ...soknadOppgaver,
-        ...oppfolgingsplanoppgaver,
-        ...dialogmoteBehovOppgaver,
-        ...meldingerOppgaver,
-    ].filter((o) => !o.id || !lukkede.includes(o.id))
-    const lasterData =
-        meldingerLaster || sykmeldingerLaster || soknaderLaster || oppfolgingsplanerLaster || dialogmoteBehovLaster
+    const tasks = [...sykmeldingOppgaver, ...soknadOppgaver, ...oppfolgingsplanoppgaver, ...meldingerOppgaver].filter(
+        (o) => !o.id || !lukkede.includes(o.id),
+    )
+    const lasterData = meldingerLaster || sykmeldingerLaster || soknaderLaster || oppfolgingsplanerLaster
 
     return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} lasterData={lasterData} />
 }
