@@ -5,7 +5,6 @@ import { TsmSykmelding } from '../../types/tsmSykmelding'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import { ArbeidsrettetOppfolging } from '../../types/arbeidsrettetOppfolging'
 import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
-import { DialogmoteBehov } from '../../types/dialogmoteBehov'
 import { Melding } from '../../types/melding'
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
 import { MaxDate } from '../../hooks/useMaxDate'
@@ -50,7 +49,6 @@ export interface Persona {
     maxdato: MaxDate
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     oppfolgingsplaner: Oppfolgingsplan[]
-    dialogmoteBehov: DialogmoteBehov
     meldinger: Melding[]
     inntektsmeldinger?: InntektsmeldingTyper[]
     beskrivelse: string

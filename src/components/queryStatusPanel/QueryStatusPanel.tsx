@@ -3,7 +3,6 @@ import React from 'react'
 import { UseQueryResult } from '@tanstack/react-query'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
-import useDialogmoteBehov from '../../hooks/useDialogmoteBehov'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
@@ -33,10 +32,6 @@ const QueryStatusPanel = () => {
         query: useOppfolgingsplaner(),
         message: 'Kunne ikke hente oppfølgingsplaner',
     }
-    const dialogmoteBehov: QueryOgFeilmelding = {
-        query: useDialogmoteBehov(),
-        message: 'Kunne ikke sjekke behov for dialogmøte',
-    }
     const narmesteledere: QueryOgFeilmelding = {
         query: useNarmesteledere(),
         message: 'Kunne ikke hente din nærmeste leder',
@@ -55,7 +50,6 @@ const QueryStatusPanel = () => {
         soknader,
         vedtak,
         oppfolgingsplaner,
-        dialogmoteBehov,
         narmesteledere,
         arbeidsrettetOppfolging,
         inntektsmeldinger,

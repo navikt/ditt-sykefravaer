@@ -17,7 +17,6 @@ export const OppgaverTekster = {
         'Du har en oppfølgingsplan som venter på godkjenning av deg',
     'oppgaver.oppfoelgingsplan.avventendegodkjenninger.flertall':
         'Du har %ANTALL% oppfølgingsplaner som venter på godkjenning av deg',
-    'oppgaver.dialogmote.nyttMotebehovVarsel': 'Du har en ny forespørsel om behov for dialogmøte',
     'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.entall':
         'Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del.',
     'oppgaver.oppfoelgingsplan.sykmeldt.nyeplaner.flertall':
