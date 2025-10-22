@@ -228,4 +228,7 @@ export type UtdypendeOpplysning = {
     readonly svar: string
 }
 
-export enum SvarRestriksjon {}
+export enum SvarRestriksjon {
+    SKJERMET_FOR_ARBEIDSGIVER = 'SKJERMET_FOR_ARBEIDSGIVER',
+    SKJERMET_FOR_NAV = 'SKJERMET_FOR_NAV',
+}
