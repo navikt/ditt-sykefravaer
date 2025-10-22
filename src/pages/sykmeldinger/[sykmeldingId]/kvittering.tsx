@@ -21,11 +21,11 @@ import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
-import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
+import useSykmelding from '../../../hooks/useSykmelding'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
-    const { data, error, isPending } = useSykmeldingByIdRest(sykmeldingId)
+    const { data, error, isPending } = useSykmelding(sykmeldingId)
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 

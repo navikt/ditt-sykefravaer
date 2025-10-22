@@ -6,7 +6,7 @@ import { Sykmelding } from '../types/sykmelding'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function useSykmeldingByIdRest(sykmeldingId: string): UseQueryResult<Sykmelding, Error> {
+export default function useSykmelding(sykmeldingId: string): UseQueryResult<Sykmelding, Error> {
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<Sykmelding, Error>({
