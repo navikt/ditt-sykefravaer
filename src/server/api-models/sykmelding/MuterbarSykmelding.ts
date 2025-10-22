@@ -1,15 +1,7 @@
-// Anta at LocalDate er en streng med format "YYYY-MM-DD"
-import { Sykmelding } from '../../../types/sykmelding'
+import { Merknadtype, SvarRestriksjon, Sykmelding } from '../../../types/sykmelding'
 
-import { MeldingTilNAV } from './MeldingTilNav'
-import { KontaktMedPasient } from './KontaktMedPasient'
 import { Behandler } from './Behandler'
-import { Merknad } from './Merknad'
-import { Pasient } from './Pasient'
-import { UtenlandskSykmelding } from './UtenlandskSykmelding'
-import { UtdypendeOpplysning } from './UtdypendeOpplysninger'
 import { Behandlingsutfall } from './Behandlingsutfall'
-import { ArbeidsgiverSykmelding } from './ArbeidsgiverSykmelding'
 import { SykmeldingStatus } from './SykmeldingStatus'
 import { Periode } from './Periode'
 import { MedisinskVurdering } from './MedisinskVurdering'
@@ -39,4 +31,41 @@ export interface MuterbarSykmelding extends Sykmelding {
     tiltakNAV: string | null
     utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>
     utenlandskSykmelding: UtenlandskSykmelding | null
+}
+
+export interface UtdypendeOpplysning {
+    restriksjoner: SvarRestriksjon[]
+    sporsmal: string | null
+    svar: string
+}
+
+export interface Merknad {
+    type: Merknadtype
+    beskrivelse: string | null
+}
+
+export interface Pasient {
+    fnr: string | null
+    fornavn: string | null
+    mellomnavn: string | null
+    etternavn: string | null
+    overSyttiAar: boolean | null
+}
+
+export interface MeldingTilNAV {
+    bistandUmiddelbart: boolean
+    beskrivBistand: string | null
+}
+
+export interface KontaktMedPasient {
+    kontaktDato: string | null
+    begrunnelseIkkeKontakt: string | null
+}
+
+export interface ArbeidsgiverSykmelding {
+    navn: string | null
+}
+
+export interface UtenlandskSykmelding {
+    land: string
 }

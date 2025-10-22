@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
 import { fnrText, getPasientName } from '../../../utils/pasientUtils'
-import { Pasient } from '../../api-models/sykmelding/Pasient'
+import { Pasient } from '../../api-models/sykmelding/MuterbarSykmelding'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 import People from './icons/People'

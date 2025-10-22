@@ -1,5 +1,3 @@
-// Anta at RegelStatus er en enum du importerer
-
 import { RegelStatus } from '../../../types/sykmelding'
 
 export interface RuleHit {

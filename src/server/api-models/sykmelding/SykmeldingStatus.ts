@@ -1,11 +1,6 @@
-// Eksempel på import av enum-ene dine fra GraphQL-autogenerert kode eller egne filer.
-// Du kan tilpasse dette til ditt prosjekt.
 import { StatusEvent } from '../../../types/sykmelding'
 import { ArbeidssituasjonType, Blad, LottOgHyre } from '../../../types/sykmeldingCommon'
 import { JaEllerNei, UriktigeOpplysningerType } from '../../../types/sykmeldingBrukerSvar'
-
-// Anta at du bruker en streng for LocalDate (f.eks. "YYYY-MM-DD").
-export type LocalDate = string
 
 export interface ArbeidsgiverStatus {
     orgnummer: string
@@ -24,9 +19,9 @@ export interface BrukerSvar {
     arbeidsgiverOrgnummer: SporsmalSvar<string> | null
     riktigNarmesteLeder: SporsmalSvar<JaEllerNei> | null
     harBruktEgenmelding: SporsmalSvar<JaEllerNei> | null
-    egenmeldingsperioder: SporsmalSvar<Array<{ fom: LocalDate; tom: LocalDate }>> | null
+    egenmeldingsperioder: SporsmalSvar<Array<{ fom: string; tom: string }>> | null
     harForsikring: SporsmalSvar<JaEllerNei> | null
-    egenmeldingsdager: SporsmalSvar<LocalDate[]> | null
+    egenmeldingsdager: SporsmalSvar<string[]> | null
     harBruktEgenmeldingsdager: SporsmalSvar<JaEllerNei> | null
     fisker: {
         blad: SporsmalSvar<Blad>
@@ -39,7 +34,7 @@ export interface BrukerSvar {
 
 export interface SykmeldingStatus {
     statusEvent: StatusEvent
-    timestamp: LocalDate
+    timestamp: string
     arbeidsgiver: ArbeidsgiverStatus | null
     brukerSvar: BrukerSvar | null
 }

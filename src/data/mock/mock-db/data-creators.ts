@@ -9,13 +9,11 @@ import {
     RegelStatus,
     StatusEvent,
 } from '../../../types/sykmelding'
-import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
-import { Merknad } from '../../../server/api-models/sykmelding/Merknad'
+import { Merknad, MuterbarSykmelding, Pasient } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { AktivitetIkkeMuligPeriode, Periode } from '../../../server/api-models/sykmelding/Periode'
 import { RuleHit } from '../../../server/api-models/sykmelding/Behandlingsutfall'
 import { sporsmal } from '../../../utils/sporsmal'
-import { Pasient } from '../../../server/api-models/sykmelding/Pasient'
 import { dateAdd } from '../../../utils/dato-utils'
 import { JaEllerNei } from '../../../types/sykmeldingBrukerSvar'
 import { ArbeidssituasjonType } from '../../../types/sykmeldingCommon'
