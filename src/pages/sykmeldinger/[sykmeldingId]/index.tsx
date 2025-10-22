@@ -30,7 +30,7 @@ import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
 import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
 import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
-import useSykmeldinger from '../../../hooks/useSykmeldingerFlexBackend'
+import useSykmeldinger from '../../../hooks/useSykmeldinger'
 import { urlAppendPath } from '../../../utils/urlUtils'
 
 function SykmeldingPage(): ReactElement {

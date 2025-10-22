@@ -7,7 +7,7 @@ import { isMockBackend } from '../utils/environment'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function UseSykmeldingerFlex(): UseQueryResult<Sykmelding[], Error> {
+export default function useSykmeldinger(): UseQueryResult<Sykmelding[], Error> {
     const { demoQuery, demoQueryKey } = UseDemoDataForSykmeldingerEndepunkt()
 
     return useQuery<Sykmelding[], Error>({

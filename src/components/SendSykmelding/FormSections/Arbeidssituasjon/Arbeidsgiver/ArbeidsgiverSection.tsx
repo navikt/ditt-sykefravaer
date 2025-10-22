@@ -17,7 +17,7 @@ import EgenmeldingerField from '../../../../FormComponents/Egenmelding/Egenmeldi
 import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeidsgiverInfo'
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
-import useSykmeldinger from '../../../../../hooks/useSykmeldingerFlexBackend'
+import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'
