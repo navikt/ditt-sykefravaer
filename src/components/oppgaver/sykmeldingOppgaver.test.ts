@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
@@ -14,7 +14,7 @@ it('Returnerer ingen oppgaver når det ikke er noen sykmeldinger', () => {
 })
 
 it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -41,7 +41,7 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
 })
 
 it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -68,7 +68,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
 })
 
 it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -110,7 +110,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
 })
 
 it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -132,7 +132,7 @@ it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
 })
 
 it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -159,7 +159,7 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
 })
 
 it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen ok', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [
@@ -205,7 +205,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
 })
 
 it('Returnerer ingen oppgaver når sykmeldingen er eldre enn 3 måneder', () => {
-    const sykmeldinger: TsmSykmelding[] = [
+    const sykmeldinger: DittSykefravaerSykmelding[] = [
         {
             id: '123',
             sykmeldingsperioder: [

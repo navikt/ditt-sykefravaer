@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
 
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { tekst } from '../../utils/tekster'
 
 import { Oppgave } from './oppgaveTyper'
 import { tallTilSpråk } from './tallTilSpraak'
 
-function hentSykmeldingSluttdato(sykmelding: TsmSykmelding) {
+function hentSykmeldingSluttdato(sykmelding: DittSykefravaerSykmelding) {
     if (sykmelding.sykmeldingsperioder.length == 0) {
         return dayjs()
     }
@@ -20,18 +20,21 @@ function hentSykmeldingSluttdato(sykmelding: TsmSykmelding) {
     return dayjs(tom)
 }
 
-export const skapSykmeldingoppgaver = (sykmeldinger: TsmSykmelding[] | undefined, sykmeldingUrl: string): Oppgave[] => {
+export const skapSykmeldingoppgaver = (
+    sykmeldinger: DittSykefravaerSykmelding[] | undefined,
+    sykmeldingUrl: string,
+): Oppgave[] => {
     if (!sykmeldinger) {
         return []
     }
 
-    function erGammelSykmelding(sykmelding: TsmSykmelding) {
+    function erGammelSykmelding(sykmelding: DittSykefravaerSykmelding) {
         return hentSykmeldingSluttdato(sykmelding).isBefore(dayjs().subtract(3, 'months'))
     }
 
     const ikkeGamleSykmeldinger = sykmeldinger.filter((s) => !erGammelSykmelding(s))
 
-    const skapVanligeOppgaver = (sykmeldinger: TsmSykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapVanligeOppgaver = (sykmeldinger: DittSykefravaerSykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'OK' || s.behandlingsutfall.status === 'MANUAL_PROCESSING')
@@ -59,7 +62,7 @@ export const skapSykmeldingoppgaver = (sykmeldinger: TsmSykmelding[] | undefined
         ]
     }
 
-    const skapAvvisteOppgaver = (sykmeldinger: TsmSykmelding[], sykmeldingUrl: string): Oppgave[] => {
+    const skapAvvisteOppgaver = (sykmeldinger: DittSykefravaerSykmelding[], sykmeldingUrl: string): Oppgave[] => {
         const sykmeldingene = sykmeldinger
             .filter((s) => s.sykmeldingStatus.statusEvent === 'APEN')
             .filter((s) => s.behandlingsutfall.status === 'INVALID')

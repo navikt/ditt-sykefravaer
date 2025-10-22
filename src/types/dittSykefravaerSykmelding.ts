@@ -1,4 +1,4 @@
-export interface TsmSykmelding {
+export interface DittSykefravaerSykmelding {
     id: string
     sykmeldingStatus: {
         statusEvent: 'SENDT' | 'APEN' | 'AVBRUTT' | 'UTGATT' | 'BEKREFTET'

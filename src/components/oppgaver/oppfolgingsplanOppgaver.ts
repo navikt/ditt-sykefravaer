@@ -1,5 +1,5 @@
 import { Godkjenning, Oppfolgingsplan } from '../../types/oppfolgingsplan'
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { erSykmeldingGyldigForOppfolgingMedGrensedato } from '../../utils/erSykmeldingGyldigForOppfolgingMedGrensedato'
 import { tekst } from '../../utils/tekster'
 
@@ -8,7 +8,7 @@ import { tallTilSpråk } from './tallTilSpraak'
 
 const erOppfolgingsdialogKnyttetTilGyldigSykmelding = (
     oppfolgingsdialog: Oppfolgingsplan,
-    sykmeldinger: TsmSykmelding[],
+    sykmeldinger: DittSykefravaerSykmelding[],
 ) => {
     const dagensDato = new Date()
     return (
@@ -36,7 +36,7 @@ const finnNyesteGodkjenning = (godkjenninger: Godkjenning[]) => {
     })[0]
 }
 
-const prosseserPlaner = (oppfolgingsdialoger: Oppfolgingsplan[], sykmeldinger: TsmSykmelding[]) => {
+const prosseserPlaner = (oppfolgingsdialoger: Oppfolgingsplan[], sykmeldinger: DittSykefravaerSykmelding[]) => {
     const oppfolgingdialogerKnyttetTilGyldigSykmelding = oppfolgingsdialoger.filter((plan) => {
         return erOppfolgingsdialogKnyttetTilGyldigSykmelding(plan, sykmeldinger)
     })
@@ -64,7 +64,7 @@ const prosseserPlaner = (oppfolgingsdialoger: Oppfolgingsplan[], sykmeldinger: T
 
 export const skapOppfolgingsplanOppgaver = (
     oppfolgingsdialoger: Oppfolgingsplan[] | undefined,
-    sykmeldinger: TsmSykmelding[] | undefined,
+    sykmeldinger: DittSykefravaerSykmelding[] | undefined,
     lenke: string,
 ): Oppgave[] => {
     if (!oppfolgingsdialoger || !sykmeldinger) {

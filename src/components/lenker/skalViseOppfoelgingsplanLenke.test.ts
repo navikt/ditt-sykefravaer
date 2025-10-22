@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { testDato } from '../../data/mock/mock-db/data-creators'
 
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
@@ -30,7 +30,7 @@ it('Returnerer false hvis ingen sykmeldinger og ingen oppfølgingsplaner', () =>
 it('Returnerer false hvis en gammel sykmelding og ingen oppfølgingsplaner', () => {
     const dagensDato = dayjs(testDato)
     const fireMaanederOgToDagerSiden = dagensDato.subtract(4, 'months').subtract(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: TsmSykmelding = {
+    const sykmelding: DittSykefravaerSykmelding = {
         id: 'APEN',
         sykmeldingStatus: {
             statusEvent: 'APEN',
@@ -46,7 +46,7 @@ it('Returnerer false hvis en gammel sykmelding og ingen oppfølgingsplaner', () 
 it('Returnerer true hvis en nesten 4 måneder gammel sykmelding og ingen oppfølgingsplaner', () => {
     const dagensDato = dayjs(testDato)
     const nestenFireMaanederSiden = dagensDato.subtract(4, 'months').add(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: TsmSykmelding = {
+    const sykmelding: DittSykefravaerSykmelding = {
         id: 'APEN',
         sykmeldingStatus: {
             statusEvent: 'APEN',
