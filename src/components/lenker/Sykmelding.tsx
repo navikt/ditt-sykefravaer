@@ -3,7 +3,7 @@ import { BandageIcon } from '@navikt/aksel-icons'
 import { Skeleton } from '@navikt/ds-react'
 
 import { tekst } from '../../utils/tekster'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
 

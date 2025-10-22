@@ -5,7 +5,7 @@ import { Sykmelding } from '../types/sykmelding'
 
 import useSykmeldinger from './useSykmeldinger'
 
-export default function UseTsmSykmeldinger(): UseQueryResult<TsmSykmelding[], Error> {
+export default function useDittSykefravaerSykmeldinger(): UseQueryResult<TsmSykmelding[], Error> {
     const { data, ...rest } = useSykmeldinger()
     const konvertertData = data && konverterTilTsmSykmeldinger(data)
     return { data: konvertertData, ...rest } as UseQueryResult<TsmSykmelding[], Error>

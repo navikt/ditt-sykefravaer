@@ -4,7 +4,7 @@ import { Buildings2Icon } from '@navikt/aksel-icons'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 import ArbeidsgiverAccordion from './ArbeidsgiverAccordion'

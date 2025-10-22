@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import dayjs from 'dayjs'
 
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import useMaxDate from '../../hooks/useMaxDate'
 import { erSykmeldingInnafor } from '../maksdato/skalViseMaksDato'
 

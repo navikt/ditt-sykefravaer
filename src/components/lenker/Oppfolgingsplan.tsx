@@ -4,7 +4,7 @@ import { Skeleton } from '@navikt/ds-react'
 
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 
 import { FellesLenkepanel } from './FellesLenkepanel'

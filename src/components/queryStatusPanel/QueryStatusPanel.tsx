@@ -6,7 +6,7 @@ import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import useVedtak from '../../hooks/useVedtak'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 
