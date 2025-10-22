@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 
 import useMaxDate from '../../hooks/useMaxDate'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import { logEvent } from '../amplitude/amplitude'
 import { LenkeMedAmplitude } from '../lenke/lenke-med-amplitude'
 

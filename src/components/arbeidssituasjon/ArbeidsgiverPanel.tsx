@@ -2,7 +2,7 @@ import { BodyShort, Panel } from '@navikt/ds-react'
 import React from 'react'
 
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useTsmSykmeldinger from '../../hooks/useTsmSykmeldinger'
+import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
 import NarmesteLeder from './NarmesteLeder'

@@ -1,7 +1,7 @@
 import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 
 import { skalViseMaksDato } from './skalViseMaksDato'
 
@@ -11,7 +11,7 @@ const syttenDagerSiden = dayjs().subtract(17, 'days').format('YYYY-MM-DD')
 const femtini = dayjs().subtract(59, 'days').format('YYYY-MM-DD')
 const sekstiDagerSiden = dayjs().subtract(60, 'days').format('YYYY-MM-DD')
 
-const aktuellSykmelding: TsmSykmelding[] = [
+const aktuellSykmelding: DittSykefravaerSykmelding[] = [
     {
         id: '1',
         sykmeldingStatus: {
@@ -29,7 +29,7 @@ const aktuellSykmelding: TsmSykmelding[] = [
     },
 ]
 
-const ikkeAktuellSykmelding: TsmSykmelding[] = [
+const ikkeAktuellSykmelding: DittSykefravaerSykmelding[] = [
     {
         id: '2',
         sykmeldingStatus: {

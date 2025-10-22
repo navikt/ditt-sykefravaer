@@ -1,15 +1,18 @@
 import dayjs from 'dayjs'
 
-import { TsmSykmelding } from '../../types/tsmSykmelding'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { MaxDate } from '../../hooks/useMaxDate'
 
-export const erSykmeldingInnafor = (sykmelding: TsmSykmelding, dagerTilbake: number): boolean => {
+export const erSykmeldingInnafor = (sykmelding: DittSykefravaerSykmelding, dagerTilbake: number): boolean => {
     return sykmelding.sykmeldingsperioder.some((periode) =>
         dayjs(periode.tom).isAfter(dayjs().subtract(dagerTilbake, 'days')),
     )
 }
 
-export const skalViseMaksDato = (sykmeldinger: TsmSykmelding[] | undefined, maxdate: MaxDate | undefined): boolean => {
+export const skalViseMaksDato = (
+    sykmeldinger: DittSykefravaerSykmelding[] | undefined,
+    maxdate: MaxDate | undefined,
+): boolean => {
     if (!sykmeldinger || !maxdate || !maxdate.utbetaltTom || !maxdate.maxDate) {
         return false
     }

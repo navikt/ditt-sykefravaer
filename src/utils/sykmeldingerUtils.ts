@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 
-import { Periode, TsmSykmelding } from '../types/tsmSykmelding'
+import { Periode, DittSykefravaerSykmelding } from '../types/dittSykefravaerSykmelding'
 
 export const tidligsteFom = (perioder: Periode[]) => {
     const tidligste = perioder
@@ -32,7 +32,7 @@ export const senesteTom = (perioder: Periode[]) => {
     return dayjs(seneste)
 }
 
-export const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: TsmSykmelding[]) => {
+export const selectSykmeldingerYngreEnnTreMaaneder = (sykmeldinger: DittSykefravaerSykmelding[]) => {
     const treMndSiden = dayjs().subtract(3, 'months')
 
     return sykmeldinger.filter((syk) => senesteTom(syk.sykmeldingsperioder) > treMndSiden)
