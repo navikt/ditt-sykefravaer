@@ -28,7 +28,7 @@ import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSide, ServerSidePropsResult } from '../../../auth/beskyttetSide'
 import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
 import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
-import useSykmeldingByIdRest from '../../../hooks/useSykmeldingByIdRest'
+import useSykmelding from '../../../hooks/useSykmelding'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldinger'
 import { urlAppendPath } from '../../../utils/urlUtils'
@@ -36,7 +36,7 @@ import { urlAppendPath } from '../../../utils/urlUtils'
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
 
-    const { data, error, isLoading: loading, refetch } = useSykmeldingByIdRest(sykmeldingId)
+    const { data, error, isLoading: loading, refetch } = useSykmelding(sykmeldingId)
     const {
         data: alleSykmeldinger,
         error: alleSykmeldingerError,
