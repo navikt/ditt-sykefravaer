@@ -9,7 +9,7 @@ import {
     RegelStatus,
     StatusEvent,
 } from '../../../types/sykmelding'
-import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Merknad } from '../../../server/api-models/sykmelding/Merknad'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { AktivitetIkkeMuligPeriode, Periode } from '../../../server/api-models/sykmelding/Periode'
@@ -24,7 +24,7 @@ export const testDato = new Date('2025-01-01T00:00:00.000Z')
 
 export class SykmeldingBuilder {
     private readonly mottatt: string = '2020-02-01'
-    private readonly _sykmelding: Sykmelding = {
+    private readonly _sykmelding: MuterbarSykmelding = {
         id: 'sykmelding-id',
         mottattTidspunkt: this.mottatt,
         behandlingsutfall: {
@@ -292,7 +292,7 @@ export class SykmeldingBuilder {
         return this
     }
 
-    build(): Sykmelding {
+    build(): MuterbarSykmelding {
         if (this._sykmelding.sykmeldingsperioder.length === 0) {
             throw new Error('Sykmelding må ha minst en periode')
         }

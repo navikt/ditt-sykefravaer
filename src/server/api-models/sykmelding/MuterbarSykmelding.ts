@@ -37,7 +37,7 @@ export type LocalDate = string
  * og eventuelt håndtere default-verdien (2) i koden din
  * i stedet for i selve type‐definisjonen.
  */
-export interface Sykmelding {
+export interface MuterbarSykmelding {
     id: string
     mottattTidspunkt: LocalDate
     behandlingsutfall: Behandlingsutfall

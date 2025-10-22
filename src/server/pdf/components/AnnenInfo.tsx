@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
 import { hentLandNavn } from '../../../utils/landKodeOversetter'
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../api-models/sykmelding/MuterbarSykmelding'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { getBehandlerName } from '../../../utils/behandlerUtils'
 
@@ -11,7 +11,7 @@ import { Section } from './Section'
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'
 
 interface Props {
-    sykmelding: Sykmelding
+    sykmelding: MuterbarSykmelding
 }
 
 const styles = StyleSheet.create({

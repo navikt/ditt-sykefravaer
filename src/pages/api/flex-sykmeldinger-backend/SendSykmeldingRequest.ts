@@ -9,7 +9,7 @@ import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
-import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 const { serverRuntimeConfig } = getConfig()
@@ -61,7 +61,11 @@ async function parseJsonBody<T>(req: NextApiRequest): Promise<T> {
     })
 }
 
-export async function getSykmelding(sykmeldingId: string, req: NextApiRequest, oboToken: string): Promise<Sykmelding> {
+export async function getSykmelding(
+    sykmeldingId: string,
+    req: NextApiRequest,
+    oboToken: string,
+): Promise<MuterbarSykmelding> {
     if (!isValidSykmeldingId(sykmeldingId)) {
         throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
     }

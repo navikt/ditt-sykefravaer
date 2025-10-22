@@ -1,13 +1,13 @@
 import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
-import { Sykmelding } from '../../../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../api-models/sykmelding/MuterbarSykmelding'
 import { sykmeldingStatusMarginBottom, textMarginBottom } from '../constants'
 import Warning from '../icons/Warning'
 import { Merknadtype } from '../../../../types/sykmelding'
 
 interface Props {
-    sykmelding: Sykmelding
+    sykmelding: MuterbarSykmelding
 }
 
 const styles = StyleSheet.create({
