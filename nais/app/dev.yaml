@@ -25,7 +25,6 @@ env:
   ASSET_PREFIX: https://cdn.nav.no/flex/ditt-sykefravaer
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: dev-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: dev-gcp:flex:spinnsyn-backend
-  SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:teamsykmelding:sykmeldinger-backend
   FLEX_SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:flex:flex-sykmeldinger-backend
   NARMESTELEDER_CLIENT_ID: dev-gcp:teamsykmelding:narmesteleder
   SYKEPENGESOKNAD_BACKEND_CLIENT_ID: dev-gcp:flex:sykepengesoknad-backend

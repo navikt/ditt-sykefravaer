@@ -97,10 +97,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             if (erClsTestperson) await sleep(500)
             return sendJson(testperson.soknader)
         },
-        'GET /api/sykmeldinger-backend/api/v2/sykmeldinger': async () => {
-            if (erClsTestperson) await sleep(1000)
-            return sendJson(testperson.sykmeldinger)
-        },
         'GET /api/ditt-sykefravaer-backend/api/v1/meldinger': async () => {
             if (erClsTestperson) await sleep(750)
             return sendJson(testperson.meldinger)
@@ -115,8 +111,13 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         'GET /api/veilarboppfolging/veilarboppfolging/api/v2/oppfolging': () => {
             return sendJson(testperson.arbeidsrettetOppfolging)
         },
-        'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger': () => {
-            return sendJson(mockDb().get(sessionId).sykmeldinger())
+        'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger': async () => {
+            if (req.query['mock-data-kilde'] === 'sykmeldinger') {
+                return sendJson(mockDb().get(sessionId).sykmeldinger())
+            } else {
+                if (erClsTestperson) await sleep(1000)
+                return sendJson(testperson.sykmeldinger)
+            }
         },
         'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid': (params) => {
             return sendJson(mockDb().get(sessionId).sykmelding(params.uuid))
