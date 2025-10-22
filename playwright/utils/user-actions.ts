@@ -27,7 +27,7 @@ export function gotoScenario(
         }
 
         if (scenario === 'feilmelding') {
-            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger', (route) => {
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger*', (route) => {
                 const request = route.request()
 
                 if (request.method() === 'GET') {

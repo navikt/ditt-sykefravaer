@@ -12,7 +12,10 @@ export type Scenario = {
 
 const normal: ScenarioCreator = () => ({
     sykmeldinger: [
-        new SykmeldingBuilder(7, '1').status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(7, 'id-apen-sykmelding')
+            .status(StatusEvent.APEN)
+            .enkelPeriode({ offset: 0, days: 7 })
+            .build(),
         new SykmeldingBuilder(-45, '2').send().enkelPeriode({ offset: 0, days: 7 }).build(),
         new SykmeldingBuilder(-65, '3').send().enkelPeriode({ offset: 0, days: 14 }).build(),
     ],

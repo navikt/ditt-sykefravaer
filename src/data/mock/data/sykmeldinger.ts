@@ -3,7 +3,7 @@ import dayjs from 'dayjs'
 import { TsmSykmelding } from '../../../types/tsmSykmelding'
 
 export const nySykmelding: TsmSykmelding = {
-    id: 'APEN',
+    id: 'id-apen-sykmelding',
     sykmeldingStatus: { statusEvent: 'APEN' },
     behandlingsutfall: { status: 'OK' },
     sykmeldingsperioder: [
@@ -16,7 +16,7 @@ export const nySykmelding: TsmSykmelding = {
 }
 
 export const sendtSykmelding: TsmSykmelding = {
-    id: 'SENDT',
+    id: 'id-1',
     sykmeldingStatus: {
         statusEvent: 'SENDT',
         arbeidsgiver: {
@@ -35,7 +35,7 @@ export const sendtSykmelding: TsmSykmelding = {
 }
 
 export const bekreftetSykmelding: TsmSykmelding = {
-    id: 'APEN',
+    id: 'id-2',
     sykmeldingStatus: {
         statusEvent: 'BEKREFTET',
         sporsmalOgSvarListe: [
@@ -62,7 +62,7 @@ export const bekreftetSykmelding: TsmSykmelding = {
 }
 
 export const avvistSykmelding: TsmSykmelding = {
-    id: 'AVVIST',
+    id: 'id-3',
     sykmeldingStatus: { statusEvent: 'APEN' },
     behandlingsutfall: { status: 'INVALID' },
     sykmeldingsperioder: [{ fom: '2021-03-19', tom: '2021-03-19' }],

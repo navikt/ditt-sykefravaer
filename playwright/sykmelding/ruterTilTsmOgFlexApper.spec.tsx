@@ -52,15 +52,17 @@ test.describe('Sykmeldinger ruter mellom Team Sykmelding app og denne', () => {
 test.describe('Spesifikk Sykmelding side ruter mellom Team Sykmelding app og denne', () => {
     test('Burde ikke rutes til Team sykmelding dersom unleash er på', async ({ page }) => {
         await page.goto(
-            '/syk/sykefravaer/sykmeldinger/1' + '?toggle_ditt-sykefravaer-sykmelding-gradvis-utrulling=true',
+            '/syk/sykefravaer/sykmeldinger/id-apen-sykmelding' +
+                '?toggle_ditt-sykefravaer-sykmelding-gradvis-utrulling=true',
         )
-        await expectToStayOnPage(page, `${SYKMELDINGER_PATH}/1`)
+        await expectToStayOnPage(page, `${SYKMELDINGER_PATH}/id-apen-sykmelding`)
     })
 
     test('Burde rutes til Team sykmelding dersom unleash er av', async ({ page }) => {
         await page.goto(
-            '/syk/sykefravaer/sykmeldinger/1' + '?toggle_ditt-sykefravaer-sykmelding-gradvis-utrulling=false',
+            '/syk/sykefravaer/sykmeldinger/id-apen-sykmelding' +
+                '?toggle_ditt-sykefravaer-sykmelding-gradvis-utrulling=false',
         )
-        await expectToBeRedirected(page, `${SYKMELDINGER_PATH}/1`)
+        await expectToBeRedirected(page, `${SYKMELDINGER_PATH}/id-apen-sykmelding`)
     })
 })
