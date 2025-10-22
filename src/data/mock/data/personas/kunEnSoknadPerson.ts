@@ -1,6 +1,7 @@
 import { sendtSykmelding } from '../sykmeldinger'
 import { tekst } from '../../../../utils/tekster'
 import { Persona } from '../../testperson'
+import { StatusEvent } from '../../../../types/sykmelding'
 
 import { commonPersona } from './personas'
 
@@ -10,7 +11,7 @@ export const kunEnSoknadPerson: Persona = {
         {
             ...sendtSykmelding,
             sykmeldingStatus: {
-                statusEvent: 'SENDT',
+                statusEvent: StatusEvent.SENDT,
                 arbeidsgiver: {
                     orgnummer: '972674818',
                     orgNavn: 'MATBUTIKKEN AS',

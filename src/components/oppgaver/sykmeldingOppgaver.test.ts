@@ -2,6 +2,7 @@ import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
+import { RegelStatus, StatusEvent } from '../../types/sykmelding'
 
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
 
@@ -24,10 +25,10 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'OK',
+                status: RegelStatus.OK,
             },
         },
     ]
@@ -51,10 +52,10 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'MANUAL_PROCESSING',
+                status: RegelStatus.MANUAL_PROCESSING,
             },
         },
     ]
@@ -78,10 +79,10 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'MANUAL_PROCESSING',
+                status: RegelStatus.MANUAL_PROCESSING,
             },
         },
         {
@@ -93,10 +94,10 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'OK',
+                status: RegelStatus.OK,
             },
         },
     ]
@@ -120,10 +121,10 @@ it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'SENDT',
+                statusEvent: StatusEvent.SENDT,
             },
             behandlingsutfall: {
-                status: 'OK',
+                status: RegelStatus.OK,
             },
         },
     ]
@@ -142,10 +143,10 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'INVALID',
+                status: RegelStatus.INVALID,
             },
         },
     ]
@@ -169,10 +170,10 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'INVALID',
+                status: RegelStatus.INVALID,
             },
         },
         {
@@ -184,10 +185,10 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'OK',
+                status: RegelStatus.OK,
             },
         },
     ]
@@ -215,10 +216,10 @@ it('Returnerer ingen oppgaver når sykmeldingen er eldre enn 3 måneder', () => 
                 },
             ],
             sykmeldingStatus: {
-                statusEvent: 'APEN',
+                statusEvent: StatusEvent.APEN,
             },
             behandlingsutfall: {
-                status: 'OK',
+                status: RegelStatus.OK,
             },
         },
     ]

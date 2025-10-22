@@ -1,6 +1,7 @@
 import { sendtSykmelding } from '../sykmeldinger'
 import { Persona } from '../../testperson'
 import { soknadUtland } from '../soknader'
+import { StatusEvent } from '../../../../types/sykmelding'
 
 import { commonPersona } from './personas'
 
@@ -10,7 +11,7 @@ export const nySoknadUtlandEOSPerson: Persona = {
         {
             ...sendtSykmelding,
             sykmeldingStatus: {
-                statusEvent: 'SENDT',
+                statusEvent: StatusEvent.SENDT,
                 arbeidsgiver: {
                     orgnummer: '972674818',
                     orgNavn: 'MATBUTIKKEN AS',

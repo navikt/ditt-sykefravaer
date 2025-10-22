@@ -13,6 +13,8 @@ import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 import { getSessionId } from '../../utils/userSessionId'
 import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../fetching/graphql.generated'
 import sendSykmeldingPdf from '../../server/pdf/sykmeldingPdf'
+import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
+import { Periodetype, Sykmelding } from '../../types/sykmelding'
 
 import mockDb from './mock-db'
 import { Persona, testpersoner } from './testperson'
@@ -116,7 +118,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
                 return sendJson(mockDb().get(sessionId).sykmeldinger())
             } else {
                 if (erClsTestperson) await sleep(1000)
-                return sendJson(testperson.sykmeldinger)
+                return sendJson(tilFulleSykmeldinger(testperson.sykmeldinger))
             }
         },
         'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid': (params) => {
@@ -225,4 +227,32 @@ function requestMatches(req: { url?: string; method?: string }, route: string): 
 
 function extractUrlPath(url: string): string {
     return new URL(url, 'http://dummy').pathname
+}
+
+function tilFulleSykmeldinger(dittSykefravaerSykmeldinger: DittSykefravaerSykmelding[]): Sykmelding[] {
+    return dittSykefravaerSykmeldinger.map(tilFullSykmelding)
+}
+
+function tilFullSykmelding(dittSykefravaerSykmelding: DittSykefravaerSykmelding): Sykmelding {
+    const dummyTidspunkt = '2020-01-01T00:00:00.000Z'
+    return {
+        behandletTidspunkt: dummyTidspunkt,
+        mottattTidspunkt: dummyTidspunkt,
+        rulesetVersion: 0,
+        utdypendeOpplysninger: {},
+        ...dittSykefravaerSykmelding,
+        behandlingsutfall: {
+            ruleHits: [],
+            ...dittSykefravaerSykmelding.behandlingsutfall,
+        },
+        sykmeldingStatus: {
+            ...dittSykefravaerSykmelding.sykmeldingStatus,
+            timestamp: dummyTidspunkt,
+        },
+        sykmeldingsperioder: dittSykefravaerSykmelding.sykmeldingsperioder.map((periode) => ({
+            type: Periodetype.AKTIVITET_IKKE_MULIG,
+            reisetilskudd: false,
+            ...periode,
+        })),
+    }
 }
