@@ -6,7 +6,7 @@ export enum SvarRestriksjon {
 
 // Definer interface
 export interface UtdypendeOpplysning {
+    restriksjoner: SvarRestriksjon[]
     sporsmal: string | null
     svar: string
-    restriksjoner: SvarRestriksjon[]
 }
