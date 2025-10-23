@@ -6,10 +6,10 @@ import { UseMutationResult } from '@tanstack/react-query'
 
 import { SendSykmeldingMutation, SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
 import { FormValues } from '../SendSykmeldingForm'
-import { useChangeSykmeldingStatus } from '../../../hooks/useMutations'
 import { QuestionWrapper } from '../../FormComponents/FormStructure'
 import { isArbeidstaker } from '../../../utils/arbeidssituasjonUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
+import { useChangeSykmeldingStatus } from '../../../hooks/useChangeSykmeldingStatus'
 
 import { getTrengerNySykmelding } from './shared/sykmeldingUtils'
 
