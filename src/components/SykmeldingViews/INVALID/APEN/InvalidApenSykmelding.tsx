@@ -7,9 +7,8 @@ import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
-import { SykmeldingChangeStatus } from '../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../types/sykmelding'
-import { useChangeSykmeldingStatus } from '../../../../hooks/useChangeSykmeldingStatus'
+import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../../hooks/useChangeSykmeldingStatus'
 
 type InvalidApenSykmeldingProps = {
     sykmelding: Sykmelding

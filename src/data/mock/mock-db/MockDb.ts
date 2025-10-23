@@ -1,4 +1,4 @@
-import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
+import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
@@ -8,6 +8,7 @@ import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStat
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
+import { SykmeldingChangeStatus } from '../../../hooks/useChangeSykmeldingStatus'
 
 import { defaultArbeidsgivere } from './data-creators'
 

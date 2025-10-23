@@ -493,11 +493,6 @@ export type Sykmelding = {
     readonly utenlandskSykmelding?: Maybe<UtenlandskSykmelding>
 }
 
-export enum SykmeldingChangeStatus {
-    AVBRYT = 'AVBRYT',
-    BEKREFT_AVVIST = 'BEKREFT_AVVIST',
-}
-
 export type SykmeldingStatus = {
     readonly __typename: 'SykmeldingStatus'
     readonly arbeidsgiver?: Maybe<ArbeidsgiverStatus>

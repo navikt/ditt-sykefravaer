@@ -4,12 +4,11 @@ import { useFormContext } from 'react-hook-form'
 import { XMarkIcon } from '@navikt/aksel-icons'
 import { UseMutationResult } from '@tanstack/react-query'
 
-import { SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
 import { FormValues } from '../SendSykmeldingForm'
 import { QuestionWrapper } from '../../FormComponents/FormStructure'
 import { isArbeidstaker } from '../../../utils/arbeidssituasjonUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
-import { useChangeSykmeldingStatus } from '../../../hooks/useChangeSykmeldingStatus'
+import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../hooks/useChangeSykmeldingStatus'
 import { SendSykmeldingMutation } from '../../../hooks/useSendSykmelding'
 
 import { getTrengerNySykmelding } from './shared/sykmeldingUtils'

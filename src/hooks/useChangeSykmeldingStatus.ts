@@ -1,12 +1,16 @@
 import { useRef } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { SykmeldingChangeStatus } from '../fetching/graphql.generated'
 import { fetchJsonMedRequestId } from '../utils/fetch'
 import { Sykmelding } from '../types/sykmelding'
 
 export type ChangeSykmeldingStatusMutation = {
     readonly changeSykmeldingStatus: Sykmelding
+}
+
+export enum SykmeldingChangeStatus {
+    AVBRYT = 'AVBRYT',
+    BEKREFT_AVVIST = 'BEKREFT_AVVIST',
 }
 
 export function useChangeSykmeldingStatus(

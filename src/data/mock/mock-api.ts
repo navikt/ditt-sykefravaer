@@ -11,10 +11,11 @@ import { stream2buffer } from '@navikt/next-api-proxy/dist/proxyUtils'
 import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 
 import { getSessionId } from '../../utils/userSessionId'
-import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../fetching/graphql.generated'
+import { SendSykmeldingValues } from '../../fetching/graphql.generated'
 import sendSykmeldingPdf from '../../server/pdf/sykmeldingPdf'
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { Periodetype, Sykmelding } from '../../types/sykmelding'
+import { SykmeldingChangeStatus } from '../../hooks/useChangeSykmeldingStatus'
 
 import mockDb from './mock-db'
 import { Persona, testpersoner } from './testperson'
