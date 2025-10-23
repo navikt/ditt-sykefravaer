@@ -2,6 +2,7 @@ import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
+import { RegelStatus, StatusEvent } from '../../types/sykmelding'
 
 import { skalViseMaksDato } from './skalViseMaksDato'
 
@@ -15,10 +16,10 @@ const aktuellSykmelding: DittSykefravaerSykmelding[] = [
     {
         id: '1',
         sykmeldingStatus: {
-            statusEvent: 'SENDT',
+            statusEvent: StatusEvent.SENDT,
         },
         behandlingsutfall: {
-            status: 'OK',
+            status: RegelStatus.OK,
         },
         sykmeldingsperioder: [
             {
@@ -33,10 +34,10 @@ const ikkeAktuellSykmelding: DittSykefravaerSykmelding[] = [
     {
         id: '2',
         sykmeldingStatus: {
-            statusEvent: 'SENDT',
+            statusEvent: StatusEvent.SENDT,
         },
         behandlingsutfall: {
-            status: 'OK',
+            status: RegelStatus.OK,
         },
         sykmeldingsperioder: [
             {

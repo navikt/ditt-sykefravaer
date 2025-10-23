@@ -1,11 +1,12 @@
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../../types/dittSykefravaerSykmelding'
+import { StatusEvent, RegelStatus } from '../../../types/sykmelding'
 
 export const nySykmelding: DittSykefravaerSykmelding = {
     id: 'id-apen-sykmelding',
-    sykmeldingStatus: { statusEvent: 'APEN' },
-    behandlingsutfall: { status: 'OK' },
+    sykmeldingStatus: { statusEvent: StatusEvent.APEN },
+    behandlingsutfall: { status: RegelStatus.OK },
     sykmeldingsperioder: [
         {
             fom: dayjs().format('YYYY-MM-DD'),
@@ -18,13 +19,13 @@ export const nySykmelding: DittSykefravaerSykmelding = {
 export const sendtSykmelding: DittSykefravaerSykmelding = {
     id: 'id-1',
     sykmeldingStatus: {
-        statusEvent: 'SENDT',
+        statusEvent: StatusEvent.SENDT,
         arbeidsgiver: {
             orgnummer: '972674818',
             orgNavn: 'Hogwarts School of Witchcraft and Wizardry',
         },
     },
-    behandlingsutfall: { status: 'OK' },
+    behandlingsutfall: { status: RegelStatus.OK },
     sykmeldingsperioder: [
         {
             fom: dayjs().format('YYYY-MM-DD'),
@@ -37,34 +38,17 @@ export const sendtSykmelding: DittSykefravaerSykmelding = {
 export const bekreftetSykmelding: DittSykefravaerSykmelding = {
     id: 'id-2',
     sykmeldingStatus: {
-        statusEvent: 'BEKREFTET',
-        sporsmalOgSvarListe: [
-            {
-                shortName: 'FORSIKRING',
-                svar: { svarType: 'JA_NEI', svar: 'JA' },
-            },
-            {
-                shortName: 'FRAVAER',
-                svar: { svarType: 'JA_NEI', svar: 'NEI' },
-            },
-            {
-                shortName: 'ARBEIDSSITUASJON',
-                svar: {
-                    svarType: 'ARBEIDSSITUASJON',
-                    svar: 'FRILANSER',
-                },
-            },
-        ],
+        statusEvent: StatusEvent.BEKREFTET,
     },
-    behandlingsutfall: { status: 'OK' },
+    behandlingsutfall: { status: RegelStatus.OK },
     sykmeldingsperioder: [{ fom: '2021-03-15', tom: '2021-03-19' }],
     syketilfelleStartDato: '2021-03-01',
 }
 
 export const avvistSykmelding: DittSykefravaerSykmelding = {
     id: 'id-3',
-    sykmeldingStatus: { statusEvent: 'APEN' },
-    behandlingsutfall: { status: 'INVALID' },
+    sykmeldingStatus: { statusEvent: StatusEvent.APEN },
+    behandlingsutfall: { status: RegelStatus.INVALID },
     sykmeldingsperioder: [{ fom: '2021-03-19', tom: '2021-03-19' }],
     syketilfelleStartDato: '2021-03-01',
 }

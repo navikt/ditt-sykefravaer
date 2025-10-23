@@ -3,6 +3,7 @@ import { nyttVedtakMed100Grad, vedtakMed100Grad } from '../vedtak'
 import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykmeldinger'
 import { arbeidstaker100 } from '../soknader'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
+import { StatusEvent } from '../../../../types/sykmelding'
 
 import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldingTestData'
 
@@ -31,7 +32,7 @@ export const defaultPersona: Persona = {
         {
             ...sendtSykmelding,
             sykmeldingStatus: {
-                statusEvent: 'SENDT',
+                statusEvent: StatusEvent.SENDT,
                 arbeidsgiver: {
                     orgnummer: '972674819',
                     orgNavn: 'Diagon Alley',
@@ -41,7 +42,7 @@ export const defaultPersona: Persona = {
         {
             ...sendtSykmelding,
             sykmeldingStatus: {
-                statusEvent: 'SENDT',
+                statusEvent: StatusEvent.SENDT,
                 arbeidsgiver: {
                     orgnummer: '972674820',
                     orgNavn: 'Gloucester Cathedral',
