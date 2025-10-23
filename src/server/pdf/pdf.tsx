@@ -5,7 +5,7 @@ import { logger } from '@navikt/next-logger'
 import getConfig from 'next/config'
 
 import { getSykmelding } from '../../pages/api/flex-sykmeldinger-backend/SendSykmeldingRequest'
-import { Sykmelding } from '../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../api-models/sykmelding/MuterbarSykmelding'
 import { isMockBackend } from '../../utils/environment'
 import mockDb from '../../data/mock/mock-db'
 import { getSessionId } from '../../utils/userSessionId'
@@ -64,7 +64,11 @@ async function getOboTokenOrThrow(req: NextApiRequest, sykmeldingId: string): Pr
     }
 }
 
-async function fetchSykmelding(req: NextApiRequest, sykmeldingId: string, oboToken?: string): Promise<Sykmelding> {
+async function fetchSykmelding(
+    req: NextApiRequest,
+    sykmeldingId: string,
+    oboToken?: string,
+): Promise<MuterbarSykmelding> {
     if (!isMockBackend()) {
         return await getSykmelding(sykmeldingId, req, oboToken!)
     } else {
@@ -73,7 +77,7 @@ async function fetchSykmelding(req: NextApiRequest, sykmeldingId: string, oboTok
     }
 }
 
-async function generatePdfBuffer(sykmelding: Sykmelding, timestamp: string): Promise<Buffer> {
+async function generatePdfBuffer(sykmelding: MuterbarSykmelding, timestamp: string): Promise<Buffer> {
     return await renderToBuffer(<SykmeldingPdf sykmelding={sykmelding} timestamp={timestamp} />)
 }
 

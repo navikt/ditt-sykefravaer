@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Document, Page, StyleSheet, Text, View } from '@react-pdf/renderer'
 
-import { Sykmelding } from '../../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../api-models/sykmelding/MuterbarSykmelding'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { Periode } from '../../api-models/sykmelding/Periode'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
@@ -21,7 +21,7 @@ import Tilbakedatering from './Tilbakedatering'
 import SykmeldingStatus from './SykmeldingStatus/SykmeldingStatus'
 
 interface Props {
-    sykmelding: Sykmelding
+    sykmelding: MuterbarSykmelding
     timestamp: string
 }
 

@@ -11,11 +11,11 @@ import { SendSykmeldingValues } from '../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from './api-models/SendSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
-import { Sykmelding } from './api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 
 export function mapSendSykmeldingValuesToV3Api(
     values: SendSykmeldingValues,
-    sykmelding: Sykmelding,
+    sykmelding: MuterbarSykmelding,
     brukerinformasjon: Brukerinformasjon,
     erUtenforVentetid: ErUtenforVentetid,
 ): SykmeldingUserEventV3Api {

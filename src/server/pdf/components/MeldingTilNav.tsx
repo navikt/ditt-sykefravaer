@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
-import { MeldingTilNAV } from '../../api-models/sykmelding/MeldingTilNav'
+import { MeldingTilNAV } from '../../api-models/sykmelding/MuterbarSykmelding'
 
 import { Section } from './Section'
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'

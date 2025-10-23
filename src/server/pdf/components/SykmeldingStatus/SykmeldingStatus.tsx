@@ -1,13 +1,13 @@
 import { ReactElement } from 'react'
 
-import { Sykmelding } from '../../../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../api-models/sykmelding/MuterbarSykmelding'
 
 import SykmeldingStatusAvbrutt from './SykmeldingStatusAvbrutt'
 import SykmeldingStatusUtgatt from './SykmeldingStatusUtgatt'
 import SykmeldingStatusAvvist from './SykmeldingStatusAvvist'
 
 interface Props {
-    sykmelding: Sykmelding
+    sykmelding: MuterbarSykmelding
 }
 
 const SykmeldingStatus = ({ sykmelding }: Props): ReactElement | null => {

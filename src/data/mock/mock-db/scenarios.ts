@@ -1,12 +1,12 @@
 import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../../../types/sykmelding'
-import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 
 import { SykmeldingBuilder } from './data-creators'
 
 type ScenarioCreator = () => Scenario
 
 export type Scenario = {
-    sykmeldinger: Sykmelding[]
+    sykmeldinger: MuterbarSykmelding[]
     error?: { message: string }
 }
 

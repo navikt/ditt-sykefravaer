@@ -1,8 +1,8 @@
 import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
-import { KontaktMedPasient } from '../../api-models/sykmelding/KontaktMedPasient'
 import { toReadableDate } from '../../../utils/dateUtils'
+import { KontaktMedPasient } from '../../api-models/sykmelding/MuterbarSykmelding'
 
 import { Section } from './Section'
 import Historic from './icons/Historic'

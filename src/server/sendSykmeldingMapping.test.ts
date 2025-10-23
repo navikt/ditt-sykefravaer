@@ -6,7 +6,7 @@ import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
 import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
-import { Sykmelding } from './api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
 
@@ -16,7 +16,7 @@ describe('sendSykmeldingMapping', () => {
     }
     const erUtenforVentetid: ErUtenforVentetid = { erUtenforVentetid: false, oppfolgingsdato: '2021-04-10' }
 
-    const sykmeldingApen = (): Sykmelding =>
+    const sykmeldingApen = (): MuterbarSykmelding =>
         new SykmeldingBuilder().status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()
 
     it('should map a bare minimum result correctly', () => {

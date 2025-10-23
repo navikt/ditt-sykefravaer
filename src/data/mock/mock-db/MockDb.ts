@@ -1,7 +1,7 @@
 import { SendSykmeldingValues, SykmeldingChangeStatus } from '../../../fetching/graphql.generated'
 import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding'
-import { Sykmelding } from '../../../server/api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStatus'
@@ -12,16 +12,16 @@ import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbe
 import { defaultArbeidsgivere } from './data-creators'
 
 class MockDb {
-    private readonly _sykmeldinger: Sykmelding[]
+    private readonly _sykmeldinger: MuterbarSykmelding[]
     private _antallArbeidsgivere = 1
     private _erUtenforVentetid = false
     private _oppfolgingsdato: string | null = '2021-04-10'
 
-    constructor(scenario: { sykmeldinger: Sykmelding[] }) {
+    constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
         this._sykmeldinger = scenario.sykmeldinger
     }
 
-    sykmeldinger(): Sykmelding[] {
+    sykmeldinger(): MuterbarSykmelding[] {
         return this._sykmeldinger
     }
 
@@ -47,7 +47,7 @@ class MockDb {
         })
     }
 
-    sykmelding(id: string): Sykmelding {
+    sykmelding(id: string): MuterbarSykmelding {
         const sykmelding = this._sykmeldinger.find((it) => it.id === id)
         if (!sykmelding) {
             throw new Error(`Unable to find sykmelding by sykmeldingId: ${id}`)
@@ -56,7 +56,7 @@ class MockDb {
         return sykmelding
     }
 
-    changeSykmeldingStatus(id: string, status: SykmeldingChangeStatus): Sykmelding {
+    changeSykmeldingStatus(id: string, status: SykmeldingChangeStatus): MuterbarSykmelding {
         const zodStatus =
             status === SykmeldingChangeStatus.AVBRYT
                 ? StatusEvent.AVBRUTT
@@ -69,7 +69,7 @@ class MockDb {
         return sykmelding
     }
 
-    sendSykmelding(id: string, values: SendSykmeldingValues): Sykmelding {
+    sendSykmelding(id: string, values: SendSykmeldingValues): MuterbarSykmelding {
         const sykmelding = this.sykmelding(id)
 
         // Validate that real mapping would have worked

@@ -2,12 +2,12 @@ import { ReactElement } from 'react'
 import { StyleSheet, Text, View } from '@react-pdf/renderer'
 
 import { toReadableDate } from '../../../../utils/dateUtils'
-import { Sykmelding } from '../../../api-models/sykmelding/Sykmelding'
+import { MuterbarSykmelding } from '../../../api-models/sykmelding/MuterbarSykmelding'
 import { sykmeldingStatusMarginBottom } from '../constants'
 import InformationFilled from '../icons/InformationFilled'
 
 interface Props {
-    sykmelding: Sykmelding
+    sykmelding: MuterbarSykmelding
 }
 
 const styles = StyleSheet.create({
