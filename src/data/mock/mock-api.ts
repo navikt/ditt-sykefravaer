@@ -118,7 +118,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
                 return sendJson(mockDb().get(sessionId).sykmeldinger())
             } else {
                 if (erClsTestperson) await sleep(1000)
-                return sendJson(tilFulleSykmeldinger(testperson.sykmeldinger))
+                return sendJson(tilKompletteSykmeldinger(testperson.sykmeldinger))
             }
         },
         'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid': (params) => {
@@ -229,13 +229,9 @@ function extractUrlPath(url: string): string {
     return new URL(url, 'http://dummy').pathname
 }
 
-function tilFulleSykmeldinger(dittSykefravaerSykmeldinger: DittSykefravaerSykmelding[]): Sykmelding[] {
-    return dittSykefravaerSykmeldinger.map(tilFullSykmelding)
-}
-
-function tilFullSykmelding(dittSykefravaerSykmelding: DittSykefravaerSykmelding): Sykmelding {
+function tilKompletteSykmeldinger(dittSykefravaerSykmeldinger: DittSykefravaerSykmelding[]): Sykmelding[] {
     const dummyTidspunkt = '2020-01-01T00:00:00.000Z'
-    return {
+    const tilKomplettSykmelding = (dittSykefravaerSykmelding: DittSykefravaerSykmelding): Sykmelding => ({
         behandletTidspunkt: dummyTidspunkt,
         mottattTidspunkt: dummyTidspunkt,
         rulesetVersion: 0,
@@ -254,5 +250,6 @@ function tilFullSykmelding(dittSykefravaerSykmelding: DittSykefravaerSykmelding)
             reisetilskudd: false,
             ...periode,
         })),
-    }
+    })
+    return dittSykefravaerSykmeldinger.map(tilKomplettSykmelding)
 }
