@@ -1,4 +1,6 @@
 /* eslint-disable */
+import { Brukerinformasjon } from '../hooks/useBrukerinformasjonById'
+
 export type Maybe<T> = T | null
 export type InputMaybe<T> = Maybe<T>
 
@@ -45,14 +47,6 @@ export type AnnenFraversArsak = {
     readonly __typename: 'AnnenFraversArsak'
     readonly beskrivelse?: Maybe<Scalars['String']['output']>
     readonly grunn: ReadonlyArray<AnnenFraverGrunn>
-}
-
-export type Arbeidsgiver = {
-    readonly __typename: 'Arbeidsgiver'
-    readonly aktivtArbeidsforhold: Scalars['Boolean']['output']
-    readonly naermesteLeder?: Maybe<NaermesteLeder>
-    navn: Scalars['String']['output']
-    readonly orgnummer: Scalars['String']['output']
 }
 
 export type ArbeidsgiverOrgnummerBrukerSvar = {
@@ -161,11 +155,6 @@ export type BrukerSvar = {
     readonly harForsikring?: Maybe<HarForsikringBrukerSvar>
     readonly riktigNarmesteLeder?: Maybe<RiktigNarmesteLederBrukerSvar>
     readonly uriktigeOpplysninger?: Maybe<UriktigeOpplysningerBrukerSvar>
-}
-
-export type Brukerinformasjon = {
-    readonly __typename: 'Brukerinformasjon'
-    readonly arbeidsgivere: ReadonlyArray<Arbeidsgiver>
 }
 
 export type DagerSvar = {
@@ -339,11 +328,6 @@ export type Mutation = {
     readonly feedback: Scalars['Boolean']['output']
     readonly sendSykmelding: Sykmelding
     readonly updateEgenmeldingsdager: Sykmelding
-}
-
-export type NaermesteLeder = {
-    readonly __typename: 'NaermesteLeder'
-    readonly navn: Scalars['String']['output']
 }
 
 export type Pasient = {
@@ -537,17 +521,4 @@ export type UtenlandskSykmelding = {
 export enum YesOrNo {
     NO = 'NO',
     YES = 'YES',
-}
-
-export type NaermesteLederFragment = { readonly __typename: 'NaermesteLeder'; readonly navn: string }
-
-export type BrukerinformasjonFragment = {
-    readonly __typename: 'Brukerinformasjon'
-    readonly arbeidsgivere: ReadonlyArray<{
-        readonly __typename: 'Arbeidsgiver'
-        readonly orgnummer: string
-        readonly navn: string
-        readonly aktivtArbeidsforhold: boolean
-        readonly naermesteLeder?: { readonly __typename: 'NaermesteLeder'; readonly navn: string } | null
-    }>
 }

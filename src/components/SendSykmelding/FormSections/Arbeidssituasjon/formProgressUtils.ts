@@ -14,7 +14,7 @@ import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { Sykmelding } from '../../../../types/sykmelding'
 import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
-import { BrukerinformasjonFragment } from '../../../../fetching/graphql.generated'
+import { Arbeidsgiver } from '../../../../hooks/useBrukerinformasjonById'
 
 type UseDynamicSubSections = {
     shouldShowArbeidsgiverOrgnummer: boolean
@@ -96,7 +96,7 @@ function isEgenmeldingsdagerCompleteOrSkipped(
 }
 
 export function useShouldShowSeveralArbeidsgivereInfo(
-    arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere'],
+    arbeidsgivere: Arbeidsgiver[],
     sykmelding: Sykmelding,
 ): {
     shouldAskForSeveralSykmeldinger: boolean | null
@@ -113,7 +113,7 @@ export function useShouldShowSeveralArbeidsgivereInfo(
         }
     }
 
-    const activeArbeidsforhold: BrukerinformasjonFragment['arbeidsgivere'] = arbeidsgivere.filter(
+    const activeArbeidsforhold: Arbeidsgiver[] = arbeidsgivere.filter(
         (arbeidsgiver) => arbeidsgiver.aktivtArbeidsforhold,
     )
 

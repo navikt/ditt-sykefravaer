@@ -2,7 +2,6 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 
-import { BrukerinformasjonFragment } from '../../../../fetching/graphql.generated'
 import { Periodetype, Sykmelding } from '../../../../types/sykmelding'
 import { useShouldArbeidssituasjonShow } from '../shared/sykmeldingUtils'
 import { getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
@@ -11,6 +10,7 @@ import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../..
 import { FormValues } from '../../SendSykmeldingForm'
 import Spinner from '../../../Spinner/Spinner'
 import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeidsgivereById'
+import { Brukerinformasjon } from '../../../../hooks/useBrukerinformasjonById'
 
 import { ArbeidssituasjonInfo } from './ArbeidssituasjonInfo'
 import ArbeidssituasjonField from './ArbeidssituasjonField'
@@ -22,7 +22,7 @@ import AnsattArbeidstakerSection from './Arbeidsgiver/AnsattArbeidstakerSection'
 
 interface Props {
     sykmelding: Sykmelding
-    brukerinformasjon: BrukerinformasjonFragment
+    brukerinformasjon: Brukerinformasjon
 }
 
 function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): ReactElement | null {

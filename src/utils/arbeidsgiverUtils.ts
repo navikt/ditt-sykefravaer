@@ -1,5 +1,5 @@
-import { Arbeidsgiver } from '../fetching/graphql.generated'
 import { TidligereArbeidsgivereArray } from '../hooks/useTidligereArbeidsgivereById'
+import { Arbeidsgiver } from '../hooks/useBrukerinformasjonById'
 
 import { prettifyOrgName } from './orgUtils'
 
