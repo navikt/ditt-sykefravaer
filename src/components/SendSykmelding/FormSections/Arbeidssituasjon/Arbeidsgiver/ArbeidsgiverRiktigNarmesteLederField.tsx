@@ -2,12 +2,12 @@ import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, ReadMore } from '@navikt/ds-react'
 
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
+import { NaermesteLeder } from '../../../../../types/sykmelding/brukerinformasjon'
 
 interface Props {
     narmesteLeder: NaermesteLeder

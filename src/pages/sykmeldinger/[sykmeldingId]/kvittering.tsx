@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { range } from 'remeda'
 
-import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding'
+import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding/sykmelding'
 import StatusBanner from '../../../components/StatusBanner/StatusBanner'
 import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
@@ -21,7 +21,7 @@ import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
-import useSykmelding from '../../../hooks/useSykmelding'
+import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()

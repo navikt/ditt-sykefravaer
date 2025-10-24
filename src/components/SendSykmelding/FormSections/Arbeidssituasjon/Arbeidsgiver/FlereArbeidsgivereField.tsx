@@ -6,7 +6,7 @@ import { FormValues } from '../../../SendSykmeldingForm'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { logAmplitudeEvent } from '../../../../amplitude/amplitude'
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 
 function FlereArbeidsgivereField(): ReactElement {
     const { field, fieldState } = useController<FormValues>({

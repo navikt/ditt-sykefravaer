@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'

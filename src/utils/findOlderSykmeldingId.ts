@@ -1,6 +1,6 @@
 import { isBefore, parseISO } from 'date-fns'
 
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 
 import { getSykmeldingStartDate, isActiveSykmelding, isUnderbehandling } from './sykmeldingUtils'
 

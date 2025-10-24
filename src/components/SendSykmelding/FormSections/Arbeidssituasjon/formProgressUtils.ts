@@ -8,13 +8,13 @@ import {
 } from '../../../../utils/arbeidssituasjonUtils'
 import { hasCompletedEgenmeldingsdager } from '../../../../utils/egenmeldingsdagerUtils'
 import { FormValues } from '../../SendSykmeldingForm'
-import useSykmeldinger from '../../../../hooks/useSykmeldinger'
+import useSykmeldinger from '../../../../hooks/sykmelding/useSykmeldinger'
 import { toDate } from '../../../../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
-import { Sykmelding } from '../../../../types/sykmelding'
-import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
-import { Arbeidsgiver } from '../../../../hooks/useBrukerinformasjonById'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
+import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
+import { Arbeidsgiver } from '../../../../types/sykmelding/brukerinformasjon'
 
 type UseDynamicSubSections = {
     shouldShowArbeidsgiverOrgnummer: boolean

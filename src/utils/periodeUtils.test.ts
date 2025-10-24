@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { Periode, Periodetype } from '../types/sykmelding'
+import { Periode, Periodetype } from '../types/sykmelding/sykmelding'
 
 import { getDescription, getPeriodTitle, getReadableLength, getSykmeldingperioderSorted } from './periodeUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'

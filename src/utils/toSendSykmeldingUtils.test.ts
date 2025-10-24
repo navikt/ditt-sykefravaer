@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
-import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
-import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmeldingCommon'
+import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { SendSykmeldingValues } from '../server/api-models/SendSykmeldingValues'
 

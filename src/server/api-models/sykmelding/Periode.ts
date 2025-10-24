@@ -1,4 +1,4 @@
-import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../../types/sykmelding'
+import { ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../../../types/sykmelding/sykmelding'
 
 export interface Periode {
     fom: string

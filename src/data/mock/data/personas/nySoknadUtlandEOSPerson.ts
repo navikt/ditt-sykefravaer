@@ -1,7 +1,7 @@
 import { sendtSykmelding } from '../sykmeldinger'
 import { Persona } from '../../testperson'
 import { soknadUtland } from '../soknader'
-import { StatusEvent } from '../../../../types/sykmelding'
+import { StatusEvent } from '../../../../types/sykmelding/sykmelding'
 
 import { commonPersona } from './personas'
 

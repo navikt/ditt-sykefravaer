@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import * as R from 'remeda'
 
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 

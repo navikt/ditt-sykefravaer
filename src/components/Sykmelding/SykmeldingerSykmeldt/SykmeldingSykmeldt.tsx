@@ -4,7 +4,7 @@ import { Alert } from '@navikt/ds-react'
 import { isV3 } from '../../../utils/sykmeldingUtils'
 import { getSykmeldingperioderSorted } from '../../../utils/periodeUtils'
 import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
-import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding'
+import { Periode, Sykmelding, UtdypendeOpplysning } from '../../../types/sykmelding/sykmelding'
 
 import Perioder from './Felles/Perioder'
 import SykmeldingenGjelder from './Felles/SykmeldingenGjelder'

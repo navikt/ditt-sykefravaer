@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { YesOrNo } from '../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../FormComponents/FormStructure'
 

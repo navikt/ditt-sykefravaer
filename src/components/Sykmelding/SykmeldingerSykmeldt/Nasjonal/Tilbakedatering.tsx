@@ -4,7 +4,7 @@ import { ClockDashedIcon } from '@navikt/aksel-icons'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { KontaktMedPasient } from '../../../../types/sykmelding'
+import { KontaktMedPasient } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     kontaktMedPasient: KontaktMedPasient

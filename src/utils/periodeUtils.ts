@@ -1,6 +1,11 @@
 import { sortBy } from 'remeda'
 
-import { AnnenFraverGrunn, ArbeidsrelatertArsakType, MedisinskArsakType, Periodetype } from '../types/sykmelding'
+import {
+    AnnenFraverGrunn,
+    ArbeidsrelatertArsakType,
+    MedisinskArsakType,
+    Periodetype,
+} from '../types/sykmelding/sykmelding'
 
 import { diffInDays } from './dateUtils'
 

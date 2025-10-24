@@ -1,7 +1,7 @@
 import * as R from 'remeda'
 import { add, isAfter, isBefore, sub } from 'date-fns'
 
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 import { toDate } from '../../../utils/dateUtils'
 import { getSykmeldingStartDate } from '../../../utils/sykmeldingUtils'
 

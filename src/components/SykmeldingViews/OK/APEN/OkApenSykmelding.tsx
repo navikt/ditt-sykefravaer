@@ -1,12 +1,12 @@
 import { ReactElement } from 'react'
 import { GuidePanel } from '@navikt/ds-react'
 
-import { Periodetype } from '../../../../types/sykmelding'
+import { Periodetype } from '../../../../types/sykmelding/sykmelding'
 import InformationBanner from '../../../InformationBanner/InformationBanner'
 import ForceUseOlderSykmelding from '../../../ForceOrder/ForceUseOlderSykmelding'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import SendSykmeldingForm from '../../../SendSykmelding/SendSykmeldingForm'
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 
 import PapirInfoheader from './PapirInfoheader'
 

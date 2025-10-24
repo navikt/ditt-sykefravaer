@@ -2,7 +2,7 @@ import { ReactElement, CSSProperties } from 'react'
 import { ExpansionCard } from '@navikt/ds-react'
 import { FileSearchIcon } from '@navikt/aksel-icons'
 
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 
 import SykmeldingArbeidsgiver from './SykmeldingArbeidsgiver'

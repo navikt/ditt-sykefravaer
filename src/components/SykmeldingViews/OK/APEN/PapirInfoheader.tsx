@@ -3,7 +3,10 @@ import { Alert, BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-
 
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
-import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../../hooks/useChangeSykmeldingStatus'
+import {
+    SykmeldingChangeStatus,
+    useChangeSykmeldingStatus,
+} from '../../../../hooks/sykmelding/useChangeSykmeldingStatus'
 
 const skjemanavn = 'avbryt åpen papirsykmelding'
 

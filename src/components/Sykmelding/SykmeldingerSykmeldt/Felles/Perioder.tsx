@@ -10,7 +10,7 @@ import {
     SykmeldingJaInfo,
     SykmeldingMultilineInfo,
 } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { Periode } from '../../../../types/sykmelding'
+import { Periode } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     perioder: Periode[]

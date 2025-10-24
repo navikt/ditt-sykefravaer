@@ -3,7 +3,7 @@ import { nyttVedtakMed100Grad, vedtakMed100Grad } from '../vedtak'
 import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykmeldinger'
 import { arbeidstaker100 } from '../soknader'
 import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
-import { StatusEvent } from '../../../../types/sykmelding'
+import { StatusEvent } from '../../../../types/sykmelding/sykmelding'
 
 import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldingTestData'
 

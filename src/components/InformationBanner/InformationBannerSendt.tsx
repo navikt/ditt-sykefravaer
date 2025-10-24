@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, GuidePanel, Heading } from '@navikt/ds-react'
 
-import { Merknad, Merknadtype } from '../../types/sykmelding'
+import { Merknad, Merknadtype } from '../../types/sykmelding/sykmelding'
 
 interface InfoBannerSendtProps {
     merknader: readonly Merknad[]

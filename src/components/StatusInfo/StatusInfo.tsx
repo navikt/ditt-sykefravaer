@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyShort, GuidePanel, Link, Heading } from '@navikt/ds-react'
 
-import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding'
+import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
 import { logAmplitudeEvent } from '../amplitude/amplitude'
 import { sykepengesoknadUrl } from '../../utils/environment'
 

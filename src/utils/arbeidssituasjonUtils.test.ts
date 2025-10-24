@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
-import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
-import { TidligereArbeidsgivereArray } from '../hooks/useTidligereArbeidsgivereById'
+import { ArbeidssituasjonType } from '../types/sykmelding/sykmeldingCommon'
+import { TidligereArbeidsgiver } from '../types/sykmelding/tidligereArbeidsgiver'
 
 import { isArbeidstaker, isFrilanserOrNaeringsdrivendeOrJordbruker } from './arbeidssituasjonUtils'
 import { deduplisterteArbeidsgivere } from './arbeidsgiverUtils'
@@ -33,7 +33,7 @@ describe('arbeidssituasjonUtils', () => {
 
     describe('deduplisterteArbeidsgivere', () => {
         it('should remove duplicates based on prettified org name and orgnummer', () => {
-            const arbeidsgivere: TidligereArbeidsgivereArray = [
+            const arbeidsgivere: TidligereArbeidsgiver[] = [
                 { orgNavn: 'Firma AS', orgnummer: '123' },
                 { orgNavn: 'firma as', orgnummer: '123' }, // same orgNavn, liten/stor bokstav
                 { orgNavn: 'Firma AS', orgnummer: '456' }, // samme orgNavn, annet orgnummer

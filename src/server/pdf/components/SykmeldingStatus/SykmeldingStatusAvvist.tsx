@@ -4,7 +4,7 @@ import { StyleSheet, Text, View } from '@react-pdf/renderer'
 import { MuterbarSykmelding } from '../../../api-models/sykmelding/MuterbarSykmelding'
 import { sykmeldingStatusMarginBottom, textMarginBottom } from '../constants'
 import Warning from '../icons/Warning'
-import { Merknadtype } from '../../../../types/sykmelding'
+import { Merknadtype } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     sykmelding: MuterbarSykmelding

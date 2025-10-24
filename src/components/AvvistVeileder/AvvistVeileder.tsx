@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, BodyShort, GuidePanel, Heading } from '@navikt/ds-react'
 
-import { Behandlingsutfall, Sykmelding } from '../../types/sykmelding'
+import { Behandlingsutfall, Sykmelding } from '../../types/sykmelding/sykmelding'
 
 import ForklaringZDiagnose from './ForklaringZDiagnose'
 import ForklaringAndre from './ForklaringAndre'

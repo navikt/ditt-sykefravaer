@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { Alert, Button, Detail, Heading } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import HintToNextOlderSykmelding from '../../../ForceOrder/HintToNextOlderSykmelding'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { formatISO, sub } from 'date-fns'
 
-import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { Periodetype, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
 
 import { dateAdd, dateSub } from './dateUtils'

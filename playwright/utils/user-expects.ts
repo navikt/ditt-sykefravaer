@@ -1,6 +1,6 @@
 import { expect, Locator, Page } from '@playwright/test'
 
-import { UriktigeOpplysningerType } from '../../src/types/sykmeldingBrukerSvar'
+import { UriktigeOpplysningerType } from '../../src/types/sykmelding/sykmeldingBrukerSvar'
 import { raise } from '../../src/utils/ts-utils'
 
 export enum ExpectMeta {

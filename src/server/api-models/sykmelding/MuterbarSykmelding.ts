@@ -1,4 +1,4 @@
-import { Merknadtype, SvarRestriksjon, Sykmelding } from '../../../types/sykmelding'
+import { Merknadtype, SvarRestriksjon, Sykmelding } from '../../../types/sykmelding/sykmelding'
 
 import { Behandler } from './Behandler'
 import { Behandlingsutfall } from './Behandlingsutfall'

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { Arbeidsgiver } from '../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../types/sykmelding/brukerinformasjon'
 
 import { findValgtArbeidsgiver } from './arbeidsgiverUtils'
 

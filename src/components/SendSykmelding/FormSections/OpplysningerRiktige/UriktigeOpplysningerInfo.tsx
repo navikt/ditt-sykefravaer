@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert, Heading } from '@navikt/ds-react'
 
-import { UriktigeOpplysningerType } from '../../../../types/sykmeldingBrukerSvar'
+import { UriktigeOpplysningerType } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
 interface UriktigeOpplysningerInfoProps {
     uriktigeOpplysninger: UriktigeOpplysningerType[]

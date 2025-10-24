@@ -1,6 +1,6 @@
 import { expect, Page, test } from '@playwright/test'
 
-import { UriktigeOpplysningerType } from '../../src/types/sykmeldingBrukerSvar'
+import { UriktigeOpplysningerType } from '../../src/types/sykmelding/sykmeldingBrukerSvar'
 import {
     bekreftNarmesteleder,
     gotoScenario,

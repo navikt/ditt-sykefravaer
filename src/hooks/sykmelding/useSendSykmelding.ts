@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
-import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
-import { mapToSendSykmeldingValues } from '../utils/toSendSykmeldingUtils'
-import { fetchJsonMedRequestId } from '../utils/fetch'
-import { Sykmelding } from '../types/sykmelding'
+import { FormValues } from '../../components/SendSykmelding/SendSykmeldingForm'
+import { mapToSendSykmeldingValues } from '../../utils/toSendSykmeldingUtils'
+import { fetchJsonMedRequestId } from '../../utils/fetch'
+import { Sykmelding } from '../../types/sykmelding/sykmelding'
 
 export type SendSykmeldingMutation = {
     readonly sendSykmelding: Sykmelding

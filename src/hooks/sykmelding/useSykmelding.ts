@@ -1,10 +1,9 @@
 import { useQuery, UseQueryResult } from '@tanstack/react-query'
 
-import { fetchJsonMedRequestId } from '../utils/fetch'
-import { prettifyOrgName } from '../utils/orgUtils'
-import { Sykmelding } from '../types/sykmelding'
-
-import { UseTestpersonQuery } from './useTestpersonQuery'
+import { fetchJsonMedRequestId } from '../../utils/fetch'
+import { prettifyOrgName } from '../../utils/orgUtils'
+import { Sykmelding } from '../../types/sykmelding/sykmelding'
+import { UseTestpersonQuery } from '../useTestpersonQuery'
 
 export default function useSykmelding(sykmeldingId: string): UseQueryResult<Sykmelding, Error> {
     const testpersonQuery = UseTestpersonQuery()

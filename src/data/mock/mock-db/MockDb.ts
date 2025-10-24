@@ -1,5 +1,5 @@
-import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmeldingCommon'
-import { StatusEvent } from '../../../types/sykmelding'
+import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
+import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
@@ -7,8 +7,8 @@ import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStat
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
-import { SykmeldingChangeStatus } from '../../../hooks/useChangeSykmeldingStatus'
 import { SendSykmeldingValues } from '../../../server/api-models/SendSykmeldingValues'
+import { SykmeldingChangeStatus } from '../../../hooks/sykmelding/useChangeSykmeldingStatus'
 
 import { defaultArbeidsgivere } from './data-creators'
 

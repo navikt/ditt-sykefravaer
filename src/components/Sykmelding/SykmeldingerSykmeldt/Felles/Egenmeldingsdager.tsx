@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 
 interface EgenmeldingsdagerProps {
     sykmeldingId: string

@@ -1,4 +1,4 @@
-import { Blad, LottOgHyre, ArbeidssituasjonType, YesOrNo } from '../types/sykmeldingCommon'
+import { Blad, LottOgHyre, ArbeidssituasjonType, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { EgenmeldingsdagerFormValue } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { SendSykmeldingValues } from '../server/api-models/SendSykmeldingValues'

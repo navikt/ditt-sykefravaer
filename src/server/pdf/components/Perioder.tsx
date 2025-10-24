@@ -5,7 +5,7 @@ import { ReactElement } from 'react'
 import { Periode } from '../../api-models/sykmelding/Periode'
 import { getPeriodTitle, getReadableLength } from '../../../utils/periodeUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../utils/dateUtils'
-import { BrukerSvar } from '../../../types/sykmeldingBrukerSvar'
+import { BrukerSvar } from '../../../types/sykmelding/sykmeldingBrukerSvar'
 import { finnEgenmeldingsdager } from '../../../utils/egenmeldingsdagerUtils'
 
 import { contentBorder, contentBorderRadius, contentMarginBottom, contentPadding, textMarginBottom } from './constants'

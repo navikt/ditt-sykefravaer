@@ -1,4 +1,4 @@
-import { ArbeidsgiverStatus, RegelStatus, StatusEvent } from './sykmelding'
+import { ArbeidsgiverStatus, RegelStatus, StatusEvent } from './sykmelding/sykmelding'
 
 export interface DittSykefravaerSykmelding {
     id: string

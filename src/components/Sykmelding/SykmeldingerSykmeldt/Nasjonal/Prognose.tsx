@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ClockDashedIcon } from '@navikt/aksel-icons'
 
-import type { Prognose } from '../../../../types/sykmelding'
+import type { Prognose } from '../../../../types/sykmelding/sykmelding'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo, SykmeldingInfoSubGroup, SykmeldingJaInfo } from '../../../molecules/sykmelding/SykmeldingInfo'

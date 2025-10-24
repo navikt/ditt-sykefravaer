@@ -6,7 +6,7 @@ import { Chat } from '@navikt/ds-react'
 
 import { FormValues } from '../../SendSykmelding/SendSykmeldingForm'
 import { raise } from '../../../utils/ts-utils'
-import useBrukerinformasjonById from '../../../hooks/useBrukerinformasjonById'
+import useBrukerinformasjonById from '../../../hooks/sykmelding/useBrukerinformasjonById'
 
 interface Props {
     sykmeldingId: string

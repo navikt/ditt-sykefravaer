@@ -2,7 +2,7 @@ import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
-import { RegelStatus, StatusEvent } from '../../types/sykmelding'
+import { RegelStatus, StatusEvent } from '../../types/sykmelding/sykmelding'
 
 import { skalViseMaksDato } from './skalViseMaksDato'
 

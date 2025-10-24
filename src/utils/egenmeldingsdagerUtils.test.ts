@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { YesOrNo } from '../types/sykmeldingCommon'
+import { YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 
 import { hasCompletedEgenmeldingsdager } from './egenmeldingsdagerUtils'
 

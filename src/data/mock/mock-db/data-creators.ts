@@ -8,15 +8,15 @@ import {
     Periodetype,
     RegelStatus,
     StatusEvent,
-} from '../../../types/sykmelding'
+} from '../../../types/sykmelding/sykmelding'
 import { Merknad, MuterbarSykmelding, Pasient } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { AktivitetIkkeMuligPeriode, Periode } from '../../../server/api-models/sykmelding/Periode'
 import { RuleHit } from '../../../server/api-models/sykmelding/Behandlingsutfall'
 import { sporsmal } from '../../../utils/sporsmal'
 import { dateAdd } from '../../../utils/dato-utils'
-import { JaEllerNei } from '../../../types/sykmeldingBrukerSvar'
-import { ArbeidssituasjonType } from '../../../types/sykmeldingCommon'
+import { JaEllerNei } from '../../../types/sykmelding/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 
 export const testDato = new Date('2025-01-01T00:00:00.000Z')
 

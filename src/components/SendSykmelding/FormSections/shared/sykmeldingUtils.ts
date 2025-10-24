@@ -1,7 +1,7 @@
 import { useFormContext } from 'react-hook-form'
 
-import { YesOrNo } from '../../../../types/sykmeldingCommon'
-import { UriktigeOpplysningerType } from '../../../../types/sykmeldingBrukerSvar'
+import { YesOrNo } from '../../../../types/sykmelding/sykmeldingCommon'
+import { UriktigeOpplysningerType } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 import { FormValues } from '../../SendSykmeldingForm'
 
 export function useShouldArbeidssituasjonShow(): boolean {

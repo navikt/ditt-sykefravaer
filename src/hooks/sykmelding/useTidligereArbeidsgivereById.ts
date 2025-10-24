@@ -1,17 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchJsonMedRequestId } from '../utils/fetch'
-import { prettifyOrgName } from '../utils/orgUtils'
-
-import { UseTestpersonQuery } from './useTestpersonQuery'
+import { fetchJsonMedRequestId } from '../../utils/fetch'
+import { prettifyOrgName } from '../../utils/orgUtils'
+import { UseTestpersonQuery } from '../useTestpersonQuery'
+import { TidligereArbeidsgiver } from '../../types/sykmelding/tidligereArbeidsgiver'
 
 export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
     const testpersonQuery = UseTestpersonQuery()
 
-    return useQuery<TidligereArbeidsgivereArray, Error>({
+    return useQuery<TidligereArbeidsgiver[], Error>({
         queryKey: ['tidligere-arbeidsgivere', sykmeldingId],
         queryFn: async () => {
-            const tidligereArbeidsgivere: TidligereArbeidsgivereArray = await fetchJsonMedRequestId(
+            const tidligereArbeidsgivere: TidligereArbeidsgiver[] = await fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
                     sykmeldingId +
                     '/tidligere-arbeidsgivere' +
@@ -35,9 +35,3 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
         },
     })
 }
-
-export type TidligereArbeidsgiver = {
-    readonly orgNavn: string
-    readonly orgnummer: string
-}
-export type TidligereArbeidsgivereArray = ReadonlyArray<TidligereArbeidsgiver>

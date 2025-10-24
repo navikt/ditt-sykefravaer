@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
+import { ArbeidssituasjonType } from '../types/sykmelding/sykmeldingCommon'
 import { FiskerFormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 
 export const isArbeidstaker = (

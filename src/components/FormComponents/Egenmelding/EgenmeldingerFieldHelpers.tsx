@@ -1,4 +1,4 @@
-import { YesOrNo } from '../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 export type EgenmeldingsdagerFormValue = {
     harPerioder: YesOrNo | null

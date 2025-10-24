@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype } from '../types/sykmelding'
+import { Periodetype } from '../types/sykmelding/sykmelding'
 
 import { toSykmeldingAriaLabel } from './toSykmeldingAriaLabel'
 import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'

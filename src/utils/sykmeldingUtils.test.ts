@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
 
 import {

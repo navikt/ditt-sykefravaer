@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { Behandler } from '../types/sykmelding'
+import { Behandler } from '../types/sykmelding/sykmelding'
 
 import { getBehandlerName } from './behandlerUtils'
 

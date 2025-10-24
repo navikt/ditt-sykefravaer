@@ -7,7 +7,7 @@ import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { annenFraverGrunnToText } from '../../../../utils/periodeUtils'
 import { SykmeldingInfo, SykmeldingJaInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { MedisinskVurdering } from '../../../../types/sykmelding'
+import { MedisinskVurdering } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     medisinskVurdering: MedisinskVurdering | null | undefined

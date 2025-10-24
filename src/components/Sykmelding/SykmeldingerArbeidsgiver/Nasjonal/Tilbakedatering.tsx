@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { ClockDashedIcon } from '@navikt/aksel-icons'
 
-import { KontaktMedPasient } from '../../../../types/sykmelding'
+import { KontaktMedPasient } from '../../../../types/sykmelding/sykmelding'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
