@@ -7,7 +7,7 @@ import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
 import useErUtenforVentetid from '../../../../../hooks/useErUtenforVentetid'
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'

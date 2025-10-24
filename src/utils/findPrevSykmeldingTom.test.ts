@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { Periodetype, RegelStatus, StatusEvent } from '../types/sykmelding'
+import { Periodetype, RegelStatus, StatusEvent } from '../types/sykmelding/sykmelding'
 
 import { toDate } from './dateUtils'
 import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'

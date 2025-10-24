@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { Sykmelding } from '../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { Brukerinformasjon } from '../../../../../hooks/useBrukerinformasjonById'

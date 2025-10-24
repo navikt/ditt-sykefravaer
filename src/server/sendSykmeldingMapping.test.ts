@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'vitest'
 
-import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmeldingCommon'
-import { StatusEvent } from '../types/sykmelding'
-import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
+import { StatusEvent } from '../types/sykmelding/sykmelding'
+import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'
 
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'

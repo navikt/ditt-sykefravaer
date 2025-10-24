@@ -1,5 +1,5 @@
-import { JaEllerNei, UriktigeOpplysningerType } from '../../types/sykmeldingBrukerSvar'
-import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
+import { JaEllerNei, UriktigeOpplysningerType } from '../../types/sykmelding/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType } from '../../types/sykmelding/sykmeldingCommon'
 
 export type SykmeldingUserEventV3Api = {
     erOpplysningeneRiktige: SporsmalSvar<JaEllerNei>

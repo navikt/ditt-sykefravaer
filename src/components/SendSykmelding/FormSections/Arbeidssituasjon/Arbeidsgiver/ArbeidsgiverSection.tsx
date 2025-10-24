@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { Sykmelding } from '../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { findValgtArbeidsgiver } from '../../../../../utils/arbeidsgiverUtils'
@@ -11,7 +11,7 @@ import { toDate } from '../../../../../utils/dateUtils'
 import EgenmeldingerField from '../../../../FormComponents/Egenmelding/EgenmeldingerField'
 import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeidsgiverInfo'
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
 import { Arbeidsgiver, NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
 

@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 
-import { Periodetype, Sykmelding } from '../../../../types/sykmelding'
+import { Periodetype, Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import { useShouldArbeidssituasjonShow } from '../shared/sykmeldingUtils'
 import { getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { SectionWrapper } from '../../../FormComponents/FormStructure'

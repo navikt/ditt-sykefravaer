@@ -6,7 +6,7 @@ import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/
 import { getDescription } from '../../../utils/periodeUtils'
 import { cn } from '../../../utils/tw-utils'
 import { toSykmeldingAriaLabel } from '../../../utils/toSykmeldingAriaLabel'
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 
 import LenkepanelIcon from './LenkepanelIcon'
 import LenkepanelEtikett from './LenkepanelEtikett'

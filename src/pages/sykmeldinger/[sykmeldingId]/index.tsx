@@ -29,7 +29,7 @@ import { beskyttetSide, ServerSidePropsResult } from '../../../auth/beskyttetSid
 import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
 import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
 import useSykmelding from '../../../hooks/useSykmelding'
-import { Sykmelding, StatusEvent } from '../../../types/sykmelding'
+import { Sykmelding, StatusEvent } from '../../../types/sykmelding/sykmelding'
 import useSykmeldinger from '../../../hooks/useSykmeldinger'
 import { urlAppendPath } from '../../../utils/urlUtils'
 

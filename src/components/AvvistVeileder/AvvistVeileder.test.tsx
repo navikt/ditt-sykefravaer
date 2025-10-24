@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Behandlingsutfall, RegelStatus } from '../../types/sykmelding'
+import { Behandlingsutfall, RegelStatus } from '../../types/sykmelding/sykmelding'
 
 import AvvistVeileder from './AvvistVeileder'
 

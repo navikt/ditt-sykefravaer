@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useController } from 'react-hook-form'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 
-import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
+import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'
 import { arbeidsSituasjonEnumToText, sporsmal } from '../../../../utils/sporsmal'

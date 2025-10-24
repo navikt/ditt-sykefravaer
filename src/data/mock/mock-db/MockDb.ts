@@ -1,5 +1,5 @@
-import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmeldingCommon'
-import { StatusEvent } from '../../../types/sykmelding'
+import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
+import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'

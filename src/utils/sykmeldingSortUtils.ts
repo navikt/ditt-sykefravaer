@@ -1,7 +1,7 @@
 import { compareAsc, isAfter } from 'date-fns'
 import { sortBy } from 'remeda'
 
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 
 import { toDate } from './dateUtils'
 

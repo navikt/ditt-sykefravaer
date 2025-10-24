@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyShort, Link } from '@navikt/ds-react'
 
-import { Periodetype, Sykmelding } from '../../types/sykmelding'
+import { Periodetype, Sykmelding } from '../../types/sykmelding/sykmelding'
 
 type Props = {
     perioder: Sykmelding['sykmeldingsperioder']

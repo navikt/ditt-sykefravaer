@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { InformationIcon } from '@navikt/aksel-icons'
 
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'

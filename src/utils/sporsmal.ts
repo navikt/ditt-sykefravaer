@@ -1,5 +1,5 @@
-import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
-import { UriktigeOpplysningerType } from '../types/sykmeldingBrukerSvar'
+import { ArbeidssituasjonType } from '../types/sykmelding/sykmeldingCommon'
+import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 
 import { prettifyOrgName } from './orgUtils'
 import { toReadableDate } from './dato-utils'

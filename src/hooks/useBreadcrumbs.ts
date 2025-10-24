@@ -3,7 +3,7 @@ import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 import { minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 

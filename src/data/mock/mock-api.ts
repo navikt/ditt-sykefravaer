@@ -13,7 +13,7 @@ import { getPathMatch } from 'next/dist/shared/lib/router/utils/path-match'
 import { getSessionId } from '../../utils/userSessionId'
 import sendSykmeldingPdf from '../../server/pdf/sykmeldingPdf'
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
-import { Periodetype, Sykmelding } from '../../types/sykmelding'
+import { Periodetype, Sykmelding } from '../../types/sykmelding/sykmelding'
 import { SykmeldingChangeStatus } from '../../hooks/useChangeSykmeldingStatus'
 import { SendSykmeldingValues } from '../../server/api-models/SendSykmeldingValues'
 

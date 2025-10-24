@@ -7,7 +7,7 @@ import cn from 'classnames'
 
 import { sortDatesASC } from '../../../utils/dateUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
-import { YesOrNo } from '../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmelding from './HarBruktEgenmelding'
 import ValgtEgenmeldingsdager from './ValgtEgenmeldingsdager'

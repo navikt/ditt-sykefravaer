@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 
-import { RegelStatus } from '../../../types/sykmelding'
+import { RegelStatus } from '../../../types/sykmelding/sykmelding'
 
 interface Icon {
     hover?: boolean

@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert, BodyShort, Detail } from '@navikt/ds-react'
 
-import { Behandlingsutfall, SykmeldingStatus } from '../../types/sykmelding'
+import { Behandlingsutfall, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
 import { toReadableDate } from '../../utils/dateUtils'
 
 interface StatusBannerProps {

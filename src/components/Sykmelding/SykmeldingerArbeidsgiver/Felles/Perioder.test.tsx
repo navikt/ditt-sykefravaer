@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Periode, Periodetype } from '../../../../types/sykmelding'
+import { Periode, Periodetype } from '../../../../types/sykmelding/sykmelding'
 
 import Perioder from './Perioder'
 

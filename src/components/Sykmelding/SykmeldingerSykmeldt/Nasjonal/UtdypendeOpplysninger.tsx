@@ -4,7 +4,7 @@ import * as R from 'remeda'
 
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { UtdypendeOpplysning } from '../../../../types/sykmelding'
+import { UtdypendeOpplysning } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     utdypendeOpplysninger: Record<string, Record<string, UtdypendeOpplysning>>

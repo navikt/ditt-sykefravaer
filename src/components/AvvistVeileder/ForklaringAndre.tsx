@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { BodyLong, Heading } from '@navikt/ds-react'
 
-import { Behandlingsutfall } from '../../types/sykmelding'
+import { Behandlingsutfall } from '../../types/sykmelding/sykmelding'
 
 interface ForklaringAndreProps {
     behandlerNavn: string

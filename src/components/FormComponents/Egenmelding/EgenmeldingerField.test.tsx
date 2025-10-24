@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
 import { toDate } from '../../../utils/dateUtils'
-import { YesOrNo } from '../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import { laterPeriodsRemoved } from './EgenmeldingerField'
 

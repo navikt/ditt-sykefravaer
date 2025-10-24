@@ -2,7 +2,7 @@ import { useRef } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { fetchJsonMedRequestId } from '../utils/fetch'
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 
 export type ChangeSykmeldingStatusMutation = {
     readonly changeSykmeldingStatus: Sykmelding

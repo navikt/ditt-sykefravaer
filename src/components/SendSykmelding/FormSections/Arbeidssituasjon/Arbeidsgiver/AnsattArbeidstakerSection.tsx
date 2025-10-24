@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 
-import { Sykmelding } from '../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
 
 import ArbeidsgivereMissingInfo from './ArbeidsgivereMissingInfo'

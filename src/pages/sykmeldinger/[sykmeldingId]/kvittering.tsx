@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { range } from 'remeda'
 
-import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding'
+import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding/sykmelding'
 import StatusBanner from '../../../components/StatusBanner/StatusBanner'
 import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'

@@ -1,4 +1,4 @@
-import { AnnenFraverGrunn } from '../../../types/sykmelding'
+import { AnnenFraverGrunn } from '../../../types/sykmelding/sykmelding'
 
 export interface Diagnose {
     kode: string

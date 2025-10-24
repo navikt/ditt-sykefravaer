@@ -5,7 +5,7 @@ import { useController } from 'react-hook-form'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { ArbeidssituasjonType } from '../../../../../types/sykmeldingCommon'
+import { ArbeidssituasjonType } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
 
 interface Props {

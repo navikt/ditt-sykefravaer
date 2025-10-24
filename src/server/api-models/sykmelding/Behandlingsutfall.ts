@@ -1,4 +1,4 @@
-import { RegelStatus } from '../../../types/sykmelding'
+import { RegelStatus } from '../../../types/sykmelding/sykmelding'
 
 export interface RuleHit {
     messageForSender: string

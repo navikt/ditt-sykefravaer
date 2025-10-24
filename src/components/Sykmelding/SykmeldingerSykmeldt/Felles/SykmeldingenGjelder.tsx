@@ -4,7 +4,7 @@ import { PersonIcon } from '@navikt/aksel-icons'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { fnrText, getPasientName } from '../../../../utils/pasientUtils'
 import { SykmeldingMultilineInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { Pasient } from '../../../../types/sykmelding'
+import { Pasient } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     pasient?: Pasient | null

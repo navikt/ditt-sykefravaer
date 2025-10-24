@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { CalendarIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 
-import { Periode } from '../../../../types/sykmelding'
+import { Periode } from '../../../../types/sykmelding/sykmelding'
 import { getPeriodTitle, getReadableLength } from '../../../../utils/periodeUtils'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { toReadableDate, toReadableDatePeriod } from '../../../../utils/dateUtils'

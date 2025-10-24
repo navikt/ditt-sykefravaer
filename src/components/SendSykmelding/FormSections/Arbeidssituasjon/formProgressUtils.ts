@@ -12,8 +12,8 @@ import useSykmeldinger from '../../../../hooks/useSykmeldinger'
 import { toDate } from '../../../../utils/dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
-import { Sykmelding } from '../../../../types/sykmelding'
-import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
+import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { Arbeidsgiver } from '../../../../hooks/useBrukerinformasjonById'
 
 type UseDynamicSubSections = {

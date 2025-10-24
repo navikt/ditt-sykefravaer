@@ -1,7 +1,7 @@
 import { BandageIcon } from '@navikt/aksel-icons'
 import { ReactElement } from 'react'
 
-import { MedisinskVurdering } from '../../../../types/sykmelding'
+import { MedisinskVurdering } from '../../../../types/sykmelding/sykmelding'
 import { SykmeldingGroup } from '../../../molecules/sykmelding/SykmeldingGroup'
 import { SykmeldingSladd } from '../../../molecules/sykmelding/SykmeldingInfo'
 

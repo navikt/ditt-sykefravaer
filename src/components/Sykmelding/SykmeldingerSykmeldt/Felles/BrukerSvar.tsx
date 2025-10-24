@@ -12,7 +12,7 @@ import useBrukerInformasjonById from '../../../../hooks/useBrukerinformasjonById
 import { logAmplitudeEvent } from '../../../amplitude/amplitude'
 import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeidsgivereById'
 import useErUtenforVentetid from '../../../../hooks/useErUtenforVentetid'
-import { BrukerSvar, JaEllerNei } from '../../../../types/sykmeldingBrukerSvar'
+import { BrukerSvar, JaEllerNei } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
 import { mapFormValuesToBrukerSvar, mapFrilanserFormValuesToBrukerSvar, SporsmaltekstMetadata } from './BrukerSvarUtils'
 

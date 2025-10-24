@@ -1,6 +1,6 @@
-import { StatusEvent } from '../../../types/sykmelding'
-import { ArbeidssituasjonType, Blad, LottOgHyre } from '../../../types/sykmeldingCommon'
-import { JaEllerNei, UriktigeOpplysningerType } from '../../../types/sykmeldingBrukerSvar'
+import { StatusEvent } from '../../../types/sykmelding/sykmelding'
+import { ArbeidssituasjonType, Blad, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
+import { JaEllerNei, UriktigeOpplysningerType } from '../../../types/sykmelding/sykmeldingBrukerSvar'
 
 export interface ArbeidsgiverStatus {
     orgnummer: string

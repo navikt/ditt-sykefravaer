@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { MeldingTilNav } from '../../../../types/sykmelding'
+import { MeldingTilNav } from '../../../../types/sykmelding/sykmelding'
 
 import MeldingTilNavView from './MeldingTilNav'
 

@@ -5,7 +5,7 @@ import { PrinterSmallIcon } from '@navikt/aksel-icons'
 import { toReadableDate } from '../../../utils/dateUtils'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { basePath } from '../../../utils/environment'
-import { Sykmelding } from '../../../types/sykmelding'
+import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 
 import SykmeldingSykmeldtUtenlandsk from './SykmeldingSykmeldtUtenlandsk'
 import SykmeldingSykmeldt from './SykmeldingSykmeldt'

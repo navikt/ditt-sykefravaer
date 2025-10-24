@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert, Detail, Heading } from '@navikt/ds-react'
 
-import { Sykmelding } from '../../../../types/sykmelding'
+import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import { toReadableDate } from '../../../../utils/dateUtils'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 

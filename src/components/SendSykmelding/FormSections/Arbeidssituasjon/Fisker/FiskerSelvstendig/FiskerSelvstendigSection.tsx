@@ -2,7 +2,7 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, Skeleton } from '@navikt/ds-react'
 
-import { Sykmelding } from '../../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../../types/sykmelding/sykmelding'
 import HarBruktEgenmeldingsPerioderField from '../../Frilanser/HarBruktEgenmeldingsPerioderField'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../../SendSykmeldingForm'
@@ -10,7 +10,7 @@ import HarForsikringField from '../../Frilanser/HarForsikringField'
 import FrilanserEgenmeldingPerioderField from '../../Frilanser/FrilanserEgenmeldingPerioderField'
 import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
 import useErUtenforVentetid from '../../../../../../hooks/useErUtenforVentetid'
-import { YesOrNo } from '../../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../../types/sykmelding/sykmeldingCommon'
 
 interface Props {
     sykmelding: Sykmelding

@@ -2,11 +2,11 @@ import React, { ReactElement } from 'react'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 import { useFormContext } from 'react-hook-form'
 
-import { Sykmelding } from '../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
 
 import FlereArbeidsgivereField from './FlereArbeidsgivereField'

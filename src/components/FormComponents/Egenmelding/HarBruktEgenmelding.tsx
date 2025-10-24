@@ -7,7 +7,7 @@ import { sporsmal } from '../../../utils/sporsmal'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
 import YesNoField from '../YesNoField/YesNoField'
 import { QuestionWrapper } from '../FormStructure'
-import { YesOrNo } from '../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 

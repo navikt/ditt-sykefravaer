@@ -8,9 +8,9 @@ import {
     RegelStatus,
     StatusEvent,
     Sykmelding,
-} from '../../types/sykmelding'
-import { ArbeidssituasjonType } from '../../types/sykmeldingCommon'
-import { JaEllerNei } from '../../types/sykmeldingBrukerSvar'
+} from '../../types/sykmelding/sykmelding'
+import { ArbeidssituasjonType } from '../../types/sykmelding/sykmeldingCommon'
+import { JaEllerNei } from '../../types/sykmelding/sykmeldingBrukerSvar'
 import { dateAdd, dateSub } from '../dateUtils'
 import { sporsmal } from '../sporsmal'
 import { testDato } from '../../data/mock/mock-db/data-creators'

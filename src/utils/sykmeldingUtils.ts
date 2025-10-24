@@ -1,6 +1,6 @@
 import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
 
-import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding'
+import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'

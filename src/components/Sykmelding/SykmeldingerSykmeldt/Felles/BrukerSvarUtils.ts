@@ -1,10 +1,10 @@
-import { ArbeidssituasjonType } from '../../../../types/sykmeldingCommon'
+import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { sporsmal } from '../../../../utils/sporsmal'
 import { yesOrNoToJaEllerNei } from '../../../../server/sendSykmeldingMapping'
 import { raise } from '../../../../utils/ts-utils'
 import { mapToSendSykmeldingValues } from '../../../../utils/toSendSykmeldingUtils'
-import { BrukerSvar } from '../../../../types/sykmeldingBrukerSvar'
+import { BrukerSvar } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
 export type SporsmaltekstMetadata = {
     sykmeldingId: string

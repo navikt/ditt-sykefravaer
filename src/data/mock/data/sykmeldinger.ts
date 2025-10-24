@@ -1,7 +1,7 @@
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../../types/dittSykefravaerSykmelding'
-import { StatusEvent, RegelStatus } from '../../../types/sykmelding'
+import { StatusEvent, RegelStatus } from '../../../types/sykmelding/sykmelding'
 
 export const nySykmelding: DittSykefravaerSykmelding = {
     id: 'id-apen-sykmelding',

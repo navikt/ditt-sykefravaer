@@ -1,6 +1,10 @@
 import { describe, it, expect } from 'vitest'
 
-import { AktivitetIkkeMuligPeriode, ArbeidsrelatertArsakType, MedisinskArsakType } from '../../../../types/sykmelding'
+import {
+    AktivitetIkkeMuligPeriode,
+    ArbeidsrelatertArsakType,
+    MedisinskArsakType,
+} from '../../../../types/sykmelding/sykmelding'
 import { render, screen } from '../../../../utils/test/testUtils'
 
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'

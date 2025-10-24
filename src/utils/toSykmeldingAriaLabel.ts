@@ -1,6 +1,6 @@
 import * as R from 'remeda'
 
-import { Periode, Periodetype, Sykmelding } from '../types/sykmelding'
+import { Periode, Periodetype, Sykmelding } from '../types/sykmelding/sykmelding'
 
 import { getSykmeldingTitle } from './sykmeldingUtils'
 

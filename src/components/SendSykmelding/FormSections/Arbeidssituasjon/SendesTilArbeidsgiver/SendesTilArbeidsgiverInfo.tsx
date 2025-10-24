@@ -1,7 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { Sykmelding } from '../../../../../types/sykmelding'
+import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../../Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { toDateString } from '../../../../../utils/dateUtils'

@@ -1,7 +1,14 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Merknad, Merknadtype, Periode, Periodetype, StatusEvent, SykmeldingStatus } from '../../types/sykmelding'
+import {
+    Merknad,
+    Merknadtype,
+    Periode,
+    Periodetype,
+    StatusEvent,
+    SykmeldingStatus,
+} from '../../types/sykmelding/sykmelding'
 
 import StatusInfo from './StatusInfo'
 

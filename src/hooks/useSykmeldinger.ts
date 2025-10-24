@@ -2,7 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query'
 import { useRouter } from 'next/router'
 
 import { fetchJsonMedRequestId } from '../utils/fetch'
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 import { isMockBackend } from '../utils/environment'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'

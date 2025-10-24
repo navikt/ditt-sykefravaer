@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, ReadMore } from '@navikt/ds-react'
 
-import { YesOrNo } from '../../../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'

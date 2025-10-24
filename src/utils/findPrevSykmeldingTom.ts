@@ -1,7 +1,7 @@
 import { closestTo, isBefore, isSameDay, isWithinInterval } from 'date-fns'
 import { intersection } from 'remeda'
 
-import { Periodetype, Sykmelding } from '../types/sykmelding'
+import { Periodetype, Sykmelding } from '../types/sykmelding/sykmelding'
 
 import { toDate } from './dateUtils'
 import { getSykmeldingEndDate, getSykmeldingStartDate, isSendtSykmelding, isValidRange } from './sykmeldingUtils'

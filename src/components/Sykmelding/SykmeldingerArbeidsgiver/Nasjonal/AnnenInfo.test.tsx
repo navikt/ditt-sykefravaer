@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 
-import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../../../../types/sykmelding'
+import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../../../../types/sykmelding/sykmelding'
 
 import AnnenInfo from './AnnenInfo'
 

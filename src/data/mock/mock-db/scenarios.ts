@@ -1,4 +1,4 @@
-import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../../../types/sykmelding'
+import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 
 import { SykmeldingBuilder } from './data-creators'

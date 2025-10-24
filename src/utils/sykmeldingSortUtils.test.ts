@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 
-import { StatusEvent, SykmeldingStatus } from '../types/sykmelding'
+import { StatusEvent, SykmeldingStatus } from '../types/sykmelding/sykmelding'
 
 import { sortSykmeldingerByArbeidsgiver } from './sykmeldingSortUtils'
 import { createSykmelding } from './test/dataUtils'

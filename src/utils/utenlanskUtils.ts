@@ -1,4 +1,4 @@
-import { Sykmelding } from '../types/sykmelding'
+import { Sykmelding } from '../types/sykmelding/sykmelding'
 
 export type UtenlandskSykmelding = Omit<Sykmelding, 'utenlandskSykmelding'> & {
     readonly utenlandskSykmelding: NonNullable<Sykmelding['utenlandskSykmelding']>

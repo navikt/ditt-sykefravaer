@@ -9,7 +9,7 @@ import {
     SykmeldingInfoSubGroup,
     SykmeldingListInfo,
 } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { AktivitetIkkeMuligPeriode } from '../../../../types/sykmelding'
+import { AktivitetIkkeMuligPeriode } from '../../../../types/sykmelding/sykmelding'
 
 interface Props {
     aktivitetIkkeMulig: AktivitetIkkeMuligPeriode

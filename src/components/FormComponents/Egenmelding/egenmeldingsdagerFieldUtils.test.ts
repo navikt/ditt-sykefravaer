@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { toDate, toDateString } from '../../../utils/dateUtils'
-import { YesOrNo } from '../../../types/sykmeldingCommon'
+import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFieldUtils'
 import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'

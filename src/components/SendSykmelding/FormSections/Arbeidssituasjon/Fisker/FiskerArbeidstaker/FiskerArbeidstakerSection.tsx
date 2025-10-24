@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import { Blad, LottOgHyre } from '../../../../../../types/sykmeldingCommon'
-import { Sykmelding } from '../../../../../../types/sykmelding'
+import { Blad, LottOgHyre } from '../../../../../../types/sykmelding/sykmeldingCommon'
+import { Sykmelding } from '../../../../../../types/sykmelding/sykmelding'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'
 import ArbeidsgivereFiskerMissingInfo from '../../Arbeidsgiver/ArbeidsgivereFiskerMissingInfo'
