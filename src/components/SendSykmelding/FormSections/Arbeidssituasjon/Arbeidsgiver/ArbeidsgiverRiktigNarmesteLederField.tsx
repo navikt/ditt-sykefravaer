@@ -2,15 +2,15 @@ import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, ReadMore } from '@navikt/ds-react'
 
-import { NaermesteLederFragment } from '../../../../../fetching/graphql.generated'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
 import { FormValues } from '../../../SendSykmeldingForm'
+import { NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
 
 interface Props {
-    narmesteLeder: NaermesteLederFragment
+    narmesteLeder: NaermesteLeder
 }
 
 function ArbeidsgiverRiktigNarmesteLederField({ narmesteLeder }: Props): ReactElement {

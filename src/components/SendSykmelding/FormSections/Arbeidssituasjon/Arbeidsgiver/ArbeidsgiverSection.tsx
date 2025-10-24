@@ -1,7 +1,6 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { NaermesteLederFragment } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
@@ -14,7 +13,7 @@ import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeids
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
-import { Arbeidsgiver, BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver, BrukerinformasjonFragment, NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'
@@ -86,7 +85,7 @@ function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement
 }
 
 function useArbeidsgiverSubSections(arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']): {
-    hasAktiv: { narmesteleder: NaermesteLederFragment } | null
+    hasAktiv: { narmesteleder: NaermesteLeder } | null
     shouldShowEgenmeldingsdager: { arbeidsgiverNavn: string } | null
 } {
     const { watch } = useFormContext<FormValues>()

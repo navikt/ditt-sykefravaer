@@ -522,5 +522,3 @@ export enum YesOrNo {
     NO = 'NO',
     YES = 'YES',
 }
-
-export type NaermesteLederFragment = { readonly __typename: 'NaermesteLeder'; readonly navn: string }
