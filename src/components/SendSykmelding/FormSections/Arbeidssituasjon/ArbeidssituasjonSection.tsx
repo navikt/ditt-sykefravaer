@@ -10,7 +10,7 @@ import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../..
 import { FormValues } from '../../SendSykmeldingForm'
 import Spinner from '../../../Spinner/Spinner'
 import useTidligereArbeidsgivereById from '../../../../hooks/useTidligereArbeidsgivereById'
-import { BrukerinformasjonFragment } from '../../../../hooks/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../hooks/useBrukerinformasjonById'
 
 import { ArbeidssituasjonInfo } from './ArbeidssituasjonInfo'
 import ArbeidssituasjonField from './ArbeidssituasjonField'
@@ -22,7 +22,7 @@ import AnsattArbeidstakerSection from './Arbeidsgiver/AnsattArbeidstakerSection'
 
 interface Props {
     sykmelding: Sykmelding
-    brukerinformasjon: BrukerinformasjonFragment
+    brukerinformasjon: Brukerinformasjon
 }
 
 function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): ReactElement | null {

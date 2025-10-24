@@ -7,14 +7,14 @@ import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
-import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
 
 import FlereArbeidsgivereField from './FlereArbeidsgivereField'
 import FlereArbeidsgivereInfo from './FlereArbeidsgivereInfo'
 
 interface Props {
     sykmelding: Sykmelding
-    arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
+    arbeidsgivere: Arbeidsgiver[]
 }
 
 function FlereArbeidsgivereSection({ sykmelding, arbeidsgivere }: Props): ReactElement | null {

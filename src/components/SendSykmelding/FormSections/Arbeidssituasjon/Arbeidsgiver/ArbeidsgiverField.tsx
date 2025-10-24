@@ -6,10 +6,10 @@ import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { ArbeidssituasjonType } from '../../../../../types/sykmeldingCommon'
-import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
 
 interface Props {
-    arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
+    arbeidsgivere: Arbeidsgiver[]
 }
 
 export const missingAgError = 'For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra.'

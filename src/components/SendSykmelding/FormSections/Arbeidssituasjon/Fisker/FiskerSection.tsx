@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import { Sykmelding } from '../../../../../types/sykmelding'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../../hooks/useBrukerinformasjonById'
 
 import BladField from './BladField'
 import LottOgHyreField from './LottOgHyreField'
@@ -13,7 +13,7 @@ import FiskerSelvstendigSection from './FiskerSelvstendig/FiskerSelvstendigSecti
 
 type Props = {
     sykmelding: Sykmelding
-    brukerinformasjon: BrukerinformasjonFragment
+    brukerinformasjon: Brukerinformasjon
 }
 
 /**

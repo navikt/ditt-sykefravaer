@@ -5,11 +5,11 @@ import { Sykmelding } from '../../../../../../types/sykmelding'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'
 import ArbeidsgivereFiskerMissingInfo from '../../Arbeidsgiver/ArbeidsgivereFiskerMissingInfo'
-import { BrukerinformasjonFragment } from '../../../../../../hooks/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../../../hooks/useBrukerinformasjonById'
 
 interface Props {
     sykmelding: Sykmelding
-    brukerinformasjon: BrukerinformasjonFragment
+    brukerinformasjon: Brukerinformasjon
     metadata: {
         blad: Blad | null
         lottOgHyre: LottOgHyre | null

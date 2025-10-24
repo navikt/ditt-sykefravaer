@@ -13,7 +13,7 @@ import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeids
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
-import { Arbeidsgiver, BrukerinformasjonFragment, NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver, NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'
@@ -21,7 +21,7 @@ import FlereArbeidsgivereSection from './FlereArbeidsgivereSection'
 
 type Props = {
     sykmelding: Sykmelding
-    arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']
+    arbeidsgivere: Arbeidsgiver[]
 }
 
 function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement | null {
@@ -84,7 +84,7 @@ function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement
     )
 }
 
-function useArbeidsgiverSubSections(arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']): {
+function useArbeidsgiverSubSections(arbeidsgivere: Arbeidsgiver[]): {
     hasAktiv: { narmesteleder: NaermesteLeder } | null
     shouldShowEgenmeldingsdager: { arbeidsgiverNavn: string } | null
 } {

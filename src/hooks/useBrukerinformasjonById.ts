@@ -15,10 +15,7 @@ export type Arbeidsgiver = {
     readonly orgnummer: string
 }
 export type Brukerinformasjon = {
-    readonly arbeidsgivere: ReadonlyArray<Arbeidsgiver>
-}
-export type BrukerinformasjonFragment = {
-    readonly arbeidsgivere: ReadonlyArray<Arbeidsgiver>
+    readonly arbeidsgivere: Arbeidsgiver[]
 }
 
 export default function useBrukerInformasjonById(sykmeldingId: string) {
