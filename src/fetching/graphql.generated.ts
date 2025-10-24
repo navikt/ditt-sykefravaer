@@ -1,20 +1,38 @@
 /* eslint-disable */
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
 
-export type Scalars = {
-    ID: { input: string; output: string }
-    String: { input: string; output: string }
-    Boolean: { input: boolean; output: boolean }
-    Int: { input: number; output: number }
-    Float: { input: number; output: number }
-    Date: { input: string; output: string }
-    DateTime: { input: string; output: string }
-    JSON: { input: unknown; output: unknown }
+export enum Blad {
+    A = 'A',
+    B = 'B',
+}
+
+export type FiskerInput = {
+    readonly blad?: Blad | null
+    readonly lottOgHyre?: LottOgHyre | null
+}
+
+export enum LottOgHyre {
+    BEGGE = 'BEGGE',
+    HYRE = 'HYRE',
+    LOTT = 'LOTT',
+}
+
+export type SendSykmeldingValues = {
+    readonly arbeidsgiverOrgnummer?: string | null
+    readonly arbeidsledig?: ArbeidsledigInput | null
+    readonly arbeidssituasjon?: ArbeidssituasjonType | null
+    readonly egenmeldingsdager?: readonly string[] | null
+    readonly egenmeldingsperioder?: readonly DateRange[] | null
+    readonly erOpplysningeneRiktige?: YesOrNo | null
+    readonly fisker?: FiskerInput | null
+    readonly harBruktEgenmelding?: YesOrNo | null
+    readonly harEgenmeldingsdager?: YesOrNo | null
+    readonly harForsikring?: YesOrNo | null
+    readonly riktigNarmesteLeder?: YesOrNo | null
+    readonly uriktigeOpplysninger?: readonly UriktigeOpplysningerType[] | null
 }
 
 export type ArbeidsledigInput = {
-    readonly arbeidsledigFraOrgnummer?: InputMaybe<Scalars['String']['input']>
+    readonly arbeidsledigFraOrgnummer?: string | null
 }
 
 export enum ArbeidssituasjonType {
@@ -28,40 +46,9 @@ export enum ArbeidssituasjonType {
     PERMITTERT = 'PERMITTERT',
 }
 
-export enum Blad {
-    A = 'A',
-    B = 'B',
-}
-
 export type DateRange = {
-    readonly fom?: InputMaybe<Scalars['Date']['input']>
-    readonly tom?: InputMaybe<Scalars['Date']['input']>
-}
-
-export type FiskerInput = {
-    readonly blad?: InputMaybe<Blad>
-    readonly lottOgHyre?: InputMaybe<LottOgHyre>
-}
-
-export enum LottOgHyre {
-    BEGGE = 'BEGGE',
-    HYRE = 'HYRE',
-    LOTT = 'LOTT',
-}
-
-export type SendSykmeldingValues = {
-    readonly arbeidsgiverOrgnummer?: InputMaybe<Scalars['String']['input']>
-    readonly arbeidsledig?: InputMaybe<ArbeidsledigInput>
-    readonly arbeidssituasjon?: InputMaybe<ArbeidssituasjonType>
-    readonly egenmeldingsdager?: InputMaybe<ReadonlyArray<Scalars['Date']['input']>>
-    readonly egenmeldingsperioder?: InputMaybe<ReadonlyArray<DateRange>>
-    readonly erOpplysningeneRiktige?: InputMaybe<YesOrNo>
-    readonly fisker?: InputMaybe<FiskerInput>
-    readonly harBruktEgenmelding?: InputMaybe<YesOrNo>
-    readonly harEgenmeldingsdager?: InputMaybe<YesOrNo>
-    readonly harForsikring?: InputMaybe<YesOrNo>
-    readonly riktigNarmesteLeder?: InputMaybe<YesOrNo>
-    readonly uriktigeOpplysninger?: InputMaybe<ReadonlyArray<UriktigeOpplysningerType>>
+    readonly fom?: string | null
+    readonly tom?: string | null
 }
 
 export enum UriktigeOpplysningerType {
