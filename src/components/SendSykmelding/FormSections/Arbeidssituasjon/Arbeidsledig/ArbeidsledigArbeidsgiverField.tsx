@@ -7,13 +7,10 @@ import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/Form
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { logAmplitudeEvent } from '../../../../amplitude/amplitude'
-import {
-    TidligereArbeidsgiver,
-    TidligereArbeidsgivereArray,
-} from '../../../../../types/sykmelding/tidligereArbeidsgiver'
+import { TidligereArbeidsgiver } from '../../../../../types/sykmelding/tidligereArbeidsgiver'
 
 interface Props {
-    arbeidsgivere: TidligereArbeidsgivereArray
+    arbeidsgivere: TidligereArbeidsgiver[]
 }
 
 function ArbeidsledigArbeidsgiverField({ arbeidsgivere }: Props): ReactElement | null {

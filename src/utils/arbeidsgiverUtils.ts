@@ -1,5 +1,5 @@
 import { Arbeidsgiver } from '../types/sykmelding/brukerinformasjon'
-import { TidligereArbeidsgivereArray } from '../types/sykmelding/tidligereArbeidsgiver'
+import { TidligereArbeidsgiver } from '../types/sykmelding/tidligereArbeidsgiver'
 
 import { prettifyOrgName } from './orgUtils'
 
@@ -10,9 +10,7 @@ export function findValgtArbeidsgiver(
     return arbeidsgivere.find((arbeidsgiver) => arbeidsgiver.orgnummer === orgnummer)
 }
 
-export function deduplisterteArbeidsgivere(
-    tidligereArbeidsgivere: TidligereArbeidsgivereArray,
-): TidligereArbeidsgivereArray {
+export function deduplisterteArbeidsgivere(tidligereArbeidsgivere: TidligereArbeidsgiver[]): TidligereArbeidsgiver[] {
     const seen = new Set()
     return tidligereArbeidsgivere
         .map((arbeidsgiver) => ({
