@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
-import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
+import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
 
 import ArbeidsgivereMissingInfo from './ArbeidsgivereMissingInfo'
 import ArbeidsgiverSection from './ArbeidsgiverSection'

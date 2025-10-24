@@ -1,11 +1,7 @@
 import { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import {
-    Arbeidsgiver,
-    BrukerinformasjonFragment,
-    NaermesteLederFragment,
-} from '../../../../../fetching/graphql.generated'
+import { NaermesteLederFragment } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
@@ -18,6 +14,7 @@ import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeids
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmeldingCommon'
 import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
+import { Arbeidsgiver, BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'

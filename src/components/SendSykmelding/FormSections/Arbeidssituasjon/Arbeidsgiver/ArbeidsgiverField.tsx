@@ -5,8 +5,8 @@ import { useController } from 'react-hook-form'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
 import { ArbeidssituasjonType } from '../../../../../types/sykmeldingCommon'
+import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
 
 interface Props {
     arbeidsgivere: BrukerinformasjonFragment['arbeidsgivere']

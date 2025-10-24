@@ -1,10 +1,10 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { BrukerinformasjonFragment } from '../../../../../fetching/graphql.generated'
 import { Sykmelding } from '../../../../../types/sykmelding'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
+import { BrukerinformasjonFragment } from '../../../../../hooks/useBrukerinformasjonById'
 
 import BladField from './BladField'
 import LottOgHyreField from './LottOgHyreField'
