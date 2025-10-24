@@ -1,7 +1,7 @@
-import { SendSykmeldingValues } from '../fetching/graphql.generated'
 import { Blad, LottOgHyre, ArbeidssituasjonType, YesOrNo } from '../types/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { EgenmeldingsdagerFormValue } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
+import { SendSykmeldingValues } from '../server/api-models/SendSykmeldingValues'
 
 import { toDateString } from './dateUtils'
 
