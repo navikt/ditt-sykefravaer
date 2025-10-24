@@ -34,10 +34,7 @@ export interface FormValues extends EgenmeldingsdagerSubForm {
     harBruktEgenmelding: YesOrNo | null
     egenmeldingsperioder: { fom: Date | null; tom: Date | null }[] | null
     harForsikring: YesOrNo | null
-    fisker: {
-        blad: Blad | null
-        lottOgHyre: LottOgHyre | null
-    }
+    fisker: FiskerFormValues
     extra: {
         annetSituasjon: string | null
     } | null
@@ -45,6 +42,11 @@ export interface FormValues extends EgenmeldingsdagerSubForm {
         arbeidsledigFraOrgnummer: string | null
     } | null
     erSykmeldtFraFlereArbeidsforhold: YesOrNo | null
+}
+
+export interface FiskerFormValues {
+    blad: Blad | null
+    lottOgHyre: LottOgHyre | null
 }
 
 interface Props {

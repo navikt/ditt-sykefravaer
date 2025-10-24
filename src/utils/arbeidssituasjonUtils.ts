@@ -1,9 +1,9 @@
-import { FiskerInput } from '../fetching/graphql.generated'
 import { ArbeidssituasjonType } from '../types/sykmeldingCommon'
+import { FiskerFormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 
 export const isArbeidstaker = (
     arbeidssituasjon?: ArbeidssituasjonType | null,
-    fisker?: FiskerInput | null,
+    fisker?: FiskerFormValues | null,
 ): boolean => {
     switch (arbeidssituasjon) {
         case ArbeidssituasjonType.ARBEIDSTAKER:

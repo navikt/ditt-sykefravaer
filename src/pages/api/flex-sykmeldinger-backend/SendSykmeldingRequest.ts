@@ -5,13 +5,13 @@ import { requestOboToken } from '@navikt/oasis'
 
 import { isValidSykmeldingId } from 'src/utils/sykmeldingUtils'
 
-import { SendSykmeldingValues } from '../../../fetching/graphql.generated'
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
+import { SendSykmeldingValues } from '../../../server/api-models/SendSykmeldingValues'
 const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
