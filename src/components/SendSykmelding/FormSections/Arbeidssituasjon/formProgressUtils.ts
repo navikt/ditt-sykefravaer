@@ -14,7 +14,7 @@ import { getSykmeldingEndDate, getSykmeldingStartDate } from '../../../../utils/
 import { EgenmeldingsdagerFormValue } from '../../../FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
-import { Arbeidsgiver } from '../../../../hooks/sykmelding/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../types/sykmelding/brukerinformasjon'
 
 type UseDynamicSubSections = {
     shouldShowArbeidsgiverOrgnummer: boolean

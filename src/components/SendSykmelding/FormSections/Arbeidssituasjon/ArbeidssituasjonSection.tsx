@@ -10,7 +10,7 @@ import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../..
 import { FormValues } from '../../SendSykmeldingForm'
 import Spinner from '../../../Spinner/Spinner'
 import useTidligereArbeidsgivereById from '../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
-import { Brukerinformasjon } from '../../../../hooks/sykmelding/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../types/sykmelding/brukerinformasjon'
 
 import { ArbeidssituasjonInfo } from './ArbeidssituasjonInfo'
 import ArbeidssituasjonField from './ArbeidssituasjonField'

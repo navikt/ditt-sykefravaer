@@ -1,5 +1,5 @@
 import { TidligereArbeidsgivereArray } from '../hooks/sykmelding/useTidligereArbeidsgivereById'
-import { Arbeidsgiver } from '../hooks/sykmelding/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../types/sykmelding/brukerinformasjon'
 
 import { prettifyOrgName } from './orgUtils'
 

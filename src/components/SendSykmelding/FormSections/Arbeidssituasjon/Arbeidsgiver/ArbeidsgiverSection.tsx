@@ -13,7 +13,7 @@ import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeids
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import useSykmeldinger from '../../../../../hooks/sykmelding/useSykmeldinger'
-import { Arbeidsgiver, NaermesteLeder } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
+import { Arbeidsgiver, NaermesteLeder } from '../../../../../types/sykmelding/brukerinformasjon'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'

@@ -3,19 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchJsonMedRequestId } from '../../utils/fetch'
 import { prettifyOrgName } from '../../utils/orgUtils'
 import { UseTestpersonQuery } from '../useTestpersonQuery'
-
-export type NaermesteLeder = {
-    readonly navn: string
-}
-export type Arbeidsgiver = {
-    readonly aktivtArbeidsforhold: boolean
-    readonly naermesteLeder?: NaermesteLeder | null
-    navn: string
-    readonly orgnummer: string
-}
-export type Brukerinformasjon = {
-    readonly arbeidsgivere: Arbeidsgiver[]
-}
+import { Brukerinformasjon } from '../../types/sykmelding/brukerinformasjon'
 
 export default function useBrukerInformasjonById(sykmeldingId: string) {
     const testpersonQuery = UseTestpersonQuery()

@@ -7,7 +7,7 @@ import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { NaermesteLeder } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
+import { NaermesteLeder } from '../../../../../types/sykmelding/brukerinformasjon'
 
 interface Props {
     narmesteLeder: NaermesteLeder

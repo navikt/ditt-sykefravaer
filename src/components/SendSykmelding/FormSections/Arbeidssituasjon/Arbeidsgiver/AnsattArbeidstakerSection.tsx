@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react'
 
 import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
-import { Arbeidsgiver } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../../types/sykmelding/brukerinformasjon'
 
 import ArbeidsgivereMissingInfo from './ArbeidsgivereMissingInfo'
 import ArbeidsgiverSection from './ArbeidsgiverSection'
