@@ -7,7 +7,7 @@ import { FormValues } from '../../../SendSykmeldingForm'
 import Spinner from '../../../../Spinner/Spinner'
 import { useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
-import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
 
 import FlereArbeidsgivereField from './FlereArbeidsgivereField'
 import FlereArbeidsgivereInfo from './FlereArbeidsgivereInfo'

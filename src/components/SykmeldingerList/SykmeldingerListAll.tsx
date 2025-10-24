@@ -7,7 +7,7 @@ import useFocusRefetch from '../../hooks/useFocusRefetch'
 import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'
 import { InfoOmDigitalSykmelding, SerIkkeSykmelding } from '../InfoOmDigitalSykmelding/InfoOmDigitalSykmelding'
 import { isActiveSykmelding, isUnderbehandling } from '../../utils/sykmeldingUtils'
-import useSykmeldinger from '../../hooks/useSykmeldinger'
+import useSykmeldinger from '../../hooks/sykmelding/useSykmeldinger'
 import { Sykmelding } from '../../types/sykmelding/sykmelding'
 
 import { SykmeldingerListSkeleton } from './SykmeldingerSkeletons'

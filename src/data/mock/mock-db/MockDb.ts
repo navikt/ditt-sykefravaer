@@ -7,8 +7,8 @@ import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStat
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
-import { SykmeldingChangeStatus } from '../../../hooks/useChangeSykmeldingStatus'
 import { SendSykmeldingValues } from '../../../server/api-models/SendSykmeldingValues'
+import { SykmeldingChangeStatus } from '../../../hooks/sykmelding/useChangeSykmeldingStatus'
 
 import { defaultArbeidsgivere } from './data-creators'
 

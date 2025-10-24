@@ -6,7 +6,7 @@ import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { ArbeidssituasjonType } from '../../../../../types/sykmelding/sykmeldingCommon'
-import { Arbeidsgiver } from '../../../../../hooks/useBrukerinformasjonById'
+import { Arbeidsgiver } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
 
 interface Props {
     arbeidsgivere: Arbeidsgiver[]

@@ -28,9 +28,9 @@ import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
 import { beskyttetSide, ServerSidePropsResult } from '../../../auth/beskyttetSide'
 import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
 import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
-import useSykmelding from '../../../hooks/useSykmelding'
+import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding/sykmelding'
-import useSykmeldinger from '../../../hooks/useSykmeldinger'
+import useSykmeldinger from '../../../hooks/sykmelding/useSykmeldinger'
 import { urlAppendPath } from '../../../utils/urlUtils'
 
 function SykmeldingPage(): ReactElement {

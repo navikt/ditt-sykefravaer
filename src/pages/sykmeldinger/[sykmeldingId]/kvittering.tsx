@@ -21,7 +21,7 @@ import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
-import useSykmelding from '../../../hooks/useSykmelding'
+import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()

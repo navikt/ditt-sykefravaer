@@ -4,7 +4,7 @@ import { useFormContext } from 'react-hook-form'
 import { Sykmelding } from '../../../../../types/sykmelding/sykmelding'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { Brukerinformasjon } from '../../../../../hooks/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
 
 import BladField from './BladField'
 import LottOgHyreField from './LottOgHyreField'

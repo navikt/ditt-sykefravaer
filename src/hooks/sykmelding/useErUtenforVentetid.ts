@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchJsonMedRequestId } from '../utils/fetch'
-
-import { UseTestpersonQuery } from './useTestpersonQuery'
+import { fetchJsonMedRequestId } from '../../utils/fetch'
+import { UseTestpersonQuery } from '../useTestpersonQuery'
 
 export default function useErUtenforVentetid(sykmeldingId: string) {
     const testpersonQuery = UseTestpersonQuery()

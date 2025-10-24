@@ -9,7 +9,7 @@ import { FormValues } from '../../../../SendSykmeldingForm'
 import HarForsikringField from '../../Frilanser/HarForsikringField'
 import FrilanserEgenmeldingPerioderField from '../../Frilanser/FrilanserEgenmeldingPerioderField'
 import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
-import useErUtenforVentetid from '../../../../../../hooks/useErUtenforVentetid'
+import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { YesOrNo } from '../../../../../../types/sykmelding/sykmeldingCommon'
 
 interface Props {

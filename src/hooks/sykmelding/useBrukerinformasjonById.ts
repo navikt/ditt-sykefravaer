@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchJsonMedRequestId } from '../utils/fetch'
-import { prettifyOrgName } from '../utils/orgUtils'
-
-import { UseTestpersonQuery } from './useTestpersonQuery'
+import { fetchJsonMedRequestId } from '../../utils/fetch'
+import { prettifyOrgName } from '../../utils/orgUtils'
+import { UseTestpersonQuery } from '../useTestpersonQuery'
 
 export type NaermesteLeder = {
     readonly navn: string

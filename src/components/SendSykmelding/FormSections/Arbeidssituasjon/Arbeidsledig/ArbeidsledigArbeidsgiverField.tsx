@@ -7,7 +7,10 @@ import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/Form
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { logAmplitudeEvent } from '../../../../amplitude/amplitude'
-import { TidligereArbeidsgiver, TidligereArbeidsgivereArray } from '../../../../../hooks/useTidligereArbeidsgivereById'
+import {
+    TidligereArbeidsgiver,
+    TidligereArbeidsgivereArray,
+} from '../../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
 
 interface Props {
     arbeidsgivere: TidligereArbeidsgivereArray

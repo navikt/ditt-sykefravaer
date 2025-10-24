@@ -12,8 +12,8 @@ import EgenmeldingerField from '../../../../FormComponents/Egenmelding/Egenmeldi
 import SendesTilArbeidsgiverInfo from '../SendesTilArbeidsgiver/SendesTilArbeidsgiverInfo'
 import { useShouldShowSendesTilArbeidsgiverInfo, useShouldShowSeveralArbeidsgivereInfo } from '../formProgressUtils'
 import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
-import useSykmeldinger from '../../../../../hooks/useSykmeldinger'
-import { Arbeidsgiver, NaermesteLeder } from '../../../../../hooks/useBrukerinformasjonById'
+import useSykmeldinger from '../../../../../hooks/sykmelding/useSykmeldinger'
+import { Arbeidsgiver, NaermesteLeder } from '../../../../../hooks/sykmelding/useBrukerinformasjonById'
 
 import ArbeidsgiverRiktigNarmesteLederField from './ArbeidsgiverRiktigNarmesteLederField'
 import ArbeidsgiverField from './ArbeidsgiverField'

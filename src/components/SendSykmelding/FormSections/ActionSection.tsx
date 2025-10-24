@@ -8,8 +8,8 @@ import { FormValues } from '../SendSykmeldingForm'
 import { QuestionWrapper } from '../../FormComponents/FormStructure'
 import { isArbeidstaker } from '../../../utils/arbeidssituasjonUtils'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
-import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../hooks/useChangeSykmeldingStatus'
-import { SendSykmeldingMutation } from '../../../hooks/useSendSykmelding'
+import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../hooks/sykmelding/useChangeSykmeldingStatus'
+import { SendSykmeldingMutation } from '../../../hooks/sykmelding/useSendSykmelding'
 
 import { getTrengerNySykmelding } from './shared/sykmeldingUtils'
 

@@ -5,7 +5,7 @@ import { Sykmelding } from '../../../../../../types/sykmelding/sykmelding'
 import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'
 import ArbeidsgivereFiskerMissingInfo from '../../Arbeidsgiver/ArbeidsgivereFiskerMissingInfo'
-import { Brukerinformasjon } from '../../../../../../hooks/useBrukerinformasjonById'
+import { Brukerinformasjon } from '../../../../../../hooks/sykmelding/useBrukerinformasjonById'
 
 interface Props {
     sykmelding: Sykmelding
