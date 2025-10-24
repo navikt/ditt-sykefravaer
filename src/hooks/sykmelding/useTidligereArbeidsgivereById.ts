@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchJsonMedRequestId } from '../../utils/fetch'
 import { prettifyOrgName } from '../../utils/orgUtils'
 import { UseTestpersonQuery } from '../useTestpersonQuery'
+import { TidligereArbeidsgivereArray } from '../../types/sykmelding/tidligereArbeidsgiver'
 
 export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
     const testpersonQuery = UseTestpersonQuery()
@@ -34,9 +35,3 @@ export default function useTidligereArbeidsgivereById(sykmeldingId: string) {
         },
     })
 }
-
-export type TidligereArbeidsgiver = {
-    readonly orgNavn: string
-    readonly orgnummer: string
-}
-export type TidligereArbeidsgivereArray = ReadonlyArray<TidligereArbeidsgiver>

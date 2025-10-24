@@ -10,7 +10,7 @@ import { logAmplitudeEvent } from '../../../../amplitude/amplitude'
 import {
     TidligereArbeidsgiver,
     TidligereArbeidsgivereArray,
-} from '../../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
+} from '../../../../../types/sykmelding/tidligereArbeidsgiver'
 
 interface Props {
     arbeidsgivere: TidligereArbeidsgivereArray
