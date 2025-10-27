@@ -91,6 +91,22 @@ const nextConfig = {
         naisAppImage: process.env.NAIS_APP_IMAGE,
         naisAppName: process.env.NAIS_APP_NAME,
     },
+    async redirects() {
+        return [
+            {
+                basePath: false,
+                source: '/syk/sykmeldinger',
+                destination: '/syk/sykefravaer/sykmeldinger',
+                permanent: true,
+            },
+            {
+                basePath: false,
+                source: '/syk/sykmeldinger/:sykmeldingId',
+                destination: '/syk/sykefravaer/sykmeldinger/:sykmeldingId',
+                permanent: true,
+            },
+        ]
+    },
 }
 
 module.exports = nextConfig
