@@ -2,6 +2,7 @@ replicas_min: 2
 replicas_max: 6
 ingresses:
   - https://www.nav.no/syk/sykefravaer
+  - https://www.nav.no/syk/sykmeldinger
 cpu: 200m
 memory: 700Mi
 sidecar_cpu: 700m
