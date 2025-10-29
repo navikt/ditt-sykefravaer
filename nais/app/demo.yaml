@@ -37,8 +37,6 @@ spec:
       value: "https://demo.ekstern.dev.nav.no/syk/sykepengesoknad"
     - name: SPINNSYN_URL
       value: "https://demo.ekstern.dev.nav.no/syk/sykepenger"
-    - name: TSM_SYKMELDING_URL
-      value: "/sykmeldinger"
     - name: AKTIVITETSPLAN_URL
       value: "https://aktivitetsplan.nav.no/"
     - name: OPPFOLGINGSPLAN_URL

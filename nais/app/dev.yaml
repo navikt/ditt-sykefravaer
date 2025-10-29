@@ -15,7 +15,6 @@ env:
   OPPLAERING: false
   SYKEPENGESOKNAD_URL: https://www.ekstern.dev.nav.no/syk/sykepengesoknad
   SPINNSYN_URL: https://www.ekstern.dev.nav.no/syk/sykepenger
-  TSM_SYKMELDING_URL: https://www.ekstern.dev.nav.no/syk/sykmeldinger
   AKTIVITETSPLAN_URL: https://aktivitetsplan.ekstern.dev.nav.no/
   OPPFOLGINGSPLAN_URL: https://www.ekstern.dev.nav.no/syk/oppfolgingsplaner/sykmeldt
   DIALOGMOTE_URL: https://www.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt
