@@ -9,7 +9,9 @@ spec:
   image: {{image}}
   port: 3000
   ingresses:
-    - {{ingress}}
+  {{#each ingresses}}
+    - {{this}}
+  {{/each}}
   replicas:
     min: {{replicas_min}}
     max: {{replicas_max}}
@@ -35,6 +37,9 @@ spec:
     sidecar:
       enabled: true
       level: Level4
+      autoLogin: true
+      autoLoginIgnorePaths:
+        - /syk/sykefravaer/api/**
       resources:
         limits:
           memory: {{sidecar_memory}}
