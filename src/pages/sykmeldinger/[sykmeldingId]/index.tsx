@@ -1,11 +1,8 @@
-import { ParsedUrlQuery } from 'querystring'
-
 import { Fragment, PropsWithChildren, ReactElement, useCallback, useEffect, useState } from 'react'
 import { Alert, BodyLong, BodyShort, GuidePanel, Heading, Link, Skeleton } from '@navikt/ds-react'
 import Head from 'next/head'
 import { logger } from '@navikt/next-logger'
 import { range } from 'remeda'
-import { GetServerSidePropsResult } from 'next'
 
 import { getReadableSykmeldingLength, getSentSykmeldingTitle, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import OkBekreftetSykmelding from '../../../components/SykmeldingViews/OK/BEKREFTET/OkBekreftetSykmelding'
@@ -25,13 +22,11 @@ import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
 import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
-import { beskyttetSide, ServerSidePropsResult } from '../../../auth/beskyttetSide'
-import { basePath, tsmSykmeldingUrl } from '../../../utils/environment'
-import { checkToggleAndReportMetrics, createFlagsClient, getFlagsServerSide } from '../../../toggles/ssr'
+import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
+import { basePath } from '../../../utils/environment'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { Sykmelding, StatusEvent } from '../../../types/sykmelding/sykmelding'
 import useSykmeldinger from '../../../hooks/sykmelding/useSykmeldinger'
-import { urlAppendPath } from '../../../utils/urlUtils'
 
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -278,41 +273,6 @@ function SykmeldingSkeleton(): ReactElement {
     )
 }
 
-export const getServerSideProps = beskyttetSide(
-    async (context): Promise<GetServerSidePropsResult<ServerSidePropsResult>> => {
-        const flags = await getFlagsServerSide(context)
-        const forceSpecificApp = checkForceSpecificAppQueryParam(context.query, 'app')
-
-        const bliHosFlexResultat = { props: { toggles: flags.toggles } }
-        const sykmeldingId = context.params?.sykmeldingId as string
-        const omrutingResultat = {
-            redirect: {
-                destination: urlAppendPath(tsmSykmeldingUrl(), `/${sykmeldingId}`),
-                permanent: false,
-            },
-        }
-
-        if (forceSpecificApp === 'flex') {
-            return bliHosFlexResultat
-        } else if (forceSpecificApp === 'tsm') {
-            return omrutingResultat
-        } else {
-            const flagsClient = createFlagsClient(flags)
-            const bliHosFlex = checkToggleAndReportMetrics(flagsClient, 'ditt-sykefravaer-sykmelding-gradvis-utrulling')
-
-            if (bliHosFlex) {
-                return bliHosFlexResultat
-            } else {
-                return omrutingResultat
-            }
-        }
-    },
-)
-
-function checkForceSpecificAppQueryParam(query: ParsedUrlQuery, param: string): 'flex' | 'tsm' | undefined {
-    const appRawQueryParam = query[param]
-    const appQueryParam = Array.isArray(appRawQueryParam) ? appRawQueryParam[0] : appRawQueryParam
-    return appQueryParam == 'flex' ? 'flex' : appQueryParam == 'tsm' ? 'tsm' : undefined
-}
+export const getServerSideProps = beskyttetSideUtenProps
 
 export default SykmeldingPage

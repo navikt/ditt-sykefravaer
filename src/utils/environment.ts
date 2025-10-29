@@ -30,10 +30,6 @@ export function spinnsynUrl() {
     return publicRuntimeConfig.spinnsynUrl
 }
 
-export function tsmSykmeldingUrl() {
-    return publicRuntimeConfig.tsmSykmeldingUrl
-}
-
 export function aktivitetsplanUrl() {
     return publicRuntimeConfig.aktivitetsplanUrl
 }
