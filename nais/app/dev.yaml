@@ -1,6 +1,8 @@
 replicas_min: 1
 replicas_max: 2
-ingress: https://www.ekstern.dev.nav.no/syk/sykefravaer
+ingresses:
+  - https://www.ekstern.dev.nav.no/syk/sykefravaer
+  - https://www.ekstern.dev.nav.no/syk/sykmeldinger
 cpu: 200m
 memory: 384Mi
 sidecar_cpu: 200m
