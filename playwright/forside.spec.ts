@@ -33,7 +33,7 @@ test.describe('Tester visning av forside', () => {
     })
 
     test('Kan trykke inn på sykmeldinger via notifikasjon (oppgave)', async ({ page }) => {
-        await page.goto('/syk/sykmeldinger?testperson=flere-nye-sykmeldinger')
+        await page.goto('/syk/sykefravaer?testperson=flere-nye-sykmeldinger')
         const sykmeldingNotifikasjon = page.getByRole('link', { name: 'Du har tre nye sykmeldinger' })
         await expect(sykmeldingNotifikasjon).toBeVisible()
         await sykmeldingNotifikasjon.click()
