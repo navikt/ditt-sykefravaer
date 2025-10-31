@@ -1,7 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { parseISO } from 'date-fns'
+import { TZDate } from '@date-fns/tz'
 
-import { diffInDays, toReadableDate, toReadableDatePeriod } from './dateUtils'
+import { diffInDays, toDate, toReadableDate, toReadableDatePeriod } from './dateUtils'
 
 describe('toReadableDate', () => {
     it('Formatterer dato riktig med årstall', () => {
@@ -37,5 +38,31 @@ describe('diffInDays', () => {
 
     it('fom/tom across year', () => {
         expect(diffInDays('2021-12-31', '2022-01-01')).toBe(2)
+    })
+})
+
+describe('toDate', () => {
+    it('burde ikke gi TZDate ved notasjon Z', () => {
+        expect(toDate('2020-01-01T00:00:00Z')).not.toBeInstanceOf(TZDate)
+    })
+    it('burde ikke gi TZDate ved notasjon +HH:MM', () => {
+        expect(toDate('2020-01-01T00:00:00+01:00')).not.toBeInstanceOf(TZDate)
+    })
+    it('burde ikke gi TZDate ved notasjon -HH:MM', () => {
+        expect(toDate('2020-01-01T00:00:00-01:00')).not.toBeInstanceOf(TZDate)
+    })
+    it('burde gi TZDate for yyyy-mm-dd', () => {
+        expect(toDate('2020-01-01')).toBeInstanceOf(TZDate)
+    })
+    it('burde gi TZDate for yyyy-mm-ddThh:mm:ss', () => {
+        expect(toDate('2020-01-01T00:00:00')).toBeInstanceOf(TZDate)
+    })
+    it('burde bruke tidssone Europe/Oslo', () => {
+        const date = toDate('2020-01-01') as TZDate
+        expect(date.timeZone).toBe('Europe/Oslo')
+    })
+    it('burde bruke spesifisert tidssone', () => {
+        const date = toDate('2020-01-01', 'America/Los_Angeles') as TZDate
+        expect(date.timeZone).toBe('America/Los_Angeles')
     })
 })
