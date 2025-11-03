@@ -25,7 +25,7 @@
         "classnames": "^2.5.1",
         "cookie": "^1.0.2",
         "date-fns": "^4.1.0",
-        "dayjs": "^1.11.18",
+        "dayjs": "^1.11.19",
         "html-react-parser": "^5.2.7",
         "next-logger": "^5.0.2",
         "nextleton": "^0.6.1",
