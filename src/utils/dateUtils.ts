@@ -68,6 +68,16 @@ export function sortDatesASC(dates: Date[]): Date[] {
     return sortBy(dates, [(date) => date, 'asc'])
 }
 
+/**
+ * Returnerer dag i måned for en dato i Oslo-tidssone.
+ * Brukes i tester for å matche applikasjonens datovisning.
+ */
+export function getDateInOsloTimezone(date: Date): number {
+    const isoString = formatISO(date, { representation: 'date' })
+    const tzDate = new TZDate(isoString, 'Europe/Oslo')
+    return getDate(tzDate)
+}
+
 function isoTimestampHasTimeZone(iso: string): boolean {
     return /([Zz]|[+-]\d{2}:\d{2})$/.test(iso)
 }

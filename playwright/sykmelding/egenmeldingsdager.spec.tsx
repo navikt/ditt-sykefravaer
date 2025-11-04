@@ -1,6 +1,6 @@
 import * as R from 'remeda'
 import { expect, Page, test } from '@playwright/test'
-import { add, format, getDate, sub } from 'date-fns'
+import { add, format, sub } from 'date-fns'
 import { nb } from 'date-fns/locale'
 
 import {
@@ -12,7 +12,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { testDato } from '../../src/data/mock/mock-db/data-creators'
-
+import { getDateInOsloTimezone } from '../../src/utils/dateUtils'
 export function selectEgenmeldingsdager({
     daysToSelect,
     initialDate,
@@ -31,8 +31,7 @@ export function selectEgenmeldingsdager({
                 page
                     .getByLabel(
                         new RegExp(
-                            `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDate(initialDate)}. `,
-                            'i',
+                            `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDateInOsloTimezone(initialDate)}. `,
                         ),
                     )
                     .last(),
@@ -50,7 +49,7 @@ export function selectEgenmeldingsdager({
             page
                 .getByLabel(
                     new RegExp(
-                        `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDate(initialDate)}. `,
+                        `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDateInOsloTimezone(initialDate)}. `,
                         'i',
                     ),
                 )

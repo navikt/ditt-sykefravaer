@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { format, getDate, sub } from 'date-fns'
+import { format, sub } from 'date-fns'
 import { nb } from 'date-fns/locale'
 
 import {
@@ -15,6 +15,7 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
 import { testDato } from '../../src/data/mock/mock-db/data-creators'
+import { getDateInOsloTimezone } from '../../src/utils/dateUtils'
 
 test.describe('Arbeidssituasjon - Arbeidsledig', () => {
     test('burde kunne sende inn skjema med arbeidssituasjon arbeidsledig, uten arbeidsgiver', async ({ page }) => {
@@ -65,7 +66,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         await page
             .getByRole('group', {
                 name: new RegExp(
-                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDate(sixteenDaysAgo)}`,
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDateInOsloTimezone(sixteenDaysAgo)}`,
                     'i',
                 ),
             })
