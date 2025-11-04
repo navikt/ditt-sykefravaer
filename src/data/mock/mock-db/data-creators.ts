@@ -1,5 +1,6 @@
 import { v4 } from 'uuid'
 import * as R from 'remeda'
+import { TZDate } from '@date-fns/tz'
 
 import {
     AnnenFraverGrunn,
@@ -18,7 +19,7 @@ import { dateAdd } from '../../../utils/dato-utils'
 import { JaEllerNei } from '../../../types/sykmelding/sykmeldingBrukerSvar'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 
-export const testDato = new Date('2025-01-01T00:00:00.000Z')
+export const testDato = new TZDate('2025-01-01', 'Europe/Oslo')
 
 export class SykmeldingBuilder {
     private readonly mottatt: string = '2020-02-01'
