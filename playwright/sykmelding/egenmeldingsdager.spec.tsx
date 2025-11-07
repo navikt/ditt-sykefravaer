@@ -1,21 +1,11 @@
-import * as R from 'remeda'
 import { expect, Page, test } from '@playwright/test'
-import { add, format, sub } from 'date-fns'
-import { nb } from 'date-fns/locale'
-import { TZDate } from '@date-fns/tz'
+import { format } from 'date-fns'
 
-import {
-    bekreftNarmesteleder,
-    filloutArbeidstaker,
-    fillOutFisker,
-    gotoScenario,
-    velgArbeidstaker,
-} from '../utils/user-actions'
+import { bekreftNarmesteleder, filloutArbeidstaker, gotoScenario } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
-import { testDato } from '../../src/data/mock/mock-db/data-creators'
 
 function egenmeldingsdagerSection(page: Page, sectionLegend: string) {
-    const section = page.locator('section').filter({ hasText: sectionLegend })
+    const section = page.getByRole('region', { name: 'Brukte du egenmelding hos' }).filter({ hasText: sectionLegend })
     return {
         svar: {
             jaButton: section.getByRole('radio', { name: /Ja/ }),
@@ -23,7 +13,7 @@ function egenmeldingsdagerSection(page: Page, sectionLegend: string) {
         },
         dagButton: (dag: string | Date) => {
             const dato = typeof dag === 'string' ? dag : format(dag, 'yyyy-MM-dd')
-            return section.locator(`[data-day="${dato}"]:not([data-hidden="true"])`).getByRole('button')
+            return section.locator(`td[data-day="${dato}"]`)
         },
         videreButton: section.getByRole('button', { name: /Videre/ }),
     }
@@ -88,12 +78,12 @@ test.describe('Egenmeldingsdager', () => {
                 ['2025-01-04', '2025-01-05'],
             )(page)
             await velgEgenmeldingsdager(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 18. - 22. desember 2024?',
                 ['2024-12-21', '2024-12-22'],
             )(page)
             await egenmeldingsdagerSection(
                 page,
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 4. - 18. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 4. - 17. desember 2024?',
             ).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(4)(page)

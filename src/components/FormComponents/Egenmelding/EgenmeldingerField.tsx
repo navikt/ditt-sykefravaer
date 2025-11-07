@@ -89,11 +89,11 @@ function EgenmeldingerField({
                 aria-labelledby={`egenmeldingsdager.${index}.harPerioder`}
                 className={cn({ 'mt-10 border-t-2 border-border-divider': index !== 0 })}
                 // Overly complex date edge case in in egenmeldingsdager.spec.tsx requires this
-                data-testid={
-                    index === allPeriods.filter((it) => it.hasClickedVidere).length
-                        ? 'last-egenmelding-section'
-                        : undefined
-                }
+                // data-testid={
+                //     index === allPeriods.filter((it) => it.hasClickedVidere).length
+                //         ? 'last-egenmelding-section'
+                //         : undefined
+                // }
             >
                 <HarBruktEgenmelding
                     index={index}
