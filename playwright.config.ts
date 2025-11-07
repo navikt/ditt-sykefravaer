@@ -83,6 +83,7 @@ export default defineConfig({
     workers: process.env.CI ? 2 : undefined,
     reporter: process.env.CI ? 'blob' : 'html',
     use: {
+        timezoneId: 'America/Los_Angeles', // Example: Set to Los Angeles timezone
         baseURL: opts.baseURL,
         navigationTimeout: 60000,
         trace: 'on-first-retry',
