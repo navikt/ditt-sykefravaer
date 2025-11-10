@@ -1,4 +1,4 @@
-import { differenceInDays, isAfter, isBefore, parseISO } from 'date-fns'
+import { differenceInDays, isAfter, isBefore } from 'date-fns'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 
@@ -9,7 +9,8 @@ export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = ne
     // Alt som ikke er APEN status, er inaktive
     if (sykmelding.sykmeldingStatus.statusEvent !== 'APEN') return false
     // APEN sykmeldinger blir inaktive etter 12 måneder
-    return differenceInDays(dagensDato, parseISO(sykmelding.mottattTidspunkt)) < 365
+    const mottattDate = toDate(sykmelding.mottattTidspunkt)
+    return differenceInDays(dagensDato, mottattDate) < 365
 }
 
 export function isUnderbehandling(sykmelding: Sykmelding): boolean {

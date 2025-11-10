@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { format, sub } from 'date-fns'
+import { format } from 'date-fns'
 import { nb } from 'date-fns/locale'
 
 import {
@@ -15,7 +15,6 @@ import {
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
 import { testDato } from '../../src/data/mock/mock-db/data-creators'
-import { getDateInOsloTimezone } from '../../src/utils/dateUtils'
 
 test.describe('Arbeidssituasjon - Arbeidsledig', () => {
     test('burde kunne sende inn skjema med arbeidssituasjon arbeidsledig, uten arbeidsgiver', async ({ page }) => {
@@ -57,18 +56,13 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .getByRole('radio', { name: /Ja/ })
             .click()
 
-        const sixteenDaysAgo = sub(testDato, { days: 16 })
-
         await page
             .getByRole('button', { name: format(testDato, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
             .click()
         await page.getByRole('button', { name: /Videre/ }).click()
         await page
             .getByRole('group', {
-                name: new RegExp(
-                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDateInOsloTimezone(sixteenDaysAgo)}`,
-                    'i',
-                ),
+                name: 'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
             })
             .getByRole('radio', { name: /Nei/ })
             .click()

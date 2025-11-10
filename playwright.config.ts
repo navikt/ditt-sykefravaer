@@ -2,9 +2,9 @@ import { defineConfig, PlaywrightTestConfig } from '@playwright/test'
 
 import {
     commonBrowserConfigs,
-    velgBrowserConfigs,
     type NamedProject,
     Nettlesernavn,
+    velgBrowserConfigs,
 } from './playwright/config/browser-config'
 
 type TestConfigWebServer = PlaywrightTestConfig['webServer']
@@ -76,14 +76,13 @@ const ciBrowserConfigs = velgBrowserConfigs(
 
 export default defineConfig({
     testDir: './playwright',
-    timeout: 30000,
+    timeout: 10000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: 1,
     workers: process.env.CI ? 2 : undefined,
     reporter: process.env.CI ? 'blob' : 'html',
     use: {
-        timezoneId: 'America/Los_Angeles', // Example: Set to Los Angeles timezone
         baseURL: opts.baseURL,
         navigationTimeout: 60000,
         trace: 'on-first-retry',

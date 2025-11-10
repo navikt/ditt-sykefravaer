@@ -1,8 +1,7 @@
 import { BodyLong, Link, ReadMore } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
-import { differenceInDays } from 'date-fns'
 
-import { toReadableDatePeriod } from '../../../utils/dateUtils'
+import { diffInDays, toDateString, toReadableDatePeriod } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
 import { logAmplitudeEvent } from '../../amplitude/amplitude'
 import YesNoField from '../YesNoField/YesNoField'
@@ -29,7 +28,7 @@ function HarBruktEgenmelding({
     amplitudeSkjemanavn,
 }: Props): ReactElement {
     const period: string = toReadableDatePeriod(lastPossibleDate, firstPossibleDate)
-    const periodLength: number = differenceInDays(firstPossibleDate, lastPossibleDate) + 1
+    const periodLength: number = diffInDays(toDateString(lastPossibleDate), toDateString(firstPossibleDate))
 
     return (
         <QuestionWrapper>

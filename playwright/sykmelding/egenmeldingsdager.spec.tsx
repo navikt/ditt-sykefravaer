@@ -1,5 +1,4 @@
 import { expect, Page, test } from '@playwright/test'
-import { format } from 'date-fns'
 
 import { bekreftNarmesteleder, filloutArbeidstaker, gotoScenario } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
@@ -11,15 +10,14 @@ function egenmeldingsdagerSection(page: Page, sectionLegend: string) {
             jaButton: section.getByRole('radio', { name: /Ja/ }),
             neiButton: section.getByRole('radio', { name: /Nei/ }),
         },
-        dagButton: (dag: string | Date) => {
-            const dato = typeof dag === 'string' ? dag : format(dag, 'yyyy-MM-dd')
-            return section.locator(`td[data-day="${dato}"]`)
+        dagButton: (dag: string) => {
+            return section.locator(`td[data-day="${dag}"]`)
         },
         videreButton: section.getByRole('button', { name: /Videre/ }),
     }
 }
 
-function velgEgenmeldingsdager(sectionLegend: string, dager: (string | Date)[]) {
+function velgEgenmeldingsdager(sectionLegend: string, dager: string[]) {
     return async (page: Page): Promise<void> => {
         const egenmeldingsdager = egenmeldingsdagerSection(page, sectionLegend)
         await egenmeldingsdager.svar.jaButton.click()
@@ -43,7 +41,7 @@ test.describe('Egenmeldingsdager', () => {
             )(page)
             await egenmeldingsdagerSection(
                 page,
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
             ).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
@@ -78,12 +76,12 @@ test.describe('Egenmeldingsdager', () => {
                 ['2025-01-04', '2025-01-05'],
             )(page)
             await velgEgenmeldingsdager(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 18. - 22. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
                 ['2024-12-21', '2024-12-22'],
             )(page)
             await egenmeldingsdagerSection(
                 page,
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 4. - 17. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 18. desember 2024?',
             ).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(4)(page)
@@ -121,17 +119,17 @@ test.describe('Egenmeldingsdager', () => {
             )(page)
 
             await velgEgenmeldingsdager(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
                 ['2024-12-21', '2024-12-22'],
             )(page)
             await egenmeldingsdagerSection(
                 page,
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 4. - 18. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 19. desember 2024?',
             ).svar.neiButton.click()
 
             await egenmeldingsdagerSection(
                 page,
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
+                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
             ).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)

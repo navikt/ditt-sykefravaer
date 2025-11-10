@@ -1,6 +1,8 @@
 import {
     add,
     differenceInDays,
+    Duration,
+    format,
     formatISO,
     getDate,
     isSameDay,
@@ -8,19 +10,24 @@ import {
     isSameYear,
     parseISO,
     sub,
-    Duration,
-    format,
 } from 'date-fns'
 import { nb } from 'date-fns/locale/nb'
 import { sortBy } from 'remeda'
 import { TZDate } from '@date-fns/tz'
 
+function toOsloDate(date: string | Date): Date {
+    if (typeof date === 'string') {
+        return toDate(date)
+    }
+    return new TZDate(date, 'Europe/Oslo')
+}
+
 export function dateAdd(date: string | Date, duration: Duration): string {
-    return toDateString(add(date, duration))
+    return toDateString(add(toOsloDate(date), duration))
 }
 
 export function dateSub(date: string | Date, duration: Duration): string {
-    return toDateString(sub(date, duration))
+    return toDateString(sub(toOsloDate(date), duration))
 }
 
 export function toDate(date: string, defaultTimezone: string = 'Europe/Oslo'): Date {
@@ -32,14 +39,14 @@ export function toDate(date: string, defaultTimezone: string = 'Europe/Oslo'): D
 }
 
 export function toDateString(date: Date): string {
-    return formatISO(date, { representation: 'date' })
+    return formatISO(toOsloDate(date), { representation: 'date' })
 }
 
 export function toReadableDate(date: string | Date): string {
     return format(toDateIfString(date), `d. MMMM yyyy`, { locale: nb })
 }
 
-export function toReadableDateNoYear(date: string | Date): string {
+function toReadableDateNoYear(date: string | Date): string {
     return format(toDateIfString(date), 'd. MMMM', { locale: nb })
 }
 
@@ -61,7 +68,7 @@ export function toReadableDatePeriod(fom: string | Date, tom: string | Date): st
     }
 }
 export function diffInDays(fom: string, tom: string): number {
-    return differenceInDays(parseISO(tom), parseISO(fom)) + 1
+    return differenceInDays(toDate(tom), toDate(fom)) + 1
 }
 
 export function sortDatesASC(dates: Date[]): Date[] {
