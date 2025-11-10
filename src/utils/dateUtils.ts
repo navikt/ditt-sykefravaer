@@ -15,19 +15,12 @@ import { nb } from 'date-fns/locale/nb'
 import { sortBy } from 'remeda'
 import { TZDate } from '@date-fns/tz'
 
-function toOsloDate(date: string | Date): Date {
-    if (typeof date === 'string') {
-        return toDate(date)
-    }
-    return new TZDate(date, 'Europe/Oslo')
-}
-
 export function dateAdd(date: string | Date, duration: Duration): string {
-    return toDateString(add(toOsloDate(date), duration))
+    return toDateString(add(date, duration))
 }
 
 export function dateSub(date: string | Date, duration: Duration): string {
-    return toDateString(sub(toOsloDate(date), duration))
+    return toDateString(sub(date, duration))
 }
 
 export function toDate(date: string, defaultTimezone: string = 'Europe/Oslo'): Date {
@@ -43,28 +36,18 @@ export function toDateString(date: Date): string {
 }
 
 export function toReadableDate(date: string | Date): string {
-    return format(toDateIfString(date), `d. MMMM yyyy`, { locale: nb })
+    return format(toOsloDate(date), `d. MMMM yyyy`, { locale: nb })
 }
 
-function toReadableDateNoYear(date: string | Date): string {
-    return format(toDateIfString(date), 'd. MMMM', { locale: nb })
-}
-
-/**
- * Get a text representation of the period fom to tom
- * @return {string} The period string
- */
 export function toReadableDatePeriod(fom: string | Date, tom: string | Date): string {
-    const fomDate = toDateIfString(fom)
-    const tomDate = toDateIfString(tom)
-    if (isSameDay(fomDate, tomDate)) {
-        return toReadableDate(fomDate)
-    } else if (isSameMonth(fomDate, tomDate)) {
-        return `${getDate(fomDate)}. - ${toReadableDate(tomDate)}`
-    } else if (isSameYear(fomDate, tomDate)) {
-        return `${toReadableDateNoYear(fomDate)} - ${toReadableDate(tomDate)}`
+    if (isSameDay(fom, tom)) {
+        return toReadableDate(fom)
+    } else if (isSameMonth(fom, tom)) {
+        return `${getDate(toOsloDate(fom))}. - ${toReadableDate(tom)}`
+    } else if (isSameYear(fom, tom)) {
+        return `${toReadableDateNoYear(fom)} - ${toReadableDate(tom)}`
     } else {
-        return `${toReadableDate(fomDate)} - ${toReadableDate(tomDate)}`
+        return `${toReadableDate(fom)} - ${toReadableDate(tom)}`
     }
 }
 export function diffInDays(fom: string, tom: string): number {
@@ -75,10 +58,15 @@ export function sortDatesASC(dates: Date[]): Date[] {
     return sortBy(dates, [(date) => date, 'asc'])
 }
 
+function toOsloDate(date: string | Date): Date {
+    const datoObj = typeof date === 'string' ? toDate(date) : date
+    return new TZDate(datoObj, 'Europe/Oslo')
+}
+
 function isoTimestampHasTimeZone(iso: string): boolean {
     return /([Zz]|[+-]\d{2}:\d{2})$/.test(iso)
 }
 
-function toDateIfString(date: string | Date): Date {
-    return typeof date === 'string' ? toDate(date) : date
+function toReadableDateNoYear(date: string | Date): string {
+    return format(toOsloDate(date), 'd. MMMM', { locale: nb })
 }
