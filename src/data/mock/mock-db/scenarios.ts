@@ -22,7 +22,7 @@ const normal: ScenarioCreator = () => ({
 })
 
 const kunNy: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder(7).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
+    sykmeldinger: [new SykmeldingBuilder(20).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const sykmeldingFeilEtterNavigasjon: ScenarioCreator = () => ({
