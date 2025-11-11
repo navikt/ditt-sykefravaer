@@ -1,6 +1,6 @@
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { sporsmal } from '../../src/utils/sporsmal'
-import { test, expect } from '../utils/fixtures'
+import { expect, test } from '../utils/fixtures'
 
 test.describe('sykmelding page tests that are not specific to a user', () => {
     test('should show details from sykmelding without a11y problems', async ({ page }) => {
@@ -36,7 +36,6 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
 
-        await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
         await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
         const datePeriodElements = await page.getByText('8. - 15. januar 2025').all()
 
