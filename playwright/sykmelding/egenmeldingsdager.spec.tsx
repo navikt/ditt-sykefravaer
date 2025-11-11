@@ -283,9 +283,12 @@ test.describe('Egenmeldingsdager', () => {
                     'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 4. januar 2025?',
                 )(page)
                 await andrePeriode.svar.jaButton.click()
-                await andrePeriode.forrigeManedKnapp.click()
                 for (const dag of ['2024-12-27', '2024-12-28', '2024-12-29']) {
-                    await andrePeriode.dagButton(dag).click()
+                    const dagKnapp = andrePeriode.dagButton(dag)
+                    if (!(await dagKnapp.isVisible())) {
+                        await andrePeriode.forrigeManedKnapp.click()
+                    }
+                    await dagKnapp.click()
                 }
                 await andrePeriode.videreButton.click()
 
