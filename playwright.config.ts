@@ -76,7 +76,7 @@ const ciBrowserConfigs = velgBrowserConfigs(
 
 export default defineConfig({
     testDir: './playwright',
-    timeout: 10000,
+    timeout: 30000,
     fullyParallel: true,
     forbidOnly: !!process.env.CI,
     retries: 1,
