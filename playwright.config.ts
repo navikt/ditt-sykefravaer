@@ -2,9 +2,9 @@ import { defineConfig, PlaywrightTestConfig } from '@playwright/test'
 
 import {
     commonBrowserConfigs,
-    velgBrowserConfigs,
     type NamedProject,
     Nettlesernavn,
+    velgBrowserConfigs,
 } from './playwright/config/browser-config'
 
 type TestConfigWebServer = PlaywrightTestConfig['webServer']

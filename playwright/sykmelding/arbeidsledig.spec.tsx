@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test'
-import { format, getDate, sub } from 'date-fns'
+import { format } from 'date-fns'
 import { nb } from 'date-fns/locale'
 
 import {
@@ -56,18 +56,13 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .getByRole('radio', { name: /Ja/ })
             .click()
 
-        const sixteenDaysAgo = sub(testDato, { days: 16 })
-
         await page
             .getByRole('button', { name: format(testDato, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
             .click()
         await page.getByRole('button', { name: /Videre/ }).click()
         await page
             .getByRole('group', {
-                name: new RegExp(
-                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden ${getDate(sixteenDaysAgo)}`,
-                    'i',
-                ),
+                name: 'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
             })
             .getByRole('radio', { name: /Nei/ })
             .click()

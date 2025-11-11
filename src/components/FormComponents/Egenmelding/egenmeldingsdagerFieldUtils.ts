@@ -1,8 +1,8 @@
 import * as R from 'remeda'
-import { add, isAfter, isBefore, sub } from 'date-fns'
+import { isAfter, isBefore } from 'date-fns'
 
 import { Sykmelding } from '../../../types/sykmelding/sykmelding'
-import { toDate } from '../../../utils/dateUtils'
+import { dateAdd, dateSub, toDate } from '../../../utils/dateUtils'
 import { getSykmeldingStartDate } from '../../../utils/sykmeldingUtils'
 
 import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'
@@ -14,14 +14,14 @@ export function currentPeriodDatePicker(
     },
     previousSykmeldingTom: Date | null,
 ): [earliest: Date, latest: Date] {
-    const latest = sub(previous.earliestPossibleDate, { days: 1 })
+    const latest = toDate(dateSub(previous.earliestPossibleDate, { days: 1 }))
     const earliest = previous.earliestSelectedDate
-        ? sub(previous.earliestSelectedDate, { days: 16 })
-        : sub(previous.earliestPossibleDate, { days: 16 })
+        ? toDate(dateSub(previous.earliestSelectedDate, { days: 16 }))
+        : toDate(dateSub(previous.earliestPossibleDate, { days: 16 }))
 
     // Earliest should be limited by previous sykmelding
     if (previousSykmeldingTom && isBefore(earliest, previousSykmeldingTom)) {
-        return [add(previousSykmeldingTom, { days: 1 }), latest]
+        return [toDate(dateAdd(previousSykmeldingTom, { days: 1 })), latest]
     } else {
         return [earliest, latest]
     }

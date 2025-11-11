@@ -142,7 +142,9 @@ export function navigateToFirstSykmelding(
 }
 
 export async function opplysingeneStemmer(page: Page): Promise<void> {
-    await getRadioInGroup(page)({ name: 'Stemmer opplysningene?' }, { name: 'Ja' }).click()
+    const jaKnapp = getRadioInGroup(page)({ name: 'Stemmer opplysningene?' }, { name: 'Ja' })
+    await expect(jaKnapp).toBeVisible()
+    await jaKnapp.click()
 }
 
 export function velgArbeidssituasjon(
