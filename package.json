@@ -61,7 +61,7 @@
         "dotenv": "^16.5.0",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.5.4",
-        "next": "^15.3.5",
+        "next": "^16.0.1",
         "next-router-mock": "^1.0.4",
         "open": "^10.2.0",
         "pdf-parse": "^1.1.1",
