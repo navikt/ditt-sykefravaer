@@ -26,7 +26,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 id={field.name}
                 legend={sporsmal.arbeidssituasjon}
                 onChange={(value: ArbeidssituasjonType) => {
-                    /*      logAmplitudeEvent({
+                    /*      logUmamiEvent({
                               eventName: 'skjema spørsmål besvart',
                               data: { skjemanavn: 'arbeidssituasjon', spørsmål: 'Jeg er sykmeldt som', svar: value },
                           })*/ //TODO skru på igjen

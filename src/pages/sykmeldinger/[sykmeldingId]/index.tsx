@@ -21,7 +21,7 @@ import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
-import { useLogAmplitudeEvent } from '../../../components/amplitude/amplitude'
+import { useLogUmamiEvent } from '../../../components/umami/umami'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
@@ -115,7 +115,7 @@ function SykmeldingComponent({
     olderSykmeldingId: string | null
     olderSykmeldingCount: number
 }): ReactElement | null {
-    useLogSykmeldingPageAmplitude(sykmelding, olderSykmeldingCount)
+    useLogSykmeldingPageUmami(sykmelding, olderSykmeldingCount)
 
     const [hasReopenedSykmelding, setHasReopenedSykmelding] = useState(false)
     const reopen = useCallback(() => {
@@ -182,8 +182,8 @@ function SykmeldingComponent({
     return null
 }
 
-function useLogSykmeldingPageAmplitude(sykmelding: Sykmelding, olderSykmeldingCount: number): void {
-    useLogAmplitudeEvent(
+function useLogSykmeldingPageUmami(sykmelding: Sykmelding, olderSykmeldingCount: number): void {
+    useLogUmamiEvent(
         { eventName: 'komponent vist', data: { komponent: 'Sykmelding Page' } },
         {
             status: sykmelding.sykmeldingStatus.statusEvent,
