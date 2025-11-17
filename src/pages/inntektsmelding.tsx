@@ -5,7 +5,7 @@ import { beskyttetSideUtenProps } from '../auth/beskyttetSide'
 import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../hooks/useBreadcrumbs'
 import { Banner } from '../components/banner/Banner'
 import { Flexjar } from '../components/flexjar/flexjar'
-import { LenkeMedAmplitude } from '../components/lenke/lenke-med-amplitude'
+import { LenkeMedUmami } from '../components/lenke/lenke-med-umami'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.manglendeInntektsmelding())
@@ -45,10 +45,10 @@ const Inntektsmelding = () => {
             </Heading>
 
             <BodyLong spacing>
-                <LenkeMedAmplitude
+                <LenkeMedUmami
                     url="https://www.nav.no/saksbehandlingstider#sykepenger"
                     tekst="Sjekk oppdaterte saksbehandlingstider her."
-                ></LenkeMedAmplitude>
+                ></LenkeMedUmami>
             </BodyLong>
 
             <Heading level="2" size="small" spacing>
@@ -56,10 +56,10 @@ const Inntektsmelding = () => {
             </Heading>
             <BodyLong>
                 {'Hvis det er noe du lurer på, kan du '}
-                <LenkeMedAmplitude
+                <LenkeMedUmami
                     url="https://innboks.nav.no/s/skriv-til-oss?category=Helse"
                     tekst="ta kontakt med oss."
-                ></LenkeMedAmplitude>
+                ></LenkeMedUmami>
             </BodyLong>
 
             <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />

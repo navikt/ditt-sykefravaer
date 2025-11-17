@@ -13,7 +13,7 @@ import { EgenmeldingsdagerSubForm } from '../FormComponents/Egenmelding/Egenmeld
 import useWarnUnsavedPopup from '../../hooks/useWarnUnsaved'
 import useBrukerinformasjonById from '../../hooks/sykmelding/useBrukerinformasjonById'
 import AutoFillerDevTools from '../FormComponents/DevTools/AutoFillerDevTools'
-import { logAmplitudeEvent, useLogAmplitudeEvent } from '../amplitude/amplitude'
+import { logUmamiEvent, useLogUmamiEvent } from '../umami/umami'
 import { autofillEnabled } from '../../utils/environment'
 
 import OpplysningerRiktigeSection from './FormSections/OpplysningerRiktige/OpplysningerRiktigeSection'
@@ -58,7 +58,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
     const skjemanavn = !sykmelding.papirsykmelding ? 'åpen sykmelding' : 'åpen papirsykmelding'
     const sykmeldingId = useGetSykmeldingIdParam()
 
-    useLogAmplitudeEvent({ eventName: 'skjema åpnet', data: { skjemanavn } })
+    useLogUmamiEvent({ eventName: 'skjema åpnet', data: { skjemanavn } })
 
     const errorSectionRef = useRef<HTMLDivElement>(null)
     const form = useForm<FormValues>({
@@ -88,7 +88,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
     const sendSmMut = useSendSykmelding(
         sykmeldingId,
         (values) => {
-            logAmplitudeEvent(
+            logUmamiEvent(
                 { eventName: 'skjema fullført', data: { skjemanavn } },
                 { 'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null },
             )
@@ -96,7 +96,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
             const annetSituationExtraValue: string | null = values.extra?.annetSituasjon ?? null
 
             if (annetSituationExtraValue) {
-                logAmplitudeEvent({
+                logUmamiEvent({
                     eventName: 'skjema spørsmål besvart',
                     data: {
                         skjemanavn: 'åpen sykmelding',
@@ -106,7 +106,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
                 })
             }
         },
-        () => logAmplitudeEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
+        () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
     )
 
     useWarnUnsavedPopup(form.formState.isDirty && !form.formState.isSubmitSuccessful)

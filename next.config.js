@@ -78,7 +78,7 @@ const nextConfig = {
         opplaering: process.env.OPPLAERING,
         sykefravaerUrl: process.env.SYKEFRAVAER_URL,
         minSideUrl: process.env.MINSIDE_URL,
-        amplitudeEnabled: process.env.AMPLITUDE_ENABLED,
+        umamiEnabled: process.env.UMAMI_ENABLED,
         environment: process.env.ENVIRONMENT,
         spinnsynFrontendInterne: process.env.SPINNSYN_FRONTEND_INTERNE,
         sykepengesoknadUrl: process.env.SYKEPENGESOKNAD_URL,

@@ -66,7 +66,7 @@ function ArbeidsgiverSection({ sykmelding, arbeidsgivere }: Props): ReactElement
                         arbeidsgiverNavn: shouldShowEgenmeldingsdager.arbeidsgiverNavn,
                         previousSykmeldingTom: previousSykmeldingTom,
                     }}
-                    amplitudeSkjemanavn="Egenmeldingsdager"
+                    umamiSkjemanavn="Egenmeldingsdager"
                 />
             )}
             {shouldShowSendesTilArbeidsgiverInfo && (
