@@ -1,4 +1,4 @@
-FROM gcr.io/distroless/nodejs20-debian12@sha256:55fcbc1b781606f4aa3587d3ee174a8acfc975b02a3ea252cef282895ac362d5
+FROM europe-north1-docker.pkg.dev/cgr-nav/pull-through/nav.no/node:25-slim
 
 ENV NODE_ENV=production
 
