@@ -3,7 +3,7 @@ import { BodyLong, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-reac
 import Link from 'next/link'
 
 import { pluralize } from '../../utils/stringUtils'
-import { logEvent } from '../amplitude/amplitude'
+import { logEvent } from '../umami/umami'
 
 interface Props {
     olderSykmeldingId: string

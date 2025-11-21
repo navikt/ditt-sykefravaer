@@ -3,7 +3,7 @@ import { Alert, BodyShort, Button, Label, Textarea } from '@navikt/ds-react'
 import { MagnifyingGlassIcon } from '@navikt/aksel-icons'
 
 import { cn } from '../../utils/tw-utils'
-import { logEvent } from '../amplitude/amplitude'
+import { logEvent } from '../umami/umami'
 
 import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
 import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'

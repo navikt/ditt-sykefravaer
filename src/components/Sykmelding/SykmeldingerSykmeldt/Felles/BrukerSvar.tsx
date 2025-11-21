@@ -9,7 +9,7 @@ import { toReadableDate, toReadableDatePeriod } from '../../../../utils/dateUtil
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../../../../utils/arbeidssituasjonUtils'
 import useBrukerInformasjonById from '../../../../hooks/sykmelding/useBrukerinformasjonById'
-import { logAmplitudeEvent } from '../../../amplitude/amplitude'
+import { logUmamiEvent } from '../../../umami/umami'
 import useTidligereArbeidsgivereById from '../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
 import useErUtenforVentetid from '../../../../hooks/sykmelding/useErUtenforVentetid'
 import { BrukerSvar, JaEllerNei } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
@@ -41,7 +41,7 @@ export function BrukerSvarExpansionCard({
             aria-labelledby="oppsummering-bruker-svar-heading"
             className={className}
             onToggle={(open) => {
-                logAmplitudeEvent(
+                logUmamiEvent(
                     {
                         eventName: `accordion ${open ? 'åpnet' : 'lukket'}`,
                         data: { tekst: title },

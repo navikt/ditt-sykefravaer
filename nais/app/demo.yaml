@@ -47,7 +47,7 @@ spec:
       value: "https://www.nav.no/minside/"
     - name: DECORATOR_ENV
       value: "prod"
-    - name: AMPLITUDE_ENABLED
+    - name: UMAMI_ENABLED
       value: "false"
     - name: ASSET_PREFIX
       value: "https://cdn.nav.no/flex/ditt-sykefravaer"

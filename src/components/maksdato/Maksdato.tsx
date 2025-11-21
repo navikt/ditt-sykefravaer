@@ -5,8 +5,8 @@ import dayjs from 'dayjs'
 import useMaxDate from '../../hooks/useMaxDate'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
-import { logEvent } from '../amplitude/amplitude'
-import { LenkeMedAmplitude } from '../lenke/lenke-med-amplitude'
+import { logEvent } from '../umami/umami'
+import { LenkeMedUmami } from '../lenke/lenke-med-umami'
 
 import { skalViseMaksDato, erSykmeldingInnafor } from './skalViseMaksDato'
 
@@ -28,7 +28,7 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
     const maksdato = tilLesbarDatoMedArstall(maxDate)
     const [open, setOpen] = useState<boolean>(false)
 
-    const amplitudeMeta = useMemo(() => {
+    const umamiMeta = useMemo(() => {
         return {
             komponent: 'Maksdato expansioncard',
             dagerTilMaksdato: dayjs(maxDate).diff(dayjs(), 'days'),
@@ -37,15 +37,15 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
     }, [maxDate, utbetaltTom])
 
     useEffect(() => {
-        logEvent('komponent vist', amplitudeMeta)
-    }, [amplitudeMeta])
+        logEvent('komponent vist', umamiMeta)
+    }, [umamiMeta])
 
     return (
         <>
             <ExpansionCard size="small" open={open} className="mt-8" aria-label="Beregnet slutt på sykepenger">
                 <ExpansionCard.Header
                     onClick={() => {
-                        logEvent(open ? 'expansioncard lukket' : 'expansioncard åpnet', amplitudeMeta)
+                        logEvent(open ? 'expansioncard lukket' : 'expansioncard åpnet', umamiMeta)
                         setOpen(!open)
                     }}
                 >
@@ -73,29 +73,29 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
                         {
                             'Hvis du har brukt opp de 52 ukene, må det gå 26 uker uten sykepenger eller Arbeidsavklaringspenger (AAP) før du kan få sykepenger igjen, du kan lese mer om dette i '
                         }
-                        <LenkeMedAmplitude
+                        <LenkeMedUmami
                             url="https://lovdata.no/nav/folketrygdloven/kap8/%C2%A78-12"
                             tekst="folketrygdloven § 8-12."
-                        ></LenkeMedAmplitude>
+                        ></LenkeMedUmami>
                         {
                             ' Blir du syk på nytt før disse ukene har gått, kan det være aktuelt med AAP som erstatning for sykepenger. Ta gjerne kontakt med NAV eller snakk med veilederen din om dette. '
                         }
                     </BodyLong>
 
                     <BodyLong spacing>
-                        <LenkeMedAmplitude
+                        <LenkeMedUmami
                             url="https://www.nav.no/sykepenger#hvor-lenge"
                             tekst="Det er egne regler for deg som er mellom 67 og 70 år."
-                        ></LenkeMedAmplitude>
+                        ></LenkeMedUmami>
                     </BodyLong>
 
                     <BodyLong>
                         Hvis du har fått sykepenger i 52 uker og fortsatt ikke kan arbeide på grunn av sykdom eller
                         skade, kan du ha rett til arbeidsavklaringspenger eller uføretrygd.
-                        <LenkeMedAmplitude
+                        <LenkeMedUmami
                             url="https://www.nav.no/sykepenger#hvor-lenge"
                             tekst="Les mer om mulighetene dine etter det er slutt på sykepengene."
-                        ></LenkeMedAmplitude>
+                        ></LenkeMedUmami>
                     </BodyLong>
                 </ExpansionCard.Content>
             </ExpansionCard>

@@ -3,7 +3,7 @@ import { ReactElement, useState } from 'react'
 
 import { diffInDays, toDateString, toReadableDatePeriod } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
-import { logAmplitudeEvent } from '../../amplitude/amplitude'
+import { logUmamiEvent } from '../../umami/umami'
 import YesNoField from '../YesNoField/YesNoField'
 import { QuestionWrapper } from '../FormStructure'
 import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
@@ -16,7 +16,7 @@ interface Props {
     lastPossibleDate: Date
     firstPossibleDate: Date
     onNo: () => void
-    amplitudeSkjemanavn: string
+    umamiSkjemanavn: string
 }
 
 function HarBruktEgenmelding({
@@ -25,7 +25,7 @@ function HarBruktEgenmelding({
     firstPossibleDate,
     arbeidsgiverNavn,
     onNo,
-    amplitudeSkjemanavn,
+    umamiSkjemanavn,
 }: Props): ReactElement {
     const period: string = toReadableDatePeriod(lastPossibleDate, firstPossibleDate)
     const periodLength: number = diffInDays(toDateString(lastPossibleDate), toDateString(firstPossibleDate))
@@ -42,11 +42,11 @@ function HarBruktEgenmelding({
                     required: 'Du må svare på om du har brukt egenmelding før du ble syk.',
                 }}
                 onChange={(value: YesOrNo) => {
-                    logAmplitudeEvent(
+                    logUmamiEvent(
                         {
                             eventName: 'skjema spørsmål besvart',
                             data: {
-                                skjemanavn: amplitudeSkjemanavn,
+                                skjemanavn: umamiSkjemanavn,
                                 spørsmål: 'Har du brukt egenmeldingsdager i perioden?',
                                 svar: value,
                             },
@@ -67,7 +67,7 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
     const [open, setOpen] = useState(false)
     const handleOnReadMoreClick = (): void => {
         if (!open) {
-            logAmplitudeEvent(
+            logUmamiEvent(
                 {
                     eventName: 'komponent vist',
                     data: { komponent: 'EgenmeldingsdagerReadMore' },

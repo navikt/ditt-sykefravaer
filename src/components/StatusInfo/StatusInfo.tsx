@@ -2,7 +2,7 @@ import { ReactElement } from 'react'
 import { BodyShort, GuidePanel, Link, Heading } from '@navikt/ds-react'
 
 import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
-import { logAmplitudeEvent } from '../amplitude/amplitude'
+import { logUmamiEvent } from '../umami/umami'
 import { sykepengesoknadUrl } from '../../utils/environment'
 
 interface StatusInfoProps {
@@ -87,7 +87,7 @@ function StatusInfo({
                     href={`${sykepengesoknadUrl()}/sykepengesoknad-utland`}
                     target="_bland"
                     onClick={() =>
-                        logAmplitudeEvent({
+                        logUmamiEvent({
                             eventName: 'navigere',
                             data: {
                                 destinasjon: 'opphold i utland info',

@@ -4,7 +4,7 @@ import { Alert, BodyShort, Heading, Select } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
 import { FormValues } from '../../SendSykmeldingForm'
-import { logAmplitudeEvent } from '../../../amplitude/amplitude'
+import { logUmamiEvent } from '../../../umami/umami'
 
 const initialOptions = [
     'Pensjonist',
@@ -29,7 +29,7 @@ function AnnetExtraSelect(): ReactElement {
                     onChange={(event) => {
                         field.onChange(event.currentTarget.value)
 
-                        logAmplitudeEvent({
+                        logUmamiEvent({
                             eventName: 'skjema spørsmål besvart',
                             data: {
                                 skjemanavn: 'åpen sykmelding',
