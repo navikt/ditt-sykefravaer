@@ -1,0 +1,338 @@
+# Apper som bruker denne https://cs.github.com/?scopeName=All+repos&scope=&q=org%3Anavikt+%22navikt%2Fflex-github-actions-workflows%2F.github%2Fworkflows%2Fnext-js.yml%40main%22+NOT+is%3Aarchived
+
+name: Next js
+on:
+  workflow_call:
+    inputs:
+      app:
+        required: false
+        default: ${{ github.event.repository.name }}
+        type: string
+      port:
+        required: false
+        default: '8080'
+        type: string
+      base-path:
+        required: true
+        type: string
+    outputs:
+      image:
+        value: ${{ jobs.gar-publish.outputs.image }}
+
+jobs:
+  build-and-publish:
+    permissions:
+      packages: 'read'
+      contents: 'read'
+      id-token: 'write'
+    name: Bygg, test og publiser docker image
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: next.js cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      - name: Install npm dependencies
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+
+  cdn-upload:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    timeout-minutes: 15
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Last opp static files til NAV CDN
+        if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: flex
+          source: ./.next/static
+          destination: /${{github.event.repository.name}}/_next
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  gar-publish:
+    permissions:
+      packages: 'read'
+      contents: 'read'
+      id-token: 'write'
+    name: gar-publish
+    timeout-minutes: 15
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: prune dev dependencies
+        run: npm prune --production
+      - run: rm .env
+      - run: touch .env
+      - name: docker-build-push
+        if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: flex
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  lint:
+    name: lint
+    timeout-minutes: 15
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Run prettier
+        run: npm run prettier:check
+      - name: Run lint
+        run: npm run lint
+
+  unit-test:
+    name: unit-test
+    timeout-minutes: 15
+    needs: build-and-publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Run tests
+        run: npm run test:ci
+
+  codeql-analyse:
+    if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
+    name: codeql-analyse
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          queries: security-and-quality
+          languages: 'javascript'
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:javascript"
+
+  nais-deploy:
+    needs: [build-and-publish, playwright, cdn-upload, gar-publish, unit-test]
+    uses: ./.github/workflows/nais-deploy-dev-og-prod.yml@main
+    with:
+      image: ${{ needs.gar-publish.outputs.image }}
+      app: ${{ inputs.app }}
+    secrets: inherit
+
+  deploy-demo-branch-til-dev-gcp:
+    if: startsWith(github.ref_name, 'demo-') || startsWith(github.ref_name, 'dev-')
+    name: Deploy demo branch til dev-gcp
+    timeout-minutes: 15
+    needs: [build-and-publish, cdn-upload, gar-publish]
+    runs-on: ubuntu-latest
+    env:
+      DEMO_APPNAME: demo-${{ inputs.app }}-${{ github.ref_name }}
+      DEMO_INGRESS: ${{ inputs.app }}-${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy demo branch til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/app/demo.yaml
+          IMAGE: ${{ needs.gar-publish.outputs.image }}
+          VAR: appname=${{ env.DEMO_APPNAME }},replicas=1,branchState=alive,ingress=https://${{ env.DEMO_INGRESS }}.ekstern.dev.nav.no/${{inputs.base-path}},TTL_HOURS=168h
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: 'Ny demo versjon av ${{ inputs.app }} ute :rocket: https://${{ env.DEMO_INGRESS }}.ekstern.dev.nav.no/${{inputs.base-path}}'
+          SLACK_TITLE: ${{ github.ref_name }}
+          SLACK_USERNAME: Demo deploy
+          SLACK_ICON: ':lab_coat:'
+          SLACK_WEBHOOK: ${{ secrets.LABS_DEPLOY_WEBHOOK }}
+
+  deploy-demo-til-dev-gcp:
+    if: github.ref_name == 'main'
+    name: Deploy demo til dev-gcp
+    timeout-minutes: 15
+    needs: [build-and-publish, cdn-upload, gar-publish]
+    concurrency: deploy-demo-til-dev-gcp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/app/demo.yaml
+          IMAGE: ${{ needs.gar-publish.outputs.image }}
+          VAR: appname=demo-${{ inputs.app }},replicas=1,branchState=alive,ingress=https://demo.ekstern.dev.nav.no/${{inputs.base-path}}
+
+
+  bygg-app-for-playwright:
+    runs-on: ubuntu-latest
+    needs: [build-and-publish]
+    env:
+      IMAGE_NAME: ${{ github.repository }}-e2e
+      REGISTRY: ghcr.io
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+    outputs:
+      image: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
+
+  playwright:
+    needs: [bygg-app-for-playwright]
+    runs-on: ubuntu-latest
+    services:
+      app-main:
+        image: ${{ needs.bygg-app-for-playwright.outputs.image }}
+        ports: [ '3000:3000' ]
+        env:
+          NO_DECORATOR: 'true'
+      app-decorator:
+        image: ${{ needs.bygg-app-for-playwright.outputs.image }}
+        ports: [ '3001:3000' ]
+        env:
+          NO_DECORATOR: 'false'
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright
+        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  playwright-rapport:
+    if: ${{ !cancelled() && !startsWith(github.ref_name, 'dependabot/') }}
+    needs: [playwright]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Last ned rapporter
+        uses: actions/download-artifact@v4
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+
+      - name: Merge til HTML Report
+        run: npx playwright merge-reports --reporter html ./all-blob-reports
+
+      - name: Last opp til CDN
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: flex
+          source: playwright-report
+          destination: /${{ github.repository }}/${{ github.run_number }}
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+      - name: Merge til json rapport
+        run: npx playwright merge-reports --reporter json  ./all-blob-reports > playwright-report/report.json
+
+      - name: Lag GHA summary
+        run: |
+          total_tests=$(jq '.stats.expected + .stats.unexpected' playwright-report/report.json)
+          passed_tests=$(jq '.stats.expected' playwright-report/report.json)
+          failed_tests=$(jq '.stats.unexpected' playwright-report/report.json)
+          failed_test_info=$(jq -r '.suites[].suites[].specs[] | select(.ok == false) | "\(.title) (\(.file), \(.tests[].projectName))"' playwright-report/report.json)
+
+          echo "## Playwright Test Report Summary" >> $GITHUB_STEP_SUMMARY
+          echo "Total tests: $total_tests ✅" >> $GITHUB_STEP_SUMMARY
+          echo "Passed tests: $passed_tests ✅" >> $GITHUB_STEP_SUMMARY
+
+          if [ "$failed_tests" -gt 0 ]; then
+            echo "Failed tests: $failed_tests ❌" >> $GITHUB_STEP_SUMMARY
+            echo "### Failed Tests:" >> $GITHUB_STEP_SUMMARY
+            while IFS= read -r test; do
+              echo "- $test ❌" >> $GITHUB_STEP_SUMMARY
+            done <<< "$failed_test_info"
+          else
+            echo "Failed tests: $failed_tests 🔹" >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "Se hele rapporten [her](https://cdn.nav.no/flex/${{ github.repository }}/${{ github.run_number }}/playwright-report/index.html)." >> $GITHUB_STEP_SUMMARY
