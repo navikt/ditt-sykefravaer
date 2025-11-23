@@ -25,6 +25,7 @@ jobs:
 
   playwright:
     uses: ./.github/workflows/playwright.yml
+    needs: build-publish
 
   codeql-analyse:
     if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
