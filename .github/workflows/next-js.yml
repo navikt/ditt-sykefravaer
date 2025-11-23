@@ -162,7 +162,7 @@ jobs:
 
   nais-deploy:
     needs: [build-and-publish, playwright, cdn-upload, gar-publish, unit-test]
-    uses: ./.github/workflows/nais-deploy-dev-og-prod.yml@main
+    uses: ./.github/workflows/nais-deploy-dev-og-prod.yml
     with:
       image: ${{ needs.gar-publish.outputs.image }}
       app: ${{ inputs.app }}

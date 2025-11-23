@@ -5,7 +5,7 @@ on:
 
 jobs:
   felles-workflow:
-    uses: ./.github/workflows/next-js.yml@main
+    uses: ./.github/workflows/next-js.yml
     permissions:
       packages: write
       contents: read
