@@ -1,0 +1,125 @@
+# Apper som bruker denne https://cs.github.com/?scopeName=All+repos&scope=&q=org%3Anavikt+%22navikt%2Fflex-github-actions-workflows%2F.github%2Fworkflows%2Fnext-js.yml%40main%22+NOT+is%3Aarchived
+
+name: Bygg og publiser
+on:
+  workflow_call:
+    outputs:
+      image:
+        value: ${{ jobs.gar-publish.outputs.image }}
+
+jobs:
+  build:
+    permissions:
+      packages: 'read'
+      contents: 'read'
+      id-token: 'write'
+    name: Bygg
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+      - name: next.js cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+      - name: Install npm dependencies
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm ci
+      - name: Build application
+        run: npm run build
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+
+  lint:
+    name: lint
+    timeout-minutes: 15
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Run prettier
+        run: npm run prettier:check
+      - name: Run lint
+        run: npm run lint
+
+  unit-test:
+    name: unit-test
+    timeout-minutes: 15
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Run tests
+        run: npm run test:ci
+
+  cdn-upload:
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    timeout-minutes: 15
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Last opp static files til NAV CDN
+        if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+        uses: nais/deploy/actions/cdn-upload/v2@master
+        with:
+          team: flex
+          source: ./.next/static
+          destination: /${{github.event.repository.name}}/_next
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  gar-publish:
+    permissions:
+      packages: 'read'
+      contents: 'read'
+      id-token: 'write'
+    name: gar-publish
+    timeout-minutes: 15
+    needs: build
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.docker-build-push.outputs.image }}
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: prune dev dependencies
+        run: npm prune --production
+      - run: rm .env
+      - run: touch .env
+      - name: docker-build-push
+        if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+        uses: nais/docker-build-push@v0
+        id: docker-build-push
+        with:
+          team: flex
+          identity_provider: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          project_id: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
