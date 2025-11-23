@@ -24,15 +24,15 @@ on:
         type: string
       dev-only:
         required: false
-        default: "false"
+        default: 'false'
         type: string
       prod-only:
         required: false
-        default: "false"
+        default: 'false'
         type: string
       extra-vars:
         required: false
-        default: ""
+        default: ''
         type: string
 
 jobs:
@@ -69,4 +69,3 @@ jobs:
           RESOURCE: ${{ inputs.nais-template }}
           VAR: image=${{ inputs.image }},kafkaPool=nav-prod,unleash-environment=production,${{ inputs.extra-vars }}
           VARS: ${{ inputs.prod-vars }}
-

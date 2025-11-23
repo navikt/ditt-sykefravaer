@@ -158,7 +158,7 @@ jobs:
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:javascript"
+          category: '/language:javascript'
 
   nais-deploy:
     needs: [build-and-publish, playwright, cdn-upload, gar-publish, unit-test]
@@ -213,7 +213,6 @@ jobs:
           IMAGE: ${{ needs.gar-publish.outputs.image }}
           VAR: appname=demo-${{ inputs.app }},replicas=1,branchState=alive,ingress=https://demo.ekstern.dev.nav.no/${{inputs.base-path}}
 
-
   bygg-app-for-playwright:
     runs-on: ubuntu-latest
     needs: [build-and-publish]
@@ -247,12 +246,12 @@ jobs:
     services:
       app-main:
         image: ${{ needs.bygg-app-for-playwright.outputs.image }}
-        ports: [ '3000:3000' ]
+        ports: ['3000:3000']
         env:
           NO_DECORATOR: 'true'
       app-decorator:
         image: ${{ needs.bygg-app-for-playwright.outputs.image }}
-        ports: [ '3001:3000' ]
+        ports: ['3001:3000']
         env:
           NO_DECORATOR: 'false'
     strategy:
