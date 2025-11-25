@@ -38,7 +38,7 @@ on:
 jobs:
   deploy-til-dev:
     if: ${{ (github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')) && inputs.prod-only == 'false' }}
-    name: Deploy til dev
+    name: Deploy dev
     timeout-minutes: 15
     runs-on: ubuntu-latest
     concurrency: deploy-${{ inputs.app }}-til-dev
@@ -55,7 +55,7 @@ jobs:
 
   deploy-til-prod:
     if: ${{ github.ref_name == 'main' && inputs.dev-only == 'false' }}
-    name: Deploy til prod
+    name: Deploy prod
     timeout-minutes: 15
     runs-on: ubuntu-latest
     concurrency: deploy-${{ inputs.app }}-til-prod
