@@ -51,7 +51,9 @@ export function toReadableDatePeriod(fom: string | Date, tom: string | Date): st
     }
 }
 export function diffInDays(fom: string, tom: string): number {
-    return differenceInDays(toDate(tom), toDate(fom)) + 1
+    const fomDateUTC = new TZDate(toDate(fom), 'UTC')
+    const tomDateUTC = new TZDate(toDate(tom), 'UTC')
+    return differenceInDays(tomDateUTC, fomDateUTC) + 1
 }
 
 export function sortDatesASC(dates: Date[]): Date[] {
