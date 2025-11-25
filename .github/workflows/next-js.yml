@@ -20,12 +20,105 @@ on:
         value: ${{ jobs.build-publish.outputs.image }}
 
 jobs:
-  build-publish:
-    uses: ./.github/workflows/bygg-publiser.yml
+  lint:
+    name: lint
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run prettier check
+        run: npm run prettier:check
+      - name: Run lint
+        run: npm run lint
+
+  unit-test:
+    name: unit-test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests
+        run: npm run test:ci
+
+  build:
+    name: Build
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/actions/build-next
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          NAIS_MANAGEMENT_PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  build-playwright:
+    name: Build for Playwright
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/actions/playwright-build
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          image_name: ${{ github.repository }}-e2e
 
   playwright:
-    uses: ./.github/workflows/playwright.yml
-    needs: build-publish
+    name: Playwright tests
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    needs: build-playwright
+    services:
+      app-main:
+        image: ${{ needs.build-for-playwright.outputs.image }}
+        ports: ['3000:3000']
+        env:
+          NO_DECORATOR: 'true'
+      app-decorator:
+        image: ${{ needs.build-for-playwright.outputs.image }}
+        ports: ['3001:3000']
+        env:
+          NO_DECORATOR: 'false'
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    steps:
+      - name: cache workspace
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}
+          key: ${{ github.sha }}
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright
+        run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  playwright-report:
+    if: ${{ !cancelled() && !startsWith(github.ref_name, 'dependabot/') }}
+    needs: [playwright]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: ./.github/workflows/actions/playwright-report
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          NAIS_MANAGEMENT_PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
 
   codeql-analyse:
     if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
@@ -52,7 +145,7 @@ jobs:
           category: '/language:javascript'
 
   nais-deploy:
-    needs: [build-publish, playwright]
+    needs: [build, playwright]
     uses: ./.github/workflows/nais-deploy-dev-og-prod.yml
     with:
       image: ${{ needs.gar-publish.outputs.image }}
@@ -63,7 +156,7 @@ jobs:
     if: startsWith(github.ref_name, 'demo-') || startsWith(github.ref_name, 'dev-')
     name: Deploy demo branch til dev-gcp
     timeout-minutes: 15
-    needs: [build-publish]
+    needs: [build]
     runs-on: ubuntu-latest
     env:
       DEMO_APPNAME: demo-${{ inputs.app }}-${{ github.ref_name }}
@@ -91,7 +184,7 @@ jobs:
     if: github.ref_name == 'main'
     name: Deploy demo til dev-gcp
     timeout-minutes: 15
-    needs: [build-publish]
+    needs: [build]
     concurrency: deploy-demo-til-dev-gcp
     runs-on: ubuntu-latest
     steps:

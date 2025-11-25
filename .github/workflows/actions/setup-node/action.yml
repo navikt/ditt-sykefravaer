@@ -1,0 +1,19 @@
+name: "Setup node and installs dependencies"
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'NPM authentication token'
+    required: true
+    type: string
+
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 20
+        cache: 'npm'
+    - name: Install npm dependencies
+      env:
+        NPM_AUTH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      run: npm ci
