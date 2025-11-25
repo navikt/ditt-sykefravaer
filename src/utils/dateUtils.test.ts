@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { parseISO } from 'date-fns'
 import { TZDate } from '@date-fns/tz'
 
@@ -38,6 +38,10 @@ describe('diffInDays', () => {
 
     it('fom/tom across year', () => {
         expect(diffInDays('2021-12-31', '2022-01-01')).toBe(2)
+    })
+
+    it('fom/tom sommertid -> vintertid', () => {
+        expect(diffInDays('2025-10-02', '2025-11-02')).toBe(32)
     })
 })
 
