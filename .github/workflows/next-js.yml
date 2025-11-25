@@ -148,7 +148,7 @@ jobs:
           category: '/language:javascript'
 
   nais-deploy:
-    needs: [build, playwright]
+    needs: [build, lint, unit-test, playwright]
     uses: ./.github/workflows/nais-deploy-dev-og-prod.yml
     with:
       image: ${{ needs.gar-publish.outputs.image }}
@@ -159,7 +159,7 @@ jobs:
     if: startsWith(github.ref_name, 'demo-') || startsWith(github.ref_name, 'dev-')
     name: Deploy demo branch til dev-gcp
     timeout-minutes: 15
-    needs: [build]
+    needs: [build, lint, unit-test]
     runs-on: ubuntu-latest
     env:
       DEMO_APPNAME: demo-${{ inputs.app }}-${{ github.ref_name }}
@@ -187,7 +187,7 @@ jobs:
     if: github.ref_name == 'main'
     name: Deploy demo til dev-gcp
     timeout-minutes: 15
-    needs: [build]
+    needs: [build, lint, unit-test]
     concurrency: deploy-demo-til-dev-gcp
     runs-on: ubuntu-latest
     steps:
