@@ -17,7 +17,7 @@ on:
         type: string
     outputs:
       image:
-        value: ${{ jobs.build-publish.outputs.image }}
+        value: ${{ jobs.build.outputs.image }}
 
 jobs:
   lint:
@@ -76,12 +76,12 @@ jobs:
     needs: build-playwright
     services:
       app-main:
-        image: ${{ needs.build-for-playwright.outputs.image }}
+        image: ${{ needs.build-playwright.outputs.image }}
         ports: ['3000:3000']
         env:
           NO_DECORATOR: 'true'
       app-decorator:
-        image: ${{ needs.build-for-playwright.outputs.image }}
+        image: ${{ needs.build-playwright.outputs.image }}
         ports: ['3001:3000']
         env:
           NO_DECORATOR: 'false'
@@ -151,7 +151,7 @@ jobs:
     needs: [build, lint, unit-test, playwright]
     uses: ./.github/workflows/nais-deploy-dev-og-prod.yml
     with:
-      image: ${{ needs.gar-publish.outputs.image }}
+      image: ${{ needs.build.outputs.image }}
       app: ${{ inputs.app }}
     secrets: inherit
 
@@ -171,7 +171,7 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/app/demo.yaml
-          IMAGE: ${{ needs.build-publish.outputs.image }}
+          IMAGE: ${{ needs.build.outputs.image }}
           VAR: appname=${{ env.DEMO_APPNAME }},replicas=1,branchState=alive,ingress=https://${{ env.DEMO_INGRESS }}.ekstern.dev.nav.no/${{inputs.base-path}},TTL_HOURS=168h
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990
@@ -197,5 +197,5 @@ jobs:
         env:
           CLUSTER: dev-gcp
           RESOURCE: nais/app/demo.yaml
-          IMAGE: ${{ needs.build-publish.outputs.image }}
+          IMAGE: ${{ needs.build.outputs.image }}
           VAR: appname=demo-${{ inputs.app }},replicas=1,branchState=alive,ingress=https://demo.ekstern.dev.nav.no/${{inputs.base-path}}
