@@ -16,4 +16,5 @@ runs:
     - name: Install npm dependencies
       env:
         NPM_AUTH_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+      shell: bash
       run: npm ci

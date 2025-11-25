@@ -26,6 +26,7 @@ runs:
         merge-multiple: true
 
     - name: Merge til HTML Report
+      shell: bash
       run: npx playwright merge-reports --reporter html ./all-blob-reports
 
     - name: Last opp til CDN
@@ -38,9 +39,11 @@ runs:
         project_id: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
 
     - name: Merge til json rapport
+      shell: bash
       run: npx playwright merge-reports --reporter json  ./all-blob-reports > playwright-report/report.json
 
     - name: Lag GHA summary
+      shell: bash
       run: |
         total_tests=$(jq '.stats.expected + .stats.unexpected' playwright-report/report.json)
         passed_tests=$(jq '.stats.expected' playwright-report/report.json)

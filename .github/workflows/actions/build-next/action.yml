@@ -37,6 +37,7 @@ runs:
 
     - name: Build application
       run: npm run build
+      shell: bash
 
     - name: Last opp static files til NAV CDN
       if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
@@ -50,8 +51,11 @@ runs:
 
     - name: prune dev dependencies
       run: npm prune --production
+      shell: bash
     - run: rm .env
+      shell: bash
     - run: touch .env
+      shell: bash
     - name: Gar publish
       id: docker-build-push
       if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
