@@ -1,4 +1,4 @@
-name: "Builds next app and publishes to GAR"
+name: 'Builds next app and publishes to GAR'
 
 inputs:
   GITHUB_TOKEN:
@@ -14,10 +14,10 @@ inputs:
 
 outputs:
   image:
-    description: "Docker image in GAR"
+    description: 'Docker image in GAR'
     value: ${{ steps.docker-build-push.outputs.image }}
   digest:
-    description: "Docker image digest in GAR"
+    description: 'Docker image digest in GAR'
     value: ${{ steps.docker-build-push.outputs.digest }}
 
 runs:
@@ -63,4 +63,3 @@ runs:
         team: flex
         identity_provider: ${{ inputs.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
         project_id: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
-

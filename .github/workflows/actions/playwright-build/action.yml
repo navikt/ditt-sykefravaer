@@ -1,4 +1,4 @@
-name: "Builds next app for Playwright and publishes to Github"
+name: 'Builds next app for Playwright and publishes to Github'
 
 inputs:
   GITHUB_TOKEN:
@@ -12,7 +12,7 @@ inputs:
 
 outputs:
   image:
-    description: "Docker image in Github"
+    description: 'Docker image in Github'
     value: ghcr.io/${{ inputs.image_name }}:${{ github.sha }}
 
 runs:

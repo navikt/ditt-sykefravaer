@@ -1,4 +1,4 @@
-name: "Generate Playwright test report"
+name: 'Generate Playwright test report'
 
 inputs:
   GITHUB_TOKEN:
