@@ -5,6 +5,12 @@ inputs:
     description: 'GitHub authentication token (usually secrets.GITHUB_TOKEN)'
     required: true
     type: string
+  NAIS_WORKLOAD_IDENTITY_PROVIDER:
+    required: true
+    type: string
+  NAIS_MANAGEMENT_PROJECT_ID:
+    required: true
+    type: string
   image_name:
     description: 'Name of the Docker image to be built and pushed'
     required: true
@@ -18,9 +24,11 @@ outputs:
 runs:
   using: composite
   steps:
-    - uses: ./.github/workflows/actions/setup-node
+    - uses: ./.github/workflows/actions/build-next
       with:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ inputs.NAIS_NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+        NAIS_MANAGEMENT_PROJECT_ID: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
     - name: Log in to the Container registry
       uses: docker/login-action@v3
       with:
