@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 
-function NotFound(): JSX.Element | boolean {
+function NotFound(): React.JSX.Element | boolean {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.notFound())
 
     useEffect(() => {

@@ -32,7 +32,7 @@ class MyDocument extends Document<Props> {
         return { ...initialProps, Decorator, language }
     }
 
-    render(): JSX.Element {
+    render(): React.JSX.Element {
         const { Decorator, language } = this.props
         const showDecorator = serverRuntimeConfig.noDecorator != 'true'
         return (
