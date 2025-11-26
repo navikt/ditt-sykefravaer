@@ -27,7 +27,7 @@ const Index = () => {
             <IngenSykmelding />
             <Oppgaver />
             {maksdatoToggle.enabled && <Maksdato />}
-            <UxSignalsPanel/>
+            <UxSignalsPanel />
             <Arbeidssituasjon />
             <Lenker />
 
