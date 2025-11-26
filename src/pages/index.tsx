@@ -8,14 +8,13 @@ import QueryStatusPanel from '../components/queryStatusPanel/QueryStatusPanel'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../hooks/useBreadcrumbs'
 import { tekst } from '../utils/tekster'
 import { Banner } from '../components/banner/Banner'
-import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
 import Maksdato from '../components/maksdato/Maksdato'
+import UxSignalsPanel from '../components/ux-signals/esyfo-ux-signals/UxSignalsPanel'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.dittSykefravaer())
-    const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
     const maksdatoToggle = useToggle('ditt-sykefravaer-maxdato')
 
     return (
@@ -26,10 +25,9 @@ const Index = () => {
             <IngenSykmelding />
             <Oppgaver />
             {maksdatoToggle.enabled && <Maksdato />}
+            <UxSignalsPanel/>
             <Arbeidssituasjon />
             <Lenker />
-
-            {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
         </>
     )
 }
