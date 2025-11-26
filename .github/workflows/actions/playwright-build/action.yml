@@ -1,0 +1,43 @@
+name: 'Builds next app for Playwright and publishes to Github'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub authentication token (usually secrets.GITHUB_TOKEN)'
+    required: true
+    type: string
+  NAIS_WORKLOAD_IDENTITY_PROVIDER:
+    required: true
+    type: string
+  NAIS_MANAGEMENT_PROJECT_ID:
+    required: true
+    type: string
+  image_name:
+    description: 'Name of the Docker image to be built and pushed'
+    required: true
+    type: string
+
+outputs:
+  image:
+    description: 'Docker image in Github'
+    value: ghcr.io/${{ inputs.image_name }}:${{ github.sha }}
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/workflows/actions/build-next
+      with:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+        NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ inputs.NAIS_NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+        NAIS_MANAGEMENT_PROJECT_ID: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
+    - name: Log in to the Container registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ inputs.GITHUB_TOKEN }}
+    - name: Build and push Docker image
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        push: true
+        tags: ghcr.io/${{ inputs.image_name }}:${{ github.sha }}
