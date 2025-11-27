@@ -20,7 +20,7 @@
         "@navikt/oasis": "^3.8.0",
         "@react-pdf/renderer": "^4.3.1",
         "@react-pdf/types": "^2.9.1",
-        "@tanstack/query-core": "^5.62.15",
+        "@tanstack/query-core": "^5.90.11",
         "@tanstack/react-query": "^5.90.10",
         "@unleash/nextjs": "^1.6.2",
         "classnames": "^2.5.1",
