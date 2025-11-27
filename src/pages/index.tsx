@@ -12,7 +12,6 @@ import { Flexjar } from '../components/flexjar/flexjar'
 import Oppgaver from '../components/oppgaver/Oppgaver'
 import { useToggle } from '../toggles/context'
 import Maksdato from '../components/maksdato/Maksdato'
-import UxSignalsPanel from '../components/ux-signals/esyfo-ux-signals/UxSignalsPanel'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.dittSykefravaer())
@@ -27,7 +26,6 @@ const Index = () => {
             <IngenSykmelding />
             <Oppgaver />
             {maksdatoToggle.enabled && <Maksdato />}
-            <UxSignalsPanel />
             <Arbeidssituasjon />
             <Lenker />
 
