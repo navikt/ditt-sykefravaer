@@ -2,7 +2,7 @@ import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import React from 'react'
 import Link from 'next/link'
 
-import { logEvent } from '../amplitude/amplitude'
+import { logEvent } from '../umami/umami'
 
 interface FellesLenkepanelProps {
     url?: string

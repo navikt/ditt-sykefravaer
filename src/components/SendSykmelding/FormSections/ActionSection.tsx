@@ -7,7 +7,7 @@ import { UseMutationResult } from '@tanstack/react-query'
 import { FormValues } from '../SendSykmeldingForm'
 import { QuestionWrapper } from '../../FormComponents/FormStructure'
 import { isArbeidstaker } from '../../../utils/arbeidssituasjonUtils'
-import { logAmplitudeEvent } from '../../amplitude/amplitude'
+import { logUmamiEvent } from '../../umami/umami'
 import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../hooks/sykmelding/useChangeSykmeldingStatus'
 import { SendSykmeldingMutation } from '../../../hooks/sykmelding/useSendSykmelding'
 
@@ -168,10 +168,10 @@ function useAvbryt(sykmeldingId: string, onAvbryt: () => void) {
         SykmeldingChangeStatus.AVBRYT,
         () => {
             onAvbryt()
-            logAmplitudeEvent({ eventName: 'skjema fullført', data: { skjemanavn: 'avbryt åpen sykmelding' } })
+            logUmamiEvent({ eventName: 'skjema fullført', data: { skjemanavn: 'avbryt åpen sykmelding' } })
         },
         () =>
-            logAmplitudeEvent({
+            logUmamiEvent({
                 eventName: 'skjema innsending feilet',
                 data: { skjemanavn: 'avbryt åpen sykmelding' },
             }),

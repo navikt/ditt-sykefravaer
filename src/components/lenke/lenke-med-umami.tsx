@@ -1,15 +1,15 @@
 import { Link } from '@navikt/ds-react'
 import React from 'react'
 
-import { logEvent } from '../amplitude/amplitude'
+import { logEvent } from '../umami/umami'
 
-interface LenkeMedAmplitudeProps {
+interface LenkeMedUmamiProps {
     tekst: string
     url: string
     cleanUrl?: string
 }
 
-export const LenkeMedAmplitude = ({ tekst, url, cleanUrl }: LenkeMedAmplitudeProps) => (
+export const LenkeMedUmami = ({ tekst, url, cleanUrl }: LenkeMedUmamiProps) => (
     <Link
         href={url}
         rel="noopener noreferrer"

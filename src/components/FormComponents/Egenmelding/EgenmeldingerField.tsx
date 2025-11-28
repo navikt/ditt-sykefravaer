@@ -6,7 +6,7 @@ import * as R from 'remeda'
 import cn from 'classnames'
 
 import { sortDatesASC } from '../../../utils/dateUtils'
-import { logAmplitudeEvent } from '../../amplitude/amplitude'
+import { logUmamiEvent } from '../../umami/umami'
 import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmelding from './HarBruktEgenmelding'
@@ -31,7 +31,7 @@ interface Props {
         arbeidsgiverNavn: string
     }
     editSentEgenmelding?: boolean
-    amplitudeSkjemanavn: string
+    umamiSkjemanavn: string
 }
 
 function EgenmeldingerField({
@@ -39,7 +39,7 @@ function EgenmeldingerField({
     previous,
     metadata,
     editSentEgenmelding = false,
-    amplitudeSkjemanavn,
+    umamiSkjemanavn,
 }: Props): ReactElement | null {
     const { watch, setValue, getValues } = useFormContext<EgenmeldingsdagerSubForm>()
     const allPeriods: EgenmeldingsdagerFormValue[] = watch('egenmeldingsdager') ?? []
@@ -59,14 +59,14 @@ function EgenmeldingerField({
     }, [setValue, hasHitPreviousSykmeldingTom, egenmeldingsdagerHitPrevious])
 
     useEffect(() => {
-        logAmplitudeEvent(
+        logUmamiEvent(
             {
                 eventName: 'skjema steg fullført',
-                data: { skjemanavn: amplitudeSkjemanavn, steg: 'Har truffet forrige sykmelding tom' },
+                data: { skjemanavn: umamiSkjemanavn, steg: 'Har truffet forrige sykmelding tom' },
             },
             { level: index + 1 },
         )
-    }, [index, amplitudeSkjemanavn, hasHitPreviousSykmeldingTom])
+    }, [index, umamiSkjemanavn, hasHitPreviousSykmeldingTom])
 
     if (hasHitPreviousSykmeldingTom) {
         // The user has hit the previous sykmelding, we don't need to ask anymore.
@@ -102,7 +102,7 @@ function EgenmeldingerField({
                             laterPeriodsRemoved(index, editSentEgenmelding, getValues('egenmeldingsdager')),
                         )
                     }}
-                    amplitudeSkjemanavn={amplitudeSkjemanavn}
+                    umamiSkjemanavn={umamiSkjemanavn}
                 />
                 {hasPeriod && hasClickedVidere !== true && (
                     <>
@@ -148,7 +148,7 @@ function EgenmeldingerField({
                         earliestPossibleDate: earliestPossibleDate,
                     }}
                     editSentEgenmelding={editSentEgenmelding}
-                    amplitudeSkjemanavn={amplitudeSkjemanavn}
+                    umamiSkjemanavn={umamiSkjemanavn}
                 />
             )}
             {cumulativeIncluding >= MAX_EGENMELDINGSDAGER && (

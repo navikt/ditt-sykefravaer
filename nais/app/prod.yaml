@@ -22,7 +22,7 @@ env:
   DIALOGMOTE_URL: https://www.nav.no/syk/dialogmoter/sykmeldt
   MINSIDE_URL: https://www.nav.no/minside
   DECORATOR_ENV: prod
-  AMPLITUDE_ENABLED: true
+  UMAMI_ENABLED: false
   ASSET_PREFIX: https://cdn.nav.no/flex/ditt-sykefravaer
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: prod-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: prod-gcp:flex:spinnsyn-backend

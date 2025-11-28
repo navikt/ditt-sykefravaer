@@ -49,7 +49,7 @@ FAST=true npm run play-headless
 ```
 
 
-## Dette logges i Amplitude
+## Dette logges i Umami
 
 Alle oppgaver/varsler:
 

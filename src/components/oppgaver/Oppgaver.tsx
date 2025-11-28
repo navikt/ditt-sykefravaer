@@ -7,7 +7,7 @@ import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import { basePath, oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
-import { logEvent } from '../amplitude/amplitude'
+import { logEvent } from '../umami/umami'
 import { fetchMedRequestId } from '../../utils/fetch'
 
 import { skapMeldinger } from './meldinger'
