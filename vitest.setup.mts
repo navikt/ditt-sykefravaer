@@ -1,7 +1,6 @@
 import { TextDecoder, TextEncoder } from 'util'
 
 import '@testing-library/jest-dom/vitest'
-import 'vitest-axe/extend-expect'
 
 import * as matchers from '@testing-library/jest-dom/matchers'
 import { vi, expect, afterEach } from 'vitest'
