@@ -2,7 +2,7 @@ import { logAnalyticsEvent } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useLayoutEffect, useRef } from 'react'
 
-import { isProd, umamiEnabled } from '../../utils/environment'
+import { isOpplaering, isProd, umamiEnabled } from '../../utils/environment'
 
 export type validEventNames =
     | 'navigere'
@@ -20,7 +20,7 @@ export const logEvent = (eventName: validEventNames, eventData: Record<string, s
                 eventName,
                 eventData,
             }).catch((e) => logger.warn(`Feil ved umami logging`, e))
-        } else if (!isProd()) {
+        } else if (!isProd() && isOpplaering()) {
             // eslint-disable-next-line no-console
             console.log(`Logger ${eventName} - Event properties: ${JSON.stringify(eventData)}!`)
         }
