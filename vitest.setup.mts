@@ -4,14 +4,12 @@ import '@testing-library/jest-dom/vitest'
 import 'vitest-axe/extend-expect'
 
 import * as matchers from '@testing-library/jest-dom/matchers'
-import * as axeMatchers from 'vitest-axe/matchers'
 import { vi, expect, afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import mockRouter from 'next-router-mock'
 import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes'
 
 expect.extend(matchers)
-expect.extend(axeMatchers)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const dirtyGlobal = global as any
