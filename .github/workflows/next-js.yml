@@ -104,11 +104,19 @@ jobs:
         shardTotal: [4]
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/workflows/actions/build-next
+      - uses: ./.github/workflows/actions/setup-node
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
-          NAIS_MANAGEMENT_PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+      - name: next.js cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Build application
+        run: npm run build
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       - name: Run Playwright
