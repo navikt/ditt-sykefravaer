@@ -72,7 +72,7 @@ export const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertPr
                                 if (!oppgave.lenke) return
                                 e.preventDefault()
                                 logEvent('navigere', {
-                                    destinasjon: oppgave.lenke,
+                                    destinasjon: 'oppgave',
                                     lenketekst: oppgave.meldingType ?? oppgave.tekst,
                                     variant: oppgave.type ?? 'info',
                                     komponent: 'ditt sykefravær oppgave',
