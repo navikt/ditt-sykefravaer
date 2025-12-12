@@ -1,0 +1,71 @@
+name: Nais deploy dev og prod
+on:
+  workflow_call:
+    inputs:
+      image:
+        required: false
+        type: string
+        default: 'n/a'
+      app:
+        required: false
+        type: string
+        default: ${{ github.event.repository.name }}
+      nais-template:
+        required: false
+        default: nais/app/naiserator.yaml
+        type: string
+      prod-vars:
+        required: false
+        default: nais/app/prod.yaml
+        type: string
+      dev-vars:
+        required: false
+        default: nais/app/dev.yaml
+        type: string
+      dev-only:
+        required: false
+        default: 'false'
+        type: string
+      prod-only:
+        required: false
+        default: 'false'
+        type: string
+      extra-vars:
+        required: false
+        default: ''
+        type: string
+
+jobs:
+  deploy-til-dev:
+    if: ${{ (github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')) && inputs.prod-only == 'false' }}
+    name: Deploy dev
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    concurrency: deploy-${{ inputs.app }}-til-dev
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        name: Deploy til dev
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: ${{ inputs.nais-template }}
+          VAR: image=${{ inputs.image }},kafkaPool=nav-dev,unleash-environment=development,${{ inputs.extra-vars }}
+          VARS: ${{ inputs.dev-vars }}
+
+  deploy-til-prod:
+    if: ${{ github.ref_name == 'main' && inputs.dev-only == 'false' }}
+    name: Deploy prod
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    concurrency: deploy-${{ inputs.app }}-til-prod
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: nais/deploy/actions/deploy@v2
+        name: Deploy til prod
+        env:
+          CLUSTER: prod-gcp
+          RESOURCE: ${{ inputs.nais-template }}
+          VAR: image=${{ inputs.image }},kafkaPool=nav-prod,unleash-environment=production,${{ inputs.extra-vars }}
+          VARS: ${{ inputs.prod-vars }}
