@@ -7,7 +7,15 @@ import { erSykmeldingInnafor } from '../maksdato/skalViseMaksDato'
 
 import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 
-export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal?: string }) => {
+export const Flexjar = ({
+    feedbackId,
+    sporsmal,
+    feedbackProps,
+}: {
+    feedbackId: string
+    sporsmal?: string
+    feedbackProps?: Record<string, string | undefined | boolean | number>
+}) => {
     const [activeState, setActiveState] = useState<string | number | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
 
@@ -71,6 +79,7 @@ export const Flexjar = ({ feedbackId, sporsmal }: { feedbackId: string; sporsmal
             getPlaceholder={getPlaceholder}
             feedbackProps={{
                 ...maksdatoMetadata(),
+                ...feedbackProps,
             }}
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
