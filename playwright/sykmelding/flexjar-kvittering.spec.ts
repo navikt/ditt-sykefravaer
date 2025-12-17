@@ -21,7 +21,16 @@ test.describe('Sykmelding kvittering', () => {
             'rgb(35, 38, 42)',
         )
         await feedbackSection.getByRole('textbox').fill('Dette er en test')
-        await feedbackSection.getByRole('button', { name: 'Send tilbakemelding' }).click()
+
+        await test.step('Payload inneholder arbeidssituasjon', async () => {
+            const [request] = await Promise.all([
+                page.waitForRequest((request) => request.url().includes('/flexjar-backend/api/v2/feedback')),
+                feedbackSection.getByRole('button', { name: 'Send tilbakemelding' }).click(),
+            ])
+            const postData = JSON.parse(request.postData() || '{}')
+            expect(postData).toHaveProperty('arbeidssituasjon', 'ARBEIDSTAKER')
+        })
+
         await page.getByText('Takk for tilbakemeldingen!').isVisible()
     })
 })
