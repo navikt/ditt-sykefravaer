@@ -21,4 +21,10 @@ export default function useErUtenforVentetid(sykmeldingId: string) {
 interface UtenforVentetid {
     erUtenforVentetid: boolean
     oppfolgingsdato?: string
+    ventetid?: FomTomPeriode
+}
+
+interface FomTomPeriode {
+    fom: string
+    tom: string
 }
