@@ -45,7 +45,8 @@ function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactEl
         )
     }
 
-    const oppfolgingsdato = data.ventetid?.fom || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const oppfolgingsdato =
+        data.ventetid?.fom || data.oppfolgingsdato || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">

@@ -183,7 +183,7 @@ function FrilanserNaeringsdrivendeBrukerSvar({
         return null
     }
 
-    const oppfolgingsdato = data.ventetid?.fom || sykmeldingStartDato
+    const oppfolgingsdato = data.ventetid?.fom || data.oppfolgingsdato || sykmeldingStartDato
     const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, oppfolgingsdato)
 
     return (

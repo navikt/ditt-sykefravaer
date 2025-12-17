@@ -1,5 +1,3 @@
-import { add, toDate } from 'date-fns'
-
 import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
@@ -35,18 +33,10 @@ class MockDb {
     }
 
     sykeldingErUtenforVentetid(): ErUtenforVentetid {
-        const ventetidFom = this._oppfolgingsdato || '2021-04-10'
         return {
             erUtenforVentetid: this._erUtenforVentetid,
             oppfolgingsdato: this._oppfolgingsdato,
-            ventetid: {
-                fom: this._erUtenforVentetid
-                    ? add(toDate(ventetidFom), { days: 1 }).toISOString().slice(0, 10)
-                    : ventetidFom,
-                tom: add(toDate(ventetidFom), { days: this._erUtenforVentetid ? 20 : 5 })
-                    .toISOString()
-                    .slice(0, 10),
-            },
+            ventetid: null,
         }
     }
 
