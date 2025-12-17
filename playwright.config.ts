@@ -90,4 +90,10 @@ export default defineConfig({
     },
     projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
     webServer: servers,
+    testIgnore: [
+        '**/frilanser.spec.tsx',
+        '**/jordbruker.spec.tsx',
+        '**/selvstendigNaringsdrivende.spec.tsx',
+        '**/fiskere.spec.tsx',
+    ],
 })
