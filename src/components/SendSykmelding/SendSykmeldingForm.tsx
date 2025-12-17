@@ -31,6 +31,7 @@ export interface FormValues extends EgenmeldingsdagerSubForm {
     arbeidssituasjon: ArbeidssituasjonType | null
     arbeidsgiverOrgnummer: string | null
     riktigNarmesteLeder: YesOrNo | null
+    sykFoerSykmeldingen: YesOrNo | null
     harBruktEgenmelding: YesOrNo | null
     egenmeldingsperioder: { fom: Date | null; tom: Date | null }[] | null
     harForsikring: YesOrNo | null
@@ -69,6 +70,7 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
             arbeidssituasjon: null,
             arbeidsgiverOrgnummer: null,
             riktigNarmesteLeder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             // useFieldArray doesn't allow default values when mounted
             egenmeldingsperioder: [{ fom: null, tom: null }],

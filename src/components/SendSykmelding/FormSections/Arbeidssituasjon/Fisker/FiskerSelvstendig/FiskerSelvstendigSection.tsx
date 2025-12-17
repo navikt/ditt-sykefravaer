@@ -11,6 +11,7 @@ import FrilanserEgenmeldingPerioderField from '../../Frilanser/FrilanserEgenmeld
 import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
 import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { YesOrNo } from '../../../../../../types/sykmelding/sykmeldingCommon'
+import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
 
 interface Props {
     sykmelding: Sykmelding
@@ -20,6 +21,7 @@ interface Props {
 function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactElement {
     const { watch } = useFormContext<FormValues>()
     const harBruktEgenmelding = watch('harBruktEgenmelding')
+    const sykFoerSykmeldingen = watch('sykFoerSykmeldingen')
     const { data, isPending: loading, error } = useErUtenforVentetid(sykmelding.id)
 
     if (loading) {
@@ -43,12 +45,13 @@ function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactEl
         )
     }
 
-    const oppfolgingsdato = data.oppfolgingsdato || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const oppfolgingsdato = data.ventetid?.fom || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            <HarBruktEgenmeldingsPerioderField oppfolgingsdato={oppfolgingsdato} />
-            {harBruktEgenmelding === YesOrNo.YES && (
+            <SykFoerSykmeldingenField oppfolgingsdato={oppfolgingsdato} />
+            {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
+            {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
                 <FrilanserEgenmeldingPerioderField oppfolgingsdato={oppfolgingsdato} />
             )}
             {harBruktEgenmelding != null && askForsikring && <HarForsikringField />}

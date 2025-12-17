@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
 
 import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
-import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
-import { SendSykmeldingValues } from '../server/api-models/SendSykmeldingValues'
+import { SendSykmeldingValues, YesOrNo } from '../server/api-models/SendSykmeldingValues'
 
 import { mapToSendSykmeldingValues } from './toSendSykmeldingUtils'
 import { toDate } from './dateUtils'
@@ -17,6 +17,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSTAKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -67,6 +68,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSTAKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -99,6 +101,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSTAKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -138,6 +141,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSTAKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -185,6 +189,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSTAKER,
                 arbeidsgiverOrgnummer: '67890',
                 riktigNarmesteLeder: YesOrNo.NO,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -223,6 +228,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -277,6 +283,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [{ fom: toDate('2023-03-09'), tom: toDate('2023-03-12') }],
                 harForsikring: YesOrNo.YES,
@@ -296,6 +303,7 @@ describe('toSendSykmeldingUtils', () => {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 harForsikring: YesOrNo.YES,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 fisker: {
                     blad: Blad.A,
@@ -319,6 +327,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 arbeidsgiverOrgnummer: '12345',
                 riktigNarmesteLeder: YesOrNo.YES,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [{ fom: toDate('2023-03-09'), tom: toDate('2023-03-12') }],
                 harForsikring: YesOrNo.YES,
@@ -337,6 +346,7 @@ describe('toSendSykmeldingUtils', () => {
             const expectValues: SendSykmeldingValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 fisker: {
                     blad: Blad.B,
@@ -362,6 +372,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [{ fom: toDate('2023-03-09'), tom: toDate('2023-03-12') }],
                 harForsikring: YesOrNo.YES,
@@ -380,6 +391,7 @@ describe('toSendSykmeldingUtils', () => {
             const expectValues: SendSykmeldingValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [
                     {
@@ -400,6 +412,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 egenmeldingsperioder: [{ fom: null, tom: null }],
                 harForsikring: YesOrNo.NO,
@@ -418,6 +431,7 @@ describe('toSendSykmeldingUtils', () => {
             const expectValues: SendSykmeldingValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 harForsikring: YesOrNo.NO,
             }
@@ -432,6 +446,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 egenmeldingsperioder: [
                     { fom: toDate('2023-03-09'), tom: toDate('2023-03-12') },
@@ -453,6 +468,7 @@ describe('toSendSykmeldingUtils', () => {
             const expectValues: SendSykmeldingValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 harForsikring: YesOrNo.NO,
             }
@@ -467,6 +483,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.NAERINGSDRIVENDE,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 egenmeldingsperioder: null,
                 harForsikring: YesOrNo.NO,
@@ -486,6 +503,7 @@ describe('toSendSykmeldingUtils', () => {
                 erOpplysningeneRiktige: YesOrNo.NO,
                 uriktigeOpplysninger: [UriktigeOpplysningerType.ANDRE_OPPLYSNINGER],
                 arbeidssituasjon: ArbeidssituasjonType.NAERINGSDRIVENDE,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.NO,
                 harForsikring: YesOrNo.NO,
             }
@@ -502,6 +520,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSLEDIG,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -536,6 +555,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSLEDIG,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -566,6 +586,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ARBEIDSLEDIG,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -598,6 +619,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.PERMITTERT,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -633,6 +655,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.PERMITTERT,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -667,6 +690,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidssituasjon: ArbeidssituasjonType.ANNET,
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -699,6 +723,7 @@ describe('toSendSykmeldingUtils', () => {
                 arbeidsgiverOrgnummer: null,
                 riktigNarmesteLeder: null,
                 harBruktEgenmelding: null,
+                sykFoerSykmeldingen: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
                 egenmeldingsdager: null,

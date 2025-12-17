@@ -6,6 +6,7 @@ export type SendSykmeldingValues = {
     readonly egenmeldingsperioder?: readonly DateRange[] | null
     readonly erOpplysningeneRiktige?: YesOrNo | null
     readonly fisker?: FiskerInput | null
+    readonly sykFoerSykmeldingen?: YesOrNo | null
     readonly harBruktEgenmelding?: YesOrNo | null
     readonly harEgenmeldingsdager?: YesOrNo | null
     readonly harForsikring?: YesOrNo | null

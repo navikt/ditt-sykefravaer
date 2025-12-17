@@ -22,7 +22,7 @@ test.describe('Jordbruker', () => {
         await velgArbeidssituasjon('jordbruker')(page)
 
         await expectOppfolgingsdato('2021-04-01')(page)
-        await frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }])(page)
+        await frilanserEgenmeldingsperioder([{ fom: '20.12.2020' }])(page)
         await velgForsikring('Ja')(page)
 
         await bekreftSykmelding(page)
@@ -35,7 +35,7 @@ test.describe('Jordbruker', () => {
         await expectDineSvar({
             arbeidssituasjon: 'Jordbruker',
             selvstendig: {
-                egenmeldingsperioder: ['20. - 27. desember 2020'],
+                egenmeldingsperioder: ['20. desember 2020'],
                 forsikring: 'Ja',
             },
         })(page)

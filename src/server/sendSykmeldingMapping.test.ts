@@ -42,6 +42,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -76,6 +77,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -115,6 +117,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -157,6 +160,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'JA',
             },
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             uriktigeOpplysninger: null,
@@ -198,6 +202,7 @@ describe('sendSykmeldingMapping', () => {
             },
             riktigNarmesteLeder: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             uriktigeOpplysninger: null,
@@ -214,6 +219,7 @@ describe('sendSykmeldingMapping', () => {
             {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [
                     { fom: '2021-04-10', tom: '2021-04-11' },
@@ -235,13 +241,16 @@ describe('sendSykmeldingMapping', () => {
                 sporsmaltekst: 'Jeg er sykmeldt som',
                 svar: 'FRILANSER',
             },
+            sykFoerSykmeldingen: {
+                sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 10. april 2021?',
+                svar: 'JA',
+            },
             harBruktEgenmelding: {
-                sporsmaltekst:
-                    'Vi har registrert at du ble syk 10. april 2021. Brukte du egenmelding eller papirsykmelding før denne datoen?',
+                sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
                 svar: 'JA',
             },
             egenmeldingsperioder: {
-                sporsmaltekst: 'Hvilke dager var du borte fra jobb før 10. april 2021?',
+                sporsmaltekst: 'Når ga du beskjed?',
                 svar: [
                     { fom: '2021-04-10', tom: '2021-04-11' },
                     { fom: '2021-04-12', tom: '2021-04-13' },
@@ -272,6 +281,7 @@ describe('sendSykmeldingMapping', () => {
                         blad: Blad.A,
                         lottOgHyre: LottOgHyre.LOTT,
                     },
+                    sykFoerSykmeldingen: YesOrNo.YES,
                     harBruktEgenmelding: YesOrNo.YES,
                     egenmeldingsperioder: [
                         { fom: '2021-04-10', tom: '2021-04-11' },
@@ -293,13 +303,16 @@ describe('sendSykmeldingMapping', () => {
                     sporsmaltekst: 'Jeg er sykmeldt som',
                     svar: 'FISKER',
                 },
+                sykFoerSykmeldingen: {
+                    sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 10. april 2021?',
+                    svar: 'JA',
+                },
                 harBruktEgenmelding: {
-                    sporsmaltekst:
-                        'Vi har registrert at du ble syk 10. april 2021. Brukte du egenmelding eller papirsykmelding før denne datoen?',
+                    sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
                     svar: 'JA',
                 },
                 egenmeldingsperioder: {
-                    sporsmaltekst: 'Hvilke dager var du borte fra jobb før 10. april 2021?',
+                    sporsmaltekst: 'Når ga du beskjed?',
                     svar: [
                         { fom: '2021-04-10', tom: '2021-04-11' },
                         { fom: '2021-04-12', tom: '2021-04-13' },
@@ -383,6 +396,7 @@ describe('sendSykmeldingMapping', () => {
                     sporsmaltekst: 'Velg dagene du brukte egenmelding',
                     svar: ['2021-04-10', '2021-04-11'],
                 },
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -428,6 +442,7 @@ describe('sendSykmeldingMapping', () => {
                 riktigNarmesteLeder: null,
                 harBruktEgenmeldingsdager: null,
                 egenmeldingsdager: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -462,6 +477,7 @@ describe('sendSykmeldingMapping', () => {
                 riktigNarmesteLeder: null,
                 harBruktEgenmeldingsdager: null,
                 egenmeldingsdager: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,

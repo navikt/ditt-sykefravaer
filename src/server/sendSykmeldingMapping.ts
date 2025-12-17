@@ -72,10 +72,16 @@ export function mapSendSykmeldingValuesToV3Api(
                       sporsmaltekst: sporsmal.riktigNarmesteLeder(valgtNarmesteLederNavn),
                   }
                 : null,
+        sykFoerSykmeldingen: values.sykFoerSykmeldingen
+            ? {
+                  svar: yesOrNoToJaEllerNei(values.sykFoerSykmeldingen),
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(oppfolgingsdato),
+              }
+            : null,
         harBruktEgenmelding: values.harBruktEgenmelding
             ? {
                   svar: yesOrNoToJaEllerNei(values.harBruktEgenmelding),
-                  sporsmaltekst: sporsmal.harBruktEgenmelding(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.harBruktEgenmelding(),
               }
             : null,
         egenmeldingsperioder:
@@ -91,7 +97,7 @@ export function mapSendSykmeldingValuesToV3Api(
                               tom: periode.tom,
                           }
                       }),
-                      sporsmaltekst: sporsmal.egenmeldingsperioder(oppfolgingsdato),
+                      sporsmaltekst: sporsmal.egenmeldingsperioder(),
                   }
                 : null,
         harForsikring: values.harForsikring

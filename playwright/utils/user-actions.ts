@@ -190,7 +190,9 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
 export function expectOppfolgingsdato(dato: string) {
     return async (page: Page): Promise<void> => {
         await expect(
-            page.getByRole('group', { name: new RegExp(`Vi har registrert at du ble syk ${toReadableDate(dato)}`) }),
+            page.getByRole('group', {
+                name: new RegExp(`Var du syk og borte fra jobb før du ble sykmeldt ${toReadableDate(dato)}`),
+            }),
         ).toBeVisible()
     }
 }
@@ -200,24 +202,23 @@ export function frilanserEgenmeldingsperioder(
         | 'Nei'
         | {
               fom: string
-              tom: string
           }[],
 ) {
     return async (page: Page): Promise<void> => {
         const jaEllerNei = Array.isArray(svar) ? 'Ja' : 'Nei'
         await getRadioInGroup(page)(
-            { name: /Brukte du egenmelding eller papirsykmelding før denne datoen?/i },
+            { name: /Var du syk og borte fra jobb før du ble sykmeldt/i },
             { name: jaEllerNei },
         ).click()
 
+        if (jaEllerNei === 'Ja') {
+            await getRadioInGroup(page)({ name: /Ga du beskjed til Nav da du ble syk/i }, { name: 'Ja' }).click()
+        }
+
         if (Array.isArray(svar)) {
             let index = 0
-            for (const { fom, tom } of svar) {
-                await page.getByRole('textbox', { name: 'Fra og med' }).nth(index).fill(fom)
-                await page.getByRole('textbox', { name: 'Til og med' }).nth(index).fill(tom)
-                if (index < svar.length - 1) {
-                    await page.getByRole('button', { name: 'Legg til' }).nth(0).click()
-                }
+            for (const { fom } of svar) {
+                await page.getByRole('textbox', { name: 'Når ga du beskjed?' }).nth(index).fill(fom)
                 index++
             }
         }

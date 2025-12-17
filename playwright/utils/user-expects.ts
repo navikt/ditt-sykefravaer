@@ -144,18 +144,13 @@ export function expectDineSvar(svar: {
 
         if (svar.selvstendig) {
             if (svar.selvstendig.egenmeldingsperioder === ExpectMeta.NotInDom) {
-                await expect(
-                    getInfoItem('Brukte du egenmelding eller papirsykmelding før denne datoen?')(page),
-                ).not.toBeVisible()
+                await expect(getInfoItem('Var du syk og borte fra jobb før du ble sykmeldt')(page)).not.toBeVisible()
             } else if (svar.selvstendig.egenmeldingsperioder === 'Nei') {
-                await expect(
-                    getInfoItem('Brukte du egenmelding eller papirsykmelding før denne datoen?')(page),
-                ).toHaveText(/Nei/)
+                await expect(getInfoItem('Var du syk og borte fra jobb før du ble sykmeldt')(page)).toHaveText(/Nei/)
             } else {
-                await expect(
-                    getInfoItem('Brukte du egenmelding eller papirsykmelding før denne datoen?')(page),
-                ).toHaveText(/Ja/)
-                await expect(getInfoItem(/Hvilke dager var du borte fra jobb før/)(page)).toHaveText(
+                await expect(getInfoItem('Var du syk og borte fra jobb før du ble sykmeldt')(page)).toHaveText(/Ja/)
+                await expect(getInfoItem('Ga du beskjed til Nav da du ble syk?')(page)).toHaveText(/Ja/)
+                await expect(getInfoItem(/Når ga du beskjed/)(page)).toHaveText(
                     new RegExp(svar.selvstendig.egenmeldingsperioder.join(''), 'i'),
                 )
             }

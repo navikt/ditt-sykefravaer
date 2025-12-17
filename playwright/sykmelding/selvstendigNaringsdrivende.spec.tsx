@@ -27,7 +27,7 @@ test.describe('Selvstendig næringsdrivende', () => {
                 }),
                 navigateToFirstAndPickSituasjon,
                 expectOppfolgingsdato('2021-04-05'),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }]),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2020' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -40,7 +40,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Selvstendig næringsdrivende',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. - 27. desember 2020'],
+                    egenmeldingsperioder: ['20. desember 2020'],
                     forsikring: 'Ja',
                 },
             })(page)
@@ -53,7 +53,7 @@ test.describe('Selvstendig næringsdrivende', () => {
                 }),
                 navigateToFirstAndPickSituasjon,
                 expectOppfolgingsdato('2021-04-10'),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }]),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2020' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -66,7 +66,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Selvstendig næringsdrivende',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. - 27. desember 2020'],
+                    egenmeldingsperioder: ['20. desember 2020'],
                     forsikring: 'Ja',
                 },
             })(page)

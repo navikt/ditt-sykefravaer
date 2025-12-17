@@ -91,6 +91,7 @@ function SentSykmeldingBrukerSvar({
             <YesNoAnswer response={brukerSvar.riktigNarmesteLeder} />
             <YesNoAnswer response={brukerSvar.harBruktEgenmeldingsdager} />
             <EgenmeldingsdagerAnswer response={brukerSvar.egenmeldingsdager} />
+            <YesNoAnswer response={brukerSvar.sykFoerSykmeldingen} />
             <YesNoAnswer response={brukerSvar.harBruktEgenmelding} />
             <FrilanserEgenmeldingsperioderAnswer response={brukerSvar.egenmeldingsperioder} />
             <YesNoAnswer response={brukerSvar.harForsikring} />
@@ -182,11 +183,12 @@ function FrilanserNaeringsdrivendeBrukerSvar({
         return null
     }
 
-    const oppfolgingsdato = data.oppfolgingsdato || sykmeldingStartDato
+    const oppfolgingsdato = data.ventetid?.fom || sykmeldingStartDato
     const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, oppfolgingsdato)
 
     return (
         <>
+            <YesNoAnswer response={mappedValues.sykFoerSykmeldingen} />
             <YesNoAnswer response={mappedValues.harBruktEgenmelding} />
             <FrilanserEgenmeldingsperioderAnswer response={mappedValues.egenmeldingsperioder} />
             <YesNoAnswer response={mappedValues.harForsikring} />
@@ -322,7 +324,11 @@ function FrilanserEgenmeldingsperioderAnswer({
         <SykmeldingListInfo
             heading={response.sporsmaltekst}
             level="3"
-            texts={response.svar.map((it) => toReadableDatePeriod(it.fom, it.tom))}
+            texts={
+                response.sporsmaltekst === 'Når ga du beskjed?'
+                    ? response.svar.map((it) => toReadableDate(it.fom))
+                    : response.svar.map((it) => toReadableDatePeriod(it.fom, it.tom))
+            }
         />
     )
 }

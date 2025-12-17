@@ -18,6 +18,7 @@ export interface BrukerSvar {
     arbeidssituasjon: SporsmalSvar<ArbeidssituasjonType>
     arbeidsgiverOrgnummer: SporsmalSvar<string> | null
     riktigNarmesteLeder: SporsmalSvar<JaEllerNei> | null
+    sykFoerSykmeldingen: SporsmalSvar<JaEllerNei> | null
     harBruktEgenmelding: SporsmalSvar<JaEllerNei> | null
     egenmeldingsperioder: SporsmalSvar<Array<{ fom: string; tom: string }>> | null
     harForsikring: SporsmalSvar<JaEllerNei> | null
