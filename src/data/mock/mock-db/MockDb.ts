@@ -1,3 +1,5 @@
+import { add, toDate } from 'date-fns'
+
 import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
@@ -16,7 +18,8 @@ class MockDb {
     private readonly _sykmeldinger: MuterbarSykmelding[]
     private _antallArbeidsgivere = 1
     private _erUtenforVentetid = false
-    private _oppfolgingsdato: string | null = '2021-04-10'
+    private _oppfolgingsdato: string | null | undefined
+    private _ventetidFom: string | null | undefined
 
     constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
         this._sykmeldinger = scenario.sykmeldinger
@@ -35,7 +38,16 @@ class MockDb {
     sykeldingErUtenforVentetid(): ErUtenforVentetid {
         return {
             erUtenforVentetid: this._erUtenforVentetid,
-            oppfolgingsdato: this._oppfolgingsdato,
+            oppfolgingsdato: this._oppfolgingsdato ?? null,
+            ventetid:
+                this._ventetidFom == null
+                    ? null
+                    : {
+                          fom: this._ventetidFom,
+                          tom: add(toDate(this._ventetidFom), { days: this._erUtenforVentetid ? 20 : 5 })
+                              .toISOString()
+                              .slice(0, 10),
+                      },
         }
     }
 
@@ -134,6 +146,15 @@ class MockDb {
         }
 
         this._oppfolgingsdato = oppfolgingsdato
+    }
+
+    setVentetidFom(ventetidFom: string | ''): void {
+        if (!ventetidFom) {
+            this._ventetidFom = null
+            return
+        }
+
+        this._ventetidFom = ventetidFom
     }
 
     private arbeidsgivere(): Arbeidsgiver[] {

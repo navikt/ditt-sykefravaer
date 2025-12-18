@@ -48,7 +48,10 @@ export function mapSendSykmeldingValuesToV3Api(
         )
     }
 
-    const oppfolgingsdato = erUtenforVentetid.oppfolgingsdato || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const oppfolgingsdato =
+        erUtenforVentetid.ventetid?.fom ||
+        erUtenforVentetid.oppfolgingsdato ||
+        getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return {
         erOpplysningeneRiktige: {
@@ -72,28 +75,33 @@ export function mapSendSykmeldingValuesToV3Api(
                       sporsmaltekst: sporsmal.riktigNarmesteLeder(valgtNarmesteLederNavn),
                   }
                 : null,
+        sykFoerSykmeldingen: values.sykFoerSykmeldingen
+            ? {
+                  svar: yesOrNoToJaEllerNei(values.sykFoerSykmeldingen),
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(oppfolgingsdato),
+              }
+            : null,
         harBruktEgenmelding: values.harBruktEgenmelding
             ? {
                   svar: yesOrNoToJaEllerNei(values.harBruktEgenmelding),
-                  sporsmaltekst: sporsmal.harBruktEgenmelding(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.harBruktEgenmelding(),
               }
             : null,
-        egenmeldingsperioder:
-            values.egenmeldingsperioder && erUtenforVentetid.oppfolgingsdato != null
-                ? {
-                      svar: values.egenmeldingsperioder.map((periode) => {
-                          if (periode.fom == null || periode.tom == null) {
-                              throw new Error('Illegal state: periode.fom and periode.tom is required')
-                          }
+        egenmeldingsperioder: values.egenmeldingsperioder
+            ? {
+                  svar: values.egenmeldingsperioder.map((periode) => {
+                      if (periode.fom == null || periode.tom == null) {
+                          throw new Error('Illegal state: periode.fom and periode.tom is required')
+                      }
 
-                          return {
-                              fom: periode.fom,
-                              tom: periode.tom,
-                          }
-                      }),
-                      sporsmaltekst: sporsmal.egenmeldingsperioder(oppfolgingsdato),
-                  }
-                : null,
+                      return {
+                          fom: periode.fom,
+                          tom: periode.tom,
+                      }
+                  }),
+                  sporsmaltekst: sporsmal.egenmeldingsperioder(),
+              }
+            : null,
         harForsikring: values.harForsikring
             ? {
                   svar: yesOrNoToJaEllerNei(values.harForsikring),

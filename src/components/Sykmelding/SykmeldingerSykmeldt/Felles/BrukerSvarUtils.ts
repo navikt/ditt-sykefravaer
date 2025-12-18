@@ -16,7 +16,7 @@ export type SporsmaltekstMetadata = {
 export function mapFormValuesToBrukerSvar(
     formValues: FormValues,
     metadata: SporsmaltekstMetadata,
-): Omit<BrukerSvar, 'egenmeldingsperioder' | 'harBruktEgenmelding' | 'harForsikring'> {
+): Omit<BrukerSvar, 'egenmeldingsperioder' | 'sykFoerSykmeldingen' | 'harBruktEgenmelding' | 'harForsikring'> {
     const sendSykmeldingValues = mapToSendSykmeldingValues(formValues)
 
     return {
@@ -92,7 +92,7 @@ export function mapFormValuesToBrukerSvar(
 export function mapFrilanserFormValuesToBrukerSvar(
     formValues: FormValues,
     oppfolgingsdato: string,
-): Pick<BrukerSvar, 'egenmeldingsperioder' | 'harBruktEgenmelding' | 'harForsikring'> {
+): Pick<BrukerSvar, 'egenmeldingsperioder' | 'sykFoerSykmeldingen' | 'harBruktEgenmelding' | 'harForsikring'> {
     const sendSykmeldingValues = mapToSendSykmeldingValues(formValues)
 
     return {
@@ -103,15 +103,21 @@ export function mapFrilanserFormValuesToBrukerSvar(
                       svar: yesOrNoToJaEllerNei(sendSykmeldingValues.harForsikring),
                   }
                 : undefined,
+        sykFoerSykmeldingen: sendSykmeldingValues.sykFoerSykmeldingen
+            ? {
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(oppfolgingsdato),
+                  svar: yesOrNoToJaEllerNei(sendSykmeldingValues.sykFoerSykmeldingen),
+              }
+            : undefined,
         harBruktEgenmelding: sendSykmeldingValues.harBruktEgenmelding
             ? {
-                  sporsmaltekst: sporsmal.harBruktEgenmelding(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.harBruktEgenmelding(),
                   svar: yesOrNoToJaEllerNei(sendSykmeldingValues.harBruktEgenmelding),
               }
             : undefined,
         egenmeldingsperioder: sendSykmeldingValues.egenmeldingsperioder
             ? {
-                  sporsmaltekst: sporsmal.egenmeldingsperioder(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.egenmeldingsperioder(),
                   svar: sendSykmeldingValues.egenmeldingsperioder.map((it) => ({
                       fom: it.fom ?? raise('Fom må være satt'),
                       tom: it.tom ?? raise('Tom må være satt'),

@@ -22,11 +22,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await frilanserEgenmeldingsperioder([
                 {
                     fom: '01.01.2021',
-                    tom: '02.01.2021',
-                },
-                {
-                    fom: '04.01.2021',
-                    tom: '06.01.2021',
                 },
             ])(page)
             await velgForsikring('Ja')(page)
@@ -41,7 +36,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 selvstendig: {
-                    egenmeldingsperioder: ['1. - 2. januar 2021', '4. - 6. januar 2021'],
+                    egenmeldingsperioder: ['1. januar 2021'],
                     forsikring: 'Ja',
                 },
                 fisker: {
@@ -118,7 +113,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         test('Lott, should be næringsdrivende-esque without forsikring', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Lott')(page)
-            await frilanserEgenmeldingsperioder([{ fom: '01.01.2021', tom: '02.01.2021' }])(page)
+            await frilanserEgenmeldingsperioder([{ fom: '01.01.2021' }])(page)
             // No forsikring question for Blad B
             await bekreftSykmelding(page)
 
@@ -130,7 +125,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 selvstendig: {
-                    egenmeldingsperioder: ['1. - 2. januar 2021'],
+                    egenmeldingsperioder: ['1. januar 2021'],
                     forsikring: ExpectMeta.NotInDom,
                 },
                 fisker: {

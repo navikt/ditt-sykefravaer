@@ -6,19 +6,15 @@ import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
 
-interface Props {
-    oppfolgingsdato: string
-}
-
-function HarBruktEgenmeldingsPerioderField({ oppfolgingsdato }: Props): ReactElement {
+function HarBruktEgenmeldingsPerioderField(): ReactElement {
     return (
         <QuestionWrapper>
             <YesNoField<FormValues>
                 name="harBruktEgenmelding"
-                legend={sporsmal.harBruktEgenmelding(oppfolgingsdato)}
+                legend={sporsmal.harBruktEgenmelding()}
                 subtext={<HarBruktEgenmeldingReadMore />}
                 rules={{
-                    required: 'Du må svare på om du har brukt egenmelding eller annen sykmelding før du ble syk.',
+                    required: 'Du må svare på om du har gitt beskjed til Nav da du ble syk.',
                 }}
             />
         </QuestionWrapper>
@@ -27,10 +23,14 @@ function HarBruktEgenmeldingsPerioderField({ oppfolgingsdato }: Props): ReactEle
 
 function HarBruktEgenmeldingReadMore(): ReactElement {
     return (
-        <ReadMore header="Hva betyr dette?">
-            <BodyShort spacing>Vi trenger denne informasjonen for å vite hvem som skal utbetale hva.</BodyShort>
+        <ReadMore header="Spørsmålet forklart">
             <BodyShort spacing>
-                Siden vi ikke får tak i informasjonen automatisk, må vi få disse opplysningene fra deg.
+                Hvis du ga beskjed til Nav da du ble syk og ikke kunne jobbe, starter de første 16 dagene i sykefraværet
+                å telle fra datoen vi fikk beskjed.{' '}
+            </BodyShort>
+            <BodyShort spacing>
+                Svar nei på dette spørsmålet hvis du ikke har gitt beskjed til Nav, også selvom du var syk og borte fra
+                jobb før du ble sykmeldt.
             </BodyShort>
         </ReadMore>
     )

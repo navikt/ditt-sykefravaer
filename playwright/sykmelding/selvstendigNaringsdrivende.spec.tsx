@@ -24,10 +24,11 @@ test.describe('Selvstendig næringsdrivende', () => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     oppfolgingsdato: '2021-04-05',
+                    ventetidFom: '2025-01-08',
                 }),
                 navigateToFirstAndPickSituasjon,
-                expectOppfolgingsdato('2021-04-05'),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }]),
+                expectOppfolgingsdato('2025-01-08'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -40,20 +41,23 @@ test.describe('Selvstendig næringsdrivende', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Selvstendig næringsdrivende',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. - 27. desember 2020'],
+                    egenmeldingsperioder: ['20. desember 2024'],
                     forsikring: 'Ja',
                 },
             })(page)
         })
 
-        test('should use first fom in sykmelding period if oppfolgingsdato is missing', async ({ page }) => {
+        test('should use first fom in sykmelding period if ventetid and oppfolgingsdato is missing', async ({
+            page,
+        }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     oppfolgingsdato: null,
+                    ventetidFom: null,
                 }),
                 navigateToFirstAndPickSituasjon,
-                expectOppfolgingsdato('2021-04-10'),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }]),
+                expectOppfolgingsdato('2025-01-08'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -66,7 +70,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Selvstendig næringsdrivende',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. - 27. desember 2020'],
+                    egenmeldingsperioder: ['20. desember 2024'],
                     forsikring: 'Ja',
                 },
             })(page)
@@ -78,6 +82,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erUtenforVentetid: true,
+                    ventetidFom: '2024-12-01',
                 }),
                 navigateToFirstAndPickSituasjon,
                 bekreftSykmelding,

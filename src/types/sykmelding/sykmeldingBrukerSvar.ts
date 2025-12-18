@@ -8,6 +8,7 @@ export type BrukerSvar = {
     readonly egenmeldingsperioder?: FormSporsmalSvar<FomTom[]> | null
     readonly erOpplysningeneRiktige: FormSporsmalSvar<JaEllerNei>
     readonly fisker?: FiskerBrukerSvar | null
+    readonly sykFoerSykmeldingen?: FormSporsmalSvar<JaEllerNei> | null
     readonly harBruktEgenmelding?: FormSporsmalSvar<JaEllerNei> | null
     readonly harBruktEgenmeldingsdager?: FormSporsmalSvar<JaEllerNei> | null
     readonly harForsikring?: FormSporsmalSvar<JaEllerNei> | null

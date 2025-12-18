@@ -16,13 +16,14 @@ test.describe('Jordbruker', () => {
         await gotoScenario('normal', {
             erUtenforVentetid: false,
             oppfolgingsdato: '2021-04-01',
+            ventetidFom: '2025-01-08',
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('jordbruker')(page)
 
-        await expectOppfolgingsdato('2021-04-01')(page)
-        await frilanserEgenmeldingsperioder([{ fom: '20.12.2020', tom: '27.12.2020' }])(page)
+        await expectOppfolgingsdato('2025-01-08')(page)
+        await frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }])(page)
         await velgForsikring('Ja')(page)
 
         await bekreftSykmelding(page)
@@ -35,7 +36,7 @@ test.describe('Jordbruker', () => {
         await expectDineSvar({
             arbeidssituasjon: 'Jordbruker',
             selvstendig: {
-                egenmeldingsperioder: ['20. - 27. desember 2020'],
+                egenmeldingsperioder: ['20. desember 2024'],
                 forsikring: 'Ja',
             },
         })(page)
@@ -44,6 +45,7 @@ test.describe('Jordbruker', () => {
     test('should be able to submit form outside ventetid', async ({ page }) => {
         await gotoScenario('normal', {
             erUtenforVentetid: true,
+            ventetidFom: '2024-12-01',
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)

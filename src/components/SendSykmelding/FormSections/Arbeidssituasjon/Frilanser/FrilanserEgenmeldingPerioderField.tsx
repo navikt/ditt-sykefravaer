@@ -1,55 +1,65 @@
-import { ReactElement } from 'react'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { Button } from '@navikt/ds-react'
-import { PlusIcon } from '@navikt/aksel-icons'
-import { sub } from 'date-fns'
+import { ReactElement, useState } from 'react'
+import { useController } from 'react-hook-form'
+import { DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react'
+import { sub, toDate } from 'date-fns'
 
-import { FormValues } from '../../../SendSykmeldingForm'
-import { SectionWrapper } from '../../../../FormComponents/FormStructure'
+import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
-import { toDate } from '../../../../../utils/dateUtils'
-
-import FrilanserEgenmeldingPeriodSubField from './FrilanserEgenmeldingPeriodSubField'
+import { FormValues } from '../../../SendSykmeldingForm'
 
 interface Props {
     oppfolgingsdato: string
 }
 
 function FrilanserEgenmeldingPerioderField({ oppfolgingsdato }: Props): ReactElement {
-    const { control } = useFormContext<FormValues>()
-    const { fields, append, remove } = useFieldArray({
-        control,
-        name: 'egenmeldingsperioder',
+    const [dateValidation, setDateValidation] = useState<DateValidationT | null>(null)
+    const { field: fromField, fieldState: fromFieldState } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
+        name: `egenmeldingsperioder.0.fom`,
+        rules: {
+            validate: (fomValue) => {
+                if (dateValidation?.isInvalid) {
+                    return 'Datoen må være på formatet DD.MM.YYYY.'
+                } else if (dateValidation?.isAfter) {
+                    return 'Datoen kan ikke være oppfølgingsdato eller senere.'
+                } else if (!fomValue) {
+                    return 'Du må fylle inn en dato.'
+                } else {
+                    return undefined
+                }
+            },
+        },
+    })
+
+    const { field: toField } = useController<FormValues, `egenmeldingsperioder.0.tom`>({
+        name: `egenmeldingsperioder.0.tom`,
+    })
+
+    const dagenFoerSykmeldingen = sub(toDate(oppfolgingsdato), { days: 1 })
+    const { datepickerProps, inputProps } = useDatepicker({
+        toDate: dagenFoerSykmeldingen,
+        defaultSelected: fromField.value ?? undefined,
+        allowTwoDigitYear: false,
+        required: true,
+        onDateChange: (value) => {
+            fromField.onChange(value)
+            toField.onChange(dagenFoerSykmeldingen)
+        },
+        onValidate: setDateValidation,
     })
 
     return (
-        <SectionWrapper title={sporsmal.egenmeldingsperioder(oppfolgingsdato)} level="3" size="small">
-            <ul className="mt-2 flex flex-col gap-4">
-                {fields.map((field, index) => (
-                    <FrilanserEgenmeldingPeriodSubField
-                        key={field.id}
-                        index={index}
-                        remove={remove}
-                        oppfolgingsdato={sub(toDate(oppfolgingsdato), { days: 1 })}
-                        otherPeriods={fields.filter((it) => it.id !== field.id)}
-                    />
-                ))}
-            </ul>
-            <Button
-                className="mt-4"
-                variant="tertiary"
-                icon={<PlusIcon role="img" aria-hidden />}
-                type="button"
-                onClick={() =>
-                    append(
-                        { fom: null, tom: null },
-                        { shouldFocus: true, focusName: `egenmeldingsperioder.${fields.length}.fom` },
-                    )
-                }
-            >
-                Legg til ekstra periode
-            </Button>
-        </SectionWrapper>
+        <QuestionWrapper>
+            <DatePicker {...datepickerProps}>
+                <DatePicker.Input
+                    id={fromField.name}
+                    {...inputProps}
+                    ref={fromField.ref}
+                    label={sporsmal.egenmeldingsperioder()}
+                    placeholder="DD.MM.ÅÅÅÅ"
+                    error={fromFieldState.error?.message}
+                />
+            </DatePicker>
+        </QuestionWrapper>
     )
 }
 
