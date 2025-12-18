@@ -11,6 +11,7 @@ export function gotoScenario(
         antallArbeidsgivere: 0 | 1 | 2 | 3 | 4
         erUtenforVentetid: boolean
         oppfolgingsdato: string | null
+        ventetidFom: string | null
     }> = {
         antallArbeidsgivere: 1,
         erUtenforVentetid: false,
@@ -20,6 +21,7 @@ export function gotoScenario(
         const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
         const erUtenforVentetid = options.erUtenforVentetid ?? false
         const oppfolgingsdato = options.oppfolgingsdato ?? null
+        const ventetidFom = options.ventetidFom ?? null
 
         if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
             await page.goto('/syk/sykefravaer/sykmeldinger/')
@@ -88,6 +90,7 @@ export function gotoScenario(
             antallArbeidsgivere: antallArbeidsgivere.toString(),
             utenforVentetid: erUtenforVentetid.toString(),
             oppfolgingsdato: oppfolgingsdato ?? '',
+            ventetidFom: ventetidFom ?? '',
         })
 
         await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)

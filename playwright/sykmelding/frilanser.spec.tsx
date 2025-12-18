@@ -19,13 +19,13 @@ test.describe('Frilanser', () => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erUtenforVentetid: false,
-                    oppfolgingsdato: '2021-04-01',
+                    ventetidFom: '2025-01-08',
                 }),
                 navigateToFirstSykmelding('nye', '100%'),
                 opplysingeneStemmer,
                 velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato('2021-04-01'),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2020' }]),
+                expectOppfolgingsdato('2025-01-08'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -38,23 +38,24 @@ test.describe('Frilanser', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Frilanser',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2020'],
+                    egenmeldingsperioder: ['20. desember 2024'],
                     forsikring: 'Ja',
                 },
             })(page)
         })
 
-        test('should use first fom in sykmelding period if oppfolgingsdato is missing', async ({ page }) => {
+        test('should use oppfolgingsdato in sykmelding period if ventetid is missing', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erUtenforVentetid: false,
-                    oppfolgingsdato: null,
+                    oppfolgingsdato: '2025-01-05',
+                    ventetidFom: null,
                 }),
                 navigateToFirstSykmelding('nye', '100%'),
                 opplysingeneStemmer,
                 velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato('2021-04-10'),
-                frilanserEgenmeldingsperioder([{ fom: '20.03.2021' }]),
+                expectOppfolgingsdato('2025-01-05'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -67,7 +68,39 @@ test.describe('Frilanser', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Frilanser',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. mars 2021'],
+                    egenmeldingsperioder: ['20. desember 2024'],
+                    forsikring: 'Ja',
+                },
+            })(page)
+        })
+
+        test('should use first fom in sykmelding period if ventetid and oppfolgingsdato is missing', async ({
+            page,
+        }) => {
+            await userInteractionsGroup(
+                gotoScenario('normal', {
+                    erUtenforVentetid: false,
+                    oppfolgingsdato: null,
+                    ventetidFom: null,
+                }),
+                navigateToFirstSykmelding('nye', '100%'),
+                opplysingeneStemmer,
+                velgArbeidssituasjon('frilanser'),
+                expectOppfolgingsdato('2025-01-08'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
+                velgForsikring('Ja'),
+                bekreftSykmelding,
+            )(page)
+
+            await expectKvittering({
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
+            })(page)
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Frilanser',
+                selvstendig: {
+                    egenmeldingsperioder: ['20. desember 2024'],
                     forsikring: 'Ja',
                 },
             })(page)
@@ -78,6 +111,7 @@ test.describe('Frilanser', () => {
         test('should be able to submit form', async ({ page }) => {
             await gotoScenario('normal', {
                 erUtenforVentetid: true,
+                ventetidFom: '2024-12-01',
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
@@ -94,6 +128,34 @@ test.describe('Frilanser', () => {
                 arbeidssituasjon: 'Frilanser',
                 selvstendig: {
                     egenmeldingsperioder: ExpectMeta.NotInDom,
+                    forsikring: ExpectMeta.NotInDom,
+                },
+            })(page)
+        })
+
+        test('should be able to submit form for first sykmelding without forsikring question', async ({ page }) => {
+            await userInteractionsGroup(
+                gotoScenario('normal', {
+                    erUtenforVentetid: true,
+                    ventetidFom: '2025-01-08',
+                }),
+                navigateToFirstSykmelding('nye', '100%'),
+                opplysingeneStemmer,
+                velgArbeidssituasjon('frilanser'),
+                expectOppfolgingsdato('2025-01-08'),
+                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
+                bekreftSykmelding,
+            )(page)
+
+            await expectKvittering({
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
+            })(page)
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Frilanser',
+                selvstendig: {
+                    egenmeldingsperioder: ['20. desember 2024'],
                     forsikring: ExpectMeta.NotInDom,
                 },
             })(page)

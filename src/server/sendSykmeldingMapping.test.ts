@@ -14,7 +14,11 @@ describe('sendSykmeldingMapping', () => {
     const brukerinformasjon: Brukerinformasjon = {
         arbeidsgivere: defaultArbeidsgivere.slice(0, 2),
     }
-    const erUtenforVentetid: ErUtenforVentetid = { erUtenforVentetid: false, oppfolgingsdato: '2021-04-10' }
+    const erUtenforVentetid: ErUtenforVentetid = {
+        erUtenforVentetid: false,
+        oppfolgingsdato: '2021-04-10',
+        ventetid: null,
+    }
 
     const sykmeldingApen = (): MuterbarSykmelding =>
         new SykmeldingBuilder().status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()

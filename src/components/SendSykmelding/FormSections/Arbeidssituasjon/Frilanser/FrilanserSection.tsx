@@ -46,12 +46,6 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
         )
     }
 
-    if (data.ventetid == null && data.erUtenforVentetid) {
-        // eslint-disable-next-line no-console
-        console.log('Mangler ventetid data, men er utenfor ventetid')
-        return null
-    }
-
     const erIkkeForsteSykmeldingIVentetiden =
         data.ventetid?.fom != null && toDate(data.ventetid.fom) < toDate(sykmeldingStartDato)
 
@@ -59,6 +53,8 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
     console.log(
         'ventetid.fom: ' +
             data.ventetid?.fom +
+            ' oppfolgingsdato: ' +
+            data.oppfolgingsdato +
             ' sykmeldingStartDato:' +
             sykmeldingStartDato +
             ' erIkkeForsteSykmeldingIVentetiden:' +
@@ -79,7 +75,7 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
             {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
                 <FrilanserEgenmeldingPerioderField oppfolgingsdato={oppfolgingsdato} />
             )}
-            <HarForsikringField />
+            {!data.erUtenforVentetid && <HarForsikringField />}
             {shouldShowSummaryForFrilanser &&
                 formValues.harForsikring !== null &&
                 ((formValues.harBruktEgenmelding === YesOrNo.YES &&
