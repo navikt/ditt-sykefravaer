@@ -6,6 +6,9 @@ import sendSykmeldingPdf from '../../../server/pdf/sykmeldingPdf'
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     const sykmeldingId = req.query.sykmeldingId
+    logger.info(
+        `PDF for sykmeldingId: ${sykmeldingId}` + '. Params: ' + JSON.stringify(req.query) + '. Url: ' + req.url + '.',
+    )
     if (typeof sykmeldingId !== 'string') {
         logger.warn(`Invalid sykmeldingId received: ${sykmeldingId}. Expected string.`)
         return res.status(400).json({ error: 'Invalid sykmelding ID provided.' })
