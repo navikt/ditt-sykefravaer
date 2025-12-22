@@ -59,7 +59,7 @@
         "axe-core": "^4.11.0",
         "dotenv": "^17.2.3",
         "eslint": "^8.57.1",
-        "eslint-config-next": "^15.5.9",
+        "eslint-config-next": "^16.1.0",
         "next": "15.5.9",
         "next-router-mock": "^1.0.4",
         "open": "^10.2.0",
