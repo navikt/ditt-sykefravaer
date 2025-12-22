@@ -186,7 +186,7 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
                 logger.warn(`Mock API: PDF generation requested without sykmeldingId for URL: ${req.url}`)
                 return sendJson({ error: 'Missing sykmelding ID' }, 400)
             }
-            await sendSykmeldingPdf(req, res)
+            await sendSykmeldingPdf(req, res, sykmeldingId)
             return
         },
     }
