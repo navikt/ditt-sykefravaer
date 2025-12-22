@@ -136,3 +136,10 @@ export function isPostSykmeldingSend(url: string): boolean {
     const id = extractSykmeldingIdFromUrl(url)
     return id !== null && isValidSykmeldingId(id)
 }
+
+const PDF_PATH_REGEX = /^\/([^/]+)\/pdf$/
+
+export function extractSykmeldingIdPdfUrl(url: string): string | null {
+    const match = url.match(PDF_PATH_REGEX)
+    return match ? match[1] : null
+}

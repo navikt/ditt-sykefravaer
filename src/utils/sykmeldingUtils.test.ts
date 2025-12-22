@@ -13,6 +13,7 @@ import {
     isValidSykmeldingId,
     validateSykmeldingId,
     isPostSykmeldingSend,
+    extractSykmeldingIdPdfUrl,
 } from './sykmeldingUtils'
 import { dateSub } from './dateUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'
@@ -321,5 +322,17 @@ describe('isPostSykmeldingSend', () => {
     })
     it('returns false for invalid url', () => {
         expect(isPostSykmeldingSend('/api/other/123e4567-e89b-12d3-a456-426614174000/send')).toBe(false)
+    })
+})
+
+describe('extractSykmeldingIdPdfUrl', () => {
+    it('extracts id from pdf url', () => {
+        expect(extractSykmeldingIdPdfUrl('/123e4567-e89b-12d3-a456-426614174000/pdf')).toBe(
+            '123e4567-e89b-12d3-a456-426614174000',
+        )
+    })
+    it('returns null for invalid pdf url', () => {
+        expect(extractSykmeldingIdPdfUrl('/api/other/123e4567-e89b-12d3-a456-426614174000/pdf')).toBeNull()
+        expect(extractSykmeldingIdPdfUrl('/123e4567-e89b-12d3-a456-426614174000/pdfabc')).toBeNull()
     })
 })

@@ -5,14 +5,14 @@ import { validateSykmeldingId } from '../../utils/sykmeldingUtils'
 
 import { generateSykmeldingPdfServerSide } from './pdf'
 
-const sendSykmeldingPdf = async (req: NextApiRequest, res: NextApiResponse) => {
-    const sykmeldingId = validateSykmeldingId(req.query.sykmeldingId)
+const sendSykmeldingPdf = async (req: NextApiRequest, res: NextApiResponse, sykmeldingId: string) => {
+    const validatedSykmeldingId = validateSykmeldingId(sykmeldingId)
 
     try {
-        const pdfBuffer = await generateSykmeldingPdfServerSide(req, sykmeldingId)
+        const pdfBuffer = await generateSykmeldingPdfServerSide(req, validatedSykmeldingId)
         await sendPdfResponse(res, pdfBuffer, 'sykmelding.pdf')
     } catch (feil) {
-        handterPdfFeil(res, sykmeldingId, feil)
+        handterPdfFeil(res, validatedSykmeldingId, feil)
     }
 }
 
