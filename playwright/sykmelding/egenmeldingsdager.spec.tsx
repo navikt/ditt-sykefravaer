@@ -10,6 +10,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { dateSub, toDate, toDateString, toReadableDatePeriod } from '../../src/utils/dateUtils'
+import { testAar, testAaretFoer } from '../../src/data/mock/mock-db/data-creators'
 
 type EgenmeldingsdagerHjelper = {
     svar: {
@@ -62,12 +63,12 @@ test.describe('Egenmeldingsdager', () => {
 
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 7. januar ${testAar}?`,
                 ),
-                ['2025-01-05', '2025-01-06'],
+                [`${testAar}-01-05`, `${testAar}-01-06`],
             )(page)
             await egenmeldingsdagerHjelper(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
+                `Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
@@ -99,18 +100,18 @@ test.describe('Egenmeldingsdager', () => {
 
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 7. januar ${testAar}?`,
                 ),
-                ['2025-01-04', '2025-01-05'],
+                [`${testAar}-01-04`, `${testAar}-01-05`],
             )(page)
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember 2024?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 19. - 22. desember ${testAaretFoer}?`,
                 ),
-                ['2024-12-21', '2024-12-22'],
+                [`${testAaretFoer}-12-21`, `${testAaretFoer}-12-22`],
             )(page)
             await egenmeldingsdagerHjelper(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 18. desember 2024?',
+                `Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 18. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(4)(page)
@@ -144,23 +145,23 @@ test.describe('Egenmeldingsdager', () => {
 
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 7. januar ${testAar}?`,
                 ),
-                ['2025-01-05', '2025-01-06'],
+                [`${testAar}-01-05`, `${testAar}-01-06`],
             )(page)
 
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember ${testAaretFoer}?`,
                 ),
-                ['2024-12-21', '2024-12-22'],
+                [`${testAaretFoer}-12-21`, `${testAaretFoer}-12-22`],
             )(page)
             await egenmeldingsdagerHjelper(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 19. desember 2024?',
+                `Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 19. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await egenmeldingsdagerHjelper(
-                'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
+                `Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
@@ -225,26 +226,26 @@ test.describe('Egenmeldingsdager', () => {
                 await pickArbeidsgiverAndBoss(page)
 
                 const egenmeldingsdager = egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 20. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 20. januar ${testAar}?`,
                 )(page)
                 await egenmeldingsdager.svar.jaButton.click()
                 for (const dag of [
-                    '2025-01-05',
-                    '2025-01-06',
-                    '2025-01-07',
-                    '2025-01-08',
-                    '2025-01-09',
-                    '2025-01-10',
-                    '2025-01-11',
-                    '2025-01-12',
-                    '2025-01-13',
-                    '2025-01-14',
-                    '2025-01-15',
-                    '2025-01-16',
-                    '2025-01-17',
-                    '2025-01-18',
-                    '2025-01-19',
-                    '2025-01-20',
+                    `${testAar}-01-05`,
+                    `${testAar}-01-06`,
+                    `${testAar}-01-07`,
+                    `${testAar}-01-08`,
+                    `${testAar}-01-09`,
+                    `${testAar}-01-10`,
+                    `${testAar}-01-11`,
+                    `${testAar}-01-12`,
+                    `${testAar}-01-13`,
+                    `${testAar}-01-14`,
+                    `${testAar}-01-15`,
+                    `${testAar}-01-16`,
+                    `${testAar}-01-17`,
+                    `${testAar}-01-18`,
+                    `${testAar}-01-19`,
+                    `${testAar}-01-20`,
                 ]) {
                     await egenmeldingsdager.dagButton(dag).click()
                 }
@@ -260,30 +261,30 @@ test.describe('Egenmeldingsdager', () => {
                 await pickArbeidsgiverAndBoss(page)
 
                 const forstePeriode = egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 20. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 5. - 20. januar ${testAar}?`,
                 )(page)
                 await forstePeriode.svar.jaButton.click()
                 for (const dag of [
-                    '2025-01-08',
-                    '2025-01-09',
-                    '2025-01-10',
-                    '2025-01-11',
-                    '2025-01-12',
-                    '2025-01-13',
-                    '2025-01-14',
-                    '2025-01-15',
-                    '2025-01-16',
-                    '2025-01-17',
+                    `${testAar}-01-08`,
+                    `${testAar}-01-09`,
+                    `${testAar}-01-10`,
+                    `${testAar}-01-11`,
+                    `${testAar}-01-12`,
+                    `${testAar}-01-13`,
+                    `${testAar}-01-14`,
+                    `${testAar}-01-15`,
+                    `${testAar}-01-16`,
+                    `${testAar}-01-17`,
                 ]) {
                     await forstePeriode.dagButton(dag).click()
                 }
                 await forstePeriode.videreButton.click()
 
                 const andrePeriode = egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 4. januar 2025?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 4. januar ${testAar}?`,
                 )(page)
                 await andrePeriode.svar.jaButton.click()
-                for (const dag of ['2024-12-27', '2024-12-28', '2024-12-29']) {
+                for (const dag of [`${testAaretFoer}-12-27`, `${testAaretFoer}-12-28`, `${testAaretFoer}-12-29`]) {
                     const dagKnapp = andrePeriode.dagButton(dag)
                     if (!(await dagKnapp.isVisible())) {
                         await andrePeriode.forrigeManedKnapp.click()
@@ -293,10 +294,10 @@ test.describe('Egenmeldingsdager', () => {
                 await andrePeriode.videreButton.click()
 
                 const tredjePeriode = egenmeldingsdagerHjelper(
-                    'Brukte du egenmelding hos Pontypandy Fire Service i perioden 11. - 22. desember 2024?',
+                    `Brukte du egenmelding hos Pontypandy Fire Service i perioden 11. - 22. desember ${testAaretFoer}?`,
                 )(page)
                 await tredjePeriode.svar.jaButton.click()
-                for (const dag of ['2024-12-14', '2024-12-15', '2024-12-16']) {
+                for (const dag of [`${testAaretFoer}-12-14`, `${testAaretFoer}-12-15`, `${testAaretFoer}-12-16`]) {
                     await tredjePeriode.dagButton(dag).click()
                 }
                 await tredjePeriode.videreButton.click()
@@ -308,7 +309,7 @@ test.describe('Egenmeldingsdager', () => {
                 page,
             }) => {
                 await pickArbeidsgiverAndBoss(page)
-                let egenmeldingdatoMax = new TZDate(2025, 0, 20)
+                let egenmeldingdatoMax = new TZDate(testAar, 0, 20)
 
                 for (let periodeIndex = 1; periodeIndex < 17; periodeIndex++) {
                     const egenmeldingdatoMin = toDate(dateSub(egenmeldingdatoMax, { days: 15 }))
@@ -345,12 +346,12 @@ test.describe('Egenmeldingsdager', () => {
 
                     await velgEgenmeldingsdager(
                         egenmeldingsdagerHjelper(
-                            'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
+                            `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 7. januar ${testAar}?`,
                         ),
-                        ['2025-01-05', '2025-01-06'],
+                        [`${testAar}-01-05`, `${testAar}-01-06`],
                     )(page)
                     await egenmeldingsdagerHjelper(
-                        'Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember 2024?',
+                        `Brukte du egenmelding hos Pontypandy Fire Service i perioden 20. - 22. desember ${testAaretFoer}?`,
                     )(page).svar.neiButton.click()
 
                     await expectNumberOfEgenmeldingsdagerInput(2)(page)

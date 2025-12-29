@@ -1,6 +1,7 @@
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { sporsmal } from '../../src/utils/sporsmal'
 import { expect, test } from '../utils/fixtures'
+import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('sykmelding page tests that are not specific to a user', () => {
     test('should show details from sykmelding without a11y problems', async ({ page }) => {
@@ -18,12 +19,12 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
 
         await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText('8. - 15. januar 2025').all()
+        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
 
         expect(datePeriodElements.length).toBeGreaterThan(0)
 
         for (const element of datePeriodElements) {
-            await expect(element).toHaveText('8. - 15. januar 2025')
+            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
         }
     })
 
@@ -37,12 +38,12 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
 
         await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText('8. - 15. januar 2025').all()
+        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
 
         expect(datePeriodElements.length).toBeGreaterThan(0)
 
         for (const element of datePeriodElements) {
-            await expect(element).toHaveText('8. - 15. januar 2025')
+            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
         }
     })
 
@@ -56,12 +57,12 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
 
         await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText('8. - 15. januar 2025').all()
+        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
 
         expect(datePeriodElements.length).toBeGreaterThan(0)
 
         for (const element of datePeriodElements) {
-            await expect(element).toHaveText('8. - 15. januar 2025')
+            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
         }
     })
 

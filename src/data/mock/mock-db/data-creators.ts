@@ -19,7 +19,9 @@ import { dateAdd } from '../../../utils/dato-utils'
 import { JaEllerNei } from '../../../types/sykmelding/sykmeldingBrukerSvar'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 
-export const testDato = new TZDate('2025-01-01', 'Europe/Oslo')
+export const testAar = 2026
+export const testAaretFoer = testAar - 1
+export const testDato = new TZDate(`${testAar}-01-01`, 'Europe/Oslo')
 
 export class SykmeldingBuilder {
     private readonly mottatt: string = '2020-02-01'

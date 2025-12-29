@@ -144,7 +144,7 @@ const kvitteringScenario: ScenarioCreator = () => ({
 })
 
 const apenMenGammelSykmelding: ScenarioCreator = () => ({
-    sykmeldinger: [new SykmeldingBuilder(-365).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
+    sykmeldinger: [new SykmeldingBuilder(-400).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
 
 const papirSykmelding: ScenarioCreator = () => ({

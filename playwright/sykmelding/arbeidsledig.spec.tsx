@@ -14,7 +14,7 @@ import {
 } from '../utils/user-actions'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 import { userInteractionsGroup } from '../utils/test-utils'
-import { testDato } from '../../src/data/mock/mock-db/data-creators'
+import { testAar, testAaretFoer, testDato } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Arbeidsledig', () => {
     test('burde kunne sende inn skjema med arbeidssituasjon arbeidsledig, uten arbeidsgiver', async ({ page }) => {
@@ -62,7 +62,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         await page.getByRole('button', { name: /Videre/ }).click()
         await page
             .getByRole('group', {
-                name: 'Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember 2024 - 7. januar 2025?',
+                name: `Brukte du egenmelding hos Pontypandy Fire Service i perioden 23. desember ${testAaretFoer} - 7. januar ${testAar}?`,
             })
             .getByRole('radio', { name: /Nei/ })
             .click()
