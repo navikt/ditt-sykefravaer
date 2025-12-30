@@ -87,6 +87,8 @@ export default defineConfig({
         navigationTimeout: 60000,
         trace: 'on-first-retry',
         bypassCSP: true,
+        timezoneId: 'Europe/Oslo',
+        locale: 'nb-NO',
     },
     projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
     webServer: servers,
