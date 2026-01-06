@@ -25,7 +25,7 @@ import { useLogUmamiEvent } from '../../../components/umami/umami'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
-import { Sykmelding, StatusEvent } from '../../../types/sykmelding/sykmelding'
+import { StatusEvent, Sykmelding } from '../../../types/sykmelding/sykmelding'
 import useSykmeldinger from '../../../hooks/sykmelding/useSykmeldinger'
 
 function SykmeldingPage(): ReactElement {
@@ -36,7 +36,7 @@ function SykmeldingPage(): ReactElement {
         data: alleSykmeldinger,
         error: alleSykmeldingerError,
         isPending: isAlleSykmeldingerLoading,
-    } = useSykmeldinger()
+    } = useSykmeldinger(true)
     const olderSykmelding = alleSykmeldinger != null ? findOlderSykmeldingId(data, alleSykmeldinger) : null
     const isOlderSykmeldingLoading = isAlleSykmeldingerLoading
     const olderSykmeldingError = alleSykmeldingerError
