@@ -6,13 +6,23 @@ import { Sykmelding } from '../../types/sykmelding/sykmelding'
 import { isMockBackend } from '../../utils/environment'
 import { UseTestpersonQuery } from '../useTestpersonQuery'
 
-export default function useSykmeldinger(): UseQueryResult<Sykmelding[], Error> {
+export default function useSykmeldinger(kunApen?: boolean): UseQueryResult<Sykmelding[], Error> {
     const { demoQuery, demoQueryKey } = UseDemoDataForSykmeldingerEndepunkt()
 
+    const queryParams: string[] = []
+    if (demoQuery) {
+        queryParams.push(demoQuery)
+    }
+    if (kunApen) {
+        queryParams.push('kunApen=true')
+    }
+    const url =
+        '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger' +
+        (queryParams.length > 0 ? '?' + queryParams.join('&') : '')
+
     return useQuery<Sykmelding[], Error>({
-        queryKey: ['sykmeldinger-flex', demoQueryKey],
-        queryFn: () =>
-            fetchJsonMedRequestId('/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger' + demoQuery),
+        queryKey: ['sykmeldinger-flex', demoQueryKey, kunApen],
+        queryFn: () => fetchJsonMedRequestId(url),
     })
 }
 
@@ -31,7 +41,7 @@ function UseDemoDataForSykmeldingerEndepunkt(): {
 
     const isSykmeldingerRoute = router.route.startsWith('/sykmeldinger')
     const subApp: 'sykmeldinger' | 'ditt-sykefravaer' = isSykmeldingerRoute ? 'sykmeldinger' : 'ditt-sykefravaer'
-    const demoQuery = `?mock-data-kilde=${subApp}` + testpersonQuery.query(true)
+    const demoQuery = `mock-data-kilde=${subApp}` + testpersonQuery.query(true)
 
     return {
         demoQuery,
