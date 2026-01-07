@@ -111,7 +111,7 @@ export function mapFrilanserFormValuesToBrukerSvar(
             : undefined,
         egenmeldingsperioder: sendSykmeldingValues.egenmeldingsperioder
             ? {
-                  sporsmaltekst: sporsmal.egenmeldingsperioder(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.egenmeldingsperioder(),
                   svar: sendSykmeldingValues.egenmeldingsperioder.map((it) => ({
                       fom: it.fom ?? raise('Fom må være satt'),
                       tom: it.tom ?? raise('Tom må være satt'),

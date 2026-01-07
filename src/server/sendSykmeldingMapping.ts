@@ -91,7 +91,7 @@ export function mapSendSykmeldingValuesToV3Api(
                               tom: periode.tom,
                           }
                       }),
-                      sporsmaltekst: sporsmal.egenmeldingsperioder(oppfolgingsdato),
+                      sporsmaltekst: sporsmal.egenmeldingsperioder(),
                   }
                 : null,
         harForsikring: values.harForsikring

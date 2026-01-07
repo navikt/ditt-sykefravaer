@@ -39,9 +39,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     it('should always have an initial period and header based on oppfolgingsdato', () => {
         render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-01-01" />)
 
-        expect(
-            screen.getByRole('heading', { name: 'Hvilke dager var du borte fra jobb før 1. januar 2021?' }),
-        ).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: 'Hvor lenge var du syk før du ble sykmeldt?' })).toBeInTheDocument()
         expect(screen.getAllByRole('textbox')).toHaveLength(2)
         expect(screen.getByTestId('value')).toHaveTextContent('[{"fom":null,"tom":null}]')
     })

@@ -190,7 +190,11 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
 export function expectOppfolgingsdato(dato: string) {
     return async (page: Page): Promise<void> => {
         await expect(
-            page.getByRole('group', { name: new RegExp(`Vi har registrert at du ble syk ${toReadableDate(dato)}`) }),
+            page.getByRole('group', {
+                name: new RegExp(
+                    `Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt ${toReadableDate(dato)}`,
+                ),
+            }),
         ).toBeVisible()
     }
 }
@@ -206,7 +210,7 @@ export function frilanserEgenmeldingsperioder(
     return async (page: Page): Promise<void> => {
         const jaEllerNei = Array.isArray(svar) ? 'Ja' : 'Nei'
         await getRadioInGroup(page)(
-            { name: /Brukte du egenmelding eller papirsykmelding før denne datoen?/i },
+            { name: /Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt/i },
             { name: jaEllerNei },
         ).click()
 

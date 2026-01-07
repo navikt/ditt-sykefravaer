@@ -237,11 +237,11 @@ describe('sendSykmeldingMapping', () => {
             },
             harBruktEgenmelding: {
                 sporsmaltekst:
-                    'Vi har registrert at du ble syk 10. april 2021. Brukte du egenmelding eller papirsykmelding før denne datoen?',
+                    'Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt 10. april 2021?',
                 svar: 'JA',
             },
             egenmeldingsperioder: {
-                sporsmaltekst: 'Hvilke dager var du borte fra jobb før 10. april 2021?',
+                sporsmaltekst: 'Hvor lenge var du syk før du ble sykmeldt?',
                 svar: [
                     { fom: '2021-04-10', tom: '2021-04-11' },
                     { fom: '2021-04-12', tom: '2021-04-13' },
@@ -295,11 +295,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 harBruktEgenmelding: {
                     sporsmaltekst:
-                        'Vi har registrert at du ble syk 10. april 2021. Brukte du egenmelding eller papirsykmelding før denne datoen?',
+                        'Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt 10. april 2021?',
                     svar: 'JA',
                 },
                 egenmeldingsperioder: {
-                    sporsmaltekst: 'Hvilke dager var du borte fra jobb før 10. april 2021?',
+                    sporsmaltekst: 'Hvor lenge var du syk før du ble sykmeldt?',
                     svar: [
                         { fom: '2021-04-10', tom: '2021-04-11' },
                         { fom: '2021-04-12', tom: '2021-04-13' },

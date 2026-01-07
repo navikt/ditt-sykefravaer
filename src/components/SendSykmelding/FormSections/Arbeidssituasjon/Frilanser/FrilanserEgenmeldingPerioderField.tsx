@@ -23,7 +23,7 @@ function FrilanserEgenmeldingPerioderField({ oppfolgingsdato }: Props): ReactEle
     })
 
     return (
-        <SectionWrapper title={sporsmal.egenmeldingsperioder(oppfolgingsdato)} level="3" size="small">
+        <SectionWrapper title={sporsmal.egenmeldingsperioder()} level="3" size="small">
             <ul className="mt-2 flex flex-col gap-4">
                 {fields.map((field, index) => (
                     <FrilanserEgenmeldingPeriodSubField
