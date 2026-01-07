@@ -109,7 +109,9 @@ test.describe('Frilanser', () => {
             await opplysingeneStemmer(page)
             await velgArbeidssituasjon('frilanser')(page)
             await getRadioInGroup(page)(
-                { name: /Brukte du egenmelding eller papirsykmelding før denne datoen?/i },
+                {
+                    name: /Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt/i,
+                },
                 { name: 'Ja' },
             ).click()
 
