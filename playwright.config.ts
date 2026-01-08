@@ -29,11 +29,13 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         ...(medDekorator ? {} : { NO_DECORATOR: 'true' }),
     }
 
+    const buildCommand = process.env.BUILD ? 'next start' : 'next dev'
+
     return {
         baseURL,
         timeout,
         server: {
-            command: `next dev -p ${port}`,
+            command: `${buildCommand} -p ${port}`,
             url: `${baseURL}/syk/sykefravaer`,
             timeout: 120 * 1000,
             reuseExistingServer: true,
