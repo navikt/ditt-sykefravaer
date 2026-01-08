@@ -4,7 +4,7 @@ import { test } from './utils/fixtures'
 
 test.describe('Tester snart slutt oppgave', () => {
     test('Har riktig lenke', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=snart-slutt')
+        await page.goto('/syk/sykefravaer?testperson=snart-slutt')
         await page.waitForTimeout(10)
         const validLink = page.locator('main').locator('a:has-text("Snart slutt på sykepengene")').last()
 

@@ -4,7 +4,7 @@ import { test } from '../utils/fixtures'
 
 test.describe('Sykmelding kvittering', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer/sykmeldinger')
+        await page.goto('/syk/sykefravaer/sykmeldinger')
         const tidligereSykmeldinger = page.getByText('Tidligere sykmeldinger')
         await expect(tidligereSykmeldinger).toBeVisible()
         await page.getByRole('region').filter({ has: tidligereSykmeldinger }).getByText('Sykmelding').last().click()

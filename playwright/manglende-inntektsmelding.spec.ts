@@ -4,7 +4,7 @@ import { test } from './utils/fixtures'
 
 test.describe('Tester inntektsmelding', () => {
     test('Har inntektsmelding varsel og riktig innhold', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -15,7 +15,7 @@ test.describe('Tester inntektsmelding', () => {
 
         await navdsAlert.locator('a').click()
 
-        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
+        await expect(page).toHaveURL('/syk/sykefravaer/inntektsmelding')
 
         const header = page.locator('main').locator('h1').first()
         await expect(header).toBeVisible()
@@ -30,7 +30,7 @@ test.describe('Tester inntektsmelding', () => {
     })
 
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mottatt-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=mottatt-inntektsmelding')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')

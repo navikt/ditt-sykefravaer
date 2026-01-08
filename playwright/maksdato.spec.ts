@@ -7,7 +7,7 @@ import { test } from './utils/fixtures'
 
 test.describe('Maksdato', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=syk-naa-med-maksdato')
+        await page.goto('/syk/sykefravaer?testperson=syk-naa-med-maksdato')
         await page.emulateMedia({ reducedMotion: 'reduce' })
     })
 

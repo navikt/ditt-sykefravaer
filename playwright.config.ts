@@ -17,7 +17,7 @@ type OptionsType = {
 
 const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     const timeout = process.env.CI ? 30 * 1000 : 120 * 2 * 1000
-    const baseURL = `http://localhost:${port}`
+    const baseURL = `http://127.0.0.1:${port}`
 
     if (process.env.CI) {
         return { baseURL, timeout: 30 * 1000, server: undefined }
@@ -29,9 +29,9 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
             timeout: 30 * 1000,
             server: {
                 command: 'npm run start',
-                port,
+                url: `${baseURL}/syk/sykefravaer`,
                 timeout: 120 * 1000,
-                reuseExistingServer: false,
+                reuseExistingServer: !process.env.CI,
                 stderr: 'pipe',
                 stdout: 'pipe',
             },
@@ -49,10 +49,12 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         timeout,
         server: {
             command: `next dev -p ${port}`,
-            port,
+            url: `${baseURL}/syk/sykefravaer`,
             timeout: 120 * 1000,
-            reuseExistingServer: false,
+            reuseExistingServer: !process.env.CI,
             env: serverEnv,
+            stdout: 'pipe',
+            stderr: 'pipe',
         },
     }
 }
@@ -62,6 +64,11 @@ const optsMedDekorator = createOptions(true, 3001)
 const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as TestConfigWebServer
 
 const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDekorator)
+
+const lokalBrowserConfig = velgBrowserConfigs(
+    alleBrowserConfigs,
+    (config) => config.name === Nettlesernavn.MOBILE_WEBKIT,
+)
 
 const ciBrowserConfigs = velgBrowserConfigs(
     alleBrowserConfigs,
@@ -90,6 +97,6 @@ export default defineConfig({
         timezoneId: 'Europe/Oslo',
         locale: 'nb-NO',
     },
-    projects: process.env.CI ? ciBrowserConfigs : alleBrowserConfigs,
+    projects: process.env.CI ? ciBrowserConfigs : process.env.PLAYWRIGHT_ALL ? alleBrowserConfigs : lokalBrowserConfig,
     webServer: servers,
 })

@@ -4,7 +4,7 @@ test.describe('Homepage Performance', () => {
     const GOOD_CLS_THRESHOLD: number = 0.1
 
     test('burde ha en god CLS score på første last', async ({ page, getCLS }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer')
+        await page.goto('/syk/sykefravaer')
         await page.waitForLoadState('domcontentloaded')
 
         page.setDefaultTimeout(10000)
