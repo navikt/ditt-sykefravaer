@@ -4,7 +4,7 @@ import { fetchJsonMedRequestId } from '../../../utils/fetch'
 import { basePath } from '../../../utils/environment'
 
 export function UseOpprettFlexjarFeedback() {
-    return useMutation<OpprettFeedbackResoponse, unknown, object>({
+    return useMutation<OpprettFeedbackResponse, unknown, object>({
         mutationKey: ['opprettFlexjarFeedback'],
         mutationFn: async (body) => {
             return fetchJsonMedRequestId(`${basePath()}/api/flexjar-backend/api/v2/feedback`, {
@@ -19,6 +19,6 @@ export function UseOpprettFlexjarFeedback() {
     })
 }
 
-interface OpprettFeedbackResoponse {
+export interface OpprettFeedbackResponse {
     id: string
 }

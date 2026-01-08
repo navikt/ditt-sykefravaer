@@ -5,7 +5,7 @@ import { MagnifyingGlassIcon } from '@navikt/aksel-icons'
 import { cn } from '../../utils/tw-utils'
 import { logEvent } from '../umami/umami'
 
-import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
+import { OpprettFeedbackResponse, UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
 import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
 import { tommelOpp } from './emojies'
 
@@ -41,8 +41,10 @@ export function FlexjarFelles({
     const [textValue, setTextValue] = useState('')
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const textAreaRef = useRef(null)
-    const { mutate: giFeedback, data, reset } = UseOpprettFlexjarFeedback()
-    const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
+    const { mutateAsync: giFeedback, data, reset } = UseOpprettFlexjarFeedback()
+    const { mutateAsync: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
+    const creationPromiseRef = useRef<Promise<OpprettFeedbackResponse> | null>(null)
+
     const fetchFeedback = useCallback(
         async (knappeklikk?: () => void): Promise<boolean> => {
             if (activeState === null) {
@@ -58,11 +60,36 @@ export function FlexjarFelles({
             if (feedbackPropsFunction) {
                 Object.assign(body, feedbackPropsFunction())
             }
-            if (data?.id) {
-                oppdaterFeedback({ body, id: data.id, cb: knappeklikk })
+
+            try {
+                let currentId = data?.id
+                let shouldUpdate = false
+                if (!currentId) {
+                    if (creationPromiseRef.current) {
+                        const res = await creationPromiseRef.current
+                        currentId = res.id
+                        shouldUpdate = true
+                    } else {
+                        const promise = giFeedback(body)
+                        creationPromiseRef.current = promise
+                        const res = await promise
+                        currentId = res.id
+                        creationPromiseRef.current = null
+                    }
+                } else {
+                    shouldUpdate = true
+                }
+
+                if (shouldUpdate) {
+                    await oppdaterFeedback({ body, id: currentId! })
+                }
+
+                if (knappeklikk) {
+                    knappeklikk()
+                }
                 return true
-            } else {
-                giFeedback(body)
+            } catch (e) {
+                creationPromiseRef.current = null
                 return false
             }
         },
@@ -87,13 +114,12 @@ export function FlexjarFelles({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeState])
 
-    const feedbackPropsString = JSON.stringify(feedbackProps)
     useEffect(() => {
         setErrorMsg(null)
         setTextValue('')
         setActiveState(null)
         reset()
-    }, [feedbackPropsString, setActiveState, feedbackId, reset])
+    }, [setActiveState, feedbackId, reset])
 
     const sendTilbakemelding = 'Send tilbakemelding'
 
