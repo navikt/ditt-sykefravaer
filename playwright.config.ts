@@ -23,21 +23,6 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         return { baseURL, timeout: 30 * 1000, server: undefined }
     }
 
-    if (process.env.FAST) {
-        return {
-            baseURL,
-            timeout: 30 * 1000,
-            server: {
-                command: 'npm run start',
-                url: `${baseURL}/syk/sykefravaer`,
-                timeout: 120 * 1000,
-                reuseExistingServer: !process.env.CI,
-                stderr: 'pipe',
-                stdout: 'pipe',
-            },
-        }
-    }
-
     const serverEnv = {
         ...process.env,
         MOCK_BACKEND: 'true',
@@ -51,7 +36,7 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
             command: `next dev -p ${port}`,
             url: `${baseURL}/syk/sykefravaer`,
             timeout: 120 * 1000,
-            reuseExistingServer: !process.env.CI,
+            reuseExistingServer: true,
             env: serverEnv,
             stdout: 'pipe',
             stderr: 'pipe',
