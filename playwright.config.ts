@@ -29,11 +29,13 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         ...(medDekorator ? {} : { NO_DECORATOR: 'true' }),
     }
 
+    const serverCommand = process.env.BUILD ? 'next start' : 'next dev'
+
     return {
         baseURL,
         timeout,
         server: {
-            command: `next dev -p ${port}`,
+            command: `${serverCommand} -p ${port}`,
             url: `${baseURL}/syk/sykefravaer`,
             timeout: 120 * 1000,
             reuseExistingServer: true,
@@ -52,7 +54,7 @@ const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDek
 
 const lokalBrowserConfig = velgBrowserConfigs(
     alleBrowserConfigs,
-    (config) => config.name === Nettlesernavn.MOBILE_WEBKIT,
+    (config) => config.name === Nettlesernavn.DESKTOP_CHROME,
 )
 
 const ciBrowserConfigs = velgBrowserConfigs(
