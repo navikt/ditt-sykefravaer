@@ -5,7 +5,7 @@ import { harSynligOverskrift } from './utils/test-utils'
 
 test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     test('Tester når vi har tre månedsinntekter', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
+        await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -18,9 +18,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await navdsAlert.click()
 
         await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
-        await expect(page).toHaveURL(
-            'http://localhost:3000/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen',
-        )
+        await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
 
         const header = page.locator('main').locator('h1').first()
 
@@ -42,11 +40,11 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(page.getByRole('link', { name: /Tilbake til Ditt sykefravær/ })).toBeVisible()
 
         await page.click('text=Tilbake til Ditt sykefravær')
-        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
+        await expect(page).toHaveURL('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
     })
 
     test('Tester når vi har kun en av tre månedsinntekt', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-en-maned')
+        await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-en-maned')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -58,9 +56,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
-        await expect(page).toHaveURL(
-            'http://localhost:3000/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned',
-        )
+        await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned')
 
         await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
         await expect(
@@ -76,7 +72,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     })
 
     test('Tester når vi har ingen av tre månedsinntekt', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-ingen')
+        await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-ingen')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -88,9 +84,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
-        await expect(page).toHaveURL(
-            'http://localhost:3000/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen',
-        )
+        await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen')
 
         await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
         await expect(

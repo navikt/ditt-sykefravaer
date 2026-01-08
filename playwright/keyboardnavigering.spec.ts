@@ -5,7 +5,7 @@ import { tabUntilFocusedContainsText } from './utils/tastaturSnarvei'
 
 test.describe('Keyboard navigering', () => {
     test('Vi navigerer forsiden med mange elementer', async ({ page, browserName }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer')
+        await page.goto('/syk/sykefravaer')
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
         await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
@@ -56,7 +56,7 @@ test.describe('Keyboard navigering', () => {
     })
 
     test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page, browserName }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
         await expect(
             page.locator('text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.'),
         ).toBeVisible()
@@ -72,7 +72,7 @@ test.describe('Keyboard navigering', () => {
         await expect(statusLenke).toHaveCSS('background-color', 'rgb(0, 52, 125)')
 
         await page.keyboard.press('Enter')
-        await expect(page).toHaveURL('http://localhost:3000/syk/sykefravaer/inntektsmelding')
+        await expect(page).toHaveURL('/syk/sykefravaer/inntektsmelding')
 
         await expect(
             page.locator('text=For å få behandlet søknaden din raskere, kan du ta kontakt med arbeidsgiveren din'),

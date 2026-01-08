@@ -81,7 +81,7 @@
         "build": "next build",
         "test": "vitest",
         "test:ci": "vitest --run",
-        "play": "npx playwright test --ui",
+        "play": "PLAYWRIGHT_ALL=true npx playwright test --ui",
         "play-headless": "npx playwright test",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",

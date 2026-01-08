@@ -5,7 +5,7 @@ import { validerCLS } from './utils/cls-validering'
 
 test.describe('Inntektsmeldinger', () => {
     test.beforeEach(async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer')
+        await page.goto('/syk/sykefravaer')
     })
 
     test('Går til listevisning av inntektsmeldinger', async ({ page, getCLS }) => {
@@ -32,12 +32,12 @@ test.describe('Inntektsmeldinger', () => {
     })
 
     test('Går til listevisning uten inntektsmeldinger', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer/inntektsmeldinger?testperson=helt-frisk')
+        await page.goto('/syk/sykefravaer/inntektsmeldinger?testperson=helt-frisk')
         await expect(page.locator('text=Du har ingen inntektsmeldinger som kan vises.')).toBeVisible()
     })
 
     test('Går til ikke eksisterende inntektsmelding', async ({ page }) => {
-        await page.goto('http://localhost:3000/syk/sykefravaer/inntektsmeldinger/213456?testperson=helt-frisk')
+        await page.goto('/syk/sykefravaer/inntektsmeldinger/213456?testperson=helt-frisk')
         await expect(page.locator('text=Fant ikke inntektsmelding')).toBeVisible()
     })
 })
