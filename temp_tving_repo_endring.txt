@@ -1,0 +1,2 @@
+Denne filen skal slettes.
+Jeg prøver å tvinge en endring av kildekoden i repoet
