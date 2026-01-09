@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { BodyLong, GuidePanel, Heading, Chat } from '@navikt/ds-react'
+import { BodyLong, Chat, GuidePanel, Heading } from '@navikt/ds-react'
 
 import { Merknad, Merknadtype } from '../../types/sykmelding/sykmelding'
 import VeilederMaleSvg from '../Veileder/svg/VeilederMaleSvg'
@@ -133,12 +133,7 @@ const InformationBanner = ({
 
     return (
         <div className="md:px-8">
-            <Chat
-                className="p-0 md:pr-8"
-                avatar={<VeilederMaleSvg />}
-                position="left"
-                aria-labelledby={mottattSykmeldingId}
-            >
+            <Chat className="p-0 md:pr-8" avatar={<VeilederMaleSvg />} position="left">
                 <Chat.Bubble>
                     <Heading id={mottattSykmeldingId} level="2" size="xsmall">
                         Vi har mottatt sykmeldingen din
