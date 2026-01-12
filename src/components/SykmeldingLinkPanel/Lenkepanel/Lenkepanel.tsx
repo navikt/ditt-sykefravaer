@@ -5,7 +5,6 @@ import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
 import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import { getDescription } from '../../../utils/periodeUtils'
 import { cn } from '../../../utils/tw-utils'
-import { toSykmeldingAriaLabel } from '../../../utils/toSykmeldingAriaLabel'
 import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 
 import LenkepanelIcon from './LenkepanelIcon'
@@ -41,7 +40,7 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
                             isPaper={Boolean(papirsykmelding)}
                         />
                     </div>
-                    <div className="grow" aria-label={toSykmeldingAriaLabel(sykmelding, sykmeldingPeriod)}>
+                    <div className="grow">
                         <BodyShort>{sykmeldingPeriod}</BodyShort>
                         <Heading size="small" level="3">
                             {getSykmeldingTitle(sykmelding)}
