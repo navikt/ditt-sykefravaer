@@ -120,7 +120,7 @@ export function navigateToFirstSykmelding(
         let linkRegexp: RegExp
         switch (variant) {
             case '100%':
-                linkRegexp = /100% sykmelding/i
+                linkRegexp = /100% sykmeldt/i
                 break
             case 'egenmelding':
                 linkRegexp = /Egenmelding/i

@@ -6,7 +6,6 @@ import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/
 import { getDescription } from '../../../utils/periodeUtils'
 import { cn } from '../../../utils/tw-utils'
 import { Sykmelding } from '../../../types/sykmelding/sykmelding'
-import { toSykmeldingAriaLabel } from '../../../utils/toSykmeldingAriaLabel'
 
 import LenkepanelIcon from './LenkepanelIcon'
 import LenkepanelEtikett from './LenkepanelEtikett'
@@ -27,12 +26,7 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
     const sykmeldingPeriod: string = getReadableSykmeldingLength(sykmelding)
 
     return (
-        <Link
-            href={`/sykmeldinger/${id}`}
-            passHref
-            legacyBehavior
-            aria-label={toSykmeldingAriaLabel(sykmelding, sykmeldingPeriod)}
-        >
+        <Link href={`/sykmeldinger/${id}`} passHref legacyBehavior>
             <LinkPanel
                 className={cn('mb-4 p-6 [&>div]:w-full', {
                     'border-orange-300 bg-orange-50 hover:border-orange-500': notifying,

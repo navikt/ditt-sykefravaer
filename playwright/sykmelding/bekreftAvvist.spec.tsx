@@ -11,7 +11,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
         await page
             .getByRole('region', { name: /Nye sykmeldinger/i })
-            .getByRole('link', { name: /100% Sykmelding/ })
+            .getByRole('link', { name: /100% sykmeldt/ })
             .click()
 
         await expect(page.getByText(/Du trenger en ny sykmelding/)).toBeVisible()
@@ -28,7 +28,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
             await page
                 .getByRole('region', { name: /Nye sykmeldinger/i })
-                .getByRole('link', { name: /100% Sykmelding/ })
+                .getByRole('link', { name: /100% sykmeldt/ })
                 .click()
 
             await expect(page.getByText(/Du trenger en ny sykmelding/)).toBeVisible()
@@ -47,7 +47,7 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
             await page
                 .getByRole('region', { name: /Nye sykmeldinger/i })
-                .getByRole('link', { name: /100% Sykmelding/ })
+                .getByRole('link', { name: /100% sykmeldt/ })
                 .click()
 
             await page.getByRole('button', { name: 'Bekreft' }).click()
