@@ -6,6 +6,8 @@ import useMaxDate from '../../hooks/useMaxDate'
 import { erSykmeldingInnafor } from '../maksdato/skalViseMaksDato'
 
 import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
+import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
+import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
 
 export const Flexjar = ({
     feedbackId,
@@ -18,6 +20,9 @@ export const Flexjar = ({
 }) => {
     const [activeState, setActiveState] = useState<string | number | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
+    const { mutateAsync: opprettFeedback, data, reset, isPending: oppretterFeedback } = UseOpprettFlexjarFeedback()
+    const { mutateAsync: oppdaterFeedback, isPending: oppdatererFreedback } = UseOppdaterFlexjarFeedback()
+    const lagrerFeedback = oppretterFeedback || oppdatererFreedback
 
     const getPlaceholder = (): string => {
         switch (activeState) {
@@ -84,15 +89,32 @@ export const Flexjar = ({
             textRequired={activeState === 'FORBEDRING' || activeState === 'NEI'}
             flexjartittel="Hjelp oss med å gjøre denne siden bedre"
             flexjarsporsmal={sporsmal || 'Fant du den informasjonen du trengte?'}
+            data={data}
+            opprettFeedback={opprettFeedback}
+            oppdaterFeedback={oppdaterFeedback}
+            reset={reset}
         >
             <div className="flex w-full gap-2">
-                <FeedbackButton feedbackId={feedbackId} tekst="Ja" svar="JA" {...feedbackButtonProps} />
-                <FeedbackButton feedbackId={feedbackId} tekst="Nei" svar="NEI" {...feedbackButtonProps} />
+                <FeedbackButton
+                    feedbackId={feedbackId}
+                    tekst="Ja"
+                    svar="JA"
+                    {...feedbackButtonProps}
+                    disabled={lagrerFeedback}
+                />
+                <FeedbackButton
+                    feedbackId={feedbackId}
+                    tekst="Nei"
+                    svar="NEI"
+                    {...feedbackButtonProps}
+                    disabled={lagrerFeedback}
+                />
                 <FeedbackButton
                     feedbackId={feedbackId}
                     tekst="Foreslå forbedring"
                     svar="FORBEDRING"
                     {...feedbackButtonProps}
+                    disabled={lagrerFeedback}
                 />
             </div>
         </FlexjarFelles>
