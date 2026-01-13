@@ -4,7 +4,7 @@ import { expect, test } from '../utils/fixtures'
 import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('sykmelding page tests that are not specific to a user', () => {
-    test('should show details from sykmelding without a11y problems', async ({ page }) => {
+    test('viser sykmelding uten a11y feil', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
 
@@ -12,61 +12,34 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
     })
 
-    test('burde vise korrekt dato uavhengig av tidssone', async ({ page, uuOptions }) => {
-        uuOptions.skipUU = true
+    const timezones = [undefined, 'UTC', 'America/New_York']
+    for (const timezoneId of timezones) {
+        test(`viser korrekt dato i ${timezoneId ?? 'default'} tidssone`, async ({ browser, uuOptions }) => {
+            uuOptions.skipUU = true
 
-        await gotoScenario('normal')(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
+            const context = await browser.newContext({ timezoneId })
+            const page = await context.newPage()
 
-        await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
+            await gotoScenario('normal')(page)
+            await navigateToFirstSykmelding('nye', '100%')(page)
 
-        expect(datePeriodElements.length).toBeGreaterThan(0)
+            await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
 
-        for (const element of datePeriodElements) {
-            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
-        }
-    })
+            const datePeriod = `8. - 15. januar ${testAar}`
+            const datePeriodLocator = page.getByText(datePeriod)
 
-    test('burde vise korrekt dato i UTC tidssone', async ({ browser, uuOptions }) => {
-        uuOptions.skipUU = true
+            await expect(datePeriodLocator.first()).toBeVisible()
+            const datePeriodElements = await datePeriodLocator.all()
 
-        const context = await browser.newContext({ timezoneId: 'UTC' })
-        const page = await context.newPage()
+            expect(datePeriodElements.length).toBeGreaterThan(0)
 
-        await gotoScenario('normal')(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
+            for (const element of datePeriodElements) {
+                await expect(element).toHaveText(datePeriod)
+            }
+        })
+    }
 
-        await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
-
-        expect(datePeriodElements.length).toBeGreaterThan(0)
-
-        for (const element of datePeriodElements) {
-            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
-        }
-    })
-
-    test('burde vise korrekt dato i America/New_York tidssone', async ({ browser, uuOptions }) => {
-        uuOptions.skipUU = true
-
-        const context = await browser.newContext({ timezoneId: 'America/New_York' })
-        const page = await context.newPage()
-
-        await gotoScenario('normal')(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-
-        await expect(page).toHaveURL('/syk/sykefravaer/sykmeldinger/id-apen-sykmelding')
-        const datePeriodElements = await page.getByText(`8. - 15. januar ${testAar}`).all()
-
-        expect(datePeriodElements.length).toBeGreaterThan(0)
-
-        for (const element of datePeriodElements) {
-            await expect(element).toHaveText(`8. - 15. januar ${testAar}`)
-        }
-    })
-
-    test('legacy: a user without any "bruker svar" should still be able to view kvittering', async ({ page }) => {
+    test('nruker uten "bruker svar" skal uansett kunne se kvittering', async ({ page }) => {
         await gotoScenario('noBrukerSvar')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
