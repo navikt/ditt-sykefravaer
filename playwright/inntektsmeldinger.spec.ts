@@ -10,7 +10,17 @@ test.describe('Inntektsmeldinger', () => {
 
     test('Går til listevisning av inntektsmeldinger', async ({ page, getCLS }) => {
         await page.getByRole('link', { name: /inntektsmeldinger/i }).click()
-        await expect(page.locator('text=Inntektsmeldinger')).toBeVisible()
+
+        const verifyInntektsmeldingPanel = async (navn: string) => {
+            const panel = page.locator('a.navds-link-panel', { hasText: navn })
+            await Promise.all([
+                expect(panel.getByText(/For sykefravær som startet/i)).toBeVisible(),
+                expect(panel.getByText(/Mottatt:/i)).toBeVisible(),
+            ])
+        }
+
+        await verifyInntektsmeldingPanel('Matbutikken AS, Kjelsås')
+        await verifyInntektsmeldingPanel('Matbutikken AS, Grefsen')
 
         await validerCLS(getCLS, 'inntektsmeldinger list view')
     })
@@ -33,7 +43,7 @@ test.describe('Inntektsmeldinger', () => {
 
     test('Går til listevisning uten inntektsmeldinger', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmeldinger?testperson=helt-frisk')
-        await expect(page.locator('text=Du har ingen inntektsmeldinger som kan vises.')).toBeVisible()
+        await expect(page.locator('text=Du har ingen inntektsmeldinger.')).toBeVisible()
     })
 
     test('Går til ikke eksisterende inntektsmelding', async ({ page }) => {
