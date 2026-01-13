@@ -5,8 +5,7 @@ import { MagnifyingGlassIcon } from '@navikt/aksel-icons'
 import { cn } from '../../utils/tw-utils'
 import { logEvent } from '../umami/umami'
 
-import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
-import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
+import { OpprettFeedbackResponse } from './queryhooks/useOpprettFlexjarFeedback'
 import { tommelOpp } from './emojies'
 
 interface FlexjarFellesProps {
@@ -22,6 +21,10 @@ interface FlexjarFellesProps {
     flexjartittel: string
     feedbackProps: Record<string, string | undefined | boolean | number>
     feedbackPropsFunction?: () => Record<string, string | undefined | number | boolean>
+    data: OpprettFeedbackResponse | undefined
+    opprettFeedback: (body: object) => Promise<OpprettFeedbackResponse>
+    oppdaterFeedback: (req: { body: object; id: string }) => Promise<unknown>
+    reset: () => void
 }
 
 export function FlexjarFelles({
@@ -37,12 +40,15 @@ export function FlexjarFelles({
     textRequired,
     feedbackProps,
     feedbackPropsFunction,
+    data,
+    opprettFeedback,
+    oppdaterFeedback,
+    reset,
 }: FlexjarFellesProps) {
     const [textValue, setTextValue] = useState('')
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const textAreaRef = useRef(null)
-    const { mutate: giFeedback, data, reset } = UseOpprettFlexjarFeedback()
-    const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
+
     const fetchFeedback = useCallback(
         async (knappeklikk?: () => void): Promise<boolean> => {
             if (activeState === null) {
@@ -58,11 +64,19 @@ export function FlexjarFelles({
             if (feedbackPropsFunction) {
                 Object.assign(body, feedbackPropsFunction())
             }
-            if (data?.id) {
-                oppdaterFeedback({ body, id: data.id, cb: knappeklikk })
+
+            try {
+                if (!data?.id) {
+                    await opprettFeedback(body)
+                } else {
+                    await oppdaterFeedback({ body, id: data.id })
+                }
+
+                if (knappeklikk) {
+                    knappeklikk()
+                }
                 return true
-            } else {
-                giFeedback(body)
+            } catch (e) {
                 return false
             }
         },
@@ -71,7 +85,7 @@ export function FlexjarFelles({
             data?.id,
             feedbackId,
             feedbackProps,
-            giFeedback,
+            opprettFeedback,
             oppdaterFeedback,
             textValue,
             feedbackPropsFunction,
@@ -87,13 +101,12 @@ export function FlexjarFelles({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeState])
 
-    const feedbackPropsString = JSON.stringify(feedbackProps)
     useEffect(() => {
         setErrorMsg(null)
         setTextValue('')
         setActiveState(null)
         reset()
-    }, [feedbackPropsString, setActiveState, feedbackId, reset])
+    }, [setActiveState, feedbackId, reset])
 
     const sendTilbakemelding = 'Send tilbakemelding'
 
@@ -150,7 +163,7 @@ export function FlexjarFelles({
                                         label={getPlaceholder()}
                                         description="Unngå å skrive inn navn, fødselsnummer eller andre personlige opplysninger."
                                         onKeyDown={async (e) => {
-                                            if (e.key === 'Enter' && e.ctrlKey) {
+                                            if (e.key === 'Enter' && e.ctrlKey && data?.id) {
                                                 e.preventDefault()
                                                 await handleSend(() => reset())
                                             }
@@ -168,17 +181,19 @@ export function FlexjarFelles({
                                         Tilbakemeldingen din er anonym og vil ikke knyttes til søknaden din. Den brukes
                                         kun for å gjøre nettsidene bedre
                                     </Alert>
-                                    <Button
-                                        className="mr-auto mt-6"
-                                        size="medium"
-                                        variant="secondary-neutral"
-                                        onClick={async (e) => {
-                                            e.preventDefault()
-                                            await handleSend(() => reset())
-                                        }}
-                                    >
-                                        {sendTilbakemelding}
-                                    </Button>
+                                    {data?.id && (
+                                        <Button
+                                            className="mr-auto mt-6"
+                                            size="medium"
+                                            variant="secondary-neutral"
+                                            onClick={async (e) => {
+                                                e.preventDefault()
+                                                await handleSend(() => reset())
+                                            }}
+                                        >
+                                            {sendTilbakemelding}
+                                        </Button>
+                                    )}
                                 </form>
                             )}
                         </div>
@@ -211,6 +226,7 @@ interface FeedbackButtonProps {
     setThanksFeedback: (b: boolean) => void
     setActiveState: (s: string | null | number) => void
     feedbackId: string
+    disabled?: boolean
 }
 
 export function FeedbackButton(props: FeedbackButtonProps) {
@@ -222,6 +238,7 @@ export function FeedbackButton(props: FeedbackButtonProps) {
                 'bg-surface-neutral-active text-text-on-inverted hover:bg-surface-neutral-active':
                     props.activeState === props.svar,
             })}
+            disabled={props.disabled}
             aria-pressed={props.activeState === props.svar}
             onClick={(e) => {
                 e.preventDefault()
