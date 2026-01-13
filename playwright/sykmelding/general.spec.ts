@@ -3,7 +3,7 @@ import { sporsmal } from '../../src/utils/sporsmal'
 import { expect, test } from '../utils/fixtures'
 import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
-test.describe('sykmelding page tests that are not specific to a user', () => {
+test.describe('sykmeldingtester ikke relatert til en spesifikk bruker', () => {
     test('viser sykmelding uten a11y feil', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
@@ -39,7 +39,7 @@ test.describe('sykmelding page tests that are not specific to a user', () => {
         })
     }
 
-    test('nruker uten "bruker svar" skal uansett kunne se kvittering', async ({ page }) => {
+    test('bruker uten "bruker svar" skal uansett kunne se kvittering', async ({ page }) => {
         await gotoScenario('noBrukerSvar')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 

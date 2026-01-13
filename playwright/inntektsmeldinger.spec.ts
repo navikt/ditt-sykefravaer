@@ -12,15 +12,17 @@ test.describe('Inntektsmeldinger', () => {
         await page.getByRole('link', { name: /inntektsmeldinger/i }).click()
 
         const verifyInntektsmeldingPanel = async (navn: string) => {
-            const panel = page.locator('a.navds-link-panel', { hasText: navn })
+            const panel = page.getByRole('link', { name: navn })
             await Promise.all([
                 expect(panel.getByText(/For sykefravær som startet/i)).toBeVisible(),
                 expect(panel.getByText(/Mottatt:/i)).toBeVisible(),
             ])
         }
 
-        await verifyInntektsmeldingPanel('Matbutikken AS, Kjelsås')
-        await verifyInntektsmeldingPanel('Matbutikken AS, Grefsen')
+        await Promise.all([
+            verifyInntektsmeldingPanel('Matbutikken AS, Kjelsås'),
+            verifyInntektsmeldingPanel('Matbutikken AS, Grefsen'),
+        ])
 
         await validerCLS(getCLS, 'inntektsmeldinger list view')
     })
