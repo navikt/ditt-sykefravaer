@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form'
 import { Button, DatePicker, RangeValidationT, useRangeDatepicker } from '@navikt/ds-react'
-import { XMarkIcon } from '@navikt/aksel-icons'
+import { ArrowUndoIcon, TrashIcon } from '@navikt/aksel-icons'
 import { ReactElement, useState } from 'react'
 import { Interval, isWithinInterval } from 'date-fns'
 
@@ -133,6 +133,7 @@ function FrilanserEgenmeldingPeriodSubField({
                             fromField.onChange(null)
                             toField.onChange(null)
                         }}
+                        icon={<ArrowUndoIcon aria-hidden />}
                     >
                         Nullstill dato
                     </Button>
@@ -140,7 +141,7 @@ function FrilanserEgenmeldingPeriodSubField({
                         <Button
                             variant="tertiary"
                             type="button"
-                            icon={<XMarkIcon role="img" aria-hidden />}
+                            icon={<TrashIcon aria-hidden />}
                             onClick={() => remove(index)}
                         >
                             Fjern periode
