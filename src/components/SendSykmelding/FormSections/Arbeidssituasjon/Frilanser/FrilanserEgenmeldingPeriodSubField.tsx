@@ -96,10 +96,12 @@ function FrilanserEgenmeldingPeriodSubField({
         onValidate: setRangeError,
     })
 
+    const tidsperiode: string | number = (otherPeriods?.length ?? 0 > index) ? index + 1 : ''
+
     return (
         <li className="list-none">
             <fieldset className="relative px-4 pb-5 pt-12 bg-lightblue-50">
-                <legend className="absolute top-0 left-0 p-4">Tidsperiode 1</legend>
+                <legend className="absolute top-0 left-0 p-4 font-bold">Tidsperiode {tidsperiode}</legend>
                 <DatePicker
                     {...datepickerProps}
                     wrapperClassName="grid gap-2 place-items-start sm:w-[52ch] sm:grid-cols-2 grid-cols-1"
