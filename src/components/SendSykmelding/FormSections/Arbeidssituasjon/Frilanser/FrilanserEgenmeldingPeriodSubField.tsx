@@ -1,6 +1,6 @@
 import { useController } from 'react-hook-form'
-import { Button, RangeValidationT, DatePicker, useRangeDatepicker } from '@navikt/ds-react'
-import { XMarkIcon } from '@navikt/aksel-icons'
+import { Button, DatePicker, RangeValidationT, useRangeDatepicker } from '@navikt/ds-react'
+import { ArrowUndoIcon, TrashIcon } from '@navikt/aksel-icons'
 import { ReactElement, useState } from 'react'
 import { Interval, isWithinInterval } from 'date-fns'
 
@@ -96,53 +96,59 @@ function FrilanserEgenmeldingPeriodSubField({
         onValidate: setRangeError,
     })
 
+    const tidsperiode: string | number = (otherPeriods?.length ?? 0 > index) ? index + 1 : ''
+
     return (
         <li className="list-none">
-            <DatePicker
-                {...datepickerProps}
-                wrapperClassName="grid gap-2 place-items-start sm:w-[52ch] sm:grid-cols-2 grid-cols-1"
-            >
-                <DatePicker.Input
-                    id={fromField.name}
-                    {...fromInputProps}
-                    ref={fromField.ref}
-                    label="Fra og med"
-                    placeholder="DD.MM.ÅÅÅÅ"
-                    error={fromFieldState.error?.message}
-                />
-
-                <DatePicker.Input
-                    id={toField.name}
-                    {...toInputProps}
-                    ref={toField.ref}
-                    label="Til og med"
-                    placeholder="DD.MM.ÅÅÅÅ"
-                    error={toFieldState.error?.message}
-                />
-            </DatePicker>
-            <div className="mt-2 flex gap-4">
-                <Button
-                    variant="tertiary"
-                    type="button"
-                    onClick={() => {
-                        setSelected({ from: undefined, to: undefined })
-                        fromField.onChange(null)
-                        toField.onChange(null)
-                    }}
+            <fieldset className="relative px-4 pb-5 pt-12 bg-lightblue-50">
+                <legend className="absolute top-0 left-0 p-4 font-bold">Tidsperiode {tidsperiode}</legend>
+                <DatePicker
+                    {...datepickerProps}
+                    wrapperClassName="grid gap-2 place-items-start sm:w-[52ch] sm:grid-cols-2 grid-cols-1"
                 >
-                    Nullstill dato
-                </Button>
-                {index > 0 && (
+                    <DatePicker.Input
+                        id={fromField.name}
+                        {...fromInputProps}
+                        ref={fromField.ref}
+                        label="Fra og med"
+                        description="dd.mm.åååå"
+                        error={fromFieldState.error?.message}
+                    />
+
+                    <DatePicker.Input
+                        id={toField.name}
+                        {...toInputProps}
+                        ref={toField.ref}
+                        label="Til og med"
+                        description="dd.mm.åååå"
+                        error={toFieldState.error?.message}
+                    />
+                </DatePicker>
+                <div className="mt-2 flex gap-4">
                     <Button
                         variant="tertiary"
                         type="button"
-                        icon={<XMarkIcon role="img" aria-hidden />}
-                        onClick={() => remove(index)}
+                        onClick={() => {
+                            setSelected({ from: undefined, to: undefined })
+                            fromField.onChange(null)
+                            toField.onChange(null)
+                        }}
+                        icon={<ArrowUndoIcon aria-hidden />}
                     >
-                        Fjern periode
+                        Nullstill dato
                     </Button>
-                )}
-            </div>
+                    {index > 0 && (
+                        <Button
+                            variant="tertiary"
+                            type="button"
+                            icon={<TrashIcon aria-hidden />}
+                            onClick={() => remove(index)}
+                        >
+                            Fjern periode
+                        </Button>
+                    )}
+                </div>
+            </fieldset>
         </li>
     )
 }
