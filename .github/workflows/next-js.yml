@@ -1,0 +1,223 @@
+# Apper som bruker denne https://cs.github.com/?scopeName=All+repos&scope=&q=org%3Anavikt+%22navikt%2Fflex-github-actions-workflows%2F.github%2Fworkflows%2Fnext-js.yml%40main%22+NOT+is%3Aarchived
+
+name: Next js
+on:
+  workflow_call:
+    inputs:
+      app:
+        required: false
+        default: ${{ github.event.repository.name }}
+        type: string
+      port:
+        required: false
+        default: '8080'
+        type: string
+      base-path:
+        required: true
+        type: string
+    outputs:
+      image:
+        value: ${{ jobs.build.outputs.image }}
+
+jobs:
+  lint:
+    name: Lint
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run prettier check
+        run: npm run prettier:check
+      - name: Run lint
+        run: npm run lint
+
+  unit-test:
+    name: Test
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Run tests
+        run: npm run test:ci
+
+  build:
+    name: Build
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      packages: 'read'
+      contents: 'read'
+      id-token: 'write'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/build-next
+        id: build-next
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          NAIS_MANAGEMENT_PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+    outputs:
+      image: ${{ steps.build-next.outputs.image }}
+
+  build-playwright:
+    name: Build Playwright
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/playwright-build
+        id: playwright-build
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ inputs.NAIS_NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          NAIS_MANAGEMENT_PROJECT_ID: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
+          image_name: ${{ github.repository }}-e2e
+    outputs:
+      image: ${{ steps.playwright-build.outputs.image }}
+
+  playwright:
+    name: Run Playwright
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    needs: build-playwright
+    services:
+      app-main:
+        image: ${{ needs.build-playwright.outputs.image }}
+        ports: ['3000:3000']
+        env:
+          NO_DECORATOR: 'true'
+      app-decorator:
+        image: ${{ needs.build-playwright.outputs.image }}
+        ports: ['3001:3000']
+        env:
+          NO_DECORATOR: 'false'
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/setup-node
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: next.js cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ github.workspace }}/.next/cache
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+          restore-keys: |
+            ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+      - name: Build application
+        run: npm run build
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright
+        run: npx playwright test --project 'Mobile Chrome' --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+      - name: Upload blob report to GitHub Actions Artifacts
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: blob-report-${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  playwright-report:
+    if: ${{ !cancelled() && !startsWith(github.ref_name, 'dependabot/') }}
+    name: Playwright Report
+    needs: [playwright]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/workflows/actions/playwright-report
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAIS_WORKLOAD_IDENTITY_PROVIDER: ${{ secrets.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+          NAIS_MANAGEMENT_PROJECT_ID: ${{ vars.NAIS_MANAGEMENT_PROJECT_ID }}
+
+  codeql-analyse:
+    if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')
+    name: CodeQL
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          queries: security-and-quality
+          languages: 'javascript'
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:javascript'
+
+  nais-deploy:
+    needs: [build, lint, unit-test, playwright]
+    uses: ./.github/workflows/nais-deploy-dev-og-prod.yml
+    with:
+      image: ${{ needs.build.outputs.image }}
+      app: ${{ inputs.app }}
+    secrets: inherit
+
+  deploy-demo-branch-til-dev-gcp:
+    if: startsWith(github.ref_name, 'demo-') || startsWith(github.ref_name, 'dev-')
+    name: Deploy demo branch
+    timeout-minutes: 15
+    needs: [build, lint, unit-test]
+    runs-on: ubuntu-latest
+    env:
+      DEMO_APPNAME: demo-${{ inputs.app }}-${{ github.ref_name }}
+      DEMO_INGRESS: ${{ inputs.app }}-${{ github.ref_name }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy demo branch til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/app/demo.yaml
+          IMAGE: ${{ needs.build.outputs.image }}
+          VAR: appname=${{ env.DEMO_APPNAME }},replicas=1,branchState=alive,ingress=https://${{ env.DEMO_INGRESS }}.ekstern.dev.nav.no/${{inputs.base-path}},TTL_HOURS=168h
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@c33737706dea87cd7784c687dadc9adf1be59990
+        env:
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_MESSAGE: 'Ny demo versjon av ${{ inputs.app }} ute :rocket: https://${{ env.DEMO_INGRESS }}.ekstern.dev.nav.no/${{inputs.base-path}}'
+          SLACK_TITLE: ${{ github.ref_name }}
+          SLACK_USERNAME: Demo deploy
+          SLACK_ICON: ':lab_coat:'
+          SLACK_WEBHOOK: ${{ secrets.LABS_DEPLOY_WEBHOOK }}
+
+  deploy-demo-til-dev-gcp:
+    if: github.ref_name == 'main'
+    name: Deploy demo
+    timeout-minutes: 15
+    needs: [build, lint, unit-test]
+    concurrency: deploy-demo-til-dev-gcp
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Deploy til dev-gcp
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          CLUSTER: dev-gcp
+          RESOURCE: nais/app/demo.yaml
+          IMAGE: ${{ needs.build.outputs.image }}
+          VAR: appname=demo-${{ inputs.app }},replicas=1,branchState=alive,ingress=https://demo.ekstern.dev.nav.no/${{inputs.base-path}}

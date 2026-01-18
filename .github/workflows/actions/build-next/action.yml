@@ -1,0 +1,65 @@
+name: 'Builds next app and publishes to GAR'
+
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub authentication token (usually secrets.GITHUB_TOKEN)'
+    required: true
+    type: string
+  NAIS_WORKLOAD_IDENTITY_PROVIDER:
+    required: true
+    type: string
+  NAIS_MANAGEMENT_PROJECT_ID:
+    required: true
+    type: string
+
+outputs:
+  image:
+    description: 'Docker image in GAR'
+    value: ${{ steps.docker-build-push.outputs.image }}
+  digest:
+    description: 'Docker image digest in GAR'
+    value: ${{ steps.docker-build-push.outputs.digest }}
+
+runs:
+  using: composite
+  steps:
+    - uses: ./.github/workflows/actions/setup-node
+      with:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+    - name: next.js cache
+      uses: actions/cache@v4
+      with:
+        path: ${{ github.workspace }}/.next/cache
+        key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
+        restore-keys: |
+          ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json') }}-
+
+    - name: Build application
+      run: npm run build
+      shell: bash
+
+    - name: Last opp static files til NAV CDN
+      if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+      uses: nais/deploy/actions/cdn-upload/v2@master
+      with:
+        team: flex
+        source: ./.next/static
+        destination: /${{github.event.repository.name}}/_next
+        identity_provider: ${{ inputs.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+        project_id: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
+
+    - name: prune dev dependencies
+      run: npm prune --production
+      shell: bash
+    - run: rm .env
+      shell: bash
+    - run: touch .env
+      shell: bash
+    - name: Gar publish
+      id: docker-build-push
+      if: github.ref_name == 'main' || startsWith(github.ref_name, 'dev-')  || startsWith(github.ref_name, 'demo-')
+      uses: nais/docker-build-push@v0
+      with:
+        team: flex
+        identity_provider: ${{ inputs.NAIS_WORKLOAD_IDENTITY_PROVIDER }}
+        project_id: ${{ inputs.NAIS_MANAGEMENT_PROJECT_ID }}
