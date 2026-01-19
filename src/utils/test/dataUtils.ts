@@ -2,7 +2,6 @@ import {
     AnnenFraverGrunn,
     ArbeidsrelatertArsakType,
     MedisinskArsakType,
-    Merknadtype,
     Periode,
     Periodetype,
     RegelStatus,
@@ -203,39 +202,3 @@ export const createSykmeldingPeriode = (overrides?: Partial<Periode>): Periode =
     reisetilskudd: false,
     ...overrides,
 })
-
-export function createUnderBehandlingMerknad(): Pick<Sykmelding, 'merknader'> {
-    return { merknader: [{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }] }
-}
-
-export function createAvvistBehandlingsutfall(
-    reason = 'Sykmeldingen er tilbakedatert uten tilstrekkelig begrunnelse fra den som sykmeldte deg.',
-): Pick<Sykmelding, 'behandlingsutfall'> {
-    return {
-        behandlingsutfall: {
-            status: RegelStatus.INVALID,
-            ruleHits: [
-                {
-                    messageForSender: reason,
-                    messageForUser: reason,
-                    ruleName: 'INNTIL_8_DAGER',
-                    ruleStatus: RegelStatus.INVALID,
-                },
-            ],
-        },
-    }
-}
-
-export function createInitialQuery<Query, Variables>(
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    typedDocumentNode: any,
-    data: Query,
-    variables?: Variables,
-): // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any {
-    return {
-        query: typedDocumentNode,
-        data,
-        variables,
-    }
-}

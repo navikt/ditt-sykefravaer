@@ -1,5 +1,5 @@
 import { PropsWithChildren, ReactElement } from 'react'
-import { render, renderHook, screen, RenderOptions, RenderHookOptions, RenderHookResult } from '@testing-library/react'
+import { render, screen, RenderOptions } from '@testing-library/react'
 import { IToggle } from '@unleash/nextjs'
 
 import { FlagProvider } from '../../toggles/context'
@@ -37,21 +37,6 @@ const customRender = (
         ...renderOptions,
     })
 }
-
-const customRenderHook = <TProps, TResult>(
-    hook: (props: TProps) => TResult,
-    options: Omit<RenderHookOptions<TProps>, 'wrapper'> & ProviderProps = {},
-): RenderHookResult<TResult, TProps> => {
-    const { initialState, mocks, ...renderOptions } = options
-
-    return renderHook(hook, {
-        wrapper: (props) => <AllTheProviders {...props} initialState={initialState} mocks={mocks} />,
-        ...renderOptions,
-    })
-}
-
-export async function openPlayground(): Promise<void> {}
-
 export * from '@testing-library/react'
 
 const customScreen = {
@@ -62,4 +47,4 @@ const customScreen = {
 }
 
 export { customScreen as screen }
-export { customRender as render, customRenderHook as renderHook }
+export { customRender as render }
