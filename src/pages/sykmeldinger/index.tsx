@@ -14,7 +14,7 @@ function SykmeldingerPage(): ReactElement {
     return (
         <>
             <Head>
-                <title>Sykmeldinger - www.nav.no</title>
+                <title>Sykmeldinger</title>
             </Head>
             <Header title="Sykmeldinger" />
             <PageWrapper>

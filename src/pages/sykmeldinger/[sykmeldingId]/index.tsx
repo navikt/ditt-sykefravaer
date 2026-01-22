@@ -218,7 +218,7 @@ function SykmeldingerWrapper({ sykmelding, children }: PropsWithChildren<{ sykme
             </div>
             <div className="print:hidden">
                 <Head>
-                    <title>Sykmelding - www.nav.no</title>
+                    <title>Sykmelding</title>
                 </Head>
                 {sykmelding == null ? (
                     <Header skeleton />

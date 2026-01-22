@@ -133,7 +133,7 @@ function KvitteringWrapper({ sykmelding, children }: PropsWithChildren<{ sykmeld
     return (
         <>
             <Head>
-                <title>Kvittering - www.nav.no</title>
+                <title>Kvittering</title>
             </Head>
             {sykmelding == null ? (
                 <Header skeleton />
