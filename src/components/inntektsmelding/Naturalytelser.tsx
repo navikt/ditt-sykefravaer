@@ -1,15 +1,15 @@
-import { Panel, Heading, BodyShort } from '@navikt/ds-react'
+import { BodyShort, Box, Heading } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper, naturalytelser } from '../../types/inntektsmeldingTyper'
 import { cn } from '../../utils/tw-utils'
-import { formatDateFromString } from '../../utils/dato-utils'
+import { toReadableDate } from '../../utils/dateUtils'
 
 import formatCurrency from './formatCurrency'
 
 export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: InntektsmeldingTyper | null }) {
     return (
-        <Panel className="mt-4 rounded-md border-2 border-gray-300" border>
+        <Box className="mt-8" padding="4" borderWidth="1" borderRadius="8" borderColor="border-default">
             <Heading level="2" size="small" className="mt-2 mb-2">
                 Naturalytelser
             </Heading>
@@ -34,12 +34,11 @@ export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: I
                             <span className="font-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)} kr/mnd
                         </BodyShort>
                         <BodyShort className="mb-8">
-                            <span className="font-bold">Ytelsen bortfaller:</span>{' '}
-                            {formatDateFromString(naturalytelse.fom)}
+                            <span className="font-bold">Ytelsen bortfaller:</span> {toReadableDate(naturalytelse.fom)}
                         </BodyShort>
                     </div>
                 )
             })}
-        </Panel>
+        </Box>
     )
 }

@@ -1,9 +1,9 @@
-import { Panel, Heading, BodyLong, Label, BodyShort, ReadMore } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Box, Heading, Label, ReadMore } from '@navikt/ds-react'
 import React from 'react'
 import { logger } from '@navikt/next-logger'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
-import { formatDateFromString } from '../../utils/dato-utils'
+import { toReadableDate } from '../../utils/dateUtils'
 
 import formatCurrency from './formatCurrency'
 
@@ -16,7 +16,7 @@ export function UtbetalingOgRefusjonPanel({
     const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
 
     return (
-        <Panel className="mt-4 rounded-md border-2 border-gray-300" border>
+        <Box className="mt-8" padding="4" borderWidth="1" borderRadius="8" borderColor="border-default">
             <Heading level="2" size="small" className="mt-2">
                 Utbetaling og refusjon
             </Heading>
@@ -65,33 +65,24 @@ export function UtbetalingOgRefusjonPanel({
                     </Label>
                     {inntektsmelding?.endringIRefusjoner?.map((endring, i) => (
                         <div key={i} className="border-b border-gray-400 mt-8 mb-8">
-                            <BodyShort spacing>
-                                Dato for endring: {formatDateFromString(endring.endringsdato)}
-                            </BodyShort>
+                            <BodyShort spacing>Dato for endring: {toReadableDate(endring.endringsdato)}</BodyShort>
                             <BodyShort className="mb-8">Nytt beløp: {formatCurrency(endring.beloep)} kr/mnd</BodyShort>
                         </div>
                     ))}
                 </>
             )}
             {inntektsmelding?.refusjon?.opphoersdato && (
-                <Panel
-                    className="rounded-md mb-4"
-                    style={
-                        {
-                            '--ac-panel-bg': 'var(--a-gray-50)',
-                        } as React.CSSProperties
-                    }
-                >
+                <Box padding="4" borderRadius="8" background="bg-subtle">
                     <Label className="mt-4" as="p">
                         Siste dag arbeidsgiver betaler lønn:
                     </Label>
-                    <BodyShort spacing>{formatDateFromString(inntektsmelding?.refusjon.opphoersdato)}</BodyShort>
+                    <BodyShort spacing>{toReadableDate(inntektsmelding?.refusjon.opphoersdato)}</BodyShort>
                     <BodyShort className="mt-8" spacing>
                         NAV betaler direkte til deg etter denne datoen
                     </BodyShort>
-                </Panel>
+                </Box>
             )}
-        </Panel>
+        </Box>
     )
 }
 

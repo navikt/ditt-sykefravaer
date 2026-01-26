@@ -1,49 +1,23 @@
-import { Panel, BodyShort, Heading, ExpansionCard } from '@navikt/ds-react'
+import { BodyShort, ExpansionCard } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
-import { formatDateFromString } from '../../utils/dato-utils'
+import { toReadableDate } from '../../utils/dateUtils'
+
+import formatCurrency from './formatCurrency'
 
 export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmelding?: InntektsmeldingTyper | null }) {
-    const { organisasjonsnavn, mottattDato, innsenderFulltNavn, foersteFravaersdag, beregnetInntekt } =
-        inntektsmelding || {}
-
-    const renderInnsendtInfo = () => {
-        const nameInfo = innsenderFulltNavn ? `Innsendt av ${innsenderFulltNavn}` : ''
-        const dateInfo = mottattDato ? `${formatDateFromString(mottattDato)}` : ''
-
-        const info = [nameInfo, dateInfo].filter(Boolean).join(', ')
-
-        return info ? <BodyShort spacing>{info}</BodyShort> : null
-    }
-
-    const expansionCardStyle = {
-        '--ac-expansioncard-header-bg': 'var(--a-gray-50)',
-        '--ac-expansioncard-header-open-bg': 'var(--a-gray-50)',
-        '--ac-expansioncard-border-color': 'transparent',
-        '--ac-expansioncard-border-open-color': 'transparent',
-        '--ac-expansioncard-border-hover-color': 'transparent',
-    } as React.CSSProperties
+    const { foersteFravaersdag, beregnetInntekt } = inntektsmelding || {}
 
     return (
-        <Panel className="mt-4 rounded-md border-2 border-gray-300" border>
-            <Heading level="2" size="small" className="mt-2 mb-2">
-                Inntektsmelding fra {organisasjonsnavn}
-            </Heading>
-
-            {renderInnsendtInfo()}
-
-            <ExpansionCard
-                size="small"
-                aria-label="Informasjon om beregnet månedsinntekt"
-                className="mb-8 mt-8"
-                style={expansionCardStyle}
-            >
+        <>
+            <ExpansionCard size="small" aria-label="Informasjon om beregnet månedsinntekt" className="mb-8 mt-8">
                 <ExpansionCard.Header>
-                    <ExpansionCard.Title size="small">
-                        <BodyShort weight="semibold">Beregnet månedsinntekt: {beregnetInntekt} kr</BodyShort>
+                    <ExpansionCard.Title size="small" as="h2">
+                        Beregnet månedsinntekt: {formatCurrency(beregnetInntekt)} kr
                     </ExpansionCard.Title>
                 </ExpansionCard.Header>
+
                 <ExpansionCard.Content>
                     <BodyShort>
                         Beregnet månedsinntekt er den inntekten som sykepenger regnes ut fra. Dette skal som regel være
@@ -53,17 +27,10 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
             </ExpansionCard>
 
             {foersteFravaersdag && (
-                <ExpansionCard
-                    className="mb-4"
-                    size="small"
-                    aria-label="Informasjon om bestemmende fraværsdag"
-                    style={expansionCardStyle}
-                >
+                <ExpansionCard className="mb-8" size="small" aria-label="Informasjon om bestemmende fraværsdag">
                     <ExpansionCard.Header>
-                        <ExpansionCard.Title size="small">
-                            <BodyShort weight="semibold">
-                                Bestemmende fraværsdag: {formatDateFromString(foersteFravaersdag)}
-                            </BodyShort>
+                        <ExpansionCard.Title size="small" as="h2">
+                            Bestemmende fraværsdag: {toReadableDate(foersteFravaersdag)}
                         </ExpansionCard.Title>
                     </ExpansionCard.Header>
                     <ExpansionCard.Content>
@@ -74,6 +41,6 @@ export function InntektsmeldingPanel({ inntektsmelding = null }: { inntektsmeldi
                     </ExpansionCard.Content>
                 </ExpansionCard>
             )}
-        </Panel>
+        </>
     )
 }
