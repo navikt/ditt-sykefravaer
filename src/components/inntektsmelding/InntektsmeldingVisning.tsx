@@ -1,10 +1,11 @@
-import { BodyLong } from '@navikt/ds-react'
+import { BodyShort } from '@navikt/ds-react'
 import React from 'react'
 
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
 import { Flexjar } from '../flexjar/flexjar'
 import { Banner } from '../banner/Banner'
 import { useToggle } from '../../toggles/context'
+import { toReadableDate } from '../../utils/dateUtils'
 
 import { InntektsmeldingPanel } from './InntektsmeldingPanel'
 import { UtbetalingOgRefusjonPanel } from './UtbetalingOgRefusjonPanel'
@@ -15,29 +16,47 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
     const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-inntektsmelding-visning')
 
+    const { organisasjonsnavn, mottattDato, innsenderFulltNavn } = inntektsmelding || {}
+
     return (
         <>
             <Banner tittel="Inntektsmelding" utenIkon={true}></Banner>
-
-            <BodyLong spacing>
-                Din arbeidsgiver har sendt inn informasjon om din inntekt og arbeidsforhold. Denne informasjonen
-                benyttes til å vurdere din rett til sykepenger og foreta en nøyaktig beregning av sykepengegrunnlaget
-                ditt.
-            </BodyLong>
-
+            {organisasjonsnavn && (
+                <BodyShort>
+                    <BodyShort as="span" weight="semibold">
+                        Arbeidsgiver:
+                    </BodyShort>{' '}
+                    {organisasjonsnavn}
+                </BodyShort>
+            )}
+            {innsenderFulltNavn && (
+                <BodyShort className="mt-1">
+                    <BodyShort as="span" weight="semibold">
+                        Innsendt av:
+                    </BodyShort>{' '}
+                    {innsenderFulltNavn}
+                </BodyShort>
+            )}
+            {mottattDato && (
+                <BodyShort spacing className="mt-1">
+                    <BodyShort as="span" weight="semibold">
+                        Dato:
+                    </BodyShort>{' '}
+                    {toReadableDate(mottattDato)}
+                </BodyShort>
+            )}
+            <BodyShort className="mt-8" spacing>
+                <BodyShort weight="semibold">Spørsmål eller feil</BodyShort>
+                <BodyShort className="mt-2">
+                    Hvis du har spørsmål til opplysningene i inntektsmeldingen, ta kontakt med arbeidsgiveren din.
+                </BodyShort>
+            </BodyShort>
             <InntektsmeldingPanel inntektsmelding={inntektsmelding} />
             {inntektsmelding && inntektsmelding.arbeidsgiverperioder.length > 0 && (
                 <ArbeidsgiverperiodePanel inntektsmelding={inntektsmelding} />
             )}
             <UtbetalingOgRefusjonPanel inntektsmelding={inntektsmelding} />
-
             {visNaturalytelser && <Naturalytelser inntektsmelding={inntektsmelding} />}
-
-            <BodyLong className="mt-8" spacing>
-                Hvis du har spørsmål til de opplysningene du ser her, eller noe er feil, må du kontakte arbeidsgiveren
-                din.
-            </BodyLong>
-
             {flexjarToggle.enabled && <Flexjar feedbackId="inntektsmelding-visning" />}
         </>
     )

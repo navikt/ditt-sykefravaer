@@ -103,16 +103,14 @@ test.describe('Tester Brodsmuler', () => {
         await expect(forsteInntektsmelding).toBeVisible()
         await forsteInntektsmelding.click()
 
-        await harSynligOverskrift(page, 'Inntektsmelding fra Matbutikken AS, Kjelsås', 2)
+        await harSynligOverskrift(page, 'Inntektsmelding', 1)
+        await expect(page.getByText('Arbeidsgiver: Matbutikken AS, Kjelsås')).toBeVisible()
 
         await forventFlerebrodsmuler(page, [
             standardBrodsmuler.minSide,
             standardBrodsmuler.sykefravaer,
             standardBrodsmuler.inntektsmeldinger,
         ])
-
-        await expect(page.getByRole('listitem').filter({ hasText: 'Matbutikken AS, Kjelsås' })).toBeVisible()
-
         await klikkPaBrodsmule(page, 'Inntektsmeldinger', true)
         await expect(page).toHaveURL(/\/syk\/sykefravaer\/inntektsmeldinger$/)
     })

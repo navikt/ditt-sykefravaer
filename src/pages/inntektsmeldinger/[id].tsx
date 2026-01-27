@@ -2,10 +2,10 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { Heading } from '@navikt/ds-react'
 
-import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { useInntektsmeldinger } from '../../hooks/useInntektsmeldinger'
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
 import { InntektsmeldingVisning } from '../../components/inntektsmelding/InntektsmeldingVisning'
+import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 
 const Inntektsmeldinger = () => {
     const { data: inntektsmeldinger } = useInntektsmeldinger()
@@ -19,7 +19,7 @@ const Inntektsmeldinger = () => {
         breadcrumbBuilders.inntektsmelding(inntektsmeldingId || '', inntektsmelding?.organisasjonsnavn),
     )
 
-    if (inntektsmeldinger && !inntektsmelding)
+    if (!inntektsmelding)
         return (
             <Heading size="medium" level="1">
                 Fant ikke inntektsmelding
