@@ -1,7 +1,7 @@
 import { DecoratorComponentsReact, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
 import getConfig from 'next/config'
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
-import React from 'react'
+import React, { JSX } from 'react'
 
 const { serverRuntimeConfig } = getConfig()
 
