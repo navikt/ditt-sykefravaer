@@ -13,6 +13,7 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
         if (status === 'APEN' || status === 'BEKREFTET') {
             return (
                 <Tag variant="warning" size="small">
+                    <span className="sr-only">, status: </span>
                     Avvist av NAV
                 </Tag>
             )
@@ -23,24 +24,28 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
         case 'AVBRUTT':
             return (
                 <Tag variant="error" size="small">
+                    <span className="sr-only">, status: </span>
                     Avbrutt av deg
                 </Tag>
             )
         case 'SENDT':
             return (
                 <Tag variant="success" size="small">
+                    <span className="sr-only">, status: </span>
                     Sendt til arbeidsgiver
                 </Tag>
             )
         case 'UTGATT':
             return (
                 <Tag variant="info" size="small">
+                    <span className="sr-only">, status: </span>
                     Utgått
                 </Tag>
             )
         case 'BEKREFTET':
             return (
                 <Tag variant="success" size="small">
+                    <span className="sr-only">, status: </span>
                     Sendt til NAV
                 </Tag>
             )
