@@ -334,6 +334,7 @@ const harUnderBehandling: ScenarioCreator = () => ({
             .send()
             .enkelPeriode({ offset: 0, days: 7 })
             .merknader([{ type: Merknadtype.UNDER_BEHANDLING, beskrivelse: null }])
+            .behandlingsutfall(RegelStatus.OK, [], true)
             .build(),
     ],
 })

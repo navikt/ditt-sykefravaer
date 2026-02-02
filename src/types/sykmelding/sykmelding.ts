@@ -49,6 +49,7 @@ export type Adresse = {
 export type Behandlingsutfall = {
     readonly ruleHits: RegelInfo[]
     readonly status: RegelStatus
+    readonly erUnderBehandling: boolean
 }
 
 export type AktivitetIkkeMuligPeriode = {
