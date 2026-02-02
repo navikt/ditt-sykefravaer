@@ -27,6 +27,7 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
         behandlingsutfall: {
             status: RegelStatus.OK,
             ruleHits: [],
+            erUnderBehandling: false,
         },
         arbeidsgiver: {
             navn: 'Arbeidsgiver AS',

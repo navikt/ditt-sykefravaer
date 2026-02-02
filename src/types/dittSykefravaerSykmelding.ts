@@ -8,6 +8,7 @@ export interface DittSykefravaerSykmelding {
     }
     behandlingsutfall: {
         status: RegelStatus
+        erUnderBehandling: boolean
     }
     sykmeldingsperioder: Periode[]
     syketilfelleStartDato?: string

@@ -1,12 +1,12 @@
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../../types/dittSykefravaerSykmelding'
-import { StatusEvent, RegelStatus } from '../../../types/sykmelding/sykmelding'
+import { RegelStatus, StatusEvent } from '../../../types/sykmelding/sykmelding'
 
 export const nySykmelding: DittSykefravaerSykmelding = {
     id: 'id-apen-sykmelding',
     sykmeldingStatus: { statusEvent: StatusEvent.APEN },
-    behandlingsutfall: { status: RegelStatus.OK },
+    behandlingsutfall: { status: RegelStatus.OK, erUnderBehandling: false },
     sykmeldingsperioder: [
         {
             fom: dayjs().format('YYYY-MM-DD'),
@@ -25,7 +25,7 @@ export const sendtSykmelding: DittSykefravaerSykmelding = {
             orgNavn: 'Hogwarts School of Witchcraft and Wizardry',
         },
     },
-    behandlingsutfall: { status: RegelStatus.OK },
+    behandlingsutfall: { status: RegelStatus.OK, erUnderBehandling: false },
     sykmeldingsperioder: [
         {
             fom: dayjs().format('YYYY-MM-DD'),
@@ -40,7 +40,7 @@ export const bekreftetSykmelding: DittSykefravaerSykmelding = {
     sykmeldingStatus: {
         statusEvent: StatusEvent.BEKREFTET,
     },
-    behandlingsutfall: { status: RegelStatus.OK },
+    behandlingsutfall: { status: RegelStatus.OK, erUnderBehandling: false },
     sykmeldingsperioder: [{ fom: '2021-03-15', tom: '2021-03-19' }],
     syketilfelleStartDato: '2021-03-01',
 }
@@ -48,7 +48,7 @@ export const bekreftetSykmelding: DittSykefravaerSykmelding = {
 export const avvistSykmelding: DittSykefravaerSykmelding = {
     id: 'id-3',
     sykmeldingStatus: { statusEvent: StatusEvent.APEN },
-    behandlingsutfall: { status: RegelStatus.INVALID },
+    behandlingsutfall: { status: RegelStatus.INVALID, erUnderBehandling: false },
     sykmeldingsperioder: [{ fom: '2021-03-19', tom: '2021-03-19' }],
     syketilfelleStartDato: '2021-03-01',
 }
