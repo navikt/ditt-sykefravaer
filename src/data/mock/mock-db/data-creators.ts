@@ -31,6 +31,7 @@ export class SykmeldingBuilder {
         behandlingsutfall: {
             status: RegelStatus.OK,
             ruleHits: [],
+            erUnderBehandling: false,
         },
         arbeidsgiver: {
             navn: 'Arbeidsgiver AS',
@@ -269,10 +270,11 @@ export class SykmeldingBuilder {
         return this
     }
 
-    behandlingsutfall(status: RegelStatus.INVALID, ruleHits: RuleHit[]): SykmeldingBuilder {
+    behandlingsutfall(status: RegelStatus, ruleHits: RuleHit[], erUnderBehandling: boolean = false): SykmeldingBuilder {
         this._sykmelding.behandlingsutfall = {
             status,
             ruleHits,
+            erUnderBehandling,
         }
 
         return this

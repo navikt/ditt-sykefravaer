@@ -10,4 +10,5 @@ export interface RuleHit {
 export interface Behandlingsutfall {
     status: RegelStatus
     ruleHits: RuleHit[]
+    erUnderBehandling: boolean
 }
