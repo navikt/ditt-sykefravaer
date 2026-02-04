@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import Link from 'next/link'
-import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
+import { BodyShort, LinkPanel } from '@navikt/ds-react'
 
 import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import { getDescription } from '../../../utils/periodeUtils'
@@ -42,9 +42,9 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
                     </div>
                     <div className="grow">
                         <BodyShort>{sykmeldingPeriod}</BodyShort>
-                        <Heading size="small" level="3">
+                        <BodyShort size="large" className="font-semibold">
                             {getSykmeldingTitle(sykmelding)}
-                        </Heading>
+                        </BodyShort>
                         <ul className="list-disc list-outside ms-4">
                             {sykmelding.sykmeldingsperioder.map((periode, index) => (
                                 <li key={index} className="pl-1.5 leading-relaxed">
