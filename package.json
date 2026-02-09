@@ -60,7 +60,7 @@
         "dotenv": "^17.2.3",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.5.9",
-        "next": "15.5.9",
+        "next": "15.5.12",
         "next-router-mock": "^1.0.4",
         "open": "^11.0.0",
         "playwright-core": "^1.57.0",
