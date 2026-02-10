@@ -51,7 +51,7 @@
         "@testing-library/user-event": "^14.6.1",
         "@types/cookie": "^0.6.0",
         "@types/node": "^22.10.5",
-        "@types/react": "^19.2.10",
+        "@types/react": "^19.2.13",
         "@types/react-dom": "^19.2.3",
         "@types/uuid": "^11.0.0",
         "@vitejs/plugin-react": "^5.1.4",
