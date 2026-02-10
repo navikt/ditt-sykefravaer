@@ -17,7 +17,7 @@
         "@navikt/nav-dekoratoren-moduler": "^3.6.1",
         "@navikt/next-api-proxy": "^5.0.2",
         "@navikt/next-logger": "4.5.1",
-        "@navikt/oasis": "^3.8.0",
+        "@navikt/oasis": "^4.1.4",
         "@react-pdf/renderer": "^4.3.2",
         "@react-pdf/types": "^2.9.2",
         "@tanstack/query-core": "^5.62.15",
