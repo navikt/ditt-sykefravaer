@@ -54,12 +54,13 @@
         "@types/react": "^19.2.10",
         "@types/react-dom": "^19.2.3",
         "@types/uuid": "^11.0.0",
-        "@vitejs/plugin-react": "^4.7.0",
+        "@vitejs/plugin-react": "^5.1.4",
         "autoprefixer": "^10.4.23",
         "axe-core": "^4.11.0",
         "dotenv": "^17.2.3",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.5.9",
+        "jsdom": "^26.1.0",
         "next": "15.5.9",
         "next-router-mock": "^1.0.4",
         "open": "^11.0.0",
@@ -70,7 +71,7 @@
         "tailwindcss": "^3.4.17",
         "ts-loader": "^9.5.4",
         "typescript": "^5.9.3",
-        "vitest": "^3.2.4"
+        "vitest": "^4.0.18"
     },
     "scripts": {
         "dev": "MOCK_BACKEND=true next dev -p 3000 | pino-pretty",
