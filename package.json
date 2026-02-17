@@ -56,7 +56,7 @@
         "@types/uuid": "^11.0.0",
         "@vitejs/plugin-react": "^5.1.4",
         "autoprefixer": "^10.4.23",
-        "axe-core": "^4.11.0",
+        "axe-core": "^4.11.1",
         "dotenv": "^17.2.3",
         "eslint": "^8.57.1",
         "eslint-config-next": "^15.5.9",
