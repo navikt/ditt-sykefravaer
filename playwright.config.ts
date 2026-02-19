@@ -36,7 +36,6 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
         timeout,
         server: {
             command: `${serverCommand} -p ${port}`,
-            url: `${baseURL}/syk/sykefravaer`,
             timeout: 120 * 1000,
             reuseExistingServer: true,
             env: serverEnv,
