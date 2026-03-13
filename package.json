@@ -54,7 +54,7 @@
         "@types/react": "^19.2.14",
         "@types/react-dom": "^19.2.3",
         "@types/uuid": "^11.0.0",
-        "@vitejs/plugin-react": "^5.1.4",
+        "@vitejs/plugin-react": "^6.0.0",
         "autoprefixer": "^10.4.27",
         "axe-core": "^4.11.0",
         "dotenv": "^17.3.1",
