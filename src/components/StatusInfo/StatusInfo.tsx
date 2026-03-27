@@ -1,5 +1,6 @@
-import { ReactElement } from 'react'
-import { BodyShort, GuidePanel, Link, Heading } from '@navikt/ds-react'
+import React, { ReactElement } from 'react'
+import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
 import { logUmamiEvent } from '../umami/umami'
@@ -83,6 +84,7 @@ function StatusInfo({
                     søke NAV om å beholde sykepengene dine mens du er på reise. Du bør sende søknaden på forhånd, og jo
                     tidligere du søker, jo bedre.
                 </BodyShort>
+
                 <Link
                     href={`${sykepengesoknadUrl()}/sykepengesoknad-utland`}
                     target="_bland"
@@ -97,6 +99,7 @@ function StatusInfo({
                     }
                 >
                     Les mer om reise utenfor EU/EØS og send søknad her.
+                    <ExternalLinkIcon aria-hidden={true} />
                 </Link>
             </div>
         </div>

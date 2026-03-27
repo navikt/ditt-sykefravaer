@@ -23,6 +23,7 @@ import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
+import { LenkeMedIkon } from '../../../components/lenke/lenke-med-ikon'
 
 function NaringsdrivendeVentetidInfo() {
     return (
@@ -30,21 +31,21 @@ function NaringsdrivendeVentetidInfo() {
             <Heading size="medium" level="2" spacing>
                 Hva skjer videre?
             </Heading>
-            <BodyShort weight="semibold" spacing>
+            <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mindre enn 16 dager
             </BodyShort>
             <BodyShort spacing>
                 Som selvstendig næringsdrivende får du som hovedregel ikke sykepenger de første 16 kalenderdagene.
                 Dagene telles fra du oppsøker lege, eller fra Nav får beskjed om at du er syk og ikke kan jobbe.
             </BodyShort>
-            <BodyShort weight="semibold" spacing>
+            <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager
             </BodyShort>
             <BodyShort spacing>
                 Varer sykefraværet ditt mer enn 16 dager, dekker Nav sykepengene dine fra dag 17. Vi gir deg beskjed når
                 du kan søke om sykepenger.
             </BodyShort>
-            <Link href="https://www.nav.no/sykepenger#hva">Les mer om hva du kan få i sykepenger.</Link>
+            <LenkeMedIkon href="https://www.nav.no/sykepenger#hva" text="Les mer om hva du kan få i sykepenger." />
         </>
     )
 }
