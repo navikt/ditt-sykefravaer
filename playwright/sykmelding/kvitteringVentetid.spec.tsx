@@ -14,8 +14,8 @@ import {
 import { test } from '../utils/fixtures'
 import { getRadioInGroup } from '../utils/test-utils'
 
-test.describe('Informasjon om ventetid for Selvstendig Næringsdrivende', () => {
-    test('Kvitteringer for bekreftet sykmelding viser ikke informasjon om ventetid', async ({ page }) => {
+test.describe('Informasjon om ventetid', () => {
+    test('Kvitteringer for bekreftet sykmelding viser informasjon om ventetid', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
@@ -25,7 +25,20 @@ test.describe('Informasjon om ventetid for Selvstendig Næringsdrivende', () => 
         await velgForsikring('Nei')(page)
 
         await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
-        await page.getByText('Hva skjer videre?').isVisible()
+        await expect(page.getByText('Hva skjer videre?')).toBeVisible()
+    })
+
+    test('Kvitteringer for bekreftet sykmelding for frilanser viser ikke informasjon om ventetid', async ({ page }) => {
+        await gotoScenario('normal')(page)
+        await navigateToFirstSykmelding('nye', '100%')(page)
+        await opplysingeneStemmer(page)
+        await velgArbeidssituasjon('frilanser')(page)
+
+        await frilanserEgenmeldingsperioder('Nei')(page)
+        await velgForsikring('Nei')(page)
+
+        await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
+        await expect(page.getByText('Hva skjer videre?')).not.toBeVisible()
     })
 
     test('Kvitteringer for sendt sykmelding viser ikke informasjon om ventetid', async ({ page }) => {

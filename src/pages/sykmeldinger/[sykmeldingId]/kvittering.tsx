@@ -22,6 +22,7 @@ import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 
 function NaringsdrivendeVentetidInfo() {
     return (
@@ -125,9 +126,9 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-
-            {data.sykmeldingStatus.statusEvent === StatusEvent.BEKREFTET && <NaringsdrivendeVentetidInfo />}
-
+            {arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE && (
+                <NaringsdrivendeVentetidInfo />
+            )}
             <div className="mb-8">
                 <StatusInfo
                     sykmeldingStatus={data.sykmeldingStatus}
@@ -135,16 +136,13 @@ function SykmeldingkvitteringPage(): ReactElement {
                     sykmeldingMerknader={data.merknader ?? []}
                 />
             </div>
-
             <div className="mb-8">
                 <SykmeldingSykmeldtSection
                     sykmelding={data}
                     shouldShowEgenmeldingsdagerInfo={data.sykmeldingStatus.statusEvent === StatusEvent.SENDT}
                 />
             </div>
-
             {data.sykmeldingStatus.statusEvent === 'SENDT' && <SykmeldingArbeidsgiverExpansionCard sykmelding={data} />}
-
             <HintToNextOlderSykmelding />
             {flexjarToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeissituasjonSvar} />
