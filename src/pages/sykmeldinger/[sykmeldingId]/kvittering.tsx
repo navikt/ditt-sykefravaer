@@ -22,6 +22,34 @@ import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
+import { LenkeMedIkon } from '../../../components/lenke/lenke-med-ikon'
+
+function NaringsdrivendeVentetidInfo() {
+    return (
+        <>
+            <Heading size="medium" level="2" spacing>
+                Hva skjer videre?
+            </Heading>
+            <BodyShort className="mt-6" weight="semibold" spacing>
+                Hvis du er syk i mindre enn 16 dager
+            </BodyShort>
+            git
+            <BodyShort spacing>
+                Du får som hovedregel ikke sykepenger de første 16 kalenderdagene. Dagene telles fra du oppsøker lege,
+                eller fra Nav får beskjed om at du er syk og ikke kan jobbe.
+            </BodyShort>
+            <BodyShort className="mt-6" weight="semibold" spacing>
+                Hvis du er syk i mer enn 16 dager
+            </BodyShort>
+            <BodyShort spacing>
+                Varer sykefraværet ditt mer enn 16 dager, dekker Nav sykepengene dine fra dag 17. Vi gir deg beskjed når
+                du kan søke om sykepenger.
+            </BodyShort>
+            <LenkeMedIkon href="https://www.nav.no/sykepenger#hva" text="Les mer om hva du kan få i sykepenger." />
+        </>
+    )
+}
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -100,7 +128,10 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-
+            {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
+                arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
+                <NaringsdrivendeVentetidInfo />
+            )}
             <div className="mb-8">
                 <StatusInfo
                     sykmeldingStatus={data.sykmeldingStatus}
@@ -108,16 +139,13 @@ function SykmeldingkvitteringPage(): ReactElement {
                     sykmeldingMerknader={data.merknader ?? []}
                 />
             </div>
-
             <div className="mb-8">
                 <SykmeldingSykmeldtSection
                     sykmelding={data}
                     shouldShowEgenmeldingsdagerInfo={data.sykmeldingStatus.statusEvent === StatusEvent.SENDT}
                 />
             </div>
-
             {data.sykmeldingStatus.statusEvent === 'SENDT' && <SykmeldingArbeidsgiverExpansionCard sykmelding={data} />}
-
             <HintToNextOlderSykmelding />
             {flexjarToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeissituasjonSvar} />
