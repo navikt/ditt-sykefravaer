@@ -34,9 +34,10 @@ function NaringsdrivendeVentetidInfo() {
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mindre enn 16 dager
             </BodyShort>
+            git
             <BodyShort spacing>
-                Som selvstendig næringsdrivende får du som hovedregel ikke sykepenger de første 16 kalenderdagene.
-                Dagene telles fra du oppsøker lege, eller fra Nav får beskjed om at du er syk og ikke kan jobbe.
+                Du får som hovedregel ikke sykepenger de første 16 kalenderdagene. Dagene telles fra du oppsøker lege,
+                eller fra Nav får beskjed om at du er syk og ikke kan jobbe.
             </BodyShort>
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager
