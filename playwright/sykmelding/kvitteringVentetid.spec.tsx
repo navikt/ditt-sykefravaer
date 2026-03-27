@@ -28,7 +28,7 @@ test.describe('Informasjon om ventetid', () => {
         await expect(page.getByText('Hva skjer videre?')).toBeVisible()
     })
 
-    test('Kvitteringer for bekreftet sykmelding for frilanser viser ikke informasjon om ventetid', async ({ page }) => {
+    test('Kvitteringer for bekreftet sykmelding for frilanser ikke informasjon om ventetid', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
@@ -38,7 +38,7 @@ test.describe('Informasjon om ventetid', () => {
         await velgForsikring('Nei')(page)
 
         await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
-        await expect(page.getByText('Hva skjer videre?')).not.toBeVisible()
+        await expect(page.getByText('Hva skjer videre?')).toBeVisible()
     })
 
     test('Kvitteringer for sendt sykmelding viser ikke informasjon om ventetid', async ({ page }) => {

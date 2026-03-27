@@ -127,7 +127,8 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-            {arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE && (
+            {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
+                arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
                 <NaringsdrivendeVentetidInfo />
             )}
             <div className="mb-8">
