@@ -9,6 +9,7 @@ import {
     StatusEvent,
     SykmeldingStatus,
 } from '../../types/sykmelding/sykmelding'
+import { mockPublicRuntimeConfig } from '../../utils/test/mockRuntimeConfig'
 
 import StatusInfo from './StatusInfo'
 
@@ -65,6 +66,10 @@ describe('StatusInfo', () => {
             expect(
                 screen.getByText(/Husk at du har mulighet til å lage en digital oppfølgingsplan/),
             ).toBeInTheDocument()
+            expect(screen.getByRole('link', { name: 'Lag en oppfølgingsplan' })).toHaveAttribute(
+                'href',
+                mockPublicRuntimeConfig.oppfolgingsplanUrl,
+            )
         })
 
         it('Renders nothing when status is BEKREFTET and periode is AVVENTENDE', () => {
