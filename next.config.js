@@ -85,6 +85,8 @@ const nextConfig = {
         spinnsynUrl: process.env.SPINNSYN_URL,
         aktivitetsplanUrl: process.env.AKTIVITETSPLAN_URL,
         oppfolgingsplanUrl: process.env.OPPFOLGINGSPLAN_URL,
+        nyOppfolgingsplanEnabled: process.env.NY_OPPFOLGINGSPLAN_ENABLED,
+        nyOppfolgingsplanUrl: process.env.NY_OPPFOLGINGSPLAN_URL,
         dialogmoteUrl: process.env.DIALOGMOTE_URL,
         telemetryCollectorURL: process.env.NAIS_FRONTEND_TELEMETRY_COLLECTOR_URL,
         naisAppImage: process.env.NAIS_APP_IMAGE,
