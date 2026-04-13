@@ -8,6 +8,8 @@ import { cleanup } from '@testing-library/react'
 import mockRouter from 'next-router-mock'
 import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes'
 
+import { mockPublicRuntimeConfig, resetMockPublicRuntimeConfig } from './src/utils/test/mockRuntimeConfig'
+
 expect.extend(matchers)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -33,11 +35,10 @@ vi.mock('next/router', () => vi.importActual('next-router-mock'))
 vi.mock('next/dist/client/router', () => vi.importActual('next-router-mock'))
 vi.mock('next/config', () => ({
     default: () => ({
-        publicRuntimeConfig: {
-            sykepengesoknadUrl: 'http://example.com',
-        },
+        publicRuntimeConfig: mockPublicRuntimeConfig,
     }),
 }))
 afterEach(() => {
     cleanup()
+    resetMockPublicRuntimeConfig()
 })

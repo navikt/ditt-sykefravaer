@@ -4,7 +4,7 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
 import { logUmamiEvent } from '../umami/umami'
-import { sykepengesoknadUrl } from '../../utils/environment'
+import { oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
 
 interface StatusInfoProps {
     sykmeldingStatus: SykmeldingStatus
@@ -42,7 +42,7 @@ function StatusInfo({
                             det.
                         </BodyShort>
                     </div>
-                    <a href="/oppfolgingsplan/oppfolgingsplaner" className="knapp">
+                    <a href={oppfolgingsplanUrl()} className="knapp">
                         Lag en oppfølgingsplan
                     </a>
                 </GuidePanel>

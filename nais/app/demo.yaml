@@ -41,6 +41,10 @@ spec:
       value: "https://aktivitetsplan.nav.no/"
     - name: OPPFOLGINGSPLAN_URL
       value: "https://demo.ekstern.dev.nav.no/syk/oppfolgingsplaner/sykmeldt"
+    - name: NY_OPPFOLGINGSPLAN_ENABLED
+      value: "false"
+    - name: NY_OPPFOLGINGSPLAN_URL
+      value: "https://demo.ekstern.dev.nav.no/syk/oppfolgingsplan/sykmeldt"
     - name: DIALOGMOTE_URL
       value: "https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt"
     - name: MINSIDE_URL
