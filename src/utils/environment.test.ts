@@ -1,7 +1,15 @@
 import { describe, expect, it } from 'vitest'
 
 import { mockPublicRuntimeConfig } from './test/mockRuntimeConfig'
-import { oppfolgingsplanUrl } from './environment'
+import { gammelOppfolgingsplanUrl, oppfolgingsplanUrl } from './environment'
+
+describe('gammelOppfolgingsplanUrl', () => {
+    it('bruker alltid gammel url', () => {
+        mockPublicRuntimeConfig.nyOppfolgingsplanEnabled = 'true'
+
+        expect(gammelOppfolgingsplanUrl()).toEqual(mockPublicRuntimeConfig.oppfolgingsplanUrl)
+    })
+})
 
 describe('oppfolgingsplanUrl', () => {
     it('bruker gammel url når ny oppfolgingsplan ikke er aktivert', () => {
