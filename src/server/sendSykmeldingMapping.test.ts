@@ -233,7 +233,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'FRILANSER',
             },
             sykFoerSykmeldingen: {
-                sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 10. april 2021?',
+                sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 1. januar 2026?',
                 svar: 'JA',
             },
             harBruktEgenmelding: {
@@ -294,7 +294,7 @@ describe('sendSykmeldingMapping', () => {
                     svar: 'FISKER',
                 },
                 sykFoerSykmeldingen: {
-                    sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 10. april 2021?',
+                    sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 1. januar 2026?',
                     svar: 'JA',
                 },
                 harBruktEgenmelding: {
