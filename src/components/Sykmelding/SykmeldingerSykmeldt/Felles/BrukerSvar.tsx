@@ -11,7 +11,6 @@ import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../..
 import useBrukerInformasjonById from '../../../../hooks/sykmelding/useBrukerinformasjonById'
 import { logUmamiEvent } from '../../../umami/umami'
 import useTidligereArbeidsgivereById from '../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
-import useErUtenforVentetid from '../../../../hooks/sykmelding/useErUtenforVentetid'
 import { BrukerSvar, JaEllerNei } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
 import { mapFormValuesToBrukerSvar, mapFrilanserFormValuesToBrukerSvar, SporsmaltekstMetadata } from './BrukerSvarUtils'
@@ -133,7 +132,6 @@ function CurrentFormValuesBrukerSvar({
                 <FrilanserNaeringsdrivendeBrukerSvar
                     formValues={brukerSvar.values}
                     sykmeldingStartDato={brukerSvar.sporsmaltekstMetadata.sykmeldingStartDato}
-                    sykmeldingId={brukerSvar.sporsmaltekstMetadata.sykmeldingId}
                 />
             )}
         </>
@@ -170,21 +168,11 @@ function ArbeidsledigFraOrgnummerAnswer({
 function FrilanserNaeringsdrivendeBrukerSvar({
     formValues,
     sykmeldingStartDato,
-    sykmeldingId,
 }: {
     formValues: FormValues
     sykmeldingStartDato: string
-    sykmeldingId: string
 }): React.ReactElement | null {
-    // This loading state will never be seen, so we can ignore it
-    const { data } = useErUtenforVentetid(sykmeldingId)
-
-    if (!data) {
-        return null
-    }
-
-    const oppfolgingsdato = data.ventetid?.fom || data.oppfolgingsdato || sykmeldingStartDato
-    const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, oppfolgingsdato)
+    const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, sykmeldingStartDato)
 
     return (
         <>

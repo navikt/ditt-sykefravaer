@@ -8,10 +8,10 @@ import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
 
 interface Props {
-    oppfolgingsdato: string
+    sykmeldingStartDato: string
 }
 
-function FrilanserEgenmeldingPerioderField({ oppfolgingsdato }: Props): ReactElement {
+function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): ReactElement {
     const [dateValidation, setDateValidation] = useState<DateValidationT | null>(null)
     const { field: fromField, fieldState: fromFieldState } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
         name: `egenmeldingsperioder.0.fom`,
@@ -20,7 +20,7 @@ function FrilanserEgenmeldingPerioderField({ oppfolgingsdato }: Props): ReactEle
                 if (dateValidation?.isInvalid) {
                     return 'Datoen må være på formatet DD.MM.YYYY.'
                 } else if (dateValidation?.isAfter) {
-                    return 'Datoen kan ikke være oppfølgingsdato eller senere.'
+                    return 'Datoen kan ikke være på eller etter sykmeldingens start-dato.'
                 } else if (!fomValue) {
                     return 'Du må fylle inn en dato.'
                 } else {
@@ -34,7 +34,7 @@ function FrilanserEgenmeldingPerioderField({ oppfolgingsdato }: Props): ReactEle
         name: `egenmeldingsperioder.0.tom`,
     })
 
-    const dagenFoerSykmeldingen = sub(toDate(oppfolgingsdato), { days: 1 })
+    const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
     const { datepickerProps, inputProps } = useDatepicker({
         toDate: dagenFoerSykmeldingen,
         defaultSelected: fromField.value ?? undefined,
