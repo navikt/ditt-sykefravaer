@@ -140,8 +140,8 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/tidligere-arbeidsgivere': () => {
             return sendJson(mockDb().get(sessionId).tidligereArbeidsgivere())
         },
-        'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/er-utenfor-ventetid': () => {
-            return sendJson(mockDb().get(sessionId).sykeldingErUtenforVentetid())
+        'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/er-forste-sykmelding/:arbeidssituasjon': () => {
+            return sendJson(mockDb().get(sessionId).erForsteSykmelding())
         },
         'POST /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/send': async (params) => {
             const body = await parseRequest<SendSykmeldingValues>(req)

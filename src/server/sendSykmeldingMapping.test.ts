@@ -8,18 +8,11 @@ import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/da
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
 
 describe('sendSykmeldingMapping', () => {
     const brukerinformasjon: Brukerinformasjon = {
         arbeidsgivere: defaultArbeidsgivere.slice(0, 2),
     }
-    const erUtenforVentetid: ErUtenforVentetid = {
-        erUtenforVentetid: false,
-        oppfolgingsdato: '2021-04-10',
-        ventetid: null,
-    }
-
     const sykmeldingApen = (): MuterbarSykmelding =>
         new SykmeldingBuilder().status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()
 
@@ -32,7 +25,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -67,7 +59,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -103,7 +94,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -143,7 +133,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -188,7 +177,6 @@ describe('sendSykmeldingMapping', () => {
                 ...brukerinformasjon,
                 arbeidsgivere: [{ ...defaultArbeidsgivere[0], aktivtArbeidsforhold: false, naermesteLeder: null }],
             },
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -233,7 +221,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -295,7 +282,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -362,7 +348,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -423,7 +408,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -463,7 +447,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({

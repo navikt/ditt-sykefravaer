@@ -7,15 +7,15 @@ import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
 
 interface Props {
-    oppfolgingsdato: string
+    sykmeldingStartDato: string
 }
 
-function SykFoerSykmeldingenField({ oppfolgingsdato }: Props): ReactElement {
+function SykFoerSykmeldingenField({ sykmeldingStartDato }: Props): ReactElement {
     return (
         <QuestionWrapper>
             <YesNoField<FormValues>
                 name="sykFoerSykmeldingen"
-                legend={sporsmal.sykFoerSykmeldingen(oppfolgingsdato)}
+                legend={sporsmal.sykFoerSykmeldingen(sykmeldingStartDato)}
                 subtext={<SykFoerSykmeldingenReadMore />}
                 rules={{
                     required: 'Du må svare på om du har vært syk og borte fra jobb før du ble sykmeldt.',

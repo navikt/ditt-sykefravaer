@@ -91,7 +91,7 @@ export function mapFormValuesToBrukerSvar(
 
 export function mapFrilanserFormValuesToBrukerSvar(
     formValues: FormValues,
-    oppfolgingsdato: string,
+    sykmeldingStartDato: string,
 ): Pick<BrukerSvar, 'egenmeldingsperioder' | 'sykFoerSykmeldingen' | 'harBruktEgenmelding' | 'harForsikring'> {
     const sendSykmeldingValues = mapToSendSykmeldingValues(formValues)
 
@@ -105,7 +105,7 @@ export function mapFrilanserFormValuesToBrukerSvar(
                 : undefined,
         sykFoerSykmeldingen: sendSykmeldingValues.sykFoerSykmeldingen
             ? {
-                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(sykmeldingStartDato),
                   svar: yesOrNoToJaEllerNei(sendSykmeldingValues.sykFoerSykmeldingen),
               }
             : undefined,

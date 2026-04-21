@@ -7,7 +7,6 @@ import { isValidSykmeldingId } from 'src/utils/sykmeldingUtils'
 
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
@@ -104,29 +103,6 @@ async function getBrukerinformasjonById(
     return result.response.json()
 }
 
-async function getErUtenforVentetidResponse(
-    sykmeldingId: string,
-    req: NextApiRequest,
-    oboToken: string,
-): Promise<ErUtenforVentetid> {
-    if (!isValidSykmeldingId(sykmeldingId)) {
-        throw new Error(`Invalid sykmeldingId: ${sykmeldingId}`)
-    }
-
-    const backendHeaders = createBackendHeaders(req, oboToken)
-    const result = await fetchMedRequestId(
-        `http://${flexSykmeldingerHostname}/api/v1/sykmeldinger/${sykmeldingId}/er-utenfor-ventetid`,
-        {
-            method: 'GET',
-            headers: backendHeaders,
-        },
-    )
-    if (!result.response.ok) {
-        throw new Error(`Failed to fetch erUtenforVentetid: ${result.response.status} ${result.response.statusText}.`)
-    }
-    return result.response.json()
-}
-
 async function sendSykmelding(
     sykmeldingId: string,
     sendSykmeldingValuesPostMapping: SykmeldingUserEventV3Api,
@@ -198,13 +174,10 @@ export const sendSykmeldingHandler = async (
 
             const brukerinformasjon = await getBrukerinformasjonById(uuid, req, oboToken)
 
-            const erUtenforVentetid = await getErUtenforVentetidResponse(uuid, req, oboToken)
-
             const sendSykmeldingValuesPostMapping = mapSendSykmeldingValuesToV3Api(
                 sendSykmeldingValues,
                 sykmeldingen,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             const sendSykmeldingResponse = await sendSykmelding(uuid, sendSykmeldingValuesPostMapping, req, oboToken)

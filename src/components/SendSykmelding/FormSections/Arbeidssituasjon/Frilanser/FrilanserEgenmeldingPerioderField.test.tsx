@@ -10,7 +10,7 @@ import { toDateString } from '../../../../../utils/dateUtils'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
 
 describe('FrilanserEgenmeldingPerioderField', () => {
-    const EgenmeldingerFieldInForm = ({ oppfolgingsdato }: { oppfolgingsdato: string }): ReactElement => {
+    const EgenmeldingerFieldInForm = ({ sykmeldingStartDato }: { sykmeldingStartDato: string }): ReactElement => {
         const form = useForm({
             defaultValues: {
                 egenmeldingsperioder: [{ fom: null, tom: null }],
@@ -21,7 +21,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         return (
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(() => void 0)}>
-                    <FrilanserEgenmeldingPerioderField oppfolgingsdato={oppfolgingsdato} />
+                    <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
                     <button type="submit">submit for test</button>
                     <div data-testid="value">
                         {JSON.stringify(
@@ -37,7 +37,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     }
 
     it('should always have an initial period', () => {
-        render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-01-01" />)
+        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-01-01" />)
 
         expect(screen.getByRole('textbox', { name: 'Når ga du beskjed?' })).toBeInTheDocument()
         expect(screen.getAllByRole('textbox')).toHaveLength(1)
@@ -45,7 +45,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     })
 
     it('should input multiple periods correctly', async () => {
-        render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-03-01" />)
+        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
         await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
 
@@ -55,7 +55,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     }, 10_000)
 
     it('should remove period', async () => {
-        render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-03-01" />)
+        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
         await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
 
@@ -65,18 +65,20 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     }, 10_000)
 
     describe('input validation', () => {
-        it('should not allow fom on or after oppfolgingsdato', async () => {
-            render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-03-01" />)
+        it('should not allow fom on or after sykmeldingStartDato', async () => {
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '01.03.2021')
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 
-            expect(await screen.findByText('Datoen kan ikke være oppfølgingsdato eller senere.')).toBeInTheDocument()
+            expect(
+                await screen.findByText('Datoen kan ikke være på eller etter sykmeldingens start-dato.'),
+            ).toBeInTheDocument()
         })
 
         it('should enforce date format', async () => {
-            render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-03-01" />)
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '13.02.202ø')
 
@@ -86,7 +88,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         })
 
         it('should enforce required inputs', async () => {
-            render(<EgenmeldingerFieldInForm oppfolgingsdato="2021-03-01" />)
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 

@@ -9,21 +9,17 @@ export function gotoScenario(
     scenario: Scenarios = 'normal',
     options: Partial<{
         antallArbeidsgivere: 0 | 1 | 2 | 3 | 4
-        erUtenforVentetid: boolean
-        oppfolgingsdato: string | null
-        ventetidFom: string | null
+        erForsteSykmelding: boolean
     }> = {
         antallArbeidsgivere: 1,
-        erUtenforVentetid: false,
+        erForsteSykmelding: true,
     },
 ) {
     return async (page: Page): Promise<void> => {
         const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
-        const erUtenforVentetid = options.erUtenforVentetid ?? false
-        const oppfolgingsdato = options.oppfolgingsdato ?? null
-        const ventetidFom = options.ventetidFom ?? null
+        const erForsteSykmelding = options.erForsteSykmelding ?? true
 
-        if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
+        if (scenario == 'normal' && antallArbeidsgivere === 1 && erForsteSykmelding) {
             await page.goto('/syk/sykefravaer/sykmeldinger/')
             return
         }
@@ -88,9 +84,7 @@ export function gotoScenario(
         const searchParams = new URLSearchParams({
             scenario,
             antallArbeidsgivere: antallArbeidsgivere.toString(),
-            utenforVentetid: erUtenforVentetid.toString(),
-            oppfolgingsdato: oppfolgingsdato ?? '',
-            ventetidFom: ventetidFom ?? '',
+            erForsteSykmelding: erForsteSykmelding.toString(),
         })
 
         await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)
@@ -190,7 +184,7 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
     }
 }
 
-export function expectOppfolgingsdato(dato: string) {
+export function expectSykmeldingStartDato(dato: string) {
     return async (page: Page): Promise<void> => {
         await expect(
             page.getByRole('group', {
