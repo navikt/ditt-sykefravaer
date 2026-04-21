@@ -4,10 +4,7 @@ import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 
 test.describe('Guide panel', () => {
     test('should show guidepanel about egenmeldt', async ({ page }) => {
-        await gotoScenario('egenmeldt', {
-            erUtenforVentetid: false,
-            oppfolgingsdato: '2020-04-01',
-        })(page)
+        await gotoScenario('egenmeldt')(page)
         await navigateToFirstSykmelding('nye', 'egenmelding')(page)
 
         await expect(

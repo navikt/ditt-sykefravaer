@@ -1,6 +1,6 @@
 import {
     bekreftSykmelding,
-    expectOppfolgingsdato,
+    expectSykmeldingStartDato,
     frilanserEgenmeldingsperioder,
     gotoScenario,
     navigateToFirstSykmelding,
@@ -20,44 +20,14 @@ const navigateToFirstAndPickSituasjon = userInteractionsGroup(
 )
 
 test.describe('Selvstendig næringsdrivende', () => {
-    test.describe('Within ventetid', () => {
+    test.describe('Er forste sykmelding', () => {
         test('should be able to submit form', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
-                    oppfolgingsdato: '2021-04-05',
-                    ventetidFom: `${testAar}-01-08`,
+                    erForsteSykmelding: true,
                 }),
                 navigateToFirstAndPickSituasjon,
-                expectOppfolgingsdato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
-                velgForsikring('Ja'),
-                bekreftSykmelding,
-            )(page)
-
-            await expectKvittering({
-                sendtTil: 'NAV',
-                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
-            })(page)
-
-            await expectDineSvar({
-                arbeidssituasjon: 'Selvstendig næringsdrivende',
-                selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
-                    forsikring: 'Ja',
-                },
-            })(page)
-        })
-
-        test('should use first fom in sykmelding period if ventetid and oppfolgingsdato is missing', async ({
-            page,
-        }) => {
-            await userInteractionsGroup(
-                gotoScenario('normal', {
-                    oppfolgingsdato: null,
-                    ventetidFom: null,
-                }),
-                navigateToFirstAndPickSituasjon,
-                expectOppfolgingsdato(`${testAar}-01-08`),
+                expectSykmeldingStartDato(`${testAar}-01-08`),
                 frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
@@ -78,12 +48,11 @@ test.describe('Selvstendig næringsdrivende', () => {
         })
     })
 
-    test.describe('Outside ventetid', () => {
+    test.describe('Er ikke forste sykmelding', () => {
         test('should be able to submit form', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
-                    erUtenforVentetid: true,
-                    ventetidFom: '2024-12-01',
+                    erForsteSykmelding: false,
                 }),
                 navigateToFirstAndPickSituasjon,
                 bekreftSykmelding,

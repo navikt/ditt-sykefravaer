@@ -2,14 +2,12 @@ import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 
-import { toDate } from 'src/utils/dateUtils'
-
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
-import useErUtenforVentetid from '../../../../../hooks/sykmelding/useErUtenforVentetid'
-import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
+import useErForsteSykmelding from '../../../../../hooks/sykmelding/useErForsteSykmelding'
+import { ArbeidssituasjonType, YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
@@ -20,13 +18,14 @@ import SykFoerSykmeldingenField from './SykFoerSykmeldingenField'
 interface Props {
     sykmeldingId: string
     sykmeldingStartDato: string
+    arbeidssituasjon: ArbeidssituasjonType
 }
 
-function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactElement | null {
+function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon }: Props): ReactElement | null {
     const { watch } = useFormContext<FormValues>()
     const harBruktEgenmelding = watch('harBruktEgenmelding')
     const sykFoerSykmeldingen = watch('sykFoerSykmeldingen')
-    const { data, isPending: loading, error } = useErUtenforVentetid(sykmeldingId)
+    const { data, isPending: loading, error } = useErForsteSykmelding(sykmeldingId, arbeidssituasjon)
 
     const shouldShowSummaryForFrilanser = useShouldShowSummaryForFrilanser()
     if (loading) {
@@ -46,36 +45,20 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
         )
     }
 
-    const erIkkeForsteSykmeldingIVentetiden =
-        data.ventetid?.fom != null && toDate(data.ventetid.fom) < toDate(sykmeldingStartDato)
-
-    // eslint-disable-next-line no-console
-    console.log(
-        'ventetid.fom: ' +
-            data.ventetid?.fom +
-            ' oppfolgingsdato: ' +
-            data.oppfolgingsdato +
-            ' sykmeldingStartDato:' +
-            sykmeldingStartDato +
-            ' erIkkeForsteSykmeldingIVentetiden:' +
-            erIkkeForsteSykmeldingIVentetiden,
-    )
-
-    if (erIkkeForsteSykmeldingIVentetiden) {
+    if (!data.erForsteSykmelding) {
         return null
     }
 
-    const oppfolgingsdato = data.ventetid?.fom || data.oppfolgingsdato || sykmeldingStartDato
     const formValues = watch()
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            <SykFoerSykmeldingenField oppfolgingsdato={oppfolgingsdato} />
+            <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
             {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
             {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
-                <FrilanserEgenmeldingPerioderField oppfolgingsdato={oppfolgingsdato} />
+                <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
             )}
-            {!data.erUtenforVentetid && <HarForsikringField />}
+            <HarForsikringField />
             {shouldShowSummaryForFrilanser &&
                 formValues.harForsikring !== null &&
                 ((formValues.harBruktEgenmelding === YesOrNo.YES &&

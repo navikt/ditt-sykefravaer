@@ -2,7 +2,7 @@ import { expect, test } from '@playwright/test'
 
 import {
     bekreftSykmelding,
-    expectOppfolgingsdato,
+    expectSykmeldingStartDato,
     frilanserEgenmeldingsperioder,
     gotoScenario,
     navigateToFirstSykmelding,
@@ -15,79 +15,16 @@ import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expe
 import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Frilanser', () => {
-    test.describe('Within ventetid', () => {
+    test.describe('Er forste sykmelding', () => {
         test('should be able to submit form with egenmeldingsperiode and forsikring', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
-                    erUtenforVentetid: false,
-                    ventetidFom: '2025-01-08',
+                    erForsteSykmelding: true,
                 }),
                 navigateToFirstSykmelding('nye', '100%'),
                 opplysingeneStemmer,
                 velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
-                velgForsikring('Ja'),
-                bekreftSykmelding,
-            )(page)
-
-            await expectKvittering({
-                sendtTil: 'NAV',
-                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
-            })(page)
-
-            await expectDineSvar({
-                arbeidssituasjon: 'Frilanser',
-                selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
-                    forsikring: 'Ja',
-                },
-            })(page)
-        })
-
-        test('should use oppfolgingsdato in sykmelding period if ventetid is missing', async ({ page }) => {
-            await userInteractionsGroup(
-                gotoScenario('normal', {
-                    erUtenforVentetid: false,
-                    oppfolgingsdato: '2025-01-05',
-                    ventetidFom: null,
-                }),
-                navigateToFirstSykmelding('nye', '100%'),
-                opplysingeneStemmer,
-                velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato(`2025-01-05`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
-                velgForsikring('Ja'),
-                bekreftSykmelding,
-            )(page)
-
-            await expectKvittering({
-                sendtTil: 'NAV',
-                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
-            })(page)
-
-            await expectDineSvar({
-                arbeidssituasjon: 'Frilanser',
-                selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
-                    forsikring: 'Ja',
-                },
-            })(page)
-        })
-
-        test('should use first fom in sykmelding period if ventetid and oppfolgingsdato is missing', async ({
-            page,
-        }) => {
-            await userInteractionsGroup(
-                gotoScenario('normal', {
-                    erUtenforVentetid: false,
-                    oppfolgingsdato: null,
-                    ventetidFom: null,
-                }),
-                navigateToFirstSykmelding('nye', '100%'),
-                opplysingeneStemmer,
-                velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato(`${testAar}-01-08`),
+                expectSykmeldingStartDato(`${testAar}-01-08`),
                 frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
@@ -108,11 +45,10 @@ test.describe('Frilanser', () => {
         })
     })
 
-    test.describe('Outside ventetid', () => {
+    test.describe('Er ikke forste sykmelding', () => {
         test('should be able to submit form', async ({ page }) => {
             await gotoScenario('normal', {
-                erUtenforVentetid: true,
-                ventetidFom: '2024-12-01',
+                erForsteSykmelding: false,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
@@ -133,40 +69,12 @@ test.describe('Frilanser', () => {
                 },
             })(page)
         })
-
-        test('should be able to submit form for first sykmelding without forsikring question', async ({ page }) => {
-            await userInteractionsGroup(
-                gotoScenario('normal', {
-                    erUtenforVentetid: true,
-                    ventetidFom: `${testAar}-01-08`,
-                }),
-                navigateToFirstSykmelding('nye', '100%'),
-                opplysingeneStemmer,
-                velgArbeidssituasjon('frilanser'),
-                expectOppfolgingsdato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
-                bekreftSykmelding,
-            )(page)
-
-            await expectKvittering({
-                sendtTil: 'NAV',
-                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
-            })(page)
-
-            await expectDineSvar({
-                arbeidssituasjon: 'Frilanser',
-                selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
-                    forsikring: ExpectMeta.NotInDom,
-                },
-            })(page)
-        })
     })
 
     test.describe('Egenmeldingsperioder', () => {
         test('should show error message with link if date is missing', async ({ page }) => {
             await gotoScenario('normal', {
-                erUtenforVentetid: false,
+                erForsteSykmelding: true,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
@@ -183,7 +91,7 @@ test.describe('Frilanser', () => {
 
         test('should show error message with link if date is invalid format', async ({ page }) => {
             await gotoScenario('normal', {
-                erUtenforVentetid: false,
+                erForsteSykmelding: true,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
@@ -195,27 +103,25 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('link', { name: 'Datoen må være på formatet DD.MM.YYYY.' })).toBeVisible()
         })
 
-        test('should show error message with link if fom is after oppfølgingsdato', async ({ page }) => {
+        test('should show error message with link if fom is after sykmelding fom', async ({ page }) => {
             await gotoScenario('normal', {
-                erUtenforVentetid: false,
-                oppfolgingsdato: '2020-04-01',
+                erForsteSykmelding: true,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
             await velgArbeidssituasjon('frilanser')(page)
-            await frilanserEgenmeldingsperioder([{ fom: '02.04.2020' }])(page)
+            await frilanserEgenmeldingsperioder([{ fom: `8.1.${testAar}` }])(page)
 
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
             await expect(
-                page.getByRole('link', { name: 'Datoen kan ikke være oppfølgingsdato eller senere.' }),
+                page.getByRole('link', { name: 'Datoen kan ikke være på eller etter sykmeldingens start-dato.' }),
             ).toBeVisible()
         })
 
         test('should be able to submit form without egenmeldingsperioder and forsikring', async ({ page }) => {
             await gotoScenario('normal', {
-                erUtenforVentetid: false,
-                oppfolgingsdato: '2020-04-01',
+                erForsteSykmelding: true,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)

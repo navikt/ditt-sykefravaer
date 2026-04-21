@@ -14,7 +14,7 @@ const tillatteApier = [
     'GET /api/v1/sykmeldinger/[uuid]',
     'POST /api/v1/sykmeldinger/[uuid]/send',
     'POST /api/v1/sykmeldinger/[uuid]/change-status',
-    'GET /api/v1/sykmeldinger/[uuid]/er-utenfor-ventetid',
+    'GET /api/v1/sykmeldinger/[uuid]/er-forste-sykmelding/[arbeidssituasjon]',
     'GET /api/v1/sykmeldinger/[uuid]/brukerinformasjon',
     'GET /api/v1/sykmeldinger/[uuid]/tidligere-arbeidsgivere',
 ]

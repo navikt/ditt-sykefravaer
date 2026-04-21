@@ -10,7 +10,7 @@ export const sporsmal = {
     arbeidsgiverOrgnummer: 'Velg arbeidsgiver',
     riktigNarmesteLeder: (narmesteLederNavn: string) =>
         `Er det ${narmesteLederNavn} som skal følge deg opp på jobben mens du er syk?`,
-    sykFoerSykmeldingen: (oppfolgingsdato: string, createDate = () => toReadableDate(oppfolgingsdato)) =>
+    sykFoerSykmeldingen: (sykmeldingStartDato: string, createDate = () => toReadableDate(sykmeldingStartDato)) =>
         `Var du syk og borte fra jobb før du ble sykmeldt ${createDate()}?`,
     harBruktEgenmelding: () => `Ga du beskjed til Nav da du ble syk?`,
     egenmeldingsperioder: () => `Når ga du beskjed?`,
