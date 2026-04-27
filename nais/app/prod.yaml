@@ -19,7 +19,7 @@ env:
   SPINNSYN_URL: https://www.nav.no/syk/sykepenger
   AKTIVITETSPLAN_URL: https://aktivitetsplan.nav.no/
   OPPFOLGINGSPLAN_URL: https://www.nav.no/syk/oppfolgingsplaner/sykmeldt
-  NY_OPPFOLGINGSPLAN_ENABLED: false
+  NY_OPPFOLGINGSPLAN_ENABLED: true
   NY_OPPFOLGINGSPLAN_URL: https://www.nav.no/syk/oppfolgingsplan/sykmeldt
   DIALOGMOTE_URL: https://www.nav.no/syk/dialogmoter/sykmeldt
   MINSIDE_URL: https://www.nav.no/minside
