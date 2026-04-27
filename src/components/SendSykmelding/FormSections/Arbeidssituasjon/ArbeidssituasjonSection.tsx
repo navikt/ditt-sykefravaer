@@ -48,6 +48,7 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
                 <FrilanserSection
                     sykmeldingId={sykmelding.id}
                     sykmeldingStartDato={getSykmeldingStartDate(sykmelding.sykmeldingsperioder)}
+                    arbeidssituasjon={arbeidssituasjon!}
                 />
             )}
             {isArbeidsledig(arbeidssituasjon) &&

@@ -5,11 +5,9 @@ import { JaEllerNei } from '../types/sykmelding/sykmeldingBrukerSvar'
 import { sporsmal } from '../utils/sporsmal'
 import { getSykmeldingStartDate } from '../utils/sykmeldingUtils'
 import { raise } from '../utils/ts-utils'
-import { isFrilanserOrNaeringsdrivendeOrJordbruker } from '../utils/arbeidssituasjonUtils'
 
 import { SykmeldingUserEventV3Api } from './api-models/SendSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
 import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 import { SendSykmeldingValues } from './api-models/SendSykmeldingValues'
 
@@ -17,7 +15,6 @@ export function mapSendSykmeldingValuesToV3Api(
     values: SendSykmeldingValues,
     sykmelding: MuterbarSykmelding,
     brukerinformasjon: Brukerinformasjon,
-    erUtenforVentetid: ErUtenforVentetid,
 ): SykmeldingUserEventV3Api {
     if (values.arbeidssituasjon == null) throw new Error('Illegal state: arbeidssituasjon is required')
     if (values.erOpplysningeneRiktige == null) throw new Error('Illegal state: erOpplysningeneRiktige is required')
@@ -38,17 +35,7 @@ export function mapSendSykmeldingValuesToV3Api(
         )
     }
 
-    if (
-        isFrilanserOrNaeringsdrivendeOrJordbruker(values.arbeidssituasjon) &&
-        !erUtenforVentetid.erUtenforVentetid &&
-        values.harForsikring == null
-    ) {
-        throw new Error(
-            'Illegal state: harForsikring is required for frilanser, naeringsdrivende and jordbruker when is inside ventyTid',
-        )
-    }
-
-    const oppfolgingsdato = erUtenforVentetid.oppfolgingsdato || getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return {
         erOpplysningeneRiktige: {
@@ -72,28 +59,33 @@ export function mapSendSykmeldingValuesToV3Api(
                       sporsmaltekst: sporsmal.riktigNarmesteLeder(valgtNarmesteLederNavn),
                   }
                 : null,
+        sykFoerSykmeldingen: values.sykFoerSykmeldingen
+            ? {
+                  svar: yesOrNoToJaEllerNei(values.sykFoerSykmeldingen),
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(sykmeldingStartDato),
+              }
+            : null,
         harBruktEgenmelding: values.harBruktEgenmelding
             ? {
                   svar: yesOrNoToJaEllerNei(values.harBruktEgenmelding),
-                  sporsmaltekst: sporsmal.harBruktEgenmelding(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.harBruktEgenmelding(),
               }
             : null,
-        egenmeldingsperioder:
-            values.egenmeldingsperioder && erUtenforVentetid.oppfolgingsdato != null
-                ? {
-                      svar: values.egenmeldingsperioder.map((periode) => {
-                          if (periode.fom == null || periode.tom == null) {
-                              throw new Error('Illegal state: periode.fom and periode.tom is required')
-                          }
+        egenmeldingsperioder: values.egenmeldingsperioder
+            ? {
+                  svar: values.egenmeldingsperioder.map((periode) => {
+                      if (periode.fom == null || periode.tom == null) {
+                          throw new Error('Illegal state: periode.fom and periode.tom is required')
+                      }
 
-                          return {
-                              fom: periode.fom,
-                              tom: periode.tom,
-                          }
-                      }),
-                      sporsmaltekst: sporsmal.egenmeldingsperioder(),
-                  }
-                : null,
+                      return {
+                          fom: periode.fom,
+                          tom: periode.tom,
+                      }
+                  }),
+                  sporsmaltekst: sporsmal.egenmeldingsperioder(),
+              }
+            : null,
         harForsikring: values.harForsikring
             ? {
                   svar: yesOrNoToJaEllerNei(values.harForsikring),

@@ -6,23 +6,26 @@ import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
-import useErUtenforVentetid from '../../../../../hooks/sykmelding/useErUtenforVentetid'
-import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
+import useErForsteSykmelding from '../../../../../hooks/sykmelding/useErForsteSykmelding'
+import { ArbeidssituasjonType, YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
 import HarForsikringField from './HarForsikringField'
 import FrilanserOppsummeringSection from './FrilanserOppsummeringSection'
+import SykFoerSykmeldingenField from './SykFoerSykmeldingenField'
 
 interface Props {
     sykmeldingId: string
     sykmeldingStartDato: string
+    arbeidssituasjon: ArbeidssituasjonType
 }
 
-function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactElement | null {
+function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon }: Props): ReactElement | null {
     const { watch } = useFormContext<FormValues>()
     const harBruktEgenmelding = watch('harBruktEgenmelding')
-    const { data, isPending: loading, error } = useErUtenforVentetid(sykmeldingId)
+    const sykFoerSykmeldingen = watch('sykFoerSykmeldingen')
+    const { data, isPending: loading, error } = useErForsteSykmelding(sykmeldingId, arbeidssituasjon)
 
     const shouldShowSummaryForFrilanser = useShouldShowSummaryForFrilanser()
     if (loading) {
@@ -42,18 +45,18 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato }: Props): ReactEl
         )
     }
 
-    if (data.erUtenforVentetid) {
+    if (!data.erForsteSykmelding) {
         return null
     }
 
-    const oppfolgingsdato = data?.oppfolgingsdato || sykmeldingStartDato
     const formValues = watch()
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            <HarBruktEgenmeldingsPerioderField oppfolgingsdato={oppfolgingsdato} />
-            {harBruktEgenmelding === YesOrNo.YES && (
-                <FrilanserEgenmeldingPerioderField oppfolgingsdato={oppfolgingsdato} />
+            <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
+            {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
+            {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
+                <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
             )}
             <HarForsikringField />
             {shouldShowSummaryForFrilanser &&

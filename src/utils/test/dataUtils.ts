@@ -183,6 +183,7 @@ export const createSykmeldingStatus = (
         riktigNarmesteLeder: null,
         harBruktEgenmeldingsdager: null,
         egenmeldingsdager: null,
+        sykFoerSykmeldingen: null,
         harBruktEgenmelding: null,
         egenmeldingsperioder: null,
         harForsikring: null,

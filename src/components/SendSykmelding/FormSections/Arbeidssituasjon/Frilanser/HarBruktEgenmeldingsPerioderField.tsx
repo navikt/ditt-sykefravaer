@@ -1,36 +1,38 @@
 import { ReactElement } from 'react'
-import { BodyShort } from '@navikt/ds-react'
+import { BodyShort, ReadMore } from '@navikt/ds-react'
 
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { toReadableDate } from '../../../../../utils/dato-utils'
 
-interface Props {
-    oppfolgingsdato: string
-}
-
-function HarBruktEgenmeldingsPerioderField({ oppfolgingsdato }: Props): ReactElement {
+function HarBruktEgenmeldingsPerioderField(): ReactElement {
     return (
         <QuestionWrapper>
             <YesNoField<FormValues>
                 name="harBruktEgenmelding"
-                legend={sporsmal.harBruktEgenmelding(oppfolgingsdato)}
-                subtext={<HarBruktEgenmeldingReadMore oppfolgingsdato={oppfolgingsdato} />}
+                legend={sporsmal.harBruktEgenmelding()}
+                subtext={<HarBruktEgenmeldingReadMore />}
                 rules={{
-                    required: 'Du må svare på om du har brukt egenmelding eller annen sykmelding før du ble syk.',
+                    required: 'Du må svare på om du har gitt beskjed til Nav da du ble syk.',
                 }}
             />
         </QuestionWrapper>
     )
 }
 
-function HarBruktEgenmeldingReadMore({ oppfolgingsdato }: Props): ReactElement {
+function HarBruktEgenmeldingReadMore(): ReactElement {
     return (
-        <BodyShort>
-            Spørsmålet gjelder kun hvis du var syk og borte fra jobb før {toReadableDate(oppfolgingsdato)}.
-        </BodyShort>
+        <ReadMore header="Spørsmålet forklart">
+            <BodyShort spacing>
+                Hvis du ga beskjed til Nav da du ble syk og ikke kunne jobbe, starter de første 16 dagene i sykefraværet
+                å telle fra datoen vi fikk beskjed.{' '}
+            </BodyShort>
+            <BodyShort spacing>
+                Svar nei på dette spørsmålet hvis du ikke har gitt beskjed til Nav, også selvom du var syk og borte fra
+                jobb før du ble sykmeldt.
+            </BodyShort>
+        </ReadMore>
     )
 }
 
