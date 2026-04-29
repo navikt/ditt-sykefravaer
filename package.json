@@ -18,7 +18,7 @@
         "@navikt/next-api-proxy": "^5.0.2",
         "@navikt/next-logger": "4.5.1",
         "@navikt/oasis": "^4.1.4",
-        "@react-pdf/renderer": "^4.3.2",
+        "@react-pdf/renderer": "^4.5.1",
         "@react-pdf/types": "^2.11.1",
         "@tanstack/query-core": "^5.90.20",
         "@tanstack/react-query": "^5.95.2",
