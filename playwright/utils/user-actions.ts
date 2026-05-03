@@ -9,17 +9,20 @@ export function gotoScenario(
     scenario: Scenarios = 'normal',
     options: Partial<{
         antallArbeidsgivere: 0 | 1 | 2 | 3 | 4
+        erUtenforVentetid: boolean
         erForsteSykmelding: boolean
     }> = {
         antallArbeidsgivere: 1,
+        erUtenforVentetid: false,
         erForsteSykmelding: true,
     },
 ) {
     return async (page: Page): Promise<void> => {
         const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
         const erForsteSykmelding = options.erForsteSykmelding ?? true
+        const erUtenforVentetid = options.erUtenforVentetid ?? false
 
-        if (scenario == 'normal' && antallArbeidsgivere === 1 && erForsteSykmelding) {
+        if (scenario == 'normal' && antallArbeidsgivere === 1 && erForsteSykmelding && !erUtenforVentetid) {
             await page.goto('/syk/sykefravaer/sykmeldinger/')
             return
         }
@@ -85,6 +88,7 @@ export function gotoScenario(
             scenario,
             antallArbeidsgivere: antallArbeidsgivere.toString(),
             erForsteSykmelding: erForsteSykmelding.toString(),
+            erUtenforVentetid: erUtenforVentetid.toString(),
         })
 
         await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)

@@ -15,6 +15,7 @@ class MockDb {
     private readonly _sykmeldinger: MuterbarSykmelding[]
     private _antallArbeidsgivere = 1
     private _erForsteSykmelding = true
+    private _erUtenforVentetid = false
 
     constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
         this._sykmeldinger = scenario.sykmeldinger
@@ -32,6 +33,10 @@ class MockDb {
 
     erForsteSykmelding(): { erForsteSykmelding: boolean } {
         return { erForsteSykmelding: this._erForsteSykmelding }
+    }
+
+    sykeldingErUtenforVentetid(): { erUtenforVentetid: boolean } {
+        return { erUtenforVentetid: this._erUtenforVentetid }
     }
 
     tidligereArbeidsgivere(): TidligereArbeidsgivere[] {
@@ -73,12 +78,12 @@ class MockDb {
 
         // Simulate what would happen in sykmeldinger-backend Validation step
         if (apiValues.arbeidssituasjon.svar === ArbeidssituasjonType.FISKER && apiValues.fisker != null) {
-            if (apiValues.fisker.lottOgHyre.svar === 'LOTT') {
-                if (apiValues.harBruktEgenmelding == null) {
+            if (apiValues.fisker.lottOgHyre.svar === 'LOTT' && apiValues.fisker.blad.svar === 'A') {
+                if (apiValues.sykFoerSykmeldingen == null) {
                     throw new Error('Valgt fisker uten å fylle ut fiskerfeltene')
                 }
-            } else {
-                // HYRE eller BEGGE
+            }
+            if (apiValues.fisker.lottOgHyre.svar === 'HYRE' || apiValues.fisker.lottOgHyre.svar === 'BEGGE') {
                 if (apiValues.arbeidsgiverOrgnummer == null) {
                     throw new Error('Valgt fisker uten å fylle ut arbeidsgiverOrgnummer')
                 }
@@ -115,6 +120,10 @@ class MockDb {
 
     setErForsteSykmelding(erForsteSykmelding: boolean): void {
         this._erForsteSykmelding = erForsteSykmelding
+    }
+
+    setErUtenforVentetid(erUtenforVentetid: boolean): void {
+        this._erUtenforVentetid = erUtenforVentetid
     }
 
     private arbeidsgivere(): Arbeidsgiver[] {

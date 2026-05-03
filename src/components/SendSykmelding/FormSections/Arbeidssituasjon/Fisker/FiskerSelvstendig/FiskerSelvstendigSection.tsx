@@ -12,19 +12,28 @@ import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
 import { ArbeidssituasjonType, YesOrNo } from '../../../../../../types/sykmelding/sykmeldingCommon'
 import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
 import useErForsteSykmelding from '../../../../../../hooks/sykmelding/useErForsteSykmelding'
+import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
 
 interface Props {
     sykmelding: Sykmelding
-    askForsikring: boolean
 }
 
-function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactElement | null {
+function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
     const { watch } = useFormContext<FormValues>()
-    const harBruktEgenmelding = watch('harBruktEgenmelding')
-    const sykFoerSykmeldingen = watch('sykFoerSykmeldingen')
-    const { data, isPending: loading, error } = useErForsteSykmelding(sykmelding.id, ArbeidssituasjonType.FISKER)
+    const [harBruktEgenmelding, sykFoerSykmeldingen] = watch(['harBruktEgenmelding', 'sykFoerSykmeldingen'])
 
-    if (loading) {
+    const {
+        data: forsteSykmeldingData,
+        isPending: forsteSykmeldingLoading,
+        error: forsteSykmeldingError,
+    } = useErForsteSykmelding(sykmelding.id, ArbeidssituasjonType.FISKER)
+    const {
+        data: utenforVentetidData,
+        isPending: utenforVentetidLoading,
+        error: utenforVentetidError,
+    } = useErUtenforVentetid(sykmelding.id)
+
+    if (forsteSykmeldingLoading || utenforVentetidLoading) {
         return (
             <SectionWrapper title="Fravær før sykmeldingen">
                 <Skeleton className="mt-12" />
@@ -36,7 +45,7 @@ function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactEl
         )
     }
 
-    if (error || !data) {
+    if (forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData) {
         return (
             <Alert variant="error" role="alert" className="mt-4">
                 Vi klarte dessverre ikke å hente informasjonen som trengs for at du kan bruke sykmeldingen. Vennligst
@@ -45,20 +54,22 @@ function FiskerSelvstendigSection({ sykmelding, askForsikring }: Props): ReactEl
         )
     }
 
-    if (!data.erForsteSykmelding) {
-        return null
-    }
-
+    const { erForsteSykmelding } = forsteSykmeldingData
+    const { erUtenforVentetid } = utenforVentetidData
     const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
-            {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
-            {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
-                <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+            {erForsteSykmelding && (
+                <>
+                    <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
+                    {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
+                    {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
+                        <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                    )}
+                </>
             )}
-            {harBruktEgenmelding != null && askForsikring && <HarForsikringField />}
+            {!erUtenforVentetid && <HarForsikringField />}
         </SectionWrapper>
     )
 }

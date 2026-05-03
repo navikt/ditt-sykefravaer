@@ -320,7 +320,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for fisker with blad B on LOTT (næringsdrivende without forsikringssporsmal)', () => {
+        it('should map sykmelding for fisker with blad B on LOTT (ingen ekstra spørsmål)', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -346,18 +346,10 @@ describe('toSendSykmeldingUtils', () => {
             const expectValues: SendSykmeldingValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
-                sykFoerSykmeldingen: YesOrNo.YES,
-                harBruktEgenmelding: YesOrNo.YES,
                 fisker: {
                     blad: Blad.B,
                     lottOgHyre: LottOgHyre.LOTT,
                 },
-                egenmeldingsperioder: [
-                    {
-                        fom: '2023-03-09',
-                        tom: '2023-03-12',
-                    },
-                ],
             }
 
             expect(mapToValues).toEqual(expectValues)

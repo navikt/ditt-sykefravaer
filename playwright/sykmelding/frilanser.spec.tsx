@@ -49,6 +49,7 @@ test.describe('Frilanser', () => {
         test('should be able to submit form', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: false,
+                erUtenforVentetid: true,
             })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)

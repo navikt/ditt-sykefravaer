@@ -13,13 +13,14 @@ export function handleMockContext(
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> {
     const scenario = context.query.scenario as string | undefined
     const antallArbeidsgivere = context.query.antallArbeidsgivere as string | undefined
+    const erUtenforVentetid = context.query.erUtenforVentetid as string | undefined
     const erForsteSykmelding = context.query.erForsteSykmelding as string | undefined
 
     logger.info(
-        `Setting up mock context, scenario: ${scenario}, antallArbeidsgivere: ${antallArbeidsgivere}, erForsteSykmelding: ${erForsteSykmelding}`,
+        `Setting up mock context, scenario: ${scenario}, antallArbeidsgivere: ${antallArbeidsgivere}, erUtenforVentetid: ${erUtenforVentetid} erForsteSykmelding: ${erForsteSykmelding}`,
     )
 
-    if (isValidScenario(scenario) || antallArbeidsgivere || erForsteSykmelding) {
+    if (isValidScenario(scenario) || antallArbeidsgivere || erUtenforVentetid || erForsteSykmelding) {
         const newId = v4()
         context.res.setHeader('set-cookie', `next-session-id=${newId}; Path=/`)
 
@@ -31,6 +32,11 @@ export function handleMockContext(
 
         if (antallArbeidsgivere) {
             mockDb().get(newId).setAntallArbeidsgivere(+antallArbeidsgivere)
+        }
+        if (erUtenforVentetid !== undefined) {
+            mockDb()
+                .get(newId)
+                .setErUtenforVentetid(erUtenforVentetid === 'true')
         }
         if (erForsteSykmelding !== undefined) {
             mockDb()
