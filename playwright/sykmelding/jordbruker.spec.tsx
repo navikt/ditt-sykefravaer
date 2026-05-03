@@ -44,6 +44,7 @@ test.describe('Jordbruker', () => {
     test('should be able to submit form when er ikke forste sykmelding', async ({ page }) => {
         await gotoScenario('normal', {
             erForsteSykmelding: false,
+            erUtenforVentetid: true,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)

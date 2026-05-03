@@ -53,6 +53,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erForsteSykmelding: false,
+                    erUtenforVentetid: true,
                 }),
                 navigateToFirstAndPickSituasjon,
                 bekreftSykmelding,

@@ -71,7 +71,7 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
                     ? getEgenmeldingsdagerDateList(values.egenmeldingsdager)
                     : undefined,
         }
-    } else {
+    } else if (values.fisker.blad === Blad.A && values.fisker.lottOgHyre === LottOgHyre.LOTT) {
         const egenmeldingsperioder =
             values.egenmeldingsperioder?.map((periode) => ({
                 fom: periode.fom ? toDateString(periode.fom) : null,
@@ -87,6 +87,10 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
                     ? egenmeldingsperioder
                     : undefined,
             harForsikring: values.fisker.blad === Blad.A ? (values.harForsikring ?? undefined) : undefined,
+        }
+    } else {
+        return {
+            ...baseFields,
         }
     }
 }

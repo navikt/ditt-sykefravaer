@@ -110,11 +110,9 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('Blad B', () => {
-        test('Lott, should be næringsdrivende-esque without forsikring', async ({ page }) => {
+        test('Lott should have no extra questions', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Lott')(page)
-            await frilanserEgenmeldingsperioder([{ fom: '01.01.2021' }])(page)
-            // No forsikring question for Blad B
             await bekreftSykmelding(page)
 
             await expectKvittering({
@@ -124,10 +122,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
-                selvstendig: {
-                    egenmeldingsperioder: ['1. januar 2021'],
-                    forsikring: ExpectMeta.NotInDom,
-                },
                 fisker: {
                     blad: 'B',
                     lottEllerHyre: 'Lott',
