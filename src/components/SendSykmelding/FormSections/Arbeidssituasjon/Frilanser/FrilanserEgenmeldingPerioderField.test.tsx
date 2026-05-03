@@ -44,17 +44,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('[{"fom":null,"tom":null}]')
     })
 
-    it('should input multiple periods correctly', async () => {
-        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
-
-        await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
-
-        expect(screen.getByTestId('value')).toHaveTextContent(
-            JSON.stringify([{ fom: '2021-02-12', tom: '2021-02-28' }]),
-        )
-    }, 10_000)
-
-    it('should remove period', async () => {
+    it('should input period correctly', async () => {
         render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
         await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
