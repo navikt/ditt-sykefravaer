@@ -1,4 +1,4 @@
-import { Blad, LottOgHyre, ArbeidssituasjonType, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
 import { EgenmeldingsdagerFormValue } from '../components/FormComponents/Egenmelding/EgenmeldingerFieldHelpers'
 import { SendSykmeldingValues } from '../server/api-models/SendSykmeldingValues'
@@ -71,7 +71,7 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
                     ? getEgenmeldingsdagerDateList(values.egenmeldingsdager)
                     : undefined,
         }
-    } else {
+    } else if (values.fisker.blad === Blad.A && values.fisker.lottOgHyre === LottOgHyre.LOTT) {
         const egenmeldingsperioder =
             values.egenmeldingsperioder?.map((periode) => ({
                 fom: periode.fom ? toDateString(periode.fom) : null,
@@ -80,9 +80,17 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
 
         return {
             ...baseFields,
-            harBruktEgenmelding: values.harBruktEgenmelding ?? undefined,
-            egenmeldingsperioder: values.harBruktEgenmelding === YesOrNo.YES ? egenmeldingsperioder : undefined,
+            sykFoerSykmeldingen: values.sykFoerSykmeldingen ?? undefined,
+            harBruktEgenmelding: values.sykFoerSykmeldingen === YesOrNo.YES ? values.harBruktEgenmelding : undefined,
+            egenmeldingsperioder:
+                values.sykFoerSykmeldingen === YesOrNo.YES && values.harBruktEgenmelding === YesOrNo.YES
+                    ? egenmeldingsperioder
+                    : undefined,
             harForsikring: values.fisker.blad === Blad.A ? (values.harForsikring ?? undefined) : undefined,
+        }
+    } else {
+        return {
+            ...baseFields,
         }
     }
 }
@@ -98,8 +106,12 @@ function mapSykmeldingFrilansOrSelvstendigOrJordbruker(values: FormValues): Send
         erOpplysningeneRiktige: values.erOpplysningeneRiktige,
         uriktigeOpplysninger: values.erOpplysningeneRiktige === YesOrNo.NO ? values.uriktigeOpplysninger : undefined,
         arbeidssituasjon: values.arbeidssituasjon,
-        harBruktEgenmelding: values.harBruktEgenmelding ?? undefined,
-        egenmeldingsperioder: values.harBruktEgenmelding === YesOrNo.YES ? egenmeldingsperioder : undefined,
+        sykFoerSykmeldingen: values.sykFoerSykmeldingen ?? undefined,
+        harBruktEgenmelding: values.sykFoerSykmeldingen === YesOrNo.YES ? values.harBruktEgenmelding : undefined,
+        egenmeldingsperioder:
+            values.sykFoerSykmeldingen === YesOrNo.YES && values.harBruktEgenmelding === YesOrNo.YES
+                ? egenmeldingsperioder
+                : undefined,
         harForsikring: values.harForsikring ?? undefined,
     }
 }

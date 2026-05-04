@@ -12,6 +12,7 @@ import {
 } from '../utils/user-actions'
 import { getRadioInGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Fiskere', () => {
     test.describe('Blad A', () => {
@@ -21,12 +22,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await fillOutFisker('Blad A', 'Lott')(page)
             await frilanserEgenmeldingsperioder([
                 {
-                    fom: '01.01.2021',
-                    tom: '02.01.2021',
-                },
-                {
-                    fom: '04.01.2021',
-                    tom: '06.01.2021',
+                    fom: `01.01.${testAar}`,
                 },
             ])(page)
             await velgForsikring('Ja')(page)
@@ -41,7 +37,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 selvstendig: {
-                    egenmeldingsperioder: ['1. - 2. januar 2021', '4. - 6. januar 2021'],
+                    egenmeldingsperioder: [`1. januar ${testAar}`],
                     forsikring: 'Ja',
                 },
                 fisker: {
@@ -115,11 +111,9 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('Blad B', () => {
-        test('Lott, should be næringsdrivende-esque without forsikring', async ({ page }) => {
+        test('Lott should have no extra questions', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Lott')(page)
-            await frilanserEgenmeldingsperioder([{ fom: '01.01.2021', tom: '02.01.2021' }])(page)
-            // No forsikring question for Blad B
             await bekreftSykmelding(page)
 
             await expectKvittering({
@@ -129,10 +123,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
-                selvstendig: {
-                    egenmeldingsperioder: ['1. - 2. januar 2021'],
-                    forsikring: ExpectMeta.NotInDom,
-                },
                 fisker: {
                     blad: 'B',
                     lottEllerHyre: 'Lott',

@@ -11,7 +11,6 @@ import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../..
 import useBrukerInformasjonById from '../../../../hooks/sykmelding/useBrukerinformasjonById'
 import { logUmamiEvent } from '../../../umami/umami'
 import useTidligereArbeidsgivereById from '../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
-import useErUtenforVentetid from '../../../../hooks/sykmelding/useErUtenforVentetid'
 import { BrukerSvar, JaEllerNei } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
 import { mapFormValuesToBrukerSvar, mapFrilanserFormValuesToBrukerSvar, SporsmaltekstMetadata } from './BrukerSvarUtils'
@@ -91,6 +90,7 @@ function SentSykmeldingBrukerSvar({
             <YesNoAnswer response={brukerSvar.riktigNarmesteLeder} />
             <YesNoAnswer response={brukerSvar.harBruktEgenmeldingsdager} />
             <EgenmeldingsdagerAnswer response={brukerSvar.egenmeldingsdager} />
+            <YesNoAnswer response={brukerSvar.sykFoerSykmeldingen} />
             <YesNoAnswer response={brukerSvar.harBruktEgenmelding} />
             <FrilanserEgenmeldingsperioderAnswer response={brukerSvar.egenmeldingsperioder} />
             <YesNoAnswer response={brukerSvar.harForsikring} />
@@ -132,7 +132,6 @@ function CurrentFormValuesBrukerSvar({
                 <FrilanserNaeringsdrivendeBrukerSvar
                     formValues={brukerSvar.values}
                     sykmeldingStartDato={brukerSvar.sporsmaltekstMetadata.sykmeldingStartDato}
-                    sykmeldingId={brukerSvar.sporsmaltekstMetadata.sykmeldingId}
                 />
             )}
         </>
@@ -169,24 +168,15 @@ function ArbeidsledigFraOrgnummerAnswer({
 function FrilanserNaeringsdrivendeBrukerSvar({
     formValues,
     sykmeldingStartDato,
-    sykmeldingId,
 }: {
     formValues: FormValues
     sykmeldingStartDato: string
-    sykmeldingId: string
 }): React.ReactElement | null {
-    // This loading state will never be seen, so we can ignore it
-    const { data } = useErUtenforVentetid(sykmeldingId)
-
-    if (!data) {
-        return null
-    }
-
-    const oppfolgingsdato = data.oppfolgingsdato || sykmeldingStartDato
-    const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, oppfolgingsdato)
+    const mappedValues = mapFrilanserFormValuesToBrukerSvar(formValues, sykmeldingStartDato)
 
     return (
         <>
+            <YesNoAnswer response={mappedValues.sykFoerSykmeldingen} />
             <YesNoAnswer response={mappedValues.harBruktEgenmelding} />
             <FrilanserEgenmeldingsperioderAnswer response={mappedValues.egenmeldingsperioder} />
             <YesNoAnswer response={mappedValues.harForsikring} />
@@ -322,7 +312,11 @@ function FrilanserEgenmeldingsperioderAnswer({
         <SykmeldingListInfo
             heading={response.sporsmaltekst}
             level="3"
-            texts={response.svar.map((it) => toReadableDatePeriod(it.fom, it.tom))}
+            texts={
+                response.sporsmaltekst === 'Når ga du beskjed?'
+                    ? response.svar.map((it) => toReadableDate(it.fom))
+                    : response.svar.map((it) => toReadableDatePeriod(it.fom, it.tom))
+            }
         />
     )
 }

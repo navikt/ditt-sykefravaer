@@ -2,7 +2,6 @@ import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykm
 import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from '../../../server/api-models/ErUtenforVentetid'
 import { BrukerSvar } from '../../../server/api-models/sykmelding/SykmeldingStatus'
 import { Arbeidsgiver } from '../../../server/api-models/Arbeidsgiver'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
@@ -15,8 +14,8 @@ import { defaultArbeidsgivere } from './data-creators'
 class MockDb {
     private readonly _sykmeldinger: MuterbarSykmelding[]
     private _antallArbeidsgivere = 1
+    private _erForsteSykmelding = true
     private _erUtenforVentetid = false
-    private _oppfolgingsdato: string | null = '2021-04-10'
 
     constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
         this._sykmeldinger = scenario.sykmeldinger
@@ -32,11 +31,12 @@ class MockDb {
         }
     }
 
-    sykeldingErUtenforVentetid(): ErUtenforVentetid {
-        return {
-            erUtenforVentetid: this._erUtenforVentetid,
-            oppfolgingsdato: this._oppfolgingsdato,
-        }
+    erForsteSykmelding(): { erForsteSykmelding: boolean } {
+        return { erForsteSykmelding: this._erForsteSykmelding }
+    }
+
+    sykeldingErUtenforVentetid(): { erUtenforVentetid: boolean } {
+        return { erUtenforVentetid: this._erUtenforVentetid }
     }
 
     tidligereArbeidsgivere(): TidligereArbeidsgivere[] {
@@ -74,21 +74,16 @@ class MockDb {
         const sykmelding = this.sykmelding(id)
 
         // Validate that real mapping would have worked
-        const apiValues = mapSendSykmeldingValuesToV3Api(
-            values,
-            sykmelding,
-            this.brukerinformasjon(),
-            this.sykeldingErUtenforVentetid(),
-        )
+        const apiValues = mapSendSykmeldingValuesToV3Api(values, sykmelding, this.brukerinformasjon())
 
         // Simulate what would happen in sykmeldinger-backend Validation step
         if (apiValues.arbeidssituasjon.svar === ArbeidssituasjonType.FISKER && apiValues.fisker != null) {
-            if (apiValues.fisker.lottOgHyre.svar === 'LOTT') {
-                if (apiValues.harBruktEgenmelding == null) {
+            if (apiValues.fisker.lottOgHyre.svar === 'LOTT' && apiValues.fisker.blad.svar === 'A') {
+                if (apiValues.sykFoerSykmeldingen == null) {
                     throw new Error('Valgt fisker uten å fylle ut fiskerfeltene')
                 }
-            } else {
-                // HYRE eller BEGGE
+            }
+            if (apiValues.fisker.lottOgHyre.svar === 'HYRE' || apiValues.fisker.lottOgHyre.svar === 'BEGGE') {
                 if (apiValues.arbeidsgiverOrgnummer == null) {
                     throw new Error('Valgt fisker uten å fylle ut arbeidsgiverOrgnummer')
                 }
@@ -123,17 +118,12 @@ class MockDb {
         this._antallArbeidsgivere = antall
     }
 
-    setErUtenforVentetid(erUtenforVentetid: boolean): void {
-        this._erUtenforVentetid = erUtenforVentetid
+    setErForsteSykmelding(erForsteSykmelding: boolean): void {
+        this._erForsteSykmelding = erForsteSykmelding
     }
 
-    setOppfolgingsdato(oppfolgingsdato: string | ''): void {
-        if (!oppfolgingsdato) {
-            this._oppfolgingsdato = null
-            return
-        }
-
-        this._oppfolgingsdato = oppfolgingsdato
+    setErUtenforVentetid(erUtenforVentetid: boolean): void {
+        this._erUtenforVentetid = erUtenforVentetid
     }
 
     private arbeidsgivere(): Arbeidsgiver[] {

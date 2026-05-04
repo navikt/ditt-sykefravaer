@@ -20,5 +20,4 @@ export default function useErUtenforVentetid(sykmeldingId: string) {
 
 interface UtenforVentetid {
     erUtenforVentetid: boolean
-    oppfolgingsdato?: string
 }

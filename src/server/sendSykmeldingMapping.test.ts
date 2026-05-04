@@ -8,14 +8,11 @@ import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/da
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
-import { ErUtenforVentetid } from './api-models/ErUtenforVentetid'
 
 describe('sendSykmeldingMapping', () => {
     const brukerinformasjon: Brukerinformasjon = {
         arbeidsgivere: defaultArbeidsgivere.slice(0, 2),
     }
-    const erUtenforVentetid: ErUtenforVentetid = { erUtenforVentetid: false, oppfolgingsdato: '2021-04-10' }
-
     const sykmeldingApen = (): MuterbarSykmelding =>
         new SykmeldingBuilder().status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()
 
@@ -28,7 +25,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -42,6 +38,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -62,7 +59,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -76,6 +72,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -97,7 +94,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -115,6 +111,7 @@ describe('sendSykmeldingMapping', () => {
             },
             arbeidsgiverOrgnummer: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             riktigNarmesteLeder: null,
@@ -136,7 +133,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -157,6 +153,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'JA',
             },
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             uriktigeOpplysninger: null,
@@ -180,7 +177,6 @@ describe('sendSykmeldingMapping', () => {
                 ...brukerinformasjon,
                 arbeidsgivere: [{ ...defaultArbeidsgivere[0], aktivtArbeidsforhold: false, naermesteLeder: null }],
             },
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -198,6 +194,7 @@ describe('sendSykmeldingMapping', () => {
             },
             riktigNarmesteLeder: null,
             egenmeldingsperioder: null,
+            sykFoerSykmeldingen: null,
             harBruktEgenmelding: null,
             harForsikring: null,
             uriktigeOpplysninger: null,
@@ -214,6 +211,7 @@ describe('sendSykmeldingMapping', () => {
             {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FRILANSER,
+                sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 egenmeldingsperioder: [
                     { fom: '2021-04-10', tom: '2021-04-11' },
@@ -223,7 +221,6 @@ describe('sendSykmeldingMapping', () => {
             },
             sykmelding,
             brukerinformasjon,
-            erUtenforVentetid,
         )
 
         expect(mappedResult).toEqual({
@@ -235,13 +232,16 @@ describe('sendSykmeldingMapping', () => {
                 sporsmaltekst: 'Jeg er sykmeldt som',
                 svar: 'FRILANSER',
             },
+            sykFoerSykmeldingen: {
+                sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 1. januar 2026?',
+                svar: 'JA',
+            },
             harBruktEgenmelding: {
-                sporsmaltekst:
-                    'Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt 10. april 2021?',
+                sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
                 svar: 'JA',
             },
             egenmeldingsperioder: {
-                sporsmaltekst: 'Hvor lenge var du syk før du ble sykmeldt?',
+                sporsmaltekst: 'Når ga du beskjed?',
                 svar: [
                     { fom: '2021-04-10', tom: '2021-04-11' },
                     { fom: '2021-04-12', tom: '2021-04-13' },
@@ -272,6 +272,7 @@ describe('sendSykmeldingMapping', () => {
                         blad: Blad.A,
                         lottOgHyre: LottOgHyre.LOTT,
                     },
+                    sykFoerSykmeldingen: YesOrNo.YES,
                     harBruktEgenmelding: YesOrNo.YES,
                     egenmeldingsperioder: [
                         { fom: '2021-04-10', tom: '2021-04-11' },
@@ -281,7 +282,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -293,13 +293,16 @@ describe('sendSykmeldingMapping', () => {
                     sporsmaltekst: 'Jeg er sykmeldt som',
                     svar: 'FISKER',
                 },
+                sykFoerSykmeldingen: {
+                    sporsmaltekst: 'Var du syk og borte fra jobb før du ble sykmeldt 1. januar 2026?',
+                    svar: 'JA',
+                },
                 harBruktEgenmelding: {
-                    sporsmaltekst:
-                        'Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt 10. april 2021?',
+                    sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
                     svar: 'JA',
                 },
                 egenmeldingsperioder: {
-                    sporsmaltekst: 'Hvor lenge var du syk før du ble sykmeldt?',
+                    sporsmaltekst: 'Når ga du beskjed?',
                     svar: [
                         { fom: '2021-04-10', tom: '2021-04-11' },
                         { fom: '2021-04-12', tom: '2021-04-13' },
@@ -345,7 +348,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -383,6 +385,7 @@ describe('sendSykmeldingMapping', () => {
                     sporsmaltekst: 'Velg dagene du brukte egenmelding',
                     svar: ['2021-04-10', '2021-04-11'],
                 },
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -405,7 +408,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -428,6 +430,7 @@ describe('sendSykmeldingMapping', () => {
                 riktigNarmesteLeder: null,
                 harBruktEgenmeldingsdager: null,
                 egenmeldingsdager: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
@@ -444,7 +447,6 @@ describe('sendSykmeldingMapping', () => {
                 },
                 sykmelding,
                 brukerinformasjon,
-                erUtenforVentetid,
             )
 
             expect(mappedResult).toEqual({
@@ -462,6 +464,7 @@ describe('sendSykmeldingMapping', () => {
                 riktigNarmesteLeder: null,
                 harBruktEgenmeldingsdager: null,
                 egenmeldingsdager: null,
+                sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,
                 egenmeldingsperioder: null,
                 harForsikring: null,
