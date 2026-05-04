@@ -1,6 +1,5 @@
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next'
 import { v4 } from 'uuid'
-import { logger } from '@navikt/next-logger'
 
 import { isValidScenario } from '../data/mock/mock-db/scenarios'
 import mockDb from '../data/mock/mock-db'
@@ -15,10 +14,6 @@ export function handleMockContext(
     const antallArbeidsgivere = context.query.antallArbeidsgivere as string | undefined
     const erUtenforVentetid = context.query.erUtenforVentetid as string | undefined
     const erForsteSykmelding = context.query.erForsteSykmelding as string | undefined
-
-    logger.info(
-        `Setting up mock context, scenario: ${scenario}, antallArbeidsgivere: ${antallArbeidsgivere}, erUtenforVentetid: ${erUtenforVentetid} erForsteSykmelding: ${erForsteSykmelding}`,
-    )
 
     if (isValidScenario(scenario) || antallArbeidsgivere || erUtenforVentetid || erForsteSykmelding) {
         const newId = v4()
