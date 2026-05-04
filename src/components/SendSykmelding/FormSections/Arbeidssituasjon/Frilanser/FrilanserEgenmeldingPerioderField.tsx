@@ -21,6 +21,8 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                     return 'Datoen må være på formatet DD.MM.YYYY.'
                 } else if (dateValidation?.isAfter) {
                     return 'Datoen kan ikke være på eller etter sykmeldingens start-dato.'
+                } else if (dateValidation?.isBefore) {
+                    return 'Datoen kan ikke være tidligere enn 18 dager før sykmeldingens start-dato.'
                 } else if (!fomValue) {
                     return 'Du må fylle inn en dato.'
                 } else {
@@ -35,14 +37,18 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
     })
 
     const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
+    const attenDagerFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 18 })
     const { datepickerProps, inputProps } = useDatepicker({
+        fromDate: attenDagerFoerSykmeldingen,
         toDate: dagenFoerSykmeldingen,
         defaultSelected: fromField.value ?? undefined,
         allowTwoDigitYear: false,
         required: true,
         onDateChange: (value) => {
-            fromField.onChange(value)
-            toField.onChange(dagenFoerSykmeldingen)
+            if (value) {
+                fromField.onChange(value)
+                toField.onChange(dagenFoerSykmeldingen)
+            }
         },
         onValidate: setDateValidation,
     })

@@ -25,7 +25,7 @@ test.describe('Frilanser', () => {
                 opplysingeneStemmer,
                 velgArbeidssituasjon('frilanser'),
                 expectSykmeldingStartDato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
+                frilanserEgenmeldingsperioder([{ fom: `28.12.${testAar - 1}` }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -38,7 +38,7 @@ test.describe('Frilanser', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Frilanser',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
+                    egenmeldingsperioder: [`28. desember ${testAar - 1}`],
                     forsikring: 'Ja',
                 },
             })(page)
