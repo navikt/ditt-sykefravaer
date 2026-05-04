@@ -1,3 +1,5 @@
+import { expect } from '@playwright/test'
+
 import {
     bekreftSykmelding,
     expectSykmeldingStartDato,
@@ -28,7 +30,7 @@ test.describe('Selvstendig næringsdrivende', () => {
                 }),
                 navigateToFirstAndPickSituasjon,
                 expectSykmeldingStartDato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: '20.12.2024' }]),
+                frilanserEgenmeldingsperioder([{ fom: `28.12.${testAar - 1}` }]),
                 velgForsikring('Ja'),
                 bekreftSykmelding,
             )(page)
@@ -41,7 +43,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Selvstendig næringsdrivende',
                 selvstendig: {
-                    egenmeldingsperioder: ['20. desember 2024'],
+                    egenmeldingsperioder: [`28. desember ${testAar - 1}`],
                     forsikring: 'Ja',
                 },
             })(page)
@@ -71,6 +73,25 @@ test.describe('Selvstendig næringsdrivende', () => {
                     forsikring: ExpectMeta.NotInDom,
                 },
             })(page)
+        })
+    })
+
+    test.describe('Egenmeldingsperioder', () => {
+        test('skal vise feilmelding hvis dato er mer enn 18 dager før sykmeldingen', async ({ page }) => {
+            await userInteractionsGroup(
+                gotoScenario('normal', { erForsteSykmelding: true }),
+                navigateToFirstAndPickSituasjon,
+                expectSykmeldingStartDato(`${testAar}-01-08`),
+                frilanserEgenmeldingsperioder([{ fom: `20.12.${testAar - 1}` }]),
+            )(page)
+
+            await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
+
+            await expect(
+                page.getByRole('link', {
+                    name: 'Datoen kan ikke være tidligere enn 18 dager før sykmeldingens start-dato.',
+                }),
+            ).toBeVisible()
         })
     })
 })

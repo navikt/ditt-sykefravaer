@@ -12,6 +12,7 @@ import {
 } from '../utils/user-actions'
 import { getRadioInGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
+import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Fiskere', () => {
     test.describe('Blad A', () => {
@@ -21,7 +22,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await fillOutFisker('Blad A', 'Lott')(page)
             await frilanserEgenmeldingsperioder([
                 {
-                    fom: '01.01.2021',
+                    fom: `01.01.${testAar}`,
                 },
             ])(page)
             await velgForsikring('Ja')(page)
@@ -36,7 +37,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 selvstendig: {
-                    egenmeldingsperioder: ['1. januar 2021'],
+                    egenmeldingsperioder: [`1. januar ${testAar}`],
                     forsikring: 'Ja',
                 },
                 fisker: {
