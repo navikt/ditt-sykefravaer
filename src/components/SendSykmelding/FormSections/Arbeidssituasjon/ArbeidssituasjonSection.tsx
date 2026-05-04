@@ -1,9 +1,9 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert, BodyShort, Heading, Link as DsLink } from '@navikt/ds-react'
 
 import { Periodetype, Sykmelding } from '../../../../types/sykmelding/sykmelding'
-import { useShouldArbeidssituasjonShow } from '../shared/sykmeldingUtils'
+import { arbeidssituasjonDependentFields, useShouldArbeidssituasjonShow } from '../shared/sykmeldingUtils'
 import { getSykmeldingStartDate } from '../../../../utils/sykmeldingUtils'
 import { SectionWrapper } from '../../../FormComponents/FormStructure'
 import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../../../../utils/arbeidssituasjonUtils'
@@ -26,8 +26,12 @@ interface Props {
 }
 
 function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): ReactElement | null {
-    const { watch } = useFormContext<FormValues>()
+    const { watch, reset, getValues } = useFormContext<FormValues>()
     const arbeidssituasjon = watch('arbeidssituasjon')
+
+    useEffect(() => {
+        reset({ ...getValues(), ...arbeidssituasjonDependentFields })
+    }, [arbeidssituasjon, reset, getValues])
 
     const { data, isPending: loading, error } = useTidligereArbeidsgivereById(sykmelding.id)
 

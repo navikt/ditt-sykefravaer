@@ -4,6 +4,19 @@ import { YesOrNo } from '../../../../types/sykmelding/sykmeldingCommon'
 import { UriktigeOpplysningerType } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 import { FormValues } from '../../SendSykmeldingForm'
 
+export const arbeidssituasjonDependentFields: Partial<FormValues> = {
+    arbeidsgiverOrgnummer: null,
+    riktigNarmesteLeder: null,
+    erSykmeldtFraFlereArbeidsforhold: null,
+    egenmeldingsdager: null,
+    sykFoerSykmeldingen: null,
+    harBruktEgenmelding: null,
+    egenmeldingsperioder: [{ fom: null, tom: null }],
+    harForsikring: null,
+    fisker: { blad: null, lottOgHyre: null },
+    arbeidsledig: { arbeidsledigFraOrgnummer: null },
+}
+
 export function useShouldArbeidssituasjonShow(): boolean {
     const { watch } = useFormContext<FormValues>()
     const [erOpplysningeneRiktige, uriktigeOpplysninger] = watch(['erOpplysningeneRiktige', 'uriktigeOpplysninger'])
