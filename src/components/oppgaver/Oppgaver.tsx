@@ -5,7 +5,7 @@ import useMeldinger from '../../hooks/useMeldinger'
 import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
-import { basePath, oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
+import { basePath, gammelOppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../umami/umami'
 import { fetchMedRequestId } from '../../utils/fetch'
@@ -131,7 +131,11 @@ function Oppgaver() {
 
     const soknadOppgaver = skapSoknadOppgaver(soknader, sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, basePath() + '/sykmeldinger')
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
+    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(
+        oppfolgingsplaner,
+        sykmeldinger,
+        gammelOppfolgingsplanUrl(),
+    )
 
     const meldingerOppgaver = skapMeldinger(meldinger)
 

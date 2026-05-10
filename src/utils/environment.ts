@@ -38,11 +38,15 @@ function nyOppfolgingsplanEnabled() {
     return publicRuntimeConfig.nyOppfolgingsplanEnabled === 'true'
 }
 
+export function gammelOppfolgingsplanUrl() {
+    return publicRuntimeConfig.oppfolgingsplanUrl
+}
+
 export function oppfolgingsplanUrl() {
     if (nyOppfolgingsplanEnabled()) {
         return publicRuntimeConfig.nyOppfolgingsplanUrl
     }
-    return publicRuntimeConfig.oppfolgingsplanUrl
+    return gammelOppfolgingsplanUrl()
 }
 
 export function dialogmoteUrl() {
