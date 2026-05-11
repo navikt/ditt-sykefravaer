@@ -77,21 +77,43 @@ test.describe('Selvstendig næringsdrivende', () => {
     })
 
     test.describe('Egenmeldingsperioder', () => {
-        test('skal vise feilmelding hvis dato er mer enn 18 dager før sykmeldingen', async ({ page }) => {
+        test('skal vise feilmelding hvis dato er mer enn et år før sykmeldingen', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', { erForsteSykmelding: true }),
                 navigateToFirstAndPickSituasjon,
                 expectSykmeldingStartDato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: `20.12.${testAar - 1}` }]),
+                frilanserEgenmeldingsperioder([{ fom: `07.01.${testAar - 1}` }]),
             )(page)
 
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
             await expect(
                 page.getByRole('link', {
-                    name: 'Datoen kan ikke være tidligere enn 18 dager før sykmeldingens start-dato.',
+                    name: 'Datoen kan ikke være tidligere enn et år før sykmeldingens start-dato.',
                 }),
             ).toBeVisible()
+        })
+
+        test('skal vise varsel hvis dato er mer enn 16 dager før sykmeldingen', async ({ page }) => {
+            await userInteractionsGroup(
+                gotoScenario('normal', { erForsteSykmelding: true }),
+                navigateToFirstAndPickSituasjon,
+                expectSykmeldingStartDato(`${testAar}-01-08`),
+                frilanserEgenmeldingsperioder([{ fom: `22.12.${testAar - 1}` }]),
+            )(page)
+
+            await expect(page.getByRole('alert').filter({ hasText: /Selv om du ga beskjed til Nav/i })).toBeVisible()
+
+            await velgForsikring('Ja')(page)
+            await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Selvstendig næringsdrivende',
+                selvstendig: {
+                    egenmeldingsperioder: [`22. desember ${testAar - 1}`],
+                    forsikring: 'Ja',
+                },
+            })(page)
         })
     })
 })

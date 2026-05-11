@@ -1,11 +1,12 @@
 import { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
-import { DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react'
-import { sub, toDate } from 'date-fns'
+import { Alert, DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react'
+import { isBefore, sub, toDate } from 'date-fns'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
+import { toReadableDate } from '../../../../../utils/dateUtils'
 
 interface Props {
     sykmeldingStartDato: string
@@ -22,7 +23,7 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                 } else if (dateValidation?.isAfter) {
                     return 'Datoen kan ikke være på eller etter sykmeldingens start-dato.'
                 } else if (dateValidation?.isBefore) {
-                    return 'Datoen kan ikke være tidligere enn 18 dager før sykmeldingens start-dato.'
+                    return 'Datoen kan ikke være tidligere enn et år før sykmeldingens start-dato.'
                 } else if (!fomValue) {
                     return 'Du må fylle inn en dato.'
                 } else {
@@ -37,9 +38,12 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
     })
 
     const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
-    const attenDagerFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 18 })
+    const sekstenDagerFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 16 })
+    const aarFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { years: 1 })
+    const harValgtForTidlig = fromField.value && isBefore(toDate(fromField.value), sekstenDagerFoerSykmeldingen)
+
     const { datepickerProps, inputProps } = useDatepicker({
-        fromDate: attenDagerFoerSykmeldingen,
+        fromDate: aarFoerSykmeldingen,
         toDate: dagenFoerSykmeldingen,
         defaultSelected: fromField.value ?? undefined,
         allowTwoDigitYear: false,
@@ -65,6 +69,13 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                     error={fromFieldState.error?.message}
                 />
             </DatePicker>
+            {harValgtForTidlig && (
+                <Alert variant="warning" role="alert" aria-live="polite" className="mt-4">
+                    Selv om du ga beskjed til Nav {toReadableDate(fromField.value!)} så har du ikke rett på sykepenger
+                    for mer enn 16 dager før du ble sykmeldt {toReadableDate(sykmeldingStartDato)}. Vi vil derfor bruke{' '}
+                    {toReadableDate(sekstenDagerFoerSykmeldingen)} som startdato for sykefraværet ditt.
+                </Alert>
+            )}
         </QuestionWrapper>
     )
 }
