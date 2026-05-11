@@ -34,14 +34,7 @@ export function aktivitetsplanUrl() {
     return publicRuntimeConfig.aktivitetsplanUrl
 }
 
-function nyOppfolgingsplanEnabled() {
-    return publicRuntimeConfig.nyOppfolgingsplanEnabled === 'true'
-}
-
 export function oppfolgingsplanUrl() {
-    if (nyOppfolgingsplanEnabled()) {
-        return publicRuntimeConfig.nyOppfolgingsplanUrl
-    }
     return publicRuntimeConfig.oppfolgingsplanUrl
 }
 
