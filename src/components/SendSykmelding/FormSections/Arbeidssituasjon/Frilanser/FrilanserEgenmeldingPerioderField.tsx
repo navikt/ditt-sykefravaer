@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
 import { Alert, BodyShort, DatePicker, DateValidationT, Link, useDatepicker } from '@navikt/ds-react'
-import { isBefore, sub, toDate } from 'date-fns'
+import { isBefore, startOfDay, sub, toDate } from 'date-fns'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
@@ -40,7 +40,8 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
     const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
     const sekstenDagerFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 16 })
     const aarFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { years: 1 })
-    const harValgtForTidlig = fromField.value && isBefore(toDate(fromField.value), sekstenDagerFoerSykmeldingen)
+    const harValgtForTidlig =
+        fromField.value && isBefore(startOfDay(toDate(fromField.value)), startOfDay(sekstenDagerFoerSykmeldingen))
 
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: aarFoerSykmeldingen,
