@@ -36,7 +36,6 @@ function SykFoerSykmeldingenReadMore(): ReactElement {
                 <Link href="https://www.nav.no/sykepenger" target="_blank">
                     Les mer om sykepenger for selvstendig næringsdrivende
                 </Link>
-                .
             </BodyShort>
         </ReadMore>
     )

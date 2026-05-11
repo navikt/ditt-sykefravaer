@@ -102,7 +102,7 @@ test.describe('Selvstendig næringsdrivende', () => {
                 frilanserEgenmeldingsperioder([{ fom: `22.12.${testAar - 1}` }]),
             )(page)
 
-            await expect(page.getByRole('alert').filter({ hasText: /Selv om du ga beskjed til Nav/i })).toBeVisible()
+            await expect(page.getByRole('alert').filter({ hasText: /Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen./i })).toBeVisible()
 
             await velgForsikring('Ja')(page)
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()

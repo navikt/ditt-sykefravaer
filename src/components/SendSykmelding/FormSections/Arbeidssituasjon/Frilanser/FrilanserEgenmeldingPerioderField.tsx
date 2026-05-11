@@ -1,6 +1,6 @@
-import { ReactElement, useState } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
-import { Alert, DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react'
+import { Alert, BodyShort, DatePicker, DateValidationT, Link, useDatepicker } from '@navikt/ds-react'
 import { isBefore, sub, toDate } from 'date-fns'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
@@ -70,10 +70,17 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                 />
             </DatePicker>
             {harValgtForTidlig && (
-                <Alert variant="warning" role="alert" aria-live="polite" className="mt-4">
-                    Selv om du ga beskjed til Nav {toReadableDate(fromField.value!)} så har du ikke rett på sykepenger
-                    for mer enn 16 dager før du ble sykmeldt {toReadableDate(sykmeldingStartDato)}. Vi vil derfor bruke{' '}
-                    {toReadableDate(sekstenDagerFoerSykmeldingen)} som startdato for sykefraværet ditt.
+                <Alert variant="info" role="alert" aria-live="polite" className="mt-4">
+                    <BodyShort spacing>
+                        Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen. Hvis vi får bekreftet at du
+                        meldte fra {toReadableDate(fromField.value!)}, setter vi{' '}
+                        {toReadableDate(sekstenDagerFoerSykmeldingen)} som startdato for sykefraværet ditt.
+                    </BodyShort>
+                    <BodyShort>
+                        <Link href="https://www.nav.no/sykepenger" target="_blank">
+                            Les mer om sykepenger for selvstendig næringsdrivende
+                        </Link>
+                    </BodyShort>
                 </Alert>
             )}
         </QuestionWrapper>
