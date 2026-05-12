@@ -11,6 +11,7 @@ interface Props<
 > {
     name: TName
     legend: string
+    description?: string
     subtext?: string | ReactNode
     onChange?: (value: YesOrNo) => void
     rules?: Omit<RegisterOptions<TFieldValues, TName>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>
@@ -19,7 +20,7 @@ interface Props<
 function YesNoField<
     TFieldValues extends FieldValues = FieldValues,
     TName extends FieldPath<TFieldValues> = FieldPath<TFieldValues>,
->({ name, legend, subtext, onChange, rules }: Props<TFieldValues, TName>): ReactElement {
+>({ name, legend, description, subtext, onChange, rules }: Props<TFieldValues, TName>): ReactElement {
     const { field, fieldState } = useController<TFieldValues, TName>({
         name,
         rules,
@@ -30,6 +31,7 @@ function YesNoField<
             {...field}
             id={field.name}
             legend={legend}
+            description={description}
             className="overflow-anywhere"
             error={fieldState.error?.message}
             onChange={(value: YesOrNo) => {

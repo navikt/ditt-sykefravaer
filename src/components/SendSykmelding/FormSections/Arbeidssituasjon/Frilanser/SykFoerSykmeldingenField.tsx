@@ -16,6 +16,7 @@ function SykFoerSykmeldingenField({ sykmeldingStartDato }: Props): ReactElement 
         <QuestionWrapper>
             <YesNoField<FormValues>
                 name="sykFoerSykmeldingen"
+                description="Gjelder sammenhengende fravær før du fikk sykmelding."
                 legend={sporsmal.sykFoerSykmeldingen(sykmeldingStartDato)}
                 subtext={<SykFoerSykmeldingenReadMore />}
                 rules={{
