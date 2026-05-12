@@ -47,6 +47,18 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
         })
 
+        test('Lott, skal ikke vise fravær før sykmeldingen når ikke er første sykmelding og er utenfor ventetid', async ({
+            page,
+        }) => {
+            await gotoScenario('normal', {
+                erForsteSykmelding: false,
+                erUtenforVentetid: true,
+            })(page)
+            await fillOutFisker('Blad A', 'Lott')(page)
+
+            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
+        })
+
         test('Hyre, should be arbeidsgiver-esque', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Hyre')(page)

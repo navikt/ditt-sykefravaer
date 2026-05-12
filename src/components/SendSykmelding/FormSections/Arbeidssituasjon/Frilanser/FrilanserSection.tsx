@@ -64,6 +64,10 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
     const { erForsteSykmelding } = forsteSykmeldingData
     const { erUtenforVentetid } = utenforVentetidData
 
+    if (!erForsteSykmelding && erUtenforVentetid) {
+        return null
+    }
+
     const erSykFoerSykmeldingen = sykFoerSykmeldingen === YesOrNo.YES
 
     const egenmeldingsperioderBesvart =

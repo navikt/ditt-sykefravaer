@@ -56,6 +56,11 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
 
     const { erForsteSykmelding } = forsteSykmeldingData
     const { erUtenforVentetid } = utenforVentetidData
+
+    if (!erForsteSykmelding && erUtenforVentetid) {
+        return null
+    }
+
     const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
 
     return (

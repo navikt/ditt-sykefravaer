@@ -76,6 +76,20 @@ test.describe('Selvstendig næringsdrivende', () => {
         })
     })
 
+    test.describe('Er ikke forste sykmelding og er utenfor ventetid', () => {
+        test('skal ikke vise fravær før sykmeldingen', async ({ page }) => {
+            await userInteractionsGroup(
+                gotoScenario('normal', {
+                    erForsteSykmelding: false,
+                    erUtenforVentetid: true,
+                }),
+                navigateToFirstAndPickSituasjon,
+            )(page)
+
+            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
+        })
+    })
+
     test.describe('Egenmeldingsperioder', () => {
         test('skal vise feilmelding hvis dato er mer enn et år før sykmeldingen', async ({ page }) => {
             await userInteractionsGroup(
