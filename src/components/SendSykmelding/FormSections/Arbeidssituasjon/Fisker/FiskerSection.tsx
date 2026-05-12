@@ -20,7 +20,7 @@ type Props = {
  * Fisker-flyt, består av 6 ulike permutasjoner av blad og lott/hyre
  *
  * Blad A+LOTT = selvstending næringsdrivende flyt MED forsikringsspørsmål
- * Blad B+LOTT = selvstending næringsdrivende flyt UTEN forsikringsspørsmål
+ * Blad B+LOTT = ingen ekstra spørsmål
  *
  * Blad A+HYRE = arbeidstaker - vanlig flyt
  * Blad B+HYRE = arbeidstaker - vanlig flyt
@@ -39,7 +39,7 @@ function FiskerSection({ brukerinformasjon, sykmelding }: Props): ReactElement {
         <SectionWrapper>
             <BladField />
             {blad != null && <LottOgHyreField />}
-            {lottOgHyre === 'LOTT' && <FiskerSelvstendigSection sykmelding={sykmelding} askForsikring={blad === 'A'} />}
+            {lottOgHyre === 'LOTT' && blad === 'A' && <FiskerSelvstendigSection sykmelding={sykmelding} />}
             {(lottOgHyre === 'HYRE' || lottOgHyre === 'BEGGE') && (
                 <FiskerArbeidstakerSection
                     sykmelding={sykmelding}

@@ -12,10 +12,10 @@ export function handleMockContext(
 ): Promise<GetServerSidePropsResult<ServerSidePropsResult>> {
     const scenario = context.query.scenario as string | undefined
     const antallArbeidsgivere = context.query.antallArbeidsgivere as string | undefined
-    const utenforVentetid = context.query.utenforVentetid as string | undefined
-    const oppfolgingsdato = context.query.oppfolgingsdato as string | undefined
+    const erUtenforVentetid = context.query.erUtenforVentetid as string | undefined
+    const erForsteSykmelding = context.query.erForsteSykmelding as string | undefined
 
-    if (isValidScenario(scenario) || antallArbeidsgivere || utenforVentetid || oppfolgingsdato) {
+    if (isValidScenario(scenario) || antallArbeidsgivere || erUtenforVentetid || erForsteSykmelding) {
         const newId = v4()
         context.res.setHeader('set-cookie', `next-session-id=${newId}; Path=/`)
 
@@ -27,12 +27,16 @@ export function handleMockContext(
 
         if (antallArbeidsgivere) {
             mockDb().get(newId).setAntallArbeidsgivere(+antallArbeidsgivere)
+        }
+        if (erUtenforVentetid !== undefined) {
             mockDb()
                 .get(newId)
-                .setErUtenforVentetid(utenforVentetid === 'true')
+                .setErUtenforVentetid(erUtenforVentetid === 'true')
+        }
+        if (erForsteSykmelding !== undefined) {
             mockDb()
                 .get(newId)
-                .setOppfolgingsdato(oppfolgingsdato ?? '')
+                .setErForsteSykmelding(erForsteSykmelding === 'true')
         }
     } else if (!context.req.cookies['next-session-id']) {
         const newId = v4()

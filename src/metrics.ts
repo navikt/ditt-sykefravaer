@@ -1,8 +1,11 @@
+import { ArbeidssituasjonType } from './types/sykmelding/sykmeldingCommon'
+
 const PUBLIC_FILE = /\.(.*)$/
 const UUID = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/g
 const ORGNR = /\b[0-9a-f]{9}\b/g
+const ARBEIDSSITUASJON = new RegExp(`(?<=/)(?:${Object.values(ArbeidssituasjonType).join('|')})$`)
 export function cleanPathForMetric(value: string): string {
-    return value?.replace(UUID, '[uuid]').replace(ORGNR, '[orgnr]')
+    return value?.replace(UUID, '[uuid]').replace(ORGNR, '[orgnr]').replace(ARBEIDSSITUASJON, '[arbeidssituasjon]')
 }
 
 export function shouldLogMetricForPath(cleanPath: string | undefined): boolean {

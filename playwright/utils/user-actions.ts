@@ -10,18 +10,19 @@ export function gotoScenario(
     options: Partial<{
         antallArbeidsgivere: 0 | 1 | 2 | 3 | 4
         erUtenforVentetid: boolean
-        oppfolgingsdato: string | null
+        erForsteSykmelding: boolean
     }> = {
         antallArbeidsgivere: 1,
         erUtenforVentetid: false,
+        erForsteSykmelding: true,
     },
 ) {
     return async (page: Page): Promise<void> => {
         const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
+        const erForsteSykmelding = options.erForsteSykmelding ?? true
         const erUtenforVentetid = options.erUtenforVentetid ?? false
-        const oppfolgingsdato = options.oppfolgingsdato ?? null
 
-        if (scenario == 'normal' && antallArbeidsgivere === 1 && !erUtenforVentetid && oppfolgingsdato == null) {
+        if (scenario == 'normal' && antallArbeidsgivere === 1 && erForsteSykmelding && !erUtenforVentetid) {
             await page.goto('/syk/sykefravaer/sykmeldinger/')
             return
         }
@@ -86,8 +87,8 @@ export function gotoScenario(
         const searchParams = new URLSearchParams({
             scenario,
             antallArbeidsgivere: antallArbeidsgivere.toString(),
-            utenforVentetid: erUtenforVentetid.toString(),
-            oppfolgingsdato: oppfolgingsdato ?? '',
+            erForsteSykmelding: erForsteSykmelding.toString(),
+            erUtenforVentetid: erUtenforVentetid.toString(),
         })
 
         await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)
@@ -187,13 +188,11 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
     }
 }
 
-export function expectOppfolgingsdato(dato: string) {
+export function expectSykmeldingStartDato(dato: string) {
     return async (page: Page): Promise<void> => {
         await expect(
             page.getByRole('group', {
-                name: new RegExp(
-                    `Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt ${toReadableDate(dato)}`,
-                ),
+                name: new RegExp(`Var du syk og borte fra jobb før du ble sykmeldt ${toReadableDate(dato)}`),
             }),
         ).toBeVisible()
     }
@@ -204,24 +203,23 @@ export function frilanserEgenmeldingsperioder(
         | 'Nei'
         | {
               fom: string
-              tom: string
           }[],
 ) {
     return async (page: Page): Promise<void> => {
         const jaEllerNei = Array.isArray(svar) ? 'Ja' : 'Nei'
         await getRadioInGroup(page)(
-            { name: /Ga du beskjed til Nav om at du var syk, eller brukte du papirsykmelding før du ble sykmeldt/i },
+            { name: /Var du syk og borte fra jobb før du ble sykmeldt/i },
             { name: jaEllerNei },
         ).click()
 
+        if (jaEllerNei === 'Ja') {
+            await getRadioInGroup(page)({ name: /Ga du beskjed til Nav da du ble syk/i }, { name: 'Ja' }).click()
+        }
+
         if (Array.isArray(svar)) {
             let index = 0
-            for (const { fom, tom } of svar) {
-                await page.getByRole('textbox', { name: 'Fra og med' }).nth(index).fill(fom)
-                await page.getByRole('textbox', { name: 'Til og med' }).nth(index).fill(tom)
-                if (index < svar.length - 1) {
-                    await page.getByRole('button', { name: 'Legg til' }).nth(0).click()
-                }
+            for (const { fom } of svar) {
+                await page.getByRole('textbox', { name: 'Når ga du beskjed?' }).nth(index).fill(fom)
                 index++
             }
         }

@@ -16,7 +16,7 @@ export type SporsmaltekstMetadata = {
 export function mapFormValuesToBrukerSvar(
     formValues: FormValues,
     metadata: SporsmaltekstMetadata,
-): Omit<BrukerSvar, 'egenmeldingsperioder' | 'harBruktEgenmelding' | 'harForsikring'> {
+): Omit<BrukerSvar, 'egenmeldingsperioder' | 'sykFoerSykmeldingen' | 'harBruktEgenmelding' | 'harForsikring'> {
     const sendSykmeldingValues = mapToSendSykmeldingValues(formValues)
 
     return {
@@ -91,8 +91,8 @@ export function mapFormValuesToBrukerSvar(
 
 export function mapFrilanserFormValuesToBrukerSvar(
     formValues: FormValues,
-    oppfolgingsdato: string,
-): Pick<BrukerSvar, 'egenmeldingsperioder' | 'harBruktEgenmelding' | 'harForsikring'> {
+    sykmeldingStartDato: string,
+): Pick<BrukerSvar, 'egenmeldingsperioder' | 'sykFoerSykmeldingen' | 'harBruktEgenmelding' | 'harForsikring'> {
     const sendSykmeldingValues = mapToSendSykmeldingValues(formValues)
 
     return {
@@ -103,9 +103,15 @@ export function mapFrilanserFormValuesToBrukerSvar(
                       svar: yesOrNoToJaEllerNei(sendSykmeldingValues.harForsikring),
                   }
                 : undefined,
+        sykFoerSykmeldingen: sendSykmeldingValues.sykFoerSykmeldingen
+            ? {
+                  sporsmaltekst: sporsmal.sykFoerSykmeldingen(sykmeldingStartDato),
+                  svar: yesOrNoToJaEllerNei(sendSykmeldingValues.sykFoerSykmeldingen),
+              }
+            : undefined,
         harBruktEgenmelding: sendSykmeldingValues.harBruktEgenmelding
             ? {
-                  sporsmaltekst: sporsmal.harBruktEgenmelding(oppfolgingsdato),
+                  sporsmaltekst: sporsmal.harBruktEgenmelding(),
                   svar: yesOrNoToJaEllerNei(sendSykmeldingValues.harBruktEgenmelding),
               }
             : undefined,
