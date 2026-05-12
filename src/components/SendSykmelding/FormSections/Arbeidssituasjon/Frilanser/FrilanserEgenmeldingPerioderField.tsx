@@ -2,6 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
 import { Alert, BodyShort, DatePicker, DateValidationT, Link, useDatepicker } from '@navikt/ds-react'
 import { isBefore, startOfDay, sub, toDate } from 'date-fns'
+import { LinkIcon } from '@navikt/aksel-icons'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
@@ -79,7 +80,8 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                     </BodyShort>
                     <BodyShort>
                         <Link href="https://www.nav.no/sykepenger" target="_blank">
-                            Les mer om sykepenger for selvstendig næringsdrivende
+                            Les mer om sykepenger
+                            <LinkIcon aria-hidden={true} />
                         </Link>
                     </BodyShort>
                 </Alert>

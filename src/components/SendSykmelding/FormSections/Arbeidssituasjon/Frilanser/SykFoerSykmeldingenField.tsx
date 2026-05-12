@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
 import { BodyShort, ReadMore, Link } from '@navikt/ds-react'
+import { LinkIcon } from '@navikt/aksel-icons'
 
 import { sporsmal } from '../../../../../utils/sporsmal'
 import YesNoField from '../../../../FormComponents/YesNoField/YesNoField'
@@ -34,7 +35,8 @@ function SykFoerSykmeldingenReadMore(): ReactElement {
             </BodyShort>
             <BodyShort spacing>
                 <Link href="https://www.nav.no/sykepenger" target="_blank">
-                    Les mer om sykepenger for selvstendig næringsdrivende
+                    Les mer om sykepenger
+                    <LinkIcon aria-hidden={true} />
                 </Link>
             </BodyShort>
         </ReadMore>
