@@ -41,7 +41,7 @@ test.describe('Tester visning av forside', () => {
     })
 
     test('Kan trykke inn på inntektsmeldinger via notifikasjon (oppgave)', async ({ page }) => {
-        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=venter-pa-inntektsmelding')
         const inntektsmeldingNotifikasjon = page.getByRole('link', { name: 'Status i saken din om' })
         await expect(inntektsmeldingNotifikasjon).toBeVisible()
         await inntektsmeldingNotifikasjon.click()

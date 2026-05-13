@@ -37,7 +37,7 @@ export const standardBrodsmuler = {
     sykmelding: { navn: 'Sykmelding', href: /\/sykmeldinger\/.+/, exact: true },
     inntektsmeldinger: { navn: 'Inntektsmeldinger', href: '/inntektsmeldinger', exact: true },
     kvittering: { navn: 'Kvittering', href: '', exact: true },
-    manglendeInntektsmelding: { navn: 'Manglende inntektsmelding', href: '', exact: true },
+    manglendeInntektsmelding: { navn: 'Venter på inntektsmelding', href: '', exact: true },
     opplysningerFraAordningen: { navn: 'Opplysninger fra a-ordningen', href: '', exact: true },
     ukjentSide: { navn: 'Ukjent side', href: '/404', exact: true },
     ukjentFeil: { navn: 'Ukjent feil', href: '/500', exact: true },

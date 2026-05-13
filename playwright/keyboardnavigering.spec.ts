@@ -55,8 +55,8 @@ test.describe('Keyboard navigering', () => {
         await expect(soknadElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
     })
 
-    test('Vi navigerer forsiden med lenke til manglende inntektsmelding', async ({ page, browserName }) => {
-        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
+    test('Vi navigerer forsiden med lenke til venter på inntektsmelding', async ({ page, browserName }) => {
+        await page.goto('/syk/sykefravaer?testperson=venter-pa-inntektsmelding')
         await expect(
             page.locator('text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.'),
         ).toBeVisible()
