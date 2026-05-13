@@ -45,7 +45,7 @@ test.describe('Tester visning av forside', () => {
         const inntektsmeldingNotifikasjon = page.getByRole('link', { name: 'Status i saken din om' })
         await expect(inntektsmeldingNotifikasjon).toBeVisible()
         await inntektsmeldingNotifikasjon.click()
-        await harSynligOverskrift(page, 'Vi venter på inntektsmelding', 1)
+        await harSynligOverskrift(page, 'Vi venter på opplysninger fra arbeidsgiveren din', 1)
     })
 
     test('Kan trykke inn på info om a-ordningen via notifikasjon (varsel)', async ({ page }) => {

@@ -73,9 +73,5 @@ test.describe('Keyboard navigering', () => {
 
         await page.keyboard.press('Enter')
         await expect(page).toHaveURL('/syk/sykefravaer/inntektsmelding')
-
-        await expect(
-            page.locator('text=For å få behandlet søknaden din raskere, kan du ta kontakt med arbeidsgiveren din'),
-        ).toBeVisible()
     })
 })

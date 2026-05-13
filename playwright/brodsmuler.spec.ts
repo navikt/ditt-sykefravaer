@@ -119,7 +119,7 @@ test.describe('Tester Brodsmuler', () => {
         await page.goto('/syk/sykefravaer/inntektsmelding')
         await neiTilCookies(page)
 
-        await harSynligOverskrift(page, 'Vi venter på inntektsmelding fra arbeidsgiveren din', 1)
+        await harSynligOverskrift(page, 'Vi venter på opplysninger fra arbeidsgiveren din', 1)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 
