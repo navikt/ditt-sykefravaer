@@ -17,7 +17,7 @@ export const manglerInntektsmelding: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 15 dager',
+    beskrivelse: 'Venter på inntektsmelding fra arbeidsgiver etter 15 dager',
 }
 
 export const manglerInntektsmeldingVarsel2: Persona = {
@@ -36,7 +36,7 @@ export const manglerInntektsmeldingVarsel2: Persona = {
             opprettet: '2022-06-16T06:52:22.419786Z',
         },
     ],
-    beskrivelse: 'Manglende inntektsmelding fra arbeidsgiver etter 28 dager',
+    beskrivelse: 'Venter på inntektsmelding fra arbeidsgiver etter 28 dager',
 }
 
 export const henterInntektsmeldingFraAaregMedVerdiFor3Maneder: Persona = {
