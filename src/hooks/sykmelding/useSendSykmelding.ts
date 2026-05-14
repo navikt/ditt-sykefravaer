@@ -32,13 +32,9 @@ export function useSendSykmelding(
         },
         onSuccess: async (_, variables) => {
             await queryClient.invalidateQueries({
-                queryKey: ['sykmeldinger-flex', sykmeldingId],
+                queryKey: ['sykmeldinger'],
+                refetchType: 'all',
             })
-            queryClient
-                .invalidateQueries({
-                    queryKey: ['sykmeldinger-flex'],
-                })
-                .catch()
 
             await router.push(`/sykmeldinger/${sykmeldingId}/kvittering`, undefined, { scroll: true })
             onCompleted(variables)

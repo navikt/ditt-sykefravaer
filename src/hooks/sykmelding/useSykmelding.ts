@@ -9,7 +9,7 @@ export default function useSykmelding(sykmeldingId: string): UseQueryResult<Sykm
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<Sykmelding, Error>({
-        queryKey: ['sykmeldinger-flex', sykmeldingId],
+        queryKey: ['sykmeldinger', sykmeldingId],
         queryFn: async () => {
             const sykmelding: Sykmelding = await fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +

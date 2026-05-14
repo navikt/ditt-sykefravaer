@@ -36,13 +36,9 @@ export function useChangeSykmeldingStatus(
 
         onSuccess: async () => {
             await queryClient.invalidateQueries({
-                queryKey: ['sykmeldinger-flex', sykmeldingId],
+                queryKey: ['sykmeldinger'],
+                refetchType: 'all',
             })
-            queryClient
-                .invalidateQueries({
-                    queryKey: ['sykmeldinger-flex'],
-                })
-                .catch()
 
             dedupeRef.current = false
             onCompleted()
