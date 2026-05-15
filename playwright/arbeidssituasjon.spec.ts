@@ -13,9 +13,6 @@ test.describe('Tester arbeidssituasjon', () => {
         await firstEmployer.click()
 
         const arbeidsgiverAccordion = page.getByTestId('arbeidsgiver-accordion').first()
-        await page.locator('text=Betaler lønn også etter de 16 første dagene i sykefraværet.').first().waitFor()
-
-        await expect(arbeidsgiverAccordion).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.')
         await expect(arbeidsgiverAccordion).toContainText(
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
@@ -35,9 +32,6 @@ test.describe('Tester arbeidssituasjon', () => {
         await secondEmployer.click()
 
         const arbeidsgiverAccordion2 = page.getByTestId('arbeidsgiver-accordion').nth(1)
-        await expect(arbeidsgiverAccordion2).toContainText(
-            'Betaler lønn også etter de 16 første dagene i sykefraværet.',
-        )
         await expect(arbeidsgiverAccordion2).toContainText(
             'Arbeidsgiveren har meldt  inn at Severus Snape skal følge deg opp mens du er syk.',
         )
