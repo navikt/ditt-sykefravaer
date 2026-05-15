@@ -44,18 +44,3 @@ export const snartSluttPerson: Persona = {
     ],
     beskrivelse: 'Person med melding om snart slutt på sykepengene',
 }
-
-export const forskuttererIkkePerson: Persona = {
-    ...commonPersona(),
-    soknader: [sendtSoknad],
-    sykmeldinger: [sendtSykmelding],
-    narmesteledere: [
-        {
-            navn: 'Albus Dumbledore',
-            orgnummer: '972674818',
-            arbeidsgiverForskutterer: false,
-            aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
-        },
-    ],
-    beskrivelse: 'Arbeidsgiver forkutterer ikke',
-}
