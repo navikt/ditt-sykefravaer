@@ -13,9 +13,6 @@ test.describe('Tester arbeidssituasjon', () => {
         await firstEmployer.click()
 
         const arbeidsgiverAccordion = page.getByTestId('arbeidsgiver-accordion').first()
-        await page.locator('text=Betaler lønn også etter de 16 første dagene i sykefraværet.').first().waitFor()
-
-        await expect(arbeidsgiverAccordion).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.')
         await expect(arbeidsgiverAccordion).toContainText(
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
@@ -35,9 +32,6 @@ test.describe('Tester arbeidssituasjon', () => {
         await secondEmployer.click()
 
         const arbeidsgiverAccordion2 = page.getByTestId('arbeidsgiver-accordion').nth(1)
-        await expect(arbeidsgiverAccordion2).toContainText(
-            'Betaler lønn også etter de 16 første dagene i sykefraværet.',
-        )
         await expect(arbeidsgiverAccordion2).toContainText(
             'Arbeidsgiveren har meldt  inn at Severus Snape skal følge deg opp mens du er syk.',
         )
@@ -92,7 +86,6 @@ test.describe('Tester arbeidssituasjon', () => {
 
         const situasjonInnhold = page.getByTestId('situasjon-innhold') //  locator('[data-testid="situasjon-innhold"]')
         await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await expect(situasjonInnhold).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.')
         await expect(situasjonInnhold).toContainText(
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
@@ -122,33 +115,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(situasjonInnhold).not.toContainText(
             'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
         )
-        await expect(situasjonInnhold).toContainText('Betaler lønn også etter de 16 første dagene i sykefraværet.')
 
         await accordionItem.click()
-    })
-
-    test('Arbeidsgiver forskutterer ikke', async ({ page }) => {
-        await page.goto('/syk/sykefravaer?testperson=arbeidsgiver-forskutterer-ikke')
-
-        const situasjonInnhold = page.getByTestId('situasjon-innhold')
-        await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await expect(situasjonInnhold).toContainText('Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
-        await expect(situasjonInnhold).toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
-        await situasjonInnhold.locator('text=Meld fra om endring').click()
-
-        const modal = page.getByLabel('Endre nærmeste leder') // page.locator('.navds-modal'); // const modal = page.locator('.navds-modal');
-        await expect(modal).toContainText('Endre nærmeste leder')
-        const bekreftButton = modal.locator('text=Ja, jeg er sikker')
-        await bekreftButton.click()
-
-        await expect(modal).not.toBeVisible()
-
-        await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await expect(situasjonInnhold).toContainText('Arbeidsgiveren din betaler ikke lønn etter de første 16 dagene.')
-        await expect(situasjonInnhold).not.toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
     })
 })
