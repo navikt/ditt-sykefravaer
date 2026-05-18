@@ -21,7 +21,7 @@ export default function useSykmeldinger(kunApen?: boolean): UseQueryResult<Sykme
         (queryParams.length > 0 ? '?' + queryParams.join('&') : '')
 
     return useQuery<Sykmelding[], Error>({
-        queryKey: ['sykmeldinger-flex', demoQueryKey, kunApen],
+        queryKey: ['sykmeldinger', demoQueryKey, kunApen],
         queryFn: () => fetchJsonMedRequestId(url),
     })
 }

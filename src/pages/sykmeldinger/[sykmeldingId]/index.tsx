@@ -17,7 +17,6 @@ import Header from '../../../components/Header/Header'
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
 import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
-import useFocusRefetch from '../../../hooks/useFocusRefetch'
 import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
@@ -31,7 +30,7 @@ import useSykmeldinger from '../../../hooks/sykmelding/useSykmeldinger'
 function SykmeldingPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
 
-    const { data, error, isLoading: loading, refetch } = useSykmelding(sykmeldingId)
+    const { data, error, isLoading: loading } = useSykmelding(sykmeldingId)
     const {
         data: alleSykmeldinger,
         error: alleSykmeldingerError,
@@ -40,9 +39,6 @@ function SykmeldingPage(): ReactElement {
     const olderSykmelding = alleSykmeldinger != null ? findOlderSykmeldingId(data, alleSykmeldinger) : null
     const isOlderSykmeldingLoading = isAlleSykmeldingerLoading
     const olderSykmeldingError = alleSykmeldingerError
-
-    useFocusRefetch(refetch)
-
     useUpdateBreadcrumbs(() => breadcrumbBuilders.sykmelding(data))
 
     if (data == null && (loading || isOlderSykmeldingLoading)) {

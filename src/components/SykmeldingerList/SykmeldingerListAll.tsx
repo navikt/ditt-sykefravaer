@@ -3,7 +3,6 @@ import { Accordion, Alert } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import * as R from 'remeda'
 
-import useFocusRefetch from '../../hooks/useFocusRefetch'
 import SykmeldingLinkPanel from '../SykmeldingLinkPanel/SykmeldingLinkPanel'
 import { InfoOmDigitalSykmelding, SerIkkeSykmelding } from '../InfoOmDigitalSykmelding/InfoOmDigitalSykmelding'
 import { isActiveSykmelding, isUnderbehandling } from '../../utils/sykmeldingUtils'
@@ -13,9 +12,7 @@ import { Sykmelding } from '../../types/sykmelding/sykmelding'
 import { SykmeldingerListSkeleton } from './SykmeldingerSkeletons'
 
 function SykmeldingerListAll(): ReactElement {
-    const { data, isLoading, error, refetch } = useSykmeldinger()
-
-    useFocusRefetch(refetch)
+    const { data, isLoading, error } = useSykmeldinger()
 
     if (data == null && isLoading) {
         return <SykmeldingerListSkeleton />
