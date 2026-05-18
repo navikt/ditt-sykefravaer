@@ -39,9 +39,9 @@ export const breadcrumbBuilders = {
         createBreadcrumbItem(organisasjonsnavn || '...', `/inntektsmeldinger/${inntektsmeldingId}`),
     ],
 
-    manglendeInntektsmelding: (): CompleteBreadcrumb[] => [
+    venterPaInntektsmelding: (): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
-        createBreadcrumbItem('Manglende inntektsmelding'),
+        createBreadcrumbItem('Venter på inntektsmelding'),
     ],
 
     opplysningerFraAordningen: (): CompleteBreadcrumb[] => [

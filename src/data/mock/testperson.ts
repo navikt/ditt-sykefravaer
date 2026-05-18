@@ -65,7 +65,7 @@ export type PersonaKey =
     | 'to-nye-oppfolgingsplaner-til-godkjenning'
     | 'en-ny-oppfolgingsplan-til-godkjenning'
     | 'snart-slutt'
-    | 'mangler-inntektsmelding'
+    | 'venter-pa-inntektsmelding'
     | 'mottatt-inntektsmelding'
     | 'kun-en-soknad'
     | 'flere-soknader'
@@ -76,7 +76,7 @@ export type PersonaKey =
     | 'syk-naa-med-maksdato-beregnet-59-siden'
     | 'syk-naa-med-maksdato-beregnet-60-siden'
     | 'ny-soknad-utland-eos'
-    | 'mangler-inntektsmelding-andre-varsel'
+    | 'venter-pa-inntektsmelding-andre-varsel'
     | 'forelagt-fra-a-ordningen'
     | 'forelagt-fra-a-ordningen-en-maned'
     | 'forelagt-fra-a-ordningen-ingen'
@@ -117,8 +117,8 @@ export function testpersonerGruppert(): PersonaGroup {
             ['syk-naa-med-maksdato-beregnet-60-siden']: jsonDeepCopy(sykNåMedMaksdato60gammel),
         },
         ['varsler']: {
-            ['mangler-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
-            ['mangler-inntektsmelding-andre-varsel']: jsonDeepCopy(manglerInntektsmeldingVarsel2),
+            ['venter-pa-inntektsmelding']: jsonDeepCopy(manglerInntektsmelding),
+            ['venter-pa-inntektsmelding-andre-varsel']: jsonDeepCopy(manglerInntektsmeldingVarsel2),
             ['forelagt-fra-a-ordningen']: jsonDeepCopy(henterInntektsmeldingFraAaregMedVerdiFor3Maneder),
             ['forelagt-fra-a-ordningen-en-maned']: jsonDeepCopy(henterInntektsmeldingFraAaregMed1ManedInntekt),
             ['forelagt-fra-a-ordningen-ingen']: jsonDeepCopy(henterInntektsmeldingFraAaregMedIngenManedsInntekt),

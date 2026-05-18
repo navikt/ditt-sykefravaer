@@ -1,10 +1,11 @@
 import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
+import { apneReadmore, harSynligOverskrift, harSynligTekst } from './utils/test-utils'
 
 test.describe('Tester inntektsmelding', () => {
     test('Har inntektsmelding varsel og riktig innhold', async ({ page }) => {
-        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=venter-pa-inntektsmelding')
 
         const oppgaver = page.getByTestId('oppgaver')
         const navdsAlert = oppgaver.locator('.navds-alert')
@@ -17,16 +18,16 @@ test.describe('Tester inntektsmelding', () => {
 
         await expect(page).toHaveURL('/syk/sykefravaer/inntektsmelding')
 
-        const header = page.locator('main').locator('h1').first()
-        await expect(header).toBeVisible()
+        await harSynligOverskrift(page, 'Vi venter på opplysninger fra arbeidsgiveren din', 1)
 
-        await expect(header).toContainText('Vi venter på inntektsmelding fra arbeidsgiver')
+        await harSynligTekst(
+            page,
+            'Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke mottatt den enda. Når vi får den, kan vi starte å behandle søknaden din.',
+        )
 
-        await expect(
-            page.locator(
-                'text=Vi har bedt arbeidsgiveren din om å sende oss inntektsmelding, men ikke fått den enda. Nav trenger opplysninger fra inntektsmeldingen for å behandle søknaden din om sykepenger.',
-            ),
-        ).toBeVisible()
+        await apneReadmore(page, 'Hva er en inntektsmelding?', [
+            'Nav trenger en inntektsmelding fra arbeidsgiveren din for å kunne behandle søknaden.',
+        ])
     })
 
     test('Mottatt inntektsmelding varsel kan lukkes', async ({ page }) => {

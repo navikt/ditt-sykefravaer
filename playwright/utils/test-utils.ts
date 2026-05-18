@@ -27,3 +27,17 @@ export async function harSynligOverskrift(page: Page, tittelTekst: string, level
     await expect(locator).toBeVisible()
     return locator
 }
+
+export async function harSynligTekst(page: Page, tekst: string | RegExp) {
+    const locator = page.getByText(tekst)
+    await expect(locator).toBeVisible()
+    return locator
+}
+
+export async function apneReadmore(page: Page, tittel: string, forventetTekst: string[]) {
+    await page.getByRole('button', { name: tittel }).click()
+
+    for (const tekst of forventetTekst) {
+        await expect(page.getByText(tekst)).toBeVisible()
+    }
+}

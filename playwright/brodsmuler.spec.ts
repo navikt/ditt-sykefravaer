@@ -115,11 +115,11 @@ test.describe('Tester Brodsmuler', () => {
         await expect(page).toHaveURL(/\/syk\/sykefravaer\/inntektsmeldinger$/)
     })
 
-    test('Burde vise brodsmuler på info om manglende inntektsmelding', async ({ page }) => {
+    test('Burde vise brodsmuler på info om venter på inntektsmelding', async ({ page }) => {
         await page.goto('/syk/sykefravaer/inntektsmelding')
         await neiTilCookies(page)
 
-        await harSynligOverskrift(page, 'Vi venter på inntektsmelding fra arbeidsgiveren din', 1)
+        await harSynligOverskrift(page, 'Vi venter på opplysninger fra arbeidsgiveren din', 1)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 

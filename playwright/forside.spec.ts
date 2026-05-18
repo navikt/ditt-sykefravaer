@@ -41,11 +41,11 @@ test.describe('Tester visning av forside', () => {
     })
 
     test('Kan trykke inn på inntektsmeldinger via notifikasjon (oppgave)', async ({ page }) => {
-        await page.goto('/syk/sykefravaer?testperson=mangler-inntektsmelding')
+        await page.goto('/syk/sykefravaer?testperson=venter-pa-inntektsmelding')
         const inntektsmeldingNotifikasjon = page.getByRole('link', { name: 'Status i saken din om' })
         await expect(inntektsmeldingNotifikasjon).toBeVisible()
         await inntektsmeldingNotifikasjon.click()
-        await harSynligOverskrift(page, 'Vi venter på inntektsmelding', 1)
+        await harSynligOverskrift(page, 'Vi venter på opplysninger fra arbeidsgiveren din', 1)
     })
 
     test('Kan trykke inn på info om a-ordningen via notifikasjon (varsel)', async ({ page }) => {
