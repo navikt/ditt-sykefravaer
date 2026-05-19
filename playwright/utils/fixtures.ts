@@ -36,15 +36,15 @@ export const test = base.extend<{
 })
 
 test.beforeEach(async ({ context, page }) => {
-    // Reset cookies før hver test
     await context.clearCookies()
 
-    // Skjul hint så de ikke er i veien for visuelle tester
+    // Skjul hint så de ikke er i veien for visuelle tester.
     await page.addInitScript(() => {
         window.localStorage.setItem('devtools-hint', 'false')
     })
 })
 
+// Automatisk UU-validering for ALLE tester.
 test.afterEach(async ({ page, uuOptions }, testInfo) => {
     if (!uuOptions.skipUU) {
         await validerAxe(page, testInfo, uuOptions.disableRules)
