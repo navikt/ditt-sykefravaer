@@ -10,7 +10,7 @@ import { QueryClient } from '@tanstack/query-core'
 import { QueryClientProvider } from '@tanstack/react-query'
 
 import { useHandleDecoratorClicks } from '../hooks/useBreadcrumbs'
-import { basePath } from '../utils/environment'
+import { basePath, isMockBackend } from '../utils/environment'
 import { LabsWarning } from '../components/labs-warning/LabsWarning'
 import { getFaro, initInstrumentation, pinoLevelToFaroLevel } from '../faro/faro'
 import { FlagProvider } from '../toggles/context'
@@ -37,6 +37,7 @@ const queryClient = new QueryClient({
             // mount even if the query was hydrated from the server side.
             refetchOnMount: false,
             refetchOnWindowFocus: false,
+            ...(isMockBackend() && { retryDelay: 0 }),
         },
     },
 })

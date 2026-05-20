@@ -9,6 +9,7 @@ import Spinner from '../../../../Spinner/Spinner'
 import useErForsteSykmelding from '../../../../../hooks/sykmelding/useErForsteSykmelding'
 import useErUtenforVentetid from '../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { ArbeidssituasjonType, YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
+import { useLockSubmit } from '../../shared/LockSubmitContext'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
@@ -42,9 +43,14 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         error: utenforVentetidError,
     } = useErUtenforVentetid(sykmeldingId)
 
+    const isLoading = forsteSykmeldingLoading || utenforVentetidLoading
+    const hasError = forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData
+
+    useLockSubmit('frilanser-data', isLoading || !!hasError)
+
     const shouldShowSummaryForFrilanser = useShouldShowSummaryForFrilanser()
 
-    if (forsteSykmeldingLoading || utenforVentetidLoading) {
+    if (isLoading) {
         return (
             <div className="mt-8 mb-24">
                 <Spinner headline="Henter ekstra informasjon" />
@@ -52,7 +58,7 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         )
     }
 
-    if (forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData) {
+    if (hasError) {
         return (
             <Alert variant="error" role="alert" className="mt-4">
                 Vi klarte dessverre ikke å hente informasjonen som trengs for at du kan bruke sykmeldingen. Vennligst
