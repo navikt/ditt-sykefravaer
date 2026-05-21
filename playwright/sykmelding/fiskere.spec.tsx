@@ -60,7 +60,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             ).toBeVisible()
 
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
-            await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
 
         test('should disable submit button when er-utenfor-ventetid fails', async ({ page }) => {
@@ -85,7 +84,6 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             ).toBeVisible()
 
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
-            await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
 
         test('should disable submit button while er-forste-sykmelding is loading', async ({ page }) => {

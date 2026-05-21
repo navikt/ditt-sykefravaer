@@ -16,6 +16,7 @@ class MockDb {
     private _antallArbeidsgivere = 1
     private _erForsteSykmelding = true
     private _erUtenforVentetid = false
+    private _optedInSykmeldinger: Set<string> = new Set()
 
     constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
         this._sykmeldinger = scenario.sykmeldinger
@@ -124,6 +125,15 @@ class MockDb {
 
     setErUtenforVentetid(erUtenforVentetid: boolean): void {
         this._erUtenforVentetid = erUtenforVentetid
+    }
+
+    harSoknad(sykmeldingId: string): { harSoknad: boolean } {
+        return { harSoknad: this._optedInSykmeldinger.has(sykmeldingId) }
+    }
+
+    optIn(sykmeldingId: string): { status: string } {
+        this._optedInSykmeldinger.add(sykmeldingId)
+        return { status: 'ok' }
     }
 
     private arbeidsgivere(): Arbeidsgiver[] {

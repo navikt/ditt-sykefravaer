@@ -115,6 +115,5 @@ test.describe('Nullstilling av brukersvar ved bytte av arbeidssituasjon', () => 
         await sendSykmelding(page)
 
         await expect(page.getByText('Sykmeldingen ble sendt')).toBeVisible()
-        await page.unrouteAll({ behavior: 'ignoreErrors' })
     })
 })
