@@ -149,7 +149,9 @@ export function expectDineSvar(svar: {
                 await expect(getInfoItem('Var du syk og borte fra jobb før du ble sykmeldt')(page)).toHaveText(/Nei/)
             } else {
                 await expect(getInfoItem('Var du syk og borte fra jobb før du ble sykmeldt')(page)).toHaveText(/Ja/)
-                await expect(getInfoItem('Ga du beskjed til Nav da du ble syk?')(page)).toHaveText(/Ja/)
+                await expect(
+                    getInfoItem('Ga du beskjed til Nav om at du var syk, før du fikk sykmelding?')(page),
+                ).toHaveText(/Ja/)
                 await expect(getInfoItem(/Når ga du beskjed/)(page)).toHaveText(
                     new RegExp(svar.selvstendig.egenmeldingsperioder.join(''), 'i'),
                 )

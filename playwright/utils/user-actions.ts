@@ -213,7 +213,10 @@ export function frilanserEgenmeldingsperioder(
         ).click()
 
         if (jaEllerNei === 'Ja') {
-            await getRadioInGroup(page)({ name: /Ga du beskjed til Nav da du ble syk/i }, { name: 'Ja' }).click()
+            await getRadioInGroup(page)(
+                { name: /Ga du beskjed til Nav om at du var syk, før du fikk sykmelding?/i },
+                { name: 'Ja' },
+            ).click()
         }
 
         if (Array.isArray(svar)) {

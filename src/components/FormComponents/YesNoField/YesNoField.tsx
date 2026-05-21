@@ -11,7 +11,7 @@ interface Props<
 > {
     name: TName
     legend: string
-    description?: string
+    description?: string | ReactNode
     subtext?: string | ReactNode
     onChange?: (value: YesOrNo) => void
     rules?: Omit<RegisterOptions<TFieldValues, TName>, 'valueAsNumber' | 'valueAsDate' | 'setValueAs' | 'disabled'>

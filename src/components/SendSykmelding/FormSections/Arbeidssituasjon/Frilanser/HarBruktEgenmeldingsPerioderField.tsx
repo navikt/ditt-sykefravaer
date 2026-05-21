@@ -12,6 +12,7 @@ function HarBruktEgenmeldingsPerioderField(): ReactElement {
             <YesNoField<FormValues>
                 name="harBruktEgenmelding"
                 legend={sporsmal.harBruktEgenmelding()}
+                description={<HarBruktEgenmeldingBeskrivelse />}
                 subtext={<HarBruktEgenmeldingReadMore />}
                 rules={{
                     required: 'Du må svare på om du har gitt beskjed til Nav da du ble syk.',
@@ -28,11 +29,16 @@ function HarBruktEgenmeldingReadMore(): ReactElement {
                 Hvis du ga beskjed til Nav da du ble syk og ikke kunne jobbe, starter de første 16 dagene i sykefraværet
                 å telle fra datoen vi fikk beskjed.{' '}
             </BodyShort>
-            <BodyShort spacing>
-                Svar nei på dette spørsmålet hvis du ikke har gitt beskjed til Nav, også selvom du var syk og borte fra
-                jobb før du ble sykmeldt.
-            </BodyShort>
         </ReadMore>
+    )
+}
+
+function HarBruktEgenmeldingBeskrivelse(): ReactElement {
+    return (
+        <>
+            <BodyShort>For eksempel ved at du selv ringte eller skrev melding til Nav.</BodyShort>
+            <BodyShort spacing>Var du syk og borte fra jobb uten å gi beskjed til Nav, svar nei.</BodyShort>
+        </>
     )
 }
 

@@ -12,7 +12,7 @@ export const sporsmal = {
         `Er det ${narmesteLederNavn} som skal følge deg opp på jobben mens du er syk?`,
     sykFoerSykmeldingen: (sykmeldingStartDato: string, createDate = () => toReadableDate(sykmeldingStartDato)) =>
         `Var du syk og borte fra jobb før du ble sykmeldt ${createDate()}?`,
-    harBruktEgenmelding: () => `Ga du beskjed til Nav da du ble syk?`,
+    harBruktEgenmelding: () => `Ga du beskjed til Nav om at du var syk, før du fikk sykmelding?`,
     egenmeldingsperioder: () => `Når ga du beskjed?`,
     harForsikring: 'Har du forsikring som gjelder for de første 16 dagene av sykefraværet?',
     uriktigeOpplysninger: 'Hvilke opplysninger stemmer ikke?',
