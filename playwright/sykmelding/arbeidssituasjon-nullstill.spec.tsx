@@ -1,10 +1,12 @@
 import { expect, test } from '@playwright/test'
 
 import {
+    bekreftNarmesteleder,
     frilanserEgenmeldingsperioder,
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
+    sendSykmelding,
     velgArbeidssituasjon,
     velgArbeidstaker,
     velgForsikring,
@@ -73,5 +75,46 @@ test.describe('Nullstilling av brukersvar ved bytte av arbeidssituasjon', () => 
         await expect(
             getRadioInGroup(page)({ name: /Har du forsikring som gjelder for de første 16 dagene/i }, { name: 'Nei' }),
         ).not.toBeChecked()
+    })
+
+    test('skal fjerne submit-lås når arbeidssituasjon byttes etter at backend-kall feiler', async ({ page }) => {
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid', (route) => {
+            if (route.request().method() === 'GET') {
+                return route.fulfill({
+                    status: 500,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ message: 'Failed to fetch er-utenfor-ventetid' }),
+                })
+            }
+            return route.continue()
+        })
+
+        await gotoScenario('normal')(page)
+        await navigateToFirstSykmelding('nye', '100%')(page)
+        await opplysingeneStemmer(page)
+        await velgArbeidssituasjon('selvstendig næringsdrivende')(page)
+
+        await expect(
+            page.getByText(
+                /Vi klarte dessverre ikke å hente informasjonen som trengs for at du kan bruke sykmeldingen/,
+            ),
+        ).toBeVisible()
+        await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
+
+        await velgArbeidssituasjon('ansatt')(page)
+        await expect(page.getByRole('button', { name: /Send sykmelding/ })).toBeEnabled()
+        await velgArbeidstaker(/Pontypandy Fire Service/)(page)
+        await bekreftNarmesteleder('Station Officer Steele')(page)
+        await getRadioInGroup(page)(
+            { name: /Brukte du egenmelding hos Pontypandy Fire Service i perioden/ },
+            { name: 'Nei' },
+        ).click()
+
+        await expect(page.getByRole('button', { name: /Send sykmelding/ })).toBeEnabled()
+
+        await sendSykmelding(page)
+
+        await expect(page.getByText('Sykmeldingen ble sendt')).toBeVisible()
+        await page.unrouteAll({ behavior: 'ignoreErrors' })
     })
 })

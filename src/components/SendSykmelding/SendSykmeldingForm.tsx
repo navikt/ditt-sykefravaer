@@ -20,6 +20,7 @@ import OpplysningerRiktigeSection from './FormSections/OpplysningerRiktige/Opply
 import ActionSection from './FormSections/ActionSection'
 import ArbeidssituasjonSection from './FormSections/Arbeidssituasjon/ArbeidssituasjonSection'
 import ErrorSection from './FormSections/ErrorSection'
+import { LockSubmitProvider } from './FormSections/shared/LockSubmitContext'
 
 const FormDevTools = dynamic(() => import('../FormComponents/DevTools/FormDevTools'), {
     ssr: false,
@@ -128,29 +129,31 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
 
     return (
         <FormProvider {...form}>
-            {autofillEnabled() && <AutoFillerDevTools sykmeldingId={sykmeldingId} />}
-            <form
-                onSubmit={form.handleSubmit(
-                    () => {
-                        sendSmMut.mutate(form.getValues())
-                    },
-                    () => {
-                        requestAnimationFrame(() => {
-                            errorSectionRef.current?.focus()
-                        })
-                    },
-                )}
-            >
-                <OpplysningerRiktigeSection />
-                <ArbeidssituasjonSection sykmelding={sykmelding} brukerinformasjon={brukerinformasjonData.data} />
-                <ErrorSection ref={errorSectionRef} />
-                <ActionSection
-                    sykmeldingId={sykmeldingId}
-                    sendResult={sendSmMut}
-                    onSykmeldingAvbrutt={onSykmeldingAvbrutt}
-                />
-                {process.env.NODE_ENV !== 'production' && <FormDevTools />}
-            </form>
+            <LockSubmitProvider>
+                {autofillEnabled() && <AutoFillerDevTools sykmeldingId={sykmeldingId} />}
+                <form
+                    onSubmit={form.handleSubmit(
+                        () => {
+                            sendSmMut.mutate(form.getValues())
+                        },
+                        () => {
+                            requestAnimationFrame(() => {
+                                errorSectionRef.current?.focus()
+                            })
+                        },
+                    )}
+                >
+                    <OpplysningerRiktigeSection />
+                    <ArbeidssituasjonSection sykmelding={sykmelding} brukerinformasjon={brukerinformasjonData.data} />
+                    <ErrorSection ref={errorSectionRef} />
+                    <ActionSection
+                        sykmeldingId={sykmeldingId}
+                        sendResult={sendSmMut}
+                        onSykmeldingAvbrutt={onSykmeldingAvbrutt}
+                    />
+                    {process.env.NODE_ENV !== 'production' && <FormDevTools />}
+                </form>
+            </LockSubmitProvider>
         </FormProvider>
     )
 }

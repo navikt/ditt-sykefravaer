@@ -12,6 +12,7 @@ import { SykmeldingChangeStatus, useChangeSykmeldingStatus } from '../../../hook
 import { SendSykmeldingMutation } from '../../../hooks/sykmelding/useSendSykmelding'
 
 import { getTrengerNySykmelding } from './shared/sykmeldingUtils'
+import { useIsSubmitLocked } from './shared/LockSubmitContext'
 
 interface Props {
     sykmeldingId: string
@@ -25,6 +26,7 @@ function ActionSection({ sykmeldingId, sendResult, onSykmeldingAvbrutt }: Props)
     const { watch } = useFormContext<FormValues>()
     const [arbeidssituasjon, fisker] = watch(['arbeidssituasjon', 'fisker'])
     const trengerNySykmelding = getTrengerNySykmelding(watch('uriktigeOpplysninger'))
+    const isSubmitLocked = useIsSubmitLocked()
 
     if (trengerNySykmelding) {
         return <AvbrytTrengerNySykmelding sykmeldingId={sykmeldingId} />
@@ -34,7 +36,13 @@ function ActionSection({ sykmeldingId, sendResult, onSykmeldingAvbrutt }: Props)
         <QuestionWrapper>
             <div className="flex flex-col items-center justify-center gap-4">
                 <div className="flex flex-col gap-8">
-                    <Button id="send-sykmelding-button" variant="primary" type="submit" loading={sendResult.isPending}>
+                    <Button
+                        id="send-sykmelding-button"
+                        variant="primary"
+                        type="submit"
+                        loading={sendResult.isPending}
+                        disabled={isSubmitLocked}
+                    >
                         {isArbeidstaker(arbeidssituasjon, fisker) ? 'Send' : 'Bekreft'} sykmelding
                     </Button>
                     <Button

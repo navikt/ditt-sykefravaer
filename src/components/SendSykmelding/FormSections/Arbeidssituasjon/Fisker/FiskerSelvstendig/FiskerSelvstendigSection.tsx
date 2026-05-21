@@ -13,6 +13,7 @@ import { ArbeidssituasjonType, YesOrNo } from '../../../../../../types/sykmeldin
 import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
 import useErForsteSykmelding from '../../../../../../hooks/sykmelding/useErForsteSykmelding'
 import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
+import { useLockSubmit } from '../../../shared/LockSubmitContext'
 
 interface Props {
     sykmelding: Sykmelding
@@ -33,7 +34,12 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
         error: utenforVentetidError,
     } = useErUtenforVentetid(sykmelding.id)
 
-    if (forsteSykmeldingLoading || utenforVentetidLoading) {
+    const isLoading = forsteSykmeldingLoading || utenforVentetidLoading
+    const hasError = forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData
+
+    useLockSubmit('fisker-selvstendig-data', isLoading || !!hasError)
+
+    if (isLoading) {
         return (
             <SectionWrapper title="Fravær før sykmeldingen">
                 <Skeleton className="mt-12" />
@@ -45,7 +51,7 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
         )
     }
 
-    if (forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData) {
+    if (hasError) {
         return (
             <Alert variant="error" role="alert" className="mt-4">
                 Vi klarte dessverre ikke å hente informasjonen som trengs for at du kan bruke sykmeldingen. Vennligst
