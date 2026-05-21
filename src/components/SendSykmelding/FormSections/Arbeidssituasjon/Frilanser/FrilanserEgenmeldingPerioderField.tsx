@@ -74,8 +74,8 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
             {harValgtForTidlig && (
                 <Alert variant="info" role="alert" aria-live="polite" className="mt-4">
                     <BodyShort spacing>
-                        Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen. Hvis vi får bekreftet at du
-                        meldte fra {toReadableDate(fromField.value!)}, setter vi{' '}
+                        Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen. Hvis vi har dokumentasjon på at
+                        du ga beskjed fra {toReadableDate(fromField.value!)}, setter vi{' '}
                         {toReadableDate(sekstenDagerFoerSykmeldingen)} som startdato for sykefraværet ditt.
                     </BodyShort>
                     <BodyShort>

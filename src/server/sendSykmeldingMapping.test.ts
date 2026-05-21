@@ -237,7 +237,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'JA',
             },
             harBruktEgenmelding: {
-                sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
+                sporsmaltekst: 'Ga du beskjed til Nav om at du var syk, før du fikk sykmelding?',
                 svar: 'JA',
             },
             egenmeldingsperioder: {
@@ -298,7 +298,7 @@ describe('sendSykmeldingMapping', () => {
                     svar: 'JA',
                 },
                 harBruktEgenmelding: {
-                    sporsmaltekst: 'Ga du beskjed til Nav da du ble syk?',
+                    sporsmaltekst: 'Ga du beskjed til Nav om at du var syk, før du fikk sykmelding?',
                     svar: 'JA',
                 },
                 egenmeldingsperioder: {
