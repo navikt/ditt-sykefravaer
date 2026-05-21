@@ -154,6 +154,12 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
             const body = await parseRequest<SykmeldingChangeStatus>(req)
             return sendJson(mockDb().get(sessionId).changeSykmeldingStatus(params.uuid, body))
         },
+        'GET /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/har-soknad': (params) => {
+            return sendJson(mockDb().get(sessionId).harSoknad(params.uuid))
+        },
+        'POST /api/flex-sykmeldinger-backend/api/v1/sykmeldinger/:uuid/opt-in': (params) => {
+            return sendJson(mockDb().get(sessionId).optIn(params.uuid))
+        },
         'GET /api/sykepengedager-informasjon/api/v1/sykepenger/maxdate': () => {
             return sendJson(testperson.maxdato)
         },

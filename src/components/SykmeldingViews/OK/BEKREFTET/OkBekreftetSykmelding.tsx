@@ -1,10 +1,12 @@
-import { ReactElement } from 'react'
+import React, { ReactElement } from 'react'
 import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
+import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
+import { VentetidInfo } from '../../../SykmeldingVentetid/VentetidInfo'
 
 interface OkBekreftetSykmeldingProps {
     sykmelding: Sykmelding
@@ -36,6 +38,13 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
                             GJØR UTFYLLINGEN PÅ NYTT
                         </Button>
                     </div>
+                </div>
+            )}
+
+            {(sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
+                sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER) && (
+                <div className="mb-8">
+                    <VentetidInfo sykmeldingId={sykmelding.id} />
                 </div>
             )}
 
