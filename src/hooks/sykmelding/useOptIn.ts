@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
-import { fetchJsonMedRequestId } from '../../utils/fetch'
+import fetchMedRequestId from '../../utils/fetch'
 import { UseTestpersonQuery } from '../useTestpersonQuery'
 
 export default function useOptIn(sykmeldingId: string) {
@@ -9,7 +9,7 @@ export default function useOptIn(sykmeldingId: string) {
 
     return useMutation<unknown, Error, void>({
         mutationFn: async () => {
-            return fetchJsonMedRequestId(
+            return fetchMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
                     sykmeldingId +
                     '/opt-in' +
