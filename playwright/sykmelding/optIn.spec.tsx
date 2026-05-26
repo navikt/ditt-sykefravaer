@@ -79,6 +79,45 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
 
+    test('viser info-alert etter vellykket opt-in', async ({ page }) => {
+        let optInCalled = false
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/opt-in*', (route) => {
+            if (route.request().method() === 'POST') {
+                optInCalled = true
+                return route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify({ status: 'ok' }),
+                })
+            }
+            return route.continue()
+        })
+
+        await gotoScenario('normal', {
+            erForsteSykmelding: false,
+            erUtenforVentetid: true,
+        })(page)
+        await navigateToFirstSykmelding('nye', '100%')(page)
+        await opplysingeneStemmer(page)
+        await velgArbeidssituasjon('frilanser')(page)
+        await bekreftSykmelding(page)
+
+        await page.waitForURL('**/kvittering')
+
+        await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
+        await page.getByRole('button', { name: 'Jeg vil søke om sykepenger' }).click()
+
+        expect(optInCalled).toBe(true)
+        await expect(
+            page.getByRole('heading', { name: 'Vi oppretter søknad etter sykmeldingsperioden er over' }),
+        ).toBeVisible()
+        await expect(
+            page.getByText(
+                'Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for sykmeldingsperioden.',
+            ),
+        ).toBeVisible()
+    })
+
     test('kaller opt-in-endepunktet når knappen trykkes', async ({ page }) => {
         let optInCalled = false
         await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/opt-in*', (route) => {

@@ -1,5 +1,5 @@
-import React, { ReactElement } from 'react'
-import { Button } from '@navikt/ds-react'
+import React, { ReactElement, useState } from 'react'
+import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
@@ -15,9 +15,23 @@ interface OkBekreftetSykmeldingProps {
 }
 
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
+    const [optInSuksess, setOptInSuksess] = useState(false)
     const optInFrist = finnOptInFrist(sykmelding)
     return (
         <div className="sykmelding-container">
+            {optInSuksess && (
+                <div className="mb-4">
+                    <Alert variant="info" role="status">
+                        <Heading size="small" level="3" spacing>
+                            Vi oppretter søknad etter sykmeldingsperioden er over
+                        </Heading>
+                        <BodyShort>
+                            Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for
+                            sykmeldingsperioden.
+                        </BodyShort>
+                    </Alert>
+                </div>
+            )}
             <div className="mb-4">
                 <StatusBanner
                     sykmeldingStatus={sykmelding.sykmeldingStatus}
@@ -46,7 +60,11 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
             {(sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER) && (
                 <div className="mb-8">
-                    <VentetidInfo sykmeldingId={sykmelding.id} optInFrist={optInFrist} />
+                    <VentetidInfo
+                        sykmeldingId={sykmelding.id}
+                        optInFrist={optInFrist}
+                        onOptInSuccess={() => setOptInSuksess(true)}
+                    />
                 </div>
             )}
 

@@ -7,7 +7,15 @@ import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 
 import { OptIn } from './OptIn'
 
-export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: string; optInFrist: Date }): ReactElement {
+export function VentetidInfo({
+    sykmeldingId,
+    optInFrist,
+    onOptInSuccess,
+}: {
+    sykmeldingId: string
+    optInFrist: Date
+    onOptInSuccess?: () => void
+}): ReactElement {
     const [open, setOpen] = useState(false)
     const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
 
@@ -43,7 +51,7 @@ export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: strin
                 <BodyShort spacing>Da må du søke innen {tilLesbarDatoMedArstall(optInFrist)}.</BodyShort>
                 <BodyShort spacing>Da sender vi deg en søknad når sykmeldingsperioden er over.</BodyShort>
                 {sykmeldingNyereEnn4Mnd ? (
-                    <OptIn sykmeldingId={sykmeldingId} enabled={open} />
+                    <OptIn sykmeldingId={sykmeldingId} enabled={open} onOptInSuccess={onOptInSuccess} />
                 ) : (
                     <Alert variant="info">
                         <Heading size="small" level="3" spacing>
