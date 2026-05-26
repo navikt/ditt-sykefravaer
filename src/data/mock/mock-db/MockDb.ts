@@ -100,6 +100,7 @@ class MockDb {
             )
 
             sykmelding.sykmeldingStatus.statusEvent = StatusEvent.SENDT
+            sykmelding.sykmeldingStatus.timestamp = new Date().toISOString()
             sykmelding.sykmeldingStatus.arbeidsgiver = selectedArbeidsgiver
                 ? {
                       orgnummer: selectedArbeidsgiver.orgnummer,
@@ -108,6 +109,7 @@ class MockDb {
                 : null
         } else {
             sykmelding.sykmeldingStatus.statusEvent = StatusEvent.BEKREFTET
+            sykmelding.sykmeldingStatus.timestamp = new Date().toISOString()
         }
 
         sykmelding.sykmeldingStatus.brukerSvar = apiValues as unknown as BrukerSvar
