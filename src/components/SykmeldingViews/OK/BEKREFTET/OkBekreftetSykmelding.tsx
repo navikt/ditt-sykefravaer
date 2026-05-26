@@ -1,5 +1,5 @@
 import React, { ReactElement, useState } from 'react'
-import { Alert, BodyShort, Button, Heading } from '@navikt/ds-react'
+import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
@@ -8,6 +8,7 @@ import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../SykmeldingVentetid/VentetidInfo'
+import { OptInSuksessAlert } from '../../../SykmeldingVentetid/OptInSuksessAlert'
 
 interface OkBekreftetSykmeldingProps {
     sykmelding: Sykmelding
@@ -21,15 +22,7 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
         <div className="sykmelding-container">
             {optInSuksess && (
                 <div className="mb-4">
-                    <Alert variant="info" role="status">
-                        <Heading size="small" level="3" spacing>
-                            Vi oppretter søknad etter sykmeldingsperioden er over
-                        </Heading>
-                        <BodyShort>
-                            Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for
-                            sykmeldingsperioden.
-                        </BodyShort>
-                    </Alert>
+                    <OptInSuksessAlert />
                 </div>
             )}
             <div className="mb-4">

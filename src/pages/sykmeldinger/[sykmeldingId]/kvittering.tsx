@@ -24,6 +24,7 @@ import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
+import { OptInSuksessAlert } from '../../../components/SykmeldingVentetid/OptInSuksessAlert'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -96,15 +97,7 @@ function SykmeldingkvitteringPage(): ReactElement {
         <KvitteringWrapper sykmelding={data}>
             {optInSuksess && (
                 <div className="mb-8">
-                    <Alert variant="info" role="status">
-                        <Heading size="small" level="3" spacing>
-                            Vi oppretter søknad etter sykmeldingsperioden er over
-                        </Heading>
-                        <BodyShort>
-                            Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for
-                            sykmeldingsperioden.
-                        </BodyShort>
-                    </Alert>
+                    <OptInSuksessAlert />
                 </div>
             )}
             <div className="mb-8">
