@@ -4,7 +4,15 @@ import { Alert, Button, Skeleton } from '@navikt/ds-react'
 import useHarSoknad from '../../hooks/sykmelding/useHarSoknad'
 import useOptIn from '../../hooks/sykmelding/useOptIn'
 
-export function OptIn({ sykmeldingId, enabled }: { sykmeldingId: string; enabled: boolean }): ReactElement {
+export function OptIn({
+    sykmeldingId,
+    enabled,
+    onOptInSuccess,
+}: {
+    sykmeldingId: string
+    enabled: boolean
+    onOptInSuccess?: () => void
+}): ReactElement {
     const {
         data: harSoknadData,
         isLoading: harSoknadLoading,
@@ -33,7 +41,12 @@ export function OptIn({ sykmeldingId, enabled }: { sykmeldingId: string; enabled
     }
 
     return (
-        <Button variant="secondary-neutral" size="small" loading={optInPending} onClick={() => optIn()}>
+        <Button
+            variant="secondary-neutral"
+            size="small"
+            loading={optInPending}
+            onClick={() => optIn(undefined, { onSuccess: onOptInSuccess })}
+        >
             Jeg vil søke om sykepenger
         </Button>
     )
