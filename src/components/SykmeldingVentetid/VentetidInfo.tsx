@@ -1,11 +1,17 @@
 import { ReactElement, useState } from 'react'
-import { BodyShort, Heading, ReadMore } from '@navikt/ds-react'
+import { Alert, BodyShort, Heading, ReadMore } from '@navikt/ds-react'
 
 import { LenkeMedIkon } from '../lenke/lenke-med-ikon'
 
 import { OptIn } from './OptIn'
 
-export function VentetidInfo({ sykmeldingId }: { sykmeldingId: string }): ReactElement {
+export function VentetidInfo({
+    sykmeldingId,
+    sykmeldingNyereEnn4Mnd,
+}: {
+    sykmeldingId: string
+    sykmeldingNyereEnn4Mnd?: boolean
+}): ReactElement {
     const [open, setOpen] = useState(false)
 
     return (
@@ -38,7 +44,13 @@ export function VentetidInfo({ sykmeldingId }: { sykmeldingId: string }): ReactE
                     har du rett til det.
                 </BodyShort>
                 <BodyShort spacing>Da sender vi deg en søknad når sykmeldingsperioden er over.</BodyShort>
-                <OptIn sykmeldingId={sykmeldingId} enabled={open} />
+                {sykmeldingNyereEnn4Mnd ? (
+                    <OptIn sykmeldingId={sykmeldingId} enabled={open} />
+                ) : (
+                    <Alert variant="info">
+                        Du har ikke lenger mulighet til å søke med denne sykmeldingen, da den er eldre enn 4 måneder
+                    </Alert>
+                )}
             </ReadMore>
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager
