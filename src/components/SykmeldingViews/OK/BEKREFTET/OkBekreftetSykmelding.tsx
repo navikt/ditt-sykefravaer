@@ -1,9 +1,9 @@
 import React, { ReactElement } from 'react'
 import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
-import dayjs from 'dayjs'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
+import { isSykmeldingNyereEnnFireMaaneder } from '../../../../utils/sykmeldingUtils'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
@@ -15,9 +15,7 @@ interface OkBekreftetSykmeldingProps {
 }
 
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
-    const sykmeldingNyereEnn4Mnd =
-        sykmelding.sykmeldingStatus.timestamp != null &&
-        dayjs(sykmelding.sykmeldingStatus.timestamp).isAfter(dayjs().subtract(4, 'months'))
+    const sykmeldingNyereEnn4Mnd = isSykmeldingNyereEnnFireMaaneder(sykmelding)
     return (
         <div className="sykmelding-container">
             <div className="mb-4">

@@ -9,6 +9,7 @@ import {
     getSykmeldingStartDate,
     getSykmeldingTitle,
     isActiveSykmelding,
+    isSykmeldingNyereEnnFireMaaneder,
     extractSykmeldingIdFromUrl,
     isValidSykmeldingId,
     validateSykmeldingId,
@@ -23,6 +24,7 @@ const minimalSykmelding: Sykmelding = {
     mottattTidspunkt: dateSub(testDato, { days: 1 }),
     behandlingsutfall: {
         status: RegelStatus.OK,
+        erUnderBehandling: false,
         ruleHits: [],
     },
     arbeidsgiver: null,
@@ -128,6 +130,40 @@ describe('isActiveSykmelding', () => {
                     sykmeldingStatus: {
                         ...minimalSykmelding.sykmeldingStatus,
                         statusEvent: StatusEvent.APEN,
+                    },
+                },
+                testDato,
+            ),
+        ).toBe(false)
+    })
+})
+
+describe('isSykmeldingNyereEnnFireMaaneder', () => {
+    it('burde være true når mottattTidspunkt er nyere enn fire måneder', () => {
+        expect(
+            isSykmeldingNyereEnnFireMaaneder(
+                {
+                    ...minimalSykmelding,
+                    mottattTidspunkt: dateSub(testDato, { months: 3 }),
+                    sykmeldingStatus: {
+                        ...minimalSykmelding.sykmeldingStatus,
+                        timestamp: dateSub(testDato, { months: 12 }),
+                    },
+                },
+                testDato,
+            ),
+        ).toBe(true)
+    })
+
+    it('burde være false når mottattTidspunkt er eldre enn fire måneder', () => {
+        expect(
+            isSykmeldingNyereEnnFireMaaneder(
+                {
+                    ...minimalSykmelding,
+                    mottattTidspunkt: dateSub(testDato, { months: 5 }),
+                    sykmeldingStatus: {
+                        ...minimalSykmelding.sykmeldingStatus,
+                        timestamp: dateSub(testDato, { months: 1 }),
                     },
                 },
                 testDato,

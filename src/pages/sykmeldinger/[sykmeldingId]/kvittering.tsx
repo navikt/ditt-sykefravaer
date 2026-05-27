@@ -5,7 +5,6 @@ import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
 import { range } from 'remeda'
-import dayjs from 'dayjs'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../../../types/sykmelding/sykmelding'
 import StatusBanner from '../../../components/StatusBanner/StatusBanner'
@@ -13,7 +12,11 @@ import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
 import Header from '../../../components/Header/Header'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
-import { getReadableSykmeldingLength, getSentSykmeldingTitle } from '../../../utils/sykmeldingUtils'
+import {
+    getReadableSykmeldingLength,
+    getSentSykmeldingTitle,
+    isSykmeldingNyereEnnFireMaaneder,
+} from '../../../utils/sykmeldingUtils'
 import HintToNextOlderSykmelding from '../../../components/ForceOrder/HintToNextOlderSykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../components/Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import SykmeldingSykmeldtSection from '../../../components/Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
@@ -33,13 +36,6 @@ function SykmeldingkvitteringPage(): ReactElement {
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
-
-    const sykmeldingNyereEnn4Mnd = (): boolean => {
-        return (
-            data?.sykmeldingStatus.timestamp != null &&
-            dayjs(data.sykmeldingStatus.timestamp).isAfter(dayjs().subtract(4, 'months'))
-        )
-    }
 
     if (isPending) {
         return (
@@ -101,6 +97,8 @@ function SykmeldingkvitteringPage(): ReactElement {
         )
     }
 
+    const sykmeldingNyereEnn4Mnd = isSykmeldingNyereEnnFireMaaneder(data)
+
     return (
         <KvitteringWrapper sykmelding={data}>
             <div className="mb-8">
@@ -112,7 +110,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             </div>
             {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
-                <VentetidInfo sykmeldingId={sykmeldingId} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd()} />
+                <VentetidInfo sykmeldingId={sykmeldingId} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd} />
             )}
             <div className="mb-8">
                 <StatusInfo
