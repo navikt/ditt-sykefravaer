@@ -1,4 +1,4 @@
-import { differenceInDays, isAfter, isBefore } from 'date-fns'
+import { differenceInDays, isAfter, isBefore, subMonths } from 'date-fns'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 
@@ -11,6 +11,10 @@ export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = ne
     // APEN sykmeldinger blir inaktive etter 12 måneder
     const mottattDate = toDate(sykmelding.mottattTidspunkt)
     return differenceInDays(dagensDato, mottattDate) < 365
+}
+
+export function isSykmeldingNyereEnnFireMaaneder(sykmelding: Sykmelding, dagensDato: Date = new Date()): boolean {
+    return isAfter(toDate(sykmelding.mottattTidspunkt), subMonths(dagensDato, 4))
 }
 
 export function isUnderbehandling(sykmelding: Sykmelding): boolean {
