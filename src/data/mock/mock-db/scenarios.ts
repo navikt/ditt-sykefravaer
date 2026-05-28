@@ -1,5 +1,6 @@
 import { Merknadtype, Periodetype, RegelStatus, StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 
 import { SykmeldingBuilder } from './data-creators'
 
@@ -605,6 +606,17 @@ export const e2eScenarios = {
                     )
                     .build(),
                 new SykmeldingBuilder(-14).bekreft().enkelPeriode({ offset: 0, days: 12 }).build(),
+            ],
+        }),
+    },
+    bekreftetFrilanser: {
+        description: 'En bekreftet sykmelding for frilanser (brukes for ventetid-tester)',
+        scenario: () => ({
+            sykmeldinger: [
+                new SykmeldingBuilder(-14, 'id-bekreftet-frilanser')
+                    .bekreft(ArbeidssituasjonType.FRILANSER)
+                    .enkelPeriode({ offset: 0, days: 10 })
+                    .build(),
             ],
         }),
     },
