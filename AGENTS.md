@@ -71,6 +71,20 @@ npx playwright test playwright/sykmelding  # kun sykmelding-tester
 npx playwright test --ui                 # interaktiv UI-modus
 ```
 
+## Git-commits
+
+Commit-meldinger skal være **korte og beskrivende** på norsk eller engelsk — uten konvensjonelle prefikser som `feat:`, `fix:`, `chore:` o.l.
+
+```bash
+# ✅ Riktig
+git commit -m "Vis opt-in info kun for sykmeldinger innenfor ventetiden"
+git commit -m "Legg til Playwright-tester for ventetid-filtrering"
+
+# ❌ Feil
+git commit -m "feat: vis opt-in info kun for sykmeldinger innenfor ventetiden"
+git commit -m "fix: bruk fixtures-import for expect"
+```
+
 ## Viktige mønstre
 
 ### Mock-backend
