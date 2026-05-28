@@ -38,7 +38,16 @@ Testfiler ligger i `playwright/` og er organisert etter domene:
 | `gotoScenario(scenario, opts)` | `utils/user-actions` | Naviger til scenario |
 | `navigateToFirstSykmelding(type, variant)` | `utils/user-actions` | Åpne første sykmelding i liste |
 
-**Negasjoner** (`not.toBeVisible()`) skrives fortsatt med `expect` direkte — hjelpefunksjonene støtter ikke negasjon.
+**Negasjoner** (`not.toBeVisible()`) skrives med `expect` direkte og ved å hente locatoren selv. `harSynligOverskrift` og `harSynligTekst` returnerer nok locatoren, men kaller `expect(locator).toBeVisible()` internt — testen vil feile der før du rekker å bruke `.not`.
+
+```ts
+// ✅ Riktig for negasjon
+await expect(page.getByRole('heading', { name: 'Hva skjer videre?', level: 2 })).not.toBeVisible()
+
+// ❌ Vil feile inne i hjelpefunksjonen
+const locator = await harSynligOverskrift(page, 'Hva skjer videre?', 2) // kaster her
+await expect(locator).not.toBeVisible()
+```
 
 **Tilgjengelige scenario-parametre i `gotoScenario()`:**
 - `erUtenforVentetid: boolean` — styrer ventetid-svar fra mock-backend
