@@ -216,7 +216,9 @@ export class SykmeldingBuilder {
     bekreft(
         arbeidssituasjon:
             | ArbeidssituasjonType.ANNET
-            | ArbeidssituasjonType.ARBEIDSLEDIG = ArbeidssituasjonType.ARBEIDSLEDIG,
+            | ArbeidssituasjonType.ARBEIDSLEDIG
+            | ArbeidssituasjonType.NAERINGSDRIVENDE
+            | ArbeidssituasjonType.FRILANSER = ArbeidssituasjonType.ARBEIDSLEDIG,
     ): SykmeldingBuilder {
         this._sykmelding.sykmeldingStatus.statusEvent = StatusEvent.BEKREFTET
         this._sykmelding.sykmeldingStatus.timestamp = this.mottatt
