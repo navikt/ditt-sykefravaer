@@ -3,11 +3,12 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchJsonMedRequestId } from '../../utils/fetch'
 import { UseTestpersonQuery } from '../useTestpersonQuery'
 
-export default function useErUtenforVentetid(sykmeldingId: string) {
+export default function useErUtenforVentetid(sykmeldingId: string, enabled = true) {
     const testpersonQuery = UseTestpersonQuery()
 
     return useQuery<UtenforVentetid, Error>({
         queryKey: ['er-utenfor-ventetid', sykmeldingId],
+        enabled,
         queryFn: () =>
             fetchJsonMedRequestId(
                 '/syk/sykefravaer/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/' +
