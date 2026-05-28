@@ -27,9 +27,8 @@ Testfiler ligger i `playwright/` og er organisert etter domene:
 
 **Eksempel:**
 ```ts
+import { expect, test } from '../utils/fixtures'
 import { gotoScenario } from '../utils/user-actions'
-import { test } from '../utils/fixtures'
-import { expect } from '@playwright/test'
 
 test('viser riktig innhold', async ({ page }) => {
     await gotoScenario('bekreftetFrilanser', { erUtenforVentetid: false })(page)

@@ -1,7 +1,6 @@
-import { expect } from '@playwright/test'
+import { expect, test } from '../utils/fixtures'
 
 import { gotoScenario } from '../utils/user-actions'
-import { test } from '../utils/fixtures'
 
 const VENTETID_HEADING = 'Hva skjer videre?'
 const OPT_IN_READ_MORE = 'Om din rett til å søke om sykepenger'
