@@ -9,6 +9,7 @@ import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../SykmeldingVentetid/VentetidInfo'
 import { OptInSuksessAlert } from '../../../SykmeldingVentetid/OptInSuksessAlert'
+import useErUtenforVentetid from '../../../../hooks/sykmelding/useErUtenforVentetid'
 
 interface OkBekreftetSykmeldingProps {
     sykmelding: Sykmelding
@@ -18,6 +19,12 @@ interface OkBekreftetSykmeldingProps {
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
     const [optInSuksess, setOptInSuksess] = useState(false)
     const optInFrist = finnOptInFrist(sykmelding)
+
+    const erNaeringsdrivendeEllerFrilanser =
+        sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
+        sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER
+
+    const { data: utenforVentetidData } = useErUtenforVentetid(sykmelding.id, erNaeringsdrivendeEllerFrilanser)
     return (
         <div className="sykmelding-container">
             {optInSuksess && (
@@ -50,8 +57,7 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
                 </div>
             )}
 
-            {(sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
-                sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER) && (
+            {erNaeringsdrivendeEllerFrilanser && utenforVentetidData?.erUtenforVentetid === false && (
                 <div className="mb-8">
                     <VentetidInfo
                         sykmeldingId={sykmelding.id}
