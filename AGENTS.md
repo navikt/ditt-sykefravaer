@@ -14,11 +14,31 @@ Testfiler ligger i `playwright/` og er organisert etter domene:
 
 **Når du skal skrive Playwright-tester:**
 1. Legg testen i riktig undermappe under `playwright/`
-2. Importer fixtures fra `playwright/utils/fixtures` (ikke direkte fra `@playwright/test`)
-3. Bruk `gotoScenario()` fra `playwright/utils/user-actions` for å sette opp tilstand
-4. Bruk `navigateToFirstSykmelding()` der du trenger å åpne en spesifikk sykmelding
-5. Opprett nye scenarios i `src/data/mock/mock-db/scenarios.ts` ved behov
-6. Utvid `SykmeldingBuilder` i `src/data/mock/mock-db/data-creators.ts` om testdataen mangler
+2. Importer `test` og `expect` fra `playwright/utils/fixtures` (ikke direkte fra `@playwright/test`)
+3. Bruk hjelpefunksjonene i `playwright/utils/` fremfor rå `page.getBy*`-kall (se tabell under)
+4. Bruk `gotoScenario()` fra `playwright/utils/user-actions` for å sette opp tilstand
+5. Bruk `navigateToFirstSykmelding()` der du trenger å åpne en spesifikk sykmelding
+6. Legg til `validerAxe(page, testInfo)` på positive tester for tilgjengelighetssjekk
+7. Opprett nye scenarios i `src/data/mock/mock-db/scenarios.ts` ved behov
+8. Utvid `SykmeldingBuilder` i `src/data/mock/mock-db/data-creators.ts` om testdataen mangler
+
+### Playwright-utils — bruk disse fremfor rå page-kall
+
+| Funksjon | Fra | Bruksområde |
+|----------|-----|-------------|
+| `harSynligOverskrift(page, tekst, level)` | `utils/test-utils` | Sjekk at en heading er synlig |
+| `harSynligTekst(page, tekst)` | `utils/test-utils` | Sjekk at en tekst er synlig |
+| `apneReadmore(page, tittel, [forventetTekst])` | `utils/test-utils` | Åpne ReadMore og verifiser innhold |
+| `getRadioInGroup(page)(group, radio)` | `utils/test-utils` | Velg radioknapp i gruppe |
+| `getCheckboxInGroup(page)(group, cb)` | `utils/test-utils` | Velg checkbox i gruppe |
+| `validerAxe(page, testInfo)` | `utils/uuvalidering` | WCAG-sjekk (legg til på positive tester) |
+| `validerCLS(getCLS, navn)` | `utils/cls-validering` | Layout stability-sjekk |
+| `expectKvittering(opts)` | `utils/user-expects` | Verifiser kvitteringsside (SENDT) |
+| `expectDineSvar(svar)` | `utils/user-expects` | Verifiser brukerens svar-seksjon |
+| `gotoScenario(scenario, opts)` | `utils/user-actions` | Naviger til scenario |
+| `navigateToFirstSykmelding(type, variant)` | `utils/user-actions` | Åpne første sykmelding i liste |
+
+**Negasjoner** (`not.toBeVisible()`) skrives fortsatt med `expect` direkte — hjelpefunksjonene støtter ikke negasjon.
 
 **Tilgjengelige scenario-parametre i `gotoScenario()`:**
 - `erUtenforVentetid: boolean` — styrer ventetid-svar fra mock-backend
@@ -29,10 +49,18 @@ Testfiler ligger i `playwright/` og er organisert etter domene:
 ```ts
 import { expect, test } from '../utils/fixtures'
 import { gotoScenario } from '../utils/user-actions'
+import { apneReadmore, harSynligOverskrift, harSynligTekst } from '../utils/test-utils'
+import { validerAxe } from '../utils/uuvalidering'
 
-test('viser riktig innhold', async ({ page }) => {
+test('viser riktig innhold', async ({ page }, testInfo) => {
     await gotoScenario('bekreftetFrilanser', { erUtenforVentetid: false })(page)
-    await expect(page.getByRole('heading', { name: 'Hva skjer videre?' })).toBeVisible()
+    await page.getByRole('region', { name: /Tidligere sykmeldinger/i }).getByRole('link').first().click()
+
+    await harSynligOverskrift(page, 'Hva skjer videre?', 2)
+    await harSynligTekst(page, 'Hvis du er syk i mindre enn 16 dager')
+    await apneReadmore(page, 'Om din rett til å søke om sykepenger', ['Det er Nav som avgjør'])
+
+    await validerAxe(page, testInfo)
 })
 ```
 
