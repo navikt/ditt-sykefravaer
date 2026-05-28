@@ -24,6 +24,7 @@ import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
+import useErUtenforVentetid from '../../../hooks/sykmelding/useErUtenforVentetid'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -32,6 +33,14 @@ function SykmeldingkvitteringPage(): ReactElement {
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+
+    const erNaeringsdrivendeEllerFrilanser =
+        arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
+        arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER
+
+    const { data: utenforVentetidData } = useErUtenforVentetid(sykmeldingId, erNaeringsdrivendeEllerFrilanser)
+
+
     if (isPending) {
         return (
             <KvitteringWrapper>
@@ -100,8 +109,7 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-            {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
-                arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
+            {erNaeringsdrivendeEllerFrilanser && utenforVentetidData?.erUtenforVentetid === false && (
                 <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
             )}
             <div className="mb-8">
