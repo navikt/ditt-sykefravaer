@@ -9,6 +9,26 @@ import {
 } from '../utils/user-actions'
 
 test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
+    let mottattTidspunktForTest: string
+
+    test.beforeEach(async ({ page }) => {
+        mottattTidspunktForTest = new Date().toISOString()
+
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/id-apen-sykmelding', async (route) => {
+            if (route.request().method() === 'GET') {
+                const response = await route.fetch()
+                const json = await response.json()
+                json.mottattTidspunkt = mottattTidspunktForTest
+                return route.fulfill({
+                    status: 200,
+                    contentType: 'application/json',
+                    body: JSON.stringify(json),
+                })
+            }
+            return route.continue()
+        })
+    })
+
     test('viser opt-in-knapp når ingen søknad finnes', async ({ page }) => {
         await gotoScenario('normal', {
             erForsteSykmelding: false,
@@ -149,19 +169,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     })
 
     test('viser varsel når sykmeldingen er eldre enn 4 måneder', async ({ page }) => {
-        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/id-apen-sykmelding', async (route) => {
-            if (route.request().method() === 'GET') {
-                const response = await route.fetch()
-                const json = await response.json()
-                json.sykmeldingStatus.timestamp = new Date('2025-01-01').toISOString()
-                return route.fulfill({
-                    status: 200,
-                    contentType: 'application/json',
-                    body: JSON.stringify(json),
-                })
-            }
-            return route.continue()
-        })
+        mottattTidspunktForTest = new Date('2025-01-01').toISOString()
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
