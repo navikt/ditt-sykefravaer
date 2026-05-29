@@ -1,22 +1,23 @@
 import { describe, expect, it } from 'vitest'
+import { addDays, addMonths } from 'date-fns'
 
 import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
 
 import {
+    extractSykmeldingIdFromUrl,
+    extractSykmeldingIdPdfUrl,
+    finnOptInFrist,
     getReadableSykmeldingLength,
     getSykmeldingEndDate,
     getSykmeldingStartDate,
     getSykmeldingTitle,
     isActiveSykmelding,
-    isSykmeldingNyereEnnFireMaaneder,
-    extractSykmeldingIdFromUrl,
+    isPostSykmeldingSend,
     isValidSykmeldingId,
     validateSykmeldingId,
-    isPostSykmeldingSend,
-    extractSykmeldingIdPdfUrl,
 } from './sykmeldingUtils'
-import { dateSub } from './dateUtils'
+import { dateSub, toDate } from './dateUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'
 
 const minimalSykmelding: Sykmelding = {
@@ -138,37 +139,31 @@ describe('isActiveSykmelding', () => {
     })
 })
 
-describe('isSykmeldingNyereEnnFireMaaneder', () => {
-    it('burde være true når mottattTidspunkt er nyere enn fire måneder', () => {
-        expect(
-            isSykmeldingNyereEnnFireMaaneder(
-                {
-                    ...minimalSykmelding,
-                    mottattTidspunkt: dateSub(testDato, { months: 3 }),
-                    sykmeldingStatus: {
-                        ...minimalSykmelding.sykmeldingStatus,
-                        timestamp: dateSub(testDato, { months: 12 }),
-                    },
-                },
-                testDato,
-            ),
-        ).toBe(true)
+describe('finnOptInFrist', () => {
+    it('burde returnere fire måneder og én dag etter mottattTidspunkt', () => {
+        const sykmelding = {
+            ...minimalSykmelding,
+            mottattTidspunkt: dateSub(testDato, { months: 3 }),
+        }
+
+        expect(finnOptInFrist(sykmelding).getTime()).toBe(
+            addDays(addMonths(toDate(sykmelding.mottattTidspunkt), 4), 1).getTime(),
+        )
     })
 
-    it('burde være false når mottattTidspunkt er eldre enn fire måneder', () => {
-        expect(
-            isSykmeldingNyereEnnFireMaaneder(
-                {
-                    ...minimalSykmelding,
-                    mottattTidspunkt: dateSub(testDato, { months: 5 }),
-                    sykmeldingStatus: {
-                        ...minimalSykmelding.sykmeldingStatus,
-                        timestamp: dateSub(testDato, { months: 1 }),
-                    },
-                },
-                testDato,
-            ),
-        ).toBe(false)
+    it('burde bruke mottattTidspunkt og ikke sykmeldingStatus.timestamp', () => {
+        const sykmelding = {
+            ...minimalSykmelding,
+            mottattTidspunkt: dateSub(testDato, { months: 5 }),
+            sykmeldingStatus: {
+                ...minimalSykmelding.sykmeldingStatus,
+                timestamp: dateSub(testDato, { months: 1 }),
+            },
+        }
+
+        expect(finnOptInFrist(sykmelding).getTime()).toBe(
+            addDays(addMonths(toDate(sykmelding.mottattTidspunkt), 4), 1).getTime(),
+        )
     })
 })
 

@@ -1,18 +1,15 @@
 import { ReactElement, useState } from 'react'
 import { Alert, BodyShort, Heading, ReadMore } from '@navikt/ds-react'
+import { isAfter } from 'date-fns'
 
 import { LenkeMedIkon } from '../lenke/lenke-med-ikon'
+import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 
 import { OptIn } from './OptIn'
 
-export function VentetidInfo({
-    sykmeldingId,
-    sykmeldingNyereEnn4Mnd,
-}: {
-    sykmeldingId: string
-    sykmeldingNyereEnn4Mnd?: boolean
-}): ReactElement {
+export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: string; optInFrist: Date }): ReactElement {
     const [open, setOpen] = useState(false)
+    const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
 
     return (
         <>
@@ -39,16 +36,20 @@ export function VentetidInfo({
                 <BodyShort className="mt-4" weight="semibold" spacing>
                     Vil du søke om sykepenger?
                 </BodyShort>
-                <BodyShort spacing>
+                <BodyShort>
                     Hvis du mener du har rett på sykepenger for denne sykmeldingsperioden og du vil søke om sykepenger,
                     har du rett til det.
                 </BodyShort>
+                <BodyShort spacing>Da må du søke innen {tilLesbarDatoMedArstall(optInFrist)}.</BodyShort>
                 <BodyShort spacing>Da sender vi deg en søknad når sykmeldingsperioden er over.</BodyShort>
                 {sykmeldingNyereEnn4Mnd ? (
                     <OptIn sykmeldingId={sykmeldingId} enabled={open} />
                 ) : (
                     <Alert variant="info">
-                        Du har ikke lenger mulighet til å søke med denne sykmeldingen, da den er eldre enn 4 måneder
+                        <Heading size="small" level="3" spacing>
+                            Søknadsfristen er gått ut.
+                        </Heading>
+                        Hvis du mener det har skjedd en feil, kan du kontakte Nav for å få hjelp.
                     </Alert>
                 )}
             </ReadMore>
