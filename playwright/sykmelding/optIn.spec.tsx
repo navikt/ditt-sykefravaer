@@ -186,11 +186,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         await expect(readMore).toBeVisible()
         await readMore.click()
 
-        await expect(
-            page.getByText(
-                'Du har ikke lenger mulighet til å søke med denne sykmeldingen, da den er eldre enn 4 måneder',
-            ),
-        ).toBeVisible()
+        await expect(page.getByText('Søknadsfristen er gått ut')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
 })

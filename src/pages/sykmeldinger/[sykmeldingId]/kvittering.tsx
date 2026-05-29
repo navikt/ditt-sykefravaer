@@ -12,11 +12,7 @@ import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
 import Header from '../../../components/Header/Header'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
-import {
-    getReadableSykmeldingLength,
-    getSentSykmeldingTitle,
-    isSykmeldingNyereEnnFireMaaneder,
-} from '../../../utils/sykmeldingUtils'
+import { finnOptInFrist, getReadableSykmeldingLength, getSentSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import HintToNextOlderSykmelding from '../../../components/ForceOrder/HintToNextOlderSykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../components/Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import SykmeldingSykmeldtSection from '../../../components/Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
@@ -36,7 +32,6 @@ function SykmeldingkvitteringPage(): ReactElement {
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
-
     if (isPending) {
         return (
             <KvitteringWrapper>
@@ -46,7 +41,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (error) {
         return (
             <KvitteringWrapper>
@@ -56,7 +50,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (data == null) {
         logger.error(`Sykmelding with id ${sykmeldingId} is undefined`)
         return (
@@ -67,7 +60,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (
         data.behandlingsutfall.status === RegelStatus.INVALID ||
         ![StatusEvent.SENDT, StatusEvent.BEKREFTET].includes(data.sykmeldingStatus.statusEvent)
@@ -97,7 +89,7 @@ function SykmeldingkvitteringPage(): ReactElement {
         )
     }
 
-    const sykmeldingNyereEnn4Mnd = isSykmeldingNyereEnnFireMaaneder(data)
+    const optInFrist = finnOptInFrist(data)
 
     return (
         <KvitteringWrapper sykmelding={data}>
@@ -110,7 +102,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             </div>
             {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
-                <VentetidInfo sykmeldingId={sykmeldingId} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd} />
+                <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
             )}
             <div className="mb-8">
                 <StatusInfo

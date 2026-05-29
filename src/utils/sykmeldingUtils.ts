@@ -1,4 +1,4 @@
-import { differenceInDays, isAfter, isBefore, subMonths } from 'date-fns'
+import { addDays, addMonths, differenceInDays, isAfter, isBefore } from 'date-fns'
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 
@@ -13,8 +13,8 @@ export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = ne
     return differenceInDays(dagensDato, mottattDate) < 365
 }
 
-export function isSykmeldingNyereEnnFireMaaneder(sykmelding: Sykmelding, dagensDato: Date = new Date()): boolean {
-    return isAfter(toDate(sykmelding.mottattTidspunkt), subMonths(dagensDato, 4))
+export function finnOptInFrist(sykmelding: Sykmelding): Date {
+    return addDays(addMonths(toDate(sykmelding.mottattTidspunkt), 4), 1)
 }
 
 export function isUnderbehandling(sykmelding: Sykmelding): boolean {

@@ -3,7 +3,7 @@ import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
-import { isSykmeldingNyereEnnFireMaaneder } from '../../../../utils/sykmeldingUtils'
+import { finnOptInFrist } from '../../../../utils/sykmeldingUtils'
 import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
@@ -15,7 +15,7 @@ interface OkBekreftetSykmeldingProps {
 }
 
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
-    const sykmeldingNyereEnn4Mnd = isSykmeldingNyereEnnFireMaaneder(sykmelding)
+    const optInFrist = finnOptInFrist(sykmelding)
     return (
         <div className="sykmelding-container">
             <div className="mb-4">
@@ -46,7 +46,7 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
             {(sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER) && (
                 <div className="mb-8">
-                    <VentetidInfo sykmeldingId={sykmelding.id} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd} />
+                    <VentetidInfo sykmeldingId={sykmelding.id} optInFrist={optInFrist} />
                 </div>
             )}
 
