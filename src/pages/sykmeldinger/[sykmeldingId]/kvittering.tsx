@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
 import { Alert, BodyShort, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
@@ -24,12 +24,14 @@ import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
+import { OptInSuksessAlert } from '../../../components/SykmeldingVentetid/OptInSuksessAlert'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
     const { data, error, isPending } = useSykmelding(sykmeldingId)
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
+    const [optInSuksess, setOptInSuksess] = useState(false)
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
     if (isPending) {
@@ -93,6 +95,11 @@ function SykmeldingkvitteringPage(): ReactElement {
 
     return (
         <KvitteringWrapper sykmelding={data}>
+            {optInSuksess && (
+                <div className="mb-8">
+                    <OptInSuksessAlert />
+                </div>
+            )}
             <div className="mb-8">
                 <StatusBanner
                     sykmeldingStatus={data.sykmeldingStatus}
@@ -102,7 +109,11 @@ function SykmeldingkvitteringPage(): ReactElement {
             </div>
             {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
-                <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
+                <VentetidInfo
+                    sykmeldingId={sykmeldingId}
+                    optInFrist={optInFrist}
+                    onOptInSuccess={() => setOptInSuksess(true)}
+                />
             )}
             <div className="mb-8">
                 <StatusInfo

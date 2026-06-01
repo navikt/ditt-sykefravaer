@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useState } from 'react'
 import { Button } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
@@ -8,6 +8,7 @@ import StatusBanner from '../../../StatusBanner/StatusBanner'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../SykmeldingVentetid/VentetidInfo'
+import { OptInSuksessAlert } from '../../../SykmeldingVentetid/OptInSuksessAlert'
 
 interface OkBekreftetSykmeldingProps {
     sykmelding: Sykmelding
@@ -15,9 +16,15 @@ interface OkBekreftetSykmeldingProps {
 }
 
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
+    const [optInSuksess, setOptInSuksess] = useState(false)
     const optInFrist = finnOptInFrist(sykmelding)
     return (
         <div className="sykmelding-container">
+            {optInSuksess && (
+                <div className="mb-4">
+                    <OptInSuksessAlert />
+                </div>
+            )}
             <div className="mb-4">
                 <StatusBanner
                     sykmeldingStatus={sykmelding.sykmeldingStatus}
@@ -46,7 +53,11 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
             {(sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar === ArbeidssituasjonType.FRILANSER) && (
                 <div className="mb-8">
-                    <VentetidInfo sykmeldingId={sykmelding.id} optInFrist={optInFrist} />
+                    <VentetidInfo
+                        sykmeldingId={sykmelding.id}
+                        optInFrist={optInFrist}
+                        onOptInSuccess={() => setOptInSuksess(true)}
+                    />
                 </div>
             )}
 
