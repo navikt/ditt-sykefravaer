@@ -1,11 +1,11 @@
-import { expect, test } from '@playwright/test'
-
+import { expect, test } from '../utils/fixtures'
 import {
     bekreftSykmelding,
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
     velgArbeidssituasjon,
+    velgForsikring,
 } from '../utils/user-actions'
 
 test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
@@ -32,11 +32,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     test('viser opt-in-knapp når ingen søknad finnes', async ({ page }) => {
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -62,11 +63,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -95,11 +97,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -134,11 +137,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -163,11 +167,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -192,11 +197,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
@@ -212,11 +218,12 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await gotoScenario('normal', {
             erForsteSykmelding: false,
-            erUtenforVentetid: true,
+            erUtenforVentetid: false,
         })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
+        await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
 
         await page.waitForURL('**/kvittering')
