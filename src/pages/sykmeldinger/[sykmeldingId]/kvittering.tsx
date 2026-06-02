@@ -32,7 +32,6 @@ function SykmeldingkvitteringPage(): ReactElement {
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
-
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeissituasjonSvar.arbeidssituasjon)
 
     if (isPending) {
