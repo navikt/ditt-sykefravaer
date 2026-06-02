@@ -35,7 +35,6 @@ function SykmeldingkvitteringPage(): ReactElement {
 
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeissituasjonSvar.arbeidssituasjon)
 
-
     if (isPending) {
         return (
             <KvitteringWrapper>
@@ -104,9 +103,7 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-            {visVentetidInfo && (
-                <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
-            )}
+            {visVentetidInfo && <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />}
             <div className="mb-8">
                 <StatusInfo
                     sykmeldingStatus={data.sykmeldingStatus}
