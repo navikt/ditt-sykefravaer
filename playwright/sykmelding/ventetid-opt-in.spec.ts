@@ -1,12 +1,10 @@
 import { expect, test } from '../utils/fixtures'
 import {
     bekreftSykmelding,
-    frilanserEgenmeldingsperioder,
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
     velgArbeidssituasjon,
-    velgForsikring,
 } from '../utils/user-actions'
 import { apneReadmore, harSynligOverskrift, harSynligTekst } from '../utils/test-utils'
 import { validerAxe } from '../utils/uuvalidering'
@@ -65,12 +63,10 @@ test.describe('Opt-in info vises kun for sykmeldinger innenfor ventetiden', () =
         })
 
         test('skjuler opt-in info på kvittering når sykmelding er utenfor ventetiden', async ({ page }) => {
-            await gotoScenario('normal', { erUtenforVentetid: true })(page)
+            await gotoScenario('normal', { erUtenforVentetid: true, erForsteSykmelding: false })(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
             await opplysingeneStemmer(page)
             await velgArbeidssituasjon('frilanser')(page)
-            await frilanserEgenmeldingsperioder('Nei')(page)
-            await velgForsikring('Nei')(page)
             await bekreftSykmelding(page)
 
             await harSynligOverskrift(page, 'Sykmeldingen er sendt', 1)
