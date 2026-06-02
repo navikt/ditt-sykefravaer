@@ -1,5 +1,7 @@
 import { ReactElement } from 'react'
 import { Alert, BodyShort, Button, Heading, Skeleton } from '@navikt/ds-react'
+import Link from 'next/link'
+import { isAfter } from 'date-fns'
 
 import useHarSoknad from '../../hooks/sykmelding/useHarSoknad'
 import useOptIn from '../../hooks/sykmelding/useOptIn'
@@ -7,11 +9,11 @@ import useOptIn from '../../hooks/sykmelding/useOptIn'
 export function OptIn({
     sykmeldingId,
     enabled,
-    sykmeldingNyereEnn4Mnd,
+    optInFrist,
 }: {
     sykmeldingId: string
     enabled: boolean
-    sykmeldingNyereEnn4Mnd: boolean
+    optInFrist: Date
 }): ReactElement {
     const {
         data: harSoknadData,
@@ -24,6 +26,8 @@ export function OptIn({
         isError: optInError,
         isSuccess: optInSuccess,
     } = useOptIn(sykmeldingId)
+
+    const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
 
     if (harSoknadLoading) {
         return <Skeleton width="100%" />
@@ -71,7 +75,13 @@ export function OptIn({
                 <Heading size="small" level="3" spacing>
                     Søknadsfristen er gått ut
                 </Heading>
-                <BodyShort>Hvis du mener det har skjedd en feil, kan du kontakte Nav for å få hjelp.</BodyShort>
+                <BodyShort>
+                    Hvis du mener at dette er feil, kan du{' '}
+                    <Link href="https://www.nav.no/kontaktoss" target="_blank">
+                        kontakte Nav
+                    </Link>{' '}
+                    for å få hjelp.
+                </BodyShort>
             </Alert>
         )
     }

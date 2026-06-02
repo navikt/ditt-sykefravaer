@@ -1,6 +1,5 @@
 import { ReactElement, useState } from 'react'
 import { BodyShort, Heading, ReadMore } from '@navikt/ds-react'
-import { isAfter } from 'date-fns'
 
 import { LenkeMedIkon } from '../lenke/lenke-med-ikon'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
@@ -9,7 +8,6 @@ import { OptIn } from './OptIn'
 
 export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: string; optInFrist: Date }): ReactElement {
     const [open, setOpen] = useState(false)
-    const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
 
     return (
         <>
@@ -41,7 +39,7 @@ export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: strin
                     har du rett til det. Fristen for å be om søknad er {tilLesbarDatoMedArstall(optInFrist)}.
                 </BodyShort>
                 <BodyShort className="mt-4" spacing>
-                    <OptIn sykmeldingId={sykmeldingId} enabled={open} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd} />
+                    <OptIn sykmeldingId={sykmeldingId} enabled={open} optInFrist={optInFrist} />
                 </BodyShort>
             </ReadMore>
             <BodyShort className="mt-6" weight="semibold" spacing>
