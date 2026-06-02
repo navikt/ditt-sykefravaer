@@ -174,7 +174,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
 
-        await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere.')).toBeVisible()
+        await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
 
@@ -204,7 +204,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
         await page.getByRole('button', { name: 'Jeg vil søke om sykepenger' }).click()
 
-        await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere.')).toBeVisible()
+        await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere')).toBeVisible()
     })
 
     test('viser varsel når sykmeldingen er eldre enn 4 måneder', async ({ page }) => {

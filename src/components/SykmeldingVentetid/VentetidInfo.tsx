@@ -34,13 +34,11 @@ export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: strin
                 <BodyShort className="mt-4" weight="semibold" spacing>
                     Vil du søke om sykepenger?
                 </BodyShort>
-                <BodyShort>
+                <BodyShort spacing>
                     Hvis du mener du har rett på sykepenger for denne sykmeldingsperioden og du vil søke om sykepenger,
                     har du rett til det. Fristen for å be om søknad er {tilLesbarDatoMedArstall(optInFrist)}.
                 </BodyShort>
-                <BodyShort className="mt-4" spacing>
-                    <OptIn sykmeldingId={sykmeldingId} enabled={open} optInFrist={optInFrist} />
-                </BodyShort>
+                <OptIn sykmeldingId={sykmeldingId} enabled={open} optInFrist={optInFrist} />
             </ReadMore>
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager

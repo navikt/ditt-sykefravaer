@@ -36,7 +36,9 @@ export function OptIn({
     if (harSoknadError || optInError) {
         return (
             <Alert variant="error" size="small">
-                Beklager, en feil oppstod. Vennligst prøv igjen senere.
+                <Heading size="xsmall" level="3">
+                    Beklager, en feil oppstod. Vennligst prøv igjen senere
+                </Heading>
             </Alert>
         )
     }
@@ -44,7 +46,7 @@ export function OptIn({
     if (harSoknadData?.harSoknad) {
         return (
             <Alert variant="info" role="alert" aria-live="polite" size="small">
-                <Heading size="small" level="3" spacing>
+                <Heading size="xsmall" level="3" spacing>
                     Vi har opprettet søknad for denne perioden
                 </Heading>
                 <BodyShort>
@@ -57,8 +59,8 @@ export function OptIn({
 
     if (optInSuccess) {
         return (
-            <Alert variant="info" className="mt-4" role="alert" aria-live="polite" size="small">
-                <Heading size="small" level="3" spacing>
+            <Alert variant="info" role="alert" aria-live="polite" size="small">
+                <Heading size="xsmall" level="3" spacing>
                     Vi oppretter søknad etter sykmeldingsperioden er over
                 </Heading>
                 <BodyShort>
@@ -72,7 +74,7 @@ export function OptIn({
     if (!sykmeldingNyereEnn4Mnd) {
         return (
             <Alert variant="info" role="alert" aria-live="polite" size="small">
-                <Heading size="small" level="3" spacing>
+                <Heading size="xsmall" level="3" spacing>
                     Søknadsfristen er gått ut
                 </Heading>
                 <BodyShort>
@@ -87,7 +89,7 @@ export function OptIn({
     }
 
     return (
-        <Button variant="secondary-neutral" size="small" loading={optInPending} onClick={() => optIn()}>
+        <Button variant="secondary-neutral" size="medium" loading={optInPending} onClick={() => optIn()}>
             Jeg vil søke om sykepenger
         </Button>
     )
