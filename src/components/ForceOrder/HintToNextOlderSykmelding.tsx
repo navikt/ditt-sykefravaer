@@ -28,18 +28,18 @@ function HintToNextOlderSykmelding(): ReactElement | null {
                 Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
             </BodyLong>
             <Button
-                    as={NextLink}
-                    href={`/sykmeldinger/${earliestId}`}
-                    variant="primary"
-                    onClick={() =>
-                        logUmamiEvent({
-                            eventName: 'navigere',
-                            data: { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' },
-                        })
-                    }
-                >
-                    {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
-                </Button>
+                as={NextLink}
+                href={`/sykmeldinger/${earliestId}`}
+                variant="primary"
+                onClick={() =>
+                    logUmamiEvent({
+                        eventName: 'navigere',
+                        data: { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' },
+                    })
+                }
+            >
+                {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
+            </Button>
         </GuidePanel>
     )
 }

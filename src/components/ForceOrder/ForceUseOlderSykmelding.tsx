@@ -31,18 +31,18 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                 </ReadMore>
             </div>
             <Button
-                    as={NextLink}
-                    href={`/sykmeldinger/${olderSykmeldingId}`}
-                    variant="primary"
-                    onClick={() =>
-                        logEvent('navigere', {
-                            destinasjon: 'neste ubrukte sykmelding (tvungen)',
-                            lenketekst: 'Gå til sykmeldingen',
-                        })
-                    }
-                >
-                    {olderSykmeldingCount > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
-                </Button>
+                as={NextLink}
+                href={`/sykmeldinger/${olderSykmeldingId}`}
+                variant="primary"
+                onClick={() =>
+                    logEvent('navigere', {
+                        destinasjon: 'neste ubrukte sykmelding (tvungen)',
+                        lenketekst: 'Gå til sykmeldingen',
+                    })
+                }
+            >
+                {olderSykmeldingCount > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
+            </Button>
         </GuidePanel>
     )
 }
