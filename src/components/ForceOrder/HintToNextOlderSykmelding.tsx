@@ -1,5 +1,5 @@
 import { BodyLong, Button, GuidePanel } from '@navikt/ds-react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { ReactElement, useEffect } from 'react'
 
 import { toEarliestSykmelding, filterUnsentSykmeldinger } from '../../utils/findOlderSykmeldingId'
@@ -27,9 +27,9 @@ function HintToNextOlderSykmelding(): ReactElement | null {
             <BodyLong spacing>
                 Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
             </BodyLong>
-            <Link passHref href={`/sykmeldinger/${earliestId}`}>
-                <Button
-                    as="a"
+            <Button
+                    as={NextLink}
+                    href={`/sykmeldinger/${earliestId}`}
                     variant="primary"
                     onClick={() =>
                         logUmamiEvent({
@@ -40,7 +40,6 @@ function HintToNextOlderSykmelding(): ReactElement | null {
                 >
                     {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
                 </Button>
-            </Link>
         </GuidePanel>
     )
 }

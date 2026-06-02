@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { BodyLong, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 
 import { pluralize } from '../../utils/stringUtils'
 import { logEvent } from '../umami/umami'
@@ -30,9 +30,9 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                     </div>
                 </ReadMore>
             </div>
-            <Link href={`/sykmeldinger/${olderSykmeldingId}`} passHref>
-                <Button
-                    as="a"
+            <Button
+                    as={NextLink}
+                    href={`/sykmeldinger/${olderSykmeldingId}`}
                     variant="primary"
                     onClick={() =>
                         logEvent('navigere', {
@@ -43,7 +43,6 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                 >
                     {olderSykmeldingCount > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
                 </Button>
-            </Link>
         </GuidePanel>
     )
 }
