@@ -1,5 +1,5 @@
 import { ReactElement, useState } from 'react'
-import { Alert, BodyShort, Heading, ReadMore } from '@navikt/ds-react'
+import { BodyShort, Heading, ReadMore } from '@navikt/ds-react'
 import { isAfter } from 'date-fns'
 
 import { LenkeMedIkon } from '../lenke/lenke-med-ikon'
@@ -7,15 +7,7 @@ import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
 
 import { OptIn } from './OptIn'
 
-export function VentetidInfo({
-    sykmeldingId,
-    optInFrist,
-    onOptInSuccess,
-}: {
-    sykmeldingId: string
-    optInFrist: Date
-    onOptInSuccess?: () => void
-}): ReactElement {
+export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: string; optInFrist: Date }): ReactElement {
     const [open, setOpen] = useState(false)
     const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
 
@@ -46,20 +38,11 @@ export function VentetidInfo({
                 </BodyShort>
                 <BodyShort>
                     Hvis du mener du har rett på sykepenger for denne sykmeldingsperioden og du vil søke om sykepenger,
-                    har du rett til det.
+                    har du rett til det. Fristen for å be om søknad er {tilLesbarDatoMedArstall(optInFrist)}.
                 </BodyShort>
-                <BodyShort spacing>Da må du søke innen {tilLesbarDatoMedArstall(optInFrist)}.</BodyShort>
-                <BodyShort spacing>Da sender vi deg en søknad når sykmeldingsperioden er over.</BodyShort>
-                {sykmeldingNyereEnn4Mnd ? (
-                    <OptIn sykmeldingId={sykmeldingId} enabled={open} onOptInSuccess={onOptInSuccess} />
-                ) : (
-                    <Alert variant="info">
-                        <Heading size="small" level="3" spacing>
-                            Søknadsfristen er gått ut.
-                        </Heading>
-                        Hvis du mener det har skjedd en feil, kan du kontakte Nav for å få hjelp.
-                    </Alert>
-                )}
+                <BodyShort className="mt-4" spacing>
+                    <OptIn sykmeldingId={sykmeldingId} enabled={open} sykmeldingNyereEnn4Mnd={sykmeldingNyereEnn4Mnd} />
+                </BodyShort>
             </ReadMore>
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager

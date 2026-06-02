@@ -75,7 +75,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         await expect(readMore).toBeVisible()
         await readMore.click()
 
-        await expect(page.getByText('Du har en søknad for denne perioden.')).toBeVisible()
+        await expect(page.getByText('Vi har opprettet søknad for denne perioden')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
 
