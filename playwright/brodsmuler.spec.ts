@@ -21,6 +21,9 @@ async function neiTilCookies(page: Page) {
 }
 
 test.describe('Tester Brodsmuler', () => {
+    test.beforeAll(async ({ uuOptions }) => {
+        uuOptions.skipUU = true
+    })
     test('Burde vise brodsmuler på forsiden', async ({ page }) => {
         await page.goto('/syk/sykefravaer')
         await neiTilCookies(page)

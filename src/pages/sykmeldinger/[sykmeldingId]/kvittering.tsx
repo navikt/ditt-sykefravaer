@@ -12,7 +12,7 @@ import StatusInfo from '../../../components/StatusInfo/StatusInfo'
 import useGetSykmeldingIdParam from '../../../hooks/useGetSykmeldingIdParam'
 import Header from '../../../components/Header/Header'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
-import { getReadableSykmeldingLength, getSentSykmeldingTitle } from '../../../utils/sykmeldingUtils'
+import { finnOptInFrist, getReadableSykmeldingLength, getSentSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import HintToNextOlderSykmelding from '../../../components/ForceOrder/HintToNextOlderSykmelding'
 import SykmeldingArbeidsgiverExpansionCard from '../../../components/Sykmelding/SykmeldingerArbeidsgiver/SykmeldingArbeidsgiverExpansionCard'
 import SykmeldingSykmeldtSection from '../../../components/Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
@@ -23,32 +23,7 @@ import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
-import { LenkeMedIkon } from '../../../components/lenke/lenke-med-ikon'
-
-function NaringsdrivendeVentetidInfo() {
-    return (
-        <>
-            <Heading size="medium" level="2" spacing>
-                Hva skjer videre?
-            </Heading>
-            <BodyShort className="mt-6" weight="semibold" spacing>
-                Hvis du er syk i mindre enn 16 dager
-            </BodyShort>
-            <BodyShort spacing>
-                Du får som hovedregel ikke sykepenger de første 16 kalenderdagene. Dagene telles fra du oppsøker lege,
-                eller fra Nav får beskjed om at du er syk og ikke kan jobbe.
-            </BodyShort>
-            <BodyShort className="mt-6" weight="semibold" spacing>
-                Hvis du er syk i mer enn 16 dager
-            </BodyShort>
-            <BodyShort spacing>
-                Varer sykefraværet ditt mer enn 16 dager, dekker Nav sykepengene dine fra dag 17. Vi gir deg beskjed når
-                du kan søke om sykepenger.
-            </BodyShort>
-            <LenkeMedIkon href="https://www.nav.no/sykepenger#hva" text="Les mer om hva du kan få i sykepenger." />
-        </>
-    )
-}
+import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -57,7 +32,6 @@ function SykmeldingkvitteringPage(): ReactElement {
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
     const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
-
     if (isPending) {
         return (
             <KvitteringWrapper>
@@ -67,7 +41,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (error) {
         return (
             <KvitteringWrapper>
@@ -77,7 +50,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (data == null) {
         logger.error(`Sykmelding with id ${sykmeldingId} is undefined`)
         return (
@@ -88,7 +60,6 @@ function SykmeldingkvitteringPage(): ReactElement {
             </KvitteringWrapper>
         )
     }
-
     if (
         data.behandlingsutfall.status === RegelStatus.INVALID ||
         ![StatusEvent.SENDT, StatusEvent.BEKREFTET].includes(data.sykmeldingStatus.statusEvent)
@@ -118,6 +89,8 @@ function SykmeldingkvitteringPage(): ReactElement {
         )
     }
 
+    const optInFrist = finnOptInFrist(data)
+
     return (
         <KvitteringWrapper sykmelding={data}>
             <div className="mb-8">
@@ -129,7 +102,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             </div>
             {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
                 arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
-                <NaringsdrivendeVentetidInfo />
+                <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
             )}
             <div className="mb-8">
                 <StatusInfo

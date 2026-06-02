@@ -1,21 +1,23 @@
 import { describe, expect, it } from 'vitest'
+import { addDays, addMonths } from 'date-fns'
 
 import { Merknadtype, RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 import { testDato } from '../data/mock/mock-db/data-creators'
 
 import {
+    extractSykmeldingIdFromUrl,
+    extractSykmeldingIdPdfUrl,
+    finnOptInFrist,
     getReadableSykmeldingLength,
     getSykmeldingEndDate,
     getSykmeldingStartDate,
     getSykmeldingTitle,
     isActiveSykmelding,
-    extractSykmeldingIdFromUrl,
+    isPostSykmeldingSend,
     isValidSykmeldingId,
     validateSykmeldingId,
-    isPostSykmeldingSend,
-    extractSykmeldingIdPdfUrl,
 } from './sykmeldingUtils'
-import { dateSub } from './dateUtils'
+import { dateSub, toDate } from './dateUtils'
 import { createSykmeldingPeriode } from './test/dataUtils'
 
 const minimalSykmelding: Sykmelding = {
@@ -23,6 +25,7 @@ const minimalSykmelding: Sykmelding = {
     mottattTidspunkt: dateSub(testDato, { days: 1 }),
     behandlingsutfall: {
         status: RegelStatus.OK,
+        erUnderBehandling: false,
         ruleHits: [],
     },
     arbeidsgiver: null,
@@ -133,6 +136,34 @@ describe('isActiveSykmelding', () => {
                 testDato,
             ),
         ).toBe(false)
+    })
+})
+
+describe('finnOptInFrist', () => {
+    it('burde returnere fire måneder og én dag etter mottattTidspunkt', () => {
+        const sykmelding = {
+            ...minimalSykmelding,
+            mottattTidspunkt: dateSub(testDato, { months: 3 }),
+        }
+
+        expect(finnOptInFrist(sykmelding).getTime()).toBe(
+            addDays(addMonths(toDate(sykmelding.mottattTidspunkt), 4), 1).getTime(),
+        )
+    })
+
+    it('burde bruke mottattTidspunkt og ikke sykmeldingStatus.timestamp', () => {
+        const sykmelding = {
+            ...minimalSykmelding,
+            mottattTidspunkt: dateSub(testDato, { months: 5 }),
+            sykmeldingStatus: {
+                ...minimalSykmelding.sykmeldingStatus,
+                timestamp: dateSub(testDato, { months: 1 }),
+            },
+        }
+
+        expect(finnOptInFrist(sykmelding).getTime()).toBe(
+            addDays(addMonths(toDate(sykmelding.mottattTidspunkt), 4), 1).getTime(),
+        )
     })
 })
 
