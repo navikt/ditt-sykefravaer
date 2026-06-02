@@ -43,11 +43,11 @@ export function OptIn({
         )
     }
 
-    if (harSoknadData?.harSoknad) {
+    if (optInSuccess) {
         return (
             <Alert variant="info" role="alert" aria-live="polite" size="small">
                 <Heading size="xsmall" level="3" spacing>
-                    Vi har opprettet søknad for denne perioden
+                    Vi oppretter søknad etter sykmeldingsperioden er over
                 </Heading>
                 <BodyShort>
                     Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for
@@ -57,11 +57,11 @@ export function OptIn({
         )
     }
 
-    if (optInSuccess) {
+    if (harSoknadData?.harSoknad) {
         return (
             <Alert variant="info" role="alert" aria-live="polite" size="small">
                 <Heading size="xsmall" level="3" spacing>
-                    Vi oppretter søknad etter sykmeldingsperioden er over
+                    Vi har opprettet søknad for denne perioden
                 </Heading>
                 <BodyShort>
                     Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for
