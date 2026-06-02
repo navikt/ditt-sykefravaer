@@ -16,10 +16,9 @@ interface OkBekreftetSykmeldingProps {
 
 function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProps): ReactElement {
     const optInFrist = finnOptInFrist(sykmelding)
-    const visVentetidInfo = useVisVentetidInfo(
-        sykmelding.id,
-        sykmelding.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar,
-    )
+    const arbeissituasjonSvar = { arbeidssituasjon: sykmelding?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const visVentetidInfo = useVisVentetidInfo(sykmelding.id, arbeissituasjonSvar.arbeidssituasjon)
+
     return (
         <div className="sykmelding-container">
             <div className="mb-4">
