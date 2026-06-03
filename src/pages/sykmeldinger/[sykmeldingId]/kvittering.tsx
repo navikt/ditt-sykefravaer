@@ -31,8 +31,8 @@ function SykmeldingkvitteringPage(): ReactElement {
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
-    const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
-    const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeissituasjonSvar.arbeidssituasjon)
+    const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
 
     if (isPending) {
         return (
@@ -119,7 +119,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             {data.sykmeldingStatus.statusEvent === 'SENDT' && <SykmeldingArbeidsgiverExpansionCard sykmelding={data} />}
             <HintToNextOlderSykmelding />
             {flexjarToggle.enabled && (
-                <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeissituasjonSvar} />
+                <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeidssituasjonSvar} />
             )}
         </KvitteringWrapper>
     )
