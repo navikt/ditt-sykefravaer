@@ -48,16 +48,78 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
                 <Accordion.Item>
                     <Accordion.Header>Finner du ikke riktig situasjon?</Accordion.Header>
                     <Accordion.Content>
-                        {/* TODO: Innhold ikke spesifisert i Figma-design */}
-                        <BodyShort>Innhold kommer.</BodyShort>
+                        <BodyLong spacing>
+                            Sykepengene skal dekke det du mister av lønn fordi du ikke kan jobbe. Med andre ord skal
+                            sykepengene erstatte tapt arbeidsinntekt. Velg derfor situasjon etter hvordan du jobber (med
+                            mindre du har blitt arbeidsledig).
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du student?</strong>
+                            <br />
+                            Er du sykmeldt fra jobb du har ved siden av studiene, skal du velge <strong>
+                                ansatt
+                            </strong>. <br />
+                            Studerer du uten jobb, har du i utgangspunktet ikke rett til sykepenger fra Nav. Studielån
+                            og stipend gir ikke rett til sykepenger.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du pensjonist?</strong>
+                            <br />
+                            Jobber du ved siden av pensjonen? Velg situasjon etter hva slags type jobb det er (
+                            <strong>ansatt</strong>, <strong>frilanser</strong> eller{' '}
+                            <strong>selvstendig næringsdrivende</strong>). <br />
+                            Jobber du ikke, har du i utgangspunktet ikke rett på sykepenger.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du vernepliktig?</strong>
+                            <br />
+                            Blir du syk under tjenesten, kan du ha rett til sykepenger — men de starter tidligst dagen
+                            etter at du er dimittert. Hadde du jobb før tjenesten og er tilbake i den, velger du{' '}
+                            <strong>ansatt</strong>. Er du dimittert og ikke tilbake i jobb ennå, velger du{' '}
+                            <strong>arbeidsledig</strong>.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du vikar?</strong>
+                            <br />
+                            Du har i utgangspunktet de samme rettighetene som fast ansatte. Velg derfor{' '}
+                            <strong>ansatt</strong>.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du lærling?</strong>
+                            <br />
+                            Du er ansatt hos lærebedriften, så velg <strong>ansatt</strong>.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Er du barnepasser?</strong>
+                            <br />
+                            Med barnepasser (dagmamma) mener vi en som driver privat barnepassvirksomhet i eget hjem,
+                            men ikke familiebarnehage.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            Er du barnepasser i <strong>barnets hjem</strong>, skal du velge <strong>ansatt</strong>.
+                            <br />
+                            Er du barnepasser i <strong>eget hjem</strong>, velger du{' '}
+                            <strong>selvstendig næringsdrivende</strong>.
+                        </BodyLong>
+                        <BodyLong spacing>
+                            <strong>Får du tiltakspenger?</strong>
+                            <br />
+                            Mottar du tiltakspenger har du i utgangspunktet ikke rett til sykepenger fra Nav.
+                        </BodyLong>
+                        <BodyLong>
+                            Er du syk i mer enn 3 dager mens du er i et arbeidsmarkedstiltak, og trenger å levere
+                            sykmelding velger du <strong>arbeidsledig</strong>.
+                            <br />
+                            <br />
+                            Er du fortsatt usikker på hva du skal velge, kan du ringe oss på 55 55 33 33 så skal vi
+                            prøve å hjelpe deg.
+                        </BodyLong>
                     </Accordion.Content>
                 </Accordion.Item>
                 <Accordion.Item>
                     <Accordion.Header>Har du flere jobber?</Accordion.Header>
                     <Accordion.Content>
-                        <BodyLong spacing>
-                            Du trenger én sykmelding per jobb eller arbeidssituasjon du har.
-                        </BodyLong>
+                        <BodyLong spacing>Du trenger én sykmelding per jobb eller arbeidssituasjon du har.</BodyLong>
                         <BodyLong>
                             Denne sykmeldingen gjelder bare for én jobb. Be legen om egne sykmeldinger for hver
                             arbeidssituasjon du er sykmeldt fra.
