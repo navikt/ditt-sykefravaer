@@ -5,7 +5,7 @@ import { Radio, RadioGroup } from '@navikt/ds-react'
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'
-import { arbeidsSituasjonEnumToText, sporsmal } from '../../../../utils/sporsmal'
+import { arbeidssituasjonDescription, arbeidssituasjonLabel, sporsmal } from '../../../../utils/sporsmal'
 
 import AnnetExtraSelect from './AnnetExtraSelect'
 
@@ -25,6 +25,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 {...field}
                 id={field.name}
                 legend={sporsmal.arbeidssituasjon}
+                hideLegend
                 onChange={(value: ArbeidssituasjonType) => {
                     /*      logUmamiEvent({
                               eventName: 'skjema spørsmål besvart',
@@ -35,29 +36,56 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 error={fieldState.error?.message}
             >
                 {/* This is not mapped directly from the enum values because we want to dictate the order */}
-                <Radio value={ArbeidssituasjonType.ARBEIDSTAKER}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.ARBEIDSTAKER)}
+                <Radio
+                    value={ArbeidssituasjonType.ARBEIDSTAKER}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.ARBEIDSTAKER)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.ARBEIDSTAKER)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.FRILANSER}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.FRILANSER)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.FRILANSER}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.FRILANSER)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.FRILANSER)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.NAERINGSDRIVENDE}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.NAERINGSDRIVENDE)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.NAERINGSDRIVENDE}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.NAERINGSDRIVENDE)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.NAERINGSDRIVENDE)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.FISKER}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.FISKER)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.FISKER}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.FISKER)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.FISKER)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.JORDBRUKER}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.JORDBRUKER)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.JORDBRUKER}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.JORDBRUKER)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.JORDBRUKER)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.ARBEIDSLEDIG}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.ARBEIDSLEDIG)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.ARBEIDSLEDIG}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.ARBEIDSLEDIG)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.ARBEIDSLEDIG)}
                 </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.PERMITTERT}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.PERMITTERT)}
+                <Radio
+                    disabled={harAvventendePeriode}
+                    value={ArbeidssituasjonType.PERMITTERT}
+                    description={arbeidssituasjonDescription(ArbeidssituasjonType.PERMITTERT)}
+                >
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.PERMITTERT)}
                 </Radio>
                 <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.ANNET}>
-                    {arbeidsSituasjonEnumToText(ArbeidssituasjonType.ANNET)}
+                    {arbeidssituasjonLabel(ArbeidssituasjonType.ANNET)}
                 </Radio>
             </RadioGroup>
             {field.value === ArbeidssituasjonType.ANNET && <AnnetExtraSelect />}
