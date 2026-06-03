@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
-import { Alert, BodyShort, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
+import { Alert, BodyShort, Box, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -118,7 +118,9 @@ function SykmeldingkvitteringPage(): ReactElement {
                 />
             </div>
             {data.sykmeldingStatus.statusEvent === 'SENDT' && <SykmeldingArbeidsgiverExpansionCard sykmelding={data} />}
-            <HintToNextOlderSykmelding />
+            <Box marginBlock="space-32 space-0">
+                <HintToNextOlderSykmelding />
+            </Box>
             {flexjarToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeissituasjonSvar} />
             )}

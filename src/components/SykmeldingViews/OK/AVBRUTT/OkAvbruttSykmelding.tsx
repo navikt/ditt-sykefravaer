@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Alert, Button, Detail, Heading } from '@navikt/ds-react'
+import { Alert, Box, Button, Detail, Heading } from '@navikt/ds-react'
 import { PencilWritingIcon } from '@navikt/aksel-icons'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
@@ -41,7 +41,9 @@ function OkAvbruttSykmelding({ sykmelding, reopen }: OkAvbruttSykmeldingProps): 
             )}
             <SykmeldingSykmeldtSection sykmelding={sykmelding} />
 
-            <HintToNextOlderSykmelding />
+            <Box marginBlock="space-32 space-0">
+                <HintToNextOlderSykmelding />
+            </Box>
         </div>
     )
 }
