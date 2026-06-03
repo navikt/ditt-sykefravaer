@@ -23,7 +23,7 @@ function HintToNextOlderSykmelding(): ReactElement | null {
     const earliestId = earliest.id
 
     return (
-        <Box marginBlockStart="space-32">
+        <Box marginBlock="space-32 space-0">
             <GuidePanel poster>
                 <BodyLong spacing>
                     Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
