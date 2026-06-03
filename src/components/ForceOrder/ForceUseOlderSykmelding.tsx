@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { BodyLong, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-react'
+import { BodyLong, Box, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { pluralize } from '../../utils/stringUtils'
@@ -17,9 +17,9 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                 Før du kan begynne
             </Heading>
             Du har {pluralize('sykmelding', olderSykmeldingCount)} du må velge om du skal bruke, før du kan bruke denne.
-            <div className="mb-6 mt-4">
+            <Box marginBlock="space-16 space-24">
                 <ReadMore header="Hvorfor må jeg gjøre dette?">
-                    <div>
+                    <>
                         <BodyLong spacing>
                             Andre sykmeldingsperioder kan påvirke beløpet du skal få utbetalt for denne perioden.
                         </BodyLong>
@@ -27,9 +27,9 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                             Derfor må vi be deg om å velge om du skal bruke de sykmeldingene du har liggende, før du kan
                             begynne på denne.
                         </BodyLong>
-                    </div>
+                    </>
                 </ReadMore>
-            </div>
+            </Box>
             <Link href={`/sykmeldinger/${olderSykmeldingId}`} passHref>
                 <Button
                     as="a"

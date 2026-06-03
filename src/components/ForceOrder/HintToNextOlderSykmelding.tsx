@@ -1,4 +1,4 @@
-import { BodyLong, Button, GuidePanel } from '@navikt/ds-react'
+import { BodyLong, Box, Button, GuidePanel } from '@navikt/ds-react'
 import Link from 'next/link'
 import { ReactElement, useEffect } from 'react'
 
@@ -23,25 +23,27 @@ function HintToNextOlderSykmelding(): ReactElement | null {
     const earliestId = earliest.id
 
     return (
-        <GuidePanel poster className="mt-8">
-            <BodyLong spacing>
-                Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
-            </BodyLong>
-            <Link passHref href={`/sykmeldinger/${earliestId}`}>
-                <Button
-                    as="a"
-                    variant="primary"
-                    onClick={() =>
-                        logUmamiEvent({
-                            eventName: 'navigere',
-                            data: { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' },
-                        })
-                    }
-                >
-                    {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
-                </Button>
-            </Link>
-        </GuidePanel>
+        <Box marginBlockStart="space-32">
+            <GuidePanel poster>
+                <BodyLong spacing>
+                    Du har {pluralize('sykmelding', unsentSykmeldinger.length)} du må velge om du skal bruke
+                </BodyLong>
+                <Link passHref href={`/sykmeldinger/${earliestId}`}>
+                    <Button
+                        as="a"
+                        variant="primary"
+                        onClick={() =>
+                            logUmamiEvent({
+                                eventName: 'navigere',
+                                data: { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' },
+                            })
+                        }
+                    >
+                        {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
+                    </Button>
+                </Link>
+            </GuidePanel>
+        </Box>
     )
 }
 
