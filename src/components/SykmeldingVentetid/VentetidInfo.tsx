@@ -15,7 +15,7 @@ export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: strin
                 Hva skjer videre?
             </Heading>
             <BodyShort className="mt-6" weight="semibold" spacing>
-                Hvis du er syk i mindre enn 16 dager
+                Hvis du er syk i mindre enn 17 dager
             </BodyShort>
             <BodyShort spacing>
                 Du får som hovedregel ikke sykepenger de første 16 kalenderdagene. Dagene telles fra du oppsøker lege,
