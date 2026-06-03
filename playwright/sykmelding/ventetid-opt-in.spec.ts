@@ -25,7 +25,7 @@ test.describe('Opt-in info vises kun for sykmeldinger innenfor ventetiden', () =
 
             await harSynligOverskrift(page, 'Sykmeldingen er sendt', 1)
             await harSynligOverskrift(page, VENTETID_HEADING, 2)
-            await harSynligTekst(page, 'Hvis du er syk i mindre enn 16 dager')
+            await harSynligTekst(page, 'Hvis du er syk i mindre enn 17 dager')
             await apneReadmore(page, OPT_IN_READ_MORE, ['Det er Nav som avgjør om du oppfyller vilkårene'])
 
             await validerAxe(page, testInfo)
@@ -56,7 +56,7 @@ test.describe('Opt-in info vises kun for sykmeldinger innenfor ventetiden', () =
 
             await harSynligOverskrift(page, 'Sykmeldingen er sendt', 1)
             await harSynligOverskrift(page, VENTETID_HEADING, 2)
-            await harSynligTekst(page, 'Hvis du er syk i mindre enn 16 dager')
+            await harSynligTekst(page, 'Hvis du er syk i mindre enn 17 dager')
             await apneReadmore(page, OPT_IN_READ_MORE, ['Det er Nav som avgjør om du oppfyller vilkårene'])
 
             await validerAxe(page, testInfo)
