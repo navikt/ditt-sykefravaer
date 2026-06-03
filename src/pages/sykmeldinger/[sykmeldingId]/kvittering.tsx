@@ -22,8 +22,8 @@ import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
 import { useToggle } from '../../../toggles/context'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
-import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
+import { useVisVentetidInfo } from '../../../hooks/sykmelding/useVisVentetidInfo'
 
 function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
@@ -31,7 +31,9 @@ function SykmeldingkvitteringPage(): ReactElement {
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
 
-    const arbeissituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
+
     if (isPending) {
         return (
             <KvitteringWrapper>
@@ -100,10 +102,7 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-            {(arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.NAERINGSDRIVENDE ||
-                arbeissituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.FRILANSER) && (
-                <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />
-            )}
+            {visVentetidInfo && <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />}
             <div className="mb-8">
                 <StatusInfo
                     sykmeldingStatus={data.sykmeldingStatus}
@@ -122,7 +121,7 @@ function SykmeldingkvitteringPage(): ReactElement {
                 <HintToNextOlderSykmelding />
             </Box>
             {flexjarToggle.enabled && (
-                <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeissituasjonSvar} />
+                <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeidssituasjonSvar} />
             )}
         </KvitteringWrapper>
     )

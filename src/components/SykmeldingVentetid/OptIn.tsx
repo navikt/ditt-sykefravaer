@@ -1,6 +1,5 @@
 import { ReactElement } from 'react'
-import { Alert, BodyShort, Button, Heading, Skeleton } from '@navikt/ds-react'
-import Link from 'next/link'
+import { Alert, BodyShort, Button, Heading, Link, Skeleton } from '@navikt/ds-react'
 import { isAfter } from 'date-fns'
 
 import useHarSoknad from '../../hooks/sykmelding/useHarSoknad'
