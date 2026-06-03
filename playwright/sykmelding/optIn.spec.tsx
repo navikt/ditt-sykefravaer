@@ -7,6 +7,10 @@ import {
     velgArbeidssituasjon,
     velgForsikring,
 } from '../utils/user-actions'
+import { apneReadmore } from '../utils/test-utils'
+import type { Page } from '@playwright/test'
+
+const OPT_IN_READ_MORE = 'Om din rett til å søke om sykepenger'
 
 test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     let mottattTidspunktForTest: string
@@ -29,23 +33,20 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         })
     })
 
-    test('viser opt-in-knapp når ingen søknad finnes', async ({ page }) => {
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
+    async function navigereToKvittering(page: Page) {
+        await gotoScenario('normal', { erForsteSykmelding: false, erUtenforVentetid: false })(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('frilanser')(page)
         await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
-
         await page.waitForURL('**/kvittering')
+    }
 
-        const readMore = page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' })
-        await expect(readMore).toBeVisible()
-        await readMore.click()
+    test('viser opt-in-knapp når ingen søknad finnes', async ({ page }) => {
+        await navigereToKvittering(page)
 
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).toBeVisible()
     })
 
@@ -61,22 +62,9 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
             return route.continue()
         })
 
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
+        await navigereToKvittering(page)
 
-        await page.waitForURL('**/kvittering')
-
-        const readMore = page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' })
-        await expect(readMore).toBeVisible()
-        await readMore.click()
-
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Vi har opprettet søknad for denne perioden')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
@@ -95,19 +83,9 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
             return route.continue()
         })
 
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
+        await navigereToKvittering(page)
 
-        await page.waitForURL('**/kvittering')
-
-        await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await page.getByRole('button', { name: 'Jeg vil søke om sykepenger' }).click()
 
         expect(optInCalled).toBe(true)
@@ -119,38 +97,6 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
                 'Du vil få beskjed av oss når du skal fylle ut og sende inn søknaden om sykepenger for sykmeldingsperioden.',
             ),
         ).toBeVisible()
-    })
-
-    test('kaller opt-in-endepunktet når knappen trykkes', async ({ page }) => {
-        let optInCalled = false
-        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/opt-in*', (route) => {
-            if (route.request().method() === 'POST') {
-                optInCalled = true
-                return route.fulfill({
-                    status: 200,
-                    contentType: 'application/json',
-                    body: JSON.stringify({ status: 'ok' }),
-                })
-            }
-            return route.continue()
-        })
-
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
-
-        await page.waitForURL('**/kvittering')
-
-        await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
-        await page.getByRole('button', { name: 'Jeg vil søke om sykepenger' }).click()
-
-        expect(optInCalled).toBe(true)
     })
 
     test('viser feilvarsel når har-soknad-kallet feiler', async ({ page }) => {
@@ -165,20 +111,9 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
             return route.continue()
         })
 
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
+        await navigereToKvittering(page)
 
-        await page.waitForURL('**/kvittering')
-
-        await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
-
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })
@@ -195,19 +130,9 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
             return route.continue()
         })
 
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
+        await navigereToKvittering(page)
 
-        await page.waitForURL('**/kvittering')
-
-        await page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' }).click()
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await page.getByRole('button', { name: 'Jeg vil søke om sykepenger' }).click()
 
         await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere')).toBeVisible()
@@ -216,22 +141,9 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     test('viser varsel når sykmeldingen er eldre enn 4 måneder', async ({ page }) => {
         mottattTidspunktForTest = new Date('2025-01-01').toISOString()
 
-        await gotoScenario('normal', {
-            erForsteSykmelding: false,
-            erUtenforVentetid: false,
-        })(page)
-        await navigateToFirstSykmelding('nye', '100%')(page)
-        await opplysingeneStemmer(page)
-        await velgArbeidssituasjon('frilanser')(page)
-        await velgForsikring('Nei')(page)
-        await bekreftSykmelding(page)
+        await navigereToKvittering(page)
 
-        await page.waitForURL('**/kvittering')
-
-        const readMore = page.getByRole('button', { name: 'Om din rett til å søke om sykepenger' })
-        await expect(readMore).toBeVisible()
-        await readMore.click()
-
+        await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Søknadsfristen er gått ut')).toBeVisible()
         await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
     })

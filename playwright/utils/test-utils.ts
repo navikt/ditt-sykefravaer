@@ -34,7 +34,7 @@ export async function harSynligTekst(page: Page, tekst: string | RegExp) {
     return locator
 }
 
-export async function apneReadmore(page: Page, tittel: string, forventetTekst: string[]) {
+export async function apneReadmore(page: Page, tittel: string, forventetTekst: string[] = []) {
     await page.getByRole('button', { name: tittel }).click()
 
     for (const tekst of forventetTekst) {
