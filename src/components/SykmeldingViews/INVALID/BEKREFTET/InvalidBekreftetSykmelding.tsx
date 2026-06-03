@@ -1,3 +1,4 @@
+import { Box } from '@navikt/ds-react'
 import { ReactElement } from 'react'
 
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
@@ -31,7 +32,9 @@ function InvalidBekreftetSykmelding({ sykmelding }: InvalidBekreftetSykmeldingPr
 
             <SykmeldingSykmeldtSection sykmelding={sykmelding} />
 
-            <HintToNextOlderSykmelding />
+            <Box marginBlock="space-32 space-0">
+                <HintToNextOlderSykmelding />
+            </Box>
         </div>
     )
 }

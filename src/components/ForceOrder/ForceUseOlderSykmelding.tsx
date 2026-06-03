@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
-import { BodyLong, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-react'
-import Link from 'next/link'
+import { BodyLong, Box, Button, GuidePanel, Heading, ReadMore } from '@navikt/ds-react'
+import NextLink from 'next/link'
 
 import { pluralize } from '../../utils/stringUtils'
 import { logEvent } from '../umami/umami'
@@ -17,9 +17,9 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                 Før du kan begynne
             </Heading>
             Du har {pluralize('sykmelding', olderSykmeldingCount)} du må velge om du skal bruke, før du kan bruke denne.
-            <div className="mb-6 mt-4">
+            <Box marginBlock="space-16 space-24">
                 <ReadMore header="Hvorfor må jeg gjøre dette?">
-                    <div>
+                    <>
                         <BodyLong spacing>
                             Andre sykmeldingsperioder kan påvirke beløpet du skal få utbetalt for denne perioden.
                         </BodyLong>
@@ -27,23 +27,22 @@ function ForceUseOlderSykmelding({ olderSykmeldingId, olderSykmeldingCount }: Pr
                             Derfor må vi be deg om å velge om du skal bruke de sykmeldingene du har liggende, før du kan
                             begynne på denne.
                         </BodyLong>
-                    </div>
+                    </>
                 </ReadMore>
-            </div>
-            <Link href={`/sykmeldinger/${olderSykmeldingId}`} passHref>
-                <Button
-                    as="a"
-                    variant="primary"
-                    onClick={() =>
-                        logEvent('navigere', {
-                            destinasjon: 'neste ubrukte sykmelding (tvungen)',
-                            lenketekst: 'Gå til sykmeldingen',
-                        })
-                    }
-                >
-                    {olderSykmeldingCount > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
-                </Button>
-            </Link>
+            </Box>
+            <Button
+                as={NextLink}
+                href={`/sykmeldinger/${olderSykmeldingId}`}
+                variant="primary"
+                onClick={() =>
+                    logEvent('navigere', {
+                        destinasjon: 'neste ubrukte sykmelding (tvungen)',
+                        lenketekst: 'Gå til sykmeldingen',
+                    })
+                }
+            >
+                {olderSykmeldingCount > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
+            </Button>
         </GuidePanel>
     )
 }
