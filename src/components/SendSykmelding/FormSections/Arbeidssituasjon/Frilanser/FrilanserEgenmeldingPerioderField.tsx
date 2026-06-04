@@ -1,7 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
 import { Alert, BodyShort, DatePicker, DateValidationT, Link, useDatepicker } from '@navikt/ds-react'
-import { isBefore, startOfDay, sub, toDate } from 'date-fns'
+import { isMonday, sub, toDate } from 'date-fns'
 import { LinkIcon } from '@navikt/aksel-icons'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
@@ -15,6 +15,10 @@ interface Props {
 
 function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): ReactElement {
     const [dateValidation, setDateValidation] = useState<DateValidationT | null>(null)
+
+    const erMandag = isMonday(toDate(sykmeldingStartDato))
+    const antallDager = erMandag ? 18 : 16
+
     const { field: fromField, fieldState: fromFieldState } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
         name: `egenmeldingsperioder.0.fom`,
         rules: {
@@ -22,9 +26,9 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                 if (dateValidation?.isInvalid) {
                     return 'Datoen må være på formatet DD.MM.YYYY.'
                 } else if (dateValidation?.isAfter) {
-                    return 'Datoen kan ikke være på eller etter sykmeldingens start-dato.'
+                    return 'Datoen kan ikke være på eller etter sykmeldingens startdato.'
                 } else if (dateValidation?.isBefore) {
-                    return 'Datoen kan ikke være tidligere enn et år før sykmeldingens start-dato.'
+                    return `Datoen kan ikke være tidligere enn ${antallDager} dager før sykmeldingens startdato.`
                 } else if (!fomValue) {
                     return 'Du må fylle inn en dato.'
                 } else {
@@ -39,13 +43,10 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
     })
 
     const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
-    const sekstenDagerFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 16 })
-    const aarFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { years: 1 })
-    const harValgtForTidlig =
-        fromField.value && isBefore(startOfDay(toDate(fromField.value)), startOfDay(sekstenDagerFoerSykmeldingen))
+    const tidligsteDato = sub(toDate(sykmeldingStartDato), { days: antallDager })
 
     const { datepickerProps, inputProps } = useDatepicker({
-        fromDate: aarFoerSykmeldingen,
+        fromDate: tidligsteDato,
         toDate: dagenFoerSykmeldingen,
         defaultSelected: fromField.value ?? undefined,
         allowTwoDigitYear: false,
@@ -67,16 +68,16 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
                     {...inputProps}
                     ref={fromField.ref}
                     label={sporsmal.egenmeldingsperioder()}
+                    description={`Du kan velge opptil ${antallDager} dager før sykmeldingsdatoen.`}
                     placeholder="DD.MM.ÅÅÅÅ"
                     error={fromFieldState.error?.message}
                 />
             </DatePicker>
-            {harValgtForTidlig && (
+            {fromField.value && (
                 <Alert variant="info" role="alert" aria-live="polite" className="mt-4">
                     <BodyShort spacing>
-                        Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen. Hvis vi har dokumentasjon på at
-                        du ga beskjed fra {toReadableDate(fromField.value!)}, setter vi{' '}
-                        {toReadableDate(sekstenDagerFoerSykmeldingen)} som startdato for sykefraværet ditt.
+                        Du ga beskjed til Nav {toReadableDate(fromField.value)}. Hvis vi har dokumentasjon på at du ga
+                        beskjed fra denne datoen, setter vi det som startdato for sykefraværet ditt.
                     </BodyShort>
                     <BodyShort>
                         <Link href="https://www.nav.no/sykepenger" target="_blank">

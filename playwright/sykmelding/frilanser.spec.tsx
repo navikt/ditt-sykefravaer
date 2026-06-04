@@ -220,7 +220,7 @@ test.describe('Frilanser', () => {
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
             await expect(
-                page.getByRole('link', { name: 'Datoen kan ikke være på eller etter sykmeldingens start-dato.' }),
+                page.getByRole('link', { name: 'Datoen kan ikke være på eller etter sykmeldingens startdato.' }),
             ).toBeVisible()
         })
 
