@@ -35,7 +35,6 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 }}
                 error={fieldState.error?.message}
             >
-                {/* This is not mapped directly from the enum values because we want to dictate the order */}
                 <Radio
                     value={ArbeidssituasjonType.ARBEIDSTAKER}
                     description={arbeidssituasjonDescription(ArbeidssituasjonType.ARBEIDSTAKER)}
