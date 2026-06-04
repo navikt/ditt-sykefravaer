@@ -14,6 +14,7 @@ import { Brukerinformasjon } from '../../../../types/sykmelding/brukerinformasjo
 
 import { ArbeidssituasjonInfo } from './ArbeidssituasjonInfo'
 import ArbeidssituasjonField from './ArbeidssituasjonField'
+import ArbeidssituasjonHelpAccordion from './ArbeidssituasjonHelpAccordion'
 import FrilanserSection from './Frilanser/FrilanserSection'
 import { useArbeidssituasjonSubSections } from './formProgressUtils'
 import FiskerSection from './Fisker/FiskerSection'
@@ -44,6 +45,7 @@ function ArbeidssituasjonSection({ sykmelding, brukerinformasjon }: Props): Reac
         <SectionWrapper title="Hvilken arbeidssituasjon gjelder sykmeldingen for?">
             <ArbeidssituasjonInfo />
             <ArbeidssituasjonField harAvventendePeriode={harAvventendePeriode} />
+            <ArbeidssituasjonHelpAccordion />
             {shouldShowArbeidsgiverOrgnummer && (
                 <AnsattArbeidstakerSection sykmelding={sykmelding} arbeidsgivere={brukerinformasjon.arbeidsgivere} />
             )}

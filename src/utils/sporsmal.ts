@@ -49,6 +49,48 @@ export function arbeidsSituasjonEnumToText(arbeidssituasjon: ArbeidssituasjonTyp
     }
 }
 
+export function arbeidssituasjonLabel(arbeidssituasjon: ArbeidssituasjonType): string {
+    switch (arbeidssituasjon) {
+        case ArbeidssituasjonType.ARBEIDSTAKER:
+            return 'Ansatt'
+        case ArbeidssituasjonType.FRILANSER:
+            return 'Frilanser'
+        case ArbeidssituasjonType.NAERINGSDRIVENDE:
+            return 'Selvstendig næringsdrivende'
+        case ArbeidssituasjonType.FISKER:
+            return 'Fisker'
+        case ArbeidssituasjonType.JORDBRUKER:
+            return 'Jordbruker/skogbruker/reindrift'
+        case ArbeidssituasjonType.ARBEIDSLEDIG:
+            return 'Arbeidsledig'
+        case ArbeidssituasjonType.PERMITTERT:
+            return 'Permittert'
+        case ArbeidssituasjonType.ANNET:
+            return 'Annet'
+    }
+}
+
+export function arbeidssituasjonDescription(arbeidssituasjon: ArbeidssituasjonType): string | undefined {
+    switch (arbeidssituasjon) {
+        case ArbeidssituasjonType.ARBEIDSTAKER:
+            return 'Du jobber for en arbeidsgiver og mottar lønn (fulltid, deltid, vikar, lærling, tilkallingsvikar)'
+        case ArbeidssituasjonType.FRILANSER:
+            return 'Du tar oppdrag og sender faktura - uten registrert foretak'
+        case ArbeidssituasjonType.NAERINGSDRIVENDE:
+            return 'Du har enkeltpersonforetak (ENK), ansvarlig selskap (ANS) eller selskap med delt ansvar (DA)'
+        case ArbeidssituasjonType.FISKER:
+            return 'Du har hyre eller lott, Blad A eller B'
+        case ArbeidssituasjonType.JORDBRUKER:
+            return 'Du driver med gårdsbruk, skogbruk eller reindrift'
+        case ArbeidssituasjonType.ARBEIDSLEDIG:
+            return 'Du er uten jobb nå - med eller uten dagpenger fra Nav'
+        case ArbeidssituasjonType.PERMITTERT:
+            return 'Du er midlertidig ute av arbeid, men har fortsatt en arbeidsgiver'
+        case ArbeidssituasjonType.ANNET:
+            return undefined
+    }
+}
+
 export function uriktigeOpplysningerEnumToText(uriktigeOpplysninger: UriktigeOpplysningerType): string {
     switch (uriktigeOpplysninger) {
         case UriktigeOpplysningerType.PERIODE:
