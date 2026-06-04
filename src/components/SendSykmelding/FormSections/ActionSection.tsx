@@ -41,7 +41,7 @@ function ActionSection({ sykmeldingId, sendResult, onSykmeldingAvbrutt }: Props)
                         variant="primary"
                         type="submit"
                         loading={sendResult.isPending}
-                        disabled={isSubmitLocked}
+                        disabled={isSubmitLocked || sendResult.isPending}
                     >
                         {isArbeidstaker(arbeidssituasjon, fisker) ? 'Send' : 'Bekreft'} sykmelding
                     </Button>
