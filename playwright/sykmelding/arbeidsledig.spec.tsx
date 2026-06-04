@@ -70,7 +70,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         // Endre til arbeidsledig
         await page
             .getByRole('group', { name: /Jeg er sykmeldt som/i })
-            .getByRole('radio', { name: /arbeidsledig/ })
+            .getByRole('radio', { name: /Arbeidsledig/ })
             .click()
         await velgArbeidstakerArbeidsledig(/Pontypandy Fire Service/)(page)
 

@@ -13,6 +13,17 @@ interface Props {
     harAvventendePeriode: boolean
 }
 
+const arbeidssituasjonerRekkefolge: ArbeidssituasjonType[] = [
+    ArbeidssituasjonType.ARBEIDSTAKER,
+    ArbeidssituasjonType.FISKER,
+    ArbeidssituasjonType.JORDBRUKER,
+    ArbeidssituasjonType.NAERINGSDRIVENDE,
+    ArbeidssituasjonType.FRILANSER,
+    ArbeidssituasjonType.ARBEIDSLEDIG,
+    ArbeidssituasjonType.PERMITTERT,
+    ArbeidssituasjonType.ANNET,
+]
+
 function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
     const { field, fieldState } = useController<FormValues>({
         name: 'arbeidssituasjon',
@@ -35,57 +46,19 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 }}
                 error={fieldState.error?.message}
             >
-                <Radio
-                    value={ArbeidssituasjonType.ARBEIDSTAKER}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.ARBEIDSTAKER)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.ARBEIDSTAKER)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.FRILANSER}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.FRILANSER)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.FRILANSER)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.NAERINGSDRIVENDE}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.NAERINGSDRIVENDE)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.NAERINGSDRIVENDE)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.FISKER}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.FISKER)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.FISKER)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.JORDBRUKER}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.JORDBRUKER)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.JORDBRUKER)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.ARBEIDSLEDIG}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.ARBEIDSLEDIG)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.ARBEIDSLEDIG)}
-                </Radio>
-                <Radio
-                    disabled={harAvventendePeriode}
-                    value={ArbeidssituasjonType.PERMITTERT}
-                    description={arbeidssituasjonDescription(ArbeidssituasjonType.PERMITTERT)}
-                >
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.PERMITTERT)}
-                </Radio>
-                <Radio disabled={harAvventendePeriode} value={ArbeidssituasjonType.ANNET}>
-                    {arbeidssituasjonLabel(ArbeidssituasjonType.ANNET)}
-                </Radio>
+                {arbeidssituasjonerRekkefolge.map((situasjon) => {
+                    const description = arbeidssituasjonDescription(situasjon)
+                    return (
+                        <Radio
+                            key={situasjon}
+                            disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
+                            value={situasjon}
+                            {...(description ? { description } : {})}
+                        >
+                            {arbeidssituasjonLabel(situasjon)}
+                        </Radio>
+                    )
+                })}
             </RadioGroup>
             {field.value === ArbeidssituasjonType.ANNET && <AnnetExtraSelect />}
         </QuestionWrapper>
