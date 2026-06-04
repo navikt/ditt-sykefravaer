@@ -1,3 +1,5 @@
+import type { Page } from '@playwright/test'
+
 import { expect, test } from '../utils/fixtures'
 import {
     bekreftSykmelding,
@@ -8,7 +10,6 @@ import {
     velgForsikring,
 } from '../utils/user-actions'
 import { apneReadmore } from '../utils/test-utils'
-import type { Page } from '@playwright/test'
 
 const OPT_IN_READ_MORE = 'Om din rett til å søke om sykepenger'
 

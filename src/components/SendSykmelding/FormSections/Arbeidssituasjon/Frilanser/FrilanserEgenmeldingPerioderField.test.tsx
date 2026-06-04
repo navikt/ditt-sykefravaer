@@ -54,6 +54,15 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         )
     }, 10_000)
 
+    it('should show info alert with selected date when a date is typed', async () => {
+        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
+
+        await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
+
+        expect(await screen.findByText(/Du ga beskjed til Nav 12. februar 2021/)).toBeInTheDocument()
+        expect(screen.getByText(/Hvis vi har dokumentasjon på at du ga beskjed fra denne datoen/)).toBeInTheDocument()
+    }, 10_000)
+
     describe('input validation', () => {
         it('should not allow fom on or after sykmeldingStartDato', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
@@ -63,9 +72,33 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 
             expect(
-                await screen.findByText('Datoen kan ikke være på eller etter sykmeldingens start-dato.'),
+                await screen.findByText('Datoen kan ikke være på eller etter sykmeldingens startdato.'),
             ).toBeInTheDocument()
         })
+
+        it('should not allow fom earlier than 16 days before sykmeldingStartDato (non-Monday)', async () => {
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-02-28" />)
+
+            await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '11.02.2021')
+
+            await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
+
+            expect(
+                await screen.findByText('Datoen kan ikke være tidligere enn 16 dager før sykmeldingens startdato.'),
+            ).toBeInTheDocument()
+        }, 10_000)
+
+        it('should not allow fom earlier than 18 days before sykmeldingStartDato (Monday)', async () => {
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
+
+            await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '10.02.2021')
+
+            await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
+
+            expect(
+                await screen.findByText('Datoen kan ikke være tidligere enn 18 dager før sykmeldingens startdato.'),
+            ).toBeInTheDocument()
+        }, 10_000)
 
         it('should enforce date format', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)

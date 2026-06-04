@@ -91,24 +91,20 @@ test.describe('Selvstendig næringsdrivende', () => {
     })
 
     test.describe('Egenmeldingsperioder', () => {
-        test('skal vise feilmelding hvis dato er mer enn et år før sykmeldingen', async ({ page }) => {
+        test('skal vise info-varsel med valgt dato når dato er valgt', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', { erForsteSykmelding: true }),
                 navigateToFirstAndPickSituasjon,
                 expectSykmeldingStartDato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: `07.01.${testAar - 1}` }]),
+                frilanserEgenmeldingsperioder([{ fom: `28.12.${testAar - 1}` }]),
             )(page)
 
-            await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
-
-            await expect(
-                page.getByRole('link', {
-                    name: 'Datoen kan ikke være tidligere enn et år før sykmeldingens start-dato.',
-                }),
-            ).toBeVisible()
+            await expect(page.getByText(new RegExp(`Du ga beskjed til Nav 28. desember ${testAar - 1}`))).toBeVisible()
+            await expect(page.getByText(/Hvis vi har dokumentasjon på at du ga beskjed fra denne datoen/)).toBeVisible()
+            await expect(page.getByRole('link', { name: 'Les mer om sykepenger' })).toBeVisible()
         })
 
-        test('skal vise varsel hvis dato er mer enn 16 dager før sykmeldingen', async ({ page }) => {
+        test('skal vise feilmelding hvis dato er lenger enn 16 dager siden', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', { erForsteSykmelding: true }),
                 navigateToFirstAndPickSituasjon,
@@ -116,22 +112,13 @@ test.describe('Selvstendig næringsdrivende', () => {
                 frilanserEgenmeldingsperioder([{ fom: `22.12.${testAar - 1}` }]),
             )(page)
 
-            await expect(
-                page
-                    .getByRole('alert')
-                    .filter({ hasText: /Sykefraværet kan tidligst starte 16 dager før sykmeldingsdatoen./i }),
-            ).toBeVisible()
-
-            await velgForsikring('Ja')(page)
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
-            await expectDineSvar({
-                arbeidssituasjon: 'Selvstendig næringsdrivende',
-                selvstendig: {
-                    egenmeldingsperioder: [`22. desember ${testAar - 1}`],
-                    forsikring: 'Ja',
-                },
-            })(page)
+            await expect(
+                page.getByRole('link', {
+                    name: 'Datoen kan ikke være tidligere enn 16 dager før sykmeldingens startdato.',
+                }),
+            ).toBeVisible()
         })
     })
 })
