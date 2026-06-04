@@ -2,7 +2,7 @@ import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 import { test, expect } from '../utils/fixtures'
 
 test.describe('Kvittering', () => {
-    test('should NOT show egenmeldingsdager info when status is bekreftet', async ({ page }) => {
+    test('skal IKKE vise egenmeldingsdager info når status er bekreftet', async ({ page }) => {
         await gotoScenario('kvittering')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 

@@ -6,7 +6,7 @@ import { getBehandlerName } from './behandlerUtils'
 
 describe('behandlerUtils', () => {
     describe('getName', () => {
-        it('Gets full name if mellomnavn is defined', () => {
+        it('Henter fullt navn hvis mellomnavn er definert', () => {
             const behandler: Behandler = {
                 fornavn: 'Ola',
                 mellomnavn: 'Robert',
@@ -24,7 +24,7 @@ describe('behandlerUtils', () => {
             expect(getBehandlerName(behandler)).toBe('Ola Robert Normann')
         })
 
-        it('Gets partial name if mellomnavn is null', () => {
+        it('Henter delvis navn hvis mellomnavn er null', () => {
             const behandler: Behandler = {
                 fornavn: 'Ola',
                 mellomnavn: null,

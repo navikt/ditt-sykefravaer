@@ -6,7 +6,7 @@ import { render, screen } from '../../../utils/test/testUtils'
 import SykmeldingSykmeldtUtenlandsk from './SykmeldingSykmeldtUtenlandsk'
 
 describe('SykmeldingSykmeldtUtenlandsk', () => {
-    it('should show country for utenlandsk sykmelding', () => {
+    it('skal vise land for utenlandsk sykmelding', () => {
         render(
             <SykmeldingSykmeldtUtenlandsk
                 sykmelding={{

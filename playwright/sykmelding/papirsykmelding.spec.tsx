@@ -10,7 +10,7 @@ import {
 import { test, expect } from '../utils/fixtures'
 
 test.describe('Papir sykmelding', () => {
-    test('should show information if papirsykmelding is already passed on', async ({ page }) => {
+    test('skal vise informasjon hvis papirsykmelding allerede er videresendt', async ({ page }) => {
         await gotoScenario('papirsykmelding')(page)
         await navigateToFirstSykmelding('nye', 'papirsykmelding')(page)
 
@@ -23,7 +23,7 @@ test.describe('Papir sykmelding', () => {
         ).toBeVisible()
     })
 
-    test('should show information if papirsykmelding is not passed on', async ({ page }) => {
+    test('skal vise informasjon hvis papirsykmelding ikke er videresendt', async ({ page }) => {
         await gotoScenario('papirsykmelding')(page)
         await navigateToFirstSykmelding('nye', 'papirsykmelding')(page)
 
@@ -36,7 +36,7 @@ test.describe('Papir sykmelding', () => {
         await expect(page.getByText('Da kan du sende sykmeldingen herfra')).toBeVisible()
     })
 
-    test('should avbryte papirsykmelding', async ({ page }) => {
+    test('skal avbryte papirsykmelding', async ({ page }) => {
         await gotoScenario('papirsykmelding')(page)
         await navigateToFirstSykmelding('nye', 'papirsykmelding')(page)
 
@@ -52,7 +52,7 @@ test.describe('Papir sykmelding', () => {
         await expect(page.getByText('Sykmeldingen ble avbrutt av deg')).toBeVisible()
     })
 
-    test('should be able to submit form', async ({ page }) => {
+    test('skal kunne sende inn skjema', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('papirsykmelding'),
             navigateToFirstSykmelding('nye', 'papirsykmelding'),
@@ -65,7 +65,7 @@ test.describe('Papir sykmelding', () => {
     })
 
     test.describe('Utenlandsk sykmelding', () => {
-        test('Should show country for utenlandsk sykmelding', async ({ page }) => {
+        test('Skal vise land for utenlandsk sykmelding', async ({ page }) => {
             await gotoScenario('utenlandsk')(page)
             await navigateToFirstSykmelding('nye', 'utenlandsk')(page)
 

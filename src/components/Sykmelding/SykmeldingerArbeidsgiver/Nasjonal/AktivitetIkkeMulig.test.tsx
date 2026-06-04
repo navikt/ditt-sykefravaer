@@ -10,7 +10,7 @@ import {
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'
 
 describe('AktivitetIkkeMulig', () => {
-    it('Render arbeidsrelatert arsak for arbeidsgiver view', () => {
+    it('Viser arbeidsrelatert årsak for arbeidsgiver-visning', () => {
         const periode: AktivitetIkkeMuligPeriode = {
             medisinskArsak: {
                 beskrivelse: 'medisinsk beskrivelse',

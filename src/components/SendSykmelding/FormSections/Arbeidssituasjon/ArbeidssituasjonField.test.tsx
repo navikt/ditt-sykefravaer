@@ -23,7 +23,7 @@ describe('ArbeidssituasjonField', () => {
         )
     }
 
-    it('should not disable fields when harAvventendePeriode is false', async () => {
+    it('skal ikke deaktivere felter når harAvventendePeriode er false', async () => {
         render(<ArbeidssituasjonFieldInForm harAvventendePeriode={false} />)
 
         await userEvent.click(screen.getByRole('radio', { name: 'permittert' }))
@@ -33,7 +33,7 @@ describe('ArbeidssituasjonField', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('PERMITTERT')
     })
 
-    it('should disable everything except ansatt when harAvventendePeriode is true', () => {
+    it('skal deaktivere alt unntatt ansatt når harAvventendePeriode er true', () => {
         render(<ArbeidssituasjonFieldInForm harAvventendePeriode />)
 
         expect(screen.getByRole('radio', { name: 'ansatt' })).not.toBeDisabled()

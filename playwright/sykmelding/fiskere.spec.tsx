@@ -16,7 +16,7 @@ import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Arbeidssituasjon - Fiskere', () => {
     test.describe('Feil ved henting av data', () => {
-        test('should disable submit button while data is loading', async ({ page }) => {
+        test('skal deaktivere send-knapp mens data lastes', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid',
                 async (route) => {
@@ -35,7 +35,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
 
-        test('should disable submit button when er-forste-sykmelding fails', async ({ page }) => {
+        test('skal deaktivere send-knapp når er-forste-sykmelding feiler', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 (route) => {
@@ -62,7 +62,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
         })
 
-        test('should disable submit button when er-utenfor-ventetid fails', async ({ page }) => {
+        test('skal deaktivere send-knapp når er-utenfor-ventetid feiler', async ({ page }) => {
             await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid', (route) => {
                 if (route.request().method() === 'GET') {
                     return route.fulfill({
@@ -86,7 +86,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
         })
 
-        test('should disable submit button while er-forste-sykmelding is loading', async ({ page }) => {
+        test('skal deaktivere send-knapp mens er-forste-sykmelding lastes', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 async (route) => {
@@ -107,7 +107,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('Blad A', () => {
-        test('Lott, should be næringsdrivende-esque', async ({ page }) => {
+        test('Lott, skal oppføre seg som næringsdrivende', async ({ page }) => {
             await gotoScenario('normal')(page)
             // Behaves similar to normal nearingsdrivende
             await fillOutFisker('Blad A', 'Lott')(page)
@@ -150,7 +150,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
         })
 
-        test('Hyre, should be arbeidsgiver-esque', async ({ page }) => {
+        test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Hyre')(page)
             // Hyre behaves similar to normal arbeidstaker
@@ -181,7 +181,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
         })
 
-        test('Lott & Hyre, should be arbeidsgiver-esque', async ({ page }) => {
+        test('Lott & Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Både lott og hyre')(page)
             // 'Begge' behaves similar to normal arbeidstaker
@@ -214,7 +214,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('Blad B', () => {
-        test('Lott should have no extra questions', async ({ page }) => {
+        test('Lott skal ikke ha ekstra spørsmål', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Lott')(page)
             await bekreftSykmelding(page)
@@ -233,7 +233,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
         })
 
-        test('Hyre, should be arbeidsgiver-esque', async ({ page }) => {
+        test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Hyre')(page)
             // Hyre behaves similar to normal arbeidstaker
@@ -264,7 +264,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
         })
 
-        test('Lott & Hyre, should be arbeidsgiver-esque', async ({ page }) => {
+        test('Lott & Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Både lott og hyre')(page)
             // 'Begge' behaves similar to normal arbeidstaker
@@ -296,8 +296,8 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         })
     })
 
-    test.describe('without arbeidsgiver', () => {
-        test('Hyre or Lott & Hyre without arbeidsgivere should get a warning/tips about what to do', async ({
+    test.describe('uten arbeidsgiver', () => {
+        test('Hyre eller Lott & Hyre uten arbeidsgivere skal gi advarsel/tips om hva man bør gjøre', async ({
             page,
         }) => {
             await gotoScenario('normal', {
@@ -318,7 +318,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByText(expectedHint)).toBeVisible()
         })
 
-        test('Hyre or Lott & Hyre should get a error if user tries to send sykmelding  without arbeidsgivere', async ({
+        test('Hyre eller Lott & Hyre skal gi feil hvis bruker prøver å sende sykmelding uten arbeidsgivere', async ({
             page,
         }) => {
             await gotoScenario('normal', {

@@ -13,45 +13,47 @@ import { getCheckboxInGroup, getRadioInGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
 
 test.describe('Uriktige opplysninger', () => {
-    test('should show error message when periode is wrong', async ({ page }) => {
+    test('skal vise feilmelding når periode er feil', async ({ page }) => {
         await opplysningNotCorrect('Periode')(page)
         await expectNotUsable(page)
     })
 
-    test('should show error message when sykmeldingsgrad is to low', async ({ page }) => {
+    test('skal vise feilmelding når sykmeldingsgrad er for lav', async ({ page }) => {
         await opplysningNotCorrect('Sykmeldingsgraden er for lav')(page)
         await expectNotUsable(page)
     })
 
-    test('should be able to continue when sykmeldingsgrad is too high', async ({ page }) => {
+    test('skal kunne fortsette når sykmeldingsgrad er for høy', async ({ page }) => {
         await opplysningNotCorrect('Sykmeldingsgraden er for høy')(page)
         await expectUseable(
             'Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.',
         )(page)
     })
 
-    test('should be able to continue when arbeidsgiver is wrong', async ({ page }) => {
+    test('skal kunne fortsette når arbeidsgiver er feil', async ({ page }) => {
         await opplysningNotCorrect('Arbeidsgiver')(page)
         await expectUseable(
             'I neste trinn velger du riktig arbeidsgiver. Obs: Feilen vil være synlig for arbeidsgiveren du sender sykmeldingen til.',
         )(page)
     })
 
-    test('should be able to continue when diagnose is wrong', async ({ page }) => {
+    test('skal kunne fortsette når diagnose er feil', async ({ page }) => {
         await opplysningNotCorrect('Diagnose')(page)
         await expectUseable(
             'Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.',
         )(page)
     })
 
-    test('should be able to continue when andre opplysninger is wrong', async ({ page }) => {
+    test('skal kunne fortsette når andre opplysninger er feil', async ({ page }) => {
         await opplysningNotCorrect('Andre opplysninger')(page)
         await expectUseable(
             'Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at den inneholder feil.',
         )(page)
     })
 
-    test('should not show Din arbeidssituasjon if reason for uriktigeOpplysninger is not checked', async ({ page }) => {
+    test('skal ikke vise Din arbeidssituasjon hvis grunn for uriktigeOpplysninger ikke er avkrysset', async ({
+        page,
+    }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await getRadioInGroup(page)({ name: 'Stemmer opplysningene?' }, { name: 'Nei' }).click()
@@ -60,9 +62,7 @@ test.describe('Uriktige opplysninger', () => {
         await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeVisible()
     })
 
-    test('should show multiple info text and be able to send sykmelding if multiple reasons are checked', async ({
-        page,
-    }) => {
+    test('skal vise flere infotekster og kunne sende sykmelding hvis flere grunner er avkrysset', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await getRadioInGroup(page)({ name: 'Stemmer opplysningene?' }, { name: 'Nei' }).click()
@@ -109,7 +109,7 @@ test.describe('Uriktige opplysninger', () => {
         })(page)
     })
 
-    test('should not show info text when uriktigeOpplysninger has value and then erOpplysningeneRiktige changes to Ja', async ({
+    test('skal ikke vise infotekst når uriktigeOpplysninger har verdi og erOpplysningeneRiktige deretter endres til Ja', async ({
         page,
     }) => {
         await gotoScenario('normal')(page)

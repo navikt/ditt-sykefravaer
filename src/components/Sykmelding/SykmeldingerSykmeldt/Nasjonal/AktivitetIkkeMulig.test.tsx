@@ -10,7 +10,7 @@ import { render, screen } from '../../../../utils/test/testUtils'
 import AktivitetIkkeMulig from './AktivitetIkkeMulig'
 
 describe('AktivitetIkkeMulig', () => {
-    it('Renders aktivitet ikke mulig periode with specified medisinsk- and arbeidsrelatert arsak', async () => {
+    it('Viser aktivitet ikke mulig periode med spesifisert medisinsk- og arbeidsrelatert årsak', async () => {
         const periode: AktivitetIkkeMuligPeriode = {
             medisinskArsak: {
                 beskrivelse: 'medisinsk beskrivelse',
@@ -35,7 +35,7 @@ describe('AktivitetIkkeMulig', () => {
         expect(screen.getByText('arbeidsrelatert beskrivelse')).toBeInTheDocument()
     })
 
-    it('should display text if medisinskArsak and arbeidsrelatertArsak is missing', () => {
+    it('skal vise tekst hvis medisinskArsak og arbeidsrelatertArsak mangler', () => {
         const periode: AktivitetIkkeMuligPeriode = {
             medisinskArsak: null,
             arbeidsrelatertArsak: null,

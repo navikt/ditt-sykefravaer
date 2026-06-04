@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { prettifyOrgName } from './orgUtils'
 
 describe('orgUtils', () => {
-    it('should map correctly', () => {
+    it('skal mappe riktig', () => {
         expect(prettifyOrgName('TANNHELSETJENESTENS,EPLESNEKKERTJENESTE,FLASKEHALSFABRIKK MO')).toEqual(
             'Tannhelsetjenestens Eplesnekkertjeneste Flaskehalsfabrikk Mo',
         )

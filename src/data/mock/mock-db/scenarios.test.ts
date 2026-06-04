@@ -7,7 +7,7 @@ import { toDate } from '../../../utils/dato-utils'
 import { e2eScenarios } from './scenarios'
 
 describe('e2e-scenarios', () => {
-    it('buttAgainstAvventende should butt against', () => {
+    it('buttAgainstAvventende skal være butt-i-butt', () => {
         const { sykmeldinger } = e2eScenarios.buttAgainstAvventende.scenario()
 
         const firstTom = toDate(sykmeldinger[0].sykmeldingsperioder[0].tom)
@@ -16,7 +16,7 @@ describe('e2e-scenarios', () => {
         expect(firstTom).toEqual(subDays(lastFom, 1))
     })
 
-    it('unsentButtAgainstNormal should butt against', () => {
+    it('unsentButtAgainstNormal være butt-i-butt', () => {
         const { sykmeldinger } = e2eScenarios.unsentButtAgainstNormal.scenario()
 
         const firstTom = toDate(sykmeldinger[0].sykmeldingsperioder[0].tom)

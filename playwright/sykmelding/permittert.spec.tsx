@@ -15,7 +15,7 @@ test.describe('Arbeidssituasjon - Permittert', () => {
      * This fallback from PERMITTERT to ARBEIDSLEDIG used to happen in the frontend, it has been moved
      * to the mapping in the API layer
      */
-    test('should submit ARBEIDSLEDIG when user choose radio button permittert', async ({ page }) => {
+    test('skal sende inn ARBEIDSLEDIG når bruker velger radioknapp permittert', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal', { antallArbeidsgivere: 0 }),
             navigateToFirstSykmelding('nye', '100%'),
@@ -33,7 +33,7 @@ test.describe('Arbeidssituasjon - Permittert', () => {
         })(page)
     })
 
-    test('should be able to submit form with work situation permittert, with arbeidsgiver', async ({ page }) => {
+    test('skal kunne sende inn skjema med arbeidssituasjon permittert, med arbeidsgiver', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal', { antallArbeidsgivere: 2 }),
             navigateToFirstSykmelding('nye', '100%'),

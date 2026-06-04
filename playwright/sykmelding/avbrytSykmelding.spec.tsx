@@ -9,7 +9,7 @@ import {
 import { test, expect } from '../utils/fixtures'
 
 test.describe('Avbryt sykmelding', () => {
-    test('should show sykmelding as avbrutt', async ({ page }) => {
+    test('skal vise sykmelding som avbrutt', async ({ page }) => {
         await gotoScenario('avbrutt')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
@@ -18,7 +18,7 @@ test.describe('Avbryt sykmelding', () => {
         await expect(page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ })).toBeVisible()
     })
 
-    test('should reopen avbrutt sykmelding', async ({ page }) => {
+    test('skal gjenåpne avbrutt sykmelding', async ({ page }) => {
         await gotoScenario('avbrutt')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
@@ -31,7 +31,7 @@ test.describe('Avbryt sykmelding', () => {
         await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).toBeVisible()
     })
 
-    test('should avbryte open sykmelding', async ({ page }) => {
+    test('skal avbryte åpen sykmelding', async ({ page }) => {
         await gotoRoot(page)
 
         await navigateToFirstSykmelding('nye', '100%')(page)
@@ -44,7 +44,7 @@ test.describe('Avbryt sykmelding', () => {
         await expect(page.getByRole('link', { name: 'Tilbake til Ditt sykefravær' })).toBeVisible()
     })
 
-    test('should be able to re-open and and avbryte bekreftet sykmelding', async ({ page }) => {
+    test('skal kunne gjenåpne og avbryte bekreftet sykmelding', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
@@ -68,7 +68,7 @@ test.describe('Avbryt sykmelding', () => {
         await expect(page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ })).toBeVisible()
     })
 
-    test('should show details for avbrutt egenmelding sykmelding', async ({ page }) => {
+    test('skal vise detaljer for avbrutt egenmelding sykmelding', async ({ page }) => {
         await gotoScenario('avbruttEgenmelding')(page)
         await navigateToFirstSykmelding('tidligere', 'egenmelding')(page)
 

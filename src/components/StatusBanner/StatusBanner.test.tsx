@@ -6,7 +6,7 @@ import { Behandlingsutfall, RegelStatus, StatusEvent, SykmeldingStatus } from '.
 import StatusBanner from './StatusBanner'
 
 describe('StatusBanner', () => {
-    it('Renders Sendt banner with arbeidsgiver', () => {
+    it('Viser Sendt-banner med arbeidsgiver', () => {
         const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.SENDT,
             timestamp: '2021-05-01',
@@ -24,7 +24,7 @@ describe('StatusBanner', () => {
         expect(screen.getByText(/Sykmeldingen ble sendt til Politiet./)).toBeInTheDocument()
     })
 
-    it('Renders Bekreftet banner', () => {
+    it('Viser Bekreftet-banner', () => {
         const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
@@ -39,7 +39,7 @@ describe('StatusBanner', () => {
         expect(screen.getByText(/Sykmeldingen ble sendt til NAV./)).toBeInTheDocument()
     })
 
-    it('Renders Bekreftet egenmelding banner', () => {
+    it('Viser Bekreftet egenmelding-banner', () => {
         const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',
@@ -54,7 +54,7 @@ describe('StatusBanner', () => {
         expect(screen.getByText(/Egenmeldingen ble sendt til NAV./)).toBeInTheDocument()
     })
 
-    it('Renders bekreftet avvist banner', () => {
+    it('Viser bekreftet avvist-banner', () => {
         const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.BEKREFTET,
             timestamp: '2021-05-01',

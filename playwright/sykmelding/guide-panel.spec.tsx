@@ -3,7 +3,7 @@ import test, { expect } from '@playwright/test'
 import { gotoScenario, navigateToFirstSykmelding } from '../utils/user-actions'
 
 test.describe('Guide panel', () => {
-    test('should show guidepanel about egenmeldt', async ({ page }) => {
+    test('skal vise guidepanel om egenmeldt', async ({ page }) => {
         await gotoScenario('egenmeldt')(page)
         await navigateToFirstSykmelding('nye', 'egenmelding')(page)
 
@@ -14,14 +14,14 @@ test.describe('Guide panel', () => {
         ).toBeVisible()
     })
 
-    test('should show guidepanel if user is over 70 years old', async ({ page }) => {
+    test('skal vise guidepanel hvis bruker er over 70 år', async ({ page }) => {
         await gotoScenario('overSytti')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
 
         await expect(page.getByText('Når du har passert 70 år, har du ikke lenger rett til sykepenger.')).toBeVisible()
     })
 
-    test('should show guidepanel if sykmelding is under 20%', async ({ page }) => {
+    test('skal vise guidepanel hvis sykmelding er under 20%', async ({ page }) => {
         await gotoScenario('under20Prosent')(page)
         await navigateToFirstSykmelding('nye', 'papirsykmelding')(page)
 
@@ -33,7 +33,7 @@ test.describe('Guide panel', () => {
     })
 
     test.describe('Merknadtype', () => {
-        test('should show guidepanel when sykmelding has merknad DELVIS_GODKJENT', async ({ page }) => {
+        test('skal vise guidepanel når sykmelding har merknad DELVIS_GODKJENT', async ({ page }) => {
             await gotoScenario('delvisGodkjentTilbakedatering')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
 
@@ -41,7 +41,7 @@ test.describe('Guide panel', () => {
             await expect(page.getByRole('button', { name: 'Bekreft sykmelding ' })).toBeVisible()
         })
 
-        test('should show guidepanel when sykmelding has merknad TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER', async ({
+        test('skal vise guidepanel når sykmelding har merknad TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER', async ({
             page,
         }) => {
             await gotoScenario('tilbakedateringKreverMerInfo')(page)
@@ -51,7 +51,7 @@ test.describe('Guide panel', () => {
             await expect(page.getByRole('button', { name: 'Bekreft sykmelding ' })).toBeVisible()
         })
 
-        test('should show guidepanel in open sykmelding with merknad UNDER_BEHANDLING', async ({ page }) => {
+        test('skal vise guidepanel i åpen sykmelding med merknad UNDER_BEHANDLING', async ({ page }) => {
             await gotoScenario('harUnderBehandlingUsent')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
 
@@ -63,7 +63,7 @@ test.describe('Guide panel', () => {
             await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).toBeVisible()
         })
 
-        test('should show guidepanel in sent sykmelding for under (manuell) behandling', async ({ page }) => {
+        test('skal vise guidepanel i sendt sykmelding for under (manuell) behandling', async ({ page }) => {
             await gotoScenario('harUnderBehandling')(page)
             await navigateToFirstSykmelding('under-behandling', '100%')(page)
 
@@ -78,7 +78,7 @@ test.describe('Guide panel', () => {
 })
 
 test.describe('Alert', () => {
-    test('should how alert whem sykmelding has status UTGATT', async ({ page }) => {
+    test('skal vise varsel når sykmelding har status UTGATT', async ({ page }) => {
         await gotoScenario('utgatt')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 

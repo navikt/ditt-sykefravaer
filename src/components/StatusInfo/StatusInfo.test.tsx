@@ -26,7 +26,7 @@ const sjekkEos = (): void => {
 }
 
 describe('StatusInfo', () => {
-    it('Renders nothing when status is not SENDT or BEKREFTET', () => {
+    it('Viser ingenting når status ikke er SENDT eller BEKREFTET', () => {
         const sykmeldingStatus: SykmeldingStatus = {
             statusEvent: StatusEvent.APEN,
             timestamp: '2021-05-01',
@@ -38,7 +38,7 @@ describe('StatusInfo', () => {
     })
 
     describe('Avventende', () => {
-        it('Renders avventende info when status is SENDT and periode is AVVENTENDE', () => {
+        it('Viser avventende info når status er SENDT og periode er AVVENTENDE', () => {
             const sykmeldingStatus: SykmeldingStatus = {
                 statusEvent: StatusEvent.SENDT,
                 timestamp: '2021-05-01',
@@ -72,7 +72,7 @@ describe('StatusInfo', () => {
             )
         })
 
-        it('Renders nothing when status is BEKREFTET and periode is AVVENTENDE', () => {
+        it('Viser ingenting når status er BEKREFTET og periode er AVVENTENDE', () => {
             const sykmeldingStatus: SykmeldingStatus = {
                 statusEvent: StatusEvent.BEKREFTET,
                 timestamp: '2021-05-01',
@@ -100,7 +100,7 @@ describe('StatusInfo', () => {
     })
 
     describe('Tilbakedatert under behandling', () => {
-        it('Renders under behandling info when status is SENDT and has merknad of type TILBAKEDATERING_UNDER_BEHANDLING', () => {
+        it('Viser under behandling info når status er SENDT og har merknad av typen TILBAKEDATERING_UNDER_BEHANDLING', () => {
             const sykmeldingStatus: SykmeldingStatus = {
                 statusEvent: StatusEvent.SENDT,
                 timestamp: '2021-05-01',
@@ -130,7 +130,7 @@ describe('StatusInfo', () => {
 
     describe('Standard digital søknad', () => {
         describe('SENDT', () => {
-            it('Single reisetilskudd periode not in combination with another period type renders standard info', () => {
+            it('Enkelt reisetilskudd periode ikke i kombinasjon med annen periodetype viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -156,7 +156,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Reisetilskudd in combination with another period type renders standard info', () => {
+            it('Reisetilskudd i kombinasjon med annen periodetype viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -195,7 +195,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Ansatt with reisetilskudd in combination with another period type renders standard info', () => {
+            it('Ansatt med reisetilskudd i kombinasjon med annen periodetype viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -234,7 +234,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info with freelancer info for FRILANSER', () => {
+            it('Viser standardinfo med frilanserinfo for FRILANSER', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -260,7 +260,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info with frilanser info for NAERINGSDRIVENDE', () => {
+            it('Viser standardinfo med frilanserinfo for NAERINGSDRIVENDE', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -286,7 +286,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info without frilanser info for ARBEIDSLEDIG', () => {
+            it('Viser standardinfo uten frilanserinfo for ARBEIDSLEDIG', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -312,7 +312,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Gradert reisetilskudd renders standard info', () => {
+            it('Gradert reisetilskudd viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.SENDT,
                     timestamp: '2021-05-01',
@@ -343,7 +343,7 @@ describe('StatusInfo', () => {
         })
 
         describe('BEKREFTET', () => {
-            it('Single reisetilskudd periode not in combination with another period type renders standard info', () => {
+            it('Enkelt reisetilskudd periode ikke i kombinasjon med annen periodetype viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -369,7 +369,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Reisetilskudd in combination with another period type renders standard info', () => {
+            it('Reisetilskudd i kombinasjon med annen periodetype viser standardinfo', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -408,7 +408,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info with freelancer info for FRILANSER', () => {
+            it('Viser standardinfo med frilanserinfo for FRILANSER', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -434,7 +434,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info with frilanser info for NAERINGSDRIVENDE', () => {
+            it('Viser standardinfo med frilanserinfo for NAERINGSDRIVENDE', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -460,7 +460,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info without frilanser info for ARBEIDSLEDIG', () => {
+            it('Viser standardinfo uten frilanserinfo for ARBEIDSLEDIG', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -486,7 +486,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info with frilanser info for gradert reisetilskudd NAERINGSDRIVENDE', () => {
+            it('Viser standardinfo med frilanserinfo for gradert reisetilskudd NAERINGSDRIVENDE', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',
@@ -515,7 +515,7 @@ describe('StatusInfo', () => {
                 sjekkEos()
             })
 
-            it('Renders standard info without frilanser info for gradert reisetilskudd ARBEIDSLEDIG', () => {
+            it('Viser standardinfo uten frilanserinfo for gradert reisetilskudd ARBEIDSLEDIG', () => {
                 const sykmeldingStatus: SykmeldingStatus = {
                     statusEvent: StatusEvent.BEKREFTET,
                     timestamp: '2021-05-01',

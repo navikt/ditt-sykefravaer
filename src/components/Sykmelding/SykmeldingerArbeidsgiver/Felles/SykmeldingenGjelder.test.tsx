@@ -6,7 +6,7 @@ import { Pasient } from '../../../../types/sykmelding/sykmelding'
 import SykmeldingenGjelder from './SykmeldingenGjelder'
 
 describe('SykmeldingenGjelderView', () => {
-    it('Does not render if name is undefined', () => {
+    it('Viser ikke hvis navn er undefined', () => {
         const pasient: Pasient = {
             fnr: '12345678901',
             fornavn: null,
@@ -20,7 +20,7 @@ describe('SykmeldingenGjelderView', () => {
         expect(screen.queryByText('12345678901')).not.toBeInTheDocument()
     })
 
-    it('Renders name and fnr if arbeidsgiver', () => {
+    it('Viser navn og fnr hvis arbeidsgiver', () => {
         const pasient: Pasient = {
             fnr: '12345678901',
             fornavn: 'Ola',

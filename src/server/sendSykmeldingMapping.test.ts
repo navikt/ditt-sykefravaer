@@ -16,7 +16,7 @@ describe('sendSykmeldingMapping', () => {
     const sykmeldingApen = (): MuterbarSykmelding =>
         new SykmeldingBuilder().status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()
 
-    it('should map a bare minimum result correctly', () => {
+    it('skal mappe et minimalt resultat riktig', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -50,7 +50,7 @@ describe('sendSykmeldingMapping', () => {
         })
     })
 
-    it('should map PERMITTERT to ARBEIDSLEDIG', () => {
+    it('skal mappe PERMITTERT til ARBEIDSLEDIG', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -84,7 +84,7 @@ describe('sendSykmeldingMapping', () => {
         })
     })
 
-    it('should map uriktigeOpplysninger correctly', () => {
+    it('skal mappe uriktigeOpplysninger riktig', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -122,7 +122,7 @@ describe('sendSykmeldingMapping', () => {
         })
     })
 
-    it('should map a normal arbeidssituasjon result correctly', () => {
+    it('skal mappe et normalt arbeidssituasjon-resultat riktig', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -164,7 +164,7 @@ describe('sendSykmeldingMapping', () => {
         })
     })
 
-    it('should map a arbeidssituasjon with inactive arbeidsgiver result correctly', () => {
+    it('skal mappe en arbeidssituasjon med inaktivt arbeidsgiver-resultat riktig', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -205,7 +205,7 @@ describe('sendSykmeldingMapping', () => {
         })
     })
 
-    it('should map a frilanser with egenmeldingsperioder and forsikring correctly', () => {
+    it('skal mappe en frilanser med egenmeldingsperioder og forsikring riktig', () => {
         const sykmelding = sykmeldingApen()
         const mappedResult = mapSendSykmeldingValuesToV3Api(
             {
@@ -262,7 +262,7 @@ describe('sendSykmeldingMapping', () => {
     })
 
     describe('fisker', () => {
-        it('should map a fisker with blad A+Lott (næringsdrivende w/insurance) with egenmeldingsperioder and forsikring correctly', () => {
+        it('skal mappe en fisker med blad A+Lott (næringsdrivende m/forsikring) med egenmeldingsperioder og forsikring riktig', () => {
             const sykmelding = sykmeldingApen()
             const mappedResult = mapSendSykmeldingValuesToV3Api(
                 {
@@ -331,7 +331,7 @@ describe('sendSykmeldingMapping', () => {
             })
         })
 
-        it('should map a fisker with blad A+Hyre (arbeidstaker)', () => {
+        it('skal mappe en fisker med blad A+Hyre (arbeidstaker)', () => {
             const sykmelding = sykmeldingApen()
             const mappedResult = mapSendSykmeldingValuesToV3Api(
                 {
@@ -396,7 +396,7 @@ describe('sendSykmeldingMapping', () => {
     })
 
     describe('Arbeidsledig', () => {
-        it('should map a arbeidsledig correctly', () => {
+        it('skal mappe en arbeidsledig riktig', () => {
             const sykmelding = sykmeldingApen()
             const mappedResult = mapSendSykmeldingValuesToV3Api(
                 {
@@ -438,7 +438,7 @@ describe('sendSykmeldingMapping', () => {
             })
         })
 
-        it('should map a arbeidsledig without tidligere arbeidsgiver correctly', () => {
+        it('skal mappe en arbeidsledig uten tidligere arbeidsgiver riktig', () => {
             const sykmelding = sykmeldingApen()
             const mappedResult = mapSendSykmeldingValuesToV3Api(
                 {

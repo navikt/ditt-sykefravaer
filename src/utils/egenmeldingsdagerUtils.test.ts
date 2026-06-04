@@ -5,7 +5,7 @@ import { YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 import { hasCompletedEgenmeldingsdager } from './egenmeldingsdagerUtils'
 
 describe('hasCompletedEgenmeldingsdager', () => {
-    it('should return true if harPerioder is NO with one period', () => {
+    it('skal returnere true hvis harPerioder er NEI med én periode', () => {
         const egenmeldingsperioder = [
             {
                 harPerioder: YesOrNo.NO,
@@ -16,7 +16,7 @@ describe('hasCompletedEgenmeldingsdager', () => {
         expect(hasCompletedEgenmeldingsdager(egenmeldingsperioder)).toBe(true)
     })
 
-    it('should return false if harPerioder is YES with one period', () => {
+    it('skal returnere false hvis harPerioder er JA med én periode', () => {
         const egenmeldingsperioder = [
             {
                 harPerioder: YesOrNo.YES,
@@ -27,7 +27,7 @@ describe('hasCompletedEgenmeldingsdager', () => {
         expect(hasCompletedEgenmeldingsdager(egenmeldingsperioder)).toBe(false)
     })
 
-    it('should return true if harPerioder is NO in the last period', () => {
+    it('skal returnere true hvis harPerioder er NEI i den siste perioden', () => {
         const egenmeldingsperioder = [
             {
                 harPerioder: YesOrNo.YES,
@@ -48,7 +48,7 @@ describe('hasCompletedEgenmeldingsdager', () => {
         expect(hasCompletedEgenmeldingsdager(egenmeldingsperioder)).toBe(true)
     })
 
-    it('should return false if harPerioder is YES in the last period', () => {
+    it('skal returnere false hvis harPerioder er JA i den siste perioden', () => {
         const egenmeldingsperioder = [
             {
                 harPerioder: YesOrNo.YES,

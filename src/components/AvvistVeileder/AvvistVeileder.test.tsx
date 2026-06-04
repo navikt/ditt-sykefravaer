@@ -6,7 +6,7 @@ import { Behandlingsutfall, RegelStatus } from '../../types/sykmelding/sykmeldin
 import AvvistVeileder from './AvvistVeileder'
 
 describe('AvvistVeileder', () => {
-    it('Renders custom message if the therapist is missing authorization', () => {
+    it('Viser tilpasset melding hvis terapeuten mangler autorisasjon', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
             ruleHits: [
@@ -24,7 +24,7 @@ describe('AvvistVeileder', () => {
         expect(screen.getByText(/Den som har skrevet sykmeldingen, har ikke autorisasjon/)).toBeInTheDocument()
     })
 
-    it('Renders custom message for people over 70', () => {
+    it('Viser tilpasset melding for personer over 70', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
             ruleHits: [
@@ -42,7 +42,7 @@ describe('AvvistVeileder', () => {
         expect(screen.getByText(/Du har ikke rett til sykepenger, fordi du er over 70 år/)).toBeInTheDocument()
     })
 
-    it('Renders custom message if z diagnose', () => {
+    it('Viser tilpasset melding ved z-diagnose', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
             ruleHits: [
@@ -61,7 +61,7 @@ describe('AvvistVeileder', () => {
         ).toBeInTheDocument()
     })
 
-    it('Renders normal message for other rulehits', () => {
+    it('Viser normal melding for andre regeltreff', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
             ruleHits: [

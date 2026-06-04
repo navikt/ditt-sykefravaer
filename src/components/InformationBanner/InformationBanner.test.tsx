@@ -6,7 +6,7 @@ import { Merknad, Merknadtype } from '../../types/sykmelding/sykmelding'
 import InformationBanner from './InformationBanner'
 
 describe('InformationBanner', () => {
-    it('Renders view for merknad UGYLDIG_TILBAKEDATERING', async () => {
+    it('Viser visning for merknad UGYLDIG_TILBAKEDATERING', async () => {
         const merknad: Merknad = {
             type: Merknadtype.UGYLDIG_TILBAKEDATERING,
             beskrivelse: null,
@@ -18,7 +18,7 @@ describe('InformationBanner', () => {
         expect(screen.getByText('Tilbakedateringen kan ikke godkjennes')).toBeInTheDocument()
     })
 
-    it('Renders view for merknad TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER', () => {
+    it('Viser visning for merknad TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER', () => {
         const merknad: Merknad = {
             type: Merknadtype.TILBAKEDATERING_KREVER_FLERE_OPPLYSNINGER,
             beskrivelse: null,
@@ -30,7 +30,7 @@ describe('InformationBanner', () => {
         expect(screen.getByText('Behov for mer opplysninger')).toBeInTheDocument()
     })
 
-    it('Renders view for merknad TILBAKEDATERING_UNDER_BEHANDLING', () => {
+    it('Viser visning for merknad TILBAKEDATERING_UNDER_BEHANDLING', () => {
         const merknad: Merknad = {
             type: Merknadtype.UNDER_BEHANDLING,
             beskrivelse: null,
@@ -42,14 +42,14 @@ describe('InformationBanner', () => {
         expect(screen.getByRole('heading', { name: 'Viktig informasjon' })).toBeInTheDocument()
     })
 
-    it('Renders papirsinfo view if papirsykmelding is true', () => {
+    it('Viser papirsinfo-visning hvis papirsykmelding er true', () => {
         render(<InformationBanner papirsykmelding />)
         expect(screen.queryByTestId('merknad-banner')).not.toBeInTheDocument()
         expect(screen.getByTestId('papir-banner')).toBeInTheDocument()
         expect(screen.getByText('Før du bruker sykmeldingen')).toBeInTheDocument()
     })
 
-    it('Renders over 70 view if over 70 is true', () => {
+    it('Viser over 70-visning hvis over 70 er true', () => {
         render(<InformationBanner overSyttiAar />)
 
         expect(
@@ -57,7 +57,7 @@ describe('InformationBanner', () => {
         ).toBeInTheDocument()
     })
 
-    it('Renders Normal view if merknader and papirsykmelding is undefined', () => {
+    it('Viser normal visning hvis merknader og papirsykmelding er undefined', () => {
         render(<InformationBanner merknader={null} papirsykmelding={null} />)
         expect(screen.queryByTestId('merknad-banner')).not.toBeInTheDocument()
         expect(screen.queryByTestId('papir-banner')).not.toBeInTheDocument()
@@ -70,7 +70,7 @@ describe('InformationBanner', () => {
         expect(screen.getByText('Når du er ferdig sender du sykmeldingen, nederst på siden.')).toBeInTheDocument()
     })
 
-    it('Renders info about sykmelding below 20% if sykmelding is below 20%', () => {
+    it('Viser info om sykmelding under 20% hvis sykmelding er under 20%', () => {
         render(<InformationBanner isUnder20Percent={19} />)
 
         expect(screen.queryByTestId('merknad-banner')).not.toBeInTheDocument()

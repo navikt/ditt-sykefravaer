@@ -1,6 +1,6 @@
 import { test, expect } from './utils/fixtures'
 
-test.describe('Homepage Performance', () => {
+test.describe('Ytelse på hjemmesiden', () => {
     const GOOD_CLS_THRESHOLD: number = 0.1
 
     test('burde ha en god CLS score på første last', async ({ page, getCLS }) => {

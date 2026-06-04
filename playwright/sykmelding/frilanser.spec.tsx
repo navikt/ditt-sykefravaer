@@ -16,7 +16,7 @@ import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Frilanser', () => {
     test.describe('Feil ved henting av data', () => {
-        test('should disable submit button while data is loading', async ({ page }) => {
+        test('skal deaktivere send-knapp mens data lastes', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid',
                 async (route) => {
@@ -38,7 +38,7 @@ test.describe('Frilanser', () => {
             await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
 
-        test('should disable submit button when er-forste-sykmelding fails', async ({ page }) => {
+        test('skal deaktivere send-knapp når er-forste-sykmelding feiler', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 (route) => {
@@ -67,7 +67,7 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
         })
 
-        test('should disable submit button when er-utenfor-ventetid fails', async ({ page }) => {
+        test('skal deaktivere send-knapp når er-utenfor-ventetid feiler', async ({ page }) => {
             await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid', (route) => {
                 if (route.request().method() === 'GET') {
                     return route.fulfill({
@@ -93,7 +93,7 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
         })
 
-        test('should disable submit button while er-forste-sykmelding is loading', async ({ page }) => {
+        test('skal deaktivere send-knapp mens er-forste-sykmelding lastes', async ({ page }) => {
             await page.route(
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 async (route) => {
@@ -117,7 +117,7 @@ test.describe('Frilanser', () => {
     })
 
     test.describe('Er forste sykmelding', () => {
-        test('should be able to submit form with egenmeldingsperiode and forsikring', async ({ page }) => {
+        test('skal kunne sende inn skjema med egenmeldingsperiode og forsikring', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erForsteSykmelding: true,
@@ -147,7 +147,7 @@ test.describe('Frilanser', () => {
     })
 
     test.describe('Er ikke forste sykmelding', () => {
-        test('should be able to submit form', async ({ page }) => {
+        test('skal kunne sende inn skjema', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: false,
                 erUtenforVentetid: true,
@@ -174,7 +174,7 @@ test.describe('Frilanser', () => {
     })
 
     test.describe('Egenmeldingsperioder', () => {
-        test('should show error message with link if date is missing', async ({ page }) => {
+        test('skal vise feilmelding med lenke hvis dato mangler', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: true,
             })(page)
@@ -194,7 +194,7 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('link', { name: 'Du må fylle inn en dato.' })).toBeVisible()
         })
 
-        test('should show error message with link if date is invalid format', async ({ page }) => {
+        test('skal vise feilmelding med lenke hvis dato har ugyldig format', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: true,
             })(page)
@@ -208,7 +208,7 @@ test.describe('Frilanser', () => {
             await expect(page.getByRole('link', { name: 'Datoen må være på formatet DD.MM.YYYY.' })).toBeVisible()
         })
 
-        test('should show error message with link if fom is after sykmelding fom', async ({ page }) => {
+        test('skal vise feilmelding med lenke hvis fom er etter sykmeldingens fom', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: true,
             })(page)
@@ -224,7 +224,7 @@ test.describe('Frilanser', () => {
             ).toBeVisible()
         })
 
-        test('should be able to submit form without egenmeldingsperioder and forsikring', async ({ page }) => {
+        test('skal kunne sende inn skjema uten egenmeldingsperioder og forsikring', async ({ page }) => {
             await gotoScenario('normal', {
                 erForsteSykmelding: true,
             })(page)
