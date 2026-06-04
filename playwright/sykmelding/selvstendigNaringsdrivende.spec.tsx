@@ -23,7 +23,7 @@ const navigateToFirstAndPickSituasjon = userInteractionsGroup(
 
 test.describe('Selvstendig næringsdrivende', () => {
     test.describe('Er forste sykmelding', () => {
-        test('should be able to submit form', async ({ page }) => {
+        test('skal kunne sende inn skjema', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erForsteSykmelding: true,
@@ -51,7 +51,7 @@ test.describe('Selvstendig næringsdrivende', () => {
     })
 
     test.describe('Er ikke forste sykmelding', () => {
-        test('should be able to submit form', async ({ page }) => {
+        test('skal kunne sende inn skjema', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', {
                     erForsteSykmelding: false,

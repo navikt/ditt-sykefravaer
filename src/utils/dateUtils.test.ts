@@ -12,13 +12,13 @@ describe('toReadableDate', () => {
 })
 
 describe('toReadableDatePeriod', () => {
-    it('Returns month and year only once if fom and tom have the same month and year', () => {
+    it('Returnerer måned og år bare én gang hvis fom og tom har samme måned og år', () => {
         expect(toReadableDatePeriod('2021-04-01', '2021-04-03')).toBe('1. - 3. april 2021')
     })
-    it('Returns both months if month is different and year is equal for fom and tom', () => {
+    it('Returnerer begge måneder hvis måneden er forskjellig og året er likt for fom og tom', () => {
         expect(toReadableDatePeriod('2021-01-01', '2021-04-03')).toBe('1. januar - 3. april 2021')
     })
-    it('Returns both months and years if the month and year are different', () => {
+    it('Returnerer begge måneder og år hvis måneden og året er forskjellig', () => {
         expect(toReadableDatePeriod('2020-12-01', '2021-02-03')).toBe('1. desember 2020 - 3. februar 2021')
     })
 })

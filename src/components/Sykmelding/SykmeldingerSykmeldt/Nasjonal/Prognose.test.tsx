@@ -6,7 +6,7 @@ import { Prognose } from '../../../../types/sykmelding/sykmelding'
 import PrognoseSykmeldt from './Prognose'
 
 describe('Prognose', () => {
-    it('Renders section title ', () => {
+    it('Viser seksjonstittelen', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -17,7 +17,7 @@ describe('Prognose', () => {
         expect(screen.getByText('Prognose')).toBeInTheDocument()
     })
 
-    it('Does not render section if arbeidsforEtterPeriode is false and all other properties are null', () => {
+    it('Viser ikke seksjon hvis arbeidsforEtterPeriode er false og alle andre egenskaper er null', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: null,
@@ -29,7 +29,7 @@ describe('Prognose', () => {
         expect(screen.queryByText('Friskmelding/Prognose')).not.toBeInTheDocument()
     })
 
-    it('Renders arbeidsforEtterPeriode if true', () => {
+    it('Viser arbeidsforEtterPeriode hvis true', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -40,7 +40,7 @@ describe('Prognose', () => {
         expect(screen.getByText('Er pasienten 100% arbeidsfør etter denne perioden?')).toBeInTheDocument()
     })
 
-    it('Does not renders arbeidsforEtterPeriode if false', () => {
+    it('Viser ikke arbeidsforEtterPeriode hvis false', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -51,7 +51,7 @@ describe('Prognose', () => {
         expect(screen.queryByText('Er pasienten 100% arbeidsfør etter denne perioden?')).not.toBeInTheDocument()
     })
 
-    it('Renders hensynArbeidsplassen', () => {
+    it('Viser hensynArbeidsplassen', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -63,7 +63,7 @@ describe('Prognose', () => {
         expect(screen.getByText('hensyn på arbeidsplassen')).toBeInTheDocument()
     })
 
-    it('Renders erIArbeid egetArbeidPaSikt true', () => {
+    it('Viser erIArbeid egetArbeidPaSikt true', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -90,7 +90,7 @@ describe('Prognose', () => {
         expect(screen.getByText('15. april 2021')).toBeInTheDocument()
     })
 
-    it('Renders erIArbeid annetArbeidPaSikt true', () => {
+    it('Viser erIArbeid annetArbeidPaSikt true', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -119,7 +119,7 @@ describe('Prognose', () => {
         expect(screen.getByText('15. april 2021')).toBeInTheDocument()
     })
 
-    it('Renders erIkkeIArbeid arbeidsforPaSikt true', () => {
+    it('Viser erIkkeIArbeid arbeidsforPaSikt true', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -140,7 +140,7 @@ describe('Prognose', () => {
         expect(screen.getByText('15. april 2021')).toBeInTheDocument()
     })
 
-    it('Renders erIkkeIArbeid when arbeidsforPaSikt is false', () => {
+    it('Viser erIkkeIArbeid når arbeidsforPaSikt er false', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',

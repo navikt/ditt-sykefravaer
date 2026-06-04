@@ -6,7 +6,7 @@ import { findValgtArbeidsgiver } from './arbeidsgiverUtils'
 
 describe('arbeidsgiverUtils', () => {
     describe('findValgtArbeidsgiver', () => {
-        it('should return arbeidsgiver if given orgnummer matches', () => {
+        it('skal returnere arbeidsgiver hvis gitt orgnummer samsvarer', () => {
             const arbeidsgivere: Arbeidsgiver[] = [
                 {
                     __typename: 'Arbeidsgiver',
@@ -33,7 +33,7 @@ describe('arbeidsgiverUtils', () => {
             expect(findValgtArbeidsgiver(arbeidsgivere, orgnummer)).toBe(arbeidsgivere[1])
         })
 
-        it('should return undefined if given orgnummer is not found in arbeidsgiver list', () => {
+        it('skal returnere undefined hvis gitt orgnummer ikke finnes i arbeidsgiver-listen', () => {
             const arbeidsgivere: Arbeidsgiver[] = [
                 {
                     __typename: 'Arbeidsgiver',

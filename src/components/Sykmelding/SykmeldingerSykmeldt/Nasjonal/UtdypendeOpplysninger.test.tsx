@@ -6,7 +6,7 @@ import { UtdypendeOpplysning } from '../../../../types/sykmelding/sykmelding'
 import UtdypendeOpplysninger from './UtdypendeOpplysninger'
 
 describe('UtdypendeOpplysninger', () => {
-    it('Renders utdypende opplysninger', () => {
+    it('Viser utdypende opplysninger', () => {
         const utdypende: UtdypendeOpplysning = {
             sporsmal: 'dette er det første spørsmålet',
             svar: 'dette er det første svaret',

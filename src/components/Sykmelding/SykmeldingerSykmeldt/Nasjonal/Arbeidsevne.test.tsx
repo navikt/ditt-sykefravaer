@@ -4,7 +4,7 @@ import { render, screen } from '@testing-library/react'
 import Arbeidsevne from './Arbeidsevne'
 
 describe('Arbeidsevne', () => {
-    it('Renders tiltak if they exist', () => {
+    it('Viser tiltak hvis de finnes', () => {
         render(
             <Arbeidsevne
                 tiltakArbeidsplassen="tiltak på arbeidsplassen"
@@ -18,12 +18,12 @@ describe('Arbeidsevne', () => {
         expect(screen.getByText('andre tiltak')).toBeInTheDocument()
     })
 
-    it('Renders tiltakArbeidsplassen even if other tiltaks are null', () => {
+    it('Viser tiltakArbeidsplassen selv om andre tiltak er null', () => {
         render(<Arbeidsevne tiltakArbeidsplassen="tiltak på arbeidsplassen" parentId="test" />)
         expect(screen.getByText('tiltak på arbeidsplassen')).toBeInTheDocument()
     })
 
-    it('Does not render tiltak if then dont exist', () => {
+    it('Viser ikke tiltak hvis de ikke finnes', () => {
         render(<Arbeidsevne parentId="test" />)
         expect(screen.queryByText('tiltak på arbeidsplassen')).not.toBeInTheDocument()
         expect(screen.queryByText('tiltak nav')).not.toBeInTheDocument()

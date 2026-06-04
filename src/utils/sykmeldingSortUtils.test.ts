@@ -6,7 +6,7 @@ import { sortSykmeldingerByArbeidsgiver } from './sykmeldingSortUtils'
 import { createSykmelding } from './test/dataUtils'
 
 describe('sortSykmeldingerByArbeidsgiver', () => {
-    it('should sort by orgNavn', () => {
+    it('skal sortere etter orgNavn', () => {
         const result = sortSykmeldingerByArbeidsgiver([
             createSykmelding({
                 sykmeldingStatus: createSykmeldingStatusWithArbeidsgiver('Garbeidsgiver'),

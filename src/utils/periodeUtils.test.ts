@@ -318,7 +318,7 @@ describe('periodeUtils', () => {
     })
 
     describe('getSykmeldingperioderSorted', () => {
-        it('sorts by fom and tom', () => {
+        it('sorterer etter fom og tom', () => {
             const perioder: Periode[] = [
                 createSykmeldingPeriode({ fom: '2021-06-01', tom: '2021-06-03' }),
                 createSykmeldingPeriode({ fom: '2021-05-01', tom: '2021-05-03' }),

@@ -9,7 +9,7 @@ import {
 import { test, expect } from '../utils/fixtures'
 
 test.describe('Bekreftet sykmelding', () => {
-    test('should reopen brekreftet sykmelding', async ({ page }) => {
+    test('skal gjenåpne bekreftet sykmelding', async ({ page }) => {
         await gotoScenario('normal')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)

@@ -7,7 +7,7 @@ import { createSykmelding, createSykmeldingPeriode } from './test/dataUtils'
 import { findPrevSykmeldingTom } from './findPrevSykmeldingTom'
 
 describe('findPrevSykmeldingTom', () => {
-    it('should find previous sykmelding tom closest and before given sykmelding tom', async () => {
+    it('skal finne forrige sykmeldingstom nærmest og før gitt sykmeldingstom', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -64,7 +64,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(toDate('2022-10-29'))
     })
 
-    it('should not find previous sykmelding tom if the same day as given sykmelding tom', async () => {
+    it('skal ikke finne forrige sykmeldingstom hvis samme dag som gitt sykmeldingstom', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -99,7 +99,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(null)
     })
 
-    it('should only look back to non-INVALID "BEKREFTET" sykmeldinger', async () => {
+    it('skal bare se tilbake til ikke-INVALID "BEKREFTET" sykmeldinger', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -138,7 +138,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toBeNull()
     })
 
-    it('should look back to "OK" "BEKREFTET" sykmeldinger', async () => {
+    it('skal se tilbake til "OK" "BEKREFTET" sykmeldinger', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -177,7 +177,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(toDate('2022-08-18'))
     })
 
-    it('should return null if there is no previous sykmelding', async () => {
+    it('skal returnere null hvis det ikke finnes forrige sykmelding', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -195,7 +195,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(null)
     })
 
-    it('should return null if other sykmelding tom is after given sykmelding tom', async () => {
+    it('skal returnere null hvis annen sykmeldingstom er etter gitt sykmeldingstom', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -222,7 +222,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(null)
     })
 
-    it('should ignore sykmelding inside given sykmelding', async () => {
+    it('skal ignorere sykmelding innenfor gitt sykmelding', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -257,7 +257,7 @@ describe('findPrevSykmeldingTom', () => {
         expect(previousSykmeldingTom).toEqual(null)
     })
 
-    it('should handle other sykmeldinger with inverse fom/tom when avvist', async () => {
+    it('skal håndtere andre sykmeldinger med omvendt fom/tom når avvist', async () => {
         const sykmeldinger = [
             createSykmelding({
                 id: 'id-1',
@@ -297,7 +297,7 @@ describe('findPrevSykmeldingTom', () => {
     })
 
     describe('only check sykmeldinger with status SENDT or BEKREFTET', () => {
-        it('should return the closest tom for sykmelding with status SENDT', async () => {
+        it('skal returnere nærmeste tom for sykmelding med status SENDT', async () => {
             const sykmeldinger = [
                 createSykmelding({
                     id: 'id-1',
@@ -354,7 +354,7 @@ describe('findPrevSykmeldingTom', () => {
             expect(previousSykmeldingTom).toEqual(toDate('2023-01-29'))
         })
 
-        it('should return the closest tom for sykmelding with status BEKREFTET', async () => {
+        it('skal returnere nærmeste tom for sykmelding med status BEKREFTET', async () => {
             const sykmeldinger = [
                 createSykmelding({
                     id: 'id-1',
@@ -411,7 +411,7 @@ describe('findPrevSykmeldingTom', () => {
             expect(previousSykmeldingTom).toEqual(toDate('2023-01-29'))
         })
 
-        it('should only return closest tom for sykmelding with same arbeidsgiver', async () => {
+        it('skal bare returnere nærmeste tom for sykmelding med samme arbeidsgiver', async () => {
             const sykmeldinger = [
                 createSykmelding({
                     id: 'id-1',
@@ -455,8 +455,8 @@ describe('findPrevSykmeldingTom', () => {
         })
     })
 
-    describe('AVVENTENDE period type', () => {
-        it('should ignor sykmelding with period type AVVENTENDE', async () => {
+    describe('AVVENTENDE periodetype', () => {
+        it('skal ignorere sykmelding med periodetype AVVENTENDE', async () => {
             const sykmeldinger = [
                 createSykmelding({
                     id: 'id-1',

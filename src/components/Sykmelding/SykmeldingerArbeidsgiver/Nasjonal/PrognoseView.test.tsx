@@ -6,7 +6,7 @@ import { Prognose } from '../../../../types/sykmelding/sykmelding'
 import PrognoseView from './PrognoseView'
 
 describe('PrognoseView', () => {
-    it('Renders section title ', () => {
+    it('Viser seksjonstittelen', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -17,7 +17,7 @@ describe('PrognoseView', () => {
         expect(screen.getByText('Prognose')).toBeInTheDocument()
     })
 
-    it('Renders arbeidsforEtterPeriode if true', () => {
+    it('Viser arbeidsforEtterPeriode hvis true', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -28,7 +28,7 @@ describe('PrognoseView', () => {
         expect(screen.getByText('Er pasienten 100% arbeidsfør etter denne perioden?')).toBeInTheDocument()
     })
 
-    it('Does not renders arbeidsforEtterPeriode if false', () => {
+    it('Viser ikke arbeidsforEtterPeriode hvis false', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: false,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -39,7 +39,7 @@ describe('PrognoseView', () => {
         expect(screen.queryByText('Er pasienten 100% arbeidsfør etter denne perioden?')).not.toBeInTheDocument()
     })
 
-    it('Renders hensynArbeidsplassen', () => {
+    it('Viser hensynArbeidsplassen', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: 'hensyn på arbeidsplassen',
@@ -51,7 +51,7 @@ describe('PrognoseView', () => {
         expect(screen.getByText('hensyn på arbeidsplassen')).toBeInTheDocument()
     })
 
-    it('Dose not render hensynArbeidsplassen if null', () => {
+    it('Viser ikke hensynArbeidsplassen hvis null', () => {
         const prognose: Prognose = {
             arbeidsforEtterPeriode: true,
             hensynArbeidsplassen: null,

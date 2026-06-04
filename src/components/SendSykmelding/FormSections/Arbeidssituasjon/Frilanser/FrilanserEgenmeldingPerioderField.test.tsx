@@ -36,7 +36,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         )
     }
 
-    it('should always have an initial period', () => {
+    it('skal alltid ha en innledende periode', () => {
         render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-01-01" />)
 
         expect(screen.getByRole('textbox', { name: 'Når ga du beskjed?' })).toBeInTheDocument()
@@ -44,7 +44,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         expect(screen.getByTestId('value')).toHaveTextContent('[{"fom":null,"tom":null}]')
     })
 
-    it('should input period correctly', async () => {
+    it('skal legge inn periode riktig', async () => {
         render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
         await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
@@ -54,7 +54,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         )
     }, 10_000)
 
-    it('should show info alert with selected date when a date is typed', async () => {
+    it('skal vise info-varsel med valgt dato når dato skrives inn', async () => {
         render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
         await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
@@ -64,7 +64,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     }, 10_000)
 
     describe('input validation', () => {
-        it('should not allow fom on or after sykmeldingStartDato', async () => {
+        it('skal ikke tillate fom på eller etter sykmeldingStartDato', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '01.03.2021')
@@ -76,7 +76,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             ).toBeInTheDocument()
         })
 
-        it('should not allow fom earlier than 16 days before sykmeldingStartDato (non-Monday)', async () => {
+        it('skal ikke tillate fom tidligere enn 16 dager før sykmeldingStartDato (ikke mandag)', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-02-28" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '11.02.2021')
@@ -88,7 +88,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             ).toBeInTheDocument()
         }, 10_000)
 
-        it('should not allow fom earlier than 18 days before sykmeldingStartDato (Monday)', async () => {
+        it('skal ikke tillate fom tidligere enn 18 dager før sykmeldingStartDato (mandag)', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '10.02.2021')
@@ -100,7 +100,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             ).toBeInTheDocument()
         }, 10_000)
 
-        it('should enforce date format', async () => {
+        it('skal håndheve datoformat', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '13.02.202ø')
@@ -110,7 +110,7 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             expect(await screen.findByText('Datoen må være på formatet DD.MM.YYYY.')).toBeInTheDocument()
         })
 
-        it('should enforce required inputs', async () => {
+        it('skal håndheve påkrevde inndatafelter', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))

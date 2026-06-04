@@ -13,7 +13,7 @@ import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expe
 import { userInteractionsGroup } from '../utils/test-utils'
 
 test.describe('Arbeidssituasjon - Annet', () => {
-    test('should be able to submit form with work situation annet', async ({ page }) => {
+    test('skal kunne sende inn skjema med arbeidssituasjon annet', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),
             navigateToFirstSykmelding('nye', '100%'),
@@ -33,7 +33,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('should show hint about work situation and be able to submit form with work situation annet/Student', async ({
+    test('skal vise hint om arbeidssituasjon og kunne sende inn skjema med arbeidssituasjon annet/Student', async ({
         page,
     }) => {
         await userInteractionsGroup(
@@ -57,7 +57,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('should show hint about work situation annet/Dagpenger and be able to submit form with work situation Arbeidsledig', async ({
+    test('skal vise hint om arbeidssituasjon annet/Dagpenger og kunne sende inn skjema med arbeidssituasjon Arbeidsledig', async ({
         page,
     }) => {
         await userInteractionsGroup(

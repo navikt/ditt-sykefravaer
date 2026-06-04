@@ -6,7 +6,7 @@ import { MedisinskVurdering } from '../../../../types/sykmelding/sykmelding'
 import Diagnoser from './Diagnoser'
 
 describe('Diagnoser', () => {
-    it('should render title', () => {
+    it('skal rendre tittel', () => {
         const medisinskVurdering: MedisinskVurdering = {
             annenFraversArsak: {
                 beskrivelse: '',
@@ -32,7 +32,7 @@ describe('Diagnoser', () => {
         expect(screen.getByText('Medisinsk tilstand')).toBeInTheDocument()
     })
 
-    it('should not render Bidiagnose if tekst is missing', () => {
+    it('skal ikke rendre Bidiagnose hvis tekst mangler', () => {
         const medisinskVurdering: MedisinskVurdering = {
             annenFraversArsak: {
                 beskrivelse: '',

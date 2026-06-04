@@ -70,7 +70,7 @@ const minimalSykmelding: Sykmelding = {
 }
 
 describe('SykmeldingViewArbeidsgiver', () => {
-    it('Behandler should use correct name correctly formatted', () => {
+    it('Behandler skal bruke korrekt navn korrekt formatert', () => {
         render(<SykmeldingArbeidsgiver sykmelding={minimalSykmelding} />)
 
         // eslint-disable-next-line testing-library/no-node-access

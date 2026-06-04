@@ -10,7 +10,7 @@ import { toDate } from './dateUtils'
 
 describe('toSendSykmeldingUtils', () => {
     describe('ARBEIDSTAKER', () => {
-        it('should map sykmelding for arbeidstaker with egenmeldingsdager', () => {
+        it('skal mappe sykmelding for arbeidstaker med egenmeldingsdager', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -61,7 +61,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for arbeidstaker without egenmeldingsdager (was never asked)', () => {
+        it('skal mappe sykmelding for arbeidstaker uten egenmeldingsdager (ble aldri spurt)', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -94,7 +94,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for arbeidstaker without egenmeldingsdager', () => {
+        it('skal mappe sykmelding for arbeidstaker uten egenmeldingsdager', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -134,7 +134,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for arbeidstaker without egenmeldingsdager, even if list has egenmeldingsdager', () => {
+        it('skal mappe sykmelding for arbeidstaker uten egenmeldingsdager, selv om listen har egenmeldingsdager', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -179,7 +179,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for arbeidstaker with uriktigeOpplysninger', () => {
+        it('skal mappe sykmelding for arbeidstaker med uriktigeOpplysninger', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.NO,
                 uriktigeOpplysninger: [
@@ -221,7 +221,7 @@ describe('toSendSykmeldingUtils', () => {
     })
 
     describe('FISKER', () => {
-        it('should map sykmelding for fisker with blad A on HYRE with egenmeldingsdager', () => {
+        it('skal mappe sykmelding for fisker med blad A på HYRE med egenmeldingsdager', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -276,7 +276,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for fisker with blad A on LOTT (næringsdrivende with forsikringssporsmal)', () => {
+        it('skal mappe sykmelding for fisker med blad A på LOTT (næringsdrivende med forsikringsspørsmål)', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -320,7 +320,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for fisker with blad B on LOTT (ingen ekstra spørsmål)', () => {
+        it('skal mappe sykmelding for fisker med blad B på LOTT (ingen ekstra spørsmål)', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -356,8 +356,8 @@ describe('toSendSykmeldingUtils', () => {
         })
     })
 
-    describe('FRILANSER or NAERINGSDRIVENDE', () => {
-        it('should map sykmelding for frilanser with egenmeldingsperioder', () => {
+    describe('FRILANSER eller NAERINGSDRIVENDE', () => {
+        it('skal mappe sykmelding for frilanser med egenmeldingsperioder', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -397,7 +397,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for frilanser without egenmeldingsperioder', () => {
+        it('skal mappe sykmelding for frilanser uten egenmeldingsperioder', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -431,7 +431,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for frilanser without egenmeldingsperioder where first yes then no', () => {
+        it('skal mappe sykmelding for frilanser uten egenmeldingsperioder der man først svarer ja deretter nei', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -468,7 +468,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for naeringsdrivende with uriktigeOpplysninger', () => {
+        it('skal mappe sykmelding for næringsdrivende med uriktigeOpplysninger', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.NO,
                 uriktigeOpplysninger: [UriktigeOpplysningerType.ANDRE_OPPLYSNINGER],
@@ -504,8 +504,8 @@ describe('toSendSykmeldingUtils', () => {
         })
     })
 
-    describe('ARBEIDSLEDIG or PERMITTERT', () => {
-        it('should map sykmelding for arbeidsledig with tidligere arbedsgiver', () => {
+    describe('ARBEIDSLEDIG eller PERMITTERT', () => {
+        it('skal mappe sykmelding for arbeidsledig med tidligere arbeidsgiver', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -540,7 +540,7 @@ describe('toSendSykmeldingUtils', () => {
 
             expect(mapToValues).toEqual(expectValues)
         })
-        it('should map sykmelding for arbeidsledig without tidligere arbedsgiver', () => {
+        it('skal mappe sykmelding for arbeidsledig uten tidligere arbeidsgiver', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -571,7 +571,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for arbeidsledig when form value is "ingen" ', () => {
+        it('skal mappe sykmelding for arbeidsledig når skjemaverdi er "ingen"', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -604,7 +604,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for permittert with tidligere arbedsgiver', () => {
+        it('skal mappe sykmelding for permittert med tidligere arbeidsgiver', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -640,7 +640,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for permittert without tidligere arbedsgiver', () => {
+        it('skal mappe sykmelding for permittert uten tidligere arbeidsgiver', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: null,
@@ -675,7 +675,7 @@ describe('toSendSykmeldingUtils', () => {
     })
 
     describe('ANNET', () => {
-        it('should map sykmelding for annet with uriktigeOpplysninger', () => {
+        it('skal mappe sykmelding for annet med uriktigeOpplysninger', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.NO,
                 uriktigeOpplysninger: [UriktigeOpplysningerType.ANDRE_OPPLYSNINGER],
@@ -707,7 +707,7 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
-        it('should map sykmelding for annet with uriktigeOpplysninger when first answers no, then changes to yes', () => {
+        it('skal mappe sykmelding for annet med uriktigeOpplysninger når man først svarer nei, deretter endrer til ja', () => {
             const formValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 uriktigeOpplysninger: [UriktigeOpplysningerType.ANDRE_OPPLYSNINGER],

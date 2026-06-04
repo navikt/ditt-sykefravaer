@@ -6,7 +6,7 @@ import { MeldingTilNav } from '../../../../types/sykmelding/sykmelding'
 import MeldingTilNavView from './MeldingTilNav'
 
 describe('MeldingTilNavView', () => {
-    it('Renders ønsker bistand if bistandUmiddelbart is true', () => {
+    it('Viser ønsker bistand hvis bistandUmiddelbart er true', () => {
         const meldingTilNav: MeldingTilNav = {
             bistandUmiddelbart: true,
             beskrivBistand: null,
@@ -16,7 +16,7 @@ describe('MeldingTilNavView', () => {
         expect(screen.getByText('Ønskes bistand fra NAV nå?')).toBeInTheDocument()
     })
 
-    it('Does not render ønsker bistand if bistandUmiddelbart is false', () => {
+    it('Viser ikke ønsker bistand hvis bistandUmiddelbart er false', () => {
         const meldingTilNav: MeldingTilNav = {
             bistandUmiddelbart: false,
             beskrivBistand: null,
@@ -30,7 +30,7 @@ describe('MeldingTilNavView', () => {
         }).toThrow()
     })
 
-    it('Renders beskrivelse', () => {
+    it('Viser beskrivelse', () => {
         const meldingTilNav: MeldingTilNav = {
             bistandUmiddelbart: true,
             beskrivBistand: 'beskrivelse av bistanden',
@@ -40,7 +40,7 @@ describe('MeldingTilNavView', () => {
         expect(screen.getByText('beskrivelse av bistanden')).toBeInTheDocument()
     })
 
-    it('Does not render section if object does not exist', () => {
+    it('Viser ikke seksjon hvis objekt ikke eksisterer', () => {
         render(<MeldingTilNavView parentId="test" />)
         expect(screen.queryByText('Melding til NAV')).not.toBeInTheDocument()
         expect(screen.queryByText('Ønskes bistand fra NAV nå?')).not.toBeInTheDocument()

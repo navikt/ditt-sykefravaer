@@ -6,7 +6,7 @@ import { KontaktMedPasient } from '../../../../types/sykmelding/sykmelding'
 import Tilbakedatering from './Tilbakedatering'
 
 describe('Tilbakedatering', () => {
-    it('Renders kontaktdato', () => {
+    it('Viser kontaktdato', () => {
         const kontaktMedPasient: KontaktMedPasient = {
             kontaktDato: '2021-04-01',
             begrunnelseIkkeKontakt: null,
@@ -18,7 +18,7 @@ describe('Tilbakedatering', () => {
         expect(screen.getByText('1. april 2021')).toBeInTheDocument()
     })
 
-    it('Renders begrunnelse', () => {
+    it('Viser begrunnelse', () => {
         const kontaktMedPasient: KontaktMedPasient = {
             kontaktDato: '2021-04-01',
             begrunnelseIkkeKontakt: 'han var kjempesyk',
@@ -29,7 +29,7 @@ describe('Tilbakedatering', () => {
         expect(screen.getByText('han var kjempesyk')).toBeInTheDocument()
     })
 
-    it('should not render title if kontaktDato and begrunnelseIkkeKontakt', () => {
+    it('skal ikke rendre tittel hvis kontaktDato og begrunnelseIkkeKontakt', () => {
         const kontaktMedPasient: KontaktMedPasient = {
             kontaktDato: null,
             begrunnelseIkkeKontakt: null,

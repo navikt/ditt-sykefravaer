@@ -6,7 +6,7 @@ import { Periode, Periodetype } from '../../../../types/sykmelding/sykmelding'
 import Perioder from './Perioder'
 
 describe('Perioder', () => {
-    it('Renders avventende periode', () => {
+    it('Viser avventende periode', () => {
         const periode: Periode = {
             fom: '2021-04-01',
             tom: '2021-04-05',
@@ -27,7 +27,7 @@ describe('Perioder', () => {
         expect(screen.getByText('innspill til arbeidsgiver')).toBeInTheDocument()
     })
 
-    it('Renders gradert periode', () => {
+    it('Viser gradert periode', () => {
         const periode: Periode = {
             fom: '2021-04-01',
             tom: '2021-04-05',
@@ -50,7 +50,7 @@ describe('Perioder', () => {
         expect(screen.getByText('Kan pasienten være i delvis arbeid ved bruk av reisetilskudd?')).toBeInTheDocument()
     })
 
-    it('Renders reisetilskudd periode', () => {
+    it('Viser reisetilskudd periode', () => {
         const periode: Periode = {
             fom: '2021-04-01',
             tom: '2021-04-05',
@@ -69,7 +69,7 @@ describe('Perioder', () => {
         expect(screen.getByText('(5 dager)')).toBeInTheDocument()
     })
 
-    it('Renders behandlingsdager periode', () => {
+    it('Viser behandlingsdager periode', () => {
         const periode: Periode = {
             fom: '2021-04-01',
             tom: '2021-04-05',
@@ -88,7 +88,7 @@ describe('Perioder', () => {
         expect(screen.getByText('3 behandlingsdager i løpet av 5 dager')).toBeInTheDocument()
     })
 
-    it('Renders more than one period', () => {
+    it('Viser mer enn én periode', () => {
         const reisetilskudd: Periode = {
             fom: '2021-04-01',
             tom: '2021-04-05',

@@ -13,7 +13,7 @@ import { test } from '../utils/fixtures'
 import { testAar } from '../../src/data/mock/mock-db/data-creators'
 
 test.describe('Jordbruker', () => {
-    test('should be able to submit form when er forste sykmelding', async ({ page }) => {
+    test('skal kunne sende inn skjema når det er første sykmelding', async ({ page }) => {
         await gotoScenario('normal', {
             erForsteSykmelding: true,
         })(page)
@@ -41,7 +41,7 @@ test.describe('Jordbruker', () => {
         })(page)
     })
 
-    test('should be able to submit form when er ikke forste sykmelding', async ({ page }) => {
+    test('skal kunne sende inn skjema når det ikke er første sykmelding', async ({ page }) => {
         await gotoScenario('normal', {
             erForsteSykmelding: false,
             erUtenforVentetid: true,

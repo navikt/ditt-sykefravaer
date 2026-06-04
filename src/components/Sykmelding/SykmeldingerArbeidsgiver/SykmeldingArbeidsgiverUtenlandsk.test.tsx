@@ -6,7 +6,7 @@ import { createSykmelding } from '../../../utils/test/dataUtils'
 import SykmeldingArbeidsgiverUtenlandsk from './SykmeldingArbeidsgiverUtenlandsk'
 
 describe('SykmeldingArbeidsgiverUtenlandsk', () => {
-    it('should show country for utenlandsk sykmelding', () => {
+    it('skal vise land for utenlandsk sykmelding', () => {
         render(
             <SykmeldingArbeidsgiverUtenlandsk
                 sykmelding={{

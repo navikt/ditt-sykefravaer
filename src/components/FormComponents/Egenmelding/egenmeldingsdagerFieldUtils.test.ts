@@ -7,8 +7,8 @@ import { cumulativeDays, currentPeriodDatePicker } from './egenmeldingsdagerFiel
 import { EgenmeldingsdagerFormValue } from './EgenmeldingerFieldHelpers'
 
 describe('egenmeldingsdagerFieldUtils', () => {
-    describe('root case', () => {
-        it('should give a period of 16 previous days', () => {
+    describe('grunntilfelle', () => {
+        it('skal gi en periode på 16 foregående dager', () => {
             const [earliest, latest] = currentPeriodDatePicker(
                 {
                     earliestPossibleDate: toDate('2022-05-17'),
@@ -21,7 +21,7 @@ describe('egenmeldingsdagerFieldUtils', () => {
             expect(toDateString(latest)).toEqual('2022-05-16')
         })
 
-        it('with previous sykmelding should give a period days until previous sykmelding', () => {
+        it('med forrige sykmelding skal gi en periode dager til forrige sykmelding', () => {
             const [earliest, latest] = currentPeriodDatePicker(
                 {
                     earliestPossibleDate: toDate('2022-05-17'),
@@ -89,7 +89,7 @@ describe('egenmeldingsdagerFieldUtils', () => {
                 expect(toDateString(latest)).toEqual('2022-04-30')
             })
 
-            it('edge case when all days are asked, and the previous sykmelding to date is limiting the earliest date', () => {
+            it('kanttilfelle når alle dager er spurt om, og den forrige sykmeldingen til dato begrenser den tidligste datoen', () => {
                 const [earliest, latest] = currentPeriodDatePicker(
                     {
                         earliestPossibleDate: toDate('2022-04-15'),
@@ -107,7 +107,7 @@ describe('egenmeldingsdagerFieldUtils', () => {
 })
 
 describe('cumulativeDays', () => {
-    it('should give cumulative days for the first period', () => {
+    it('skal gi kumulative dager for den første perioden', () => {
         const noPeriods: EgenmeldingsdagerFormValue[] = []
         const { cumulativeBefore, cumulativeIncluding } = cumulativeDays(noPeriods, 0)
 
@@ -115,7 +115,7 @@ describe('cumulativeDays', () => {
         expect(cumulativeIncluding).toEqual(0)
     })
 
-    it('should handle single un-touched form value', () => {
+    it('skal håndtere enkelt uberørt skjemaverdi', () => {
         const singleNotTouched: EgenmeldingsdagerFormValue[] = [
             {
                 datoer: null,
@@ -129,7 +129,7 @@ describe('cumulativeDays', () => {
         expect(cumulativeIncluding).toEqual(0)
     })
 
-    it('should handle single touched form value', () => {
+    it('skal håndtere enkelt berørt skjemaverdi', () => {
         const singleNotTouched: EgenmeldingsdagerFormValue[] = [
             {
                 datoer: [new Date(2024, 1, 15), new Date(2024, 1, 17)],
@@ -143,7 +143,7 @@ describe('cumulativeDays', () => {
         expect(cumulativeIncluding).toEqual(2)
     })
 
-    it('should handle touched+untouched form value', () => {
+    it('skal håndtere berørt+uberørt skjemaverdi', () => {
         const singleNotTouched: EgenmeldingsdagerFormValue[] = [
             {
                 datoer: [new Date(2024, 1, 15), new Date(2024, 1, 17)],
@@ -162,7 +162,7 @@ describe('cumulativeDays', () => {
         expect(cumulativeIncluding).toEqual(2)
     })
 
-    it('should handle touched+untouched form value when index 0', () => {
+    it('skal håndtere berørt+uberørt skjemaverdi når indeks 0', () => {
         const singleNotTouched: EgenmeldingsdagerFormValue[] = [
             {
                 datoer: [new Date(2024, 1, 15), new Date(2024, 1, 17)],
@@ -181,7 +181,7 @@ describe('cumulativeDays', () => {
         expect(cumulativeIncluding).toEqual(2)
     })
 
-    it('should handle multiple', () => {
+    it('skal håndtere flere', () => {
         const singleNotTouched: EgenmeldingsdagerFormValue[] = [
             {
                 datoer: [new Date(2024, 1, 15), new Date(2024, 1, 17)],

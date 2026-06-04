@@ -6,7 +6,7 @@ import { AnnenFraverGrunn, MedisinskVurdering } from '../../../../types/sykmeldi
 import MedisinskTilstand from './MedisinskTilstand'
 
 describe('MedisinskTilstand', () => {
-    it('Renders annenFraversArsak if it exits', () => {
+    it('Viser annenFraversArsak hvis den finnes', () => {
         const medisinskVurdering: MedisinskVurdering = {
             hovedDiagnose: null,
             biDiagnoser: [],
@@ -27,7 +27,7 @@ describe('MedisinskTilstand', () => {
         expect(screen.getByText('Dette er en beskrivelse')).toBeInTheDocument()
     })
 
-    it('Renders svangerskapsrelatert if it exits', () => {
+    it('Viser svangerskapsrelatert hvis den finnes', () => {
         const medisinskVurdering: MedisinskVurdering = {
             hovedDiagnose: null,
             biDiagnoser: [],
@@ -41,7 +41,7 @@ describe('MedisinskTilstand', () => {
         expect(screen.getByText('Er sykdommen svangerskapsrelatert?')).toBeInTheDocument()
     })
 
-    it('Renders yrkesskade if it exits', () => {
+    it('Viser yrkesskade hvis den finnes', () => {
         const medisinskVurdering: MedisinskVurdering = {
             hovedDiagnose: null,
             biDiagnoser: [],
@@ -58,7 +58,7 @@ describe('MedisinskTilstand', () => {
         expect(screen.getByText('1. april 2020')).toBeInTheDocument()
     })
 
-    it('should render Bidiagnose', () => {
+    it('skal rendre Bidiagnose', () => {
         const medisinskVurdering: MedisinskVurdering = {
             annenFraversArsak: {
                 beskrivelse: '',
@@ -81,7 +81,7 @@ describe('MedisinskTilstand', () => {
         expect(screen.getByText('Vondt i foten')).toBeInTheDocument()
     })
 
-    it('should not render Bidiagnose if tekst is missing', () => {
+    it('skal ikke rendre Bidiagnose hvis tekst mangler', () => {
         const medisinskVurdering: MedisinskVurdering = {
             annenFraversArsak: {
                 beskrivelse: '',

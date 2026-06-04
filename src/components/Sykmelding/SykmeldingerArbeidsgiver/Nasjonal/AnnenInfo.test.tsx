@@ -6,7 +6,7 @@ import { Periodetype, RegelStatus, StatusEvent, Sykmelding } from '../../../../t
 import AnnenInfo from './AnnenInfo'
 
 describe('AnnenInfo', () => {
-    it('Renders behandler phone if it exist', () => {
+    it('Viser behandler telefon hvis den finnes', () => {
         const sykmelding: Sykmelding = {
             id: '123',
             mottattTidspunkt: '2020-01-10',
@@ -75,7 +75,7 @@ describe('AnnenInfo', () => {
         expect(screen.getByText('Tlf: 12345678')).toBeInTheDocument()
     })
 
-    it('Render hyphen if behandler phone does noe exist', () => {
+    it('Viser bindestrek hvis behandler telefon ikke eksisterer', () => {
         const sykmelding: Sykmelding = {
             id: '123',
             mottattTidspunkt: '2020-01-10',

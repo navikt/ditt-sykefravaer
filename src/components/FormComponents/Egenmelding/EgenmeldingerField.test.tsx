@@ -6,8 +6,8 @@ import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 import { laterPeriodsRemoved } from './EgenmeldingerField'
 
 describe('EgenmeldingerField', () => {
-    describe('edit period', () => {
-        it('should remove periods after editing period based on index', () => {
+    describe('rediger periode', () => {
+        it('skal fjerne perioder etter redigering av periode basert på indeks', () => {
             const egenmeldingsdager = [
                 {
                     harPerioder: YesOrNo.YES,
