@@ -60,7 +60,7 @@ export function arbeidssituasjonLabel(arbeidssituasjon: ArbeidssituasjonType): s
         case ArbeidssituasjonType.FISKER:
             return 'Fisker'
         case ArbeidssituasjonType.JORDBRUKER:
-            return 'Jordbruker/skogbruker/reindrift'
+            return 'Jordbruker'
         case ArbeidssituasjonType.ARBEIDSLEDIG:
             return 'Arbeidsledig'
         case ArbeidssituasjonType.PERMITTERT:
@@ -79,7 +79,7 @@ export function arbeidssituasjonDescription(arbeidssituasjon: ArbeidssituasjonTy
         case ArbeidssituasjonType.NAERINGSDRIVENDE:
             return 'Du har enkeltpersonforetak (ENK), ansvarlig selskap (ANS) eller selskap med delt ansvar (DA)'
         case ArbeidssituasjonType.FISKER:
-            return 'Du har hyre eller lott, Blad A eller B'
+            return 'Du har hyre, lott eller begge deler, Blad A eller B'
         case ArbeidssituasjonType.JORDBRUKER:
             return 'Du driver med gårdsbruk, skogbruk eller reindrift'
         case ArbeidssituasjonType.ARBEIDSLEDIG:

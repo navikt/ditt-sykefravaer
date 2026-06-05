@@ -54,6 +54,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                             disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
                             value={situasjon}
                             {...(description ? { description } : {})}
+                            className={`border-2 rounded-lg mb-2 ${field.value === situasjon ? 'border-[var(--a-border-action)]' : 'border-border-subtle'}`}
                         >
                             {arbeidssituasjonLabel(situasjon)}
                         </Radio>
