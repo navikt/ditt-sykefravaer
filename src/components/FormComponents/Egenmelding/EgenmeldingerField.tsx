@@ -92,7 +92,6 @@ function EgenmeldingerField({
                 <HarBruktEgenmelding
                     index={index}
                     arbeidsgiverNavn={metadata.arbeidsgiverNavn}
-                    lastPossibleDate={earliestPossibleDate}
                     firstPossibleDate={latestPossibleDate}
                     onNo={() => {
                         setValue(`egenmeldingsdager.${index}.datoer`, null)

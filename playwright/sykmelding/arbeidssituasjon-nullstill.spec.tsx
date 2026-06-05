@@ -106,7 +106,7 @@ test.describe('Nullstilling av brukersvar ved bytte av arbeidssituasjon', () => 
         await velgArbeidstaker(/Pontypandy Fire Service/)(page)
         await bekreftNarmesteleder('Station Officer Steele')(page)
         await getRadioInGroup(page)(
-            { name: /Brukte du egenmelding hos Pontypandy Fire Service i perioden/ },
+            { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
             { name: 'Nei' },
         ).click()
 

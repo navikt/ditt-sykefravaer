@@ -83,7 +83,7 @@ test.describe('Uriktige opplysninger', () => {
         await velgArbeidstaker(/Pontypandy Fire Service/)(page)
         await bekreftNarmesteleder('Station Officer Steele')(page)
         await getRadioInGroup(page)(
-            { name: /Brukte du egenmelding hos Pontypandy Fire Service i perioden/ },
+            { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
             { name: 'Nei' },
         ).click()
         await sendSykmelding(page)

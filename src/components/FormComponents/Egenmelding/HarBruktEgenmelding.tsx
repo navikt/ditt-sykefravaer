@@ -1,7 +1,7 @@
-import { BodyLong, Link, ReadMore } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Link, List, ReadMore } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
 
-import { diffInDays, toDateString, toReadableDatePeriod } from '../../../utils/dateUtils'
+import { dateAdd, toReadableDate } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
 import { logUmamiEvent } from '../../umami/umami'
 import YesNoField from '../YesNoField/YesNoField'
@@ -13,7 +13,6 @@ import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 interface Props {
     index: number
     arbeidsgiverNavn: string
-    lastPossibleDate: Date
     firstPossibleDate: Date
     onNo: () => void
     umamiSkjemanavn: string
@@ -21,22 +20,19 @@ interface Props {
 
 function HarBruktEgenmelding({
     index,
-    lastPossibleDate,
     firstPossibleDate,
     arbeidsgiverNavn,
     onNo,
     umamiSkjemanavn,
 }: Props): ReactElement {
-    const period: string = toReadableDatePeriod(lastPossibleDate, firstPossibleDate)
-    const periodLength: number = diffInDays(toDateString(lastPossibleDate), toDateString(firstPossibleDate))
+    const sykmeldingStartDato = toReadableDate(dateAdd(firstPossibleDate, { days: 1 }))
 
     return (
         <QuestionWrapper>
             <YesNoField<EgenmeldingsdagerSubForm>
                 name={`egenmeldingsdager.${index}.harPerioder`}
-                legend={`${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} ${
-                    periodLength > 1 ? `i perioden` : ''
-                } ${period}?`}
+                legend={`${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} før du ble sykmeldt ${sykmeldingStartDato}?`}
+                description="Ta bare med de dagene du hadde egenmelding en hel dag."
                 subtext={<EgenmeldingReadMore index={index} />}
                 rules={{
                     required: 'Du må svare på om du har brukt egenmelding før du ble syk.',
@@ -81,21 +77,40 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
 
     if (index === 0) {
         return (
-            <ReadMore header="Hva betyr dette?" open={open} onClick={handleOnReadMoreClick}>
+            <ReadMore header="Spørsmålet forklart" open={open} onClick={handleOnReadMoreClick}>
                 <BodyLong spacing>
-                    Egenmelding betyr at du melder fra til arbeidsgiveren din om at du er syk, uten at du leverer
-                    sykmelding. Du skal kun registrere fravær som skyldes egen sykdom.
+                    Egenmelding er når du melder fra til arbeidsgiveren din om at du er syk og borte fra jobb – uten å
+                    gå til lege.
                 </BodyLong>
                 <BodyLong spacing>
-                    Du finner mer informasjon om egenmeldingsdager på{' '}
-                    <Link href="https://www.nav.no/egenmelding" target="_blank">
-                        www.nav.no/egenmelding
-                    </Link>
+                    Nav trenger å vite om du brukte egenmelding før sykmeldingen, for å beregne riktig
+                    arbeidsgiverperiode. Arbeidsgiverperiode er de første 16 kalenderdagene av et sykefravær, og betales
+                    som oftest av arbeidsgiveren. Egenmeldingsdager teller med i arbeidsgiverperioden.
                 </BodyLong>
-                <BodyLong spacing>
-                    Hvis du er usikker på hvilke dager du har brukt egenmelding, kan du ta kontakt med din arbeidsgiver.
-                    Dette gjelder også hvis du ønsker å endre egenmeldingsdager etter at du har sendt sykmeldingen.
-                </BodyLong>
+                <BodyShort spacing>
+                    <strong>Svar ja hvis:</strong>
+                </BodyShort>
+                <List as="ul">
+                    <List.Item>
+                        du var borte fra jobb og meldte fra til arbeidsgiveren selv – uten å ha fått sykmelding
+                    </List.Item>
+                </List>
+                <BodyShort spacing>
+                    <strong>Svar nei hvis:</strong>
+                </BodyShort>
+                <List as="ul">
+                    <List.Item>du var borte fra jobb deler av dagen</List.Item>
+                    <List.Item>
+                        du var hjemme fordi barnet ditt var sykt. Da kan du ha{' '}
+                        <Link href="https://www.nav.no/omsorgspenger" target="_blank">
+                            rett til omsorgsdager
+                        </Link>
+                        .
+                    </List.Item>
+                </List>
+                <Link href="https://www.nav.no/egenmelding" target="_blank">
+                    Les mer om egenmeldingsdager
+                </Link>
             </ReadMore>
         )
     }
