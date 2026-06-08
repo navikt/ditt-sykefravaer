@@ -5,7 +5,6 @@ import {
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
-    velgAnnetSituasjon,
     velgArbeidssituasjon,
     velgArbeidstakerArbeidsledig,
 } from '../utils/user-actions'
@@ -33,17 +32,16 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('skal vise hint om arbeidssituasjon og kunne sende inn skjema med arbeidssituasjon annet/Student', async ({
-        page,
-    }) => {
+    test('skal vise info-alert når arbeidssituasjon annet velges', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),
             navigateToFirstSykmelding('nye', '100%'),
             opplysingeneStemmer,
             velgArbeidssituasjon('annet'),
-            velgAnnetSituasjon('Student'),
         )(page)
-        await expect(page.getByText('Har du valgt rett situasjon?')).toBeVisible()
+        await expect(
+            page.getByText('Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver'),
+        ).toBeVisible()
         await bekreftSykmelding(page)
 
         await expectKvittering({
@@ -57,7 +55,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('skal vise hint om arbeidssituasjon annet/Dagpenger og kunne sende inn skjema med arbeidssituasjon Arbeidsledig', async ({
+    test('skal kunne bytte fra annet til arbeidsledig og sende inn skjema', async ({
         page,
     }) => {
         await userInteractionsGroup(
@@ -65,9 +63,10 @@ test.describe('Arbeidssituasjon - Annet', () => {
             navigateToFirstSykmelding('nye', '100%'),
             opplysingeneStemmer,
             velgArbeidssituasjon('annet'),
-            velgAnnetSituasjon('Dagpenger'),
         )(page)
-        await expect(page.getByText('Har du valgt rett situasjon?')).toBeVisible()
+        await expect(
+            page.getByText('Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver'),
+        ).toBeVisible()
         await userInteractionsGroup(
             velgArbeidssituasjon('arbeidsledig'),
             velgArbeidstakerArbeidsledig(/Pontypandy Fire Service/),
