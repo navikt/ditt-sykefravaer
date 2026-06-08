@@ -55,9 +55,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('skal kunne bytte fra annet til arbeidsledig og sende inn skjema', async ({
-        page,
-    }) => {
+    test('skal kunne bytte fra annet til arbeidsledig og sende inn skjema', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),
             navigateToFirstSykmelding('nye', '100%'),
