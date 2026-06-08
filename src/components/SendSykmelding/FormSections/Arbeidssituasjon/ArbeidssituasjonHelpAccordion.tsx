@@ -12,7 +12,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         sykepengene erstatte tapt arbeidsinntekt. Velg derfor situasjon etter hvordan du jobber (med
                         mindre du har blitt arbeidsledig).
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du student?</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -22,7 +22,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         Studerer du uten jobb, har du i utgangspunktet ikke rett til sykepenger fra Nav. Studielån og
                         stipend gir ikke rett til sykepenger.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du pensjonist?</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -31,7 +31,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         <strong>selvstendig næringsdrivende</strong>).
                     </BodyLong>
                     <BodyLong spacing>Jobber du ikke, har du i utgangspunktet ikke rett på sykepenger.</BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du vernepliktig?</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -42,20 +42,20 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         Hadde du jobb før tjenesten og er tilbake i den, velger du <strong>ansatt</strong>. Er du
                         dimittert og ikke tilbake i jobb ennå, velger du <strong>arbeidsledig</strong>.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du vikar?</strong>
                     </BodyLong>
                     <BodyLong spacing>
                         Du har i utgangspunktet de samme rettighetene som fast ansatte. Velg derfor{' '}
                         <strong>ansatt</strong>.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du lærling?</strong>
                     </BodyLong>
                     <BodyLong spacing>
                         Du er ansatt hos lærebedriften, så velg <strong>ansatt</strong>.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Er du barnepasser?</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -69,7 +69,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         Er du barnepasser i <strong>eget hjem</strong>, velger du{' '}
                         <strong>selvstendig næringsdrivende</strong>.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Får du tiltakspenger?</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -115,7 +115,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
             <Accordion.Item>
                 <Accordion.Header>Går du på arbeidsavklaringspenger (AAP) eller uføretrygd?</Accordion.Header>
                 <Accordion.Content>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Arbeidsavklaringspenger (AAP)</strong>
                     </BodyLong>
                     <BodyLong spacing>
@@ -128,7 +128,7 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                         sykepenger av arbeidsinntekten. Velg i så fall den situasjonen som passer best for jobben du har
                         ved siden av.
                     </BodyLong>
-                    <BodyLong spacing>
+                    <BodyLong>
                         <strong>Uføretrygd</strong>
                     </BodyLong>
                     <BodyLong spacing>
