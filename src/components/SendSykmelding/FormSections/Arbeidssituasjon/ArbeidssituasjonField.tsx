@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { useController } from 'react-hook-form'
-import { Radio, RadioGroup } from '@navikt/ds-react'
+import { Box, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
@@ -49,14 +49,24 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 {arbeidssituasjonerRekkefolge.map((situasjon) => {
                     const description = arbeidssituasjonDescription(situasjon)
                     return (
-                        <Radio
+                        <Box
                             key={situasjon}
-                            disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
-                            value={situasjon}
-                            {...(description ? { description } : {})}
+                            paddingInline="space-8"
+                            borderWidth="2"
+                            borderRadius="12"
+                            borderColor="border-subtle"
+                            className="mb-2 focus-within:border-border-selected focus-within:bg-surface-action-subtle"
                         >
-                            {arbeidssituasjonLabel(situasjon)}
-                        </Radio>
+                            <Radio
+                                key={situasjon}
+                                disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
+                                value={situasjon}
+                                {...(description ? { description } : {})}
+                                className="w-full"
+                            >
+                                <span className="font-medium">{arbeidssituasjonLabel(situasjon)}</span>
+                            </Radio>
+                        </Box>
                     )
                 })}
             </RadioGroup>
