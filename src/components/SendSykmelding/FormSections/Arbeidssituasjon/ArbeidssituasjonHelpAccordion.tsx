@@ -3,7 +3,7 @@ import { Accordion, BodyLong } from '@navikt/ds-react'
 
 function ArbeidssituasjonHelpAccordion(): ReactElement {
     return (
-        <Accordion size="small" className="mt-4">
+        <Accordion size="small" className="mt-4 [&_.navds-accordion\_\_header-content]:!font-light">
             <Accordion.Item>
                 <Accordion.Header>Finner du ikke riktig situasjon?</Accordion.Header>
                 <Accordion.Content>
