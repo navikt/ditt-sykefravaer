@@ -37,9 +37,6 @@ export interface FormValues extends EgenmeldingsdagerSubForm {
     egenmeldingsperioder: { fom: Date | null; tom: Date | null }[] | null
     harForsikring: YesOrNo | null
     fisker: FiskerFormValues
-    extra: {
-        annetSituasjon: string | null
-    } | null
     arbeidsledig: {
         arbeidsledigFraOrgnummer: string | null
     } | null
@@ -95,19 +92,6 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
                 { eventName: 'skjema fullført', data: { skjemanavn } },
                 { 'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null },
             )
-
-            const annetSituationExtraValue: string | null = values.extra?.annetSituasjon ?? null
-
-            if (annetSituationExtraValue) {
-                logUmamiEvent({
-                    eventName: 'skjema spørsmål besvart',
-                    data: {
-                        skjemanavn: 'åpen sykmelding',
-                        spørsmål: 'Hvilken situasjon er du i som gjorde at du valgte annet?',
-                        svar: annetSituationExtraValue,
-                    },
-                })
-            }
         },
         () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
     )

@@ -1,13 +1,11 @@
 import { ReactElement } from 'react'
 import { useController } from 'react-hook-form'
-import { Box, Radio, RadioGroup } from '@navikt/ds-react'
+import { Alert, Box, Radio, RadioGroup } from '@navikt/ds-react'
 
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'
 import { arbeidssituasjonDescription, arbeidssituasjonLabel, sporsmal } from '../../../../utils/sporsmal'
-
-import AnnetExtraSelect from './AnnetExtraSelect'
 
 interface Props {
     harAvventendePeriode: boolean
@@ -70,7 +68,13 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                     )
                 })}
             </RadioGroup>
-            {field.value === ArbeidssituasjonType.ANNET && <AnnetExtraSelect />}
+            {field.value === ArbeidssituasjonType.ANNET && (
+                <Alert variant="info">
+                    Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver hvordan du
+                    jobber — eller jobbet da du ble sykmeldt. Er du usikker? Se «Finner du ikke din situasjon?» for
+                    hjelp.
+                </Alert>
+            )}
         </QuestionWrapper>
     )
 }

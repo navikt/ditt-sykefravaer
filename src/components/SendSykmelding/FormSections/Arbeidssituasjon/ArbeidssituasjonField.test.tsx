@@ -43,4 +43,12 @@ describe('ArbeidssituasjonField', () => {
         expect(screen.getByRole('radio', { name: /Arbeidsledig/i })).toBeDisabled()
         expect(screen.getByRole('radio', { name: /Annet/i })).toBeDisabled()
     })
+
+    it('skal vise info-alert når bruker velger annet', async () => {
+        render(<ArbeidssituasjonFieldInForm harAvventendePeriode={false} />)
+
+        await userEvent.click(screen.getByRole('radio', { name: /Annet/i }))
+
+        expect(screen.getByText(/Sykmeldingen gjelder arbeidet du er sykmeldt fra/i)).toBeInTheDocument()
+    })
 })
