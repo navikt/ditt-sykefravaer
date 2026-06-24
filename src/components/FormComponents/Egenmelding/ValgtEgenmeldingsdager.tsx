@@ -25,7 +25,7 @@ function ValgtEgenmeldingsdager({ dates, onEditClicked }: Props): ReactElement {
                 ))}
             </ul>
             <Button type="button" variant="secondary" onClick={() => onEditClicked()}>
-                Endre
+                Endre egenmeldingsdager
             </Button>
         </div>
     )
