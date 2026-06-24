@@ -93,6 +93,7 @@ function EgenmeldingerField({
                     index={index}
                     arbeidsgiverNavn={metadata.arbeidsgiverNavn}
                     firstPossibleDate={latestPossibleDate}
+                    earliestPossibleDate={earliestPossibleDate}
                     onNo={() => {
                         setValue(`egenmeldingsdager.${index}.datoer`, null)
                         setValue(`egenmeldingsdager.${index}.hasClickedVidere`, null)
@@ -183,7 +184,7 @@ function VidereButtonField({ index, missingDates }: { index: number; missingDate
                     }
                 }}
             >
-                Videre
+                Bekreft datoer
             </Button>
             {fieldState.error && <ErrorMessage>{fieldState.error.message}</ErrorMessage>}
         </>
