@@ -25,9 +25,7 @@ type EgenmeldingsdagerHjelper = {
 
 function egenmeldingsdagerHjelper(sectionLegend: string) {
     return (page: Page): EgenmeldingsdagerHjelper => {
-        const section = page
-            .getByRole('region', { name: 'Brukte du egenmelding hos' })
-            .filter({ hasText: sectionLegend })
+        const section = page.getByRole('region', { name: sectionLegend })
         return {
             svar: {
                 jaButton: section.getByRole('radio', { name: /Ja/ }),
@@ -38,7 +36,7 @@ function egenmeldingsdagerHjelper(sectionLegend: string) {
             },
             forrigeManedKnapp: section.getByRole('button', { name: 'Gå til forrige måned' }),
             nesteManedKnapp: section.getByRole('button', { name: 'Gå til neste måned' }),
-            videreButton: section.getByRole('button', { name: /Videre/ }),
+            videreButton: section.getByRole('button', { name: /Bekreft datoer/ }),
         }
     }
 }
@@ -68,7 +66,7 @@ test.describe('Egenmeldingsdager', () => {
                 [`${testAar}-01-05`, `${testAar}-01-06`],
             )(page)
             await egenmeldingsdagerHjelper(
-                `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                `Hadde du egenmeldingsdager for det igjen – altså mellom 20. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
@@ -106,12 +104,12 @@ test.describe('Egenmeldingsdager', () => {
             )(page)
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                    `Hadde du egenmeldingsdager for det igjen – altså mellom 19. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
                 ),
                 [`${testAaretFoer}-12-21`, `${testAaretFoer}-12-22`],
             )(page)
             await egenmeldingsdagerHjelper(
-                `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 19. desember ${testAaretFoer}?`,
+                `Hadde du egenmeldingsdager for det igjen – altså mellom 5. desember ${testAaretFoer} og 18. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(4)(page)
@@ -152,16 +150,16 @@ test.describe('Egenmeldingsdager', () => {
 
             await velgEgenmeldingsdager(
                 egenmeldingsdagerHjelper(
-                    `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                    `Hadde du egenmeldingsdager for det igjen – altså mellom 20. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
                 ),
                 [`${testAaretFoer}-12-21`, `${testAaretFoer}-12-22`],
             )(page)
             await egenmeldingsdagerHjelper(
-                `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 20. desember ${testAaretFoer}?`,
+                `Hadde du egenmeldingsdager for det igjen – altså mellom 5. desember ${testAaretFoer} og 19. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await egenmeldingsdagerHjelper(
-                `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                `Hadde du egenmeldingsdager for det igjen – altså mellom 20. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
             )(page).svar.neiButton.click()
 
             await expectNumberOfEgenmeldingsdagerInput(2)(page)
@@ -281,7 +279,7 @@ test.describe('Egenmeldingsdager', () => {
                 await forstePeriode.videreButton.click()
 
                 const andrePeriode = egenmeldingsdagerHjelper(
-                    `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 5. januar ${testAar}?`,
+                    `Hadde du egenmeldingsdager for det igjen – altså mellom 23. desember ${testAaretFoer} og 4. januar ${testAar}?`,
                 )(page)
                 await andrePeriode.svar.jaButton.click()
                 for (const dag of [`${testAaretFoer}-12-27`, `${testAaretFoer}-12-28`, `${testAaretFoer}-12-29`]) {
@@ -294,7 +292,7 @@ test.describe('Egenmeldingsdager', () => {
                 await andrePeriode.videreButton.click()
 
                 const tredjePeriode = egenmeldingsdagerHjelper(
-                    `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                    `Hadde du egenmeldingsdager for det igjen – altså mellom 11. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
                 )(page)
                 await tredjePeriode.svar.jaButton.click()
                 for (const dag of [`${testAaretFoer}-12-14`, `${testAaretFoer}-12-15`, `${testAaretFoer}-12-16`]) {
@@ -315,7 +313,10 @@ test.describe('Egenmeldingsdager', () => {
                     const egenmeldingdatoMin = toDate(dateSub(egenmeldingdatoMax, { days: 15 }))
 
                     const sykmeldingStartDatoTekst = toReadableDate(dateAdd(egenmeldingdatoMax, { days: 1 }))
-                    const valgDatoString = `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt ${sykmeldingStartDatoTekst}?`
+                    const valgDatoString =
+                        periodeIndex === 1
+                            ? `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt ${sykmeldingStartDatoTekst}?`
+                            : `Hadde du egenmeldingsdager for det igjen – altså mellom ${toReadableDate(egenmeldingdatoMin)} og ${toReadableDate(egenmeldingdatoMax)}?`
 
                     const periode = egenmeldingsdagerHjelper(valgDatoString)(page)
                     await periode.svar.jaButton.click()
@@ -351,7 +352,7 @@ test.describe('Egenmeldingsdager', () => {
                         [`${testAar}-01-05`, `${testAar}-01-06`],
                     )(page)
                     await egenmeldingsdagerHjelper(
-                        `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 23. desember ${testAaretFoer}?`,
+                        `Hadde du egenmeldingsdager for det igjen – altså mellom 20. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
                     )(page).svar.neiButton.click()
 
                     await expectNumberOfEgenmeldingsdagerInput(2)(page)

@@ -59,7 +59,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         await page
             .getByRole('button', { name: format(testDato, 'EEEE d', { locale: nb }), includeHidden: true, exact: true })
             .click()
-        await page.getByRole('button', { name: /Videre/ }).click()
+        await page.getByRole('button', { name: /Bekreft datoer/ }).click()
         await page
             .getByRole('group', {
                 name: `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 8. januar ${testAar}?`,
