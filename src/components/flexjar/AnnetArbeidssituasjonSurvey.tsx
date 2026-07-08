@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from 'react'
-import { Alert, BodyShort, Button, Label, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { Alert, BodyShort, Button, Heading, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
 
 import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
 import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
@@ -21,6 +21,7 @@ export function AnnetArbeidssituasjonSurvey() {
     const [fritekst, setFritekst] = useState('')
     const [valideringsfeil, setValideringsfeil] = useState<string | null>(null)
     const [takk, setTakk] = useState(false)
+    const takkRef = useRef<HTMLDivElement>(null)
 
     const { mutate: opprettFeedback, data } = UseOpprettFlexjarFeedback()
     const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
@@ -59,6 +60,13 @@ export function AnnetArbeidssituasjonSurvey() {
         })
     }
 
+    // Flytt fokus til suksess-melding slik at skjermlesere varsles
+    useEffect(() => {
+        if (takk) {
+            takkRef.current?.focus()
+        }
+    }, [takk])
+
     const handleArsakEndret = (verdi: string) => {
         setValgtArsak(verdi)
         setValideringsfeil(null)
@@ -67,13 +75,14 @@ export function AnnetArbeidssituasjonSurvey() {
     if (takk) {
         return (
             <div
-                aria-live="polite"
+                ref={takkRef}
+                tabIndex={-1}
                 className="mt-4 border-4 border-green-100 rounded-medium bg-green-100 p-6 flex flex-row items-center"
             >
                 <div>
-                    <Label as="h3" className="mb-2">
+                    <Heading size="small" level="3" className="mb-2">
                         Takk for tilbakemeldingen!
-                    </Label>
+                    </Heading>
                     <BodyShort>Vi setter stor pris på at du tok deg tid til å dele dine tanker med oss.</BodyShort>
                 </div>
             </div>
@@ -83,9 +92,9 @@ export function AnnetArbeidssituasjonSurvey() {
     return (
         <div className="mt-4 border-4 border-surface-subtle rounded-medium">
             <div className="bg-surface-subtle px-4 pt-4 pb-2">
-                <Label as="h2" className="mb-1">
+                <Heading size="medium" level="2" className="mb-1">
                     Hjelp oss å forbedre valgene for arbeidssituasjon
-                </Label>
+                </Heading>
                 <BodyShort>Svarene dine er anonyme</BodyShort>
             </div>
 
