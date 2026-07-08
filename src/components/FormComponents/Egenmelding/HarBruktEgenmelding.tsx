@@ -34,7 +34,7 @@ function HarBruktEgenmelding({
     const legend =
         index === 0
             ? `${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} før du ble sykmeldt ${sykmeldingStartDato}?`
-            : `Hadde du egenmeldingsdager for det igjen – altså mellom ${fraOgMed} og ${tilOgMed}?`
+            : `Hadde du egenmeldingsdager før det igjen – altså mellom ${fraOgMed} og ${tilOgMed}?`
 
     const description =
         index === 0
