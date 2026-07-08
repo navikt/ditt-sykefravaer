@@ -73,11 +73,11 @@ export function arbeidssituasjonLabel(arbeidssituasjon: ArbeidssituasjonType): s
 export function arbeidssituasjonDescription(arbeidssituasjon: ArbeidssituasjonType): string | undefined {
     switch (arbeidssituasjon) {
         case ArbeidssituasjonType.ARBEIDSTAKER:
-            return 'Du jobber for en arbeidsgiver og mottar lønn (fulltid, deltid, vikar, lærling, tilkallingsvikar)'
+            return 'Fulltid, deltid, vikar, lærling, tilkallingsvikar'
         case ArbeidssituasjonType.FRILANSER:
-            return 'Du tar oppdrag og sender faktura - uten registrert foretak'
+            return 'Oppdrag uten registrert foretak'
         case ArbeidssituasjonType.NAERINGSDRIVENDE:
-            return 'Du har enkeltpersonforetak (ENK), ansvarlig selskap (ANS) eller selskap med delt ansvar (DA)'
+            return 'Enkeltpersonforetak (ENK), ansvarlig selskap (ANS), selskap med delt ansvar (DA)'
         case ArbeidssituasjonType.FISKER:
             return 'Du har hyre, lott eller begge deler, Blad A eller B'
         case ArbeidssituasjonType.JORDBRUKER:
