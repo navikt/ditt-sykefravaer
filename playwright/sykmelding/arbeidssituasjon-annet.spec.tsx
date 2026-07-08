@@ -32,16 +32,14 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('skal vise info-alert når arbeidssituasjon annet velges', async ({ page }) => {
+    test('skal vise survey når arbeidssituasjon annet velges', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),
             navigateToFirstSykmelding('nye', '100%'),
             opplysingeneStemmer,
             velgArbeidssituasjon('annet'),
         )(page)
-        await expect(
-            page.getByText('Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver'),
-        ).toBeVisible()
+        await expect(page.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).toBeVisible()
         await bekreftSykmelding(page)
 
         await expectKvittering({
@@ -62,9 +60,6 @@ test.describe('Arbeidssituasjon - Annet', () => {
             opplysingeneStemmer,
             velgArbeidssituasjon('annet'),
         )(page)
-        await expect(
-            page.getByText('Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver'),
-        ).toBeVisible()
         await userInteractionsGroup(
             velgArbeidssituasjon('arbeidsledig'),
             velgArbeidstakerArbeidsledig(/Pontypandy Fire Service/),
