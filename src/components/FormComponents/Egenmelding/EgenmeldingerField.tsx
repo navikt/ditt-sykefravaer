@@ -92,8 +92,8 @@ function EgenmeldingerField({
                 <HarBruktEgenmelding
                     index={index}
                     arbeidsgiverNavn={metadata.arbeidsgiverNavn}
-                    firstPossibleDate={latestPossibleDate}
-                    earliestPossibleDate={earliestPossibleDate}
+                    muligTomDato={latestPossibleDate}
+                    muligFomDato={earliestPossibleDate}
                     onNo={() => {
                         setValue(`egenmeldingsdager.${index}.datoer`, null)
                         setValue(`egenmeldingsdager.${index}.hasClickedVidere`, null)

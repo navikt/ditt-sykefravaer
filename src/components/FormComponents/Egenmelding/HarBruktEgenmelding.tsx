@@ -13,23 +13,23 @@ import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 interface Props {
     index: number
     arbeidsgiverNavn: string
-    firstPossibleDate: Date
-    earliestPossibleDate: Date
+    muligTomDato: Date
+    muligFomDato: Date
     onNo: () => void
     umamiSkjemanavn: string
 }
 
 function HarBruktEgenmelding({
     index,
-    firstPossibleDate,
-    earliestPossibleDate,
+    muligTomDato,
+    muligFomDato,
     arbeidsgiverNavn,
     onNo,
     umamiSkjemanavn,
 }: Props): ReactElement {
-    const sykmeldingStartDato = toReadableDate(dateAdd(firstPossibleDate, { days: 1 }))
-    const fraOgMed = toReadableDate(earliestPossibleDate)
-    const tilOgMed = toReadableDate(firstPossibleDate)
+    const sykmeldingStartDato = toReadableDate(dateAdd(muligTomDato, { days: 1 }))
+    const fraOgMed = toReadableDate(muligFomDato)
+    const tilOgMed = toReadableDate(muligTomDato)
 
     const legend =
         index === 0
