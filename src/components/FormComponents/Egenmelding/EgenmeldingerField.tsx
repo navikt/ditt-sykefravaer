@@ -92,7 +92,8 @@ function EgenmeldingerField({
                 <HarBruktEgenmelding
                     index={index}
                     arbeidsgiverNavn={metadata.arbeidsgiverNavn}
-                    firstPossibleDate={latestPossibleDate}
+                    muligTomDato={latestPossibleDate}
+                    muligFomDato={earliestPossibleDate}
                     onNo={() => {
                         setValue(`egenmeldingsdager.${index}.datoer`, null)
                         setValue(`egenmeldingsdager.${index}.hasClickedVidere`, null)
@@ -183,7 +184,7 @@ function VidereButtonField({ index, missingDates }: { index: number; missingDate
                     }
                 }}
             >
-                Videre
+                Bekreft datoer
             </Button>
             {fieldState.error && <ErrorMessage>{fieldState.error.message}</ErrorMessage>}
         </>

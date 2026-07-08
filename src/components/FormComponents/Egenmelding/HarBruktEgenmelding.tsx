@@ -13,26 +13,40 @@ import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 interface Props {
     index: number
     arbeidsgiverNavn: string
-    firstPossibleDate: Date
+    muligTomDato: Date
+    muligFomDato: Date
     onNo: () => void
     umamiSkjemanavn: string
 }
 
 function HarBruktEgenmelding({
     index,
-    firstPossibleDate,
+    muligTomDato,
+    muligFomDato,
     arbeidsgiverNavn,
     onNo,
     umamiSkjemanavn,
 }: Props): ReactElement {
-    const sykmeldingStartDato = toReadableDate(dateAdd(firstPossibleDate, { days: 1 }))
+    const sykmeldingStartDato = toReadableDate(dateAdd(muligTomDato, { days: 1 }))
+    const fraOgMed = toReadableDate(muligFomDato)
+    const tilOgMed = toReadableDate(muligTomDato)
+
+    const legend =
+        index === 0
+            ? `${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} før du ble sykmeldt ${sykmeldingStartDato}?`
+            : `Hadde du egenmeldingsdager før det igjen – altså mellom ${fraOgMed} og ${tilOgMed}?`
+
+    const description =
+        index === 0
+            ? 'Ta bare med de dagene du hadde egenmelding en hel dag.'
+            : 'Ta bare med dagene du var borte fra jobb hele dagen.'
 
     return (
         <QuestionWrapper>
             <YesNoField<EgenmeldingsdagerSubForm>
                 name={`egenmeldingsdager.${index}.harPerioder`}
-                legend={`${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} før du ble sykmeldt ${sykmeldingStartDato}?`}
-                description="Ta bare med de dagene du hadde egenmelding en hel dag."
+                legend={legend}
+                description={description}
                 subtext={<EgenmeldingReadMore index={index} />}
                 rules={{
                     required: 'Du må svare på om du har brukt egenmelding før du ble syk.',
@@ -77,15 +91,15 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
 
     if (index === 0) {
         return (
-            <ReadMore header="Spørsmålet forklart" open={open} onClick={handleOnReadMoreClick}>
+            <ReadMore header="Hvorfor spør vi om egenmelding?" open={open} onClick={handleOnReadMoreClick}>
                 <BodyLong spacing>
                     Egenmelding er når du melder fra til arbeidsgiveren din om at du er syk og borte fra jobb – uten å
-                    gå til lege.
+                    ha fått sykmelding.
                 </BodyLong>
                 <BodyLong spacing>
-                    Nav trenger å vite om du brukte egenmelding før sykmeldingen, for å beregne riktig
-                    arbeidsgiverperiode. Arbeidsgiverperiode er de første 16 kalenderdagene av et sykefravær, og betales
-                    som oftest av arbeidsgiveren. Egenmeldingsdager teller med i arbeidsgiverperioden.
+                    Nav trenger å vite om du brukte egenmelding i de 16 dagene før sykmeldingen startet, for å beregne
+                    riktig arbeidsgiverperiode. De første 16 kalenderdagene av et sykefravær betales vanligvis av
+                    arbeidsgiveren – dette kalles arbeidsgiverperioden . Egenmeldingsdager teller med i disse 16 dagene.
                 </BodyLong>
                 <BodyShort spacing>
                     <strong>Svar ja hvis:</strong>
@@ -117,19 +131,9 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
 
     return (
         <ReadMore header="Hvorfor spør vi igjen?" open={open} onClick={handleOnReadMoreClick}>
-            <BodyLong spacing>
-                Ettersom du har opplyst om at du har benyttet egenmeldingsdager i spørsmålet over, trenger vi også
-                informasjon om du brukte egenmelding i løpet av de 16 dagene før egenmeldingsperioden i forrige periode.
-            </BodyLong>
-            <BodyLong spacing>
-                Hvis det har gått mindre enn 16 dager fra du brukte egenmeldingsdager, til den første egenmeldingsdagen
-                du oppgav i forrige spørsmål, kommer de med i beregningen av{' '}
-                <Link
-                    href="https://www.nav.no/no/bedrift/oppfolging/sykmeldt-arbeidstaker/sykepenger/sykepenger-i-arbeidsgiverperioden#chapter-1"
-                    target="_blank"
-                >
-                    arbeidsgiverperioden.
-                </Link>
+            <BodyLong>
+                Hadde du egenmelding innenfor 16 dager før en annen egenmeldingsperiode, telles dagene sammen når vi
+                beregner arbeidsgiverperioden.
             </BodyLong>
         </ReadMore>
     )
