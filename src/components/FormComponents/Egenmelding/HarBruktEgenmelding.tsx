@@ -93,17 +93,13 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
         return (
             <ReadMore header="Hvorfor spør vi om egenmelding?" open={open} onClick={handleOnReadMoreClick}>
                 <BodyLong spacing>
-                    Egenmelding er når du melder fra til arbeidsgiveren din om at du er syk og borte fra jobb –{' '}
-                    <strong>uten å ha fått sykmelding</strong>.
+                    Egenmelding er når du melder fra til arbeidsgiveren din om at du er syk og borte fra jobb – uten å
+                    ha fått sykmelding.
                 </BodyLong>
                 <BodyLong spacing>
-                    Nav trenger å vite om du brukte egenmelding <strong>i de 16 dagene</strong> før sykmeldingen
-                    startet, for å beregne riktig arbeidsgiverperiode.{' '}
-                    <strong>
-                        De første 16 kalenderdagene av et sykefravær betales vanligvis av arbeidsgiveren – dette kalles
-                        arbeidsgiverperioden
-                    </strong>
-                    . Egenmeldingsdager teller med i <strong>disse 16 dagene</strong>.
+                    Nav trenger å vite om du brukte egenmelding i de 16 dagene før sykmeldingen startet, for å beregne
+                    riktig arbeidsgiverperiode. De første 16 kalenderdagene av et sykefravær betales vanligvis av
+                    arbeidsgiveren – dette kalles arbeidsgiverperioden . Egenmeldingsdager teller med i disse 16 dagene.
                 </BodyLong>
                 <BodyShort spacing>
                     <strong>Svar ja hvis:</strong>
