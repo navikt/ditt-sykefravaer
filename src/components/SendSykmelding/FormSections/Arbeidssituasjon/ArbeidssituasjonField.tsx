@@ -6,6 +6,8 @@ import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCom
 import { FormValues } from '../../SendSykmeldingForm'
 import { QuestionWrapper } from '../../../FormComponents/FormStructure'
 import { arbeidssituasjonDescription, arbeidssituasjonLabel, sporsmal } from '../../../../utils/sporsmal'
+import { useToggle } from '../../../../toggles/context'
+import { AnnetArbeidssituasjonSurvey } from '../../../flexjar/AnnetArbeidssituasjonSurvey'
 
 interface Props {
     harAvventendePeriode: boolean
@@ -27,6 +29,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
         name: 'arbeidssituasjon',
         rules: { required: 'Du må svare på hvilket arbeid du er sykmeldt fra.' },
     })
+    const annetSurveyToggle = useToggle('flexjar-arbeidssituasjon-annet-survey')
 
     return (
         <QuestionWrapper>
@@ -69,11 +72,17 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 })}
             </RadioGroup>
             {field.value === ArbeidssituasjonType.ANNET && (
-                <Alert variant="info">
-                    Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver hvordan du
-                    jobber — eller jobbet da du ble sykmeldt. Er du usikker? Se «Finner du ikke din situasjon?» for
-                    hjelp.
-                </Alert>
+                <>
+                    {annetSurveyToggle.enabled ? (
+                        <AnnetArbeidssituasjonSurvey />
+                    ) : (
+                        <Alert variant="info">
+                            Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver hvordan
+                            du jobber — eller jobbet da du ble sykmeldt. Er du usikker? Se «Finner du ikke din
+                            situasjon?» for hjelp.
+                        </Alert>
+                    )}
+                </>
             )}
         </QuestionWrapper>
     )
