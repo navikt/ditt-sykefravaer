@@ -48,7 +48,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         )(page)
 
         await expect(
-            page.getByText('Siden du sier det er feil, ber vi arbeidsgiveren din om å gi oss riktig navn.'),
+            page.getByText('Vi ber arbeidsgiveren din om å oppdatere navnet. Du trenger ikke gjøre noe mer.'),
         ).toBeVisible()
 
         await page
