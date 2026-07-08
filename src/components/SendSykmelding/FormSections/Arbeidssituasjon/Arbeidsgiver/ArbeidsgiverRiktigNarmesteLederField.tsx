@@ -41,6 +41,8 @@ function ArbeidsgiverRiktigNarmesteLederField({ narmesteLeder }: Props): ReactEl
                 rules={{
                     required: 'Du må svare på om dette er nærmeste lederen som skal følge deg opp.',
                 }}
+                jaTekst="Ja, det stemmer"
+                neiTekst="Nei, det er feil person"
             />
             {riktigNarmesteLeder != null && (
                 <Alert className="my-8" variant="info" aria-live="polite">
