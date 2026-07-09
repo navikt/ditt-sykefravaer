@@ -103,6 +103,9 @@ export function AnnetArbeidssituasjonSurvey() {
                     onChange={(verdi) => {
                         setValgtArsak(verdi)
                         setValideringsfeil(null)
+                        if (verdi !== 'Annen årsak') {
+                            setFritekst('')
+                        }
                     }}
                     error={valideringsfeil}
                 >
@@ -113,14 +116,16 @@ export function AnnetArbeidssituasjonSurvey() {
                     ))}
                 </RadioGroup>
 
-                <Textarea
-                    label="Skriv hvilken arbeidssituasjon som gjelder deg"
-                    description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"
-                    value={fritekst}
-                    onChange={(e) => setFritekst(e.target.value)}
-                    maxLength={100}
-                    minRows={2}
-                />
+                {valgtArsak === 'Annen årsak' && (
+                    <Textarea
+                        label="Skriv hvilken arbeidssituasjon som gjelder deg"
+                        description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"
+                        value={fritekst}
+                        onChange={(e) => setFritekst(e.target.value)}
+                        maxLength={100}
+                        minRows={2}
+                    />
+                )}
 
                 <Alert variant="warning">
                     Tilbakemeldingen din er anonym og vil ikke knyttes til sykmeldingen din. Den brukes kun for å gjøre

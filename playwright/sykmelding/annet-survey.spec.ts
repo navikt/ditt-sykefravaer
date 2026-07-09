@@ -36,7 +36,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
     test('kan sende inn survey med valgt årsak', async ({ page }) => {
         await velgArbeidssituasjon('annet')(page)
 
-        await page.getByRole('radio', { name: 'Jeg er pensjonist' }).click()
+        await page.getByRole('radio', { name: 'Annen årsak' }).click()
         await page.getByLabel(/Skriv hvilken arbeidssituasjon/i).fill('Pensjonert, men jobber litt ved siden av')
 
         const [request] = await Promise.all([
@@ -47,7 +47,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         const postData = JSON.parse(request.postData() || '{}')
         expect(postData).toMatchObject({
             feedbackId: 'arbeidssituasjon-annet',
-            svar: 'Jeg er pensjonist',
+            svar: 'Annen årsak',
             feedback: 'Pensjonert, men jobber litt ved siden av',
         })
 

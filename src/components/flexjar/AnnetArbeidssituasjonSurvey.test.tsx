@@ -51,7 +51,7 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         ).toBeInTheDocument()
         expect(screen.getByRole('radio', { name: 'Jeg har varig tilrettelagt arbeid (VTA)' })).toBeInTheDocument()
         expect(screen.getByRole('radio', { name: 'Annen årsak' })).toBeInTheDocument()
-        expect(screen.getByLabelText(/Skriv hvilken arbeidssituasjon som gjelder deg/i)).toBeInTheDocument()
+        expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon som gjelder deg/i)).not.toBeInTheDocument()
         expect(screen.getByRole('button', { name: 'Send tilbakemelding' })).toBeInTheDocument()
     })
 
@@ -76,14 +76,14 @@ describe('AnnetArbeidssituasjonSurvey', () => {
     it('sender feedback med valgt årsak og fritekst', async () => {
         render(<AnnetArbeidssituasjonSurvey />)
 
-        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
         await userEvent.type(screen.getByLabelText(/Skriv hvilken arbeidssituasjon/i), 'Pensjonist med deltidsjobb')
         await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
 
         expect(opprettFeedbackMutate).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 feedbackId: 'arbeidssituasjon-annet',
-                svar: 'Jeg er pensjonist',
+                svar: 'Annen årsak',
                 feedback: 'Pensjonist med deltidsjobb',
             }),
         )
@@ -97,5 +97,20 @@ describe('AnnetArbeidssituasjonSurvey', () => {
 
         await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
         expect(screen.queryByText('Du må velge en årsak.')).not.toBeInTheDocument()
+    })
+
+    it('viser fritekstfelt kun når Annen årsak er valgt', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon/i)).not.toBeInTheDocument()
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+        expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon/i)).not.toBeInTheDocument()
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        expect(screen.getByLabelText(/Skriv hvilken arbeidssituasjon/i)).toBeInTheDocument()
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+        expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon/i)).not.toBeInTheDocument()
     })
 })
