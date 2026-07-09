@@ -32,20 +32,23 @@ test.describe('Arbeidssituasjon - Annet', () => {
         })(page)
     })
 
-    test('skal vise survey når arbeidssituasjon annet velges', async ({ page }) => {
+    test('skal vise survey på kvittering når arbeidssituasjon annet velges', async ({ page }) => {
         await userInteractionsGroup(
             gotoScenario('normal'),
             navigateToFirstSykmelding('nye', '100%'),
             opplysingeneStemmer,
             velgArbeidssituasjon('annet'),
+            bekreftSykmelding,
         )(page)
-        await expect(page.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).toBeVisible()
-        await bekreftSykmelding(page)
 
         await expectKvittering({
             sendtTil: 'NAV',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
+
+        await expect(
+            page.getByRole('dialog').getByText('Hjelp oss å forbedre valgene for arbeidssituasjon'),
+        ).toBeVisible()
 
         await expectDineSvar({
             stemmer: 'Ja',

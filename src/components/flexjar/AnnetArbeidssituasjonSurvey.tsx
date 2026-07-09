@@ -98,7 +98,7 @@ export function AnnetArbeidssituasjonSurvey() {
                 </div>
 
                 <RadioGroup
-                    legend="Hva er grunnen til at ingen av alternativene passet?"
+                    legend="Hva er grunnen til at du valgte arbeidssituasjon annet?"
                     value={valgtArsak}
                     onChange={(verdi) => {
                         setValgtArsak(verdi)

@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 
 import {
+    bekreftSykmelding,
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
@@ -15,33 +16,50 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await opplysingeneStemmer(page)
     })
 
-    test('viser survey når bruker velger Annet', async ({ page }) => {
+    test('viser survey-modal på kvittering når bruker valgte Annet', async ({ page }) => {
         await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
 
-        await expect(page.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).toBeVisible()
-        await expect(page.getByText('Svarene dine er anonyme')).toBeVisible()
+        const modal = page.getByRole('dialog')
+        await expect(modal).toBeVisible()
+        await expect(modal.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).toBeVisible()
+        await expect(modal.getByText('Svarene dine er anonyme')).toBeVisible()
         await expect(
-            page.getByText('Dette er ikke en del av sykmeldingen din. Svarene går ikke til saksbehandleren din.'),
+            modal.getByText('Dette er ikke en del av sykmeldingen din. Svarene går ikke til saksbehandleren din.'),
         ).toBeVisible()
-        await expect(page.getByText('Hva er grunnen til at ingen av alternativene passet?')).toBeVisible()
-        await expect(page.getByRole('button', { name: 'Send tilbakemelding' })).toBeVisible()
+        await expect(modal.getByText('Hva er grunnen til at du valgte arbeidssituasjon annet?')).toBeVisible()
+        await expect(modal.getByRole('button', { name: 'Send tilbakemelding' })).toBeVisible()
+        await expect(modal.getByRole('button', { name: 'Avbryt' })).toBeVisible()
     })
 
-    test('viser ikke survey når bruker velger annen situasjon', async ({ page }) => {
-        await velgArbeidssituasjon('frilanser')(page)
-
-        await expect(page.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).not.toBeVisible()
-    })
-
-    test('kan sende inn survey med valgt årsak', async ({ page }) => {
+    test('kan lukke survey-modal med Avbryt-knapp', async ({ page }) => {
         await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
 
-        await page.getByRole('radio', { name: 'Annen årsak' }).click()
-        await page.getByLabel(/Skriv hvilken arbeidssituasjon/i).fill('Pensjonert, men jobber litt ved siden av')
+        const modal = page.getByRole('dialog')
+        await expect(modal).toBeVisible()
+        await modal.getByRole('button', { name: 'Avbryt' }).click()
+        await expect(modal).not.toBeVisible()
+    })
+
+    test('viser ikke survey-modal på kvittering når bruker valgte annen situasjon', async ({ page }) => {
+        await velgArbeidssituasjon('frilanser')(page)
+        await bekreftSykmelding(page)
+
+        await expect(page.getByRole('dialog')).not.toBeVisible()
+    })
+
+    test('kan sende inn survey på kvittering med valgt årsak', async ({ page }) => {
+        await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
+
+        const modal = page.getByRole('dialog')
+        await modal.getByRole('radio', { name: 'Annen årsak' }).click()
+        await modal.getByLabel(/Skriv hvilken arbeidssituasjon/i).fill('Pensjonert, men jobber litt ved siden av')
 
         const [request] = await Promise.all([
             page.waitForRequest((req) => req.url().includes('/flexjar-backend/api/v2/feedback')),
-            page.getByRole('button', { name: 'Send tilbakemelding' }).click(),
+            modal.getByRole('button', { name: 'Send tilbakemelding' }).click(),
         ])
 
         const postData = JSON.parse(request.postData() || '{}')
@@ -51,23 +69,25 @@ test.describe('Annet arbeidssituasjon survey', () => {
             feedback: 'Pensjonert, men jobber litt ved siden av',
         })
 
-        await expect(page.getByText('Takk for tilbakemeldingen!')).toBeVisible()
+        await expect(modal.getByText('Takk for tilbakemeldingen!')).toBeVisible()
     })
 
     test('viser valideringsfeil ved send uten å velge årsak', async ({ page }) => {
         await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
 
-        await page.getByRole('button', { name: 'Send tilbakemelding' }).click()
+        const modal = page.getByRole('dialog')
+        await modal.getByRole('button', { name: 'Send tilbakemelding' }).click()
 
-        await expect(page.getByText('Du må velge en årsak.')).toBeVisible()
+        await expect(modal.getByText('Du må velge en årsak.')).toBeVisible()
     })
 
-    test('viser alert og ikke survey når toggle er av', async ({ page }) => {
+    test('viser ikke survey-modal på kvittering når toggle er av', async ({ page }) => {
         await page.goto(page.url().replace(/\?.*/, '') + '?toggle_flexjar-arbeidssituasjon-annet-survey=false')
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
 
-        await expect(page.getByText('Sykmeldingen gjelder arbeidet du er sykmeldt fra')).toBeVisible()
-        await expect(page.getByText('Hjelp oss å forbedre valgene for arbeidssituasjon')).not.toBeVisible()
+        await expect(page.getByRole('dialog')).not.toBeVisible()
     })
 })

@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
-import { Alert, BodyShort, Box, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
+import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
+import { Alert, BodyShort, Box, Button, GuidePanel, Heading, Link as DsLink, Modal, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -20,7 +20,9 @@ import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBrea
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
+import { AnnetArbeidssituasjonSurvey } from '../../../components/flexjar/AnnetArbeidssituasjonSurvey'
 import { useToggle } from '../../../toggles/context'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
 import { useVisVentetidInfo } from '../../../hooks/sykmelding/useVisVentetidInfo'
@@ -30,8 +32,11 @@ function SykmeldingkvitteringPage(): ReactElement {
     const { data, error, isPending } = useSykmelding(sykmeldingId)
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
+    const annetSurveyToggle = useToggle('flexjar-arbeidssituasjon-annet-survey')
+    const [surveyModalApen, setSurveyModalApen] = useState(true)
 
     const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const erAnnetArbeidssituasjon = arbeidssituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.ANNET
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
 
     if (isPending) {
@@ -122,6 +127,22 @@ function SykmeldingkvitteringPage(): ReactElement {
             </Box>
             {flexjarToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeidssituasjonSvar} />
+            )}
+            {annetSurveyToggle.enabled && erAnnetArbeidssituasjon && (
+                <Modal
+                    open={surveyModalApen}
+                    onClose={() => setSurveyModalApen(false)}
+                    aria-label="Hjelp oss å forbedre valgene for arbeidssituasjon"
+                >
+                    <Modal.Body>
+                        <AnnetArbeidssituasjonSurvey />
+                    </Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
+                            Avbryt
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
             )}
         </KvitteringWrapper>
     )
