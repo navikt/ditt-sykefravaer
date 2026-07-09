@@ -1,13 +1,11 @@
-import { BodyLong, Box, Heading, Link, List, BodyShort } from '@navikt/ds-react'
+import { Alert, BodyLong, BodyShort, Box, Button, Heading, ReadMore } from '@navikt/ds-react'
+import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import React from 'react'
 
-import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
-import { Flexjar } from '../flexjar/flexjar'
-import { Banner } from '../banner/Banner'
+import { tilLesbarDatoMedArstall, tilLesbarDatoOgKlokkeslett } from '../../utils/dato-utils'
 import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
 import { Inntekt } from '../../pages/beskjed/[id]'
 import { Melding } from '../../types/melding'
-import TilHovedsiden from '../TilHovedsiden/TilHovedsiden'
 
 import { ForelagteInntektInfoBoks } from './forelagteInntektInfoBoks'
 
@@ -30,75 +28,72 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
     }
 
     const grupperteInntekter = melding?.metadata?.inntekter ? grupperInntekterEtterAarr(melding.metadata.inntekter) : {}
+    const fristDato = melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''
 
     return (
         <>
-            <Banner utenIkon={true} tittel="Vi har hentet opplysninger fra a-ordningen" />
-
-            <BodyLong spacing>
-                Vi har fortsatt ikke mottatt inntektsmelding fra {melding?.metadata?.orgnavn} og har derfor hentet
-                opplysninger om inntekten din fra a-ordningen. Vi vil bruke opplysningene til å behandle søknaden din og
-                beregne hvor mye sykepenger du kan få.
-            </BodyLong>
-
-            <ForelagteInntektInfoBoks grupperteInntekter={grupperteInntekter} />
-
-            <Heading level="2" size="medium" spacing>
-                Vi trenger å vite om vi skal bruke inntekten fra a-ordningen
+            <Heading level="1" size="xlarge" spacing>
+                Opplysninger om inntekten din
             </Heading>
 
+            {melding?.metadata?.tidsstempel && (
+                <BodyShort textColor="subtle" className="mb-6 italic">
+                    Sendt fra Nav: {tilLesbarDatoOgKlokkeslett(melding.metadata.tidsstempel)}
+                </BodyShort>
+            )}
+
             <BodyLong spacing>
-                Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før den måneden du ble syk
-                for å beregne hvor mye sykepenger du kan få. Hvis inntekten din har endret seg i løpet av denne
-                perioden, kan det være andre regler for hvordan vi skal beregne. Da må du gi oss beskjed. Det kan for
-                eksempel være hvis:
+                Vi har hentet opplysninger om inntekten din. For å sikre at vi har riktige opplysninger, trenger vi at
+                du sjekker at de stemmer.
             </BodyLong>
 
-            <List as="ul">
-                <List.Item>
-                    <BodyShort as="span" weight="semibold">
-                        Du har fått ny jobb:
-                    </BodyShort>{' '}
-                    Da skal vi kun bruke den nye inntekten din
-                </List.Item>
-                <List.Item>
-                    <BodyShort as="span" weight="semibold">
-                        Du har gått opp eller ned i lønn:
-                    </BodyShort>{' '}
-                    Da skal vi bruke inntekten etter endringen skjedde
-                </List.Item>
-                <List.Item>
-                    <BodyShort as="span" weight="semibold">
-                        Du har hatt ferie, permisjon eller annet fravær:
-                    </BodyShort>{' '}
-                    Da skal vi bruke inntekten du ville hatt hvis du hadde vært på jobb
-                </List.Item>
-            </List>
+            <BodyLong spacing>
+                Hvis opplysningene stemmer, trenger du ikke gjøre noe. Da vil vi bruke inntekten vi har hentet når vi
+                skal behandle saken din om sykepenger.
+            </BodyLong>
 
-            <BodyLong spacing>Har du inntekt fra overtid skal det som regel ikke tas med i beregningen.</BodyLong>
+            <Alert variant="info" className="mb-6">
+                <BodyLong>
+                    Har du endringer til opplysningene, må du melde fra til Nav innen <strong>{fristDato}</strong>.
+                    Eksempler på endringer kan være hvis du har byttet jobb, endret lønn, eller hatt ferie, permisjon
+                    eller annet fravær.
+                </BodyLong>
+            </Alert>
 
-            <Box padding="6" borderRadius="small" className="my-8 bg-blue-50">
-                <Heading level="2" size="small">
-                    Ta kontakt hvis inntekten ikke stemmer
+            <ReadMore className="mb-6" header="Hvorfor vi har hentet opplysninger om inntekten din">
+                <BodyLong>
+                    Nav trenger opplysninger om inntekten din for å kunne beregne hvor mye sykepenger du kan få. Vi får
+                    vanligvis opplysningene i en inntektsmelding fra arbeidsgiveren din. Vi har ikke mottatt
+                    inntektsmelding fra arbeidsgiveren din, og har derfor hentet opplysninger fra a-ordningen
+                    istedenfor.
+                </BodyLong>
+            </ReadMore>
+
+            <Box as="hr" borderWidth="0 0 1 0" className="my-8" />
+
+            <ForelagteInntektInfoBoks
+                grupperteInntekter={grupperteInntekter}
+                orgnavn={melding?.metadata?.orgnavn ?? ''}
+            />
+
+            <Box padding="6" borderRadius="small" background="surface-info-subtle" className="mt-8">
+                <Heading level="2" size="small" spacing>
+                    Meld fra til Nav om endringer
                 </Heading>
-                <BodyLong className="mt-4">
-                    Har det vært endringer i situasjonen din som gjør at vi mangler opplysninger om inntekten din,{' '}
-                    <Link href="https://innboks.nav.no/s/beskjed-til-oss?category=Endring-sykepenger" target="_blank">
-                        gi beskjed til Nav om endringen
-                    </Link>{' '}
-                    innen{' '}
-                    {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''}.
+                <BodyLong spacing>
+                    Har du endringer til inntekten, må du gi beskjed til Nav <strong>innen {fristDato}</strong>.
                 </BodyLong>
-                <BodyLong className="mt-4">
-                    Hvis vi ikke hører fra deg innen{' '}
-                    {melding?.metadata?.tidsstempel ? tilLesbarDatoMedArstall(melding.metadata.tidsstempel, 21) : ''},
-                    vil vi bruke opplysningene fra a-ordningen til å behandle søknaden din.
-                </BodyLong>
+                <Button
+                    as="a"
+                    href="https://innboks.nav.no/s/beskjed-til-oss?category=Endring-sykepenger"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    icon={<ExternalLinkIcon aria-hidden />}
+                    iconPosition="right"
+                >
+                    Meld fra om endringer
+                </Button>
             </Box>
-
-            <TilHovedsiden />
-
-            <Flexjar feedbackId="forelegging-fra-a-ordningen" sporsmal="Var denne informasjonen nyttig for deg?" />
         </>
     )
 }
