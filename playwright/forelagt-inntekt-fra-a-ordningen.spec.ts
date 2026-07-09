@@ -26,7 +26,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(header).toContainText('Sjekk at opplysningene om inntekten din stemmer')
         await expect(
             page.locator(
-                'text=Vi har hentet opplysninger om inntekten din. For å sikre at vi har riktige opplysninger',
+                'text=Vi har hentet opplysninger om inntekten din fra a-ordningen, fordi vi ikke har mottatt inntektsmelding fra arbeidsgiveren din. Sjekk at opplysningene om inntekten din stemmer.',
             ),
         ).toBeVisible()
         await expect(page.locator('text=Hvis opplysningene stemmer, trenger du ikke gjøre noe')).toBeVisible()

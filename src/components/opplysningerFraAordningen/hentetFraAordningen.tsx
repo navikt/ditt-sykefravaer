@@ -43,8 +43,8 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
             )}
 
             <BodyLong spacing>
-                Vi har hentet opplysninger om inntekten din. For å sikre at vi har riktige opplysninger, trenger vi at
-                du sjekker at de stemmer.
+                Vi har hentet opplysninger om inntekten din fra a-ordningen, fordi vi ikke har mottatt inntektsmelding
+                fra arbeidsgiveren din. Sjekk at opplysningene om inntekten din stemmer.
             </BodyLong>
 
             <BodyLong spacing>
