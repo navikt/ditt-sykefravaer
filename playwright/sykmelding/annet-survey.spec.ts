@@ -70,6 +70,8 @@ test.describe('Annet arbeidssituasjon survey', () => {
         })
 
         await expect(modal.getByText('Takk for tilbakemeldingen!')).toBeVisible()
+        await expect(modal.getByRole('button', { name: 'Lukk vindu' })).toBeVisible()
+        await expect(modal.getByRole('button', { name: 'Avbryt' })).not.toBeVisible()
     })
 
     test('viser valideringsfeil ved send uten å velge årsak', async ({ page }) => {

@@ -16,7 +16,7 @@ const ARSAKER = [
     'Annen årsak',
 ] as const
 
-export function AnnetArbeidssituasjonSurvey() {
+export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void }) {
     const [valgtArsak, setValgtArsak] = useState('')
     const [fritekst, setFritekst] = useState('')
     const [valideringsfeil, setValideringsfeil] = useState<string | null>(null)
@@ -54,6 +54,7 @@ export function AnnetArbeidssituasjonSurvey() {
         sendFeedback(() => {
             setTakk(true)
             setValideringsfeil(null)
+            onTakk?.()
         })
     }
 

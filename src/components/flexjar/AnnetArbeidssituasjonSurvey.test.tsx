@@ -15,10 +15,14 @@ import { AnnetArbeidssituasjonSurvey } from './AnnetArbeidssituasjonSurvey'
 const opprettFeedbackMutate = vi.fn()
 const oppdaterFeedbackMutate = vi.fn()
 
+let mockFeedbackData: { id: string } | undefined = undefined
+
 vi.mock('./queryhooks/useOpprettFlexjarFeedback', () => ({
     UseOpprettFlexjarFeedback: () => ({
         mutate: opprettFeedbackMutate,
-        data: undefined,
+        get data() {
+            return mockFeedbackData
+        },
     }),
 }))
 
@@ -31,6 +35,7 @@ vi.mock('./queryhooks/useOppdaterFlexjarFeedback', () => ({
 describe('AnnetArbeidssituasjonSurvey', () => {
     beforeEach(() => {
         vi.clearAllMocks()
+        mockFeedbackData = undefined
     })
 
     it('viser survey-skjema med alle felter', () => {
@@ -112,5 +117,17 @@ describe('AnnetArbeidssituasjonSurvey', () => {
 
         await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
         expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon/i)).not.toBeInTheDocument()
+    })
+
+    it('kaller onTakk når feedback er sendt', async () => {
+        mockFeedbackData = { id: 'test-id' }
+        oppdaterFeedbackMutate.mockImplementation(({ cb }: { cb?: () => void }) => cb?.())
+        const onTakk = vi.fn()
+        render(<AnnetArbeidssituasjonSurvey onTakk={onTakk} />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+        await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+
+        expect(onTakk).toHaveBeenCalledTimes(1)
     })
 })

@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { Fragment, PropsWithChildren, ReactElement, useState } from 'react'
+import React, { Fragment, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
 import { Alert, BodyShort, Box, Button, GuidePanel, Heading, Link as DsLink, Modal, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
@@ -33,7 +33,18 @@ function SykmeldingkvitteringPage(): ReactElement {
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
     const annetSurveyToggle = useToggle('flexjar-arbeidssituasjon-annet-survey')
-    const [surveyModalApen, setSurveyModalApen] = useState(true)
+    const surveyNokkel = `survey-annet-${sykmeldingId}`
+    const [surveyModalApen, setSurveyModalApen] = useState(false)
+    const [surveyTakk, setSurveyTakk] = useState(false)
+
+    useEffect(() => {
+        setSurveyModalApen(sessionStorage.getItem(surveyNokkel) !== 'sendt')
+    }, [surveyNokkel])
+
+    function handleSurveyTakk() {
+        sessionStorage.setItem(surveyNokkel, 'sendt')
+        setSurveyTakk(true)
+    }
 
     const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
     const erAnnetArbeidssituasjon = arbeidssituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.ANNET
@@ -132,16 +143,34 @@ function SykmeldingkvitteringPage(): ReactElement {
                 <Modal
                     open={surveyModalApen}
                     onClose={() => setSurveyModalApen(false)}
-                    aria-label="Hjelp oss å forbedre valgene for arbeidssituasjon"
+                    width="medium"
+                    header={!surveyTakk ? { heading: 'Tilbakemelding', size: 'small' } : undefined}
                 >
-                    <Modal.Body>
-                        <AnnetArbeidssituasjonSurvey />
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
-                            Avbryt
-                        </Button>
-                    </Modal.Footer>
+                    {surveyTakk ? (
+                        <>
+                            <Modal.Header className="bg-surface-success-subtle">
+                                <Heading size="medium" level="2">
+                                    Takk for tilbakemeldingen!
+                                </Heading>
+                            </Modal.Header>
+                            <Modal.Footer className="bg-surface-success-subtle">
+                                <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
+                                    Lukk vindu
+                                </Button>
+                            </Modal.Footer>
+                        </>
+                    ) : (
+                        <>
+                            <Modal.Body>
+                                <AnnetArbeidssituasjonSurvey onTakk={handleSurveyTakk} />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
+                                    Avbryt
+                                </Button>
+                            </Modal.Footer>
+                        </>
+                    )}
                 </Modal>
             )}
         </KvitteringWrapper>
