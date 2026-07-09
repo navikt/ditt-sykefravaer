@@ -26,6 +26,8 @@ test.describe('Arbeidssituasjon - Annet', () => {
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
+        await page.getByRole('dialog').getByRole('button', { name: 'Avbryt' }).click()
+
         await expectDineSvar({
             stemmer: 'Ja',
             arbeidssituasjon: 'Annet',
@@ -49,6 +51,8 @@ test.describe('Arbeidssituasjon - Annet', () => {
         await expect(
             page.getByRole('dialog').getByText('Hjelp oss å forbedre valgene for arbeidssituasjon'),
         ).toBeVisible()
+
+        await page.getByRole('dialog').getByRole('button', { name: 'Avbryt' }).click()
 
         await expectDineSvar({
             stemmer: 'Ja',

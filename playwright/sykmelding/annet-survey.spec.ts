@@ -2,10 +2,12 @@ import { expect } from '@playwright/test'
 
 import {
     bekreftSykmelding,
+    frilanserEgenmeldingsperioder,
     gotoScenario,
     navigateToFirstSykmelding,
     opplysingeneStemmer,
     velgArbeidssituasjon,
+    velgForsikring,
 } from '../utils/user-actions'
 import { test } from '../utils/fixtures'
 
@@ -44,8 +46,10 @@ test.describe('Annet arbeidssituasjon survey', () => {
 
     test('viser ikke survey-modal på kvittering når bruker valgte annen situasjon', async ({ page }) => {
         await velgArbeidssituasjon('frilanser')(page)
-        await bekreftSykmelding(page)
+        await frilanserEgenmeldingsperioder('Nei')(page)
+        await velgForsikring('Nei')(page)
 
+        await bekreftSykmelding(page)
         await expect(page.getByRole('dialog')).not.toBeVisible()
     })
 
