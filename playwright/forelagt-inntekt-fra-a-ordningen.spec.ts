@@ -17,13 +17,13 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
-        await harSynligOverskrift(page, 'Opplysninger om inntekten din', 1)
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
         await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
 
         const header = page.locator('main').locator('h1').first()
 
         await expect(header).toBeVisible()
-        await expect(header).toContainText('Opplysninger om inntekten din')
+        await expect(header).toContainText('Sjekk at opplysningene om inntekten din stemmer')
         await expect(
             page.locator(
                 'text=Vi har hentet opplysninger om inntekten din. For å sikre at vi har riktige opplysninger',

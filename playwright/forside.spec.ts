@@ -53,6 +53,6 @@ test.describe('Tester visning av forside', () => {
         const aOrdningenNotifikasjon = page.getByRole('link', { name: 'Status i saken din om' })
         await expect(aOrdningenNotifikasjon).toBeVisible()
         await aOrdningenNotifikasjon.click()
-        await harSynligOverskrift(page, 'Opplysninger om inntekten din', 1)
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
     })
 })

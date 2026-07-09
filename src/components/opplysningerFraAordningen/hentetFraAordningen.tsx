@@ -3,7 +3,7 @@ import { ExternalLinkIcon } from '@navikt/aksel-icons'
 import React from 'react'
 
 import { tilLesbarDatoMedArstall, tilLesbarDatoOgKlokkeslett } from '../../utils/dato-utils'
-import { useUpdateBreadcrumbs, breadcrumbBuilders } from '../../hooks/useBreadcrumbs'
+import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../hooks/useBreadcrumbs'
 import { Inntekt } from '../../pages/beskjed/[id]'
 import { Melding } from '../../types/melding'
 
@@ -33,7 +33,7 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
     return (
         <>
             <Heading level="1" size="xlarge" spacing>
-                Opplysninger om inntekten din
+                Sjekk at opplysningene om inntekten din stemmer
             </Heading>
 
             {melding?.metadata?.tidsstempel && (
