@@ -134,7 +134,7 @@ test.describe('Tester Brodsmuler', () => {
         await page.goto('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
         await neiTilCookies(page)
 
-        await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
+        await harSynligOverskrift(page, 'Opplysninger om inntekten din', 1)
 
         await forventFlerebrodsmuler(page, [standardBrodsmuler.minSide, standardBrodsmuler.sykefravaer])
 

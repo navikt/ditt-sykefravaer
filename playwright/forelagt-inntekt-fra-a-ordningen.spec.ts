@@ -17,17 +17,22 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(navdsAlert).toContainText(alertText)
         await navdsAlert.click()
 
-        await harSynligOverskrift(page, 'Vi har hentet opplysninger fra a-ordningen', 1)
+        await harSynligOverskrift(page, 'Opplysninger om inntekten din', 1)
         await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
 
         const header = page.locator('main').locator('h1').first()
 
         await expect(header).toBeVisible()
-        await expect(header).toContainText('Vi har hentet opplysninger fra a-ordningen')
-        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
+        await expect(header).toContainText('Opplysninger om inntekten din')
         await expect(
-            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
+            page.locator(
+                'text=Vi har hentet opplysninger om inntekten din. For å sikre at vi har riktige opplysninger',
+            ),
         ).toBeVisible()
+        await expect(page.locator('text=Hvis opplysningene stemmer, trenger du ikke gjøre noe')).toBeVisible()
+
+        await expect(page.locator('text=Inntekt hos')).toBeVisible()
+        await expect(page.locator('text=Snekkeri AS')).toBeVisible()
 
         await expect(page.locator('text=2023')).toBeVisible()
         await expect(page.locator('text=Desember: 33 960 kroner')).toBeVisible()
@@ -36,11 +41,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(page.locator('text=Januar: 0 kroner')).toBeVisible()
         await expect(page.locator('text=Februar: 33 960 kroner')).toBeVisible()
 
-        // Navigerer til ditt sykefravær
-        await expect(page.getByRole('link', { name: /Tilbake til Ditt sykefravær/ })).toBeVisible()
-
-        await page.click('text=Tilbake til Ditt sykefravær')
-        await expect(page).toHaveURL('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
+        await expect(page.getByRole('button', { name: 'Meld fra om endringer' })).toBeVisible()
     })
 
     test('Tester når vi har kun en av tre månedsinntekt', async ({ page }) => {
@@ -58,10 +59,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
         await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y8?testperson=forelagt-fra-a-ordningen-en-maned')
 
-        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
-        await expect(
-            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
-        ).toBeVisible()
+        await expect(page.locator('text=Snekkeri AS')).toBeVisible()
 
         await expect(page.locator('text=2023')).toBeVisible()
         await expect(page.locator('text=Desember: Ingen inntekt registrert')).toBeVisible()
@@ -86,10 +84,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
         await expect(page).toHaveURL('/syk/sykefravaer/beskjed/123456y9?testperson=forelagt-fra-a-ordningen-ingen')
 
-        await expect(page.locator('text=Vi har fortsatt ikke mottatt inntektsmelding fra Snekkeri AS')).toBeVisible()
-        await expect(
-            page.locator('text=Nav bruker vanligvis gjennomsnittet av inntekten din fra de siste 3 månedene før'),
-        ).toBeVisible()
+        await expect(page.locator('text=Snekkeri AS')).toBeVisible()
 
         await expect(page.locator('text=2024')).toBeVisible()
         await expect(page.locator('text=Mars: Ingen inntekt registrert')).toBeVisible()
