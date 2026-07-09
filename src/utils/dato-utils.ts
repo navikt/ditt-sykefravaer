@@ -107,3 +107,7 @@ export function diffInDays(fom: string, tom: string): number {
 export function sortDatesASC(dates: Date[]): Date[] {
     return sortBy(dates, [(date) => date, 'asc'])
 }
+
+export function tilLesbarDatoOgKlokkeslett(datoArg: string): string {
+    return format(parseISO(datoArg), "d. MMMM yyyy 'kl.' HH.mm", { locale: nb })
+}
