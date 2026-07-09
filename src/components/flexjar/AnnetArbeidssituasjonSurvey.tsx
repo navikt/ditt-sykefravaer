@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Alert, BodyShort, Button, Heading, Radio, RadioGroup, Textarea } from '@navikt/ds-react'
 
 import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
@@ -26,22 +26,19 @@ export function AnnetArbeidssituasjonSurvey() {
     const { mutate: opprettFeedback, data } = UseOpprettFlexjarFeedback()
     const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
 
-    const sendFeedback = useCallback(
-        (cb?: () => void) => {
-            const body = {
-                feedback: fritekst,
-                feedbackId: FEEDBACK_ID,
-                svar: valgtArsak,
-            }
+    const sendFeedback = (cb?: () => void) => {
+        const body = {
+            feedback: fritekst,
+            feedbackId: FEEDBACK_ID,
+            svar: valgtArsak,
+        }
 
-            if (data?.id) {
-                oppdaterFeedback({ body, id: data.id, cb })
-            } else {
-                opprettFeedback(body)
-            }
-        },
-        [data?.id, fritekst, oppdaterFeedback, opprettFeedback, valgtArsak],
-    )
+        if (data?.id) {
+            oppdaterFeedback({ body, id: data.id, cb })
+        } else {
+            opprettFeedback(body)
+        }
+    }
 
     useEffect(() => {
         sendFeedback()
@@ -66,11 +63,6 @@ export function AnnetArbeidssituasjonSurvey() {
             takkRef.current?.focus()
         }
     }, [takk])
-
-    const handleArsakEndret = (verdi: string) => {
-        setValgtArsak(verdi)
-        setValideringsfeil(null)
-    }
 
     if (takk) {
         return (
@@ -108,7 +100,10 @@ export function AnnetArbeidssituasjonSurvey() {
                 <RadioGroup
                     legend="Hva er grunnen til at ingen av alternativene passet?"
                     value={valgtArsak}
-                    onChange={handleArsakEndret}
+                    onChange={(verdi) => {
+                        setValgtArsak(verdi)
+                        setValideringsfeil(null)
+                    }}
                     error={valideringsfeil}
                 >
                     {ARSAKER.map((arsak) => (
