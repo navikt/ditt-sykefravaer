@@ -25,6 +25,8 @@ execute_run_configuration(
 
 E2E-tester starter dev-serveren automatisk via `webServer`-konfig i `playwright.config.ts` (`reuseExistingServer: true`).
 
+> **⚠️ OBS:** Hvis en E2E-test feiler, vil prosessen henge og ikke fullføre av seg selv. Du må stoppe prosessen manuelt. Bruk derfor et rimelig `timeout` og vær forberedt på å kalle `stop_bash` eller avbryte hvis prosessen ikke returnerer.
+
 ### Kjøre én enkelt Playwright spec-fil
 
 1. `get_run_configurations` på spec-filen for å finne run points
