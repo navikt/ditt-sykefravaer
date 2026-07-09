@@ -3,14 +3,14 @@ import userEvent from '@testing-library/user-event'
 
 import { render, screen } from '../../utils/test/testUtils'
 
+import { AnnetArbeidssituasjonSurvey } from './AnnetArbeidssituasjonSurvey'
+
 class MockResizeObserver {
     observe = vi.fn()
     unobserve = vi.fn()
     disconnect = vi.fn()
 }
 vi.stubGlobal('ResizeObserver', MockResizeObserver)
-
-import { AnnetArbeidssituasjonSurvey } from './AnnetArbeidssituasjonSurvey'
 
 const opprettFeedbackMutate = vi.fn()
 const oppdaterFeedbackMutate = vi.fn()
@@ -46,7 +46,7 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(
             screen.getByText('Dette er ikke en del av sykmeldingen din. Svarene går ikke til saksbehandleren din.'),
         ).toBeInTheDocument()
-        expect(screen.getByText('Hva er grunnen til at du valgte arbeidssituasjon annet?')).toBeInTheDocument()
+        expect(screen.getByText('Hva er grunnen til at du valgte arbeidssituasjon "annet"?')).toBeInTheDocument()
         expect(screen.getByRole('radio', { name: 'Jeg er pensjonist' })).toBeInTheDocument()
         expect(screen.getByRole('radio', { name: 'Jeg fikk ikke opp riktig arbeidsgiver' })).toBeInTheDocument()
         expect(screen.getByRole('radio', { name: 'Jeg jobber i eget AS' })).toBeInTheDocument()

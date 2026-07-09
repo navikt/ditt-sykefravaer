@@ -29,7 +29,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await expect(
             modal.getByText('Dette er ikke en del av sykmeldingen din. Svarene går ikke til saksbehandleren din.'),
         ).toBeVisible()
-        await expect(modal.getByText('Hva er grunnen til at du valgte arbeidssituasjon annet?')).toBeVisible()
+        await expect(modal.getByText('Hva er grunnen til at du valgte arbeidssituasjon "annet"?')).toBeVisible()
         await expect(modal.getByRole('button', { name: 'Send tilbakemelding' })).toBeVisible()
         await expect(modal.getByRole('button', { name: 'Avbryt' })).toBeVisible()
     })
