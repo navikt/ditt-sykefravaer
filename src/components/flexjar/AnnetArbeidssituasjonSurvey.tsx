@@ -7,17 +7,19 @@ import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedb
 const FEEDBACK_ID = 'arbeidssituasjon-annet'
 
 const ARSAKER = [
-    'Jeg er pensjonist',
-    'Jeg fikk ikke opp riktig arbeidsgiver',
-    'Jeg jobber i eget AS',
-    'Jeg mottar AAP',
-    'Jeg mottar uføretrygd (uten varig tilrettelagt arbeid)',
-    'Jeg har varig tilrettelagt arbeid (VTA)',
-    'Annen årsak',
+    { name: 'Jeg er pensjonist', value: 'PENSJONIST' },
+    { name: 'Jeg fikk ikke opp riktig arbeidsgiver', value: 'FEIL_ARBEIDSGIVER' },
+    { name: 'Jeg jobber i eget AS', value: 'EGET_AS' },
+    { name: 'Jeg mottar AAP', value: 'AAP' },
+    { name: 'Jeg mottar uføretrygd (uten varig tilrettelagt arbeid)', value: 'UFORETRYGD' },
+    { name: 'Jeg har varig tilrettelagt arbeid (VTA)', value: 'VTA' },
+    { name: 'Annen årsak', value: 'ANNEN_ARSAK' },
 ] as const
 
+type Arsak = (typeof ARSAKER)[number]['value']
+
 export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void }) {
-    const [valgtArsak, setValgtArsak] = useState('')
+    const [valgtArsak, setValgtArsak] = useState<Arsak | ''>('')
     const [fritekst, setFritekst] = useState('')
     const [valideringsfeil, setValideringsfeil] = useState<string | null>(null)
     const [takk, setTakk] = useState(false)
@@ -102,22 +104,22 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                     legend={`Hva er grunnen til at du valgte arbeidssituasjon "annet"?`}
                     value={valgtArsak}
                     onChange={(verdi) => {
-                        setValgtArsak(verdi)
+                        setValgtArsak(verdi as Arsak)
                         setValideringsfeil(null)
-                        if (verdi !== 'Annen årsak') {
+                        if (verdi !== 'ANNEN_ARSAK') {
                             setFritekst('')
                         }
                     }}
                     error={valideringsfeil}
                 >
-                    {ARSAKER.map((arsak) => (
-                        <Radio key={arsak} value={arsak}>
-                            {arsak}
+                    {ARSAKER.map(({ name, value }) => (
+                        <Radio key={value} value={value}>
+                            {name}
                         </Radio>
                     ))}
                 </RadioGroup>
 
-                {valgtArsak === 'Annen årsak' && (
+                {valgtArsak === 'ANNEN_ARSAK' && (
                     <Textarea
                         label="Skriv hvilken arbeidssituasjon som gjelder deg"
                         description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"

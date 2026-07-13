@@ -88,7 +88,7 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(opprettFeedbackMutate).toHaveBeenLastCalledWith(
             expect.objectContaining({
                 feedbackId: 'arbeidssituasjon-annet',
-                svar: 'Annen årsak',
+                svar: 'ANNEN_ARSAK',
                 feedback: 'Pensjonist med deltidsjobb',
             }),
         )
