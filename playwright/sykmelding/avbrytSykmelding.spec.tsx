@@ -52,7 +52,7 @@ test.describe('Avbryt sykmelding', () => {
         await velgArbeidstakerArbeidsledig(/Pontypandy Fire Service/)(page)
 
         await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
-        await page.waitForURL('**/kvittering')
+        await page.waitForURL('**/kvittering**')
         await expect(page.getByText(/Sykmeldingen ble sendt til NAV./)).toBeVisible()
 
         await gotoRoot(page)

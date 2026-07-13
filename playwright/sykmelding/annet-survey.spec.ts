@@ -88,6 +88,16 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await expect(modal.getByText('Du må velge en årsak.')).toBeVisible()
     })
 
+    test('viser ikke survey-modal ved direktenavigasjon til kvittering', async ({ page }) => {
+        await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
+
+        const kvitteringUrl = page.url().replace(/\?.*/, '')
+        await page.goto(kvitteringUrl)
+
+        await expect(page.getByRole('dialog')).not.toBeVisible()
+    })
+
     test('viser ikke survey-modal på kvittering når toggle er av', async ({ page }) => {
         await page.goto(page.url().replace(/\?.*/, '') + '?toggle_flexjar-arbeidssituasjon-annet-survey=false')
         await opplysingeneStemmer(page)
