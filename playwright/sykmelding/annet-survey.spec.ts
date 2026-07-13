@@ -69,7 +69,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         const postData = JSON.parse(request.postData() || '{}')
         expect(postData).toMatchObject({
             feedbackId: 'arbeidssituasjon-annet',
-            svar: 'Annen årsak',
+            svar: 'ANNEN_ARSAK',
             feedback: 'Pensjonert, men jobber litt ved siden av',
         })
 
