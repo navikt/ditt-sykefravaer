@@ -38,7 +38,11 @@ function SykmeldingkvitteringPage(): ReactElement {
     const [surveyTakk, setSurveyTakk] = useState(false)
 
     useEffect(() => {
-        setSurveyModalApen(sessionStorage.getItem(surveyNokkel) !== 'sendt')
+        const sessionVerdi = sessionStorage.getItem(surveyNokkel)
+        const skalÅpne = sessionVerdi !== 'sendt'
+        // eslint-disable-next-line no-console
+        console.log('[annet-survey] sessionStorage:', { surveyNokkel, sessionVerdi, skalÅpne })
+        setSurveyModalApen(skalÅpne)
     }, [surveyNokkel])
 
     function handleSurveyTakk() {
@@ -49,6 +53,15 @@ function SykmeldingkvitteringPage(): ReactElement {
     const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
     const erAnnetArbeidssituasjon = arbeidssituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.ANNET
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
+
+    useEffect(() => {
+        // eslint-disable-next-line no-console
+        console.log('[annet-survey] synlighet:', {
+            toggleAktiv: annetSurveyToggle.enabled,
+            erAnnetArbeidssituasjon,
+            surveyModalApen,
+        })
+    }, [annetSurveyToggle.enabled, erAnnetArbeidssituasjon, surveyModalApen])
 
     if (isPending) {
         return (
