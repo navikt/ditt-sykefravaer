@@ -36,7 +36,7 @@ export function useSendSykmelding(
                 refetchType: 'all',
             })
 
-            await router.push(`/sykmeldinger/${sykmeldingId}/kvittering`, undefined, { scroll: true })
+            await router.push(`/sykmeldinger/${sykmeldingId}/kvittering?fraSending=true`, undefined, { scroll: true })
             onCompleted(variables)
         },
         onError: () => {

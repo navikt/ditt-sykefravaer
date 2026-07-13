@@ -33,16 +33,14 @@ function SykmeldingkvitteringPage(): ReactElement {
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
     const annetSurveyToggle = useToggle('flexjar-arbeidssituasjon-annet-survey')
-    const surveyNokkel = `survey-annet-${sykmeldingId}`
     const [surveyModalApen, setSurveyModalApen] = useState(false)
     const [surveyTakk, setSurveyTakk] = useState(false)
 
     useEffect(() => {
-        setSurveyModalApen(sessionStorage.getItem(surveyNokkel) !== 'sendt')
-    }, [surveyNokkel])
+        setSurveyModalApen(router.query.fraSending === 'true')
+    }, [router.query.fraSending])
 
     function handleSurveyTakk() {
-        sessionStorage.setItem(surveyNokkel, 'sendt')
         setSurveyTakk(true)
     }
 
