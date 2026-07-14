@@ -13,7 +13,7 @@ export function expectKvittering(opts: {
     egenmeldingsdagerInfo: ExpectMeta.NotInDom | ExpectMeta.InDom
 }) {
     return async (page: Page): Promise<void> => {
-        await page.waitForURL('**/kvittering')
+        await page.waitForURL('**/kvittering**')
         await expect(
             page.getByRole('heading', { name: 'Skal du reise utenfor EU/EØS når du er sykmeldt?' }),
         ).toBeVisible()

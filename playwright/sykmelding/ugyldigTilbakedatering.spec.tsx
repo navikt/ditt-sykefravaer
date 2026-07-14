@@ -7,7 +7,7 @@ import {
 } from '../utils/user-actions'
 import { userInteractionsGroup } from '../utils/test-utils'
 import { expectDineSvar, expectKvittering, ExpectMeta } from '../utils/user-expects'
-import { test, expect } from '../utils/fixtures'
+import { expect, test } from '../utils/fixtures'
 
 test.describe('Ugyldig tilbakedatert sykmelding', () => {
     test('skal vise informasjon om tilbakedatering og kunne sende inn skjema, uten a11y-problemer', async ({
@@ -22,6 +22,8 @@ test.describe('Ugyldig tilbakedatert sykmelding', () => {
 
         await velgArbeidssituasjon('annet')(page)
         await bekreftSykmelding(page)
+
+        await page.getByRole('dialog').getByRole('button', { name: 'Avbryt' }).click()
 
         await expectKvittering({
             sendtTil: 'NAV',

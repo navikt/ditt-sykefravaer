@@ -1,6 +1,6 @@
 import Head from 'next/head'
-import React, { Fragment, PropsWithChildren, ReactElement } from 'react'
-import { Alert, BodyShort, Box, GuidePanel, Heading, Link as DsLink, Skeleton } from '@navikt/ds-react'
+import React, { Fragment, PropsWithChildren, ReactElement, useEffect, useState } from 'react'
+import { Alert, BodyShort, Box, Button, GuidePanel, Heading, Link as DsLink, Modal, Skeleton } from '@navikt/ds-react'
 import { logger } from '@navikt/next-logger'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
@@ -20,7 +20,9 @@ import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBrea
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { Flexjar } from '../../../components/flexjar/flexjar'
+import { AnnetArbeidssituasjonSurvey } from '../../../components/flexjar/AnnetArbeidssituasjonSurvey'
 import { useToggle } from '../../../toggles/context'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
 import { VentetidInfo } from '../../../components/SykmeldingVentetid/VentetidInfo'
 import { useVisVentetidInfo } from '../../../hooks/sykmelding/useVisVentetidInfo'
@@ -30,8 +32,23 @@ function SykmeldingkvitteringPage(): ReactElement {
     const { data, error, isPending } = useSykmelding(sykmeldingId)
     const router = useRouter()
     const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
+    const annetSurveyToggle = useToggle('flexjar-arbeidssituasjon-annet-survey')
+    const [surveyModalApen, setSurveyModalApen] = useState(false)
+    const [surveyTakk, setSurveyTakk] = useState(false)
+
+    useEffect(() => {
+        if (router.query.visSurvey === 'true') {
+            setSurveyModalApen(true)
+            void router.replace({ pathname: router.pathname, query: { sykmeldingId } }, undefined, { shallow: true })
+        }
+    }, [router.query.visSurvey]) // eslint-disable-line react-hooks/exhaustive-deps
+
+    function handleSurveyTakk() {
+        setSurveyTakk(true)
+    }
 
     const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
+    const erAnnetArbeidssituasjon = arbeidssituasjonSvar.arbeidssituasjon === ArbeidssituasjonType.ANNET
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
 
     if (isPending) {
@@ -122,6 +139,40 @@ function SykmeldingkvitteringPage(): ReactElement {
             </Box>
             {flexjarToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeidssituasjonSvar} />
+            )}
+            {annetSurveyToggle.enabled && erAnnetArbeidssituasjon && (
+                <Modal
+                    open={surveyModalApen}
+                    onClose={() => setSurveyModalApen(false)}
+                    width="medium"
+                    header={!surveyTakk ? { heading: 'Tilbakemelding', size: 'small' } : undefined}
+                >
+                    {surveyTakk ? (
+                        <>
+                            <Modal.Header className="bg-surface-success-subtle">
+                                <Heading size="medium" level="2">
+                                    Takk for tilbakemeldingen!
+                                </Heading>
+                            </Modal.Header>
+                            <Modal.Footer className="bg-surface-success-subtle">
+                                <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
+                                    Lukk vindu
+                                </Button>
+                            </Modal.Footer>
+                        </>
+                    ) : (
+                        <>
+                            <Modal.Body>
+                                <AnnetArbeidssituasjonSurvey onTakk={handleSurveyTakk} />
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
+                                    Avbryt
+                                </Button>
+                            </Modal.Footer>
+                        </>
+                    )}
+                </Modal>
             )}
         </KvitteringWrapper>
     )

@@ -41,7 +41,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
         await velgArbeidssituasjon('frilanser')(page)
         await velgForsikring('Nei')(page)
         await bekreftSykmelding(page)
-        await page.waitForURL('**/kvittering')
+        await page.waitForURL('**/kvittering**')
     }
 
     test('viser opt-in-knapp når ingen søknad finnes', async ({ page }) => {
