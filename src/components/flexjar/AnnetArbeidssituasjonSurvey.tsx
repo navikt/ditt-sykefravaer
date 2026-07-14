@@ -125,7 +125,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                         description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"
                         value={fritekst}
                         onChange={(e) => setFritekst(e.target.value)}
-                        maxLength={100}
+                        maxLength={600}
                         minRows={2}
                     />
                 )}
