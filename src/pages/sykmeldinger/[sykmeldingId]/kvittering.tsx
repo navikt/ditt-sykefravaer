@@ -37,8 +37,11 @@ function SykmeldingkvitteringPage(): ReactElement {
     const [surveyTakk, setSurveyTakk] = useState(false)
 
     useEffect(() => {
-        setSurveyModalApen(router.query.fraSending === 'true')
-    }, [router.query.fraSending])
+        if (router.query.visSurvey === 'true') {
+            setSurveyModalApen(true)
+            void router.replace({ pathname: router.pathname, query: { sykmeldingId } }, undefined, { shallow: true })
+        }
+    }, [router.query.visSurvey]) // eslint-disable-line react-hooks/exhaustive-deps
 
     function handleSurveyTakk() {
         setSurveyTakk(true)
