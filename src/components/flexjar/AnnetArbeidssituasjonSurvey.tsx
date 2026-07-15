@@ -24,6 +24,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
     const [valideringsfeil, setValideringsfeil] = useState<string | null>(null)
     const [takk, setTakk] = useState(false)
     const takkRef = useRef<HTMLDivElement>(null)
+    const fritekstRef = useRef<HTMLTextAreaElement>(null)
 
     const { mutate: opprettFeedback, data } = UseOpprettFlexjarFeedback()
     const { mutate: oppdaterFeedback } = UseOppdaterFlexjarFeedback()
@@ -43,9 +44,10 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
     }
 
     useEffect(() => {
+        if (!valgtArsak) return
         sendFeedback()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [valgtArsak])
 
     const handleSend = () => {
         if (!valgtArsak) {
@@ -108,6 +110,8 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                         setValideringsfeil(null)
                         if (verdi !== 'ANNEN_ARSAK') {
                             setFritekst('')
+                        } else {
+                            setTimeout(() => fritekstRef.current?.focus(), 0)
                         }
                     }}
                     error={valideringsfeil}
@@ -121,6 +125,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
 
                 {valgtArsak === 'ANNEN_ARSAK' && (
                     <Textarea
+                        ref={fritekstRef}
                         label="Skriv hvilken arbeidssituasjon som gjelder deg"
                         description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"
                         value={fritekst}
