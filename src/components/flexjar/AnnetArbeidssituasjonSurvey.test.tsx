@@ -60,14 +60,10 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(screen.getByRole('button', { name: 'Send tilbakemelding' })).toBeInTheDocument()
     })
 
-    it('initierer feedback ved mount', () => {
+    it('sender ikke feedback ved mount uten valgt årsak', () => {
         render(<AnnetArbeidssituasjonSurvey />)
 
-        expect(opprettFeedbackMutate).toHaveBeenCalledWith({
-            feedback: '',
-            feedbackId: 'arbeidssituasjon-annet',
-            svar: '',
-        })
+        expect(opprettFeedbackMutate).not.toHaveBeenCalled()
     })
 
     it('viser valideringsfeil ved send uten valgt årsak', async () => {
@@ -117,6 +113,36 @@ describe('AnnetArbeidssituasjonSurvey', () => {
 
         await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
         expect(screen.queryByLabelText(/Skriv hvilken arbeidssituasjon/i)).not.toBeInTheDocument()
+    })
+
+    it('sender feedback når bruker gjør første valg', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        expect(opprettFeedbackMutate).not.toHaveBeenCalled()
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+
+        expect(opprettFeedbackMutate).toHaveBeenCalledWith({
+            feedback: '',
+            feedbackId: 'arbeidssituasjon-annet',
+            svar: 'PENSJONIST',
+        })
+    })
+
+    it('oppdaterer eksisterende post (ikke oppretter på nytt) når data.id er satt', async () => {
+        mockFeedbackData = { id: 'test-id' }
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg er pensjonist' }))
+        await userEvent.click(screen.getByRole('radio', { name: 'Jeg mottar AAP' }))
+
+        expect(opprettFeedbackMutate).not.toHaveBeenCalled()
+        expect(oppdaterFeedbackMutate).toHaveBeenCalledWith(
+            expect.objectContaining({
+                id: 'test-id',
+                body: expect.objectContaining({ svar: 'AAP' }),
+            }),
+        )
     })
 
     it('kaller onTakk når feedback er sendt', async () => {
