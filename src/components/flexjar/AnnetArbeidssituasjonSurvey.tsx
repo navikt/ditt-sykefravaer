@@ -22,6 +22,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
     const [valgtArsak, setValgtArsak] = useState<Arsak | ''>('')
     const [fritekst, setFritekst] = useState('')
     const [valideringsfeil, setValideringsfeil] = useState<string | null>(null)
+    const [fritekstValideringsfeil, setFritekstValideringsfeil] = useState<string | null>(null)
     const [takk, setTakk] = useState(false)
     const takkRef = useRef<HTMLDivElement>(null)
     const fritekstRef = useRef<HTMLTextAreaElement>(null)
@@ -55,9 +56,15 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
             return
         }
 
+        if (valgtArsak === 'ANNEN_ARSAK' && !fritekst.trim()) {
+            setFritekstValideringsfeil('Du må beskrive arbeidssituasjonen din.')
+            return
+        }
+
         sendFeedback(() => {
             setTakk(true)
             setValideringsfeil(null)
+            setFritekstValideringsfeil(null)
             onTakk?.()
         })
     }
@@ -110,6 +117,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                         setValideringsfeil(null)
                         if (verdi !== 'ANNEN_ARSAK') {
                             setFritekst('')
+                            setFritekstValideringsfeil(null)
                         } else {
                             setTimeout(() => fritekstRef.current?.focus(), 0)
                         }
@@ -129,7 +137,13 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                         label="Skriv hvilken arbeidssituasjon som gjelder deg"
                         description="Ikke skriv navn, fødselsnummer eller andre personlige opplysninger"
                         value={fritekst}
-                        onChange={(e) => setFritekst(e.target.value)}
+                        onChange={(e) => {
+                            setFritekst(e.target.value)
+                            if (e.target.value.trim()) {
+                                setFritekstValideringsfeil(null)
+                            }
+                        }}
+                        error={fritekstValideringsfeil}
                         maxLength={600}
                         minRows={2}
                     />

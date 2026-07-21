@@ -78,6 +78,17 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await expect(modal.getByRole('button', { name: 'Avbryt' })).not.toBeVisible()
     })
 
+    test('viser valideringsfeil på fritekst ved send med "Annen årsak" uten tekst', async ({ page }) => {
+        await velgArbeidssituasjon('annet')(page)
+        await bekreftSykmelding(page)
+
+        const modal = page.getByRole('dialog')
+        await modal.getByRole('radio', { name: 'Annen årsak' }).click()
+        await modal.getByRole('button', { name: 'Send tilbakemelding' }).click()
+
+        await expect(modal.getByText('Du må beskrive arbeidssituasjonen din.')).toBeVisible()
+    })
+
     test('viser valideringsfeil ved send uten å velge årsak', async ({ page }) => {
         await velgArbeidssituasjon('annet')(page)
         await bekreftSykmelding(page)

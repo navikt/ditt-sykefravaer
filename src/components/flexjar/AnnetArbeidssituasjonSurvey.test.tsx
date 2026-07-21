@@ -74,7 +74,28 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(screen.getByText('Du må velge en årsak.')).toBeInTheDocument()
     })
 
-    it('sender feedback med valgt årsak og fritekst', async () => {
+    it('viser valideringsfeil på fritekst ved send med "Annen årsak" uten tekst', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+
+        expect(screen.getByText('Du må beskrive arbeidssituasjonen din.')).toBeInTheDocument()
+        expect(opprettFeedbackMutate).not.toHaveBeenCalledWith(expect.objectContaining({ svar: 'ANNEN_ARSAK' }))
+    })
+
+    it('fjerner fritekstvalideringsfeil når bruker skriver i fritekstfeltet', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+        expect(screen.getByText('Du må beskrive arbeidssituasjonen din.')).toBeInTheDocument()
+
+        await userEvent.type(screen.getByLabelText(/Skriv hvilken arbeidssituasjon/i), 'Noe')
+        expect(screen.queryByText('Du må beskrive arbeidssituasjonen din.')).not.toBeInTheDocument()
+    })
+
+
         render(<AnnetArbeidssituasjonSurvey />)
 
         await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
