@@ -82,7 +82,7 @@ describe('AnnetArbeidssituasjonSurvey', () => {
 
         await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
 
-        expect(screen.getByText('Du må beskrive arbeidssituasjonen din.')).toBeInTheDocument()
+        expect(screen.getByText('Vennligst oppgi årsak.')).toBeInTheDocument()
         expect(opprettFeedbackMutate.mock.calls.length).toBe(antallKallFørSend)
     })
 
@@ -91,10 +91,10 @@ describe('AnnetArbeidssituasjonSurvey', () => {
 
         await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
         await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
-        expect(screen.getByText('Du må beskrive arbeidssituasjonen din.')).toBeInTheDocument()
+        expect(screen.getByText('Vennligst oppgi årsak.')).toBeInTheDocument()
 
         await userEvent.type(screen.getByLabelText(/Skriv hvilken arbeidssituasjon/i), 'Noe')
-        expect(screen.queryByText('Du må beskrive arbeidssituasjonen din.')).not.toBeInTheDocument()
+        expect(screen.queryByText('Vennligst oppgi årsak.')).not.toBeInTheDocument()
     })
 
     it('sender feedback med valgt årsak og fritekst', async () => {

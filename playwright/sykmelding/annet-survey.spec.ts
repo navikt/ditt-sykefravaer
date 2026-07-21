@@ -86,7 +86,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await modal.getByRole('radio', { name: 'Annen årsak' }).click()
         await modal.getByRole('button', { name: 'Send tilbakemelding' }).click()
 
-        await expect(modal.getByText('Du må beskrive arbeidssituasjonen din.')).toBeVisible()
+        await expect(modal.getByText('Vennligst oppgi årsak.')).toBeVisible()
     })
 
     test('viser valideringsfeil ved send uten å velge årsak', async ({ page }) => {

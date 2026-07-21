@@ -57,7 +57,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
         }
 
         if (valgtArsak === 'ANNEN_ARSAK' && !fritekst.trim()) {
-            setFritekstValideringsfeil('Du må beskrive arbeidssituasjonen din.')
+            setFritekstValideringsfeil('Vennligst oppgi årsak.')
             return
         }
 
