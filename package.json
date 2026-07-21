@@ -6,7 +6,7 @@
         "node": "24"
     },
     "dependencies": {
-        "@date-fns/tz": "^1.4.1",
+        "@date-fns/tz": "^1.5.0",
         "@grafana/faro-web-sdk": "^2.8.2",
         "@hookform/devtools": "^4.4.0",
         "@navikt/aksel-icons": "^7.40.0",
