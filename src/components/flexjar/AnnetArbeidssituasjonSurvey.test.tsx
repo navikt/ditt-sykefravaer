@@ -74,6 +74,29 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(screen.getByText('Du må velge en årsak.')).toBeInTheDocument()
     })
 
+    it('viser valideringsfeil på fritekst ved send med "Annen årsak" uten tekst', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        const antallKallFørSend = opprettFeedbackMutate.mock.calls.length
+
+        await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+
+        expect(screen.getByText('Vennligst oppgi årsak.')).toBeInTheDocument()
+        expect(opprettFeedbackMutate.mock.calls.length).toBe(antallKallFørSend)
+    })
+
+    it('fjerner fritekstvalideringsfeil når bruker skriver i fritekstfeltet', async () => {
+        render(<AnnetArbeidssituasjonSurvey />)
+
+        await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+        expect(screen.getByText('Vennligst oppgi årsak.')).toBeInTheDocument()
+
+        await userEvent.type(screen.getByLabelText(/Skriv hvilken arbeidssituasjon/i), 'Noe')
+        expect(screen.queryByText('Vennligst oppgi årsak.')).not.toBeInTheDocument()
+    })
+
     it('sender feedback med valgt årsak og fritekst', async () => {
         render(<AnnetArbeidssituasjonSurvey />)
 
