@@ -78,10 +78,12 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         render(<AnnetArbeidssituasjonSurvey />)
 
         await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
+        const antallKallFørSend = opprettFeedbackMutate.mock.calls.length
+
         await userEvent.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
 
         expect(screen.getByText('Du må beskrive arbeidssituasjonen din.')).toBeInTheDocument()
-        expect(opprettFeedbackMutate).not.toHaveBeenCalledWith(expect.objectContaining({ svar: 'ANNEN_ARSAK' }))
+        expect(opprettFeedbackMutate.mock.calls.length).toBe(antallKallFørSend)
     })
 
     it('fjerner fritekstvalideringsfeil når bruker skriver i fritekstfeltet', async () => {
@@ -95,7 +97,7 @@ describe('AnnetArbeidssituasjonSurvey', () => {
         expect(screen.queryByText('Du må beskrive arbeidssituasjonen din.')).not.toBeInTheDocument()
     })
 
-
+    it('sender feedback med valgt årsak og fritekst', async () => {
         render(<AnnetArbeidssituasjonSurvey />)
 
         await userEvent.click(screen.getByRole('radio', { name: 'Annen årsak' }))
