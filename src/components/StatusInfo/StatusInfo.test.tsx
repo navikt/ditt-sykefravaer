@@ -9,7 +9,7 @@ import {
     StatusEvent,
     SykmeldingStatus,
 } from '../../types/sykmelding/sykmelding'
-import { mockPublicRuntimeConfig } from '../../utils/test/mockRuntimeConfig'
+import { oppfolgingsplanUrl } from '../../utils/environment'
 
 import StatusInfo from './StatusInfo'
 
@@ -68,7 +68,7 @@ describe('StatusInfo', () => {
             ).toBeInTheDocument()
             expect(screen.getByRole('link', { name: 'Lag en oppfølgingsplan' })).toHaveAttribute(
                 'href',
-                mockPublicRuntimeConfig.oppfolgingsplanUrl,
+                oppfolgingsplanUrl(),
             )
         })
 

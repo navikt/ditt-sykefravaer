@@ -1,17 +1,16 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getConfig from 'next/config'
 import { logger } from '@navikt/next-logger'
 import { requestOboToken } from '@navikt/oasis'
 
 import { isValidSykmeldingId } from 'src/utils/sykmeldingUtils'
 
 import { SykmeldingUserEventV3Api } from '../../../server/api-models/SendSykmelding'
+import { getServerEnv } from '../../../utils/env'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { fetchMedRequestId } from '../../../utils/fetch'
 import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMapping'
 import { SendSykmeldingValues } from '../../../server/api-models/SendSykmeldingValues'
-const { serverRuntimeConfig } = getConfig()
 
 const flexSykmeldingerHostname = 'flex-sykmeldinger-backend'
 
@@ -156,12 +155,12 @@ export const sendSykmeldingHandler = async (
 
             const oboTokenResponse = await requestOboToken(
                 idPortenToken,
-                serverRuntimeConfig.flexSykmeldingerBackendClientId,
+                getServerEnv().FLEX_SYKMELDINGER_BACKEND_CLIENT_ID,
             )
 
             if (!oboTokenResponse.ok) {
                 logger.error(
-                    `OBO token exchange failed for ${serverRuntimeConfig.flexSykmeldingerBackendClientId}: ${oboTokenResponse.error.message}`,
+                    `OBO token exchange failed for ${getServerEnv().FLEX_SYKMELDINGER_BACKEND_CLIENT_ID}: ${oboTokenResponse.error.message}`,
                     oboTokenResponse.error,
                 )
                 return res.status(502).json({ error: 'Failed to authenticate with backend service (OBO)' })

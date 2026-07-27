@@ -7,7 +7,6 @@ import { vi, expect, afterEach } from 'vitest'
 import { cleanup } from '@testing-library/react'
 import mockRouter from 'next-router-mock'
 import { createDynamicRouteParser } from 'next-router-mock/dynamic-routes'
-import { mockPublicRuntimeConfig, resetMockPublicRuntimeConfig } from './src/utils/test/mockRuntimeConfig'
 
 expect.extend(matchers)
 
@@ -32,12 +31,6 @@ vi.mock('@navikt/nav-dekoratoren-moduler', () => ({
 }))
 vi.mock('next/router', () => vi.importActual('next-router-mock'))
 vi.mock('next/dist/client/router', () => vi.importActual('next-router-mock'))
-vi.mock('next/config', () => ({
-    default: () => ({
-        publicRuntimeConfig: mockPublicRuntimeConfig,
-    }),
-}))
 afterEach(() => {
     cleanup()
-    resetMockPublicRuntimeConfig()
 })

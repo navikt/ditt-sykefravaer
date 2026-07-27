@@ -12,18 +12,8 @@ external-host:
   - veilarboppfolging.intern.dev.nav.no
   - flex-unleash-api.nav.cloud.nais.io
 env:
-  MOCK_BACKEND: false
   ENVIRONMENT: q1
-  OPPLAERING: false
-  SYKEPENGESOKNAD_URL: https://www.ekstern.dev.nav.no/syk/sykepengesoknad
-  SPINNSYN_URL: https://www.ekstern.dev.nav.no/syk/sykepenger
-  AKTIVITETSPLAN_URL: https://aktivitetsplan.ekstern.dev.nav.no/
-  OPPFOLGINGSPLAN_URL: https://www.ekstern.dev.nav.no/syk/oppfolgingsplan/sykmeldt
-  DIALOGMOTE_URL: https://www.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt
-  MINSIDE_URL: https://www.intern.dev.nav.no/minside/
   DECORATOR_ENV: dev
-  UMAMI_ENABLED: true
-  ASSET_PREFIX: https://cdn.nav.no/flex/ditt-sykefravaer
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: dev-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: dev-gcp:flex:spinnsyn-backend
   FLEX_SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:flex:flex-sykmeldinger-backend

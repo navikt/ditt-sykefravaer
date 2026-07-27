@@ -27,27 +27,7 @@ spec:
   ttl: {{ TTL_HOURS }}
   {{/if }}
   env:
-    - name: MOCK_BACKEND
-      value: "true"
     - name: ENVIRONMENT
       value: "labs"
-    - name: OPPLAERING
-      value: "true"
-    - name: SYKEPENGESOKNAD_URL
-      value: "https://demo.ekstern.dev.nav.no/syk/sykepengesoknad"
-    - name: SPINNSYN_URL
-      value: "https://demo.ekstern.dev.nav.no/syk/sykepenger"
-    - name: AKTIVITETSPLAN_URL
-      value: "https://aktivitetsplan.nav.no/"
-    - name: OPPFOLGINGSPLAN_URL
-      value: "https://demo.ekstern.dev.nav.no/syk/oppfolgingsplan/sykmeldt"
-    - name: DIALOGMOTE_URL
-      value: "https://demo.ekstern.dev.nav.no/syk/dialogmoter/sykmeldt"
-    - name: MINSIDE_URL
-      value: "https://www.nav.no/minside/"
     - name: DECORATOR_ENV
       value: "prod"
-    - name: UMAMI_ENABLED
-      value: "false"
-    - name: ASSET_PREFIX
-      value: "https://cdn.nav.no/flex/ditt-sykefravaer"

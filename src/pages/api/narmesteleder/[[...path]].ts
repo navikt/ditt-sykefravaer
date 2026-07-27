@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
-
-const { serverRuntimeConfig } = getConfig()
+import { getServerEnv } from '../../../utils/env'
 
 const tillatteApier = ['GET /user/v2/sykmeldt/narmesteledere', 'POST /v2/[orgnr]/avkreft']
 
@@ -15,7 +13,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         tillatteApier,
         backend: 'narmesteleder',
         hostname: 'narmesteleder.teamsykmelding',
-        backendClientId: serverRuntimeConfig.narmestelederClientId,
+        backendClientId: getServerEnv().NARMESTELEDER_CLIENT_ID,
         https: false,
     })
 })
