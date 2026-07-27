@@ -2,17 +2,15 @@ import { renderToBuffer } from '@react-pdf/renderer'
 import { requestOboToken } from '@navikt/oasis'
 import { NextApiRequest } from 'next'
 import { logger } from '@navikt/next-logger'
-import getConfig from 'next/config'
 
 import { getSykmelding } from '../../pages/api/flex-sykmeldinger-backend/SendSykmeldingRequest'
 import { MuterbarSykmelding } from '../api-models/sykmelding/MuterbarSykmelding'
 import { isMockBackend } from '../../utils/environment'
+import { getServerEnv } from '../../utils/env'
 import mockDb from '../../data/mock/mock-db'
 import { getSessionId } from '../../utils/userSessionId'
 
 import SykmeldingPdf from './components/SykmeldingPdf'
-
-const { serverRuntimeConfig } = getConfig()
 
 export class ApiError extends Error {
     statusCode: number
@@ -40,11 +38,11 @@ async function getOboTokenOrThrow(req: NextApiRequest, sykmeldingId: string): Pr
     try {
         const oboTokenResponse = await requestOboToken(
             idPortenToken,
-            serverRuntimeConfig.flexSykmeldingerBackendClientId,
+            getServerEnv().FLEX_SYKMELDINGER_BACKEND_CLIENT_ID,
         )
         if (!oboTokenResponse.ok) {
             logger.error(
-                `OBO token exchange failed for ${serverRuntimeConfig.flexSykmeldingerBackendClientId}: ${oboTokenResponse.error.message}`,
+                `OBO token exchange failed for ${getServerEnv().FLEX_SYKMELDINGER_BACKEND_CLIENT_ID}: ${oboTokenResponse.error.message}`,
                 oboTokenResponse.error,
             )
             throw new ApiError(502, 'Failed to authenticate with backend service (OBO).', oboTokenResponse.error)

@@ -1,17 +1,17 @@
-import getConfig from 'next/config'
+import { bundledEnv, isProdGcp } from './env'
 
-const { publicRuntimeConfig } = getConfig()
+const BASE_PATH = '/syk/sykefravaer'
 
 export function isMockBackend() {
-    return publicRuntimeConfig.mockBackend === 'true'
+    return bundledEnv.NEXT_PUBLIC_MOCK_BACKEND
 }
 
 export function isOpplaering() {
-    return publicRuntimeConfig.opplaering === 'true'
+    return bundledEnv.NEXT_PUBLIC_OPPLAERING
 }
 
 export function minSideUrl() {
-    return publicRuntimeConfig.minSideUrl
+    return bundledEnv.NEXT_PUBLIC_MINSIDE_URL
 }
 
 export function autofillEnabled() {
@@ -19,44 +19,45 @@ export function autofillEnabled() {
 }
 
 export function umamiEnabled() {
-    return publicRuntimeConfig.umamiEnabled === 'true'
+    return bundledEnv.NEXT_PUBLIC_UMAMI_ENABLED
 }
 
 export function sykepengesoknadUrl() {
-    return publicRuntimeConfig.sykepengesoknadUrl
+    return bundledEnv.NEXT_PUBLIC_SYKEPENGESOKNAD_URL
 }
 
 export function spinnsynUrl() {
-    return publicRuntimeConfig.spinnsynUrl
+    return bundledEnv.NEXT_PUBLIC_SPINNSYN_URL
 }
 
 export function aktivitetsplanUrl() {
-    return publicRuntimeConfig.aktivitetsplanUrl
+    return bundledEnv.NEXT_PUBLIC_AKTIVITETSPLAN_URL
 }
 
 export function oppfolgingsplanUrl() {
-    return publicRuntimeConfig.oppfolgingsplanUrl
+    return bundledEnv.NEXT_PUBLIC_OPPFOLGINGSPLAN_URL
 }
 
 export function dialogmoteUrl() {
-    return publicRuntimeConfig.dialogmoteUrl
+    return bundledEnv.NEXT_PUBLIC_DIALOGMOTE_URL
 }
-export function telemetryCollectorURL() {
-    return publicRuntimeConfig.telemetryCollectorURL
+
+export function telemetryCollectorURL(): string | undefined {
+    return bundledEnv.NEXT_PUBLIC_TELEMETRY_URL ?? undefined
 }
 
 export function naisAppImage() {
-    return publicRuntimeConfig.naisAppImage
+    return bundledEnv.NEXT_PUBLIC_VERSION ?? undefined
 }
 
 export function naisAppName() {
-    return publicRuntimeConfig.naisAppName
+    return bundledEnv.NEXT_PUBLIC_APP_NAME
 }
 
 export function basePath() {
-    return publicRuntimeConfig.basePath
+    return BASE_PATH
 }
 
 export function isProd() {
-    return publicRuntimeConfig.env === 'prod'
+    return isProdGcp
 }

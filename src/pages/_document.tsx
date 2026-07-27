@@ -1,9 +1,6 @@
 import { DecoratorComponentsReact, fetchDecoratorReact } from '@navikt/nav-dekoratoren-moduler/ssr'
-import getConfig from 'next/config'
 import Document, { DocumentContext, DocumentInitialProps, Head, Html, Main, NextScript } from 'next/document'
 import React, { JSX } from 'react'
-
-const { serverRuntimeConfig } = getConfig()
 
 // The 'head'-field of the document initialProps contains data from <head> (meta-tags etc)
 const getDocumentParameter = (initialProps: DocumentInitialProps, name: string) => {
@@ -20,7 +17,7 @@ class MyDocument extends Document<Props> {
         const initialProps = await Document.getInitialProps(ctx)
 
         const Decorator = await fetchDecoratorReact({
-            env: serverRuntimeConfig.decoratorEnv,
+            env: (process.env.DECORATOR_ENV ?? 'dev') as 'prod' | 'dev' | 'beta' | 'betaTms',
             params: {
                 chatbot: false,
                 feedback: false,
@@ -34,7 +31,7 @@ class MyDocument extends Document<Props> {
 
     render(): JSX.Element {
         const { Decorator, language } = this.props
-        const showDecorator = serverRuntimeConfig.noDecorator != 'true'
+        const showDecorator = process.env.NO_DECORATOR != 'true'
         return (
             <Html lang={language || 'no'}>
                 <Head>{showDecorator && <Decorator.HeadAssets />}</Head>

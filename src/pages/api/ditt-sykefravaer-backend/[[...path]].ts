@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
-
-const { serverRuntimeConfig } = getConfig()
+import { getServerEnv } from '../../../utils/env'
 
 const tillatteApier = [
     'GET /api/v1/inntektsmeldinger',
@@ -20,7 +18,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         tillatteApier,
         backend: 'ditt-sykefravaer-backend',
         hostname: 'ditt-sykefravaer-backend',
-        backendClientId: serverRuntimeConfig.dittSykefravaerBackendClientId,
+        backendClientId: getServerEnv().DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
         https: false,
     })
 })

@@ -7,6 +7,7 @@ import * as R from 'remeda'
 import NodeCache from 'node-cache'
 
 import { isMockBackend } from '../utils/environment'
+import { getServerEnv } from '../utils/env'
 
 import { getUnleashEnvironment, localDevelopmentToggles } from './utils'
 import { EXPECTED_TOGGLES } from './toggles'
@@ -55,12 +56,7 @@ export function createFlagsClient(flags: { toggles: IToggle[] }): UnleashClient 
         logger.info('Running in local or demo mode, will not report Unleash metrics')
         return flagsClient(flags.toggles)
     }
-    const unleashServerUrl = process.env.UNLEASH_SERVER_API_URL
-        ? `${process.env.UNLEASH_SERVER_API_URL}/api`
-        : undefined
-    if (!unleashServerUrl) {
-        logger.warn("Missing env var UNLEASH_SERVER_API_URL, can't send Unleash metrics")
-    }
+    const unleashServerUrl = `${getServerEnv().UNLEASH_SERVER_API_URL}/api`
     try {
         return flagsClient(flags.toggles, {
             url: unleashServerUrl,
@@ -96,8 +92,8 @@ async function getAndValidateDefinitions(): Promise<ReturnType<typeof getDefinit
         }
     }
     const definitions = await getDefinitions({
-        url: process.env.UNLEASH_SERVER_API_URL + '/api/client/features',
-        token: process.env.UNLEASH_SERVER_API_TOKEN,
+        url: getServerEnv().UNLEASH_SERVER_API_URL + '/api/client/features',
+        token: getServerEnv().UNLEASH_SERVER_API_TOKEN,
         appName: 'ditt-sykefravaer-frontend',
     })
 

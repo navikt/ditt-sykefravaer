@@ -1,10 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import getConfig from 'next/config'
 
 import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
-
-const { serverRuntimeConfig } = getConfig()
+import { getServerEnv } from '../../../utils/env'
 
 const tillatteApier = ['GET /veilarboppfolging/api/v2/oppfolging']
 
@@ -14,8 +12,8 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         res,
         tillatteApier,
         backend: 'veilarboppfolging',
-        hostname: serverRuntimeConfig.veilarboppfolgingHost,
-        backendClientId: serverRuntimeConfig.veilarboppfolgingClientId,
+        hostname: getServerEnv().VEILARBOPPFOLGING_HOST,
+        backendClientId: getServerEnv().VEILARBOPPFOLGING_CLIENT_ID,
         https: true,
     })
 })
