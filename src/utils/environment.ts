@@ -1,4 +1,4 @@
-import { bundledEnv, isProdGcp } from './env'
+import { bundledEnv } from './env'
 
 const BASE_PATH = '/syk/sykefravaer'
 
@@ -59,5 +59,5 @@ export function basePath() {
 }
 
 export function isProd() {
-    return isProdGcp
+    return bundledEnv.NEXT_PUBLIC_RUNTIME_ENV === 'prod-gcp'
 }

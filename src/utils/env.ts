@@ -1,6 +1,5 @@
 import * as z from 'zod'
 
-// Hjelpetype: konverterer 'true'/'false'-strenger fra .env-filer til boolean.
 const BoolString = z
     .enum(['true', 'false'])
     .default('false')
@@ -99,8 +98,3 @@ export function getServerEnv(): ServerEnv {
         UNLEASH_SERVER_API_TOKEN: process.env.UNLEASH_SERVER_API_TOKEN,
     } satisfies Record<keyof ServerEnv, unknown>)
 }
-
-export const isDemo = bundledEnv.NEXT_PUBLIC_RUNTIME_ENV === 'demo'
-export const isDevGcp = bundledEnv.NEXT_PUBLIC_RUNTIME_ENV === 'dev-gcp'
-export const isProdGcp = bundledEnv.NEXT_PUBLIC_RUNTIME_ENV === 'prod-gcp'
-export const isCloud = isDevGcp || isProdGcp
