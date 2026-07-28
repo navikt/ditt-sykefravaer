@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCallback, useEffect } from 'react'
 
 import { Sykmelding } from '../types/sykmelding/sykmelding'
-import { minSideUrl } from '../utils/environment'
+import { basePath, minSideUrl } from '../utils/environment'
 import { getSykmeldingTitle } from '../utils/sykmeldingUtils'
 
 export function useUpdateBreadcrumbs(buildBreadcrumbs: BreadcrumbBuilder): void {
@@ -36,7 +36,7 @@ export const breadcrumbBuilders = {
     inntektsmelding: (inntektsmeldingId: string, organisasjonsnavn?: string): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
         BREADCRUMB_ITEMS.INNTEKTSMELDINGER,
-        createBreadcrumbItem(organisasjonsnavn || '...', `/inntektsmeldinger/${inntektsmeldingId}`),
+        createBreadcrumbItem(organisasjonsnavn || '...', `${basePath()}/inntektsmeldinger/${inntektsmeldingId}`),
     ],
 
     venterPaInntektsmelding: (): CompleteBreadcrumb[] => [
@@ -60,16 +60,16 @@ export const breadcrumbBuilders = {
     sykmeldingKvittering: (sykmeldingId: string, sykmelding: Sykmelding | undefined): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
         BREADCRUMB_ITEMS.SYKMELDINGER,
-        createBreadcrumbItem(getSykmeldingTitle(sykmelding), `/sykmeldinger/${sykmeldingId}`),
+        createBreadcrumbItem(getSykmeldingTitle(sykmelding), `${basePath()}/sykmeldinger/${sykmeldingId}`),
         createBreadcrumbItem('Kvittering'),
     ],
 
     notFound: (): CompleteBreadcrumb[] => [
         BREADCRUMB_ITEMS.DITT_SYKEFRAVAER,
-        createBreadcrumbItem('Ukjent side', '/404'),
+        createBreadcrumbItem('Ukjent side', `${basePath()}/404`),
     ],
 
-    serverError: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent feil', '/500')],
+    serverError: (): CompleteBreadcrumb[] => [createBreadcrumbItem('Ukjent feil', `${basePath()}/500`)],
 }
 
 export function useHandleDecoratorClicks(): void {
@@ -78,7 +78,11 @@ export function useHandleDecoratorClicks(): void {
     const handleBreadcrumbClick = useCallback(
         (breadcrumb: BreadcrumbItem) => {
             try {
-                router.push(breadcrumb.url)
+                const base = basePath()
+                const routerPath = breadcrumb.url.startsWith(base)
+                    ? breadcrumb.url.slice(base.length) || '/'
+                    : breadcrumb.url
+                router.push(routerPath)
             } catch (error) {
                 logger.error(error, `Failed to navigate to breadcrumb URL: ${breadcrumb.url}`)
             }
@@ -103,9 +107,9 @@ type BreadcrumbBuilder = () => CompleteBreadcrumb[]
 
 const BREADCRUMB_ITEMS = {
     MIN_SIDE: createBreadcrumbItem('Min side', minSideUrl(), false),
-    DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', '/'),
-    SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', '/sykmeldinger'),
-    INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', '/inntektsmeldinger'),
+    DITT_SYKEFRAVAER: createBreadcrumbItem('Ditt sykefravær', basePath()),
+    SYKMELDINGER: createBreadcrumbItem('Sykmeldinger', `${basePath()}/sykmeldinger`),
+    INNTEKTSMELDINGER: createBreadcrumbItem('Inntektsmeldinger', `${basePath()}/inntektsmeldinger`),
 }
 
 function createCompleteBreadcrumbs(breadcrumbs: CompleteBreadcrumb[]): CompleteBreadcrumb[] {
