@@ -88,12 +88,8 @@ export function OptIn({
     }
 
     return (
-        <Button
-            data-color="neutral"
-            variant="secondary"
-            size="medium"
-            loading={optInPending}
-            onClick={() => optIn()}>Jeg vil søke om sykepenger
-                    </Button>
-    );
+        <Button data-color="neutral" variant="secondary" size="medium" loading={optInPending} onClick={() => optIn()}>
+            Jeg vil søke om sykepenger
+        </Button>
+    )
 }

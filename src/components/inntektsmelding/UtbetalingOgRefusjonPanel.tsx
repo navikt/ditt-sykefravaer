@@ -80,7 +80,7 @@ export function UtbetalingOgRefusjonPanel({
                 </Box>
             )}
         </Box>
-    );
+    )
 }
 
 function begrunnelseTilBegrunnelsetekst(begrunnelse: string) {

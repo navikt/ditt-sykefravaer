@@ -161,10 +161,11 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                     onClick={(e) => {
                         e.preventDefault()
                         handleSend()
-                    }}>
+                    }}
+                >
                     Send tilbakemelding
                 </Button>
             </div>
         </div>
-    );
+    )
 }

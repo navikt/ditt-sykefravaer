@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Link, List, ReadMore, Box } from '@navikt/ds-react';
+import { BodyLong, BodyShort, Link, List, ReadMore, Box } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
 
 import { dateAdd, toReadableDate } from '../../../utils/dateUtils'
@@ -104,15 +104,18 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
                 <BodyShort spacing>
                     <strong>Svar ja hvis:</strong>
                 </BodyShort>
-                <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8 as="ul">
+                <Box marginBlock="space-16" asChild>
+                    <List data-aksel-migrated-v8 as="ul">
                         <List.Item>
                             du var borte fra jobb og meldte fra til arbeidsgiveren selv – uten å ha fått sykmelding
                         </List.Item>
-                    </List></Box>
+                    </List>
+                </Box>
                 <BodyShort spacing>
                     <strong>Svar nei hvis:</strong>
                 </BodyShort>
-                <Box marginBlock="space-16" asChild><List data-aksel-migrated-v8 as="ul">
+                <Box marginBlock="space-16" asChild>
+                    <List data-aksel-migrated-v8 as="ul">
                         <List.Item>du var borte fra jobb deler av dagen</List.Item>
                         <List.Item>
                             du var hjemme fordi barnet ditt var sykt. Da kan du ha{' '}
@@ -121,12 +124,13 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
                             </Link>
                             .
                         </List.Item>
-                    </List></Box>
+                    </List>
+                </Box>
                 <Link href="https://www.nav.no/egenmelding" target="_blank">
                     Les mer om egenmeldingsdager
                 </Link>
             </ReadMore>
-        );
+        )
     }
 
     return (

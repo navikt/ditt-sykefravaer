@@ -65,7 +65,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                                 <span className="font-medium">{arbeidssituasjonLabel(situasjon)}</span>
                             </Radio>
                         </Box>
-                    );
+                    )
                 })}
             </RadioGroup>
             {field.value === ArbeidssituasjonType.ANNET && (
@@ -76,7 +76,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 </Alert>
             )}
         </QuestionWrapper>
-    );
+    )
 }
 
 export default ArbeidssituasjonField
