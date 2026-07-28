@@ -8,7 +8,7 @@ import { formatDateFromString } from '../../utils/dato-utils'
 
 export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding: InntektsmeldingTyper }) {
     return (
-        <Box className="mt-8" padding="4" borderWidth="1" borderRadius="8" borderColor="border-default">
+        <Box className="mt-8" padding="space-16" borderWidth="1" borderRadius="8" borderColor="neutral">
             <Heading level="2" size="small" className="mt-2">
                 Arbeidsgiverperiode
             </Heading>
@@ -17,7 +17,6 @@ export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding:
                 sykefraværet ditt. Etter dette overtar NAV betalingen til deg eller din arbeidsgiver hvis du har rett
                 til sykepenger.
             </ReadMore>
-
             {inntektsmelding.arbeidsgiverperioder.map((agperiode, i) => {
                 const isLast = i === inntektsmelding.arbeidsgiverperioder.length - 1
                 const fom = dayjs(agperiode.fom)
@@ -27,20 +26,20 @@ export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding:
                     <div
                         key={i}
                         className={cn('mt-4 mb-4', {
-                            'border-b border-gray-400': !isLast,
+                            'border-b border-ax-neutral-500': !isLast,
                         })}
                     >
                         <BodyShort>
-                            <span className="font-bold">Periode:</span>
+                            <span className="font-ax-bold">Periode:</span>
                             {` ${formatDateFromString(agperiode.fom)} - ${formatDateFromString(agperiode.tom)}`}
                         </BodyShort>
                         <BodyShort spacing>
-                            <span className="font-bold">Antall dager: </span>
+                            <span className="font-ax-bold">Antall dager: </span>
                             {antallDager}
                         </BodyShort>
                     </div>
                 )
             })}
         </Box>
-    )
+    );
 }

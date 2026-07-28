@@ -25,12 +25,12 @@ function SykmeldingSykmeldtSection({ sykmelding, shouldShowEgenmeldingsdagerInfo
                     <Heading id={articleHeadingId} size="medium" level="2">
                         Opplysninger fra sykmeldingen
                     </Heading>
-                    <div className="flex justify-between border-b border-gray-500">
-                        <BodyShort className="pb-2 text-gray-600" size="small">
+                    <div className="flex justify-between border-b border-ax-neutral-600">
+                        <BodyShort className="pb-2 text-ax-neutral-700" size="small">
                             {`Sendt til oss ${toReadableDate(sykmelding.mottattTidspunkt)}`}
                         </BodyShort>
                         <Button
-                            className="absolute right-0 top-0 md:block"
+                            className="absolute right-0 top-0 ax-md:block"
                             as="a"
                             href={`${basePath()}/${sykmelding.id}/pdf`}
                             target="_blank"

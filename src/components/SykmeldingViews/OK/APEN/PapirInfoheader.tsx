@@ -43,7 +43,7 @@ function PapirInfoheader(): ReactElement {
                             handler om sykefraværet. Papirsykmeldingen kan du legge bort. Det du gjør her, erstatter
                             papiret.
                         </BodyLong>
-                        <BodyLong className="font-bold">
+                        <BodyLong className="font-ax-bold">
                             Hvis du får ja fra arbeidsgiveren din kan du fortsette utfyllingen på denne siden. Hvis du i
                             stedet skal fortsette med papiret må du avbryte denne sykmeldingen.
                         </BodyLong>

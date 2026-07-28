@@ -139,7 +139,7 @@ export function navigateToFirstSykmelding(
             .getByRole('link', { name: new RegExp(linkRegexp) })
             .first()
             .click()
-    }
+    };
 }
 
 export async function opplysingeneStemmer(page: Page): Promise<void> {
@@ -161,13 +161,13 @@ export function velgArbeidssituasjon(
 ) {
     return async (page: Page): Promise<void> => {
         await getRadioInGroup(page)({ name: /Jeg er sykmeldt som/i }, { name: situasjon }).click()
-    }
+    };
 }
 
 export function velgArbeidstaker(arbeidstaker: RegExp) {
     return async (page: Page): Promise<void> => {
         await getRadioInGroup(page)({ name: /Velg arbeidsgiver/i }, { name: arbeidstaker }).click()
-    }
+    };
 }
 
 export function velgArbeidstakerArbeidsledig(arbeidstaker: RegExp, sykmeldtAs: string = 'arbeidsledig') {
@@ -185,7 +185,7 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
             { name: /Har du forsikring som gjelder for de første 16 dagene av sykefraværet?/i },
             { name: svar },
         ).click()
-    }
+    };
 }
 
 export function expectSykmeldingStartDato(dato: string) {
@@ -226,7 +226,7 @@ export function frilanserEgenmeldingsperioder(
                 index++
             }
         }
-    }
+    };
 }
 
 export function bekreftNarmesteleder(narmesteleder: string, svar: 'Ja' | 'Nei' = 'Ja') {
@@ -270,7 +270,7 @@ export function fillOutFisker(
             { name: /Mottar du lott eller er du på hyre?/i },
             { name: lott, exact: true },
         ).click()
-    }
+    };
 }
 
 export function velgAnnetSituasjon(

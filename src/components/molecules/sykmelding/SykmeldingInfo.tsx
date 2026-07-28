@@ -26,8 +26,8 @@ export function SykmeldingInfo({
     return (
         <div
             className={cn(className, 'rounded p-4', {
-                'bg-blue-50': variant === 'blue',
-                'bg-gray-50': variant === 'gray',
+                'bg-ax-accent-100': variant === 'blue',
+                'bg-ax-neutral-100': variant === 'gray',
             })}
         >
             {heading && (
@@ -110,8 +110,8 @@ export function SykmeldingInfoSubGroup({
     return (
         <div
             className={cn({
-                'bg-blue-50': variant === 'blue',
-                'bg-gray-50': variant === 'gray',
+                'bg-ax-accent-100': variant === 'blue',
+                'bg-ax-neutral-100': variant === 'gray',
             })}
         >
             {children}
@@ -121,7 +121,7 @@ export function SykmeldingInfoSubGroup({
 
 export function SykmeldingInfoMissing({ text, ...props }: SykmeldingInfoProps & { text: string }): ReactElement {
     return (
-        <SykmeldingInfo className="text-gray-600" {...props}>
+        <SykmeldingInfo className="text-ax-neutral-700" {...props}>
             <BodyShort as="em">{text}</BodyShort>
         </SykmeldingInfo>
     )

@@ -149,12 +149,12 @@ function SykmeldingkvitteringPage(): ReactElement {
                 >
                     {surveyTakk ? (
                         <>
-                            <Modal.Header className="bg-surface-success-subtle">
+                            <Modal.Header className="bg-ax-bg-success-soft">
                                 <Heading size="medium" level="2">
                                     Takk for tilbakemeldingen!
                                 </Heading>
                             </Modal.Header>
-                            <Modal.Footer className="bg-surface-success-subtle">
+                            <Modal.Footer className="bg-ax-bg-success-soft">
                                 <Button variant="tertiary" type="button" onClick={() => setSurveyModalApen(false)}>
                                     Lukk vindu
                                 </Button>
@@ -208,7 +208,7 @@ function KvitteringSkeletonTop({ children }: PropsWithChildren): ReactElement {
             <Heading id="sykmelding-loading-skeleton" size="medium" level="3" hidden>
                 Henter kvitteringen
             </Heading>
-            <div className="rounded border border-border-subtle p-4">
+            <div className="rounded border border-ax-border-neutral-subtle p-4">
                 <Skeleton width="50%" />
                 <Skeleton width="30%" />
             </div>
@@ -216,10 +216,10 @@ function KvitteringSkeletonTop({ children }: PropsWithChildren): ReactElement {
                 <Skeleton
                     className="navds-guide !border-none"
                     variant="circle"
-                    width="var(--a-spacing-24)"
-                    height="var(--a-spacing-24)"
+                    width="var(--ax-space-96)"
+                    height="var(--ax-space-96)"
                 />
-                <div className="border border-border-subtle p-8 [clip-path:polygon(0%_0%,_0%_100%,_calc(50%_-_3rem)_100%,_calc(50%_-_3rem)_0%,_calc(50%_+_3rem)_0%,_calc(50%_+_3rem)_8px,_calc(50%_-_3rem)_8px,_calc(50%_-_3rem)_100%,_100%_100%,_100%_0%)]">
+                <div className="border border-ax-border-neutral-subtle p-8 [clip-path:polygon(0%_0%,_0%_100%,_calc(50%_-_3rem)_100%,_calc(50%_-_3rem)_0%,_calc(50%_+_3rem)_0%,_calc(50%_+_3rem)_8px,_calc(50%_-_3rem)_8px,_calc(50%_-_3rem)_100%,_100%_100%,_100%_0%)]">
                     <div className="pt-8">
                         <Skeleton />
                         <Skeleton width="30%" />

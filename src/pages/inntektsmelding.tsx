@@ -14,7 +14,7 @@ const Inntektsmelding = () => {
         <>
             <Banner utenIkon={true} tittel="Vi venter på opplysninger fra arbeidsgiveren din" />
 
-            <InlineMessage status="info" className="mb-8 font-bold">
+            <InlineMessage status="info" className="mb-8 font-ax-bold">
                 Dette er kun til informasjon, du trenger ikke gjøre noe
             </InlineMessage>
 

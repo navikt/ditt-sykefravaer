@@ -35,23 +35,19 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
             <Heading level="1" size="xlarge" spacing>
                 Sjekk at opplysningene om inntekten din stemmer
             </Heading>
-
             {melding?.metadata?.tidsstempel && (
                 <BodyShort textColor="subtle" className="mb-6 italic">
                     Sendt fra Nav: {tilLesbarDatoOgKlokkeslett(melding.metadata.tidsstempel)}
                 </BodyShort>
             )}
-
             <BodyLong spacing>
                 Vi har hentet opplysninger om inntekten din fra a-ordningen, fordi vi ikke har mottatt inntektsmelding
                 fra arbeidsgiveren din. Sjekk at opplysningene om inntekten din stemmer.
             </BodyLong>
-
             <BodyLong spacing>
                 Hvis opplysningene stemmer, trenger du ikke gjøre noe. Da vil vi bruke inntekten vi har hentet når vi
                 skal behandle saken din om sykepenger.
             </BodyLong>
-
             <Alert variant="info" className="mb-6">
                 <BodyLong>
                     Har du endringer til opplysningene, må du melde fra til Nav innen <strong>{fristDato}</strong>.
@@ -59,7 +55,6 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                     eller annet fravær.
                 </BodyLong>
             </Alert>
-
             <ReadMore className="mb-6" header="Hvorfor vi har hentet opplysninger om inntekten din">
                 <BodyLong>
                     Nav trenger opplysninger om inntekten din for å kunne beregne hvor mye sykepenger du kan få. Vi får
@@ -68,15 +63,12 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                     istedenfor.
                 </BodyLong>
             </ReadMore>
-
             <Box as="hr" borderWidth="0 0 1 0" className="my-8" />
-
             <ForelagteInntektInfoBoks
                 grupperteInntekter={grupperteInntekter}
                 orgnavn={melding?.metadata?.orgnavn ?? ''}
             />
-
-            <Box padding="6" borderRadius="small" background="surface-info-subtle" className="mt-8">
+            <Box padding="space-24" borderRadius="2" background="info-soft" className="mt-8">
                 <Heading level="2" size="small" spacing>
                     Meld fra til Nav om endringer
                 </Heading>
@@ -95,5 +87,5 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                 </Button>
             </Box>
         </>
-    )
+    );
 }

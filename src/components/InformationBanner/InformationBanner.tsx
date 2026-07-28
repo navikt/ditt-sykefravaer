@@ -133,7 +133,7 @@ const InformationBanner = ({
 
     return (
         <div className="md:px-8">
-            <Chat className="p-0 md:pr-8" avatar={<VeilederMaleSvg />} position="left">
+            <Chat className="p-0 ax-md:pr-8" avatar={<VeilederMaleSvg />} position="left">
                 <Chat.Bubble>
                     <Heading id={mottattSykmeldingId} level="2" size="xsmall">
                         Vi har mottatt sykmeldingen din

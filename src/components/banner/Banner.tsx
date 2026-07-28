@@ -12,7 +12,7 @@ export const Banner = ({ tittel, utenIkon }: { tittel: string; utenIkon?: boolea
         <div className="mt-4 flex items-center justify-between pb-8 ">
             <div className="flex">
                 {!utenIkon && (
-                    <div className="hidden md:mr-6 md:inline">
+                    <div className="hidden ax-md:mr-6 ax-md:inline">
                         <Image src="/syk/sykefravaer/static/ditt-sykefravaer-ikon.svg" width={64} height={63} alt="" />
                     </div>
                 )}
