@@ -26,7 +26,8 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
                         ref={buttonRef}
                         onClick={() => setOpenState((b) => !b)}
                         icon={<SandboxIcon title="Åpne testdataverktøy" />}
-                        variant="tertiary" />
+                        variant="tertiary"
+                    />
                 </Tooltip>
                 <div
                     style={
@@ -49,7 +50,8 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
                                 onClick={dismissHint}
                                 className="mt-2"
                                 variant="secondary"
-                                size="small">
+                                size="small"
+                            >
                                 OK!
                             </Button>
                         </Popover.Content>
@@ -84,7 +86,7 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
                 </Modal.Body>
             </Modal>
         </>
-    );
+    )
 }
 
 function SykmeldingPicker() {

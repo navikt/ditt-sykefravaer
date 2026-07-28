@@ -14,8 +14,8 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
             return (
                 <Tag data-color="warning" variant="outline" size="small">
                     <span className="sr-only">, status: </span>Avvist av NAV
-                                    </Tag>
-            );
+                </Tag>
+            )
         }
     }
 
@@ -24,26 +24,26 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
             return (
                 <Tag data-color="danger" variant="outline" size="small">
                     <span className="sr-only">, status: </span>Avbrutt av deg
-                                    </Tag>
-            );
+                </Tag>
+            )
         case 'SENDT':
             return (
                 <Tag data-color="success" variant="outline" size="small">
                     <span className="sr-only">, status: </span>Sendt til arbeidsgiver
-                                    </Tag>
-            );
+                </Tag>
+            )
         case 'UTGATT':
             return (
                 <Tag data-color="info" variant="outline" size="small">
                     <span className="sr-only">, status: </span>Utgått
-                                    </Tag>
-            );
+                </Tag>
+            )
         case 'BEKREFTET':
             return (
                 <Tag data-color="success" variant="outline" size="small">
                     <span className="sr-only">, status: </span>Sendt til NAV
-                                    </Tag>
-            );
+                </Tag>
+            )
         default:
             return null
     }

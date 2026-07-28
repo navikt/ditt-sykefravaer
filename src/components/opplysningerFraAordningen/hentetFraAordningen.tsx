@@ -87,5 +87,5 @@ export const ForelagtInntektFraAordningen = ({ melding }: { melding: Melding }) 
                 </Button>
             </Box>
         </>
-    );
+    )
 }

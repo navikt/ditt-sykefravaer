@@ -190,7 +190,8 @@ export function FlexjarFelles({
                                             onClick={async (e) => {
                                                 e.preventDefault()
                                                 await handleSend(() => reset())
-                                            }}>
+                                            }}
+                                        >
                                             {sendTilbakemelding}
                                         </Button>
                                     )}
@@ -216,7 +217,7 @@ export function FlexjarFelles({
                 </div>
             </div>
         </div>
-    );
+    )
 }
 
 interface FeedbackButtonProps {
@@ -255,8 +256,9 @@ export function FeedbackButton(props: FeedbackButtonProps) {
                 } else {
                     props.setActiveState(props.svar)
                 }
-            }}>
+            }}
+        >
             {props.tekst}
         </Button>
-    );
+    )
 }

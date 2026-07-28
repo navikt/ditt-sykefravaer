@@ -86,7 +86,12 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
     const avbrytMutation = useAvbryt(sykmeldingId, () => void 0)
 
     return (
-        <Box ref={boxRef} className="mt-8 flex flex-col items-center justify-center" background="neutral-soft" padding="space-16">
+        <Box
+            ref={boxRef}
+            className="mt-8 flex flex-col items-center justify-center"
+            background="neutral-soft"
+            padding="space-16"
+        >
             <Heading size="small" level="3" spacing>
                 Du kan ikke bruke denne sykmeldingen
             </Heading>
@@ -99,7 +104,8 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
                 variant="primary"
                 type="button"
                 loading={avbrytMutation.isPending}
-                onClick={() => avbrytMutation.mutate()}>
+                onClick={() => avbrytMutation.mutate()}
+            >
                 Avbryt sykmeldingen
             </Button>
             {avbrytMutation.isError && (
@@ -108,7 +114,7 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
                 </Alert>
             )}
         </Box>
-    );
+    )
 }
 
 function AvbrytSykmeldingen({
@@ -151,7 +157,8 @@ function AvbrytSykmeldingen({
                 variant="primary"
                 type="button"
                 loading={avbrytMutation.isPending}
-                onClick={() => avbrytMutation.mutate()}>
+                onClick={() => avbrytMutation.mutate()}
+            >
                 Ja, jeg er sikker
             </Button>
             <Button
@@ -167,7 +174,7 @@ function AvbrytSykmeldingen({
                 </Alert>
             )}
         </Box>
-    );
+    )
 }
 
 function useAvbryt(sykmeldingId: string, onAvbryt: () => void) {

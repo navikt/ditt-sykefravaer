@@ -41,5 +41,5 @@ export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding:
                 )
             })}
         </Box>
-    );
+    )
 }

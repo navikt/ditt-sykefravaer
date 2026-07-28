@@ -31,14 +31,16 @@ export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: I
                             {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
                         </BodyShort>
                         <BodyShort spacing>
-                            <span className="font-ax-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)} kr/mnd
+                            <span className="font-ax-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)}{' '}
+                            kr/mnd
                         </BodyShort>
                         <BodyShort className="mb-8">
-                            <span className="font-ax-bold">Ytelsen bortfaller:</span> {toReadableDate(naturalytelse.fom)}
+                            <span className="font-ax-bold">Ytelsen bortfaller:</span>{' '}
+                            {toReadableDate(naturalytelse.fom)}
                         </BodyShort>
                     </div>
                 )
             })}
         </Box>
-    );
+    )
 }
