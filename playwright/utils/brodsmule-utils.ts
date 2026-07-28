@@ -32,13 +32,13 @@ export function lagBrodsmule(navn: string, href: string | RegExp, exact?: boolea
 
 export const standardBrodsmuler = {
     minSide: { navn: 'Min side', href: /minside/, exact: true },
-    sykefravaer: { navn: 'Ditt sykefravær', href: '/', exact: true },
-    sykmeldinger: { navn: 'Sykmeldinger', href: '/sykmeldinger', exact: true },
-    sykmelding: { navn: 'Sykmelding', href: /\/sykmeldinger\/.+/, exact: true },
-    inntektsmeldinger: { navn: 'Inntektsmeldinger', href: '/inntektsmeldinger', exact: true },
+    sykefravaer: { navn: 'Ditt sykefravær', href: '/syk/sykefravaer', exact: true },
+    sykmeldinger: { navn: 'Sykmeldinger', href: '/syk/sykefravaer/sykmeldinger', exact: true },
+    sykmelding: { navn: 'Sykmelding', href: /\/syk\/sykefravaer\/sykmeldinger\/.+/, exact: true },
+    inntektsmeldinger: { navn: 'Inntektsmeldinger', href: '/syk/sykefravaer/inntektsmeldinger', exact: true },
     kvittering: { navn: 'Kvittering', href: '', exact: true },
     manglendeInntektsmelding: { navn: 'Venter på inntektsmelding', href: '', exact: true },
     opplysningerFraAordningen: { navn: 'Opplysninger fra a-ordningen', href: '', exact: true },
-    ukjentSide: { navn: 'Ukjent side', href: '/404', exact: true },
-    ukjentFeil: { navn: 'Ukjent feil', href: '/500', exact: true },
+    ukjentSide: { navn: 'Ukjent side', href: '/syk/sykefravaer/404', exact: true },
+    ukjentFeil: { navn: 'Ukjent feil', href: '/syk/sykefravaer/500', exact: true },
 } as const
