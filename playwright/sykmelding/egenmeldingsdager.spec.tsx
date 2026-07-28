@@ -37,8 +37,8 @@ function egenmeldingsdagerHjelper(sectionLegend: string) {
             forrigeManedKnapp: section.getByRole('button', { name: 'Gå til forrige måned' }),
             nesteManedKnapp: section.getByRole('button', { name: 'Gå til neste måned' }),
             videreButton: section.getByRole('button', { name: /Bekreft datoer/ }),
-        }
-    }
+        };
+    };
 }
 
 function velgEgenmeldingsdager(egenmeldingsdagerHjelper: (page: Page) => EgenmeldingsdagerHjelper, dager: string[]) {

@@ -22,7 +22,7 @@ const ArbeidsgiverAccordion = ({ orgnummer }: ArbeidsgiverAccordionProps) => {
             data-testid="arbeidsgiver-accordion"
             style={
                 {
-                    '--ac-accordion-header-bg': 'var(--a-blue-50)',
+                    '--ac-accordion-header-bg': 'var(--ax-accent-100)',
                 } as React.CSSProperties
             }
         >

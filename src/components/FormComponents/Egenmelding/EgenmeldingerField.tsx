@@ -87,7 +87,7 @@ function EgenmeldingerField({
         <>
             <section
                 aria-labelledby={`egenmeldingsdager.${index}.harPerioder`}
-                className={cn({ 'mt-10 border-t-2 border-border-divider': index !== 0 })}
+                className={cn({ 'mt-10 border-t-2 border-ax-border-neutral-subtle': index !== 0 })}
             >
                 <HarBruktEgenmelding
                     index={index}

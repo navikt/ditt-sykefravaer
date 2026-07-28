@@ -62,5 +62,5 @@ export function prettifyOrgName(name: string): string {
 
             return handleCase(word)
         })
-        .join(' ')
+        .join(' ');
 }

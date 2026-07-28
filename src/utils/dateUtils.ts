@@ -66,7 +66,7 @@ function toOsloDate(date: string | Date): Date {
 }
 
 function isoTimestampHasTimeZone(iso: string): boolean {
-    return /([Zz]|[+-]\d{2}:\d{2})$/.test(iso)
+    return /([Zz]|[+-]\d{2}:\d{2})$/.test(iso);
 }
 
 function toReadableDateNoYear(date: string | Date): string {

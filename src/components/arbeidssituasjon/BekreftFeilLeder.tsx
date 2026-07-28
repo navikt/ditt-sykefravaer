@@ -41,12 +41,12 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    variant="danger"
+                    data-color="danger"
+                    variant="primary"
                     loading={isPending}
                     type="button"
                     disabled={isPending || isSuccess}
-                    onClick={() => avkreft()}
-                >
+                    onClick={() => avkreft()}>
                     Ja, jeg er sikker
                 </Button>
                 <Button variant="secondary" onClick={toggle} type="button">
@@ -54,7 +54,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 </Button>
             </Modal.Footer>
         </Modal>
-    )
+    );
 }
 
 export default BekreftFeilLeder

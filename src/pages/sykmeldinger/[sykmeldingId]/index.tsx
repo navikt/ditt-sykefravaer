@@ -62,7 +62,7 @@ function SykmeldingPage(): ReactElement {
                     <BodyShort spacing>
                         Dersom problemet vedvarer, kan du fortelle oss om feilen på
                         <Link
-                            className="text-red-500"
+                            className="text-ax-danger-600"
                             href="https://www.nav.no/person/kontakt-oss/nb/tilbakemeldinger/feil-og-mangler"
                         >
                             skjemaet for feil og mangler
@@ -71,7 +71,7 @@ function SykmeldingPage(): ReactElement {
                     </BodyShort>
                     <BodyShort>
                         Tar du kontakt så kan du gi oss denne tekniske sporingskoden for å hjelpe oss å løse problemet:{' '}
-                        <code className="border border-border-subtle p-0.5 text-sm">
+                        <code className="border border-ax-border-neutral-subtle p-0.5 text-sm">
                             {getUserRequestId().split('-')[0]}
                         </code>
                     </BodyShort>
@@ -247,9 +247,9 @@ function SykmeldingSkeleton(): ReactElement {
                 Henter sykmeldingen
             </Heading>
             <div className="sm:px-8">
-                <div className="flex w-full items-end gap-4 sm:pr-8">
-                    <Skeleton variant="circle" width="var(--a-spacing-12)" height="var(--a-spacing-12)" className="" />
-                    <div className="grow rounded-xl border border-border-subtle p-4">
+                <div className="flex w-full items-end gap-4 ax-sm:pr-8">
+                    <Skeleton variant="circle" width="var(--ax-space-48)" height="var(--ax-space-48)" className="" />
+                    <div className="grow rounded-xl border border-ax-border-neutral-subtle p-4">
                         <Skeleton width="50%" className="mb-2" />
                         <Skeleton width="100%" />
                         <Skeleton width="69%" />

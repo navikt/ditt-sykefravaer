@@ -6,7 +6,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    margin-bottom: var(--a-spacing-2);
+    margin-bottom: var(--ax-space-8);
 }
 
 /* ordered list */

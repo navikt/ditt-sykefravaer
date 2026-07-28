@@ -86,7 +86,7 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
     const avbrytMutation = useAvbryt(sykmeldingId, () => void 0)
 
     return (
-        <Box ref={boxRef} className="mt-8 flex flex-col items-center justify-center" background="bg-subtle" padding="4">
+        <Box ref={boxRef} className="mt-8 flex flex-col items-center justify-center" background="neutral-soft" padding="space-16">
             <Heading size="small" level="3" spacing>
                 Du kan ikke bruke denne sykmeldingen
             </Heading>
@@ -94,12 +94,12 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
                 Du må avbryte denne sykmeldingen og kontakte den som har sykmeldt deg for å få en ny.
             </BodyShort>
             <Button
+                data-color="danger"
                 className="mt-4"
-                variant="danger"
+                variant="primary"
                 type="button"
                 loading={avbrytMutation.isPending}
-                onClick={() => avbrytMutation.mutate()}
-            >
+                onClick={() => avbrytMutation.mutate()}>
                 Avbryt sykmeldingen
             </Button>
             {avbrytMutation.isError && (
@@ -108,7 +108,7 @@ function AvbrytTrengerNySykmelding({ sykmeldingId }: { sykmeldingId: string }): 
                 </Alert>
             )}
         </Box>
-    )
+    );
 }
 
 function AvbrytSykmeldingen({
@@ -139,19 +139,19 @@ function AvbrytSykmeldingen({
             tabIndex={-1}
             role="dialog"
             aria-labelledby={`${sykmeldingId}-avbryt-body`}
-            background="bg-subtle"
-            padding="4"
+            background="neutral-soft"
+            padding="space-16"
         >
             <BodyShort id={`${sykmeldingId}-avbryt-body`} className="max-w-3/4">
                 Er du sikker på at du vil avbryte sykmeldingen?
             </BodyShort>
             <Button
+                data-color="danger"
                 className="mt-4"
-                variant="danger"
+                variant="primary"
                 type="button"
                 loading={avbrytMutation.isPending}
-                onClick={() => avbrytMutation.mutate()}
-            >
+                onClick={() => avbrytMutation.mutate()}>
                 Ja, jeg er sikker
             </Button>
             <Button
@@ -167,7 +167,7 @@ function AvbrytSykmeldingen({
                 </Alert>
             )}
         </Box>
-    )
+    );
 }
 
 function useAvbryt(sykmeldingId: string, onAvbryt: () => void) {

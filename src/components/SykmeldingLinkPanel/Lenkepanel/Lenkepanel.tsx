@@ -29,12 +29,12 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
         <Link href={`/sykmeldinger/${id}`} passHref legacyBehavior>
             <LinkPanel
                 className={cn('mb-4 p-6 [&>div]:w-full', {
-                    'border-orange-300 bg-orange-50 hover:border-orange-500': notifying,
+                    'border-ax-warning-400 bg-ax-warning-100 hover:border-ax-warning-600': notifying,
                 })}
                 border
             >
                 <div className="flex gap-3 max-[560px]:flex-col">
-                    <div className="mr-8 hidden md:block">
+                    <div className="mr-8 hidden ax-md:block">
                         <LenkepanelIcon
                             behandlingsutfall={behandlingsutfallStatus}
                             isPaper={Boolean(papirsykmelding)}
