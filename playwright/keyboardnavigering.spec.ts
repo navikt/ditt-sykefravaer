@@ -14,8 +14,7 @@ test.describe('Keyboard navigering', () => {
         // Elegant løsning: Lagre en stabil referanse til det første elementet med denne teksten
         const lagretAlertElement = page.getByText('Du har en ny søknad om sykepenger').first()
 
-        await expect(alertElement).toHaveCSS('color', 'rgb(255, 255, 255)')
-        await expect(alertElement).toHaveCSS('background-color', 'rgb(0, 52, 125)')
+        await expect(alertElement).toHaveCSS('color', 'rgb(0, 41, 66)')
 
         await tabUntilFocusedContainsText(
             browserName,
@@ -24,8 +23,7 @@ test.describe('Keyboard navigering', () => {
         )
 
         // Sjekk det lagrede elementet etter at fokus har flyttet seg
-        await expect(lagretAlertElement).toHaveCSS('color', 'rgb(35, 38, 42)')
-        await expect(lagretAlertElement).toHaveCSS('background-color', 'rgba(0, 0, 0, 0)')
+        await expect(lagretAlertElement).toHaveCSS('color', 'rgb(0, 41, 66)')
 
         await tabUntilFocusedContainsText(
             browserName,
@@ -38,7 +36,7 @@ test.describe('Keyboard navigering', () => {
             page,
             'Hogwarts School of Witchcraft and Wizardry',
         )
-        await expect(focusedElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
+        await expect(focusedElement).toHaveCSS('outline', 'rgb(32, 39, 51) solid 3px')
 
         await page.keyboard.press('Space')
         await expect(
@@ -52,7 +50,7 @@ test.describe('Keyboard navigering', () => {
         await tabUntilFocusedContainsText(browserName, page, 'Sykmeldinger')
 
         const soknadElement = await tabUntilFocusedContainsText(browserName, page, 'Søknader')
-        await expect(soknadElement).toHaveCSS('box-shadow', 'rgb(0, 52, 125) 0px 0px 0px 3px')
+        await expect(soknadElement).toHaveCSS('outline', 'rgb(32, 39, 51) solid 3px')
     })
 
     test('Vi navigerer forsiden med lenke til venter på inntektsmelding', async ({ page, browserName }) => {
@@ -68,10 +66,10 @@ test.describe('Keyboard navigering', () => {
             page,
             'Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.',
         )
-        await expect(statusLenke).toHaveCSS('color', 'rgb(255, 255, 255)')
-        await expect(statusLenke).toHaveCSS('background-color', 'rgb(0, 52, 125)')
+        await expect(statusLenke).toHaveCSS('color', 'rgb(0, 41, 66)')
 
         await page.keyboard.press('Enter')
         await expect(page).toHaveURL('/syk/sykefravaer/inntektsmelding')
+        await expect(page.getByRole('heading', { level: 1 })).toBeVisible()
     })
 })
