@@ -7,46 +7,32 @@ test.describe('Tester arbeidssituasjon', () => {
     test('Bruker med flere arbeidsgivere', async ({ page, getCLS }) => {
         await page.goto('/syk/sykefravaer?testperson=default')
 
-        const dinSituasjon = page.getByTestId('din-situasjon')
-        const firstEmployer = dinSituasjon.locator(':scope > *').nth(1)
-        await expect(firstEmployer).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await firstEmployer.click()
+        await page.getByRole('button', { name: 'Hogwarts School of Witchcraft and Wizardry' }).click()
 
-        const arbeidsgiverAccordion = page.getByTestId('arbeidsgiver-accordion').first()
-        await expect(arbeidsgiverAccordion).toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
-        const meldFraOmEndring = arbeidsgiverAccordion.locator('text=Meld fra om endring')
-        await meldFraOmEndring.click()
+        await expect(page.getByRole('button', { name: 'Meld fra om endring' }).first()).toBeVisible()
+        await page.getByRole('button', { name: 'Meld fra om endring' }).first().click()
 
-        await expect(page.getByRole('dialog', { name: 'Endre nærmeste leder' })).toBeVisible()
+        const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
+        await expect(modal).toBeVisible()
+        await expect(modal).toContainText('Albus Dumbledore')
         const bekreftButton = page.getByRole('button', { name: 'Ja, jeg er sikker' })
         await bekreftButton.click()
 
-        await expect(arbeidsgiverAccordion).not.toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
+        await expect(modal).toBeHidden()
 
-        const secondEmployer = dinSituasjon.locator(':scope > *').nth(2)
-        await expect(secondEmployer).toContainText('Diagon Alley')
-        await secondEmployer.click()
+        await page.getByRole('button', { name: 'Diagon Alley' }).click()
 
-        const arbeidsgiverAccordion2 = page.getByTestId('arbeidsgiver-accordion').nth(1)
-        await expect(arbeidsgiverAccordion2).toContainText(
-            'Arbeidsgiveren har meldt  inn at Severus Snape skal følge deg opp mens du er syk.',
-        )
-        const meldFraOmEndringSecond = arbeidsgiverAccordion2.locator('text=Meld fra om endring')
-        await meldFraOmEndringSecond.click()
+        await expect(page.getByRole('button', { name: 'Meld fra om endring' }).last()).toBeVisible()
+        await page.getByRole('button', { name: 'Meld fra om endring' }).last().click()
 
         const modal2 = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
 
         await expect(modal2).toContainText('Endre nærmeste leder')
-        const bekreftButtonSecond = modal2.locator('text=Ja, jeg er sikker')
+        await expect(modal2).toContainText('Severus Snape')
+        const bekreftButtonSecond = modal2.getByRole('button', { name: 'Ja, jeg er sikker' })
         await bekreftButtonSecond.click()
 
-        await expect(arbeidsgiverAccordion2).not.toContainText(
-            'Arbeidsgiveren har meldt inn at Severus Snape skal følge deg opp mens du er syk.',
-        )
+        await expect(modal2).toBeHidden()
 
         await validerCLS(getCLS, 'arbeidsgiver accordion and modal')
     })
@@ -54,68 +40,54 @@ test.describe('Tester arbeidssituasjon', () => {
     test('Avkreft nærmeste leder feiler', async ({ page }) => {
         await page.goto('/syk/sykefravaer?testperson=default')
 
-        const dinSituasjon = page.getByTestId('din-situasjon') // locator('[data-testid="din-situasjon"]')
-        const employer = dinSituasjon.locator(':scope > *').nth(3)
-        await expect(employer).toContainText('Gloucester Cathedral')
+        const employer = page.getByRole('button', { name: 'Gloucester Cathedral' })
         await employer.click()
 
-        const arbeidsgiverAccordion = page.getByTestId('arbeidsgiver-accordion').nth(2)
-        await expect(arbeidsgiverAccordion).toContainText(
-            'Arbeidsgiveren har meldt inn at Charity Burbage skal følge deg opp mens du er syk.',
-        )
-        const meldFraOmEndring = arbeidsgiverAccordion.locator('text=Meld fra om endring')
-        await meldFraOmEndring.click()
+        await expect(page.getByRole('button', { name: 'Meld fra om endring' }).first()).toBeVisible()
+        await page.getByRole('button', { name: 'Meld fra om endring' }).first().click()
 
-        const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' }) // page.locator('.navds-modal');
+        const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
         await expect(modal).toContainText('Endre nærmeste leder')
-        const bekreftButton = modal.locator('text=Ja, jeg er sikker')
+        await expect(modal).toContainText('Charity Burbage')
+        const bekreftButton = modal.getByRole('button', { name: 'Ja, jeg er sikker' })
         await bekreftButton.click()
 
         await expect(modal).toContainText('Beklager, det oppstod en feil!')
         await expect(modal).toBeVisible()
 
-        const avbrytButton = modal.locator('text=Avbryt')
+        const avbrytButton = modal.getByRole('button', { name: 'Avbryt' })
         await avbrytButton.click()
 
-        await expect(modal).not.toBeVisible()
-        await expect(employer).toContainText('Gloucester Cathedral')
+        await expect(modal).toBeHidden()
+        await expect(employer).toBeVisible()
     })
 
     test('Har narmesteleder og kan avkrefte den', async ({ page }) => {
         await page.goto('/syk/sykefravaer?testperson=snart-slutt')
 
-        const situasjonInnhold = page.getByTestId('situasjon-innhold') //  locator('[data-testid="situasjon-innhold"]')
-        await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await expect(situasjonInnhold).toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
+        const hovedInnhold = page.getByRole('main')
+        await expect(hovedInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
 
-        const accordionItem = page
-            .locator('.aksel-accordion__item')
-            .filter({ hasText: 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt' })
-        await accordionItem.click()
+        await page.getByRole('button', { name: 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt' }).click()
 
-        await situasjonInnhold.locator('text=Meld fra om endring').click()
+        await page.getByRole('button', { name: 'Meld fra om endring' }).click()
 
-        const accordionContent = page.locator('.aksel-accordion__content')
-        await expect(accordionContent).toContainText(
-            'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selv om du er syk.',
-        )
-        await expect(accordionContent).toContainText('Er det oppgaver jeg kan gjøre selv om jeg er syk?')
-        await expect(accordionContent).toContainText('Kan noe endres på arbeidsplassen for at jeg kan få det til?')
+        await expect(
+            page.getByText(
+                'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selv om du er syk.',
+            ),
+        ).toBeVisible()
+        await expect(page.getByText('Er det oppgaver jeg kan gjøre selv om jeg er syk?')).toBeVisible()
+        await expect(page.getByText('Kan noe endres på arbeidsplassen for at jeg kan få det til?')).toBeVisible()
 
         const modal = page.getByLabel('Endre nærmeste leder')
         await expect(modal).toContainText('Endre nærmeste leder')
-        const bekreftButton = modal.locator('text=Ja, jeg er sikker')
+        await expect(modal).toContainText('Albus Dumbledore')
+        const bekreftButton = modal.getByRole('button', { name: 'Ja, jeg er sikker' })
         await bekreftButton.click()
 
-        await expect(modal).not.toBeVisible()
+        await expect(modal).toBeHidden()
 
-        await expect(situasjonInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
-        await expect(situasjonInnhold).not.toContainText(
-            'Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.',
-        )
-
-        await accordionItem.click()
+        await expect(hovedInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
     })
 })

@@ -45,11 +45,18 @@ const Arbeidssituasjon = () => {
                         {arbeidsgivere.length === 1 && <ArbeidsgiverPanel orgnummer={arbeidsgivere[0]} />}
 
                         {arbeidsgivere.length > 1 && (
-                            <>
-                                {arbeidsgivere.map((orgnummer, idx) => (
-                                    <ArbeidsgiverAccordion orgnummer={orgnummer} key={idx} />
+                            <Accordion
+                                data-testid="arbeidsgiver-accordion"
+                                style={
+                                    {
+                                        '--ac-accordion-header-bg': 'var(--ax-accent-100)',
+                                    } as React.CSSProperties
+                                }
+                            >
+                                {arbeidsgivere.map((orgnummer) => (
+                                    <ArbeidsgiverAccordion orgnummer={orgnummer} key={orgnummer} />
                                 ))}
-                            </>
+                            </Accordion>
                         )}
                     </section>
                     <Accordion>
