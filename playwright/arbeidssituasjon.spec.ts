@@ -91,13 +91,13 @@ test.describe('Tester arbeidssituasjon', () => {
         )
 
         const accordionItem = page
-            .locator('.navds-accordion__item')
+            .locator('.aksel-accordion__item')
             .filter({ hasText: 'Slik skal arbeidsgiver hjelpe deg mens du er sykmeldt' })
         await accordionItem.click()
 
         await situasjonInnhold.locator('text=Meld fra om endring').click()
 
-        const accordionContent = page.locator('.navds-accordion__content')
+        const accordionContent = page.locator('.aksel-accordion__content')
         await expect(accordionContent).toContainText(
             'Arbeidsgiveren skal legge til rette for at du kan jobbe helt eller delvis selv om du er syk.',
         )

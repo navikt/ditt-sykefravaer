@@ -8,7 +8,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
 
         const oppgaver = page.getByTestId('oppgaver')
-        const navdsAlert = oppgaver.locator('.navds-alert')
+        const navdsAlert = oppgaver.locator('.aksel-alert')
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
@@ -48,7 +48,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-en-maned')
 
         const oppgaver = page.getByTestId('oppgaver')
-        const navdsAlert = oppgaver.locator('.navds-alert')
+        const navdsAlert = oppgaver.locator('.aksel-alert')
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
@@ -73,7 +73,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await page.goto('/syk/sykefravaer?testperson=forelagt-fra-a-ordningen-ingen')
 
         const oppgaver = page.getByTestId('oppgaver')
-        const navdsAlert = oppgaver.locator('.navds-alert')
+        const navdsAlert = oppgaver.locator('.aksel-alert')
         await expect(navdsAlert).toHaveCount(1)
 
         const alertText =
