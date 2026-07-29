@@ -18,7 +18,7 @@ test.describe('Sykmelding kvittering', () => {
         await feedbackSection.getByRole('button', { name: 'Ja' }).click()
         await expect(feedbackSection.getByRole('button', { name: 'Ja' })).toHaveCSS(
             'background-color',
-            'rgb(35, 38, 42)',
+            'rgb(73, 81, 94)',
         )
         await feedbackSection.getByRole('textbox').fill('Dette er en test')
 
