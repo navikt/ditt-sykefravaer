@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { expect } from '@playwright/test'
 import { Locator } from 'playwright-core'
 
@@ -12,8 +11,8 @@ expect.extend({
             }
         }
 
-        const descriptiveText = await locator.page().locator(`#${describedId}`).textContent()
-        expect(descriptiveText, { message: 'Descriptive text does not match' }).toEqual(expectedText)
+        const descriptiveLocator = locator.page().locator(`#${describedId}`)
+        await expect(descriptiveLocator, { message: 'Descriptive text does not match' }).toHaveText(expectedText ?? '')
 
         return {
             message: () => 'passed',

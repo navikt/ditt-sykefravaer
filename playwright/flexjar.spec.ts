@@ -6,7 +6,6 @@ import { validerCLS } from './utils/cls-validering'
 test.describe('Flexjar', () => {
     test.beforeEach(async ({ page }) => {
         await page.goto('/syk/sykefravaer')
-        await page.waitForLoadState('networkidle')
     })
 
     test('Kan gi ja feedback', async ({ page, getCLS }) => {

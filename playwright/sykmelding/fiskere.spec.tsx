@@ -147,7 +147,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
             await fillOutFisker('Blad A', 'Lott')(page)
 
-            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
+            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).toBeHidden()
         })
 
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {

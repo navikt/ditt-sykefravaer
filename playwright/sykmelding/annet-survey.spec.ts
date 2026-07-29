@@ -41,7 +41,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         const modal = page.getByRole('dialog')
         await expect(modal).toBeVisible()
         await modal.getByRole('button', { name: 'Avbryt' }).click()
-        await expect(modal).not.toBeVisible()
+        await expect(modal).toBeHidden()
     })
 
     test('viser ikke survey-modal på kvittering når bruker valgte annen situasjon', async ({ page }) => {
@@ -50,7 +50,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await velgForsikring('Nei')(page)
 
         await bekreftSykmelding(page)
-        await expect(page.getByRole('dialog')).not.toBeVisible()
+        await expect(page.getByRole('dialog')).toBeHidden()
     })
 
     test('kan sende inn survey på kvittering med valgt årsak', async ({ page }) => {
@@ -75,7 +75,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
 
         await expect(modal.getByText('Takk for tilbakemeldingen!')).toBeVisible()
         await expect(modal.getByRole('button', { name: 'Lukk vindu' })).toBeVisible()
-        await expect(modal.getByRole('button', { name: 'Avbryt' })).not.toBeVisible()
+        await expect(modal.getByRole('button', { name: 'Avbryt' })).toBeHidden()
     })
 
     test('viser valideringsfeil på fritekst ved send med "Annen årsak" uten tekst', async ({ page }) => {
@@ -106,7 +106,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         const kvitteringUrl = page.url().replace(/\?.*/, '')
         await page.goto(kvitteringUrl)
 
-        await expect(page.getByRole('dialog')).not.toBeVisible()
+        await expect(page.getByRole('dialog')).toBeHidden()
     })
 
     test.skip('viser ikke survey-modal på kvittering når toggle er av', async ({ page }) => {
@@ -115,6 +115,6 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await velgArbeidssituasjon('annet')(page)
         await bekreftSykmelding(page)
 
-        await expect(page.getByRole('dialog')).not.toBeVisible()
+        await expect(page.getByRole('dialog')).toBeHidden()
     })
 })

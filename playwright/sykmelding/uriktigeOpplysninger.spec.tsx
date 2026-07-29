@@ -58,7 +58,7 @@ test.describe('Uriktige opplysninger', () => {
         await navigateToFirstSykmelding('nye', '100%')(page)
         await getRadioInGroup(page)({ name: 'Stemmer opplysningene?' }, { name: 'Nei' }).click()
 
-        await expect(page.getByText('Hvilken arbeidssituasjon gjelder sykmeldingen for?')).not.toBeVisible()
+        await expect(page.getByText('Hvilken arbeidssituasjon gjelder sykmeldingen for?')).toBeHidden()
         await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeVisible()
     })
 
@@ -131,12 +131,12 @@ test.describe('Uriktige opplysninger', () => {
             page.getByText(
                 'Senere, når du skal fylle ut søknaden om sykepenger, skriver du bare inn hvor mye du faktisk jobbet.',
             ),
-        ).not.toBeVisible()
+        ).toBeHidden()
         await expect(
             page.getByText(
                 'Hvis sykmeldingen senere skal forlenges, må du gi beskjed til den som sykmelder deg om at diagnosen er feil.',
             ),
-        ).not.toBeVisible()
+        ).toBeHidden()
     })
 })
 
@@ -161,8 +161,8 @@ function opplysningNotCorrect(
 
 async function expectNotUsable(page: Page): Promise<void> {
     await expect(page.getByRole('heading', { name: 'Du kan ikke bruke denne sykmeldingen' })).toBeVisible()
-    await expect(page.getByText('Hvilken arbeidssituasjon gjelder sykmeldingen for?')).not.toBeVisible()
-    await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).not.toBeVisible()
+    await expect(page.getByText('Hvilken arbeidssituasjon gjelder sykmeldingen for?')).toBeHidden()
+    await expect(page.getByRole('button', { name: /^(Send|Bekreft) sykmelding/ })).toBeHidden()
 }
 
 function expectUseable(explanationText: string) {

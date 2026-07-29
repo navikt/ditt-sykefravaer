@@ -66,7 +66,7 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                             body: elementScreenshot,
                         })
                     }
-                } catch (error) {
+                } catch {
                     // Ignorer hvis vi ikke kan ta screenshot av elementet
                     console.log(`Kunne ikke ta screenshot av element: ${node.target.join(' ')}`)
                 }
@@ -93,7 +93,7 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
         console.log('==================\n')
         console.log(`${violations.length} UU-violation(s) detected - se attachments i Playwright GUI for detaljer`)
 
-        expect(violations.length, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toBe(0)
+        expect(violations, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toHaveLength(0)
     }
 }
 

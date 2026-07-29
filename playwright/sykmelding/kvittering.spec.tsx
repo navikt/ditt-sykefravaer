@@ -13,6 +13,6 @@ test.describe('Kvittering', () => {
             page.locator(
                 'text=Hvis du ønsker å endre egenmeldingsdager etter at du har sendt sykmeldingen, må du ta kontakt med arbeidsgiver.',
             ),
-        ).not.toBeVisible()
+        ).toBeHidden()
     })
 })

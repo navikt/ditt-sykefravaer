@@ -46,7 +46,7 @@ test.describe('Keyboard navigering', () => {
         await page.keyboard.press('Enter')
         await expect(
             page.locator('text=Arbeidsgiveren har meldt inn at Albus Dumbledore skal følge deg opp mens du er syk.'),
-        ).not.toBeVisible()
+        ).toBeHidden()
 
         await tabUntilFocusedContainsText(browserName, page, 'Sykmeldinger')
 
