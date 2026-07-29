@@ -8,3 +8,10 @@
         @apply list-inside;
     }
 }
+
+/*
+ * Fiks for lenker inne i <decorator-utils> (brødsmulene) som får feil farge
+ */
+decorator-utils a {
+    color: var(--ax-text-subtle);
+}
