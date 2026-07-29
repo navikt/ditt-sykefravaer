@@ -52,7 +52,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         ).toBeVisible()
 
         await page
-            .getByRole('group', { name: /Brukte du egenmelding hos Pontypandy Fire Service/ })
+            .getByRole('radiogroup', { name: /Brukte du egenmelding hos Pontypandy Fire Service/ })
             .getByRole('radio', { name: /Ja/ })
             .click()
 
@@ -61,7 +61,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
             .click()
         await page.getByRole('button', { name: /Bekreft datoer/ }).click()
         await page
-            .getByRole('group', {
+            .getByRole('radiogroup', {
                 name: `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 8. januar ${testAar}?`,
             })
             .getByRole('radio', { name: /Nei/ })
@@ -69,7 +69,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
 
         // Endre til arbeidsledig
         await page
-            .getByRole('group', { name: /Jeg er sykmeldt som/i })
+            .getByRole('radiogroup', { name: /Jeg er sykmeldt som/i })
             .getByRole('radio', { name: /Arbeidsledig/ })
             .click()
         await velgArbeidstakerArbeidsledig(/Pontypandy Fire Service/)(page)

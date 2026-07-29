@@ -4,7 +4,7 @@ import { expect, Locator, Page } from '@playwright/test'
 type ByRoleOptions = Parameters<Page['getByRole']>['1']
 
 export function getRadioInGroup(page: Page | Locator) {
-    return (group: ByRoleOptions, radio: ByRoleOptions) => page.getByRole('group', group).getByRole('radio', radio)
+    return (group: ByRoleOptions, radio: ByRoleOptions) => page.getByRole('radiogroup', group).getByRole('radio', radio)
 }
 
 export function getCheckboxInGroup(page: Page) {
