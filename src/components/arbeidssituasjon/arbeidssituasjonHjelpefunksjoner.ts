@@ -31,7 +31,7 @@ export const finnAktuelleArbeidsgivere = (
     const unikeArbeidsgiver = new Set(
         sykmeldingerMedAktivLederEllerMindreEnnTreMaanederGammel
             .filter((syk) => syk.sykmeldingStatus.arbeidsgiver)
-            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+
             .map((syk) => syk.sykmeldingStatus.arbeidsgiver!.orgnummer),
     )
 

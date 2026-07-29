@@ -7,6 +7,7 @@
     },
     "dependencies": {
         "@date-fns/tz": "^1.5.0",
+        "@eslint/eslintrc": "^3.3.1",
         "@grafana/faro-web-sdk": "^2.8.2",
         "@hookform/devtools": "^4.4.0",
         "@navikt/aksel-icons": "^8.15.0",
@@ -59,8 +60,10 @@
         "@tailwindcss/postcss": "^4.3.3",
         "axe-core": "^4.12.1",
         "dotenv": "^17.4.2",
-        "eslint": "^8.57.1",
-        "eslint-config-next": "^15.5.9",
+        "eslint": "^9.39.5",
+        "eslint-config-next": "^15.5.22",
+        "eslint-plugin-playwright": "^2.10.5",
+        "jiti": "^2.7.0",
         "jsdom": "^26.1.0",
         "next": "15.5.18",
         "next-router-mock": "^1.0.5",
@@ -71,7 +74,7 @@
         "prettier-plugin-tailwindcss": "^0.8.0",
         "tailwindcss": "^4.3.3",
         "ts-loader": "^9.6.2",
-        "typescript": "^5.9.3",
+        "typescript": "^6.0.3",
         "vitest": "^4.1.10"
     },
     "scripts": {
@@ -88,28 +91,9 @@
         "play-headless-build": "export BUILD=true; npm run build && npx playwright test",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",
-        "lint": "eslint --ext=ts,tsx src playwright",
-        "lint:fix": "eslint --ext=ts,tsx src playwright --fix",
+        "lint": "eslint src playwright",
+        "lint:fix": "eslint src playwright --fix",
         "format": "npm run prettier:write && npm run lint:fix"
-    },
-    "eslintConfig": {
-        "extends": [
-            "@navikt/eslint-config-teamsykmelding",
-            "next/core-web-vitals"
-        ],
-        "rules": {
-            "@typescript-eslint/explicit-function-return-type": "off"
-        },
-        "overrides": [
-            {
-                "files": [
-                    "**/playwright/**/*.{js,ts,tsx}"
-                ],
-                "rules": {
-                    "testing-library/prefer-screen-queries": "off"
-                }
-            }
-        ]
     },
     "prettier": "@navikt/eslint-config-teamsykmelding/prettier"
 }

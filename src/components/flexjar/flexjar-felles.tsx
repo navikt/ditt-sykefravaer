@@ -76,7 +76,7 @@ export function FlexjarFelles({
                     knappeklikk()
                 }
                 return true
-            } catch (e) {
+            } catch {
                 return false
             }
         },
