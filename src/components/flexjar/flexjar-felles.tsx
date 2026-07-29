@@ -135,16 +135,19 @@ export function FlexjarFelles({
         <div role="region" className="w-full mt-16 ax-md:w-3/4">
             <div>
                 {!thanksFeedback && (
-                    <div className="mt-1 border-4 border-ax-bg-neutral-soft rounded-sm">
+                    <div className="mt-1 border-4 border-ax-border-neutral-subtle rounded-sm">
                         <div className="bg-ax-bg-neutral-soft p-6 flex gap-4 items-center">
                             <div className="bg-ax-neutral-1000 w-10 h-10 rounded-full flex justify-center items-center">
-                                <MagnifyingGlassIcon aria-hidden={true} className="text-ax-text-neutral-contrast axe-exclude" />
+                                <MagnifyingGlassIcon
+                                    aria-hidden={true}
+                                    className="text-ax-text-neutral-contrast axe-exclude"
+                                />
                             </div>
                             <div>
                                 <Label as="h2" className="mb-2">
                                     {flexjartittel}
                                 </Label>
-                                <BodyShort>Svarene dine er anonyme</BodyShort>
+                                <BodyShort>Svarene dine er anonyme.</BodyShort>
                             </div>
                         </div>
                         <div className="px-6 py-8">
@@ -202,7 +205,7 @@ export function FlexjarFelles({
                 )}
                 <div aria-live="polite">
                     {thanksFeedback && (
-                        <div className="mt-2 border-4 border-ax-success-200 rounded-sm bg-ax-success-200 p-6 flex flex-row items-center">
+                        <div className="mt-2 border-4 border-ax-border-success-subtle rounded-sm bg-ax-bg-success-soft p-6 flex flex-row items-center">
                             {tommelOpp()}
                             <div className="pl-6">
                                 <Label as="h3" className="mb-2">
