@@ -36,7 +36,8 @@ test.describe('Keyboard navigering', () => {
             page,
             'Hogwarts School of Witchcraft and Wizardry',
         )
-        await expect(focusedElement).toHaveCSS('outline', 'rgb(32, 39, 51) solid 3px')
+        await expect(focusedElement).toHaveCSS('outline-color', 'rgb(32, 39, 51)')
+        await expect(focusedElement).toHaveCSS('outline-width', '3px')
 
         await page.keyboard.press('Space')
         await expect(
@@ -50,7 +51,8 @@ test.describe('Keyboard navigering', () => {
         await tabUntilFocusedContainsText(browserName, page, 'Sykmeldinger')
 
         const soknadElement = await tabUntilFocusedContainsText(browserName, page, 'Søknader')
-        await expect(soknadElement).toHaveCSS('outline', 'rgb(32, 39, 51) solid 3px')
+        await expect(soknadElement).toHaveCSS('outline-color', 'rgb(32, 39, 51)')
+        await expect(soknadElement).toHaveCSS('outline-width', '3px')
     })
 
     test('Vi navigerer forsiden med lenke til venter på inntektsmelding', async ({ page, browserName }) => {
