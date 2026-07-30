@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { expect, Page, TestInfo } from '@playwright/test'
 import { AxeBuilder } from '@axe-core/playwright'
 
@@ -46,8 +45,9 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                         // Highlight elementet med rød ramme
                         await element.highlight()
 
-                        // Vent litt for at highlight skal vises
-                        await page.waitForTimeout(100)
+                        await page.evaluate(
+                            () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())),
+                        )
 
                         // Ta screenshot av hele viewporten for å få kontekst
                         const fullScreenshot = await page.screenshot({
@@ -66,7 +66,7 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                             body: elementScreenshot,
                         })
                     }
-                } catch (error) {
+                } catch {
                     // Ignorer hvis vi ikke kan ta screenshot av elementet
                     console.log(`Kunne ikke ta screenshot av element: ${node.target.join(' ')}`)
                 }
@@ -93,11 +93,10 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
         console.log('==================\n')
         console.log(`${violations.length} UU-violation(s) detected - se attachments i Playwright GUI for detaljer`)
 
-        expect(violations.length, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toBe(0)
+        expect(violations, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toHaveLength(0)
     }
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function generateHtmlReport(violations: any[], url: string): string {
     return `
 <!DOCTYPE html>
@@ -181,7 +180,6 @@ function generateHtmlReport(violations: any[], url: string): string {
                 <div class="element-list">
                     ${violation.nodes
                         .map(
-                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
                             (node: { target: any[] }) => `
                         <div class="element">${node.target.join(' ')}</div>
                     `,

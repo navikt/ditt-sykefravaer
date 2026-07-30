@@ -12,8 +12,6 @@ import { forventBrodsmule, forventFlerebrodsmuler, klikkPaBrodsmule, standardBro
 import { expectKvittering, ExpectMeta } from './utils/user-expects'
 
 async function neiTilCookies(page: Page) {
-    await page.waitForLoadState('networkidle')
-
     const neiTilCookies = page.getByTestId('consent-banner-refuse-optional')
     if (await neiTilCookies.isVisible()) {
         await neiTilCookies.click()
@@ -24,6 +22,7 @@ test.describe('Tester Brodsmuler', () => {
     test.beforeAll(async ({ uuOptions }) => {
         uuOptions.skipUU = true
     })
+
     test('Burde vise brodsmuler på forsiden', async ({ page }) => {
         await page.goto('/syk/sykefravaer')
         await neiTilCookies(page)

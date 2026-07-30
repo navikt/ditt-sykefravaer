@@ -86,7 +86,7 @@ test.describe('Selvstendig næringsdrivende', () => {
                 navigateToFirstAndPickSituasjon,
             )(page)
 
-            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
+            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).toBeHidden()
         })
     })
 

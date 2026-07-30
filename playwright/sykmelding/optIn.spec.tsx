@@ -67,7 +67,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Vi har opprettet søknad for denne perioden')).toBeVisible()
-        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
+        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).toBeHidden()
     })
 
     test('viser info-alert etter vellykket opt-in', async ({ page }) => {
@@ -116,7 +116,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Beklager, en feil oppstod. Vennligst prøv igjen senere')).toBeVisible()
-        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
+        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).toBeHidden()
     })
 
     test('viser feilvarsel når opt-in-kallet feiler', async ({ page }) => {
@@ -146,6 +146,6 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
 
         await apneReadmore(page, OPT_IN_READ_MORE)
         await expect(page.getByText('Søknadsfristen er gått ut')).toBeVisible()
-        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeVisible()
+        await expect(page.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).toBeHidden()
     })
 })

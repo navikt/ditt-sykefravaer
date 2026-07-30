@@ -47,7 +47,6 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
     useEffect(() => {
         if (!valgtArsak) return
         sendFeedback()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [valgtArsak])
 
     const handleSend = () => {

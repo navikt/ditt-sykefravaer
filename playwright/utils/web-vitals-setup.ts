@@ -18,7 +18,6 @@ export async function measureCLSWithWebVitals(page: Page): Promise<void> {
     })
 
     await page.evaluate(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const win = window as any
 
         if (win.webVitals && typeof win.webVitals.onCLS === 'function') {
@@ -43,10 +42,9 @@ export async function getCLSValue(page: Page): Promise<number | null> {
         document.dispatchEvent(pagehideEvent)
     })
 
-    await page.waitForTimeout(500)
+    await page.evaluate(() => new Promise<void>((resolve) => window.setTimeout(() => resolve(), 500)))
 
     return await page.evaluate(() => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const win = window as any
         const values = win._clsValues || []
         return values.length > 0 ? values[values.length - 1] : 0

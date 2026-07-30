@@ -21,7 +21,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid',
                 async (route) => {
                     if (route.request().method() === 'GET') {
-                        await page.waitForTimeout(5000)
+                        await new Promise((resolve) => setTimeout(resolve, 5000))
                         return route.continue()
                     }
                     return route.continue()
@@ -91,7 +91,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 async (route) => {
                     if (route.request().method() === 'GET') {
-                        await page.waitForTimeout(5000)
+                        await new Promise((resolve) => setTimeout(resolve, 5000))
                         return route.continue()
                     }
                     return route.continue()
@@ -147,7 +147,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
             await fillOutFisker('Blad A', 'Lott')(page)
 
-            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).not.toBeVisible()
+            await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).toBeHidden()
         })
 
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {

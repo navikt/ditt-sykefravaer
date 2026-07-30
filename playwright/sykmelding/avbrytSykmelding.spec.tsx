@@ -14,7 +14,7 @@ test.describe('Avbryt sykmelding', () => {
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
-        await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).not.toBeVisible()
+        await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).toBeHidden()
         await expect(page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ })).toBeVisible()
     })
 
@@ -23,11 +23,11 @@ test.describe('Avbryt sykmelding', () => {
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
         await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeVisible()
-        await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).not.toBeVisible()
+        await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).toBeHidden()
 
         await page.getByRole('button', { name: /GJØR UTFYLLINGEN PÅ NYTT/ }).click()
 
-        await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).not.toBeVisible()
+        await expect(page.getByText(/Sykmeldingen ble avbrutt av deg/)).toBeHidden()
         await expect(page.getByRole('button', { name: /Avbryt sykmeldingen/ })).toBeVisible()
     })
 

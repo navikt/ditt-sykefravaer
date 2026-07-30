@@ -52,6 +52,24 @@ function velgEgenmeldingsdager(egenmeldingsdagerHjelper: (page: Page) => Egenmel
     }
 }
 
+async function velgDagMedManedsnavigering(periode: EgenmeldingsdagerHjelper, dag: string): Promise<void> {
+    const dagKnapp = periode.dagButton(dag)
+    try {
+        await dagKnapp.click({ timeout: 300 })
+        return
+    } catch {
+        // Datoen er i en annen måned
+    }
+
+    try {
+        await periode.forrigeManedKnapp.click()
+        await dagKnapp.click({ timeout: 300 })
+    } catch {
+        await periode.nesteManedKnapp.click()
+        await dagKnapp.click()
+    }
+}
+
 test.describe('Egenmeldingsdager', () => {
     test.describe('Arbeidstaker', () => {
         test('burde kunne sende inn sykmelding med en periode med egenmelding', async ({ page }) => {
@@ -283,11 +301,7 @@ test.describe('Egenmeldingsdager', () => {
                 )(page)
                 await andrePeriode.svar.jaButton.click()
                 for (const dag of [`${testAaretFoer}-12-27`, `${testAaretFoer}-12-28`, `${testAaretFoer}-12-29`]) {
-                    const dagKnapp = andrePeriode.dagButton(dag)
-                    if (!(await dagKnapp.isVisible())) {
-                        await andrePeriode.forrigeManedKnapp.click()
-                    }
-                    await dagKnapp.click()
+                    await velgDagMedManedsnavigering(andrePeriode, dag)
                 }
                 await andrePeriode.videreButton.click()
 
@@ -314,22 +328,15 @@ test.describe('Egenmeldingsdager', () => {
 
                     const sykmeldingStartDatoTekst = toReadableDate(dateAdd(egenmeldingdatoMax, { days: 1 }))
                     const valgDatoString =
-                        periodeIndex === 1
-                            ? `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt ${sykmeldingStartDatoTekst}?`
-                            : `Hadde du egenmeldingsdager før det igjen – altså mellom ${toReadableDate(egenmeldingdatoMin)} og ${toReadableDate(egenmeldingdatoMax)}?`
+                        [
+                            `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt ${sykmeldingStartDatoTekst}?`,
+                            `Hadde du egenmeldingsdager før det igjen – altså mellom ${toReadableDate(egenmeldingdatoMin)} og ${toReadableDate(egenmeldingdatoMax)}?`,
+                        ][Math.min(1, periodeIndex - 1)] || ''
 
                     const periode = egenmeldingsdagerHjelper(valgDatoString)(page)
                     await periode.svar.jaButton.click()
 
-                    const datoKnapp = periode.dagButton(toDateString(egenmeldingdatoMin))
-                    if (!(await datoKnapp.isVisible())) {
-                        if (await periode.forrigeManedKnapp.isVisible()) {
-                            await periode.forrigeManedKnapp.click()
-                        } else {
-                            await periode.nesteManedKnapp.click()
-                        }
-                    }
-                    await datoKnapp.click()
+                    await velgDagMedManedsnavigering(periode, toDateString(egenmeldingdatoMin))
                     await periode.videreButton.click()
 
                     egenmeldingdatoMax = new TZDate(dateSub(egenmeldingdatoMin, { days: 1 }))

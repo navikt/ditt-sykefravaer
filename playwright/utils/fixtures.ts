@@ -25,7 +25,6 @@ export const test = base.extend<{
             await measureCLSWithWebVitals(page)
         }
 
-        // eslint-disable-next-line react-hooks/rules-of-hooks
         await use(async () => {
             if (!clsOptions.enableCLS) {
                 return null

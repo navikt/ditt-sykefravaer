@@ -12,7 +12,6 @@ it('Returnerer false hvis ingenting er fetchet', () => {
 })
 
 it('Returnerer true hvis undefined sykmeldinger men oppfølgingsplaner', () => {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const skalVise = skalViseOppfoelgingsplanLenke(undefined, [{ id: 1 } as any], testDato)
     expect(skalVise).toEqual(true)
 })

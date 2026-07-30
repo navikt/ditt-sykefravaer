@@ -54,7 +54,7 @@ export const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertPr
                                 },
                             },
                         )
-                    } catch (e) {
+                    } catch {
                         // Viser ikke feilmelding til bruker siden lukking kan funke neste gang hen prøver.
                         // Feilen blir logget i fetchMedRequestId.
                     } finally {
