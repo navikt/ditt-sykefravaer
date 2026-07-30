@@ -13,7 +13,7 @@ function UriktigeOpplysningerInfo({ uriktigeOpplysninger }: UriktigeOpplysninger
             <Heading spacing size="small" level="3">
                 Du kan fortsatt bruke sykmeldingen
             </Heading>
-            <ul>
+            <ul className="list-outside pl-5">
                 {uriktigeOpplysninger.map((value) => (
                     <li key={value} className="mt-4">
                         {uriktigeOpplysningerEnumToText(value)}
