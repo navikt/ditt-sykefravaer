@@ -73,7 +73,6 @@ describe('SykmeldingViewArbeidsgiver', () => {
     it('Behandler skal bruke korrekt navn korrekt formatert', () => {
         render(<SykmeldingArbeidsgiver sykmelding={minimalSykmelding} />)
 
-        // eslint-disable-next-line testing-library/no-node-access
         expect(screen.getByText(/Sykmeldingen ble skrevet av/).parentElement).toHaveTextContent(/Frida Perma Frost/)
     })
 })

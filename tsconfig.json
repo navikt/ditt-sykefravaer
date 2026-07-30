@@ -25,5 +25,5 @@
         ]
     },
     "include": ["**/*.ts", "**/*.tsx", "./vitest.setup.mts"],
-    "exclude": ["node_modules"]
+    "exclude": ["node_modules", "eslint.config.ts"]
 }
