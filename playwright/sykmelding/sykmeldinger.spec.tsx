@@ -5,8 +5,6 @@ test.describe('Sykmeldinger landingsside', () => {
     test('skal feile med feilmelding ved API-feil', async ({ page }) => {
         await gotoScenario('feilmelding')(page)
 
-        await page.waitForSelector('text=Vi har problemer med baksystemene for øyeblikket.')
-
         await expect(page.locator('text=Vi har problemer med baksystemene for øyeblikket.')).toBeVisible()
     })
 

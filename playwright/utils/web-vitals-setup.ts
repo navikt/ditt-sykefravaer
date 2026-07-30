@@ -43,7 +43,7 @@ export async function getCLSValue(page: Page): Promise<number | null> {
         document.dispatchEvent(pagehideEvent)
     })
 
-    await page.waitForTimeout(500)
+    await page.evaluate(() => new Promise<void>((resolve) => window.setTimeout(() => resolve(), 500)))
 
     return await page.evaluate(() => {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any

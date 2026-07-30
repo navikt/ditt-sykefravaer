@@ -7,7 +7,7 @@ test.describe('Keyboard navigering', () => {
     test('Vi navigerer forsiden med mange elementer', async ({ page, browserName }) => {
         await page.goto('/syk/sykefravaer')
         await expect(page.locator('text=Du har en ny søknad om sykepenger')).toBeVisible()
-        await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
+        await page.locator('#maincontent').focus() // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
         const alertElement = await tabUntilFocusedContainsText(browserName, page, /Du har en ny søknad om sykepenger/)
 
@@ -60,7 +60,7 @@ test.describe('Keyboard navigering', () => {
         await expect(
             page.locator('text=Status i saken din om sykepenger: Vi venter på inntektsmelding fra Flex AS.'),
         ).toBeVisible()
-        await page.focus('#maincontent') // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
+        await page.locator('#maincontent').focus() // Fokuserer på første element i maincontent på samme måte som skiplenke fra dekoratøren
 
         // Første lenke er fokusert med riktig styling
         const statusLenke = await tabUntilFocusedContainsText(

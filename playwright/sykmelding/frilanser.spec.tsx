@@ -21,7 +21,7 @@ test.describe('Frilanser', () => {
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid',
                 async (route) => {
                     if (route.request().method() === 'GET') {
-                        await page.waitForTimeout(5000)
+                        await new Promise((resolve) => setTimeout(resolve, 5000))
                         return route.continue()
                     }
                     return route.continue()
@@ -98,7 +98,7 @@ test.describe('Frilanser', () => {
                 '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
                 async (route) => {
                     if (route.request().method() === 'GET') {
-                        await page.waitForTimeout(5000)
+                        await new Promise((resolve) => setTimeout(resolve, 5000))
                         return route.continue()
                     }
                     return route.continue()

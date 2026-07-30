@@ -10,15 +10,12 @@ test.describe('Ytelse på hjemmesiden', () => {
         page.setDefaultTimeout(10000)
 
         const cls: number | null = await getCLS()
-
-        if (cls === null) {
-            expect(cls, 'CLS measurement failed: returned null').not.toBeNull()
-            return
-        }
+        expect(cls, 'CLS measurement failed: returned null').not.toBeNull()
+        const clsVerdi = cls as number
 
         expect(
-            cls,
-            `CLS score (${cls}) is too high on the homepage. Expected <= ${GOOD_CLS_THRESHOLD}.`,
+            clsVerdi,
+            `CLS score (${clsVerdi}) is too high on the homepage. Expected <= ${GOOD_CLS_THRESHOLD}.`,
         ).toBeLessThanOrEqual(GOOD_CLS_THRESHOLD)
     })
 })

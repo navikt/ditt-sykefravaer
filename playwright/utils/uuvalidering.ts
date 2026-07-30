@@ -46,8 +46,9 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                         // Highlight elementet med rød ramme
                         await element.highlight()
 
-                        // Vent litt for at highlight skal vises
-                        await page.waitForTimeout(100)
+                        await page.evaluate(
+                            () => new Promise<void>((resolve) => requestAnimationFrame(() => resolve())),
+                        )
 
                         // Ta screenshot av hele viewporten for å få kontekst
                         const fullScreenshot = await page.screenshot({

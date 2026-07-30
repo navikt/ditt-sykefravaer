@@ -109,7 +109,7 @@ test.describe('Annet arbeidssituasjon survey', () => {
         await expect(page.getByRole('dialog')).toBeHidden()
     })
 
-    test.skip('viser ikke survey-modal på kvittering når toggle er av', async ({ page }) => {
+    test('viser ikke survey-modal på kvittering når toggle er av', async ({ page }) => {
         await page.goto(page.url().replace(/\?.*/, '') + '?toggle_flexjar-arbeidssituasjon-annet-survey=false')
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('annet')(page)
