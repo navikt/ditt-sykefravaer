@@ -62,7 +62,6 @@
         "axe-core": "^4.12.1",
         "dotenv": "^17.4.2",
         "eslint": "^9.39.5",
-        "eslint-config-next": "^15.5.22",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-import": "^2.32.0",
         "eslint-plugin-playwright": "^2.10.5",
