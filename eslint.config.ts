@@ -35,6 +35,13 @@ export default defineConfig([
         },
     },
     {
+        files: ['src/**/*.{ts,tsx}'],
+        rules: {
+            'react-hooks/rules-of-hooks': 'error',
+            'react-hooks/exhaustive-deps': 'warn',
+        },
+    },
+    {
         files: ['playwright/**/*.{js,ts,tsx}'],
         ...playwrightPlugin.configs['flat/recommended'],
         rules: {
