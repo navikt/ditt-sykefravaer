@@ -17,7 +17,7 @@ test.describe('Tester helt frisk person', () => {
         await expect(
             page.locator('text=Har du fått sykmeldingen på papir, kan du vente noen dager, så vil du finne den her.'),
         ).toBeVisible()
-        const link = page.locator('.navds-guide-panel__content > a')
+        const link = page.locator('.aksel-guide-panel__content a')
         await expect(link).toHaveAttribute('href', 'https://www.nav.no/sykmeldt-hva-skjer#digital-sykmelding')
     })
 })

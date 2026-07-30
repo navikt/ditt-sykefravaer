@@ -22,7 +22,7 @@ test.describe('Maksdato', () => {
     test('Innholdet i maksdato kortet er riktig', async ({ page }) => {
         await page.getByRole('region', { name: 'Beregnet slutt på sykepenger' }).click()
 
-        const contentLocator = page.locator('.navds-expansioncard__content')
+        const contentLocator = page.locator('.aksel-expansioncard__content')
 
         await expect(contentLocator).toContainText(
             'Du kan maksimalt få sykepenger fra NAV i 52 uker. Grensen er den samme enten du er helt eller delvis sykmeldt og kalles også maksdato. Datoen gjelder hvis du er sammenhengende sykmeldt. Den vil flytte seg hvis du for eksempel ikke får sykepenger fra NAV i perioder, eller hvis du tar ferie.',

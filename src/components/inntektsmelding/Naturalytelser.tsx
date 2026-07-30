@@ -9,7 +9,7 @@ import formatCurrency from './formatCurrency'
 
 export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: InntektsmeldingTyper | null }) {
     return (
-        <Box className="mt-8" padding="4" borderWidth="1" borderRadius="8" borderColor="border-default">
+        <Box className="mt-8" padding="space-16" borderWidth="1" borderRadius="8" borderColor="neutral">
             <Heading level="2" size="small" className="mt-2 mb-2">
                 Naturalytelser
             </Heading>
@@ -23,18 +23,20 @@ export function Naturalytelser({ inntektsmelding = null }: { inntektsmelding?: I
                     <div
                         key={i}
                         className={cn('mt-8 mb-8', {
-                            'border-b border-gray-400': !isLastNaturalytelse,
+                            'border-b border-ax-neutral-500': !isLastNaturalytelse,
                         })}
                     >
                         <BodyShort spacing>
-                            <span className="font-bold">Ytelse:</span>{' '}
+                            <span className="font-ax-bold">Ytelse:</span>{' '}
                             {naturalytelser[naturalytelse.naturalytelse] || 'Annet'}
                         </BodyShort>
                         <BodyShort spacing>
-                            <span className="font-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)} kr/mnd
+                            <span className="font-ax-bold">Verdi:</span> {formatCurrency(naturalytelse.beloepPrMnd)}{' '}
+                            kr/mnd
                         </BodyShort>
                         <BodyShort className="mb-8">
-                            <span className="font-bold">Ytelsen bortfaller:</span> {toReadableDate(naturalytelse.fom)}
+                            <span className="font-ax-bold">Ytelsen bortfaller:</span>{' '}
+                            {toReadableDate(naturalytelse.fom)}
                         </BodyShort>
                     </div>
                 )

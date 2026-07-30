@@ -58,9 +58,9 @@ export function SerIkkeSykmelding(): ReactElement {
                     href="https://www.nav.no/dokumentarkiv/tema/SYM"
                     target="_blank"
                     border
-                    className="mb-8 mt-4 rounded-large"
+                    className="mb-8 mt-4 rounded-lg"
                 >
-                    <LinkPanel.Title className="text-heading-xsmall">Sjekk dokumentlisten</LinkPanel.Title>
+                    <LinkPanel.Title className="text-ax-heading-xsmall">Sjekk dokumentlisten</LinkPanel.Title>
                 </LinkPanel>
 
                 <div className="mb-4">

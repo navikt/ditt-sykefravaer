@@ -191,7 +191,7 @@ export function velgForsikring(svar: 'Ja' | 'Nei') {
 export function expectSykmeldingStartDato(dato: string) {
     return async (page: Page): Promise<void> => {
         await expect(
-            page.getByRole('group', {
+            page.getByRole('radiogroup', {
                 name: new RegExp(`Var du syk og borte fra jobb før du ble sykmeldt ${toReadableDate(dato)}`),
             }),
         ).toBeVisible()

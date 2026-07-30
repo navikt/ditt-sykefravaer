@@ -52,8 +52,8 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                             paddingInline="space-8"
                             borderWidth="2"
                             borderRadius="12"
-                            borderColor="border-subtle"
-                            className="mb-2 focus-within:border-border-selected focus-within:bg-surface-action-subtle"
+                            borderColor="neutral-subtle"
+                            className="mb-2 focus-within:border-ax-border-accent focus-within:bg-ax-bg-accent-soft"
                         >
                             <Radio
                                 key={situasjon}

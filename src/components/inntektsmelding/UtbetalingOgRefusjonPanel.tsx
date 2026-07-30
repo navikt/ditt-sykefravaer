@@ -16,7 +16,7 @@ export function UtbetalingOgRefusjonPanel({
     const visEndringerIRefusjon = (inntektsmelding?.endringIRefusjoner?.length || 0) > 0
 
     return (
-        <Box className="mt-8" padding="4" borderWidth="1" borderRadius="8" borderColor="border-default">
+        <Box className="mt-8" padding="space-16" borderWidth="1" borderRadius="8" borderColor="neutral">
             <Heading level="2" size="small" className="mt-2">
                 Utbetaling og refusjon
             </Heading>
@@ -25,7 +25,6 @@ export function UtbetalingOgRefusjonPanel({
                 utbetalingen av sykepenger. Noen arbeidsgivere betaler fortsatt sykepenger fra dag 17, men de vil senere
                 bli refundert av NAV.
             </ReadMore>
-
             {inntektsmelding?.begrunnelseForReduksjonEllerIkkeUtbetalt && (
                 <div className="mt-8">
                     <Label as="p">Betaler arbeidsgiver ut full lønn i arbeidsgiverperioden?</Label>
@@ -48,14 +47,12 @@ export function UtbetalingOgRefusjonPanel({
                 Betaler arbeidsgiver ut lønn etter arbeidsgiverperioden?
             </Label>
             <BodyLong spacing>{erRefusjon ? 'Ja' : 'Nei, sykepengene blir betalt direkte til deg'}</BodyLong>
-
             {erRefusjon && (
                 <>
                     <Label as="p">Månedslønn til arbeidstaker under sykefravær</Label>
                     <BodyLong spacing>{formatCurrency(inntektsmelding?.refusjon.beloepPrMnd)} kr/mnd</BodyLong>
                 </>
             )}
-
             {visEndringerIRefusjon && (
                 <>
                     <Label as="p">Er det endringer i utbetaling til arbeidstaker under sykefravær?</Label>
@@ -64,7 +61,7 @@ export function UtbetalingOgRefusjonPanel({
                         Endringer i utbetalinger:
                     </Label>
                     {inntektsmelding?.endringIRefusjoner?.map((endring, i) => (
-                        <div key={i} className="border-b border-gray-400 mt-8 mb-8">
+                        <div key={i} className="border-b border-ax-neutral-500 mt-8 mb-8">
                             <BodyShort spacing>Dato for endring: {toReadableDate(endring.endringsdato)}</BodyShort>
                             <BodyShort className="mb-8">Nytt beløp: {formatCurrency(endring.beloep)} kr/mnd</BodyShort>
                         </div>
@@ -72,7 +69,7 @@ export function UtbetalingOgRefusjonPanel({
                 </>
             )}
             {inntektsmelding?.refusjon?.opphoersdato && (
-                <Box padding="4" borderRadius="8" background="bg-subtle">
+                <Box padding="space-16" borderRadius="8" background="neutral-soft">
                     <Label className="mt-4" as="p">
                         Siste dag arbeidsgiver betaler lønn:
                     </Label>

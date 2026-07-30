@@ -43,7 +43,7 @@ const InntektsmeldingerPage = () => {
                                     For sykefravær som startet {toReadableDate(inntektsmelding.foersteFravaersdag)}
                                 </BodyShort>
                             )}
-                            <BodyShort className="text-gray-600">
+                            <BodyShort className="text-ax-neutral-700">
                                 Mottatt: {toReadableDate(inntektsmelding.mottattDato)}
                             </BodyShort>
                         </div>

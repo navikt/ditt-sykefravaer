@@ -81,7 +81,7 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
             <div
                 ref={takkRef}
                 tabIndex={-1}
-                className="mt-4 border-4 border-green-100 rounded-medium bg-green-100 p-6 flex flex-row items-center"
+                className="mt-4 border-4 border-ax-success-200 rounded-sm bg-ax-success-200 p-6 flex flex-row items-center"
             >
                 <div>
                     <Heading size="small" level="3" className="mb-2">
@@ -94,16 +94,15 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
     }
 
     return (
-        <div className="mt-4 border-4 border-surface-subtle rounded-medium">
-            <div className="bg-surface-subtle px-4 pt-4 pb-2">
+        <div className="mt-4 border-4 border-ax-bg-neutral-soft rounded-sm">
+            <div className="bg-ax-bg-neutral-soft px-4 pt-4 pb-2">
                 <Heading size="medium" level="2" className="mb-1">
                     Hjelp oss å forbedre valgene for arbeidssituasjon
                 </Heading>
                 <BodyShort>Svarene dine er anonyme</BodyShort>
             </div>
-
             <div className="p-4 flex flex-col gap-4">
-                <div className="bg-surface-info-subtle p-3 rounded-medium">
+                <div className="bg-ax-bg-info-soft p-3 rounded-sm">
                     <BodyShort>
                         Dette er ikke en del av sykmeldingen din. Svarene går ikke til saksbehandleren din.
                     </BodyShort>
@@ -155,7 +154,8 @@ export function AnnetArbeidssituasjonSurvey({ onTakk }: { onTakk?: () => void })
                 </Alert>
 
                 <Button
-                    variant="secondary-neutral"
+                    data-color="neutral"
+                    variant="secondary"
                     size="medium"
                     className="w-fit"
                     onClick={(e) => {

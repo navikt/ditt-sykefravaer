@@ -34,11 +34,11 @@ function Header(props: HeaderProps): ReactElement {
                 )}
                 {!('skeleton' in props) ? (
                     props.subTitle ? (
-                        <BodyLong className="font-bold text-2xl">{props.subTitle}</BodyLong>
+                        <BodyLong className="font-ax-bold text-2xl">{props.subTitle}</BodyLong>
                     ) : null
                 ) : (
                     <Skeleton>
-                        <BodyLong className="font-bold text-2xl">X. - XX. XXXX</BodyLong>
+                        <BodyLong className="font-ax-bold text-2xl">X. - XX. XXXX</BodyLong>
                     </Skeleton>
                 )}
             </div>

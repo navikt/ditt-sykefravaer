@@ -20,7 +20,7 @@ function SykmeldingArbeidsgiverExpansionCard({ sykmelding, chosenEgenmeldingsdag
         <ExpansionCard
             aria-labelledby={headerId}
             className="mb-8"
-            style={{ '--ac-expansioncard-bg': 'var(--a-orange-50)' } as CSSProperties}
+            style={{ '--ac-expansioncard-bg': 'var(--ax-warning-100)' } as CSSProperties}
         >
             <ExpansionCard.Header>
                 <div className="flex items-center gap-4">

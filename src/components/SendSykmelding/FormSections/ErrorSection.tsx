@@ -21,7 +21,7 @@ function ErrorSection(_: unknown, ref: ForwardedRef<HTMLDivElement>): ReactEleme
             {errors.arbeidsgiverOrgnummer?.message === missingAgError ? (
                 <ErrorSummary
                     heading="Sykmeldingen ble ikke sendt"
-                    className="[&_li]:text-gray-900"
+                    className="[&_li]:text-ax-neutral-1000"
                     size="medium"
                     ref={ref}
                 >

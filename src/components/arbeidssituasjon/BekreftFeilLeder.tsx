@@ -41,7 +41,8 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
             </Modal.Body>
             <Modal.Footer>
                 <Button
-                    variant="danger"
+                    data-color="danger"
+                    variant="primary"
                     loading={isPending}
                     type="button"
                     disabled={isPending || isSuccess}
