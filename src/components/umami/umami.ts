@@ -1,4 +1,4 @@
-import { logAnalyticsEvent } from '@navikt/nav-dekoratoren-moduler'
+import { getAnalyticsInstance, isValidEventName } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useLayoutEffect, useRef } from 'react'
 
@@ -12,14 +12,15 @@ export type validEventNames =
     | 'expansioncard åpnet'
     | 'expansioncard lukket' //Bruk kun navn fra taksonomien
 
+const analytics = getAnalyticsInstance('ditt-sykefravaer')
+
 export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean | number>) => {
     if (window) {
         if (umamiEnabled()) {
-            logAnalyticsEvent({
-                origin: 'ditt-sykefravaer',
-                eventName,
-                eventData,
-            }).catch((e) => logger.warn(`Feil ved umami logging`, e))
+            const resultat = isValidEventName(eventName)
+                ? analytics(eventName, eventData as never)
+                : analytics.custom(eventName, eventData)
+            resultat.catch((e) => logger.warn(`Feil ved umami logging`, e))
         } else if (!isProd() && isOpplaering()) {
             // eslint-disable-next-line no-console
             console.log(`Logger ${eventName} - Event properties: ${JSON.stringify(eventData)}!`)
