@@ -2,16 +2,14 @@ import { Alert, BodyShort, Detail, Link as Lenke, Skeleton } from '@navikt/ds-re
 import React, { useEffect, useState } from 'react'
 
 import useMeldinger from '../../hooks/useMeldinger'
-import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
-import { basePath, oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
+import { basePath, sykepengesoknadUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import { logEvent } from '../umami/umami'
 import { fetchMedRequestId } from '../../utils/fetch'
 
 import { skapMeldinger } from './meldinger'
-import { skapOppfolgingsplanOppgaver } from './oppfolgingsplanOppgaver'
 import { Oppgave } from './oppgaveTyper'
 import { skapSoknadOppgaver } from './soknadOppgaver'
 import { skapSykmeldingoppgaver } from './sykmeldingOppgaver'
@@ -121,7 +119,6 @@ function Oppgaver() {
     const { data: meldinger, isLoading: meldingerLaster } = useMeldinger()
     const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useTsmSykmeldinger()
     const { data: soknader, isLoading: soknaderLaster } = useSoknader()
-    const { data: oppfolgingsplaner, isLoading: oppfolgingsplanerLaster } = useOppfolgingsplaner()
 
     const [lukkede, setLukkede] = useState([] as string[])
 
@@ -131,14 +128,13 @@ function Oppgaver() {
 
     const soknadOppgaver = skapSoknadOppgaver(soknader, sykepengesoknadUrl())
     const sykmeldingOppgaver = skapSykmeldingoppgaver(sykmeldinger, basePath() + '/sykmeldinger')
-    const oppfolgingsplanoppgaver = skapOppfolgingsplanOppgaver(oppfolgingsplaner, sykmeldinger, oppfolgingsplanUrl())
 
     const meldingerOppgaver = skapMeldinger(meldinger)
 
-    const tasks = [...sykmeldingOppgaver, ...soknadOppgaver, ...oppfolgingsplanoppgaver, ...meldingerOppgaver].filter(
+    const tasks = [...sykmeldingOppgaver, ...soknadOppgaver, ...meldingerOppgaver].filter(
         (o) => !o.id || !lukkede.includes(o.id),
     )
-    const lasterData = meldingerLaster || sykmeldingerLaster || soknaderLaster || oppfolgingsplanerLaster
+    const lasterData = meldingerLaster || sykmeldingerLaster || soknaderLaster
 
     return <OppgaveLista oppgaver={tasks} pushLukket={pushLukket} lasterData={lasterData} />
 }

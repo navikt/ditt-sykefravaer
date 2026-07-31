@@ -2,7 +2,6 @@ import { Persona } from '../../testperson'
 import { nyttVedtakMed100Grad, vedtakMed100Grad } from '../vedtak'
 import { avvistSykmelding, bekreftetSykmelding, sendtSykmelding } from '../sykmeldinger'
 import { arbeidstaker100 } from '../soknader'
-import { avbrutt, avventendeUnderArbeid, nyUnderArbeid, utdatert } from '../oppfolgingsplaner'
 import { StatusEvent } from '../../../../types/sykmelding/sykmelding'
 
 import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldingTestData'
@@ -16,7 +15,6 @@ export const commonPersona = (): PersonaUtenBeskrivelse => {
         narmesteledere: [],
         maxdato: { maxDate: null, utbetaltTom: null },
         arbeidsrettetOppfolging: { erUnderOppfolging: false },
-        oppfolgingsplaner: [],
         meldinger: [],
     }
 }
@@ -25,7 +23,6 @@ export const defaultPersona: Persona = {
     soknader: [arbeidstaker100],
     meldinger: [],
     vedtak: [vedtakMed100Grad, nyttVedtakMed100Grad],
-    oppfolgingsplaner: [nyUnderArbeid, utdatert, avbrutt, avventendeUnderArbeid],
     inntektsmeldinger: [altinnInntektsmelding, altinnInntektsmelding2],
     sykmeldinger: [
         sendtSykmelding,

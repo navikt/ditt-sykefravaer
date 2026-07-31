@@ -5,20 +5,18 @@ import { Skeleton } from '@navikt/ds-react'
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
-import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 
 const Oppfolgingsplan = () => {
     const { data: sykmeldinger, isLoading: sykmeldingerLaster } = useTsmSykmeldinger()
-    const { data: oppfolgingsplaner, isLoading: oppfolginsplanerLaster } = useOppfolgingsplaner()
 
-    if (sykmeldingerLaster || oppfolginsplanerLaster) {
+    if (sykmeldingerLaster) {
         return <Skeleton variant="rectangle" height="86px" className="mb-2" />
     }
 
-    if (skalViseOppfoelgingsplanLenke(sykmeldinger, oppfolgingsplaner, new Date())) {
+    if (skalViseOppfoelgingsplanLenke(sykmeldinger, new Date())) {
         return (
             <FellesLenkepanel
                 ikon={HandshakeIcon}
