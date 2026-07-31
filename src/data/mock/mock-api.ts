@@ -166,11 +166,6 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         'GET /api/spinnsyn-backend/api/v3/vedtak': () => {
             return sendJson(testperson.vedtak)
         },
-        'GET /api/syfooppfolgingsplanservice/syfooppfolgingsplanservice/api/v2/arbeidstaker/oppfolgingsplaner':
-            async () => {
-                if (erClsTestperson) await sleep(250)
-                return sendJson(testperson.oppfolgingsplaner)
-            },
         'POST /api/flexjar-backend/api/v2/feedback': () => {
             return sendJson({ id: uuidv4() }, 201)
         },

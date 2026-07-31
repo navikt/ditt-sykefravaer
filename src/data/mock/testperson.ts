@@ -4,7 +4,6 @@ import { RSVedtakWrapper } from '../../types/vedtak'
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
 import { NarmesteLeder } from '../../types/narmesteLeder'
 import { ArbeidsrettetOppfolging } from '../../types/arbeidsrettetOppfolging'
-import { Oppfolgingsplan } from '../../types/oppfolgingsplan'
 import { Melding } from '../../types/melding'
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
 import { MaxDate } from '../../hooks/useMaxDate'
@@ -12,12 +11,6 @@ import { MaxDate } from '../../hooks/useMaxDate'
 import { clsPerson } from './data/personas/clsPerson'
 import { snartSluttPerson } from './data/personas/sykeforloepTestPersoner'
 import { defaultPersona } from './data/personas/personas'
-import {
-    enNyOppfolgingsplan,
-    enNyTilGodkjenning,
-    toNyeOppfolgingsplaner,
-    toTilGodkjenning,
-} from './data/personas/oppfolginsplanTestPersoner'
 import {
     henterInntektsmeldingFraAaregMed1ManedInntekt,
     henterInntektsmeldingFraAaregMedIngenManedsInntekt,
@@ -48,7 +41,6 @@ export interface Persona {
     narmesteledere: NarmesteLeder[]
     maxdato: MaxDate
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
-    oppfolgingsplaner: Oppfolgingsplan[]
     meldinger: Melding[]
     inntektsmeldinger?: InntektsmeldingTyper[]
     beskrivelse: string
@@ -60,10 +52,6 @@ export type PersonaKey =
     | 'en-ny-sykmelding'
     | 'flere-nye-sykmeldinger'
     | 'en-avvist-sykmelding'
-    | 'en-ny-oppfolgingsplan'
-    | 'to-nye-oppfolgingsplaner'
-    | 'to-nye-oppfolgingsplaner-til-godkjenning'
-    | 'en-ny-oppfolgingsplan-til-godkjenning'
     | 'snart-slutt'
     | 'venter-pa-inntektsmelding'
     | 'mottatt-inntektsmelding'
@@ -126,10 +114,6 @@ export function testpersonerGruppert(): PersonaGroup {
             ['venter-saksbehandling-revarsel']: jsonDeepCopy(venterPaSaksbehandlingNummer2),
         },
         ['oppgaver']: {
-            ['en-ny-oppfolgingsplan']: jsonDeepCopy(enNyOppfolgingsplan),
-            ['to-nye-oppfolgingsplaner']: jsonDeepCopy(toNyeOppfolgingsplaner),
-            ['en-ny-oppfolgingsplan-til-godkjenning']: jsonDeepCopy(enNyTilGodkjenning),
-            ['to-nye-oppfolgingsplaner-til-godkjenning']: jsonDeepCopy(toTilGodkjenning),
             ['snart-slutt']: jsonDeepCopy(snartSluttPerson),
 
             ['ny-soknad-utland-eos']: jsonDeepCopy(nySoknadUtlandEOSPerson),
