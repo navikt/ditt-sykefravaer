@@ -76,7 +76,7 @@ export function FlexjarFelles({
                     knappeklikk()
                 }
                 return true
-            } catch (e) {
+            } catch {
                 return false
             }
         },
@@ -98,7 +98,6 @@ export function FlexjarFelles({
     useEffect(() => {
         fetchFeedback().catch()
         // kan ikke bruke fetchFeedback som dependency, da blir det dobble kall
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeState])
 
     useEffect(() => {

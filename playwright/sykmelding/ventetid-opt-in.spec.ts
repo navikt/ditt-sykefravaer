@@ -40,8 +40,8 @@ test.describe('Opt-in info vises kun for sykmeldinger innenfor ventetiden', () =
                 .click()
 
             await harSynligOverskrift(page, 'Sykmeldingen er sendt', 1)
-            await expect(page.getByRole('heading', { name: VENTETID_HEADING })).not.toBeVisible()
-            await expect(page.getByText(OPT_IN_READ_MORE)).not.toBeVisible()
+            await expect(page.getByRole('heading', { name: VENTETID_HEADING })).toBeHidden()
+            await expect(page.getByText(OPT_IN_READ_MORE)).toBeHidden()
         })
     })
 
@@ -70,8 +70,8 @@ test.describe('Opt-in info vises kun for sykmeldinger innenfor ventetiden', () =
             await bekreftSykmelding(page)
 
             await harSynligOverskrift(page, 'Sykmeldingen er sendt', 1)
-            await expect(page.getByRole('heading', { name: VENTETID_HEADING })).not.toBeVisible()
-            await expect(page.getByText(OPT_IN_READ_MORE)).not.toBeVisible()
+            await expect(page.getByRole('heading', { name: VENTETID_HEADING })).toBeHidden()
+            await expect(page.getByText(OPT_IN_READ_MORE)).toBeHidden()
         })
     })
 })

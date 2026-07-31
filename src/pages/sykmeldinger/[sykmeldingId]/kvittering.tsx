@@ -41,7 +41,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             setSurveyModalApen(true)
             void router.replace({ pathname: router.pathname, query: { sykmeldingId } }, undefined, { shallow: true })
         }
-    }, [router.query.visSurvey]) // eslint-disable-line react-hooks/exhaustive-deps
+    }, [router.query.visSurvey])
 
     function handleSurveyTakk() {
         setSurveyTakk(true)

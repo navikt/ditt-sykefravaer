@@ -57,6 +57,6 @@ test.describe('Informasjon om ventetid', () => {
         await sendSykmelding(page)
 
         await expect(page.getByText('Sykmeldingen ble sendt til Pontypandy Fire Service')).toBeVisible()
-        await expect(page.getByText('Hva skjer videre?')).not.toBeVisible()
+        await expect(page.getByText('Hva skjer videre?')).toBeHidden()
     })
 })

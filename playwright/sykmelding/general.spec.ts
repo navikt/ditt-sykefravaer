@@ -48,6 +48,6 @@ test.describe('sykmeldingtester ikke relatert til en spesifikk bruker', () => {
         await expect(page.getByRole('region', { name: 'Flere opplysninger' })).toBeVisible()
         await expect(page.getByRole('region', { name: 'Se hva som sendes til jobben din' })).toBeVisible()
 
-        await expect(page.getByRole('region', { name: 'Dine svar' })).not.toBeVisible()
+        await expect(page.getByRole('region', { name: 'Dine svar' })).toBeHidden()
     })
 })

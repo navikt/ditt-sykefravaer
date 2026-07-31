@@ -43,6 +43,6 @@ test.describe('Tester inntektsmelding', () => {
         const closeButton = oppgaver.locator('.aksel-alert .aksel-button')
         await closeButton.click()
 
-        await expect(oppgaver).not.toBeVisible()
+        await expect(oppgaver).toBeHidden()
     })
 })

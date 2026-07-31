@@ -7,9 +7,8 @@ import { FlagProvider } from '../../toggles/context'
 import * as customQueries from './customQueries'
 
 type ProviderProps = {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     readonly initialState?: any[]
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
     readonly mocks?: any[]
 }
 
