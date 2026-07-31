@@ -1,4 +1,4 @@
-import { getAnalyticsInstance, isValidEventName } from '@navikt/nav-dekoratoren-moduler'
+import { getAnalyticsInstance } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useLayoutEffect, useRef } from 'react'
 
@@ -12,15 +12,14 @@ export type validEventNames =
     | 'expansioncard åpnet'
     | 'expansioncard lukket' //Bruk kun navn fra taksonomien
 
+type UmamiEventName = validEventNames | UmamiTaxonomyEvents['eventName']
+
 const analytics = getAnalyticsInstance('ditt-sykefravaer')
 
-export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean | number>) => {
+export const logEvent = (eventName: UmamiEventName, eventData: Record<string, string | boolean | number>) => {
     if (window) {
         if (umamiEnabled()) {
-            const resultat = isValidEventName(eventName)
-                ? analytics(eventName, eventData as never)
-                : analytics.custom(eventName, eventData)
-            resultat.catch((e) => logger.warn(`Feil ved umami logging`, e))
+            analytics.custom(eventName, eventData).catch((e) => logger.warn(`Feil ved umami logging`, e))
         } else if (!isProd() && isOpplaering()) {
             // eslint-disable-next-line no-console
             console.log(`Logger ${eventName} - Event properties: ${JSON.stringify(eventData)}!`)
@@ -31,7 +30,7 @@ export const logEvent = (eventName: validEventNames, eventData: Record<string, s
 export async function logUmamiEvent(event: UmamiTaxonomyEvents, extraData?: Record<string, unknown>): Promise<void> {
     try {
         const baseEvent = taxonomyToUmamiEvent(event, extraData)
-        logEvent(baseEvent.event_type as validEventNames, baseEvent.event_properties)
+        logEvent(baseEvent.event_type, baseEvent.event_properties)
     } catch (e) {
         logger.warn(new Error('Failed to log umami event', { cause: e }))
     }
@@ -41,7 +40,7 @@ function taxonomyToUmamiEvent(
     event: UmamiTaxonomyEvents,
     extraData: Record<string, unknown> | undefined,
 ): {
-    event_type: string
+    event_type: UmamiTaxonomyEvents['eventName']
     event_properties: Record<string, string | boolean | number>
 } {
     const properties = { ...('data' in event ? event.data : {}), ...extraData }
