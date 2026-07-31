@@ -2,7 +2,7 @@ import { ServerResponse } from 'http'
 import { Readable } from 'stream'
 import { Stream } from 'node:stream'
 
-import { serialize } from 'cookie'
+import { stringifySetCookie } from 'cookie'
 import { v4 as uuidv4 } from 'uuid'
 import { NextApiRequest, NextApiResponse } from 'next'
 import dayjs from 'dayjs'
@@ -40,7 +40,9 @@ export function getSession(
             return sessionIdCookie
         }
         const sessionId = uuidv4()
-        const cookie = serialize('mock-session', sessionId, {
+        const cookie = stringifySetCookie({
+            name: 'mock-session',
+            value: sessionId,
             httpOnly: false,
             path: '/',
             expires: new Date(Date.now() + 60 * 60 * 1000),

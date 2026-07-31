@@ -1,6 +1,6 @@
 import { logger } from '@navikt/next-logger'
 import { GetServerSidePropsContext } from 'next/types'
-import { parse } from 'cookie'
+import { parseCookie } from 'cookie'
 import { IToggle } from '@unleash/nextjs'
 import { GetServerSidePropsResult } from 'next'
 import { getToken, validateIdportenToken } from '@navikt/oasis'
@@ -23,7 +23,7 @@ export function beskyttetSide(handler: PageHandler) {
     ): Promise<ReturnType<typeof handler>> {
         if (isMockBackend()) {
             const rawCookies = context.req?.headers.cookie || ''
-            const parsedCookies = parse(rawCookies)
+            const parsedCookies = parseCookie(rawCookies)
             getSession(parsedCookies, context.res)
             return handleMockContext(context, handler)
         }
