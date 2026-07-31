@@ -2,7 +2,7 @@ import { DittSykefravaerSykmelding } from '../types/dittSykefravaerSykmelding'
 
 import { dateSub, toDate } from './dateUtils'
 
-const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 4
+const MND_SIDEN_SYKMELDING_GRENSE_FOR_OPPFOELGING = 6
 
 export const erSykmeldingGyldigForOppfolgingMedGrensedato = (
     sykmelding: DittSykefravaerSykmelding,

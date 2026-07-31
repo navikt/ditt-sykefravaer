@@ -4,7 +4,6 @@ import { UseQueryResult } from '@tanstack/react-query'
 
 import useArbeidsrettetOppfolging from '../../hooks/useArbeidsrettetOppfolging'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
-import useOppfolgingsplaner from '../../hooks/useOppfolgingsplaner'
 import useSoknader from '../../hooks/useSoknader'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import useVedtak from '../../hooks/useVedtak'
@@ -28,10 +27,6 @@ const QueryStatusPanel = () => {
         query: useVedtak(),
         message: 'Kunne ikke hente dine vedtak',
     }
-    const oppfolgingsplaner: QueryOgFeilmelding = {
-        query: useOppfolgingsplaner(),
-        message: 'Kunne ikke hente oppfølgingsplaner',
-    }
     const narmesteledere: QueryOgFeilmelding = {
         query: useNarmesteledere(),
         message: 'Kunne ikke hente din nærmeste leder',
@@ -49,7 +44,6 @@ const QueryStatusPanel = () => {
         sykmeldinger,
         soknader,
         vedtak,
-        oppfolgingsplaner,
         narmesteledere,
         arbeidsrettetOppfolging,
         inntektsmeldinger,

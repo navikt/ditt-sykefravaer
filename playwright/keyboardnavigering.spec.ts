@@ -16,20 +16,8 @@ test.describe('Keyboard navigering', () => {
 
         await expect(alertElement).toHaveCSS('color', 'rgb(0, 41, 66)')
 
-        await tabUntilFocusedContainsText(
-            browserName,
-            page,
-            /Arbeidsgiveren din har begynt på en oppfølgingsplan. Du skal fylle ut din del/,
-        )
-
         // Sjekk det lagrede elementet etter at fokus har flyttet seg
         await expect(lagretAlertElement).toHaveCSS('color', 'rgb(0, 41, 66)')
-
-        await tabUntilFocusedContainsText(
-            browserName,
-            page,
-            'Du har en oppfølgingsplan som venter på godkjenning av deg',
-        )
 
         const focusedElement = await tabUntilFocusedContainsText(
             browserName,

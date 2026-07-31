@@ -8,7 +8,6 @@ memory: 700Mi
 sidecar_cpu: 700m
 sidecar_memory: 256Mi
 external-host:
-  - syfooppfolgingsplanservice.prod-fss-pub.nais.io
   - veilarboppfolging-gcp.intern.nav.no
   - flex-unleash-api.nav.cloud.nais.io
 env:
@@ -22,7 +21,5 @@ env:
   SYFOMOTEBEHOV_CLIENT_ID: prod-gcp:team-esyfo:syfomotebehov
   VEILARBOPPFOLGING_HOST: veilarboppfolging-gcp.intern.nav.no
   VEILARBOPPFOLGING_CLIENT_ID: prod-gcp:poao:veilarboppfolging
-  SYFOOPPFOLGINGSPLANSERVICE_HOST: syfooppfolgingsplanservice.prod-fss-pub.nais.io
-  SYFOOPPFOLGINGSPLANSERVICE_CLIENT_ID: prod-fss:team-esyfo:syfooppfolgingsplanservice
   FLEXJAR_BACKEND_CLIENT_ID: prod-gcp:flex:flexjar-backend
   SYKEPENGEDAGER_INFORMASJON_CLIENT_ID: prod-gcp:team-esyfo:sykepengedager-informasjon

@@ -58,7 +58,6 @@ Teksten på oppgave/varsel logges kun dersom dette ikke inneholder meldingstype.
 - Nye og avviste sykmeldinger
 - Nye søknader
 - Svar på søknader
-- Nye oppfølgingsplan
 - Aktivitetsplan
 - Innkalling til dialøgmøte
 - Oppgave/varsel som lukkes

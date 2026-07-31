@@ -6,54 +6,66 @@ import { testDato } from '../../data/mock/mock-db/data-creators'
 
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
 
-it('Returnerer false hvis ingenting er fetchet', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke(undefined, undefined, testDato)
-    expect(skalVise).toEqual(false)
+const lagSykmelding = (
+    tom: string,
+    arbeidsgiver: DittSykefravaerSykmelding['sykmeldingStatus']['arbeidsgiver'],
+): DittSykefravaerSykmelding => ({
+    id: 'APEN',
+    sykmeldingStatus: {
+        statusEvent: 'APEN',
+        arbeidsgiver,
+    },
+    behandlingsutfall: { status: 'OK', erUnderBehandling: false },
+    sykmeldingsperioder: [{ fom: '2021-03-01', tom }],
 })
 
-it('Returnerer true hvis undefined sykmeldinger men oppfølgingsplaner', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [{ id: 1 } as any], testDato)
-    expect(skalVise).toEqual(true)
+it('returnerer false når sykmeldinger ikke er hentet', () => {
+    expect(skalViseOppfoelgingsplanLenke(undefined, testDato)).toBe(false)
 })
 
-it('Returnerer false hvis undefined sykmeldinger og ingen oppfølgingsplaner', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke(undefined, [], testDato)
-    expect(skalVise).toEqual(false)
+it('returnerer false når personen ikke har sykmeldinger', () => {
+    expect(skalViseOppfoelgingsplanLenke([], testDato)).toBe(false)
 })
 
-it('Returnerer false hvis ingen sykmeldinger og ingen oppfølgingsplaner', () => {
-    const skalVise = skalViseOppfoelgingsplanLenke([], [], testDato)
-    expect(skalVise).toEqual(false)
+it('returnerer false når sykmeldingen ikke er knyttet til en arbeidsgiver', () => {
+    const sykmelding = lagSykmelding(dayjs(testDato).format('YYYY-MM-DD'), null)
+
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(false)
 })
 
-it('Returnerer false hvis en gammel sykmelding og ingen oppfølgingsplaner', () => {
-    const dagensDato = dayjs(testDato)
-    const fireMaanederOgToDagerSiden = dagensDato.subtract(4, 'months').subtract(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: DittSykefravaerSykmelding = {
-        id: 'APEN',
-        sykmeldingStatus: {
-            statusEvent: 'APEN',
-            arbeidsgiver: { orgnummer: '1234', orgNavn: 'Jobben' },
-        },
-        behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [{ fom: '2021-03-01', tom: fireMaanederOgToDagerSiden }],
-    }
-    const skalVise = skalViseOppfoelgingsplanLenke([sykmelding], [], testDato)
-    expect(skalVise).toEqual(false)
+it('returnerer false når arbeidsgiver mangler fra sykmeldingsstatusen', () => {
+    const sykmelding = lagSykmelding(dayjs(testDato).format('YYYY-MM-DD'), undefined)
+
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(false)
 })
 
-it('Returnerer true hvis en nesten 4 måneder gammel sykmelding og ingen oppfølgingsplaner', () => {
-    const dagensDato = dayjs(testDato)
-    const nestenFireMaanederSiden = dagensDato.subtract(4, 'months').add(2, 'days').format('YYYY-MM-DD')
-    const sykmelding: DittSykefravaerSykmelding = {
-        id: 'APEN',
-        sykmeldingStatus: {
-            statusEvent: 'APEN',
-            arbeidsgiver: { orgnummer: '1234', orgNavn: 'Jobben' },
-        },
-        behandlingsutfall: { status: 'OK' },
-        sykmeldingsperioder: [{ fom: '2021-03-01', tom: nestenFireMaanederSiden }],
-    }
-    const skalVise = skalViseOppfoelgingsplanLenke([sykmelding], [], testDato)
-    expect(skalVise).toEqual(true)
+it('returnerer false når sykmeldingen med arbeidsgiver er eldre enn seks måneder', () => {
+    const eldreEnnSeksMaaneder = dayjs(testDato).subtract(6, 'months').subtract(2, 'days').format('YYYY-MM-DD')
+    const sykmelding = lagSykmelding(eldreEnnSeksMaaneder, { orgnummer: '1234', orgNavn: 'Jobben' })
+
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(false)
+})
+
+it('returnerer true når sykmeldingen med arbeidsgiver er innenfor seks måneder', () => {
+    const innenforSeksMaaneder = dayjs(testDato).subtract(6, 'months').add(2, 'days').format('YYYY-MM-DD')
+    const sykmelding = lagSykmelding(innenforSeksMaaneder, { orgnummer: '1234', orgNavn: 'Jobben' })
+
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(true)
+})
+
+it('returnerer true på selve seksmånedersgrensen', () => {
+    const seksMaanederSiden = dayjs(testDato).subtract(6, 'months').format('YYYY-MM-DD')
+    const sykmelding = lagSykmelding(seksMaanederSiden, { orgnummer: '1234', orgNavn: 'Jobben' })
+
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(true)
+})
+
+it('krever ikke at sykmeldingen har status sendt', () => {
+    const sykmelding = lagSykmelding(dayjs(testDato).format('YYYY-MM-DD'), {
+        orgnummer: '1234',
+        orgNavn: 'Jobben',
+    })
+
+    expect(sykmelding.sykmeldingStatus.statusEvent).toBe('APEN')
+    expect(skalViseOppfoelgingsplanLenke([sykmelding], testDato)).toBe(true)
 })
