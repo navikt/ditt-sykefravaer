@@ -58,7 +58,7 @@ export const bundledEnv: BundledEnv = BundledEnvSchema.parse({
 // ──────────────────────────────────────────────────────────────────────────────
 
 const ServerEnvSchema = z.object({
-    DECORATOR_ENV: z.enum(['dev', 'prod', 'beta', 'betaTms']),
+    NEXT_PUBLIC_DECORATOR_ENV: z.enum(['dev', 'prod']),
     NO_DECORATOR: z.string().optional(),
     DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: z.string().min(1),
     SPINNSYN_BACKEND_CLIENT_ID: z.string().min(1),
@@ -78,7 +78,7 @@ export type ServerEnv = z.infer<typeof ServerEnvSchema>
 
 export function getServerEnv(): ServerEnv {
     return ServerEnvSchema.parse({
-        DECORATOR_ENV: process.env.DECORATOR_ENV,
+        NEXT_PUBLIC_DECORATOR_ENV: process.env.NEXT_PUBLIC_DECORATOR_ENV,
         NO_DECORATOR: process.env.NO_DECORATOR,
         DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: process.env.DITT_SYKEFRAVAER_BACKEND_CLIENT_ID,
         SPINNSYN_BACKEND_CLIENT_ID: process.env.SPINNSYN_BACKEND_CLIENT_ID,

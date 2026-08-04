@@ -17,7 +17,7 @@ class MyDocument extends Document<Props> {
         const initialProps = await Document.getInitialProps(ctx)
 
         const Decorator = await fetchDecoratorReact({
-            env: (process.env.DECORATOR_ENV ?? 'dev') as 'prod' | 'dev' | 'beta' | 'betaTms',
+            env: process.env.NEXT_PUBLIC_DECORATOR_ENV as 'prod' | 'dev',
             params: {
                 chatbot: false,
                 feedback: false,

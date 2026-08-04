@@ -24,7 +24,7 @@ const nextConfig = {
         ]
     },
     async headers() {
-        const csp = await buildCspHeader(appDirectives, { env: process.env.DECORATOR_ENV })
+        const csp = await buildCspHeader(appDirectives, { env: process.env.NEXT_PUBLIC_DECORATOR_ENV })
 
         return [
             {
@@ -52,7 +52,7 @@ const nextConfig = {
         ]
     },
     basePath: '/syk/sykefravaer',
-    assetPrefix: process.env.ASSET_PREFIX || undefined,
+    assetPrefix: process.env.NEXT_PUBLIC_ASSET_PREFIX || undefined,
     transpilePackages: ['filter-obj', 'query-string'],
     async redirects() {
         return [
