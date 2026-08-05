@@ -272,9 +272,7 @@ function FiskerLottOgHyreAnswer({
     response,
 }: {
     response:
-        | Pick<NonNullable<NonNullable<BrukerSvar['fisker']>['lottOgHyre']>, 'sporsmaltekst' | 'svar'>
-        | null
-        | undefined
+        Pick<NonNullable<NonNullable<BrukerSvar['fisker']>['lottOgHyre']>, 'sporsmaltekst' | 'svar'> | null | undefined
 }): ReactElement | null {
     if (response == null) return null
 

@@ -5,12 +5,7 @@ import { useLayoutEffect, useRef } from 'react'
 import { isOpplaering, isProd, umamiEnabled } from '../../utils/environment'
 
 export type validEventNames =
-    | 'navigere'
-    | 'alert vist'
-    | 'knapp klikket'
-    | 'komponent vist'
-    | 'expansioncard åpnet'
-    | 'expansioncard lukket' //Bruk kun navn fra taksonomien
+    'navigere' | 'alert vist' | 'knapp klikket' | 'komponent vist' | 'expansioncard åpnet' | 'expansioncard lukket' //Bruk kun navn fra taksonomien
 
 export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean | number>) => {
     if (window) {

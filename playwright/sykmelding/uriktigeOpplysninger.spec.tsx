@@ -142,11 +142,7 @@ test.describe('Uriktige opplysninger', () => {
 
 function opplysningNotCorrect(
     ...whatsNotCorrect: (
-        | 'Periode'
-        | `Sykmeldingsgraden er for ${'lav' | 'høy'}`
-        | 'Arbeidsgiver'
-        | 'Diagnose'
-        | 'Andre opplysninger'
+        'Periode' | `Sykmeldingsgraden er for ${'lav' | 'høy'}` | 'Arbeidsgiver' | 'Diagnose' | 'Andre opplysninger'
     )[]
 ) {
     return async (page: Page): Promise<void> => {
