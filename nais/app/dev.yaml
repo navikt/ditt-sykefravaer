@@ -12,7 +12,6 @@ external-host:
   - flex-unleash-api.nav.cloud.nais.io
 env:
   ENVIRONMENT: q1
-  DECORATOR_ENV: dev
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: dev-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: dev-gcp:flex:spinnsyn-backend
   FLEX_SYKMELDINGER_BACKEND_CLIENT_ID: dev-gcp:flex:flex-sykmeldinger-backend

@@ -29,5 +29,3 @@ spec:
   env:
     - name: ENVIRONMENT
       value: "labs"
-    - name: DECORATOR_ENV
-      value: "prod"
