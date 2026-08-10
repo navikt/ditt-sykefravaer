@@ -1,4 +1,4 @@
-import { logAnalyticsEvent } from '@navikt/nav-dekoratoren-moduler'
+import { logAnalyticsCustomEvent } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useLayoutEffect, useRef } from 'react'
 
@@ -10,7 +10,7 @@ export type validEventNames =
 export const logEvent = (eventName: validEventNames, eventData: Record<string, string | boolean | number>) => {
     if (window) {
         if (umamiEnabled()) {
-            logAnalyticsEvent({
+            logAnalyticsCustomEvent({
                 origin: 'ditt-sykefravaer',
                 eventName,
                 eventData,
