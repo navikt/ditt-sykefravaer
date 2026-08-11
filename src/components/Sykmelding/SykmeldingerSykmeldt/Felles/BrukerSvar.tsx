@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { BoatIcon, BriefcaseIcon, CheckmarkCircleIcon, TasklistIcon, XMarkOctagonIcon } from '@navikt/aksel-icons'
 import { ExpansionCard } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
 import { arbeidsSituasjonEnumToText, uriktigeOpplysningerEnumToText } from '../../../../utils/sporsmal'
@@ -42,8 +43,8 @@ export function BrukerSvarExpansionCard({
             onToggle={(open) => {
                 logUmamiEvent(
                     {
-                        eventName: `accordion ${open ? 'åpnet' : 'lukket'}`,
-                        data: { tekst: title },
+                        eventName: open ? Events.UTVIDBART_KORT_APNET : Events.UTVIDBART_KORT_LUKKET,
+                        data: { tittel: title },
                     },
                     {
                         status: brukerSvar ? 'sendt/bekreftet' : 'ikke sendt',

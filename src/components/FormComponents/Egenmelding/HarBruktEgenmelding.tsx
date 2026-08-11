@@ -1,5 +1,6 @@
-import { BodyLong, BodyShort, Link, List, ReadMore, Box } from '@navikt/ds-react'
-import { ReactElement, useState } from 'react'
+import { BodyLong, BodyShort, Box, Link, List, ReadMore } from '@navikt/ds-react'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
+import { ReactElement } from 'react'
 
 import { dateAdd, toReadableDate } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
@@ -74,24 +75,17 @@ function HarBruktEgenmelding({
 }
 
 function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
-    const [open, setOpen] = useState(false)
-    const handleOnReadMoreClick = (): void => {
-        if (!open) {
-            logUmamiEvent(
-                {
-                    eventName: 'komponent vist',
-                    data: { komponent: 'EgenmeldingsdagerReadMore' },
-                },
-                { level: index + 1 },
-            )
-        }
+    const header = index === 0 ? 'Hvorfor spør vi om egenmelding?' : 'Hvorfor spør vi igjen?'
 
-        setOpen((b) => !b)
+    function handleOpenChange(isOpen: boolean): void {
+        if (isOpen) {
+            logUmamiEvent({ eventName: Events.LES_MER_APNET, data: { tittel: header } }, { level: index + 1 })
+        }
     }
 
     if (index === 0) {
         return (
-            <ReadMore header="Hvorfor spør vi om egenmelding?" open={open} onClick={handleOnReadMoreClick}>
+            <ReadMore header={header} onOpenChange={handleOpenChange}>
                 <BodyLong spacing>
                     Egenmelding er når du melder fra til arbeidsgiveren din om at du er syk og borte fra jobb – uten å
                     ha fått sykmelding.
@@ -134,7 +128,7 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
     }
 
     return (
-        <ReadMore header="Hvorfor spør vi igjen?" open={open} onClick={handleOnReadMoreClick}>
+        <ReadMore header={header} onOpenChange={handleOpenChange}>
             <BodyLong>
                 Hadde du egenmelding innenfor 16 dager før en annen egenmeldingsperiode, telles dagene sammen når vi
                 beregner arbeidsgiverperioden.

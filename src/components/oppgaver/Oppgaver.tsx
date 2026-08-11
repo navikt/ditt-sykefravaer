@@ -24,7 +24,7 @@ export const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertPr
         logEvent('alert vist', {
             tekst: oppgave.meldingType ?? oppgave.tekst,
             variant: oppgave.type ?? 'info',
-            komponent: 'ditt sykefravær oppgave',
+            komponentId: 'ditt sykefravær oppgave',
         })
     }, [oppgave.meldingType, oppgave.tekst, oppgave.type])
 
@@ -37,8 +37,7 @@ export const EnkeltOppgaveAlert = ({ oppgave, pushLukket }: EnkeltOppgaveAlertPr
                 logEvent('knapp klikket', {
                     tekst: 'close ikon',
                     alerttekst: oppgave.meldingType ?? oppgave.tekst,
-                    variant: oppgave.type ?? 'info',
-                    komponent: 'ditt sykefravær oppgave',
+                    komponentId: 'ditt sykefravær oppgave',
                 })
                 if (oppgave.id) {
                     try {
