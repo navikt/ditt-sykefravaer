@@ -1,4 +1,4 @@
-import { ReactElement, useRef } from 'react'
+import { ReactElement, useEffect, useRef } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
 import dynamic from 'next/dynamic'
@@ -13,7 +13,7 @@ import { EgenmeldingsdagerSubForm } from '../FormComponents/Egenmelding/Egenmeld
 import useWarnUnsavedPopup from '../../hooks/useWarnUnsaved'
 import useBrukerinformasjonById from '../../hooks/sykmelding/useBrukerinformasjonById'
 import AutoFillerDevTools from '../FormComponents/DevTools/AutoFillerDevTools'
-import { logUmamiEvent, useLogUmamiEvent } from '../umami/umami'
+import { logEvent } from '../umami/umami'
 import { autofillEnabled } from '../../utils/environment'
 
 import OpplysningerRiktigeSection from './FormSections/OpplysningerRiktige/OpplysningerRiktigeSection'
@@ -57,7 +57,9 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
     const skjemanavn = !sykmelding.papirsykmelding ? 'åpen sykmelding' : 'åpen papirsykmelding'
     const sykmeldingId = useGetSykmeldingIdParam()
 
-    useLogUmamiEvent({ eventName: 'skjema åpnet', data: { skjemanavn } })
+    useEffect(() => {
+        logEvent('skjema åpnet', { skjemanavn })
+    }, [skjemanavn])
 
     const errorSectionRef = useRef<HTMLDivElement>(null)
     const form = useForm<FormValues>({
@@ -88,12 +90,12 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
     const sendSmMut = useSendSykmelding(
         sykmeldingId,
         (values) => {
-            logUmamiEvent(
-                { eventName: 'skjema fullført', data: { skjemanavn } },
-                { 'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null },
-            )
+            logEvent('skjema fullført', {
+                skjemanavn,
+                'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null,
+            })
         },
-        () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
+        () => logEvent('skjema innsending feilet', { skjemanavn }),
     )
 
     useWarnUnsavedPopup(form.formState.isDirty && !form.formState.isSubmitSuccessful)

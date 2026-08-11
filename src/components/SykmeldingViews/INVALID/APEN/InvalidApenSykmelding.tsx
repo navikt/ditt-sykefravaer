@@ -6,7 +6,7 @@ import AvvistVeileder from '../../../AvvistVeileder/AvvistVeileder'
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
 import { getBehandlerName } from '../../../../utils/behandlerUtils'
 import SykmeldingSykmeldtSection from '../../../Sykmelding/SykmeldingerSykmeldt/SykmeldingSykmeldtSection'
-import { logUmamiEvent } from '../../../umami/umami'
+import { logEvent } from '../../../umami/umami'
 import { Sykmelding } from '../../../../types/sykmelding/sykmelding'
 import {
     SykmeldingChangeStatus,
@@ -86,8 +86,8 @@ function useBekreftInvalid() {
     return useChangeSykmeldingStatus(
         sykmeldingId,
         SykmeldingChangeStatus.BEKREFT_AVVIST,
-        () => logUmamiEvent({ eventName: 'skjema fullført', data: { skjemanavn } }),
-        () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
+        () => logEvent('skjema fullført', { skjemanavn }),
+        () => logEvent('skjema innsending feilet', { skjemanavn }),
     )
 }
 

@@ -6,7 +6,7 @@ import * as R from 'remeda'
 import cn from 'classnames'
 
 import { sortDatesASC } from '../../../utils/dateUtils'
-import { logUmamiEvent } from '../../umami/umami'
+import { logEvent } from '../../umami/umami'
 import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
 import HarBruktEgenmelding from './HarBruktEgenmelding'
@@ -59,13 +59,11 @@ function EgenmeldingerField({
     }, [setValue, hasHitPreviousSykmeldingTom, egenmeldingsdagerHitPrevious])
 
     useEffect(() => {
-        logUmamiEvent(
-            {
-                eventName: 'skjema steg fullført',
-                data: { skjemanavn: umamiSkjemanavn, steg: 'Har truffet forrige sykmelding tom' },
-            },
-            { level: index + 1 },
-        )
+        logEvent('skjema steg fullført', {
+            skjemanavn: umamiSkjemanavn,
+            steg: 'Har truffet forrige sykmelding tom',
+            level: index + 1,
+        })
     }, [index, umamiSkjemanavn, hasHitPreviousSykmeldingTom])
 
     if (hasHitPreviousSykmeldingTom) {

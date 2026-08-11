@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 
 import { dateAdd, toReadableDate } from '../../../utils/dateUtils'
 import { sporsmal } from '../../../utils/sporsmal'
-import { logUmamiEvent } from '../../umami/umami'
+import { logEvent } from '../../umami/umami'
 import YesNoField from '../YesNoField/YesNoField'
 import { QuestionWrapper } from '../FormStructure'
 import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
@@ -53,17 +53,12 @@ function HarBruktEgenmelding({
                     required: 'Du må svare på om du har brukt egenmelding før du ble syk.',
                 }}
                 onChange={(value: YesOrNo) => {
-                    logUmamiEvent(
-                        {
-                            eventName: 'skjema spørsmål besvart',
-                            data: {
-                                skjemanavn: umamiSkjemanavn,
-                                spørsmål: 'Har du brukt egenmeldingsdager i perioden?',
-                                svar: value,
-                            },
-                        },
-                        { level: index + 1 },
-                    )
+                    logEvent('skjema spørsmål besvart', {
+                        skjemanavn: umamiSkjemanavn,
+                        spørsmål: 'Har du brukt egenmeldingsdager i perioden?',
+                        svar: value,
+                        level: index + 1,
+                    })
 
                     if (value === YesOrNo.NO) {
                         onNo()
@@ -79,7 +74,7 @@ function EgenmeldingReadMore({ index }: { index: number }): ReactElement {
 
     function handleOpenChange(isOpen: boolean): void {
         if (isOpen) {
-            logUmamiEvent({ eventName: Events.LES_MER_APNET, data: { tittel: header } }, { level: index + 1 })
+            logEvent(Events.LES_MER_APNET, { tittel: header, level: index + 1 })
         }
     }
 

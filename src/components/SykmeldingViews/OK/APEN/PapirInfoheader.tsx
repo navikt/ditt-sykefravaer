@@ -2,7 +2,7 @@ import React, { ReactElement, useState } from 'react'
 import { Alert, BodyLong, Button, Heading, Radio, RadioGroup } from '@navikt/ds-react'
 
 import useGetSykmeldingIdParam from '../../../../hooks/useGetSykmeldingIdParam'
-import { logUmamiEvent } from '../../../umami/umami'
+import { logEvent } from '../../../umami/umami'
 import {
     SykmeldingChangeStatus,
     useChangeSykmeldingStatus,
@@ -15,8 +15,8 @@ function PapirInfoheader(): ReactElement {
     const avbrytMutation = useChangeSykmeldingStatus(
         sykmeldingId,
         SykmeldingChangeStatus.AVBRYT,
-        () => logUmamiEvent({ eventName: 'skjema fullført', data: { skjemanavn } }),
-        () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
+        () => logEvent('skjema fullført', { skjemanavn }),
+        () => logEvent('skjema innsending feilet', { skjemanavn }),
     )
     const [harGittVidere, setHarGittVidere] = useState<'Ja' | 'Nei' | null>(null)
     return (

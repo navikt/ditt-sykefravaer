@@ -10,7 +10,7 @@ import { toReadableDate, toReadableDatePeriod } from '../../../../utils/dateUtil
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { isArbeidsledig, isFrilanserOrNaeringsdrivendeOrJordbruker } from '../../../../utils/arbeidssituasjonUtils'
 import useBrukerInformasjonById from '../../../../hooks/sykmelding/useBrukerinformasjonById'
-import { logUmamiEvent } from '../../../umami/umami'
+import { logEvent } from '../../../umami/umami'
 import useTidligereArbeidsgivereById from '../../../../hooks/sykmelding/useTidligereArbeidsgivereById'
 import { BrukerSvar, JaEllerNei } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
 
@@ -41,15 +41,10 @@ export function BrukerSvarExpansionCard({
             aria-labelledby="oppsummering-bruker-svar-heading"
             className={className}
             onToggle={(open) => {
-                logUmamiEvent(
-                    {
-                        eventName: open ? Events.UTVIDBART_KORT_APNET : Events.UTVIDBART_KORT_LUKKET,
-                        data: { tittel: title },
-                    },
-                    {
-                        status: brukerSvar ? 'sendt/bekreftet' : 'ikke sendt',
-                    },
-                )
+                logEvent(open ? Events.UTVIDBART_KORT_APNET : Events.UTVIDBART_KORT_LUKKET, {
+                    tittel: title,
+                    status: brukerSvar ? 'sendt/bekreftet' : 'ikke sendt',
+                })
             }}
         >
             <ExpansionCard.Header>

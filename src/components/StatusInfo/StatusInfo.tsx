@@ -3,7 +3,7 @@ import { BodyShort, GuidePanel, Heading, Link } from '@navikt/ds-react'
 import { ExternalLinkIcon } from '@navikt/aksel-icons'
 
 import { Merknad, Merknadtype, Periode, Periodetype, SykmeldingStatus } from '../../types/sykmelding/sykmelding'
-import { logUmamiEvent } from '../umami/umami'
+import { logEvent } from '../umami/umami'
 import { oppfolgingsplanUrl, sykepengesoknadUrl } from '../../utils/environment'
 
 interface StatusInfoProps {
@@ -89,12 +89,9 @@ function StatusInfo({
                     href={`${sykepengesoknadUrl()}/sykepengesoknad-utland`}
                     target="_bland"
                     onClick={() =>
-                        logUmamiEvent({
-                            eventName: 'navigere',
-                            data: {
-                                destinasjon: 'opphold i utland info',
-                                lenketekst: 'Sykepenger sok opphold utland',
-                            },
+                        logEvent('navigere', {
+                            destinasjon: 'opphold i utland info',
+                            lenketekst: 'Sykepenger sok opphold utland',
                         })
                     }
                 >

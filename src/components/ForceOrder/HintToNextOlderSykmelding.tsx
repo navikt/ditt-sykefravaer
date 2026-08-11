@@ -5,7 +5,7 @@ import { ReactElement, useEffect } from 'react'
 import { toEarliestSykmelding, filterUnsentSykmeldinger } from '../../utils/findOlderSykmeldingId'
 import useSykmeldinger from '../../hooks/sykmelding/useSykmeldinger'
 import { pluralize } from '../../utils/stringUtils'
-import { logUmamiEvent } from '../umami/umami'
+import { logEvent } from '../umami/umami'
 
 function HintToNextOlderSykmelding(): ReactElement | null {
     const { data: alleSykmeldinger, error, isPending: isLoading } = useSykmeldinger()
@@ -32,10 +32,7 @@ function HintToNextOlderSykmelding(): ReactElement | null {
                 href={`/sykmeldinger/${earliestId}`}
                 variant="primary"
                 onClick={() =>
-                    logUmamiEvent({
-                        eventName: 'navigere',
-                        data: { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' },
-                    })
+                    logEvent('navigere', { destinasjon: 'neste ubrukte sykmelding', lenketekst: 'Gå til sykmeldingen' })
                 }
             >
                 {unsentSykmeldinger.length > 1 ? 'Gå videre' : 'Gå til sykmeldingen'}
