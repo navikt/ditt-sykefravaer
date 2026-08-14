@@ -23,8 +23,6 @@ test.describe('Ugyldig tilbakedatert sykmelding', () => {
         await velgArbeidssituasjon('annet')(page)
         await bekreftSykmelding(page)
 
-        await page.getByRole('dialog').getByRole('button', { name: 'Avbryt' }).click()
-
         await expectKvittering({
             sendtTil: 'NAV',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
