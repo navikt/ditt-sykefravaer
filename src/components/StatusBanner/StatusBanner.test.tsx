@@ -17,6 +17,7 @@ describe('StatusBanner', () => {
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
+            erUnderBehandling: false,
             ruleHits: [],
         }
 
@@ -32,6 +33,7 @@ describe('StatusBanner', () => {
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
+            erUnderBehandling: false,
             ruleHits: [],
         }
 
@@ -47,6 +49,7 @@ describe('StatusBanner', () => {
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.OK,
+            erUnderBehandling: false,
             ruleHits: [],
         }
 
@@ -62,6 +65,7 @@ describe('StatusBanner', () => {
         }
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
+            erUnderBehandling: false,
             ruleHits: [],
         }
 

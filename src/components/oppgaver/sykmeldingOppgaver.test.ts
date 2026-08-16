@@ -29,6 +29,7 @@ it('Returnerer en oppgave når det er en åpen OK sykmelding', () => {
             },
             behandlingsutfall: {
                 status: RegelStatus.OK,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -56,6 +57,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding', () => {
             },
             behandlingsutfall: {
                 status: RegelStatus.MANUAL_PROCESSING,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -83,6 +85,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
             },
             behandlingsutfall: {
                 status: RegelStatus.MANUAL_PROCESSING,
+                erUnderBehandling: false,
             },
         },
         {
@@ -98,6 +101,7 @@ it('Returnerer en oppgave når det er en åpen manuell sykmelding og en åpen ok
             },
             behandlingsutfall: {
                 status: RegelStatus.OK,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -125,6 +129,7 @@ it('Returnerer ingen oppgaver når det er en sendt ok sykmelding', () => {
             },
             behandlingsutfall: {
                 status: RegelStatus.OK,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -147,6 +152,7 @@ it('Returnerer en oppgave når det er en åpen invalid sykmelding', () => {
             },
             behandlingsutfall: {
                 status: RegelStatus.INVALID,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -174,6 +180,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
             },
             behandlingsutfall: {
                 status: RegelStatus.INVALID,
+                erUnderBehandling: false,
             },
         },
         {
@@ -189,6 +196,7 @@ it('Returnerer to oppgaver når det er en åpen invalid sykmelding og en åpen o
             },
             behandlingsutfall: {
                 status: RegelStatus.OK,
+                erUnderBehandling: false,
             },
         },
     ]
@@ -220,6 +228,7 @@ it('Returnerer ingen oppgaver når sykmeldingen er eldre enn 3 måneder', () => 
             },
             behandlingsutfall: {
                 status: RegelStatus.OK,
+                erUnderBehandling: false,
             },
         },
     ]

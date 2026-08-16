@@ -10,6 +10,7 @@ const minimalSykmelding: Sykmelding = {
     mottattTidspunkt: '2020-01-10',
     behandlingsutfall: {
         status: RegelStatus.OK,
+        erUnderBehandling: false,
         ruleHits: [],
     },
     arbeidsgiver: null,
