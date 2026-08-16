@@ -9,9 +9,7 @@ describe('arbeidsgiverUtils', () => {
         it('skal returnere arbeidsgiver hvis gitt orgnummer samsvarer', () => {
             const arbeidsgivere: Arbeidsgiver[] = [
                 {
-                    __typename: 'Arbeidsgiver',
                     naermesteLeder: {
-                        __typename: 'NaermesteLeder',
                         navn: 'Lise',
                     },
                     navn: 'Vaskeri AS',
@@ -19,9 +17,7 @@ describe('arbeidsgiverUtils', () => {
                     aktivtArbeidsforhold: true,
                 },
                 {
-                    __typename: 'Arbeidsgiver',
                     naermesteLeder: {
-                        __typename: 'NaermesteLeder',
                         navn: 'Knut',
                     },
                     navn: 'Snill Torpedo',
@@ -36,9 +32,7 @@ describe('arbeidsgiverUtils', () => {
         it('skal returnere undefined hvis gitt orgnummer ikke finnes i arbeidsgiver-listen', () => {
             const arbeidsgivere: Arbeidsgiver[] = [
                 {
-                    __typename: 'Arbeidsgiver',
                     naermesteLeder: {
-                        __typename: 'NaermesteLeder',
                         navn: 'Lise',
                     },
                     navn: 'Vaskeri AS',

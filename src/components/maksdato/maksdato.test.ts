@@ -20,6 +20,7 @@ const aktuellSykmelding: DittSykefravaerSykmelding[] = [
         },
         behandlingsutfall: {
             status: RegelStatus.OK,
+            erUnderBehandling: false,
         },
         sykmeldingsperioder: [
             {
@@ -38,6 +39,7 @@ const ikkeAktuellSykmelding: DittSykefravaerSykmelding[] = [
         },
         behandlingsutfall: {
             status: RegelStatus.OK,
+            erUnderBehandling: false,
         },
         sykmeldingsperioder: [
             {

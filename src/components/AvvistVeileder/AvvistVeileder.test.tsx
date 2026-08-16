@@ -9,6 +9,7 @@ describe('AvvistVeileder', () => {
     it('Viser tilpasset melding hvis terapeuten mangler autorisasjon', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
+            erUnderBehandling: false,
             ruleHits: [
                 {
                     messageForSender: '',
@@ -27,6 +28,7 @@ describe('AvvistVeileder', () => {
     it('Viser tilpasset melding for personer over 70', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
+            erUnderBehandling: false,
             ruleHits: [
                 {
                     messageForSender: '',
@@ -45,6 +47,7 @@ describe('AvvistVeileder', () => {
     it('Viser tilpasset melding ved z-diagnose', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
+            erUnderBehandling: false,
             ruleHits: [
                 {
                     messageForSender: '',
@@ -64,6 +67,7 @@ describe('AvvistVeileder', () => {
     it('Viser normal melding for andre regeltreff', () => {
         const behandlingsutfall: Behandlingsutfall = {
             status: RegelStatus.INVALID,
+            erUnderBehandling: false,
             ruleHits: [
                 {
                     messageForSender: '',

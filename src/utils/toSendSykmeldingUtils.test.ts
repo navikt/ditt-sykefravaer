@@ -43,7 +43,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -78,7 +77,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -117,7 +115,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -162,7 +159,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -199,7 +195,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -254,7 +249,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: Blad.A,
                     lottOgHyre: LottOgHyre.HYRE,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -293,7 +287,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: Blad.A,
                     lottOgHyre: LottOgHyre.LOTT,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -337,7 +330,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: Blad.B,
                     lottOgHyre: LottOgHyre.LOTT,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -374,7 +366,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -414,7 +405,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -451,7 +441,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -485,7 +474,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -522,7 +510,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: {
                     arbeidsledigFraOrgnummer: '98989898',
                 },
@@ -557,7 +544,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -588,7 +574,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: {
                     arbeidsledigFraOrgnummer: 'ingen',
                 },
@@ -621,7 +606,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: {
                     arbeidsledigFraOrgnummer: '12121212',
                 },
@@ -657,7 +641,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: {
                     arbeidsledigFraOrgnummer: null,
                 },
@@ -692,7 +675,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }
@@ -724,7 +706,6 @@ describe('toSendSykmeldingUtils', () => {
                     blad: null,
                     lottOgHyre: null,
                 },
-                extra: null,
                 arbeidsledig: null,
                 erSykmeldtFraFlereArbeidsforhold: null,
             }

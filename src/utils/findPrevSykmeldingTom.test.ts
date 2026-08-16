@@ -109,6 +109,7 @@ describe('findPrevSykmeldingTom', () => {
                 },
                 behandlingsutfall: {
                     status: RegelStatus.INVALID,
+                    erUnderBehandling: false,
                     ruleHits: [],
                 },
                 sykmeldingsperioder: [
@@ -148,6 +149,7 @@ describe('findPrevSykmeldingTom', () => {
                 },
                 behandlingsutfall: {
                     status: RegelStatus.OK,
+                    erUnderBehandling: false,
                     ruleHits: [],
                 },
                 sykmeldingsperioder: [
@@ -280,6 +282,7 @@ describe('findPrevSykmeldingTom', () => {
                 },
                 behandlingsutfall: {
                     status: RegelStatus.INVALID,
+                    erUnderBehandling: false,
                     ruleHits: [],
                 },
                 sykmeldingsperioder: [

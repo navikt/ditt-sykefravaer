@@ -2,6 +2,7 @@ import { expect, it } from 'vitest'
 import dayjs from 'dayjs'
 
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
+import { RegelStatus, StatusEvent } from '../../types/sykmelding/sykmelding'
 import { testDato } from '../../data/mock/mock-db/data-creators'
 
 import { skalViseOppfoelgingsplanLenke } from './skalViseOppfoelgingsplanLenke'
@@ -12,10 +13,10 @@ const lagSykmelding = (
 ): DittSykefravaerSykmelding => ({
     id: 'APEN',
     sykmeldingStatus: {
-        statusEvent: 'APEN',
+        statusEvent: StatusEvent.APEN,
         arbeidsgiver,
     },
-    behandlingsutfall: { status: 'OK', erUnderBehandling: false },
+    behandlingsutfall: { status: RegelStatus.OK, erUnderBehandling: false },
     sykmeldingsperioder: [{ fom: '2021-03-01', tom }],
 })
 
