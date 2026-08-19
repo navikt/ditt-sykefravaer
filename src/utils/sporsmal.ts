@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType } from '../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad } from '../types/sykmelding/sykmeldingCommon'
 import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 
 import { prettifyOrgName } from './orgUtils'
@@ -105,5 +105,27 @@ export function uriktigeOpplysningerEnumToText(uriktigeOpplysninger: UriktigeOpp
             return 'Diagnose'
         case UriktigeOpplysningerType.ANDRE_OPPLYSNINGER:
             return 'Andre opplysninger'
+    }
+}
+
+export function bladbeskrivelse(bladtype: Blad): string {
+    switch (bladtype) {
+        case Blad.A:
+            return 'Du har fiske som hovednæring'
+        case Blad.B:
+            return 'Du har fiske som binæring og har som regel en annen jobb i tillegg'
+        case Blad.Ingen:
+            return ''
+    }
+}
+
+export function bladTittel(bladtype: Blad): string {
+    switch (bladtype) {
+        case Blad.A:
+            return 'Nei, jeg er registrert på Blad A'
+        case Blad.B:
+            return 'Ja, jeg er registert på Blad B'
+        case Blad.Ingen:
+            return 'Nei, jeg er ikke registert'
     }
 }

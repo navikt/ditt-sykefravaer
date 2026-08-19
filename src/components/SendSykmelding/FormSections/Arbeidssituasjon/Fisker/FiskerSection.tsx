@@ -10,6 +10,7 @@ import BladField from './BladField'
 import LottOgHyreField from './LottOgHyreField'
 import FiskerArbeidstakerSection from './FiskerArbeidstaker/FiskerArbeidstakerSection'
 import FiskerSelvstendigSection from './FiskerSelvstendig/FiskerSelvstendigSection'
+import { BodyShort, ReadMore } from '@navikt/ds-react'
 
 type Props = {
     sykmelding: Sykmelding
@@ -36,7 +37,21 @@ function FiskerSection({ brukerinformasjon, sykmelding }: Props): ReactElement {
     const [blad, lottOgHyre] = watch(['fisker.blad', 'fisker.lottOgHyre'])
 
     return (
-        <SectionWrapper>
+        <SectionWrapper title="Er du registrert som Blad B i Fiskerregisteret?" size={'small'}>
+            <ReadMore header="Hva er Fiskerregisteret?">
+                <BodyShort spacing>
+                    Fiskerregisteret er et register over personer i Norge som har fiske som hovednæring eller binæring.
+                    Registeret er delt i to blad:
+                </BodyShort>
+                <BodyShort spacing>
+                    Blad B er for deg som har fiske som hovednæring. Blad A er for deg som har fiske som binæring ved
+                    siden av en annen jobb.
+                </BodyShort>
+                <BodyShort spacing>
+                    Er du usikker på om du er registrert, eller hvilket blad du står på? Du kan sjekke på
+                    Fiskerregisteret.
+                </BodyShort>
+            </ReadMore>
             <BladField />
             {blad != null && <LottOgHyreField />}
             {lottOgHyre === 'LOTT' && blad === 'A' && <FiskerSelvstendigSection sykmelding={sykmelding} />}
