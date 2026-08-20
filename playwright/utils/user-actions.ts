@@ -259,16 +259,19 @@ export function filloutArbeidstaker(arbeidstaker: RegExp): (page: Page) => Promi
 
 export function fillOutFisker(
     blad: `Blad ${'A' | 'B'}`,
-    lott: 'Lott' | 'Hyre' | 'Både lott og hyre',
+    lottEllerHyre: 'Lott - andel av fangsten' | 'Hyre - fast lønn' | 'Både hyre og lott',
 ): (page: Page) => Promise<void> {
     return async (page: Page): Promise<void> => {
         await navigateToFirstSykmelding('nye', '100%')(page)
         await opplysingeneStemmer(page)
         await velgArbeidssituasjon('fisker')(page)
-        await getRadioInGroup(page)({ name: /Velg blad/i }, { name: blad }).click()
         await getRadioInGroup(page)(
-            { name: /Mottar du lott eller er du på hyre?/i },
-            { name: lott, exact: true },
+            { name: /Er du registrert som Blad B i Fiskerregisteret?/i },
+            { name: blad },
+        ).click()
+        await getRadioInGroup(page)(
+            { name: /Hva slags lønn får du fra fisket?/i },
+            { name: lottEllerHyre, exact: true },
         ).click()
     }
 }

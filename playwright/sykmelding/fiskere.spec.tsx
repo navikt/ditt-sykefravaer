@@ -29,7 +29,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             )
 
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
 
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
             await page.unrouteAll({ behavior: 'ignoreErrors' })
@@ -51,7 +51,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             )
 
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
 
             await expect(
                 page.getByText(
@@ -75,7 +75,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })
 
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
 
             await expect(
                 page.getByText(
@@ -99,7 +99,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             )
 
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
 
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
             await page.unrouteAll({ behavior: 'ignoreErrors' })
@@ -110,7 +110,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         test('Lott, skal oppføre seg som næringsdrivende', async ({ page }) => {
             await gotoScenario('normal')(page)
             // Behaves similar to normal nearingsdrivende
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
             await frilanserEgenmeldingsperioder([
                 {
                     fom: `01.01.${testAar}`,
@@ -145,14 +145,14 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
                 erForsteSykmelding: false,
                 erUtenforVentetid: true,
             })(page)
-            await fillOutFisker('Blad A', 'Lott')(page)
+            await fillOutFisker('Blad A', 'Lott - andel av fangsten')(page)
 
             await expect(page.getByRole('region', { name: 'Fravær før sykmeldingen' })).toBeHidden()
         })
 
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Hyre')(page)
+            await fillOutFisker('Blad A', 'Hyre - fast lønn')(page)
             // Hyre behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -183,7 +183,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
 
         test('Lott & Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad A', 'Både lott og hyre')(page)
+            await fillOutFisker('Blad A', 'Både hyre og lott')(page)
             // 'Begge' behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -216,7 +216,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     test.describe('Blad B', () => {
         test('Lott skal ikke ha ekstra spørsmål', async ({ page }) => {
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad B', 'Lott')(page)
+            await fillOutFisker('Blad B', 'Lott - andel av fangsten')(page)
             await bekreftSykmelding(page)
 
             await expectKvittering({
@@ -235,7 +235,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
 
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad B', 'Hyre')(page)
+            await fillOutFisker('Blad B', 'Hyre - fast lønn')(page)
             // Hyre behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -266,7 +266,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
 
         test('Lott & Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
-            await fillOutFisker('Blad B', 'Både lott og hyre')(page)
+            await fillOutFisker('Blad B', 'Både hyre og lott')(page)
             // 'Begge' behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
             await bekreftNarmesteleder('Station Officer Steele')(page)
@@ -303,7 +303,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await gotoScenario('normal', {
                 antallArbeidsgivere: 0,
             })(page)
-            await fillOutFisker('Blad B', 'Både lott og hyre')(page)
+            await fillOutFisker('Blad B', 'Både hyre og lott')(page)
 
             const expectedHint =
                 'Hvis det stemmer at arbeidsforholdet ditt ikke skal registreres, kan du sende inn sykmeldingen til NAV som fisker ved å velge lott i stedet for hyre.'
@@ -311,8 +311,8 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByText(expectedHint)).toBeVisible()
 
             await getRadioInGroup(page)(
-                { name: /Mottar du lott eller er du på hyre?/i },
-                { name: 'Hyre', exact: true },
+                { name: /Hva slags lønn får du fra fisket?/i },
+                { name: 'Hyre - fast lønn', exact: true },
             ).click()
 
             await expect(page.getByText(expectedHint)).toBeVisible()
@@ -324,7 +324,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await gotoScenario('normal', {
                 antallArbeidsgivere: 0,
             })(page)
-            await fillOutFisker('Blad B', 'Både lott og hyre')(page)
+            await fillOutFisker('Blad B', 'Både hyre og lott')(page)
 
             const expectedHint =
                 'Hvis det stemmer at arbeidsforholdet ditt ikke skal registreres, kan du sende inn sykmeldingen til NAV som fisker ved å velge lott i stedet for hyre.'
@@ -332,8 +332,8 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await expect(page.getByText(expectedHint)).toBeVisible()
 
             await getRadioInGroup(page)(
-                { name: /Mottar du lott eller er du på hyre?/i },
-                { name: 'Hyre', exact: true },
+                { name: /Hva slags lønn får du fra fisket?/i },
+                { name: 'Hyre - fast lønn', exact: true },
             ).click()
 
             await expect(page.getByText(expectedHint)).toBeVisible()
