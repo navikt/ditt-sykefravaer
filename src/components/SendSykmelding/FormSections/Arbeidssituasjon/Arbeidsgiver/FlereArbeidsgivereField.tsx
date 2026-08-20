@@ -5,7 +5,7 @@ import { useController } from 'react-hook-form'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
-import { logUmamiEvent } from '../../../../umami/umami'
+import { logEvent } from '../../../../umami/umami'
 import { YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 
 function FlereArbeidsgivereField(): ReactElement {
@@ -22,13 +22,10 @@ function FlereArbeidsgivereField(): ReactElement {
                 legend={sporsmal.erSykmeldtFraFlereArbeidsforhold}
                 onChange={(value: YesOrNo) => {
                     field.onChange(value)
-                    logUmamiEvent({
-                        eventName: 'skjema spørsmål besvart',
-                        data: {
-                            skjemanavn: 'trenger flere sykmeldinger',
-                            spørsmål: sporsmal.erSykmeldtFraFlereArbeidsforhold,
-                            svar: value,
-                        },
+                    logEvent('skjema spørsmål besvart', {
+                        skjemanavn: 'trenger flere sykmeldinger',
+                        spørsmål: sporsmal.erSykmeldtFraFlereArbeidsforhold,
+                        svar: value,
                     })
                 }}
                 error={fieldState.error?.message}

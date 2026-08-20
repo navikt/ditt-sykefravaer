@@ -17,10 +17,8 @@ import Header from '../../../components/Header/Header'
 import TilHovedsiden from '../../../components/TilHovedsiden/TilHovedsiden'
 import PageWrapper from '../../../components/PageWrapper/PageWrapper'
 import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../../../hooks/useBreadcrumbs'
-import { isUtenlandsk } from '../../../utils/utenlanskUtils'
 import { getUserRequestId } from '../../../utils/userRequestId'
 import { findOlderSykmeldingId } from '../../../utils/findOlderSykmeldingId'
-import { useLogUmamiEvent } from '../../../components/umami/umami'
 import { beskyttetSideUtenProps } from '../../../auth/beskyttetSide'
 import { basePath } from '../../../utils/environment'
 import useSykmelding from '../../../hooks/sykmelding/useSykmelding'
@@ -111,8 +109,6 @@ function SykmeldingComponent({
     olderSykmeldingId: string | null
     olderSykmeldingCount: number
 }): ReactElement | null {
-    useLogSykmeldingPageUmami(sykmelding, olderSykmeldingCount)
-
     const [hasReopenedSykmelding, setHasReopenedSykmelding] = useState(false)
     const reopen = useCallback(() => {
         setHasReopenedSykmelding(true)
@@ -176,18 +172,6 @@ function SykmeldingComponent({
     }
 
     return null
-}
-
-function useLogSykmeldingPageUmami(sykmelding: Sykmelding, olderSykmeldingCount: number): void {
-    useLogUmamiEvent(
-        { eventName: 'komponent vist', data: { komponent: 'Sykmelding Page' } },
-        {
-            status: sykmelding.sykmeldingStatus.statusEvent,
-            behandlingsutfall: sykmelding.behandlingsutfall.status,
-            hasOlderSykmelding: olderSykmeldingCount > 0,
-            isUtenlandsk: isUtenlandsk(sykmelding),
-        },
-    )
 }
 
 function SykmeldingerWrapper({ sykmelding, children }: PropsWithChildren<{ sykmelding?: Sykmelding }>): ReactElement {

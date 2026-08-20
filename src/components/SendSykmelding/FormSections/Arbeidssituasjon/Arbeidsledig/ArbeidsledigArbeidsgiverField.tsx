@@ -6,7 +6,7 @@ import { ArbeidssituasjonType } from '../../../../../types/sykmelding/sykmelding
 import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { logUmamiEvent } from '../../../../umami/umami'
+import { logEvent } from '../../../../umami/umami'
 import { TidligereArbeidsgiver } from '../../../../../types/sykmelding/tidligereArbeidsgiver'
 
 interface Props {
@@ -29,13 +29,10 @@ function ArbeidsledigArbeidsgiverField({ arbeidsgivere }: Props): ReactElement |
                     id={field.name}
                     legend={sporsmal.arbeidsledigFra(arbeidssituasjon)}
                     onChange={(value) => {
-                        logUmamiEvent({
-                            eventName: 'skjema spørsmål besvart',
-                            data: {
-                                skjemanavn: 'endret arbeidssituasjon',
-                                spørsmål: sporsmal.arbeidsledigFra(arbeidssituasjon),
-                                svar: value,
-                            },
+                        logEvent('skjema spørsmål besvart', {
+                            skjemanavn: 'endret arbeidssituasjon',
+                            spørsmål: sporsmal.arbeidsledigFra(arbeidssituasjon),
+                            svar: value,
                         })
                         field.onChange(value)
                     }}
