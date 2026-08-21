@@ -28,13 +28,13 @@ export enum ArbeidssituasjonType {
     PERMITTERT = 'PERMITTERT',
 }
 
-export enum Blad {
+export enum SendSykmeldingBlad {
     A = 'A',
     B = 'B',
 }
 
 export type FiskerInput = {
-    readonly blad?: Blad | null
+    readonly blad?: SendSykmeldingBlad | null
     readonly lottOgHyre?: LottOgHyre | null
 }
 

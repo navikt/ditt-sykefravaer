@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest'
 import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../components/SendSykmelding/SendSykmeldingForm'
-import { SendSykmeldingValues, YesOrNo } from '../server/api-models/SendSykmeldingValues'
+import { SendSykmeldingBlad, SendSykmeldingValues, YesOrNo } from '../server/api-models/SendSykmeldingValues'
 
 import { mapToSendSykmeldingValues } from './toSendSykmeldingUtils'
 import { toDate } from './dateUtils'
@@ -262,7 +262,7 @@ describe('toSendSykmeldingUtils', () => {
                 egenmeldingsdager: ['2023-09-05', '2023-09-06', '2023-08-23'],
                 harEgenmeldingsdager: YesOrNo.YES,
                 fisker: {
-                    blad: Blad.A,
+                    blad: SendSykmeldingBlad.A,
                     lottOgHyre: LottOgHyre.HYRE,
                 },
             }
@@ -299,7 +299,7 @@ describe('toSendSykmeldingUtils', () => {
                 sykFoerSykmeldingen: YesOrNo.YES,
                 harBruktEgenmelding: YesOrNo.YES,
                 fisker: {
-                    blad: Blad.A,
+                    blad: SendSykmeldingBlad.A,
                     lottOgHyre: LottOgHyre.LOTT,
                 },
                 egenmeldingsperioder: [
@@ -308,6 +308,45 @@ describe('toSendSykmeldingUtils', () => {
                         tom: '2023-03-12',
                     },
                 ],
+            }
+
+            expect(mapToValues).toEqual(expectValues)
+        })
+
+        it('skal mappe sykmelding for fisker med blad Ingen til blad A', () => {
+            const formValues: FormValues = {
+                erOpplysningeneRiktige: YesOrNo.YES,
+                uriktigeOpplysninger: null,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: null,
+                riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: null,
+                harBruktEgenmelding: null,
+                egenmeldingsperioder: null,
+                harForsikring: null,
+                egenmeldingsdager: null,
+                egenmeldingsdagerHitPrevious: null,
+                fisker: {
+                    blad: Blad.Ingen,
+                    lottOgHyre: LottOgHyre.HYRE,
+                },
+                arbeidsledig: null,
+                erSykmeldtFraFlereArbeidsforhold: null,
+            }
+
+            const mapToValues = mapToSendSykmeldingValues(formValues)
+            const expectValues: SendSykmeldingValues = {
+                erOpplysningeneRiktige: YesOrNo.YES,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: null,
+                riktigNarmesteLeder: null,
+                harEgenmeldingsdager: undefined,
+                egenmeldingsdager: undefined,
+                uriktigeOpplysninger: undefined,
+                fisker: {
+                    blad: SendSykmeldingBlad.A,
+                    lottOgHyre: LottOgHyre.HYRE,
+                },
             }
 
             expect(mapToValues).toEqual(expectValues)
@@ -339,7 +378,7 @@ describe('toSendSykmeldingUtils', () => {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 fisker: {
-                    blad: Blad.B,
+                    blad: SendSykmeldingBlad.B,
                     lottOgHyre: LottOgHyre.LOTT,
                 },
             }

@@ -1,10 +1,11 @@
-import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
 import { sporsmal } from '../../../../utils/sporsmal'
 import { yesOrNoToJaEllerNei } from '../../../../server/sendSykmeldingMapping'
 import { raise } from '../../../../utils/ts-utils'
 import { mapToSendSykmeldingValues } from '../../../../utils/toSendSykmeldingUtils'
 import { BrukerSvar } from '../../../../types/sykmelding/sykmeldingBrukerSvar'
+import { SendSykmeldingBlad } from '../../../../server/api-models/SendSykmeldingValues'
 
 export type SporsmaltekstMetadata = {
     sykmeldingId: string
@@ -67,7 +68,9 @@ export function mapFormValuesToBrukerSvar(
                 ? {
                       blad: {
                           sporsmaltekst: sporsmal.fisker.velgBlad,
-                          svar: sendSykmeldingValues.fisker.blad ?? raise('Blad må være satt'),
+                          svar: mapSendSykmeldingBladTilBlad(
+                              sendSykmeldingValues.fisker.blad ?? raise('Blad må være satt'),
+                          ),
                       },
                       lottOgHyre: {
                           sporsmaltekst: sporsmal.fisker.lottEllerHyre,
@@ -86,6 +89,15 @@ export function mapFormValuesToBrukerSvar(
                       },
                   }
                 : undefined,
+    }
+}
+
+function mapSendSykmeldingBladTilBlad(blad: SendSykmeldingBlad): Blad {
+    switch (blad) {
+        case SendSykmeldingBlad.A:
+            return Blad.A
+        case SendSykmeldingBlad.B:
+            return Blad.B
     }
 }
 
