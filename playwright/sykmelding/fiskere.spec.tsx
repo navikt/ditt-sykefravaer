@@ -213,6 +213,38 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         })
     })
 
+    test.describe('Ikke registrert i Fiskerregisteret', () => {
+        test('Lott, skal oppføre seg som næringsdrivende', async ({ page }) => {
+            await gotoScenario('normal')(page)
+            await fillOutFisker('Nei, jeg er ikke registert', 'Lott - andel av fangsten')(page)
+            await frilanserEgenmeldingsperioder([
+                {
+                    fom: `01.01.${testAar}`,
+                },
+            ])(page)
+            await velgForsikring('Ja')(page)
+
+            await bekreftSykmelding(page)
+
+            await expectKvittering({
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
+            })(page)
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Fisker',
+                selvstendig: {
+                    egenmeldingsperioder: [`1. januar ${testAar}`],
+                    forsikring: 'Ja',
+                },
+                fisker: {
+                    blad: 'A',
+                    lottEllerHyre: 'Lott',
+                },
+            })(page)
+        })
+    })
+
     test.describe('Blad B', () => {
         test('Lott skal ikke ha ekstra spørsmål', async ({ page }) => {
             await gotoScenario('normal')(page)

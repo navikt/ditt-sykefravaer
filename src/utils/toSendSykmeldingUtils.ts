@@ -82,7 +82,10 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
                     ? getEgenmeldingsdagerDateList(values.egenmeldingsdager)
                     : undefined,
         }
-    } else if (values.fisker.blad === Blad.A && values.fisker.lottOgHyre === LottOgHyre.LOTT) {
+    } else if (
+        (values.fisker.blad === Blad.A || values.fisker.blad === Blad.Ingen) &&
+        values.fisker.lottOgHyre === LottOgHyre.LOTT
+    ) {
         const egenmeldingsperioder =
             values.egenmeldingsperioder?.map((periode) => ({
                 fom: periode.fom ? toDateString(periode.fom) : null,
@@ -97,7 +100,10 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
                 values.sykFoerSykmeldingen === YesOrNo.YES && values.harBruktEgenmelding === YesOrNo.YES
                     ? egenmeldingsperioder
                     : undefined,
-            harForsikring: values.fisker.blad === Blad.A ? (values.harForsikring ?? undefined) : undefined,
+            harForsikring:
+                values.fisker.blad === Blad.A || values.fisker.blad === Blad.Ingen
+                    ? (values.harForsikring ?? undefined)
+                    : undefined,
         }
     } else {
         return {

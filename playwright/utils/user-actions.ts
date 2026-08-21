@@ -258,7 +258,7 @@ export function filloutArbeidstaker(arbeidstaker: RegExp): (page: Page) => Promi
 }
 
 export function fillOutFisker(
-    blad: `Blad ${'A' | 'B'}`,
+    blad: `Blad ${'A' | 'B'}` | 'Nei, jeg er ikke registert',
     lottEllerHyre: 'Lott - andel av fangsten' | 'Hyre - fast lønn' | 'Både hyre og lott',
 ): (page: Page) => Promise<void> {
     return async (page: Page): Promise<void> => {

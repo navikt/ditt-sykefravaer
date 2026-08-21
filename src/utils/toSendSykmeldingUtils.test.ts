@@ -352,6 +352,49 @@ describe('toSendSykmeldingUtils', () => {
             expect(mapToValues).toEqual(expectValues)
         })
 
+        it('skal mappe sykmelding for fisker med blad Ingen på LOTT (næringsdrivende flyt)', () => {
+            const formValues: FormValues = {
+                erOpplysningeneRiktige: YesOrNo.YES,
+                uriktigeOpplysninger: null,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: null,
+                riktigNarmesteLeder: null,
+                sykFoerSykmeldingen: YesOrNo.YES,
+                harBruktEgenmelding: YesOrNo.YES,
+                egenmeldingsperioder: [{ fom: toDate('2023-03-09'), tom: toDate('2023-03-12') }],
+                harForsikring: YesOrNo.YES,
+                egenmeldingsdager: null,
+                egenmeldingsdagerHitPrevious: null,
+                fisker: {
+                    blad: Blad.Ingen,
+                    lottOgHyre: LottOgHyre.LOTT,
+                },
+                arbeidsledig: null,
+                erSykmeldtFraFlereArbeidsforhold: null,
+            }
+
+            const mapToValues = mapToSendSykmeldingValues(formValues)
+            const expectValues: SendSykmeldingValues = {
+                erOpplysningeneRiktige: YesOrNo.YES,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                harForsikring: YesOrNo.YES,
+                sykFoerSykmeldingen: YesOrNo.YES,
+                harBruktEgenmelding: YesOrNo.YES,
+                fisker: {
+                    blad: SendSykmeldingBlad.A,
+                    lottOgHyre: LottOgHyre.LOTT,
+                },
+                egenmeldingsperioder: [
+                    {
+                        fom: '2023-03-09',
+                        tom: '2023-03-12',
+                    },
+                ],
+            }
+
+            expect(mapToValues).toEqual(expectValues)
+        })
+
         it('skal mappe sykmelding for fisker med blad B på LOTT (ingen ekstra spørsmål)', () => {
             const formValues: FormValues = {
                 erOpplysningeneRiktige: YesOrNo.YES,
