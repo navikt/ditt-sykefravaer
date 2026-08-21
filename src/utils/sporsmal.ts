@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType } from '../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, Blad, LottOgHyre } from '../types/sykmelding/sykmeldingCommon'
 import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 
 import { prettifyOrgName } from './orgUtils'
@@ -20,8 +20,8 @@ export const sporsmal = {
         `Brukte du egenmelding hos ${prettifyOrgName(arbeidsgiverNavn)}`,
     egenmeldingsdager: 'Velg dagene du brukte egenmelding',
     fisker: {
-        velgBlad: 'Velg blad',
-        lottEllerHyre: 'Mottar du lott eller er du på hyre?',
+        velgBlad: 'Er du registrert som Blad B i Fiskerregisteret?',
+        lottEllerHyre: 'Hva slags lønn får du fra fisket?',
     },
     arbeidsledigFra: (sykmeldtAs: ArbeidssituasjonType = ArbeidssituasjonType.ARBEIDSLEDIG) =>
         `Hvilken arbeidsgiver har du blitt ${arbeidsSituasjonEnumToText(sykmeldtAs)} fra?`,
@@ -105,5 +105,49 @@ export function uriktigeOpplysningerEnumToText(uriktigeOpplysninger: UriktigeOpp
             return 'Diagnose'
         case UriktigeOpplysningerType.ANDRE_OPPLYSNINGER:
             return 'Andre opplysninger'
+    }
+}
+
+export function bladbeskrivelse(bladtype: Blad): string {
+    switch (bladtype) {
+        case Blad.A:
+            return 'Du har fiske som hovednæring'
+        case Blad.B:
+            return 'Du har fiske som binæring og har som regel en annen jobb i tillegg'
+        case Blad.Ingen:
+            return ''
+    }
+}
+
+export function bladTittel(bladtype: Blad): string {
+    switch (bladtype) {
+        case Blad.A:
+            return 'Nei, jeg er registrert på Blad A'
+        case Blad.B:
+            return 'Ja, jeg er registert på Blad B'
+        case Blad.Ingen:
+            return 'Nei, jeg er ikke registert'
+    }
+}
+
+export function lottHyreBeskrivelse(lottOgHyreSvar: LottOgHyre): string {
+    switch (lottOgHyreSvar) {
+        case LottOgHyre.BEGGE:
+            return 'Du får både fast hyre og lott'
+        case LottOgHyre.HYRE:
+            return 'Du får fast lønn fra arbeidsgiveren din, som en vanlig ansatt'
+        case LottOgHyre.LOTT:
+            return 'Du får betalt ut fra hva fartøyet fanger - ikke fast lønn'
+    }
+}
+
+export function lottOgHyreTittel(lottOgHyreTittel: LottOgHyre): string {
+    switch (lottOgHyreTittel) {
+        case LottOgHyre.BEGGE:
+            return 'Både hyre og lott'
+        case LottOgHyre.HYRE:
+            return 'Hyre - fast lønn'
+        case LottOgHyre.LOTT:
+            return 'Lott - andel av fangsten'
     }
 }

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 
-import { ArbeidssituasjonType, Blad, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType, LottOgHyre, YesOrNo } from '../types/sykmelding/sykmeldingCommon'
 import { StatusEvent } from '../types/sykmelding/sykmelding'
 import { UriktigeOpplysningerType } from '../types/sykmelding/sykmeldingBrukerSvar'
 import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/data-creators'
@@ -8,6 +8,7 @@ import { defaultArbeidsgivere, SykmeldingBuilder } from '../data/mock/mock-db/da
 import { mapSendSykmeldingValuesToV3Api } from './sendSykmeldingMapping'
 import { MuterbarSykmelding } from './api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from './api-models/Brukerinformasjon'
+import { SendSykmeldingBlad } from './api-models/SendSykmeldingValues'
 
 describe('sendSykmeldingMapping', () => {
     const brukerinformasjon: Brukerinformasjon = {
@@ -269,7 +270,7 @@ describe('sendSykmeldingMapping', () => {
                     erOpplysningeneRiktige: YesOrNo.YES,
                     arbeidssituasjon: ArbeidssituasjonType.FISKER,
                     fisker: {
-                        blad: Blad.A,
+                        blad: SendSykmeldingBlad.A,
                         lottOgHyre: LottOgHyre.LOTT,
                     },
                     sykFoerSykmeldingen: YesOrNo.YES,
@@ -314,11 +315,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 fisker: {
                     blad: {
-                        sporsmaltekst: 'Velg blad',
+                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
                         svar: 'A',
                     },
                     lottOgHyre: {
-                        sporsmaltekst: 'Mottar du lott eller er du på hyre?',
+                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
                         svar: 'LOTT',
                     },
                 },
@@ -338,7 +339,7 @@ describe('sendSykmeldingMapping', () => {
                     erOpplysningeneRiktige: YesOrNo.YES,
                     arbeidssituasjon: ArbeidssituasjonType.FISKER,
                     fisker: {
-                        blad: Blad.A,
+                        blad: SendSykmeldingBlad.A,
                         lottOgHyre: LottOgHyre.HYRE,
                     },
                     arbeidsgiverOrgnummer: '110110110',
@@ -361,11 +362,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 fisker: {
                     blad: {
-                        sporsmaltekst: 'Velg blad',
+                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
                         svar: 'A',
                     },
                     lottOgHyre: {
-                        sporsmaltekst: 'Mottar du lott eller er du på hyre?',
+                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
                         svar: 'HYRE',
                     },
                 },
