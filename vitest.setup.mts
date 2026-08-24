@@ -26,9 +26,14 @@ HTMLCanvasElement.prototype.getContext = vi.fn()
 
 mockRouter.useParser(createDynamicRouteParser(['/', '/[sykmeldingId]', '/[sykmeldingId]/kvittering']))
 
-vi.mock('@navikt/nav-dekoratoren-moduler', () => ({
-    setBreadcrumbs: vi.fn(),
-}))
+vi.mock('@navikt/nav-dekoratoren-moduler', async (importOriginal) => {
+    const actual = await importOriginal<typeof import('@navikt/nav-dekoratoren-moduler')>()
+    return {
+        ...actual,
+        setBreadcrumbs: vi.fn(),
+        getAnalyticsInstance: () => Object.assign(vi.fn(), { custom: vi.fn() }),
+    }
+})
 vi.mock('next/router', () => vi.importActual('next-router-mock'))
 vi.mock('next/dist/client/router', () => vi.importActual('next-router-mock'))
 afterEach(() => {

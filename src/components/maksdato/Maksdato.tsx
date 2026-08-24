@@ -1,6 +1,6 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React from 'react'
 import { ExpansionCard, BodyLong } from '@navikt/ds-react'
-import dayjs from 'dayjs'
+import { Events } from '@navikt/nav-dekoratoren-moduler'
 
 import useMaxDate from '../../hooks/useMaxDate'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
@@ -26,31 +26,21 @@ const Maksdato = () => {
 const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; maxDate: string }) => {
     const sisteUtbetaling = tilLesbarDatoMedArstall(utbetaltTom)
     const maksdato = tilLesbarDatoMedArstall(maxDate)
-    const [open, setOpen] = useState<boolean>(false)
-
-    const umamiMeta = useMemo(() => {
-        return {
-            komponent: 'Maksdato expansioncard',
-            dagerTilMaksdato: dayjs(maxDate).diff(dayjs(), 'days'),
-            dagerSidenSisteUtbetaling: dayjs().diff(dayjs(utbetaltTom), 'days'),
-        }
-    }, [maxDate, utbetaltTom])
-
-    useEffect(() => {
-        logEvent('komponent vist', umamiMeta)
-    }, [umamiMeta])
+    const tittel = 'Beregnet slutt på sykepenger'
 
     return (
         <>
-            <ExpansionCard size="small" open={open} className="mt-8" aria-label="Beregnet slutt på sykepenger">
-                <ExpansionCard.Header
-                    onClick={() => {
-                        logEvent(open ? 'expansioncard lukket' : 'expansioncard åpnet', umamiMeta)
-                        setOpen(!open)
-                    }}
-                >
+            <ExpansionCard
+                size="small"
+                className="mt-8"
+                aria-label={tittel}
+                onToggle={(open) =>
+                    logEvent(open ? Events.UTVIDBART_KORT_APNET : Events.UTVIDBART_KORT_LUKKET, { tittel })
+                }
+            >
+                <ExpansionCard.Header>
                     <ExpansionCard.Title as="h2" size="small">
-                        Beregnet slutt på sykepenger
+                        {tittel}
                     </ExpansionCard.Title>
                     <ExpansionCard.Description>
                         Maksdato per {sisteUtbetaling} er {maksdato}

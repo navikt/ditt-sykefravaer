@@ -6,7 +6,7 @@ import { LottOgHyre } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { sporsmal } from '../../../../../utils/sporsmal'
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { logUmamiEvent } from '../../../../umami/umami'
+import { logEvent } from '../../../../umami/umami'
 
 function LottOgHyreField(): ReactElement {
     const { field, fieldState } = useController<FormValues>({
@@ -21,13 +21,10 @@ function LottOgHyreField(): ReactElement {
                 id={field.name}
                 legend={sporsmal.fisker.lottEllerHyre}
                 onChange={(value: LottOgHyre) => {
-                    logUmamiEvent({
-                        eventName: 'skjema spørsmål besvart',
-                        data: {
-                            skjemanavn: 'arbeidsgiver',
-                            spørsmål: sporsmal.fisker.velgBlad,
-                            svar: value,
-                        },
+                    logEvent('skjema spørsmål besvart', {
+                        skjemanavn: 'arbeidsgiver',
+                        spørsmål: sporsmal.fisker.velgBlad,
+                        svar: value,
                     })
                     field.onChange(value)
                 }}
