@@ -1,12 +1,11 @@
 import React, { ReactElement } from 'react'
-import { BodyShort, Radio, RadioGroup, ReadMore, Link as AkselLink } from '@navikt/ds-react'
+import { BodyShort, Radio, RadioGroup, ReadMore, Box } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
 import { LottOgHyre } from '../../../../../types/sykmelding/sykmeldingCommon'
-import { sporsmal } from '../../../../../utils/sporsmal'
-import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
+import { lottHyreBeskrivelse, lottOgHyreTittel, sporsmal } from '../../../../../utils/sporsmal'
+import { QuestionWrapper, SectionWrapper } from '../../../../FormComponents/FormStructure'
 import { FormValues } from '../../../SendSykmeldingForm'
-import { logUmamiEvent } from '../../../../umami/umami'
 
 function LottOgHyreField(): ReactElement {
     const { field, fieldState } = useController<FormValues>({
@@ -14,48 +13,53 @@ function LottOgHyreField(): ReactElement {
         rules: { required: 'Du må svare på lott eller hyre spørsmål' },
     })
 
+    const lottOgHyreSvar: LottOgHyre[] = [LottOgHyre.HYRE, LottOgHyre.LOTT, LottOgHyre.BEGGE]
+
     return (
-        <QuestionWrapper>
-            <RadioGroup
-                {...field}
-                id={field.name}
-                legend={sporsmal.fisker.lottEllerHyre}
-                onChange={(value: LottOgHyre) => {
-                    logUmamiEvent({
-                        eventName: 'skjema spørsmål besvart',
-                        data: {
-                            skjemanavn: 'arbeidsgiver',
-                            spørsmål: sporsmal.fisker.velgBlad,
-                            svar: value,
-                        },
-                    })
-                    field.onChange(value)
-                }}
-                error={fieldState.error?.message}
-            >
-                <ReadMore header="Hva betyr lott og hyre?">
-                    <BodyShort spacing>
-                        Hvis du mottar lott, regnes du som{' '}
-                        <AkselLink href="https://www.nav.no/sykepenger#selvstendig">
-                            selvstendig næringsdrivende
-                        </AkselLink>
-                        .
-                    </BodyShort>
-                    <BodyShort spacing>
-                        Hvis du er på hyre, regnes du som{' '}
-                        <AkselLink href="https://www.nav.no/sykepenger#arbeidstaker">arbeidstaker</AkselLink>.
-                    </BodyShort>
-                    <BodyShort spacing>
-                        Hvis du både mottar lott og er på hyre, beregnes sykepengene på grunnlag av begge disse. Les mer
-                        under avsnittet hvis du har{' '}
-                        <AkselLink href="https://www.nav.no/sykepenger#fa-flere-jobber">flere jobber</AkselLink>.
-                    </BodyShort>
-                </ReadMore>
-                <Radio value="LOTT">Lott</Radio>
-                <Radio value="HYRE">Hyre</Radio>
-                <Radio value="BEGGE">Både lott og hyre</Radio>
-            </RadioGroup>
-        </QuestionWrapper>
+        <SectionWrapper title={'Hva slags lønn får du fra fisket?'} size={'small'}>
+            <ReadMore header="Hva betyr lott og hyre?">
+                <BodyShort spacing>
+                    Svar hyre hvis du får en fast lønn fra rederiet eller fartøyets eier, som en vanlig arbeidstaker.
+                </BodyShort>
+                <BodyShort spacing>
+                    Svar blad lott hvis du får en andel av fangstinntekten som betaling - det vil si at lønna di
+                    avhenger av hva som fanges.
+                </BodyShort>
+                <BodyShort spacing>Svar begge deler hvis du mottar både fast hyre og lott.</BodyShort>
+            </ReadMore>
+            <QuestionWrapper className={'mt-6'}>
+                <RadioGroup
+                    {...field}
+                    id={field.name}
+                    legend={sporsmal.fisker.lottEllerHyre}
+                    hideLegend
+                    error={fieldState.error?.message}
+                >
+                    {lottOgHyreSvar.map((lottOgHyre) => {
+                        const beskrivelse = lottHyreBeskrivelse(lottOgHyre)
+                        return (
+                            <Box
+                                key={lottOgHyre}
+                                paddingInline="space-8"
+                                borderWidth="2"
+                                borderRadius="12"
+                                borderColor="neutral-subtle"
+                                className="mb-2 focus-within:border-ax-border-accent focus-within:bg-ax-bg-accent-soft"
+                            >
+                                <Radio
+                                    key={lottOgHyre}
+                                    value={lottOgHyre}
+                                    {...(beskrivelse ? { description: beskrivelse } : {})}
+                                    className="w-full"
+                                >
+                                    <span className="font-medium">{lottOgHyreTittel(lottOgHyre)}</span>
+                                </Radio>
+                            </Box>
+                        )
+                    })}
+                </RadioGroup>
+            </QuestionWrapper>
+        </SectionWrapper>
     )
 }
 

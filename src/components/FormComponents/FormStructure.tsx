@@ -1,8 +1,13 @@
 import { ReactElement, PropsWithChildren } from 'react'
 import { Heading, HeadingProps } from '@navikt/ds-react'
+import { cn } from '../../utils/tw-utils'
 
-export function QuestionWrapper({ children }: PropsWithChildren): ReactElement {
-    return <div className="mt-12">{children}</div>
+type QuestionWrapperProps = PropsWithChildren<{
+    className?: string
+}>
+
+export function QuestionWrapper({ children, className }: QuestionWrapperProps): ReactElement {
+    return <div className={cn('mt-12', className)}>{children}</div>
 }
 
 type SectionWrapperProps = Partial<Pick<HeadingProps, 'size' | 'level'>> & {

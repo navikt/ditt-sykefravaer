@@ -168,10 +168,12 @@ export function expectDineSvar(svar: {
 
         if (svar.fisker) {
             if (svar.fisker === ExpectMeta.NotInDom) {
-                await expect(getInfoItem('Velg blad')(page)).toBeHidden()
+                await expect(getInfoItem('Er du registrert som Blad B i Fiskerregisteret?')(page)).toBeHidden()
             } else {
-                await expect(getInfoItem('Velg blad')(page)).toHaveText(new RegExp(`Blad ${svar.fisker.blad}`, 'i'))
-                await expect(getInfoItem('Mottar du lott eller er du på hyre?')(page)).toHaveText(
+                await expect(getInfoItem('Er du registrert som Blad B i Fiskerregisteret?')(page)).toHaveText(
+                    new RegExp(`Blad ${svar.fisker.blad}`, 'i'),
+                )
+                await expect(getInfoItem('Hva slags lønn får du fra fisket?')(page)).toHaveText(
                     // Don't ignore case on this assertion, because the question has the word "lott" and "hyre" in it
                     new RegExp(svar.fisker.lottEllerHyre),
                 )

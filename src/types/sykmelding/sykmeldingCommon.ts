@@ -1,6 +1,7 @@
 export enum Blad {
     A = 'A',
     B = 'B',
+    Ingen = 'Ingen',
 }
 
 export enum LottOgHyre {
