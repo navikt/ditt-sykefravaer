@@ -43,7 +43,7 @@
         "zod": "^4.4.3"
     },
     "devDependencies": {
-        "@axe-core/playwright": "^4.12.1",
+        "@axe-core/playwright": "^4.13.0",
         "@navikt/tsm-prettier": "^2.0.1",
         "@playwright/test": "^1.62.1",
         "@tailwindcss/postcss": "^4.3.3",
