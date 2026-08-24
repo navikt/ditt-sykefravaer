@@ -35,7 +35,16 @@ export async function harSynligTekst(page: Page, tekst: string | RegExp) {
 }
 
 export async function apneReadmore(page: Page, tittel: string, forventetTekst: string[] = []) {
-    await page.getByRole('button', { name: tittel }).click()
+    const readmoreKnapp = page.getByRole('button', { name: tittel, exact: true }).filter({ visible: true }).first()
+    await expect(readmoreKnapp).toBeVisible()
+    await expect(readmoreKnapp).toHaveAttribute('aria-expanded', 'false')
+    await readmoreKnapp.scrollIntoViewIfNeeded()
+
+    await page.waitForLoadState('networkidle')
+    await expect(readmoreKnapp).toBeEnabled()
+    await readmoreKnapp.click()
+
+    await expect(readmoreKnapp).toHaveAttribute('aria-expanded', 'true')
 
     for (const tekst of forventetTekst) {
         await expect(page.getByText(tekst)).toBeVisible()
