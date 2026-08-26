@@ -19,7 +19,7 @@
         "@navikt/next-logger": "5.0.0",
         "@navikt/oasis": "^4.1.4",
         "@react-pdf/renderer": "^4.6.1",
-        "@react-pdf/types": "^2.11.1",
+        "@react-pdf/types": "^2.12.0",
         "@tanstack/query-core": "^5.90.20",
         "@tanstack/react-query": "^5.101.4",
         "@unleash/nextjs": "^1.6.7",
