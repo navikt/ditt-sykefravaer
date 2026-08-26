@@ -22,4 +22,5 @@ export default function useErForsteSykmelding(sykmeldingId: string, arbeidssitua
 
 interface ErForsteSykmeldingResponse {
     erForsteSykmelding: boolean
+    tidligsteFom?: string | null
 }

@@ -60,23 +60,26 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
         )
     }
 
-    const { erForsteSykmelding } = forsteSykmeldingData
+    const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const visMeldingTilNavDager = erForsteSykmelding && tidligsteFom !== sykmeldingStartDato
     const { erUtenforVentetid } = utenforVentetidData
 
-    if (!erForsteSykmelding && erUtenforVentetid) {
+    if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null
     }
 
-    const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
-
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            {erForsteSykmelding && (
+            {visMeldingTilNavDager && (
                 <>
                     <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
                     {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
                     {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
-                        <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                        <FrilanserEgenmeldingPerioderField
+                            sykmeldingStartDato={sykmeldingStartDato}
+                            tidligsteFom={tidligsteFom}
+                        />
                     )}
                 </>
             )}

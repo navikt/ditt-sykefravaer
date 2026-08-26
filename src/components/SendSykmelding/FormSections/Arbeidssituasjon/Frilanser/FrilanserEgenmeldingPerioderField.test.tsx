@@ -10,7 +10,13 @@ import { toDateString } from '../../../../../utils/dateUtils'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
 
 describe('FrilanserEgenmeldingPerioderField', () => {
-    const EgenmeldingerFieldInForm = ({ sykmeldingStartDato }: { sykmeldingStartDato: string }): ReactElement => {
+    const EgenmeldingerFieldInForm = ({
+        sykmeldingStartDato,
+        tidligsteFom,
+    }: {
+        sykmeldingStartDato: string
+        tidligsteFom?: string | null
+    }): ReactElement => {
         const form = useForm({
             defaultValues: {
                 egenmeldingsperioder: [{ fom: null, tom: null }],
@@ -21,7 +27,10 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         return (
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(() => void 0)}>
-                    <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                    <FrilanserEgenmeldingPerioderField
+                        sykmeldingStartDato={sykmeldingStartDato}
+                        tidligsteFom={tidligsteFom}
+                    />
                     <button type="submit">submit for test</button>
                     <div data-testid="value">
                         {JSON.stringify(
@@ -92,6 +101,18 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '10.02.2021')
+
+            await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
+
+            expect(
+                await screen.findByText('Datoen kan ikke være tidligere enn 18 dager før sykmeldingens startdato.'),
+            ).toBeInTheDocument()
+        }, 10_000)
+
+        it('skal ikke tillate fom tidligere enn tidligsteFom når tidligsteFom er satt', async () => {
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" tidligsteFom="2021-02-20" />)
+
+            await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '19.02.2021')
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 

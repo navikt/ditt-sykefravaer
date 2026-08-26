@@ -11,6 +11,7 @@ export function gotoScenario(
         antallArbeidsgivere: 0 | 1 | 2 | 3 | 4
         erUtenforVentetid: boolean
         erForsteSykmelding: boolean
+        tidligsteFom: string | null
     }> = {
         antallArbeidsgivere: 1,
         erUtenforVentetid: false,
@@ -21,8 +22,15 @@ export function gotoScenario(
         const antallArbeidsgivere = options.antallArbeidsgivere ?? 1
         const erForsteSykmelding = options.erForsteSykmelding ?? true
         const erUtenforVentetid = options.erUtenforVentetid ?? false
+        const tidligsteFom = options.tidligsteFom
 
-        if (scenario == 'normal' && antallArbeidsgivere === 1 && erForsteSykmelding && !erUtenforVentetid) {
+        if (
+            scenario == 'normal' &&
+            antallArbeidsgivere === 1 &&
+            erForsteSykmelding &&
+            !erUtenforVentetid &&
+            tidligsteFom === undefined
+        ) {
             await page.goto('/syk/sykefravaer/sykmeldinger/')
             return
         }
@@ -90,6 +98,10 @@ export function gotoScenario(
             erForsteSykmelding: erForsteSykmelding.toString(),
             erUtenforVentetid: erUtenforVentetid.toString(),
         })
+
+        if (tidligsteFom !== undefined) {
+            searchParams.set('tidligsteFom', tidligsteFom === null ? 'null' : tidligsteFom)
+        }
 
         await page.goto(`/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`)
     }

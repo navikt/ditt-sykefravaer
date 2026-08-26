@@ -67,10 +67,11 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         )
     }
 
-    const { erForsteSykmelding } = forsteSykmeldingData
+    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const visMeldingTilNavDager = erForsteSykmelding && tidligsteFom !== sykmeldingStartDato
     const { erUtenforVentetid } = utenforVentetidData
 
-    if (!erForsteSykmelding && erUtenforVentetid) {
+    if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null
     }
 
@@ -85,17 +86,20 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
             (harBruktEgenmelding === YesOrNo.NO ||
                 (harBruktEgenmelding === YesOrNo.YES && egenmeldingsperioderBesvart)))
 
-    const forsteSykmeldingSeksjonBesvart = !erForsteSykmelding || sykFoerSykmeldingenSeksjonBesvart
+    const forsteSykmeldingSeksjonBesvart = !visMeldingTilNavDager || sykFoerSykmeldingenSeksjonBesvart
     const forsikringSeksjonBesvart = erUtenforVentetid || harForsikring !== null
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            {erForsteSykmelding && (
+            {visMeldingTilNavDager && (
                 <>
                     <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
                     {erSykFoerSykmeldingen && <HarBruktEgenmeldingsPerioderField />}
                     {erSykFoerSykmeldingen && harBruktEgenmelding === YesOrNo.YES && (
-                        <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                        <FrilanserEgenmeldingPerioderField
+                            sykmeldingStartDato={sykmeldingStartDato}
+                            tidligsteFom={tidligsteFom}
+                        />
                     )}
                 </>
             )}

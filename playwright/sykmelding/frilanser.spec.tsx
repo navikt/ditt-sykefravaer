@@ -144,6 +144,27 @@ test.describe('Frilanser', () => {
                 },
             })(page)
         })
+
+        test('skal ikke vise spørsmål om melding til Nav når tidligsteFom er lik sykmeldingens fom', async ({
+            page,
+        }) => {
+            await gotoScenario('normal', {
+                erForsteSykmelding: true,
+                tidligsteFom: `${testAar}-01-08`,
+            })(page)
+            await navigateToFirstSykmelding('nye', '100%')(page)
+            await opplysingeneStemmer(page)
+            await velgArbeidssituasjon('frilanser')(page)
+
+            await expect(
+                page.getByRole('radiogroup', { name: /Var du syk og borte fra jobb før du ble sykmeldt/i }),
+            ).toBeHidden()
+            await expect(
+                page.getByRole('radiogroup', {
+                    name: /Ga du beskjed til Nav om at du var syk, før du fikk sykmelding/i,
+                }),
+            ).toBeHidden()
+        })
     })
 
     test.describe('Er ikke forste sykmelding', () => {

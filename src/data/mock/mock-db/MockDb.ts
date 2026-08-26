@@ -16,6 +16,7 @@ class MockDb {
     private _antallArbeidsgivere = 1
     private _erForsteSykmelding = true
     private _erUtenforVentetid = false
+    private _tidligsteFom: string | null = null
     private _optedInSykmeldinger: Set<string> = new Set()
 
     constructor(scenario: { sykmeldinger: MuterbarSykmelding[] }) {
@@ -32,8 +33,11 @@ class MockDb {
         }
     }
 
-    erForsteSykmelding(): { erForsteSykmelding: boolean } {
-        return { erForsteSykmelding: this._erForsteSykmelding }
+    erForsteSykmelding(): { erForsteSykmelding: boolean; tidligsteFom: string | null } {
+        return {
+            erForsteSykmelding: this._erForsteSykmelding,
+            tidligsteFom: this._tidligsteFom,
+        }
     }
 
     sykeldingErUtenforVentetid(): { erUtenforVentetid: boolean } {
@@ -123,6 +127,10 @@ class MockDb {
 
     setErForsteSykmelding(erForsteSykmelding: boolean): void {
         this._erForsteSykmelding = erForsteSykmelding
+    }
+
+    setTidligsteFom(tidligsteFom: string | null): void {
+        this._tidligsteFom = tidligsteFom
     }
 
     setErUtenforVentetid(erUtenforVentetid: boolean): void {

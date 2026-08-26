@@ -11,9 +11,10 @@ import { toReadableDate } from '../../../../../utils/dateUtils'
 
 interface Props {
     sykmeldingStartDato: string
+    tidligsteFom?: string | null
 }
 
-function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): ReactElement {
+function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }: Props): ReactElement {
     const [dateValidation, setDateValidation] = useState<DateValidationT | null>(null)
 
     const erMandag = isMonday(toDate(sykmeldingStartDato))
@@ -43,7 +44,7 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato }: Props): Reac
     })
 
     const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
-    const tidligsteDato = sub(toDate(sykmeldingStartDato), { days: antallDager })
+    const tidligsteDato = tidligsteFom ? toDate(tidligsteFom) : sub(toDate(sykmeldingStartDato), { days: antallDager })
 
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: tidligsteDato,
