@@ -1,8 +1,7 @@
 import React, { ReactElement, useState } from 'react'
 import { useController } from 'react-hook-form'
-import { Alert, BodyShort, DatePicker, DateValidationT, Link, useDatepicker } from '@navikt/ds-react'
-import { isMonday, sub, toDate } from 'date-fns'
-import { LinkIcon } from '@navikt/aksel-icons'
+import { DatePicker, DateValidationT, useDatepicker } from '@navikt/ds-react'
+import { sub, toDate } from 'date-fns'
 
 import { QuestionWrapper } from '../../../../FormComponents/FormStructure'
 import { sporsmal } from '../../../../../utils/sporsmal'
@@ -17,8 +16,14 @@ interface Props {
 function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }: Props): ReactElement {
     const [dateValidation, setDateValidation] = useState<DateValidationT | null>(null)
 
-    const erMandag = isMonday(toDate(sykmeldingStartDato))
-    const antallDager = erMandag ? 18 : 16
+    const maksAntallDager = 16
+    const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
+    const tidligsteDato = tidligsteFom
+        ? toDate(tidligsteFom)
+        : sub(toDate(sykmeldingStartDato), { days: maksAntallDager })
+    const beskrivelse = tidligsteFom
+        ? `Du kan velge fra og med ${toReadableDate(tidligsteDato)}. Den forrige sykmeldingen din dekker perioden før dette.`
+        : `Du kan velge opptil ${maksAntallDager} dager før sykmeldingsdatoen.`
 
     const { field: fromField, fieldState: fromFieldState } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
         name: `egenmeldingsperioder.0.fom`,
@@ -29,7 +34,7 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
                 } else if (dateValidation?.isAfter) {
                     return 'Datoen kan ikke være på eller etter sykmeldingens startdato.'
                 } else if (dateValidation?.isBefore) {
-                    return `Datoen kan ikke være tidligere enn ${antallDager} dager før sykmeldingens startdato.`
+                    return `Datoen kan ikke være tidligere enn ${toReadableDate(tidligsteDato)}.`
                 } else if (!fomValue) {
                     return 'Du må fylle inn en dato.'
                 } else {
@@ -42,9 +47,6 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
     const { field: toField } = useController<FormValues, `egenmeldingsperioder.0.tom`>({
         name: `egenmeldingsperioder.0.tom`,
     })
-
-    const dagenFoerSykmeldingen = sub(toDate(sykmeldingStartDato), { days: 1 })
-    const tidligsteDato = tidligsteFom ? toDate(tidligsteFom) : sub(toDate(sykmeldingStartDato), { days: antallDager })
 
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: tidligsteDato,
@@ -69,25 +71,11 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
                     {...inputProps}
                     ref={fromField.ref}
                     label={sporsmal.egenmeldingsperioder()}
-                    description={`Du kan velge opptil ${antallDager} dager før sykmeldingsdatoen.`}
+                    description={beskrivelse}
                     placeholder="DD.MM.ÅÅÅÅ"
                     error={fromFieldState.error?.message}
                 />
             </DatePicker>
-            {fromField.value && (
-                <Alert variant="info" role="alert" aria-live="polite" className="mt-4">
-                    <BodyShort spacing>
-                        Du ga beskjed til Nav {toReadableDate(fromField.value)}. Hvis vi har dokumentasjon på at du ga
-                        beskjed fra denne datoen, setter vi det som startdato for sykefraværet ditt.
-                    </BodyShort>
-                    <BodyShort>
-                        <Link href="https://www.nav.no/sykepenger" target="_blank">
-                            Les mer om sykepenger
-                            <LinkIcon aria-hidden={true} />
-                        </Link>
-                    </BodyShort>
-                </Alert>
-            )}
         </QuestionWrapper>
     )
 }
