@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 import { parseISO } from 'date-fns'
 import { TZDate } from '@date-fns/tz'
 
-import { diffInDays, toDate, toReadableDate, toReadableDatePeriod } from './dateUtils'
+import { diffInDays, onOrAfter, toDate, toReadableDate, toReadableDatePeriod } from './dateUtils'
 
 describe('toReadableDate', () => {
     it('Formatterer dato riktig med årstall', () => {
@@ -68,5 +68,19 @@ describe('toDate', () => {
     it('burde bruke spesifisert tidssone', () => {
         const date = toDate('2020-01-01', 'America/Los_Angeles') as TZDate
         expect(date.timeZone).toBe('America/Los_Angeles')
+    })
+})
+
+describe('onOrAfter', () => {
+    it('returnerer true for samme dag', () => {
+        expect(onOrAfter('2024-01-01', '2024-01-01')).toBe(true)
+    })
+
+    it('returnerer true når fom er etter tom', () => {
+        expect(onOrAfter('2024-01-02', '2024-01-01')).toBe(true)
+    })
+
+    it('returnerer false når fom er før tom', () => {
+        expect(onOrAfter('2024-01-01', '2024-01-02')).toBe(false)
     })
 })

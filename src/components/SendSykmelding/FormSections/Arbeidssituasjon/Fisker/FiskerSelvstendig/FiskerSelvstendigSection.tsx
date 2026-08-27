@@ -14,6 +14,8 @@ import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
 import useErForsteSykmelding from '../../../../../../hooks/sykmelding/useErForsteSykmelding'
 import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { useLockSubmit } from '../../../shared/LockSubmitContext'
+import { onOrAfter } from '../../../../../../utils/dateUtils'
+import { logger } from '@navikt/next-logger'
 
 interface Props {
     sykmelding: Sykmelding
@@ -62,7 +64,17 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
 
     const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
     const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
-    const visMeldingTilNavDager = erForsteSykmelding && tidligsteFom !== sykmeldingStartDato
+    const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
+
+    if (tidligsteFomPaEllerEtterStartdato) {
+        logger.warn('FiskerSelvstendigSection Uventet dato: tidligsteFom er lik eller etter sykmeldingStartDato', {
+            tidligsteFom,
+            sykmeldingStartDato,
+            sykmeldingId: sykmelding.id,
+        })
+    }
+
+    const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
     const { erUtenforVentetid } = utenforVentetidData
 
     if (!visMeldingTilNavDager && erUtenforVentetid) {
