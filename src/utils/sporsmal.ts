@@ -111,9 +111,9 @@ export function uriktigeOpplysningerEnumToText(uriktigeOpplysninger: UriktigeOpp
 export function bladbeskrivelse(bladtype: Blad): string {
     switch (bladtype) {
         case Blad.A:
-            return 'Du har fiske som hovednæring'
-        case Blad.B:
             return 'Du har fiske som binæring og har som regel en annen jobb i tillegg'
+        case Blad.B:
+            return 'Du har fiske som hovednæring'
         case Blad.Ingen:
             return ''
     }
