@@ -10,7 +10,13 @@ import { toDateString } from '../../../../../utils/dateUtils'
 import FrilanserEgenmeldingPerioderField from './FrilanserEgenmeldingPerioderField'
 
 describe('FrilanserEgenmeldingPerioderField', () => {
-    const EgenmeldingerFieldInForm = ({ sykmeldingStartDato }: { sykmeldingStartDato: string }): ReactElement => {
+    const EgenmeldingerFieldInForm = ({
+        sykmeldingStartDato,
+        tidligsteFom,
+    }: {
+        sykmeldingStartDato: string
+        tidligsteFom?: string | null
+    }): ReactElement => {
         const form = useForm({
             defaultValues: {
                 egenmeldingsperioder: [{ fom: null, tom: null }],
@@ -21,7 +27,10 @@ describe('FrilanserEgenmeldingPerioderField', () => {
         return (
             <FormProvider {...form}>
                 <form onSubmit={form.handleSubmit(() => void 0)}>
-                    <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                    <FrilanserEgenmeldingPerioderField
+                        sykmeldingStartDato={sykmeldingStartDato}
+                        tidligsteFom={tidligsteFom}
+                    />
                     <button type="submit">submit for test</button>
                     <div data-testid="value">
                         {JSON.stringify(
@@ -47,20 +56,11 @@ describe('FrilanserEgenmeldingPerioderField', () => {
     it('skal legge inn periode riktig', async () => {
         render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
-        await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
+        await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '14.02.2021')
 
         expect(screen.getByTestId('value')).toHaveTextContent(
-            JSON.stringify([{ fom: '2021-02-12', tom: '2021-02-28' }]),
+            JSON.stringify([{ fom: '2021-02-14', tom: '2021-02-28' }]),
         )
-    }, 10_000)
-
-    it('skal vise info-varsel med valgt dato når dato skrives inn', async () => {
-        render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
-
-        await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '12.02.2021')
-
-        expect(await screen.findByText(/Du ga beskjed til Nav 12. februar 2021/)).toBeInTheDocument()
-        expect(screen.getByText(/Hvis vi har dokumentasjon på at du ga beskjed fra denne datoen/)).toBeInTheDocument()
     }, 10_000)
 
     describe('input validation', () => {
@@ -76,28 +76,34 @@ describe('FrilanserEgenmeldingPerioderField', () => {
             ).toBeInTheDocument()
         })
 
-        it('skal ikke tillate fom tidligere enn 16 dager før sykmeldingStartDato (ikke mandag)', async () => {
+        it('skal ikke tillate fom tidligere enn tidligsteDato (uten tidligsteFom)', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-02-28" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '11.02.2021')
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 
-            expect(
-                await screen.findByText('Datoen kan ikke være tidligere enn 16 dager før sykmeldingens startdato.'),
-            ).toBeInTheDocument()
+            expect(await screen.findByText('Datoen kan ikke være tidligere enn 12. februar 2021.')).toBeInTheDocument()
         }, 10_000)
 
-        it('skal ikke tillate fom tidligere enn 18 dager før sykmeldingStartDato (mandag)', async () => {
+        it('skal ikke tillate fom tidligere enn tidligsteDato (uten tidligsteFom, annen startdato)', async () => {
             render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" />)
 
             await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '10.02.2021')
 
             await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
 
-            expect(
-                await screen.findByText('Datoen kan ikke være tidligere enn 18 dager før sykmeldingens startdato.'),
-            ).toBeInTheDocument()
+            expect(await screen.findByText('Datoen kan ikke være tidligere enn 13. februar 2021.')).toBeInTheDocument()
+        }, 10_000)
+
+        it('skal ikke tillate fom tidligere enn tidligsteFom når tidligsteFom er satt', async () => {
+            render(<EgenmeldingerFieldInForm sykmeldingStartDato="2021-03-01" tidligsteFom="2021-02-20" />)
+
+            await userEvent.type(screen.getByRole('textbox', { name: 'Når ga du beskjed?' }), '19.02.2021')
+
+            await userEvent.click(screen.getByRole('button', { name: 'submit for test' }))
+
+            expect(await screen.findByText('Datoen kan ikke være tidligere enn 20. februar 2021.')).toBeInTheDocument()
         }, 10_000)
 
         it('skal håndheve datoformat', async () => {

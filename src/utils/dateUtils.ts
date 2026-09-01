@@ -5,6 +5,7 @@ import {
     format,
     formatISO,
     getDate,
+    isAfter,
     isSameDay,
     isSameMonth,
     isSameYear,
@@ -58,6 +59,12 @@ export function diffInDays(fom: string, tom: string): number {
 
 export function sortDatesASC(dates: Date[]): Date[] {
     return sortBy(dates, [(date) => date, 'asc'])
+}
+
+export function onOrAfter(fom: string | Date, tom: string | Date): boolean {
+    const fomDato = toOsloDate(fom)
+    const tomDato = toOsloDate(tom)
+    return isAfter(fomDato, tomDato) || isSameDay(fomDato, tomDato)
 }
 
 function toOsloDate(date: string | Date): Date {

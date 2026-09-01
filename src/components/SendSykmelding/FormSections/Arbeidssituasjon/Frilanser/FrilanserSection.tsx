@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { Alert } from '@navikt/ds-react'
+import { logger } from '@navikt/next-logger'
 
 import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
@@ -9,6 +10,7 @@ import Spinner from '../../../../Spinner/Spinner'
 import useErForsteSykmelding from '../../../../../hooks/sykmelding/useErForsteSykmelding'
 import useErUtenforVentetid from '../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { ArbeidssituasjonType, YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
+import { onOrAfter } from '../../../../../utils/dateUtils'
 import { useLockSubmit } from '../../shared/LockSubmitContext'
 
 import HarBruktEgenmeldingsPerioderField from './HarBruktEgenmeldingsPerioderField'
@@ -67,10 +69,21 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         )
     }
 
-    const { erForsteSykmelding } = forsteSykmeldingData
+    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
+
+    if (tidligsteFomPaEllerEtterStartdato) {
+        logger.warn('FrilanserSection Uventet dato: tidligsteFom er lik eller etter sykmeldingStartDato', {
+            tidligsteFom,
+            sykmeldingStartDato,
+            sykmeldingId,
+        })
+    }
+
+    const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
     const { erUtenforVentetid } = utenforVentetidData
 
-    if (!erForsteSykmelding && erUtenforVentetid) {
+    if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null
     }
 
@@ -85,17 +98,20 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
             (harBruktEgenmelding === YesOrNo.NO ||
                 (harBruktEgenmelding === YesOrNo.YES && egenmeldingsperioderBesvart)))
 
-    const forsteSykmeldingSeksjonBesvart = !erForsteSykmelding || sykFoerSykmeldingenSeksjonBesvart
+    const forsteSykmeldingSeksjonBesvart = !visMeldingTilNavDager || sykFoerSykmeldingenSeksjonBesvart
     const forsikringSeksjonBesvart = erUtenforVentetid || harForsikring !== null
 
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            {erForsteSykmelding && (
+            {visMeldingTilNavDager && (
                 <>
                     <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
                     {erSykFoerSykmeldingen && <HarBruktEgenmeldingsPerioderField />}
                     {erSykFoerSykmeldingen && harBruktEgenmelding === YesOrNo.YES && (
-                        <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                        <FrilanserEgenmeldingPerioderField
+                            sykmeldingStartDato={sykmeldingStartDato}
+                            tidligsteFom={tidligsteFom}
+                        />
                     )}
                 </>
             )}

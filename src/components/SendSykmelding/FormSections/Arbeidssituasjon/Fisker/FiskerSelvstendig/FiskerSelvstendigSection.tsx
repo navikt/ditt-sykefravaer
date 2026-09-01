@@ -14,6 +14,8 @@ import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
 import useErForsteSykmelding from '../../../../../../hooks/sykmelding/useErForsteSykmelding'
 import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
 import { useLockSubmit } from '../../../shared/LockSubmitContext'
+import { onOrAfter } from '../../../../../../utils/dateUtils'
+import { logger } from '@navikt/next-logger'
 
 interface Props {
     sykmelding: Sykmelding
@@ -60,23 +62,36 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
         )
     }
 
-    const { erForsteSykmelding } = forsteSykmeldingData
+    const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
+    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
+
+    if (tidligsteFomPaEllerEtterStartdato) {
+        logger.warn('FiskerSelvstendigSection Uventet dato: tidligsteFom er lik eller etter sykmeldingStartDato', {
+            tidligsteFom,
+            sykmeldingStartDato,
+            sykmeldingId: sykmelding.id,
+        })
+    }
+
+    const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
     const { erUtenforVentetid } = utenforVentetidData
 
-    if (!erForsteSykmelding && erUtenforVentetid) {
+    if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null
     }
 
-    const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
-
     return (
         <SectionWrapper title="Fravær før sykmeldingen">
-            {erForsteSykmelding && (
+            {visMeldingTilNavDager && (
                 <>
                     <SykFoerSykmeldingenField sykmeldingStartDato={sykmeldingStartDato} />
                     {sykFoerSykmeldingen === YesOrNo.YES && <HarBruktEgenmeldingsPerioderField />}
                     {sykFoerSykmeldingen === YesOrNo.YES && harBruktEgenmelding === YesOrNo.YES && (
-                        <FrilanserEgenmeldingPerioderField sykmeldingStartDato={sykmeldingStartDato} />
+                        <FrilanserEgenmeldingPerioderField
+                            sykmeldingStartDato={sykmeldingStartDato}
+                            tidligsteFom={tidligsteFom}
+                        />
                     )}
                 </>
             )}

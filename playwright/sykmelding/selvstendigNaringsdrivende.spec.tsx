@@ -91,19 +91,6 @@ test.describe('Selvstendig næringsdrivende', () => {
     })
 
     test.describe('Egenmeldingsperioder', () => {
-        test('skal vise info-varsel med valgt dato når dato er valgt', async ({ page }) => {
-            await userInteractionsGroup(
-                gotoScenario('normal', { erForsteSykmelding: true }),
-                navigateToFirstAndPickSituasjon,
-                expectSykmeldingStartDato(`${testAar}-01-08`),
-                frilanserEgenmeldingsperioder([{ fom: `28.12.${testAar - 1}` }]),
-            )(page)
-
-            await expect(page.getByText(new RegExp(`Du ga beskjed til Nav 28. desember ${testAar - 1}`))).toBeVisible()
-            await expect(page.getByText(/Hvis vi har dokumentasjon på at du ga beskjed fra denne datoen/)).toBeVisible()
-            await expect(page.getByRole('link', { name: 'Les mer om sykepenger' })).toBeVisible()
-        })
-
         test('skal vise feilmelding hvis dato er lenger enn 16 dager siden', async ({ page }) => {
             await userInteractionsGroup(
                 gotoScenario('normal', { erForsteSykmelding: true }),
@@ -116,7 +103,7 @@ test.describe('Selvstendig næringsdrivende', () => {
 
             await expect(
                 page.getByRole('link', {
-                    name: 'Datoen kan ikke være tidligere enn 16 dager før sykmeldingens startdato.',
+                    name: `Datoen kan ikke være tidligere enn 23. desember ${testAar - 1}.`,
                 }),
             ).toBeVisible()
         })

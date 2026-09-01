@@ -14,8 +14,9 @@ export function handleMockContext(
     const antallArbeidsgivere = context.query.antallArbeidsgivere as string | undefined
     const erUtenforVentetid = context.query.erUtenforVentetid as string | undefined
     const erForsteSykmelding = context.query.erForsteSykmelding as string | undefined
+    const tidligsteFom = context.query.tidligsteFom as string | undefined
 
-    if (isValidScenario(scenario) || antallArbeidsgivere || erUtenforVentetid || erForsteSykmelding) {
+    if (isValidScenario(scenario) || antallArbeidsgivere || erUtenforVentetid || erForsteSykmelding || tidligsteFom) {
         const newId = v4()
         context.res.setHeader('set-cookie', `next-session-id=${newId}; Path=/`)
 
@@ -37,6 +38,11 @@ export function handleMockContext(
             mockDb()
                 .get(newId)
                 .setErForsteSykmelding(erForsteSykmelding === 'true')
+        }
+        if (tidligsteFom !== undefined) {
+            mockDb()
+                .get(newId)
+                .setTidligsteFom(tidligsteFom === 'null' ? null : tidligsteFom)
         }
     } else if (!context.req.cookies['next-session-id']) {
         const newId = v4()
