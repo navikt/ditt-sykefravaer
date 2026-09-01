@@ -6,12 +6,12 @@ Bruk alltid IntelliJ MCP-verktøy (`com-jetbrains-intellij-*`) fremfor bash/grep
 
 Bruk `execute_run_configuration` med `configurationName` lik script-navnet fra `package.json`:
 
-| Oppgave           | configurationName  |
-|-------------------|--------------------|
-| Enhetstester      | `test:ci`          |
-| E2E-tester        | `play-headless`    |
-| Dev-server        | `dev`              |
-| Format            | `format`           |
+| Oppgave           | configurationName     |
+|-------------------|-----------------------|
+| Enhetstester      | `test:ci`             |
+| E2E-tester        | `play-headless-build` |
+| Dev-server        | `dev`                 |
+| Format            | `format`              |
 
 Eksempel:
 ```
