@@ -3,6 +3,8 @@ import { expect, Page } from '@playwright/test'
 import type { Scenarios } from '../../src/data/mock/mock-db/scenarios'
 import { toReadableDate } from '../../src/utils/dateUtils'
 
+export { bekreftSykmelding, gotoRoot, sendSykmelding } from './sykmelding-actions'
+
 import { getRadioInGroup } from './test-utils'
 
 export function gotoScenario(
@@ -95,13 +97,9 @@ export function gotoScenario(
     }
 }
 
-export async function gotoRoot(page: Page): Promise<void> {
-    await page.goto(`/syk/sykefravaer/sykmeldinger/`)
-}
-
 export function navigateToFirstSykmelding(
     type: 'nye' | 'tidligere' | 'under-behandling',
-    variant: '100%' | 'egenmelding' | 'papirsykmelding' | 'utenlandsk',
+    variant: '100%' | 'egenmelding' | 'papirsykmelding' | 'utenlandsk' | 'avventende',
 ) {
     return async (page: Page): Promise<void> => {
         let sectionRegex: RegExp
@@ -131,6 +129,9 @@ export function navigateToFirstSykmelding(
                 break
             case 'utenlandsk':
                 linkRegexp = /Utenlandsk/i
+                break
+            case 'avventende':
+                linkRegexp = /Avventende sykmelding/i
                 break
         }
 
@@ -236,16 +237,6 @@ export function bekreftNarmesteleder(narmesteleder: string, svar: 'Ja' | 'Nei' =
             { name: svar },
         ).click()
     }
-}
-
-export async function sendSykmelding(page: Page): Promise<void> {
-    await page.getByRole('button', { name: /Send sykmelding/ }).click()
-    await page.waitForURL('**/kvittering')
-}
-
-export async function bekreftSykmelding(page: Page): Promise<void> {
-    await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
-    await page.waitForURL('**/kvittering')
 }
 
 export function filloutArbeidstaker(arbeidstaker: RegExp): (page: Page) => Promise<void> {

@@ -14,6 +14,18 @@ test.describe('Guide panel', () => {
         ).toBeVisible()
     })
 
+    test('skal ikke vise guidepanel om egenmeldt for avventende periode', async ({ page }) => {
+        await gotoScenario('avventene')(page)
+        await navigateToFirstSykmelding('nye', 'avventende')(page)
+
+        await expect(
+            page.getByText(
+                'Hei, denne egenmeldingen er utløpt og kan derfor ikke benyttes. Du kan fortsatt se opplysninger fra egenmeldingen under.',
+            ),
+        ).toBeHidden()
+        await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+    })
+
     test('skal vise guidepanel hvis bruker er over 70 år', async ({ page }) => {
         await gotoScenario('overSytti')(page)
         await navigateToFirstSykmelding('nye', '100%')(page)
