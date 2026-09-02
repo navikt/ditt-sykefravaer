@@ -4,7 +4,7 @@ import { subDays } from 'date-fns'
 import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { toDate } from '../../../utils/dato-utils'
 
-import { e2eScenarios, otherScenarios, simpleScenarios } from './scenarios'
+import { e2eScenarios, isValidScenario, scenarios, synligeScenarioGrupper, tekniskeScenarioer } from './scenarios'
 
 describe('e2e-scenarios', () => {
     it('buttAgainstAvventende skal være butt-i-butt', () => {
@@ -28,28 +28,56 @@ describe('e2e-scenarios', () => {
     })
 })
 
-describe('other-scenarios', () => {
-    it('avventene skal være åpen og ikke egenmeldt', () => {
-        const { sykmeldinger } = simpleScenarios.avventene.scenario()
+describe('scenario-register-kontrakt', () => {
+    const alleSynligeNøkler = Object.values(synligeScenarioGrupper).flatMap((gruppe) => Object.keys(gruppe))
 
-        expect(sykmeldinger).toHaveLength(1)
-        expect(sykmeldinger[0].sykmeldingStatus.statusEvent).toEqual(StatusEvent.APEN)
-        expect(sykmeldinger[0].egenmeldt).toBeFalsy()
+    it('skal ikke ha duplikater mellom scenario-gruppene', () => {
+        const scenarioGrupper = [
+            ['synligeScenarioGrupper', alleSynligeNøkler],
+            ['tekniskeScenarioer', Object.keys(tekniskeScenarioer)],
+            ['e2eScenarios', Object.keys(e2eScenarios)],
+        ] as const
+
+        const nøkkelOpphav = new Map<string, string[]>()
+
+        scenarioGrupper.forEach(([gruppenavn, nøkler]) => {
+            nøkler.forEach((nøkkel) => {
+                const opphav = nøkkelOpphav.get(nøkkel) ?? []
+                opphav.push(gruppenavn)
+                nøkkelOpphav.set(nøkkel, opphav)
+            })
+        })
+
+        const duplikater = [...nøkkelOpphav.entries()].filter(([, opphav]) => opphav.length > 1)
+
+        expect(duplikater).toEqual([])
     })
 
-    it('egenmeldt skal være åpen og egenmeldt', () => {
-        const { sykmeldinger } = otherScenarios.egenmeldt.scenario()
+    it('skal ha nøyaktig samme nøkler i flat eksport som unionen av gruppene', () => {
+        const grupperteNøkler = [...alleSynligeNøkler, ...Object.keys(tekniskeScenarioer), ...Object.keys(e2eScenarios)]
 
-        expect(sykmeldinger).toHaveLength(1)
-        expect(sykmeldinger[0].sykmeldingStatus.statusEvent).toEqual(StatusEvent.APEN)
-        expect(sykmeldinger[0].egenmeldt).toBe(true)
+        const forventetNøkkelsett = [...new Set(grupperteNøkler)].sort()
+        const flateNøkler = [...new Set(Object.keys(scenarios))].sort()
+
+        expect(flateNøkler).toEqual(forventetNøkkelsett)
     })
 
-    it('usendtMedTidligereSent skal ha sendt eldste og åpen nyeste', () => {
-        const { sykmeldinger } = simpleScenarios.usendtMedTidligereSent.scenario()
+    it('skal godkjenne alle kjente scenarionøkler og avvise ukjent nøkkel', () => {
+        Object.keys(scenarios).forEach((nøkkel) => {
+            expect(isValidScenario(nøkkel)).toBe(true)
+        })
 
-        expect(sykmeldinger).toHaveLength(2)
-        expect(sykmeldinger[0].sykmeldingStatus.statusEvent).toEqual(StatusEvent.SENDT)
-        expect(sykmeldinger[1].sykmeldingStatus.statusEvent).toEqual(StatusEvent.APEN)
+        expect(isValidScenario('ikke-en-gyldig-nokkel')).toBe(false)
+    })
+
+    it('skal låse den norske fire-gruppers-inndelingen av synlige scenarioer', () => {
+        const forventedeGruppenøkler = ['grunnleggende', 'periodetyper', 'statusOgUnntak', 'historikkOgKvittering']
+
+        expect(Object.keys(synligeScenarioGrupper)).toEqual(forventedeGruppenøkler)
+
+        forventedeGruppenøkler.forEach((gruppenøkkel) => {
+            expect(tekniskeScenarioer).not.toHaveProperty(gruppenøkkel)
+            expect(e2eScenarios).not.toHaveProperty(gruppenøkkel)
+        })
     })
 })
