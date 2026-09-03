@@ -37,7 +37,7 @@ const brukerinfoFeil: ScenarioCreator = () => ({
 const unsentWithPreviousSent: ScenarioCreator = () => ({
     sykmeldinger: [
         new SykmeldingBuilder(-30) // En sendt sykmelding fra 30 dager siden
-            .status(StatusEvent.APEN)
+            .send()
             .enkelPeriode({ offset: 0, days: 7 })
             .build(),
         new SykmeldingBuilder(-2) // En åpen sykmelding fra 2 dager siden
@@ -313,7 +313,6 @@ const avventene: ScenarioCreator = () => ({
                 { offset: 0, days: 7 },
             )
             .status(StatusEvent.APEN)
-            .egenmeldt()
             .build(),
     ],
 })
