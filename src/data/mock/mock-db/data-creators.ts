@@ -117,12 +117,14 @@ export class SykmeldingBuilder {
     constructor(offset: number = 0, id: string = v4()) {
         this._sykmelding.id = id
 
-        // Always use testDato with the provided offset
+        // Bruk alltid testDato med gitt offset
         const mottattDate = dateAdd(testDato, { days: offset })
 
-        // Convert to string format if needed, or keep as Date if your API expects Date objects
+        // Behold strengformatet som resten av mockene bruker
         this.mottatt = mottattDate
         this._sykmelding.mottattTidspunkt = mottattDate
+        this._sykmelding.behandletTidspunkt = mottattDate
+        this._sykmelding.sykmeldingStatus.timestamp = mottattDate
     }
 
     periode(periode: BuilderPeriode): SykmeldingBuilder {
