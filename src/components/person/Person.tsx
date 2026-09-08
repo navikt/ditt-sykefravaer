@@ -5,7 +5,10 @@ import * as R from 'remeda'
 
 import { cn } from '../../utils/tw-utils'
 import { PersonaData, PersonaGroupKey, testpersonerGruppert } from '../../data/mock/testperson'
-import { otherScenarios, Scenarios, simpleScenarios } from '../../data/mock/mock-db/scenarios'
+import { Scenarios, synligeScenarioGrupper } from '../../data/mock/mock-db/scenarios'
+
+type ScenarioGruppeNokkel = keyof typeof synligeScenarioGrupper
+type SynligeScenarioer = Partial<Record<Scenarios, { description: string }>>
 
 export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding' }): ReactElement {
     const [showHint, setShowHint] = useState(false)
@@ -98,49 +101,57 @@ function SykmeldingPicker() {
         window.location.href = `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
     }
 
+    const grupper: readonly (readonly [ScenarioGruppeNokkel, SynligeScenarioer])[] = R.entries(synligeScenarioGrupper)
+
     return (
         <div>
             <Alert variant="warning" size="small" className="mt-2" inline role="status">
                 Endring av scenario vil slette eventuelle innsendinger og endringer du har gjort.
             </Alert>
-            <Heading size="small" level="4" className="mt-2">
-                Vanlige scenarioer
-            </Heading>
-            <ul className={cn('mt-2 flex flex-col gap-2', {})}>
-                {R.entries(simpleScenarios).map(([key, { description }]) => {
-                    return (
-                        <li key={key} className="list-none">
-                            <LinkPanel
-                                as="button"
-                                onClick={handleChangeUserScenario(key)}
-                                className="w-full text-start"
-                            >
-                                {description}
-                            </LinkPanel>
-                        </li>
-                    )
-                })}
-            </ul>
-            <Heading size="small" level="4" className="mt-2">
-                Andre scenarioer
-            </Heading>
-            <ul className={cn('mt-2 flex flex-col gap-2', {})}>
-                {R.entries(otherScenarios).map(([key, { description }]) => {
-                    return (
-                        <li key={key} className="list-none">
-                            <LinkPanel
-                                as="button"
-                                onClick={handleChangeUserScenario(key)}
-                                className="w-full text-start"
-                            >
-                                {description}
-                            </LinkPanel>
-                        </li>
-                    )
-                })}
-            </ul>
+            {grupper.map(([gruppe, scenarioer]) => (
+                <React.Fragment key={gruppe}>
+                    <Heading size="small" level="4" className="mt-2">
+                        {scenarioGruppeOverskrift(gruppe)}
+                    </Heading>
+                    <ul className={cn('mt-2 flex flex-col gap-2', {})}>
+                        {R.entries(scenarioer).map(([key, { description }]) => {
+                            return (
+                                <li key={key} className="list-none">
+                                    <LinkPanel
+                                        as="button"
+                                        onClick={handleChangeUserScenario(key)}
+                                        className="w-full text-start"
+                                    >
+                                        {description}
+                                    </LinkPanel>
+                                </li>
+                            )
+                        })}
+                    </ul>
+                </React.Fragment>
+            ))}
         </div>
     )
+}
+
+function scenarioGruppeOverskrift(gruppe: ScenarioGruppeNokkel): string {
+    switch (gruppe) {
+        case 'grunnleggende': {
+            return 'Grunnleggende'
+        }
+        case 'periodetyper': {
+            return 'Periodetyper'
+        }
+        case 'statusOgUnntak': {
+            return 'Status og unntak'
+        }
+        case 'historikkOgKvittering': {
+            return 'Historikk og kvittering'
+        }
+        default: {
+            throw Error(`mangler scenario gruppe overskrift for ${gruppe}`)
+        }
+    }
 }
 
 function PersonPicker() {
