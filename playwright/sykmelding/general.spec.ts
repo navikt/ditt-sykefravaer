@@ -12,6 +12,14 @@ test.describe('sykmeldingtester ikke relatert til en spesifikk bruker', () => {
         await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
     })
 
+    test('viser nyeste sykmelding direkte for usendtMedTidligereSent', async ({ page }) => {
+        await gotoScenario('usendtMedTidligereSent')(page)
+        await navigateToFirstSykmelding('nye', '100%')(page)
+
+        await expect(page.getByRole('heading', { name: /Vil du sende inn en eldre sykmelding/i })).toBeHidden()
+        await expect(page.getByRole('heading', { name: 'Opplysninger fra sykmeldingen' })).toBeVisible()
+    })
+
     const timezones = [undefined, 'UTC', 'America/New_York']
     for (const timezoneId of timezones) {
         test(`viser korrekt dato i ${timezoneId ?? 'default'} tidssone`, async ({ browser, uuOptions }) => {

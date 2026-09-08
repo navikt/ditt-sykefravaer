@@ -2,10 +2,11 @@ import { addDays, addMonths, differenceInDays, isAfter, isBefore } from 'date-fn
 
 import { RegelStatus, StatusEvent, Sykmelding } from '../types/sykmelding/sykmelding'
 
+import { dagensDato as hentDagensDato } from './dagensDato'
 import { toDate, toReadableDatePeriod } from './dateUtils'
 import { isUtenlandsk } from './utenlanskUtils'
 
-export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = new Date()): boolean {
+export function isActiveSykmelding(sykmelding: Sykmelding, dagensDato: Date = hentDagensDato()): boolean {
     // Alt som ikke er APEN status, er inaktive
     if (sykmelding.sykmeldingStatus.statusEvent !== 'APEN') return false
     // APEN sykmeldinger blir inaktive etter 12 måneder

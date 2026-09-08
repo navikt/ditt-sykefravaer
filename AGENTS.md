@@ -12,7 +12,7 @@ npm run test # kjør tester i watch-mode
 npm run test:ci # kjør tester i CI-mode (uten watch)
 npm run build # bygg for produksjon (verifiserer også at build ikke feiler)
 npm run format # formater kode med Prettier
-npm run play-headless # kjør E2E-tester i headless mode (brukes i CI)
+npm run play-headless-build # kjør E2E-tester i headless mode (brukes i CI)
 ```
 
 - `npm run dev` bruker mock-backend lokalt (`MOCK_BACKEND=true`)
@@ -22,15 +22,15 @@ npm run play-headless # kjør E2E-tester i headless mode (brukes i CI)
 Kjør i rekkefølge via `execute_run_configuration`:
 
 1. `format`
-2. `test:ci`
-3. `play-headless`
-4. `build`
+2. `build`
+3. `test:ci`
+4. `play-headless-build`
 
 ## 2) Testing
 
 - Enhet/integrasjon: **Vitest** (`.test.ts` / `.test.tsx`) i `src/`
 - E2E: **Playwright** i `playwright/**/*.spec.ts`
-- «Kjør tester» betyr alltid begge — `test:ci` **og** `play-headless` via IntelliJ MCP. Spesifiser eksplisitt hvis bare én type ønskes.
+- «Kjør tester» betyr alltid begge — `test:ci` **og** `play-headless-build` via IntelliJ MCP. Spesifiser eksplisitt hvis bare én type ønskes.
 - Prioriter tester for endret domenelogikk
 
 ### Playwright-mønstre

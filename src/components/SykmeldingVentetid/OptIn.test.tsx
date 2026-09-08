@@ -11,6 +11,13 @@ const { useHarSoknadMock, useOptInMock } = vi.hoisted(() => ({
 vi.mock('../../hooks/sykmelding/useHarSoknad', () => ({ default: useHarSoknadMock }))
 vi.mock('../../hooks/sykmelding/useOptIn', () => ({ default: useOptInMock }))
 
+// dagensDato() bruker fast mockdato når isMockBackend() er true (satt i .env.test). Mock den til
+// false her slik at dagensDato() faller tilbake til systemklokken, og vi.setSystemTime() under virker.
+vi.mock('../../utils/environment', async (importOriginal) => ({
+    ...(await importOriginal()),
+    isMockBackend: () => false,
+}))
+
 describe('OptIn', () => {
     afterEach(() => {
         vi.useRealTimers()

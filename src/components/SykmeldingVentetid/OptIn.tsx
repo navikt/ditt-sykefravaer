@@ -4,6 +4,7 @@ import { isAfter } from 'date-fns'
 
 import useHarSoknad from '../../hooks/sykmelding/useHarSoknad'
 import useOptIn from '../../hooks/sykmelding/useOptIn'
+import { dagensDato } from '../../utils/dagensDato'
 
 export function OptIn({
     sykmeldingId,
@@ -26,7 +27,7 @@ export function OptIn({
         isSuccess: optInSuccess,
     } = useOptIn(sykmeldingId)
 
-    const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, new Date())
+    const sykmeldingNyereEnn4Mnd = isAfter(optInFrist, dagensDato())
 
     if (harSoknadLoading) {
         return <Skeleton width="100%" />
