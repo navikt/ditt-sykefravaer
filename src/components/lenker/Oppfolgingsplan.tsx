@@ -4,6 +4,7 @@ import { Skeleton } from '@navikt/ds-react'
 
 import { oppfolgingsplanUrl } from '../../utils/environment'
 import { tekst } from '../../utils/tekster'
+import { dagensDato } from '../../utils/dagensDato'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 
 import { FellesLenkepanel } from './FellesLenkepanel'
@@ -16,7 +17,7 @@ const Oppfolgingsplan = () => {
         return <Skeleton variant="rectangle" height="86px" className="mb-2" />
     }
 
-    if (skalViseOppfoelgingsplanLenke(sykmeldinger, new Date())) {
+    if (skalViseOppfoelgingsplanLenke(sykmeldinger, dagensDato())) {
         return (
             <FellesLenkepanel
                 ikon={HandshakeIcon}
