@@ -13,7 +13,6 @@ interface BekreftFeilLederProps {
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
     const { mutate: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
-    useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
@@ -46,7 +45,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     loading={isPending}
                     type="button"
                     disabled={isPending || isSuccess}
-                    onClick={() => avkreft()}
+                    onClick={() => avkreft(undefined, { onSuccess: () => toggle() })}
                 >
                     Ja, jeg er sikker
                 </Button>
