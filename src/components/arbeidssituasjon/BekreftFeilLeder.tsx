@@ -13,7 +13,6 @@ interface BekreftFeilLederProps {
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
     const { mutate: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
-    useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
 
     return (
         <Modal
