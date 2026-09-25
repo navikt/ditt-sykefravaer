@@ -73,11 +73,9 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
     const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
 
     if (tidligsteFomPaEllerEtterStartdato) {
-        logger.warn('FrilanserSection Uventet dato: tidligsteFom er lik eller etter sykmeldingStartDato', {
-            tidligsteFom,
-            sykmeldingStartDato,
-            sykmeldingId,
-        })
+        logger.warn(
+            `FrilanserSection Uventet dato: tidligsteFom (${tidligsteFom}) er lik eller etter sykmeldingStartDato (${sykmeldingStartDato}), sykmeldingId: ${sykmeldingId}`,
+        )
     }
 
     const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato

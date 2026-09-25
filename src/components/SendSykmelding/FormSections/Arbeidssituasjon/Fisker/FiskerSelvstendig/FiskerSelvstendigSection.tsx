@@ -67,11 +67,9 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
     const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
 
     if (tidligsteFomPaEllerEtterStartdato) {
-        logger.warn('FiskerSelvstendigSection Uventet dato: tidligsteFom er lik eller etter sykmeldingStartDato', {
-            tidligsteFom,
-            sykmeldingStartDato,
-            sykmeldingId: sykmelding.id,
-        })
+        logger.warn(
+            `FiskerSelvstendigSection Uventet dato: tidligsteFom (${tidligsteFom}) er lik eller etter sykmeldingStartDato (${sykmeldingStartDato}), sykmeldingId: ${sykmelding.id}`,
+        )
     }
 
     const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
