@@ -68,7 +68,7 @@
         "open": "^11.0.4",
         "playwright-core": "^1.57.0",
         "postcss": "^8.5.28",
-        "prettier": "^3.9.6",
+        "prettier": "^3.9.8",
         "prettier-plugin-tailwindcss": "^0.8.1",
         "tailwindcss": "^4.3.3",
         "ts-loader": "^9.6.2",
