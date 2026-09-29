@@ -5,13 +5,16 @@ import { isAfter } from 'date-fns'
 import useHarSoknad from '../../hooks/sykmelding/useHarSoknad'
 import useOptIn from '../../hooks/sykmelding/useOptIn'
 import { dagensDato } from '../../utils/dagensDato'
+import { ArbeidssituasjonType } from '../../types/sykmelding/sykmeldingCommon'
 
 export function OptIn({
     sykmeldingId,
+    arbeidssituasjon,
     enabled,
     optInFrist,
 }: {
     sykmeldingId: string
+    arbeidssituasjon: ArbeidssituasjonType
     enabled: boolean
     optInFrist: Date
 }): ReactElement {
@@ -19,7 +22,7 @@ export function OptIn({
         data: harSoknadData,
         isLoading: harSoknadLoading,
         isError: harSoknadError,
-    } = useHarSoknad(sykmeldingId, enabled)
+    } = useHarSoknad(sykmeldingId, arbeidssituasjon, enabled)
     const {
         mutate: optIn,
         isPending: optInPending,

@@ -3,10 +3,19 @@ import { BodyShort, Heading, ReadMore } from '@navikt/ds-react'
 
 import { LenkeMedIkon } from '../lenke/lenke-med-ikon'
 import { tilLesbarDatoMedArstall } from '../../utils/dato-utils'
+import { ArbeidssituasjonType } from '../../types/sykmelding/sykmeldingCommon'
 
 import { OptIn } from './OptIn'
 
-export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: string; optInFrist: Date }): ReactElement {
+export function VentetidInfo({
+    sykmeldingId,
+    arbeidssituasjon,
+    optInFrist,
+}: {
+    sykmeldingId: string
+    arbeidssituasjon: ArbeidssituasjonType
+    optInFrist: Date
+}): ReactElement {
     const [open, setOpen] = useState(false)
 
     return (
@@ -38,7 +47,12 @@ export function VentetidInfo({ sykmeldingId, optInFrist }: { sykmeldingId: strin
                     Hvis du mener du har rett på sykepenger for denne sykmeldingsperioden og du vil søke om sykepenger,
                     har du rett til det. Fristen for å be om søknad er {tilLesbarDatoMedArstall(optInFrist)}.
                 </BodyShort>
-                <OptIn sykmeldingId={sykmeldingId} enabled={open} optInFrist={optInFrist} />
+                <OptIn
+                    sykmeldingId={sykmeldingId}
+                    arbeidssituasjon={arbeidssituasjon}
+                    enabled={open}
+                    optInFrist={optInFrist}
+                />
             </ReadMore>
             <BodyShort className="mt-6" weight="semibold" spacing>
                 Hvis du er syk i mer enn 16 dager
