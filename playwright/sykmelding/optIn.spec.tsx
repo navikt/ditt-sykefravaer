@@ -52,7 +52,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     })
 
     test('viser varsel når søknad allerede finnes', async ({ page }) => {
-        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/har-soknad*', (route) => {
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/har-soknad/FRILANSER*', (route) => {
             if (route.request().method() === 'GET') {
                 return route.fulfill({
                     status: 200,
@@ -101,7 +101,7 @@ test.describe('Opt-in søknad for næringsdrivende/frilanser', () => {
     })
 
     test('viser feilvarsel når har-soknad-kallet feiler', async ({ page }) => {
-        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/har-soknad*', (route) => {
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/har-soknad/FRILANSER*', (route) => {
             if (route.request().method() === 'GET') {
                 return route.fulfill({
                     status: 500,

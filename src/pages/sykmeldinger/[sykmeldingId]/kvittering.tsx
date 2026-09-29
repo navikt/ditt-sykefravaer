@@ -102,7 +102,13 @@ function SykmeldingkvitteringPage(): ReactElement {
                     isEgenmeldingsKvittering={router.query.egenmelding === 'true'}
                 />
             </div>
-            {visVentetidInfo && <VentetidInfo sykmeldingId={sykmeldingId} optInFrist={optInFrist} />}
+            {visVentetidInfo && arbeidssituasjonSvar.arbeidssituasjon && (
+                <VentetidInfo
+                    sykmeldingId={sykmeldingId}
+                    arbeidssituasjon={arbeidssituasjonSvar.arbeidssituasjon}
+                    optInFrist={optInFrist}
+                />
+            )}
             <div className="mb-8">
                 <StatusInfo
                     sykmeldingStatus={data.sykmeldingStatus}

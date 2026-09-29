@@ -46,9 +46,13 @@ function OkBekreftetSykmelding({ sykmelding, reopen }: OkBekreftetSykmeldingProp
                 </div>
             )}
 
-            {visVentetidInfo && (
+            {visVentetidInfo && arbeidssituasjonSvar.arbeidssituasjon && (
                 <div className="mb-8">
-                    <VentetidInfo sykmeldingId={sykmelding.id} optInFrist={optInFrist} />
+                    <VentetidInfo
+                        sykmeldingId={sykmelding.id}
+                        arbeidssituasjon={arbeidssituasjonSvar.arbeidssituasjon}
+                        optInFrist={optInFrist}
+                    />
                 </div>
             )}
 

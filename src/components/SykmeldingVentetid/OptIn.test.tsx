@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 
+import { ArbeidssituasjonType } from '../../types/sykmelding/sykmeldingCommon'
+
 import { OptIn } from './OptIn'
 
 const { useHarSoknadMock, useOptInMock } = vi.hoisted(() => ({
@@ -41,7 +43,14 @@ describe('OptIn', () => {
 
         const optInFrist = new Date('2026-05-28T00:00:00.000Z')
 
-        render(<OptIn sykmeldingId="123" enabled={true} optInFrist={optInFrist} />)
+        render(
+            <OptIn
+                sykmeldingId="123"
+                arbeidssituasjon={ArbeidssituasjonType.FRILANSER}
+                enabled={true}
+                optInFrist={optInFrist}
+            />,
+        )
 
         expect(screen.getByText('Søknadsfristen er gått ut')).toBeInTheDocument()
         expect(screen.queryByRole('button', { name: 'Jeg vil søke om sykepenger' })).not.toBeInTheDocument()
@@ -65,8 +74,16 @@ describe('OptIn', () => {
 
         const optInFrist = new Date('2026-05-30T00:00:00.000Z')
 
-        render(<OptIn sykmeldingId="123" enabled={true} optInFrist={optInFrist} />)
+        render(
+            <OptIn
+                sykmeldingId="123"
+                arbeidssituasjon={ArbeidssituasjonType.FRILANSER}
+                enabled={true}
+                optInFrist={optInFrist}
+            />,
+        )
 
+        expect(useHarSoknadMock).toHaveBeenCalledWith('123', ArbeidssituasjonType.FRILANSER, true)
         expect(screen.queryByText('Søknadsfristen er gått ut')).not.toBeInTheDocument()
         expect(screen.getByRole('button', { name: 'Jeg vil søke om sykepenger' })).toBeInTheDocument()
     })
