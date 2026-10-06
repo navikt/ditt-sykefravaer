@@ -3,7 +3,12 @@ import { BoatIcon, BriefcaseIcon, CheckmarkCircleIcon, TasklistIcon, XMarkOctago
 import { ExpansionCard } from '@navikt/ds-react'
 
 import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmelding/SykmeldingInfo'
-import { arbeidsSituasjonEnumToText, uriktigeOpplysningerEnumToText } from '../../../../utils/sporsmal'
+import {
+    arbeidsSituasjonEnumToText,
+    overstyrtBladSvar,
+    sporsmal,
+    uriktigeOpplysningerEnumToText,
+} from '../../../../utils/sporsmal'
 import { capitalizeFirstLetter, pluralize } from '../../../../utils/stringUtils'
 import { toReadableDate, toReadableDatePeriod } from '../../../../utils/dateUtils'
 import { FormValues } from '../../../SendSykmelding/SendSykmeldingForm'
@@ -263,7 +268,9 @@ function FiskerBladAnswer({
 
     return (
         <SykmeldingInfo heading={response.sporsmaltekst} level="3" icon={<BoatIcon aria-hidden />}>
-            Blad {response.svar}
+            {response.sporsmaltekst === sporsmal.fisker.velgBlad
+                ? overstyrtBladSvar(response.svar)
+                : `Blad ${response.svar}`}
         </SykmeldingInfo>
     )
 }

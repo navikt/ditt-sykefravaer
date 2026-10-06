@@ -15,7 +15,7 @@ function BladField(): ReactElement {
 
     const bladtyper: Blad[] = [Blad.B, Blad.A, Blad.Ingen]
     return (
-        <SectionWrapper title="Er du registrert som Blad B i Fiskerregisteret?" size={'small'}>
+        <SectionWrapper title={sporsmal.fisker.velgBlad} size={'small'}>
             <ReadMore header="Hva er Fiskerregisteret?">
                 <BodyShort spacing>
                     Fiskerregisteret er et register over personer i Norge som har fiske som hovednæring eller binæring.

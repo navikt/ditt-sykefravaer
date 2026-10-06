@@ -130,6 +130,16 @@ export function bladTittel(bladtype: Blad): string {
     }
 }
 
+export function overstyrtBladSvar(bladtype: Blad): string {
+    switch (bladtype) {
+        case Blad.A:
+        case Blad.Ingen:
+            return 'Nei, jeg er registrert på Blad A eller ikke registrert'
+        case Blad.B:
+            return 'Ja, jeg er registert på Blad B'
+    }
+}
+
 export function lottHyreBeskrivelse(lottOgHyreSvar: LottOgHyre): string {
     switch (lottOgHyreSvar) {
         case LottOgHyre.BEGGE:
