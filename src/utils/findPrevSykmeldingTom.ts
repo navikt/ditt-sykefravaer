@@ -32,11 +32,14 @@ export function findPrevSykmeldingTom(
     valgtArbeidsgiverOrgnummer: string | null | undefined,
     alleSykmeldinger: Sykmelding[],
 ): Date | null {
-    const sendtSykmeldinger = alleSykmeldinger
-        .filter(removeInsideSykmeldinger(alleSykmeldinger))
+    const sykmeldingerForArbeidsgiver = alleSykmeldinger.filter(
+        (it) => it.sykmeldingStatus.arbeidsgiver?.orgnummer == valgtArbeidsgiverOrgnummer,
+    )
+
+    const sendtSykmeldinger = sykmeldingerForArbeidsgiver
+        .filter(removeInsideSykmeldinger(sykmeldingerForArbeidsgiver))
         .filter(isSendtSykmelding)
         .filter((it) => it.id !== sykmelding.id)
-        .filter((it) => it.sykmeldingStatus.arbeidsgiver?.orgnummer == valgtArbeidsgiverOrgnummer)
         .filter(removeAvventende)
 
     const latestTomForGivenSykmelding: Date = toDate(getSykmeldingEndDate(sykmelding.sykmeldingsperioder))
