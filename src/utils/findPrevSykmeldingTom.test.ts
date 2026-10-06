@@ -518,4 +518,51 @@ describe('findPrevSykmeldingTom', () => {
             expect(previousSykmeldingTom).toEqual(toDate('2023-01-25'))
         })
     })
+
+    describe('flere arbeidsgivere', () => {
+        const sendtTil = (id: string, orgnummer: string, fom: string, tom: string) =>
+            createSykmelding({
+                id,
+                sykmeldingStatus: {
+                    ...createSykmelding().sykmeldingStatus,
+                    statusEvent: StatusEvent.SENDT,
+                    arbeidsgiver: { orgnummer, orgNavn: orgnummer },
+                },
+                sykmeldingsperioder: [createSykmeldingPeriode({ fom, tom })],
+            })
+
+        const apen = (id: string, fom: string, tom: string) =>
+            createSykmelding({ id, sykmeldingsperioder: [createSykmeldingPeriode({ fom, tom })] })
+
+        it('skal finne forrige sykmeldingstom når det finnes identisk sykmelding til annen arbeidsgiver', () => {
+            const sykmeldinger = [
+                sendtTil('a1', 'org-1', '2026-09-15', '2026-09-30'),
+                sendtTil('a2', 'org-2', '2026-09-15', '2026-09-30'),
+                apen('b1', '2026-09-30', '2026-10-10'),
+                apen('b2', '2026-09-30', '2026-10-10'),
+            ]
+
+            expect(findPrevSykmeldingTom(sykmeldinger[2], 'org-1', sykmeldinger)).toEqual(toDate('2026-09-30'))
+            expect(findPrevSykmeldingTom(sykmeldinger[3], 'org-2', sykmeldinger)).toEqual(toDate('2026-09-30'))
+        })
+
+        it('skal ikke ignorere sykmelding som ligger innenfor sykmelding til annen arbeidsgiver', () => {
+            const sykmeldinger = [
+                sendtTil('a1', 'org-1', '2026-09-15', '2026-09-30'),
+                sendtTil('c', 'org-2', '2026-09-10', '2026-10-05'),
+                apen('b1', '2026-09-30', '2026-10-10'),
+            ]
+
+            expect(findPrevSykmeldingTom(sykmeldinger[2], 'org-1', sykmeldinger)).toEqual(toDate('2026-09-30'))
+        })
+
+        it('skal ikke finne forrige sykmeldingstom fra identisk sykmelding sendt til annen arbeidsgiver', () => {
+            const sykmeldinger = [
+                sendtTil('a1', 'org-1', '2026-09-15', '2026-09-30'),
+                apen('a2', '2026-09-15', '2026-09-30'),
+            ]
+
+            expect(findPrevSykmeldingTom(sykmeldinger[1], 'org-2', sykmeldinger)).toEqual(null)
+        })
+    })
 })
