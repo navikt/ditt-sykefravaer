@@ -1,4 +1,4 @@
-import { BodyLong, BodyShort, Link, List, ReadMore, Box } from '@navikt/ds-react'
+import { BodyLong, BodyShort, Box, Link, List, ReadMore } from '@navikt/ds-react'
 import { ReactElement, useState } from 'react'
 
 import { dateAdd, toReadableDate } from '../../../utils/dateUtils'
@@ -12,7 +12,7 @@ import { EgenmeldingsdagerSubForm } from './EgenmeldingerField'
 
 interface Props {
     index: number
-    arbeidsgiverNavn: string
+    arbeidsgiverNavn?: string
     muligTomDato: Date
     muligFomDato: Date
     onNo: () => void

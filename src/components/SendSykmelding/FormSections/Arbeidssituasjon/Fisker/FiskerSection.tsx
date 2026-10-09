@@ -10,6 +10,7 @@ import BladField from './BladField'
 import LottOgHyreField from './LottOgHyreField'
 import FiskerArbeidstakerSection from './FiskerArbeidstaker/FiskerArbeidstakerSection'
 import FiskerSelvstendigSection from './FiskerSelvstendig/FiskerSelvstendigSection'
+import FiskerHyreSection from './FiskerHyreSection'
 
 type Props = {
     sykmelding: Sykmelding
@@ -42,7 +43,7 @@ function FiskerSection({ brukerinformasjon, sykmelding }: Props): ReactElement {
             {lottOgHyre === 'LOTT' && (blad === 'A' || blad === 'Ingen') && (
                 <FiskerSelvstendigSection sykmelding={sykmelding} />
             )}
-            {(lottOgHyre === 'HYRE' || lottOgHyre === 'BEGGE') && (
+            {lottOgHyre === 'BEGGE' && (
                 <FiskerArbeidstakerSection
                     sykmelding={sykmelding}
                     brukerinformasjon={brukerinformasjon}
@@ -50,6 +51,13 @@ function FiskerSection({ brukerinformasjon, sykmelding }: Props): ReactElement {
                         blad,
                         lottOgHyre,
                     }}
+                />
+            )}
+            {lottOgHyre === 'HYRE' && (
+                <FiskerHyreSection
+                    sykmelding={sykmelding}
+                    arbeidsgivere={brukerinformasjon.arbeidsgivere}
+                    metadata={{ blad, lottOgHyre }}
                 />
             )}
         </SectionWrapper>
