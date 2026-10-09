@@ -23,8 +23,8 @@ type Props = {
  * Blad A+LOTT / Ingen+LOTT = selvstending næringsdrivende flyt MED forsikringsspørsmål
  * Blad B+LOTT = ingen ekstra spørsmål
  *
- * Blad A+HYRE = arbeidstaker - vanlig flyt
- * Blad B+HYRE = arbeidstaker - vanlig flyt
+ * Blad A+HYRE = arbeidstaker - arbeidsgiver kan være «Ikke oppgitt»
+ * Blad B+HYRE = arbeidstaker - arbeidsgiver kan være «Ikke oppgitt»
  * Blad A+BEGGE = arbeidstaker - vanlig flyt
  * Blad B+BEGGE = arbeidstaker - vanlig flyt
  *

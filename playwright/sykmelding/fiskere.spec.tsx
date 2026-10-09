@@ -172,27 +172,18 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad A', 'Hyre - fast lønn')(page)
-            // Hyre behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
-            await bekreftNarmesteleder('Station Officer Steele')(page)
-            await getRadioInGroup(page)(
-                { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
-                { name: 'Nei' },
-            ).click()
+            await getRadioInGroup(page)({ name: /Brukte du egenmelding/ }, { name: 'Nei' }).click()
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'Pontypandy Fire Service',
-                egenmeldingsdagerInfo: ExpectMeta.InDom,
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 arbeidsgiver: '110110110',
-                narmesteleder: {
-                    navn: 'Station Officer Steele',
-                    svar: 'Ja',
-                },
                 fisker: {
                     blad: 'A',
                     lottEllerHyre: 'Hyre',
@@ -287,27 +278,17 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         test('Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Hyre - fast lønn')(page)
-            // Hyre behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
-            await bekreftNarmesteleder('Station Officer Steele')(page)
-            await getRadioInGroup(page)(
-                { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
-                { name: 'Nei' },
-            ).click()
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'Pontypandy Fire Service',
-                egenmeldingsdagerInfo: ExpectMeta.InDom,
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 arbeidsgiver: 'Pontypandy Fire Service',
-                narmesteleder: {
-                    navn: 'Station Officer Steele',
-                    svar: 'Ja',
-                },
                 fisker: {
                     blad: 'B',
                     lottEllerHyre: 'Hyre',
@@ -348,7 +329,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('uten arbeidsgiver', () => {
-        test('Hyre eller Lott & Hyre uten arbeidsgivere skal gi advarsel/tips om hva man bør gjøre', async ({
+        test('Hyre eller Lott & Hyre skal gi feil hvis bruker prøver å sende sykmelding uten arbeidsgivere eller "ikke oppgitt"', async ({
             page,
         }) => {
             await gotoScenario('normal', {
@@ -356,45 +337,31 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
             await fillOutFisker('Blad B', 'Både hyre og lott')(page)
 
-            const expectedHint =
-                'Hvis det stemmer at arbeidsforholdet ditt ikke skal registreres, kan du sende inn sykmeldingen til NAV som fisker ved å velge lott i stedet for hyre.'
-
-            await expect(page.getByText(expectedHint)).toBeVisible()
-
             await getRadioInGroup(page)(
                 { name: /Hva slags lønn får du fra fisket?/i },
                 { name: 'Hyre - fast lønn', exact: true },
             ).click()
-
-            await expect(page.getByText(expectedHint)).toBeVisible()
-        })
-
-        test('Hyre eller Lott & Hyre skal gi feil hvis bruker prøver å sende sykmelding uten arbeidsgivere', async ({
-            page,
-        }) => {
-            await gotoScenario('normal', {
-                antallArbeidsgivere: 0,
-            })(page)
-            await fillOutFisker('Blad B', 'Både hyre og lott')(page)
-
-            const expectedHint =
-                'Hvis det stemmer at arbeidsforholdet ditt ikke skal registreres, kan du sende inn sykmeldingen til NAV som fisker ved å velge lott i stedet for hyre.'
-
-            await expect(page.getByText(expectedHint)).toBeVisible()
-
-            await getRadioInGroup(page)(
-                { name: /Hva slags lønn får du fra fisket?/i },
-                { name: 'Hyre - fast lønn', exact: true },
-            ).click()
-
-            await expect(page.getByText(expectedHint)).toBeVisible()
 
             await page.getByRole('button', { name: /Send sykmelding/ }).click()
             await expect(
-                page.getByText(
-                    /Sykmeldingen ble ikke sendt.*For å sende inn sykmeldingen må du fylle ut hvilket arbeidsforhold du er sykmeldt fra/,
-                ),
+                page.getByRole('link', { name: 'Du må svare på hvilken arbeidsgiver du er sykmeldt fra.' }),
             ).toBeVisible()
+
+            await velgArbeidstaker(/Ikke oppgitt/)(page)
+            await sendSykmelding(page)
+
+            await expectKvittering({
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
+            })(page)
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Fisker',
+                fisker: {
+                    blad: 'B',
+                    lottEllerHyre: 'Hyre',
+                },
+            })(page)
         })
     })
 })

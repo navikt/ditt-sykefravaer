@@ -350,33 +350,24 @@ test.describe('Egenmeldingsdager', () => {
                     await gotoScenario('normal')(page)
                     await fillOutFisker('Blad A', 'Hyre - fast lønn')(page)
                     await velgArbeidstaker(/Pontypandy Fire Service/)(page)
-                    await bekreftNarmesteleder('Station Officer Steele')(page)
 
                     await velgEgenmeldingsdager(
-                        egenmeldingsdagerHjelper(
-                            `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 8. januar ${testAar}?`,
-                        ),
+                        egenmeldingsdagerHjelper(`Brukte du egenmelding før du ble sykmeldt 8. januar ${testAar}?`),
                         [`${testAar}-01-05`, `${testAar}-01-06`],
                     )(page)
                     await egenmeldingsdagerHjelper(
                         `Hadde du egenmeldingsdager før det igjen – altså mellom 20. desember ${testAaretFoer} og 22. desember ${testAaretFoer}?`,
                     )(page).svar.neiButton.click()
 
-                    await expectNumberOfEgenmeldingsdagerInput(2)(page)
-
                     await page.getByRole('button', { name: /Send sykmelding/ }).click()
 
                     await expectKvittering({
-                        sendtTil: 'Pontypandy Fire Service',
-                        egenmeldingsdagerInfo: ExpectMeta.InDom,
+                        sendtTil: 'NAV',
+                        egenmeldingsdagerInfo: ExpectMeta.NotInDom,
                     })(page)
 
                     await expectDineSvar({
                         arbeidssituasjon: 'Fisker',
-                        narmesteleder: {
-                            navn: 'Station Officer Steele',
-                            svar: 'Ja',
-                        },
                         egenmeldingsdager: {
                             arbeidsgiver: 'Pontypandy Fire Service',
                             antallDager: 2,

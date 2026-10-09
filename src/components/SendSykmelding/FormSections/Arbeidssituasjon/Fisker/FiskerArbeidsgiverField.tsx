@@ -1,4 +1,4 @@
-import React, { ReactElement } from 'react'
+import React, { ReactElement, useRef, useState } from 'react'
 import { Radio, RadioGroup } from '@navikt/ds-react'
 import { useController } from 'react-hook-form'
 
@@ -8,14 +8,24 @@ import { FormValues } from '../../../SendSykmeldingForm'
 import { logUmamiEvent } from '../../../../umami/umami'
 import { Arbeidsgiver } from '../../../../../types/sykmelding/brukerinformasjon'
 
+const IKKE_OPPGITT = 'ikke-oppgitt'
+
 interface Props {
     arbeidsgivere: Arbeidsgiver[]
 }
 
 export default function FiskerArbeidsgiverField({ arbeidsgivere }: Props): ReactElement | null {
+    const [ikkeOppgittValgt, setIkkeOppgittValgt] = useState(false)
+    const ikkeOppgittValgtRef = useRef(false)
+
     const { field, fieldState } = useController<FormValues>({
         name: 'arbeidsgiverOrgnummer',
-        rules: { required: 'Du må svare på hvilken arbeidsgiver du er sykmeldt fra.' },
+        rules: {
+            validate: (value) =>
+                value != null ||
+                ikkeOppgittValgtRef.current ||
+                'Du må svare på hvilken arbeidsgiver du er sykmeldt fra.',
+        },
     })
 
     return (
@@ -23,9 +33,10 @@ export default function FiskerArbeidsgiverField({ arbeidsgivere }: Props): React
             <QuestionWrapper>
                 <RadioGroup
                     {...field}
+                    value={ikkeOppgittValgt ? IKKE_OPPGITT : field.value}
                     id={field.name}
                     legend={sporsmal.arbeidsgiverOrgnummer}
-                    onChange={(value) => {
+                    onChange={(value: string) => {
                         logUmamiEvent({
                             eventName: 'skjema spørsmål besvart',
                             data: {
@@ -34,7 +45,10 @@ export default function FiskerArbeidsgiverField({ arbeidsgivere }: Props): React
                                 svar: value,
                             },
                         })
-                        field.onChange(value)
+                        const erIkkeOppgitt = value === IKKE_OPPGITT
+                        ikkeOppgittValgtRef.current = erIkkeOppgitt
+                        setIkkeOppgittValgt(erIkkeOppgitt)
+                        field.onChange(erIkkeOppgitt ? null : value)
                     }}
                     error={fieldState.error?.message}
                 >
@@ -48,7 +62,7 @@ export default function FiskerArbeidsgiverField({ arbeidsgivere }: Props): React
                             {arbeidsgiver?.navn}
                         </Radio>
                     ))}
-                    <Radio key="ikke-relevant" value="ingen" className="overflow-anywhere">
+                    <Radio key={IKKE_OPPGITT} value={IKKE_OPPGITT} className="overflow-anywhere">
                         Ikke oppgitt
                     </Radio>
                 </RadioGroup>

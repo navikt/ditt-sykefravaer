@@ -88,7 +88,7 @@ class MockDb {
                     throw new Error('Valgt fisker uten å fylle ut fiskerfeltene')
                 }
             }
-            if (apiValues.fisker.lottOgHyre.svar === 'HYRE' || apiValues.fisker.lottOgHyre.svar === 'BEGGE') {
+            if (apiValues.fisker.lottOgHyre.svar === 'BEGGE') {
                 if (apiValues.arbeidsgiverOrgnummer == null) {
                     throw new Error('Valgt fisker uten å fylle ut arbeidsgiverOrgnummer')
                 }
@@ -96,8 +96,7 @@ class MockDb {
         }
         if (
             values.arbeidssituasjon === ArbeidssituasjonType.ARBEIDSTAKER ||
-            (values.arbeidssituasjon === ArbeidssituasjonType.FISKER &&
-                (values.fisker?.lottOgHyre === LottOgHyre.HYRE || values.fisker?.lottOgHyre === LottOgHyre.BEGGE))
+            (values.arbeidssituasjon === ArbeidssituasjonType.FISKER && values.fisker?.lottOgHyre === LottOgHyre.BEGGE)
         ) {
             const selectedArbeidsgiver = this.arbeidsgivere().find(
                 (it) => it.orgnummer === values.arbeidsgiverOrgnummer,
