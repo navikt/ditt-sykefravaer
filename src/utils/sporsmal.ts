@@ -17,7 +17,7 @@ export const sporsmal = {
     harForsikring: 'Har du forsikring som gjelder for de første 16 dagene av sykefraværet?',
     uriktigeOpplysninger: 'Hvilke opplysninger stemmer ikke?',
     harBruktEgenmeldingsdager: (arbeidsgiverNavn?: string) =>
-        `Brukte du egenmelding ${arbeidsgiverNavn && `hos ${prettifyOrgName(arbeidsgiverNavn)}`}`,
+        `Brukte du egenmelding ${arbeidsgiverNavn ? `hos ${prettifyOrgName(arbeidsgiverNavn)}` : ''}`,
     egenmeldingsdager: 'Velg dagene du brukte egenmelding',
     fisker: {
         velgBlad: 'Er du registrert som Blad B i Fiskerregisteret?',
