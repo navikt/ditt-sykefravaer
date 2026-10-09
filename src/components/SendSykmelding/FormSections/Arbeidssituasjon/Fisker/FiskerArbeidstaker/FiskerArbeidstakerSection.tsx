@@ -6,6 +6,7 @@ import { SectionWrapper } from '../../../../../FormComponents/FormStructure'
 import ArbeidsgiverSection from '../../Arbeidsgiver/ArbeidsgiverSection'
 import ArbeidsgivereFiskerMissingInfo from '../../Arbeidsgiver/ArbeidsgivereFiskerMissingInfo'
 import { Brukerinformasjon } from '../../../../../../types/sykmelding/brukerinformasjon'
+import FiskerArbeidsgiverField from '../FiskerArbeidsgiverField'
 
 interface Props {
     sykmelding: Sykmelding
@@ -19,6 +20,7 @@ interface Props {
 function FiskerArbeidstakerSection({ sykmelding, brukerinformasjon }: Props): ReactElement {
     return (
         <SectionWrapper>
+            <FiskerArbeidsgiverField arbeidsgivere={brukerinformasjon.arbeidsgivere} />
             <ArbeidsgiverSection sykmelding={sykmelding} arbeidsgivere={brukerinformasjon.arbeidsgivere} />
             {brukerinformasjon.arbeidsgivere.length === 0 && <ArbeidsgivereFiskerMissingInfo />}
         </SectionWrapper>
