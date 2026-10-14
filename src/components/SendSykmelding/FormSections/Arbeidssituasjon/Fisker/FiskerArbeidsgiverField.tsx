@@ -63,7 +63,7 @@ export default function FiskerArbeidsgiverField({ arbeidsgivere }: Props): React
                         </Radio>
                     ))}
                     <Radio key={IKKE_OPPGITT} value={IKKE_OPPGITT} className="overflow-anywhere">
-                        Ikke oppgitt
+                        Riktig arbeidsgiver vises ikke her
                     </Radio>
                 </RadioGroup>
             </QuestionWrapper>

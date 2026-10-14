@@ -146,7 +146,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'ARBEIDSTAKER',
             },
             arbeidsgiverOrgnummer: {
-                sporsmaltekst: 'Velg arbeidsgiver',
+                sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                 svar: '110110110',
             },
             riktigNarmesteLeder: {
@@ -190,7 +190,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'ARBEIDSTAKER',
             },
             arbeidsgiverOrgnummer: {
-                sporsmaltekst: 'Velg arbeidsgiver',
+                sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                 svar: '110110110',
             },
             riktigNarmesteLeder: null,
@@ -371,7 +371,7 @@ describe('sendSykmeldingMapping', () => {
                     },
                 },
                 arbeidsgiverOrgnummer: {
-                    sporsmaltekst: 'Velg arbeidsgiver',
+                    sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                     svar: '110110110',
                 },
                 riktigNarmesteLeder: {

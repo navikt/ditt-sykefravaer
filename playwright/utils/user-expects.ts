@@ -90,7 +90,9 @@ export function expectDineSvar(svar: {
         await expect(getInfoItem('Jeg er sykmeldt som')(region)).toHaveText(new RegExp(svar.arbeidssituasjon, 'i'))
 
         if (svar.arbeidsgiver) {
-            await expect(getInfoItem('Velg arbeidsgiver')(region)).toHaveText(new RegExp(svar.arbeidsgiver, 'i'))
+            await expect(getInfoItem('Hvilken arbeidsgiver er du sykmeldt fra?')(region)).toHaveText(
+                new RegExp(svar.arbeidsgiver, 'i'),
+            )
         }
 
         if (svar.arbeidsledig) {

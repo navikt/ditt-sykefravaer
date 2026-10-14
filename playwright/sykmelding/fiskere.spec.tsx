@@ -363,7 +363,9 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             })(page)
             await fillOutFisker('Blad B', 'Hyre - fast lønn')(page)
 
-            await expect(page.getByRole('radiogroup', { name: 'Velg arbeidsgiver' })).toBeHidden()
+            await expect(
+                page.getByRole('radiogroup', { name: 'Hvilken arbeidsgiver er du sykmeldt fra?' }),
+            ).toBeHidden()
 
             await sendSykmelding(page)
 

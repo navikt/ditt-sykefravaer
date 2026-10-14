@@ -179,7 +179,10 @@ export function velgArbeidssituasjon(
 
 export function velgArbeidstaker(arbeidstaker: RegExp) {
     return async (page: Page): Promise<void> => {
-        await getRadioInGroup(page)({ name: /Velg arbeidsgiver/i }, { name: arbeidstaker }).click()
+        await getRadioInGroup(page)(
+            { name: /Hvilken arbeidsgiver er du sykmeldt fra?/i },
+            { name: arbeidstaker },
+        ).click()
     }
 }
 

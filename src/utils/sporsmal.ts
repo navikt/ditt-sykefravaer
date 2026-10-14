@@ -7,7 +7,7 @@ import { toReadableDate } from './dato-utils'
 export const sporsmal = {
     erOpplysningeneRiktige: 'Stemmer opplysningene?',
     arbeidssituasjon: 'Jeg er sykmeldt som',
-    arbeidsgiverOrgnummer: 'Velg arbeidsgiver',
+    arbeidsgiverOrgnummer: 'Hvilken arbeidsgiver er du sykmeldt fra?',
     riktigNarmesteLeder: (narmesteLederNavn: string) =>
         `Er det ${narmesteLederNavn} som skal følge deg opp på jobben mens du er syk?`,
     sykFoerSykmeldingen: (sykmeldingStartDato: string, createDate = () => toReadableDate(sykmeldingStartDato)) =>

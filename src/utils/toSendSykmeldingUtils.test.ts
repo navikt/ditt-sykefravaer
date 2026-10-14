@@ -258,7 +258,6 @@ describe('toSendSykmeldingUtils', () => {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 arbeidsgiverOrgnummer: '12345',
-                riktigNarmesteLeder: YesOrNo.YES,
                 egenmeldingsdager: ['2023-09-05', '2023-09-06', '2023-08-23'],
                 harEgenmeldingsdager: YesOrNo.YES,
                 fisker: {
@@ -339,7 +338,6 @@ describe('toSendSykmeldingUtils', () => {
                 erOpplysningeneRiktige: YesOrNo.YES,
                 arbeidssituasjon: ArbeidssituasjonType.FISKER,
                 arbeidsgiverOrgnummer: null,
-                riktigNarmesteLeder: null,
                 harEgenmeldingsdager: undefined,
                 egenmeldingsdager: undefined,
                 uriktigeOpplysninger: undefined,
@@ -427,6 +425,105 @@ describe('toSendSykmeldingUtils', () => {
             }
 
             expect(mapToValues).toEqual(expectValues)
+        })
+
+        const gamleSvar = {
+            erOpplysningeneRiktige: YesOrNo.YES,
+            uriktigeOpplysninger: null,
+            arbeidssituasjon: ArbeidssituasjonType.FISKER,
+            arbeidsgiverOrgnummer: '12345',
+            riktigNarmesteLeder: YesOrNo.YES,
+            sykFoerSykmeldingen: YesOrNo.YES,
+            harBruktEgenmelding: YesOrNo.YES,
+            egenmeldingsperioder: [{ fom: toDate('2023-03-09'), tom: toDate('2023-03-12') }],
+            harForsikring: YesOrNo.YES,
+            egenmeldingsdager: [
+                {
+                    harPerioder: YesOrNo.YES,
+                    datoer: [toDate('2023-09-05')],
+                    hasClickedVidere: true,
+                },
+            ],
+            egenmeldingsdagerHitPrevious: null,
+            arbeidsledig: null,
+            erSykmeldtFraFlereArbeidsforhold: null,
+        } satisfies Omit<FormValues, 'fisker'>
+
+        it('skal ikke sende egenmeldingsdager, nærmeste leder eller næringsdrivende-svar for blad B på HYRE', () => {
+            const mapToValues = mapToSendSykmeldingValues({
+                ...gamleSvar,
+                fisker: { blad: Blad.B, lottOgHyre: LottOgHyre.HYRE },
+            })
+
+            expect(mapToValues).toStrictEqual({
+                erOpplysningeneRiktige: YesOrNo.YES,
+                uriktigeOpplysninger: undefined,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: '12345',
+                fisker: {
+                    blad: SendSykmeldingBlad.B,
+                    lottOgHyre: LottOgHyre.HYRE,
+                },
+            })
+        })
+
+        it.each([Blad.A, Blad.Ingen])(
+            'skal sende egenmeldingsdager, men ikke nærmeste leder eller næringsdrivende-svar for blad %s på HYRE',
+            (blad) => {
+                const mapToValues = mapToSendSykmeldingValues({
+                    ...gamleSvar,
+                    fisker: { blad, lottOgHyre: LottOgHyre.HYRE },
+                })
+
+                expect(mapToValues).toStrictEqual({
+                    erOpplysningeneRiktige: YesOrNo.YES,
+                    uriktigeOpplysninger: undefined,
+                    arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                    arbeidsgiverOrgnummer: '12345',
+                    harEgenmeldingsdager: YesOrNo.YES,
+                    egenmeldingsdager: ['2023-09-05'],
+                    fisker: {
+                        blad: SendSykmeldingBlad.A,
+                        lottOgHyre: LottOgHyre.HYRE,
+                    },
+                })
+            },
+        )
+
+        it.each([Blad.A, Blad.B])(
+            'skal sende arbeidstaker-svar, men ikke næringsdrivende-svar for blad %s på BEGGE',
+            (blad) => {
+                const mapToValues = mapToSendSykmeldingValues({
+                    ...gamleSvar,
+                    fisker: { blad, lottOgHyre: LottOgHyre.BEGGE },
+                })
+
+                expect(mapToValues).toStrictEqual({
+                    erOpplysningeneRiktige: YesOrNo.YES,
+                    uriktigeOpplysninger: undefined,
+                    arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                    arbeidsgiverOrgnummer: '12345',
+                    riktigNarmesteLeder: YesOrNo.YES,
+                    harEgenmeldingsdager: YesOrNo.YES,
+                    egenmeldingsdager: ['2023-09-05'],
+                    fisker: {
+                        blad: blad === Blad.B ? SendSykmeldingBlad.B : SendSykmeldingBlad.A,
+                        lottOgHyre: LottOgHyre.BEGGE,
+                    },
+                })
+            },
+        )
+
+        it('skal ikke sende arbeidstaker-svar for blad A på LOTT', () => {
+            const mapToValues = mapToSendSykmeldingValues({
+                ...gamleSvar,
+                fisker: { blad: Blad.A, lottOgHyre: LottOgHyre.LOTT },
+            })
+
+            expect(mapToValues).not.toHaveProperty('arbeidsgiverOrgnummer')
+            expect(mapToValues).not.toHaveProperty('riktigNarmesteLeder')
+            expect(mapToValues).not.toHaveProperty('harEgenmeldingsdager')
+            expect(mapToValues).not.toHaveProperty('egenmeldingsdager')
         })
     })
 
