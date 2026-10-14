@@ -24,7 +24,7 @@ export default function FiskerHyreSection({ arbeidsgivere, sykmelding, metadata 
     const { watch } = useFormContext<FormValues>()
     const [valgtArbeidsgiverOrgnummer]: [string | null] = watch(['arbeidsgiverOrgnummer'])
 
-    const { data: alleSykmeldinger } = useSykmeldinger()
+    const { data: alleSykmeldinger, error, isPending: isLoading } = useSykmeldinger()
     const previousSykmeldingTom =
         alleSykmeldinger != null
             ? findPrevSykmeldingTom(sykmelding, valgtArbeidsgiverOrgnummer, alleSykmeldinger)
@@ -32,7 +32,7 @@ export default function FiskerHyreSection({ arbeidsgivere, sykmelding, metadata 
     return (
         <SectionWrapper>
             {arbeidsgivere.length > 0 && <FiskerArbeidsgiverField arbeidsgivere={arbeidsgivere} />}
-            {metadata.blad != Blad.B && (
+            {metadata.blad != Blad.B && !error && !isLoading && (
                 <EgenmeldingerField
                     index={0}
                     previous={{
