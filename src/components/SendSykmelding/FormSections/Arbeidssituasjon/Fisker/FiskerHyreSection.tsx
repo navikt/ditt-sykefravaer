@@ -31,7 +31,7 @@ export default function FiskerHyreSection({ arbeidsgivere, sykmelding, metadata 
             : null
     return (
         <SectionWrapper>
-            <FiskerArbeidsgiverField arbeidsgivere={arbeidsgivere} />
+            {arbeidsgivere.length > 0 && <FiskerArbeidsgiverField arbeidsgivere={arbeidsgivere} />}
             {metadata.blad != Blad.B && (
                 <EgenmeldingerField
                     index={0}

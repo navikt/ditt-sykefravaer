@@ -329,18 +329,11 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('uten arbeidsgiver', () => {
-        test('Hyre eller Lott & Hyre skal gi feil hvis bruker prøver å sende sykmelding uten arbeidsgivere eller "ikke oppgitt"', async ({
+        test('Hyre skal gi feil hvis bruker med arbeidsgiver ikke velger arbeidsgiver eller "ikke oppgitt"', async ({
             page,
         }) => {
-            await gotoScenario('normal', {
-                antallArbeidsgivere: 0,
-            })(page)
-            await fillOutFisker('Blad B', 'Både hyre og lott')(page)
-
-            await getRadioInGroup(page)(
-                { name: /Hva slags lønn får du fra fisket?/i },
-                { name: 'Hyre - fast lønn', exact: true },
-            ).click()
+            await gotoScenario('normal')(page)
+            await fillOutFisker('Blad B', 'Hyre - fast lønn')(page)
 
             await page.getByRole('button', { name: /Send sykmelding/ }).click()
             await expect(
@@ -348,6 +341,30 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             ).toBeVisible()
 
             await velgArbeidstaker(/Ikke oppgitt/)(page)
+            await sendSykmelding(page)
+
+            await expectKvittering({
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
+            })(page)
+
+            await expectDineSvar({
+                arbeidssituasjon: 'Fisker',
+                fisker: {
+                    blad: 'B',
+                    lottEllerHyre: 'Hyre',
+                },
+            })(page)
+        })
+
+        test('Hyre skal ikke vise arbeidsgiverspørsmål når bruker ikke har arbeidsgivere', async ({ page }) => {
+            await gotoScenario('normal', {
+                antallArbeidsgivere: 0,
+            })(page)
+            await fillOutFisker('Blad B', 'Hyre - fast lønn')(page)
+
+            await expect(page.getByRole('radiogroup', { name: 'Velg arbeidsgiver' })).toBeHidden()
+
             await sendSykmelding(page)
 
             await expectKvittering({
