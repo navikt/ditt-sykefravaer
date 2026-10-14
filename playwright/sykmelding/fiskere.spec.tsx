@@ -329,7 +329,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
     })
 
     test.describe('uten arbeidsgiver', () => {
-        test('Hyre skal gi feil hvis bruker med arbeidsgiver ikke velger arbeidsgiver eller "ikke oppgitt"', async ({
+        test('Hyre skal gi feil hvis bruker med arbeidsgiver ikke velger arbeidsgiver eller "riktig arbeidsgiver vises ikke her"', async ({
             page,
         }) => {
             await gotoScenario('normal')(page)
@@ -340,7 +340,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
                 page.getByRole('link', { name: 'Du må svare på hvilken arbeidsgiver du er sykmeldt fra.' }),
             ).toBeVisible()
 
-            await velgArbeidstaker(/Ikke oppgitt/)(page)
+            await velgArbeidstaker(/Riktig arbeidsgiver vises ikke her/)(page)
             await sendSykmelding(page)
 
             await expectKvittering({
