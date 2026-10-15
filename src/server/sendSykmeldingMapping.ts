@@ -99,10 +99,10 @@ export function mapSendSykmeldingValuesToV3Api(
               }
             : null,
         harBruktEgenmeldingsdager:
-            values.harEgenmeldingsdager && valgtArbeidsgiver
+            values.harEgenmeldingsdager != null
                 ? {
                       svar: yesOrNoToJaEllerNei(values.harEgenmeldingsdager),
-                      sporsmaltekst: sporsmal.harBruktEgenmeldingsdager(valgtArbeidsgiver.navn),
+                      sporsmaltekst: sporsmal.harBruktEgenmeldingsdager(valgtArbeidsgiver?.navn),
                   }
                 : null,
         egenmeldingsdager: values.egenmeldingsdager

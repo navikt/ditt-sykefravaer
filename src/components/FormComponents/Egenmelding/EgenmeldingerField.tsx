@@ -28,7 +28,7 @@ interface Props {
     }
     metadata: {
         previousSykmeldingTom: Date | null
-        arbeidsgiverNavn: string
+        arbeidsgiverNavn?: string
     }
     editSentEgenmelding?: boolean
     umamiSkjemanavn: string

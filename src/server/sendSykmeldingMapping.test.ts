@@ -146,7 +146,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'ARBEIDSTAKER',
             },
             arbeidsgiverOrgnummer: {
-                sporsmaltekst: 'Velg arbeidsgiver',
+                sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                 svar: '110110110',
             },
             riktigNarmesteLeder: {
@@ -190,7 +190,7 @@ describe('sendSykmeldingMapping', () => {
                 svar: 'ARBEIDSTAKER',
             },
             arbeidsgiverOrgnummer: {
-                sporsmaltekst: 'Velg arbeidsgiver',
+                sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                 svar: '110110110',
             },
             riktigNarmesteLeder: null,
@@ -371,7 +371,7 @@ describe('sendSykmeldingMapping', () => {
                     },
                 },
                 arbeidsgiverOrgnummer: {
-                    sporsmaltekst: 'Velg arbeidsgiver',
+                    sporsmaltekst: 'Hvilken arbeidsgiver er du sykmeldt fra?',
                     svar: '110110110',
                 },
                 riktigNarmesteLeder: {
@@ -385,6 +385,62 @@ describe('sendSykmeldingMapping', () => {
                 egenmeldingsdager: {
                     sporsmaltekst: 'Velg dagene du brukte egenmelding',
                     svar: ['2021-04-10', '2021-04-11'],
+                },
+                sykFoerSykmeldingen: null,
+                harBruktEgenmelding: null,
+                egenmeldingsperioder: null,
+                harForsikring: null,
+                uriktigeOpplysninger: null,
+                arbeidsledig: null,
+            })
+        })
+
+        it('skal mappe egenmeldingsdager uten arbeidsgivernavn for fisker med hyre', () => {
+            const sykmelding = sykmeldingApen()
+            const mappedResult = mapSendSykmeldingValuesToV3Api(
+                {
+                    erOpplysningeneRiktige: YesOrNo.YES,
+                    arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                    fisker: {
+                        blad: SendSykmeldingBlad.A,
+                        lottOgHyre: LottOgHyre.HYRE,
+                    },
+                    arbeidsgiverOrgnummer: null,
+                    harEgenmeldingsdager: YesOrNo.YES,
+                    egenmeldingsdager: ['2021-04-10'],
+                },
+                sykmelding,
+                brukerinformasjon,
+            )
+
+            expect(mappedResult).toEqual({
+                erOpplysningeneRiktige: {
+                    sporsmaltekst: 'Stemmer opplysningene?',
+                    svar: 'JA',
+                },
+                arbeidssituasjon: {
+                    sporsmaltekst: 'Jeg er sykmeldt som',
+                    svar: 'FISKER',
+                },
+                fisker: {
+                    blad: {
+                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
+                        svar: 'A',
+                    },
+                    lottOgHyre: {
+                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
+                        svar: 'HYRE',
+                    },
+                },
+                arbeidsgiverOrgnummer: null,
+                riktigNarmesteLeder: null,
+                harBruktEgenmeldingsdager: {
+                    sporsmaltekst: 'Brukte du egenmelding',
+                    svar: 'JA',
+                },
+                egenmeldingsdager: {
+                    sporsmaltekst: 'Velg dagene du brukte egenmelding',
+                    svar: ['2021-04-10'],
                 },
                 sykFoerSykmeldingen: null,
                 harBruktEgenmelding: null,

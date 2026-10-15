@@ -7,7 +7,7 @@ import { toReadableDate } from './dato-utils'
 export const sporsmal = {
     erOpplysningeneRiktige: 'Stemmer opplysningene?',
     arbeidssituasjon: 'Jeg er sykmeldt som',
-    arbeidsgiverOrgnummer: 'Velg arbeidsgiver',
+    arbeidsgiverOrgnummer: 'Hvilken arbeidsgiver er du sykmeldt fra?',
     riktigNarmesteLeder: (narmesteLederNavn: string) =>
         `Er det ${narmesteLederNavn} som skal følge deg opp på jobben mens du er syk?`,
     sykFoerSykmeldingen: (sykmeldingStartDato: string, createDate = () => toReadableDate(sykmeldingStartDato)) =>
@@ -16,8 +16,8 @@ export const sporsmal = {
     egenmeldingsperioder: () => `Når ga du beskjed?`,
     harForsikring: 'Har du forsikring som gjelder for de første 16 dagene av sykefraværet?',
     uriktigeOpplysninger: 'Hvilke opplysninger stemmer ikke?',
-    harBruktEgenmeldingsdager: (arbeidsgiverNavn: string) =>
-        `Brukte du egenmelding hos ${prettifyOrgName(arbeidsgiverNavn)}`,
+    harBruktEgenmeldingsdager: (arbeidsgiverNavn?: string) =>
+        `Brukte du egenmelding${arbeidsgiverNavn ? ` hos ${prettifyOrgName(arbeidsgiverNavn)}` : ''}`,
     egenmeldingsdager: 'Velg dagene du brukte egenmelding',
     fisker: {
         velgBlad: 'Er du registrert som Blad B i Fiskerregisteret?',

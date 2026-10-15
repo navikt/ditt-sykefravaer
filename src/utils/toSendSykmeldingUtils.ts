@@ -66,21 +66,20 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
         },
     } satisfies SendSykmeldingValues
 
-    // In essence an arbeidstaker when LottOgHyre is HYRE or BEGGE
-    if (values.fisker.lottOgHyre === LottOgHyre.HYRE || values.fisker.lottOgHyre === LottOgHyre.BEGGE) {
-        const hasEgenmeldingsdager = getHasEgenmeldingsdager(values.egenmeldingsdager)
-
+    if (values.fisker.lottOgHyre === LottOgHyre.BEGGE) {
         return {
             ...baseFields,
             arbeidsgiverOrgnummer: values.arbeidsgiverOrgnummer,
             riktigNarmesteLeder: values.riktigNarmesteLeder,
-            harEgenmeldingsdager: hasEgenmeldingsdager,
-            egenmeldingsdager:
-                hasEgenmeldingsdager === YesOrNo.YES &&
-                values.egenmeldingsdager != null &&
-                values.egenmeldingsdager.length > 0
-                    ? getEgenmeldingsdagerDateList(values.egenmeldingsdager)
-                    : undefined,
+            ...mapEgenmeldingsdager(values.egenmeldingsdager),
+        }
+    } else if (values.fisker.lottOgHyre === LottOgHyre.HYRE) {
+        const harEgenmeldingsdagerSporsmal = values.fisker.blad === Blad.A || values.fisker.blad === Blad.Ingen
+
+        return {
+            ...baseFields,
+            arbeidsgiverOrgnummer: values.arbeidsgiverOrgnummer,
+            ...(harEgenmeldingsdagerSporsmal ? mapEgenmeldingsdager(values.egenmeldingsdager) : {}),
         }
     } else if (
         (values.fisker.blad === Blad.A || values.fisker.blad === Blad.Ingen) &&
@@ -152,6 +151,20 @@ function mapSykmeldingAnnet(values: FormValues): SendSykmeldingValues {
         erOpplysningeneRiktige: values.erOpplysningeneRiktige,
         uriktigeOpplysninger: values.erOpplysningeneRiktige === YesOrNo.NO ? values.uriktigeOpplysninger : undefined,
         arbeidssituasjon: values.arbeidssituasjon,
+    }
+}
+
+function mapEgenmeldingsdager(
+    value: FormValues['egenmeldingsdager'],
+): Pick<SendSykmeldingValues, 'harEgenmeldingsdager' | 'egenmeldingsdager'> {
+    const hasEgenmeldingsdager = getHasEgenmeldingsdager(value)
+
+    return {
+        harEgenmeldingsdager: hasEgenmeldingsdager,
+        egenmeldingsdager:
+            hasEgenmeldingsdager === YesOrNo.YES && value != null && value.length > 0
+                ? getEgenmeldingsdagerDateList(value)
+                : undefined,
     }
 }
 
