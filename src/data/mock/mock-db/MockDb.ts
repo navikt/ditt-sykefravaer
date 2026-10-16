@@ -1,4 +1,4 @@
-import { ArbeidssituasjonType, LottOgHyre } from '../../../types/sykmelding/sykmeldingCommon'
+import { ArbeidssituasjonType } from '../../../types/sykmelding/sykmeldingCommon'
 import { StatusEvent } from '../../../types/sykmelding/sykmelding'
 import { MuterbarSykmelding } from '../../../server/api-models/sykmelding/MuterbarSykmelding'
 import { Brukerinformasjon } from '../../../server/api-models/Brukerinformasjon'
@@ -88,16 +88,8 @@ class MockDb {
                     throw new Error('Valgt fisker uten å fylle ut fiskerfeltene')
                 }
             }
-            if (apiValues.fisker.lottOgHyre.svar === 'BEGGE') {
-                if (apiValues.arbeidsgiverOrgnummer == null) {
-                    throw new Error('Valgt fisker uten å fylle ut arbeidsgiverOrgnummer')
-                }
-            }
         }
-        if (
-            values.arbeidssituasjon === ArbeidssituasjonType.ARBEIDSTAKER ||
-            (values.arbeidssituasjon === ArbeidssituasjonType.FISKER && values.fisker?.lottOgHyre === LottOgHyre.BEGGE)
-        ) {
+        if (values.arbeidssituasjon === ArbeidssituasjonType.ARBEIDSTAKER) {
             const selectedArbeidsgiver = this.arbeidsgivere().find(
                 (it) => it.orgnummer === values.arbeidsgiverOrgnummer,
             )

@@ -66,14 +66,7 @@ function mapSykmeldingFisker(values: FormValues): SendSykmeldingValues {
         },
     } satisfies SendSykmeldingValues
 
-    if (values.fisker.lottOgHyre === LottOgHyre.BEGGE) {
-        return {
-            ...baseFields,
-            arbeidsgiverOrgnummer: values.arbeidsgiverOrgnummer,
-            riktigNarmesteLeder: values.riktigNarmesteLeder,
-            ...mapEgenmeldingsdager(values.egenmeldingsdager),
-        }
-    } else if (values.fisker.lottOgHyre === LottOgHyre.HYRE) {
+    if (values.fisker.lottOgHyre === LottOgHyre.HYRE || values.fisker.lottOgHyre === LottOgHyre.BEGGE) {
         const harEgenmeldingsdagerSporsmal = values.fisker.blad === Blad.A || values.fisker.blad === Blad.Ingen
 
         return {
