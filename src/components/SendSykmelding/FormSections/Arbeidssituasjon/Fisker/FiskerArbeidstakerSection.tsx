@@ -20,7 +20,7 @@ interface FiskerHyreSectionProps {
     }
 }
 
-export default function FiskerHyreSection({ arbeidsgivere, sykmelding, metadata }: FiskerHyreSectionProps) {
+export default function FiskerArbeidstakerSection({ arbeidsgivere, sykmelding, metadata }: FiskerHyreSectionProps) {
     const { watch } = useFormContext<FormValues>()
     const [valgtArbeidsgiverOrgnummer]: [string | null] = watch(['arbeidsgiverOrgnummer'])
 
