@@ -490,29 +490,43 @@ describe('toSendSykmeldingUtils', () => {
             },
         )
 
-        it.each([Blad.A, Blad.B])(
-            'skal sende arbeidstaker-svar, men ikke næringsdrivende-svar for blad %s på BEGGE',
-            (blad) => {
-                const mapToValues = mapToSendSykmeldingValues({
-                    ...gamleSvar,
-                    fisker: { blad, lottOgHyre: LottOgHyre.BEGGE },
-                })
+        it('skal sende arbeidstaker-svar med egenmeldingsdager for blad A på BEGGE', () => {
+            const mapToValues = mapToSendSykmeldingValues({
+                ...gamleSvar,
+                fisker: { blad: Blad.A, lottOgHyre: LottOgHyre.BEGGE },
+            })
 
-                expect(mapToValues).toStrictEqual({
-                    erOpplysningeneRiktige: YesOrNo.YES,
-                    uriktigeOpplysninger: undefined,
-                    arbeidssituasjon: ArbeidssituasjonType.FISKER,
-                    arbeidsgiverOrgnummer: '12345',
-                    riktigNarmesteLeder: YesOrNo.YES,
-                    harEgenmeldingsdager: YesOrNo.YES,
-                    egenmeldingsdager: ['2023-09-05'],
-                    fisker: {
-                        blad: blad === Blad.B ? SendSykmeldingBlad.B : SendSykmeldingBlad.A,
-                        lottOgHyre: LottOgHyre.BEGGE,
-                    },
-                })
-            },
-        )
+            expect(mapToValues).toStrictEqual({
+                erOpplysningeneRiktige: YesOrNo.YES,
+                uriktigeOpplysninger: undefined,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: '12345',
+                harEgenmeldingsdager: YesOrNo.YES,
+                egenmeldingsdager: ['2023-09-05'],
+                fisker: {
+                    blad: SendSykmeldingBlad.A,
+                    lottOgHyre: LottOgHyre.BEGGE,
+                },
+            })
+        })
+
+        it('skal sende arbeidstaker-svar uten egenmeldingsdager for blad B på BEGGE', () => {
+            const mapToValues = mapToSendSykmeldingValues({
+                ...gamleSvar,
+                fisker: { blad: Blad.B, lottOgHyre: LottOgHyre.BEGGE },
+            })
+
+            expect(mapToValues).toStrictEqual({
+                erOpplysningeneRiktige: YesOrNo.YES,
+                uriktigeOpplysninger: undefined,
+                arbeidssituasjon: ArbeidssituasjonType.FISKER,
+                arbeidsgiverOrgnummer: '12345',
+                fisker: {
+                    blad: SendSykmeldingBlad.B,
+                    lottOgHyre: LottOgHyre.BEGGE,
+                },
+            })
+        })
 
         it('skal ikke sende arbeidstaker-svar for blad A på LOTT', () => {
             const mapToValues = mapToSendSykmeldingValues({

@@ -1,7 +1,6 @@
 import { expect, test } from '@playwright/test'
 
 import {
-    bekreftNarmesteleder,
     bekreftSykmelding,
     fillOutFisker,
     frilanserEgenmeldingsperioder,
@@ -196,25 +195,17 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await fillOutFisker('Blad A', 'Både hyre og lott')(page)
             // 'Begge' behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
-            await bekreftNarmesteleder('Station Officer Steele')(page)
-            await getRadioInGroup(page)(
-                { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
-                { name: 'Nei' },
-            ).click()
+            await getRadioInGroup(page)({ name: /Brukte du egenmelding/ }, { name: 'Nei' }).click()
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'Pontypandy Fire Service',
-                egenmeldingsdagerInfo: ExpectMeta.InDom,
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 arbeidsgiver: '110110110',
-                narmesteleder: {
-                    navn: 'Station Officer Steele',
-                    svar: 'Ja',
-                },
                 fisker: {
                     blad: 'A',
                     lottEllerHyre: 'Begge',
@@ -299,27 +290,17 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
         test('Lott & Hyre, skal oppføre seg som arbeidsgiver', async ({ page }) => {
             await gotoScenario('normal')(page)
             await fillOutFisker('Blad B', 'Både hyre og lott')(page)
-            // 'Begge' behaves similar to normal arbeidstaker
             await velgArbeidstaker(/Pontypandy Fire Service/)(page)
-            await bekreftNarmesteleder('Station Officer Steele')(page)
-            await getRadioInGroup(page)(
-                { name: /Brukte du egenmelding hos Pontypandy Fire Service/ },
-                { name: 'Nei' },
-            ).click()
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'Pontypandy Fire Service',
-                egenmeldingsdagerInfo: ExpectMeta.InDom,
+                sendtTil: 'NAV',
+                egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
             await expectDineSvar({
                 arbeidssituasjon: 'Fisker',
                 arbeidsgiver: 'Pontypandy Fire Service',
-                narmesteleder: {
-                    navn: 'Station Officer Steele',
-                    svar: 'Ja',
-                },
                 fisker: {
                     blad: 'B',
                     lottEllerHyre: 'Begge',
