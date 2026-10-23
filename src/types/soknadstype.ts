@@ -8,3 +8,4 @@ export type Soknadstype =
     | 'ANNET_ARBEIDSFORHOLD'
     | 'GRADERT_REISETILSKUDD'
     | 'FRISKMELDT_TIL_ARBEIDSFORMIDLING'
+    | 'FISKERE'
