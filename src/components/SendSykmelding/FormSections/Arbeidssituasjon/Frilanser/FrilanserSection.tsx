@@ -7,8 +7,7 @@ import { useShouldShowSummaryForFrilanser } from '../formProgressUtils'
 import { FormValues } from '../../../SendSykmeldingForm'
 import { SectionWrapper } from '../../../../FormComponents/FormStructure'
 import Spinner from '../../../../Spinner/Spinner'
-import useErForsteSykmelding from '../../../../../hooks/sykmelding/useErForsteSykmelding'
-import useErUtenforVentetid from '../../../../../hooks/sykmelding/useErUtenforVentetid'
+import useVentetid from '../../../../../hooks/sykmelding/useVentetid'
 import { ArbeidssituasjonType, YesOrNo } from '../../../../../types/sykmelding/sykmeldingCommon'
 import { onOrAfter } from '../../../../../utils/dateUtils'
 import { useLockSubmit } from '../../shared/LockSubmitContext'
@@ -34,19 +33,9 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         'egenmeldingsperioder',
     ])
 
-    const {
-        data: forsteSykmeldingData,
-        isPending: forsteSykmeldingLoading,
-        error: forsteSykmeldingError,
-    } = useErForsteSykmelding(sykmeldingId, arbeidssituasjon)
-    const {
-        data: utenforVentetidData,
-        isPending: utenforVentetidLoading,
-        error: utenforVentetidError,
-    } = useErUtenforVentetid(sykmeldingId)
+    const { data: ventetidData, isPending: isLoading, error } = useVentetid(sykmeldingId, arbeidssituasjon)
 
-    const isLoading = forsteSykmeldingLoading || utenforVentetidLoading
-    const hasError = forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData
+    const hasError = error || !ventetidData
 
     useLockSubmit('frilanser-data', isLoading || !!hasError)
 
@@ -69,7 +58,7 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
         )
     }
 
-    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const { erForsteSykmelding, tidligsteFom, erUtenforVentetid } = ventetidData
     const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
 
     if (tidligsteFomPaEllerEtterStartdato) {
@@ -79,7 +68,6 @@ function FrilanserSection({ sykmeldingId, sykmeldingStartDato, arbeidssituasjon 
     }
 
     const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
-    const { erUtenforVentetid } = utenforVentetidData
 
     if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null

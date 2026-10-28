@@ -8,6 +8,7 @@ import { mapSendSykmeldingValuesToV3Api } from '../../../server/sendSykmeldingMa
 import { TidligereArbeidsgivere } from '../../../server/api-models/TidligereArbeidsgiver'
 import { SendSykmeldingValues } from '../../../server/api-models/SendSykmeldingValues'
 import { SykmeldingChangeStatus } from '../../../hooks/sykmelding/useChangeSykmeldingStatus'
+import { VentetidResponse } from '../../../hooks/sykmelding/useVentetid'
 
 import { defaultArbeidsgivere } from './data-creators'
 
@@ -33,15 +34,12 @@ class MockDb {
         }
     }
 
-    erForsteSykmelding(): { erForsteSykmelding: boolean; tidligsteFom: string | null } {
+    ventetid(): VentetidResponse {
         return {
+            erUtenforVentetid: this._erUtenforVentetid,
             erForsteSykmelding: this._erForsteSykmelding,
             tidligsteFom: this._tidligsteFom,
         }
-    }
-
-    sykeldingErUtenforVentetid(): { erUtenforVentetid: boolean } {
-        return { erUtenforVentetid: this._erUtenforVentetid }
     }
 
     tidligereArbeidsgivere(): TidligereArbeidsgivere[] {
