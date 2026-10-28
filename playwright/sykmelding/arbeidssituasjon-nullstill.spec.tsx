@@ -78,12 +78,12 @@ test.describe('Nullstilling av brukersvar ved bytte av arbeidssituasjon', () => 
     })
 
     test('skal fjerne submit-lås når arbeidssituasjon byttes etter at backend-kall feiler', async ({ page }) => {
-        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid', (route) => {
+        await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/ventetid/**', (route) => {
             if (route.request().method() === 'GET') {
                 return route.fulfill({
                     status: 500,
                     contentType: 'application/json',
-                    body: JSON.stringify({ message: 'Failed to fetch er-utenfor-ventetid' }),
+                    body: JSON.stringify({ message: 'Failed to fetch ventetid' }),
                 })
             }
             return route.continue()

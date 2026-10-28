@@ -11,8 +11,7 @@ import FrilanserEgenmeldingPerioderField from '../../Frilanser/FrilanserEgenmeld
 import { getSykmeldingStartDate } from '../../../../../../utils/sykmeldingUtils'
 import { ArbeidssituasjonType, YesOrNo } from '../../../../../../types/sykmelding/sykmeldingCommon'
 import SykFoerSykmeldingenField from '../../Frilanser/SykFoerSykmeldingenField'
-import useErForsteSykmelding from '../../../../../../hooks/sykmelding/useErForsteSykmelding'
-import useErUtenforVentetid from '../../../../../../hooks/sykmelding/useErUtenforVentetid'
+import useVentetid from '../../../../../../hooks/sykmelding/useVentetid'
 import { useLockSubmit } from '../../../shared/LockSubmitContext'
 import { onOrAfter } from '../../../../../../utils/dateUtils'
 import { logger } from '@navikt/next-logger'
@@ -25,19 +24,9 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
     const { watch } = useFormContext<FormValues>()
     const [harBruktEgenmelding, sykFoerSykmeldingen] = watch(['harBruktEgenmelding', 'sykFoerSykmeldingen'])
 
-    const {
-        data: forsteSykmeldingData,
-        isPending: forsteSykmeldingLoading,
-        error: forsteSykmeldingError,
-    } = useErForsteSykmelding(sykmelding.id, ArbeidssituasjonType.FISKER)
-    const {
-        data: utenforVentetidData,
-        isPending: utenforVentetidLoading,
-        error: utenforVentetidError,
-    } = useErUtenforVentetid(sykmelding.id)
+    const { data: ventetidData, isPending: isLoading, error } = useVentetid(sykmelding.id, ArbeidssituasjonType.FISKER)
 
-    const isLoading = forsteSykmeldingLoading || utenforVentetidLoading
-    const hasError = forsteSykmeldingError || !forsteSykmeldingData || utenforVentetidError || !utenforVentetidData
+    const hasError = error || !ventetidData
 
     useLockSubmit('fisker-selvstendig-data', isLoading || !!hasError)
 
@@ -63,7 +52,7 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
     }
 
     const sykmeldingStartDato = getSykmeldingStartDate(sykmelding.sykmeldingsperioder)
-    const { erForsteSykmelding, tidligsteFom } = forsteSykmeldingData
+    const { erForsteSykmelding, tidligsteFom, erUtenforVentetid } = ventetidData
     const tidligsteFomPaEllerEtterStartdato = tidligsteFom ? onOrAfter(tidligsteFom, sykmeldingStartDato) : false
 
     if (tidligsteFomPaEllerEtterStartdato) {
@@ -73,7 +62,6 @@ function FiskerSelvstendigSection({ sykmelding }: Props): ReactElement | null {
     }
 
     const visMeldingTilNavDager = erForsteSykmelding && !tidligsteFomPaEllerEtterStartdato
-    const { erUtenforVentetid } = utenforVentetidData
 
     if (!visMeldingTilNavDager && erUtenforVentetid) {
         return null

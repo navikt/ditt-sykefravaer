@@ -17,16 +17,13 @@ import { testAar } from '../../src/data/mock/mock-db/data-creators'
 test.describe('Frilanser', () => {
     test.describe('Feil ved henting av data', () => {
         test('skal deaktivere send-knapp mens data lastes', async ({ page }) => {
-            await page.route(
-                '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid',
-                async (route) => {
-                    if (route.request().method() === 'GET') {
-                        await new Promise((resolve) => setTimeout(resolve, 5000))
-                        return route.continue()
-                    }
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/ventetid/**', async (route) => {
+                if (route.request().method() === 'GET') {
+                    await new Promise((resolve) => setTimeout(resolve, 5000))
                     return route.continue()
-                },
-            )
+                }
+                return route.continue()
+            })
 
             await gotoScenario('normal')(page)
             await navigateToFirstSykmelding('nye', '100%')(page)
@@ -38,42 +35,13 @@ test.describe('Frilanser', () => {
             await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
 
-        test('skal deaktivere send-knapp når er-forste-sykmelding feiler', async ({ page }) => {
-            await page.route(
-                '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
-                (route) => {
-                    if (route.request().method() === 'GET') {
-                        return route.fulfill({
-                            status: 500,
-                            contentType: 'application/json',
-                            body: JSON.stringify({ message: 'Failed to fetch er-forste-sykmelding' }),
-                        })
-                    }
-                    return route.continue()
-                },
-            )
-
-            await gotoScenario('normal')(page)
-            await navigateToFirstSykmelding('nye', '100%')(page)
-            await opplysingeneStemmer(page)
-            await velgArbeidssituasjon('frilanser')(page)
-
-            await expect(
-                page.getByText(
-                    /Vi klarte dessverre ikke å hente informasjonen som trengs for at du kan bruke sykmeldingen/,
-                ),
-            ).toBeVisible()
-
-            await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
-        })
-
-        test('skal deaktivere send-knapp når er-utenfor-ventetid feiler', async ({ page }) => {
-            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-utenfor-ventetid', (route) => {
+        test('skal deaktivere send-knapp når ventetid feiler', async ({ page }) => {
+            await page.route('**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/ventetid/**', (route) => {
                 if (route.request().method() === 'GET') {
                     return route.fulfill({
                         status: 500,
                         contentType: 'application/json',
-                        body: JSON.stringify({ message: 'Failed to fetch er-utenfor-ventetid' }),
+                        body: JSON.stringify({ message: 'Failed to fetch ventetid' }),
                     })
                 }
                 return route.continue()
@@ -91,28 +59,6 @@ test.describe('Frilanser', () => {
             ).toBeVisible()
 
             await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
-        })
-
-        test('skal deaktivere send-knapp mens er-forste-sykmelding lastes', async ({ page }) => {
-            await page.route(
-                '**/api/flex-sykmeldinger-backend/api/v1/sykmeldinger/*/er-forste-sykmelding/**',
-                async (route) => {
-                    if (route.request().method() === 'GET') {
-                        await new Promise((resolve) => setTimeout(resolve, 5000))
-                        return route.continue()
-                    }
-                    return route.continue()
-                },
-            )
-
-            await gotoScenario('normal')(page)
-            await navigateToFirstSykmelding('nye', '100%')(page)
-            await opplysingeneStemmer(page)
-            await velgArbeidssituasjon('frilanser')(page)
-
-            await expect(page.getByText('Henter ekstra informasjon')).toBeVisible()
-            await expect(page.getByRole('button', { name: /Bekreft sykmelding/ })).toBeDisabled()
-            await page.unrouteAll({ behavior: 'ignoreErrors' })
         })
     })
 
