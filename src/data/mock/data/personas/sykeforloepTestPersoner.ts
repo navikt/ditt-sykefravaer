@@ -4,7 +4,7 @@ import { Persona } from '../../testperson'
 import { sendtSoknad } from '../soknader'
 import { sendtSykmelding } from '../sykmeldinger'
 
-import { commonPersona } from './personas'
+import { ALBUS_DUMBLEDORE_LEDER_ID, commonPersona } from './personas'
 
 const iDag = dayjs()
 const førtitoUker = iDag.subtract(293, 'days')
@@ -25,10 +25,16 @@ export const snartSluttPerson: Persona = {
     ],
     narmesteledere: [
         {
-            navn: 'Albus Dumbledore',
-            orgnummer: '972674818',
-            arbeidsgiverForskutterer: true,
-            aktivFom: iDag.add(10, 'days').format('YYYY-MM-DD'),
+            id: ALBUS_DUMBLEDORE_LEDER_ID,
+            orgNumber: '972674818',
+            activeFrom: iDag.add(10, 'days').format('YYYY-MM-DD'),
+            name: {
+                firstName: 'Albus',
+                middleName: null,
+                lastName: 'Dumbledore',
+            },
+            emailAddresses: ['albus@fake.nav.no'],
+            mobile: '99999999',
         },
     ],
     meldinger: [

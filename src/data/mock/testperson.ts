@@ -2,7 +2,7 @@ import { jsonDeepCopy } from '../../utils/jsonDeepCopy'
 import { Soknad } from '../../types/soknad'
 import { RSVedtakWrapper } from '../../types/vedtak'
 import { DittSykefravaerSykmelding } from '../../types/dittSykefravaerSykmelding'
-import { NarmesteLeder } from '../../types/narmesteLeder'
+import { Linemanager } from '../../types/narmesteLeder'
 import { ArbeidsrettetOppfolging } from '../../types/arbeidsrettetOppfolging'
 import { Melding } from '../../types/melding'
 import { InntektsmeldingTyper } from '../../types/inntektsmeldingTyper'
@@ -38,7 +38,7 @@ export interface Persona {
     soknader: Soknad[]
     vedtak: RSVedtakWrapper[]
     sykmeldinger: DittSykefravaerSykmelding[]
-    narmesteledere: NarmesteLeder[]
+    narmesteledere: Linemanager[]
     maxdato: MaxDate
     arbeidsrettetOppfolging: ArbeidsrettetOppfolging
     meldinger: Melding[]
