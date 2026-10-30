@@ -11,7 +11,7 @@ export const finnAktuelleArbeidsgivere = (
     let sykmeldingerFiltrertPaPeriode: DittSykefravaerSykmelding[] = []
 
     if (narmesteLedere) {
-        aktiveLedereOrgnummer = narmesteLedere.filter((nl) => !nl.aktivTom && nl.navn).map((nl) => nl.orgnummer)
+        aktiveLedereOrgnummer = narmesteLedere.filter((nl) => nl.navn).map((nl) => nl.orgnummer)
     }
     if (sykmeldinger) {
         sykmeldingerMedAktivNaermesteLeder = sykmeldinger

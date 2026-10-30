@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { NarmesteLeder } from '../types/narmesteLeder'
+import { LinemanagerResponse, NarmesteLeder, tilNarmesteLeder } from '../types/narmesteLeder'
 import { fetchJsonMedRequestId } from '../utils/fetch'
 
 import { UseTestpersonQuery } from './useTestpersonQuery'
@@ -10,9 +10,11 @@ export default function UseNarmesteledere() {
 
     return useQuery<NarmesteLeder[], Error>({
         queryKey: ['narmesteledere'],
-        queryFn: () =>
-            fetchJsonMedRequestId(
-                '/syk/sykefravaer/api/narmesteleder/user/v2/sykmeldt/narmesteledere' + testpersonQuery.query(),
-            ),
+        queryFn: async () => {
+            const res: LinemanagerResponse = await fetchJsonMedRequestId(
+                '/syk/sykefravaer/api/narmesteleder/internal/api/v1/employee/linemanager' + testpersonQuery.query(),
+            )
+            return res.linemanagers.map(tilNarmesteLeder)
+        },
     })
 }
