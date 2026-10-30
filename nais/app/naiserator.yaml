@@ -75,6 +75,8 @@ spec:
         - application: flex-sykmeldinger-backend
         - application: narmesteleder
           namespace: teamsykmelding
+        - application: esyfo-narmesteleder
+          namespace: team-esyfo
         - application: syfomotebehov
           namespace: team-esyfo
         - application: nav-dekoratoren
