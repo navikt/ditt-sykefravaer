@@ -187,3 +187,15 @@ export function expectDineSvar(svar: {
 function getInfoItem(name: RegExp | string) {
     return (page: Page | Locator): Locator => page.getByRole('heading', { name }).locator('..')
 }
+
+export async function expectNarmesteleder(page: Page, fulltNavn: string): Promise<void> {
+    await expect(
+        page.getByText(`Arbeidsgiveren har meldt inn at ${fulltNavn} skal følge deg opp mens du er syk.`),
+    ).toBeVisible()
+}
+
+export async function expectNarmestelederIkkeSynlig(page: Page, fulltNavn: string): Promise<void> {
+    await expect(
+        page.getByText(`Arbeidsgiveren har meldt inn at ${fulltNavn} skal følge deg opp mens du er syk.`),
+    ).toBeHidden()
+}
