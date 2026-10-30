@@ -254,6 +254,16 @@ export function bekreftNarmesteleder(narmesteleder: string, svar: 'Ja' | 'Nei' =
     }
 }
 
+export async function avkreftNarmesteleder(page: Page, expectedLederId: string) {
+    const deletePromise = page.waitForRequest(
+        (req) => req.method() === 'DELETE' && req.url().includes(`/internal/api/v1/linemanager/${expectedLederId}`),
+    )
+    const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
+    const bekreftButton = modal.getByRole('button', { name: 'Ja, jeg er sikker' })
+    await bekreftButton.click()
+    return await deletePromise
+}
+
 export function filloutArbeidstaker(arbeidstaker: RegExp): (page: Page) => Promise<void> {
     return async (page: Page): Promise<void> => {
         await navigateToFirstSykmelding('nye', '100%')(page)
