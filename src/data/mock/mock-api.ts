@@ -171,26 +171,27 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         'PUT /api/flexjar-backend/api/v2/feedback/:uuid': () => {
             return sendJson({}, 204)
         },
-        'GET /api/narmesteleder/user/v2/sykmeldt/narmesteledere': () => {
-            return sendJson(testperson.narmesteledere)
+        'GET /api/narmesteleder/internal/api/v1/employee/linemanager': () => {
+            return sendJson({ linemanagers: testperson.narmesteledere })
         },
-        'POST /api/narmesteleder/v2/:orgnr/avkreft': (params) => {
-            const org = params.orgnr
-            if (org === '972674820') {
+        'DELETE /api/narmesteleder/internal/api/v1/linemanager/:uuid': (params) => {
+            const uuid = params.uuid
+            if (uuid === '00000000-0000-4000-8000-000000000003') {
                 res.status(500)
                 res.end()
                 return
             }
-            const idx = testperson.narmesteledere.findIndex((nl) => nl.orgnummer === org)
-            if (idx !== -1) {
-                const avkreftetLeder = testperson.narmesteledere[idx]
-                // Fjerner avkreftet leder fra mockdata.
-                testperson.narmesteledere.splice(idx, 1, {
-                    ...avkreftetLeder,
-                    aktivTom: dayjs().format('YYYY-MM-DD'),
-                })
+            const idx = testperson.narmesteledere.findIndex((nl) => nl.id === uuid)
+            if (idx === -1) {
+                res.status(404)
+                res.end()
+                return
             }
-            return sendJson({ status: 200 })
+            // Fjerner avkreftet leder fra mockdata slik at senere GET utelater denne lederen.
+            testperson.narmesteledere.splice(idx, 1)
+            res.status(202)
+            res.end()
+            return
         },
         'GET /:uuid/pdf': async (params) => {
             const sykmeldingId = params.uuid
