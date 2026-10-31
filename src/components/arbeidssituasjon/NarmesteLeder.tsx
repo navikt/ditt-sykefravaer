@@ -20,15 +20,19 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         return null
     }
     const leder = narmesteLedere
-        .filter((nl) => !nl.aktivTom && nl.navn) // Aktiv og har navn på leder
+        .filter((nl) => nl.navn) // Har navn på leder
         .find((nl) => nl.orgnummer === orgnummer)
 
     const toggleOpen = () => {
         setOpen(!open)
     }
 
-    if (!leder || !orgNavn) {
+    if (!orgNavn) {
         return null
+    }
+
+    if (!leder) {
+        return <BodyShort spacing>{tekst('din-situasjon.ingen-nærmesteleder')}</BodyShort>
     }
 
     return (

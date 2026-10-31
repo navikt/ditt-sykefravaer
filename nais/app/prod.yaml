@@ -15,7 +15,7 @@ env:
   DITT_SYKEFRAVAER_BACKEND_CLIENT_ID: prod-gcp:flex:ditt-sykefravaer-backend
   SPINNSYN_BACKEND_CLIENT_ID: prod-gcp:flex:spinnsyn-backend
   FLEX_SYKMELDINGER_BACKEND_CLIENT_ID: prod-gcp:flex:flex-sykmeldinger-backend
-  NARMESTELEDER_CLIENT_ID: prod-gcp:teamsykmelding:narmesteleder
+  ESYFO_NARMESTELEDER_CLIENT_ID: prod-gcp:team-esyfo:esyfo-narmesteleder
   SYKEPENGESOKNAD_BACKEND_CLIENT_ID: prod-gcp:flex:sykepengesoknad-backend
   SYFOMOTEBEHOV_CLIENT_ID: prod-gcp:team-esyfo:syfomotebehov
   VEILARBOPPFOLGING_HOST: veilarboppfolging-gcp.intern.nav.no

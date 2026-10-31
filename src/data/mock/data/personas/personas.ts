@@ -6,6 +6,10 @@ import { StatusEvent } from '../../../../types/sykmelding/sykmelding'
 
 import { altinnInntektsmelding, altinnInntektsmelding2 } from './inntektsmeldingTestData'
 
+export const ALBUS_DUMBLEDORE_LEDER_ID = '00000000-0000-4000-8000-000000000001'
+export const SEVERUS_SNAPE_LEDER_ID = '00000000-0000-4000-8000-000000000002'
+export const CHARITY_BURBAGE_LEDER_ID = '00000000-0000-4000-8000-000000000003'
+
 type PersonaUtenBeskrivelse = Omit<Persona, 'beskrivelse'>
 export const commonPersona = (): PersonaUtenBeskrivelse => {
     return {
@@ -51,22 +55,40 @@ export const defaultPersona: Persona = {
     ],
     narmesteledere: [
         {
-            navn: 'Albus Dumbledore',
-            orgnummer: '972674818',
-            arbeidsgiverForskutterer: true,
-            aktivFom: '2021-03-19',
+            id: ALBUS_DUMBLEDORE_LEDER_ID,
+            orgNumber: '972674818',
+            activeFrom: '2021-03-19',
+            name: {
+                firstName: 'Albus',
+                middleName: null,
+                lastName: 'Dumbledore',
+            },
+            emailAddresses: ['albus@fake.nav.no'],
+            mobile: '99999999',
         },
         {
-            navn: 'Severus Snape',
-            orgnummer: '972674819',
-            arbeidsgiverForskutterer: true,
-            aktivFom: '2021-03-19',
+            id: SEVERUS_SNAPE_LEDER_ID,
+            orgNumber: '972674819',
+            activeFrom: '2021-03-19',
+            name: {
+                firstName: 'Severus',
+                middleName: null,
+                lastName: 'Snape',
+            },
+            emailAddresses: ['severus@fake.nav.no'],
+            mobile: '99999998',
         },
         {
-            navn: 'Charity Burbage',
-            orgnummer: '972674820',
-            arbeidsgiverForskutterer: true,
-            aktivFom: '2021-03-20',
+            id: CHARITY_BURBAGE_LEDER_ID,
+            orgNumber: '972674820',
+            activeFrom: '2021-03-20',
+            name: {
+                firstName: 'Charity',
+                middleName: null,
+                lastName: 'Burbage',
+            },
+            emailAddresses: ['charity@fake.nav.no'],
+            mobile: '99999997',
         },
     ],
     maxdato: { maxDate: '2025-01-02', utbetaltTom: '2023-01-02' },
