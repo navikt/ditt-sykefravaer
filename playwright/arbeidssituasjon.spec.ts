@@ -9,7 +9,7 @@ import {
 import { test } from './utils/fixtures'
 import { validerCLS } from './utils/cls-validering'
 import { avkreftNarmesteleder } from './utils/user-actions'
-import { expectNarmesteleder, expectNarmestelederIkkeSynlig } from './utils/user-expects'
+import { expectIngenNarmesteleder, expectNarmesteleder, expectNarmestelederIkkeSynlig } from './utils/user-expects'
 
 test.describe('Tester arbeidssituasjon', () => {
     test('Bruker med flere arbeidsgivere', async ({ page, getCLS }) => {
@@ -101,6 +101,7 @@ test.describe('Tester arbeidssituasjon', () => {
         await expect(modal).toBeHidden()
 
         await expectNarmestelederIkkeSynlig(page, 'Albus Dumbledore')
+        await expectIngenNarmesteleder(page)
         await expect(hovedInnhold).toContainText('Hogwarts School of Witchcraft and Wizardry')
     })
 })
