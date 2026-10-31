@@ -73,8 +73,6 @@ spec:
         - application: spinnsyn-backend
         - application: flexjar-backend
         - application: flex-sykmeldinger-backend
-        - application: narmesteleder
-          namespace: teamsykmelding
         - application: esyfo-narmesteleder
           namespace: team-esyfo
         - application: syfomotebehov
