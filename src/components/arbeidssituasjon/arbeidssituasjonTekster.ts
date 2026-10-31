@@ -13,4 +13,5 @@ export const ArbeidssituasjonTekster = {
         'Du kan ta initiativ til <a href="https://www.nav.no/syk/dialogmoter/sykmeldt" target="_blank">dialogmøte</a> hvis du mener du har behov for det. ',
     'din-situasjon.nærmesteleder':
         'Arbeidsgiveren har meldt inn at <strong>%ARBEIDSGIVER%</strong> skal følge deg opp mens du er syk.',
+    'din-situasjon.ingen-nærmesteleder': 'Ingen nærmeste leder registrert',
 }

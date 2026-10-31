@@ -27,8 +27,12 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         setOpen(!open)
     }
 
-    if (!leder || !orgNavn) {
+    if (!orgNavn) {
         return null
+    }
+
+    if (!leder) {
+        return <BodyShort spacing>{tekst('din-situasjon.ingen-nærmesteleder')}</BodyShort>
     }
 
     return (

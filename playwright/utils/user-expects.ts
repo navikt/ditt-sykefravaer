@@ -199,3 +199,7 @@ export async function expectNarmestelederIkkeSynlig(page: Page, fulltNavn: strin
         page.getByText(`Arbeidsgiveren har meldt inn at ${fulltNavn} skal følge deg opp mens du er syk.`),
     ).toBeHidden()
 }
+
+export async function expectIngenNarmesteleder(page: Page): Promise<void> {
+    await expect(page.getByText('Ingen nærmeste leder registrert')).toBeVisible()
+}
