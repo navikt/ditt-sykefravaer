@@ -15,7 +15,8 @@ import Maksdato from '../components/maksdato/Maksdato'
 
 const Index = () => {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.dittSykefravaer())
-    const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
+    const flexjarFantDuToggle = useToggle('flexjar-ditt-sykefravaer-fant-du')
+    const flexjarEnabled = useToggle('flexjar-ditt-sykefravaer-enabled')
     const maksdatoToggle = useToggle('ditt-sykefravaer-maxdato')
 
     return (
@@ -29,7 +30,7 @@ const Index = () => {
             <Arbeidssituasjon />
             <Lenker />
 
-            {flexjarToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
+            {flexjarEnabled.enabled && flexjarFantDuToggle.enabled && <Flexjar feedbackId="ditt-sykefravaer-fant-du" />}
         </>
     )
 }

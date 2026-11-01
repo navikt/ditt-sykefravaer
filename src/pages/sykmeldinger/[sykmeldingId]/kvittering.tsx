@@ -29,7 +29,8 @@ function SykmeldingkvitteringPage(): ReactElement {
     const sykmeldingId = useGetSykmeldingIdParam()
     const { data, error, isPending } = useSykmelding(sykmeldingId)
     const router = useRouter()
-    const flexjarToggle = useToggle('flexjar-sykmelding-kvittering')
+    const flexjarSykmeldingKvitteringToggle = useToggle('flexjar-sykmelding-kvittering')
+    const flexjarEnabled = useToggle('flexjar-ditt-sykefravaer-enabled')
 
     const arbeidssituasjonSvar = { arbeidssituasjon: data?.sykmeldingStatus.brukerSvar?.arbeidssituasjon.svar }
     const visVentetidInfo = useVisVentetidInfo(sykmeldingId, arbeidssituasjonSvar.arbeidssituasjon)
@@ -126,7 +127,7 @@ function SykmeldingkvitteringPage(): ReactElement {
             <Box marginBlock="space-32 space-0">
                 <HintToNextOlderSykmelding />
             </Box>
-            {flexjarToggle.enabled && (
+            {flexjarEnabled.enabled && flexjarSykmeldingKvitteringToggle.enabled && (
                 <Flexjar feedbackId="sykmelding-kvittering" feedbackProps={arbeidssituasjonSvar} />
             )}
         </KvitteringWrapper>

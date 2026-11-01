@@ -14,7 +14,8 @@ import { ArbeidsgiverperiodePanel } from './ArbeidsgiverperiodePanel'
 
 export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: InntektsmeldingTyper }) {
     const visNaturalytelser = (inntektsmelding?.opphoerAvNaturalytelser?.length || 0) > 0
-    const flexjarToggle = useToggle('flexjar-ditt-sykefravaer-inntektsmelding-visning')
+    const flexjarInntektsmeldingVisningToggle = useToggle('flexjar-ditt-sykefravaer-inntektsmelding-visning')
+    const flexjarEnabled = useToggle('flexjar-ditt-sykefravaer-enabled')
 
     const { organisasjonsnavn, mottattDato, innsenderFulltNavn } = inntektsmelding || {}
 
@@ -57,7 +58,9 @@ export function InntektsmeldingVisning({ inntektsmelding }: { inntektsmelding?: 
             )}
             <UtbetalingOgRefusjonPanel inntektsmelding={inntektsmelding} />
             {visNaturalytelser && <Naturalytelser inntektsmelding={inntektsmelding} />}
-            {flexjarToggle.enabled && <Flexjar feedbackId="inntektsmelding-visning" />}
+            {flexjarEnabled.enabled && flexjarInntektsmeldingVisningToggle.enabled && (
+                <Flexjar feedbackId="inntektsmelding-visning" />
+            )}
         </>
     )
 }

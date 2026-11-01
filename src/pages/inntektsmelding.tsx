@@ -6,9 +6,11 @@ import { breadcrumbBuilders, useUpdateBreadcrumbs } from '../hooks/useBreadcrumb
 import { Banner } from '../components/banner/Banner'
 import { Flexjar } from '../components/flexjar/flexjar'
 import { LenkeMedUmami } from '../components/lenke/lenke-med-umami'
+import { useToggle } from '../toggles/context'
 
 const Inntektsmelding = () => {
     useUpdateBreadcrumbs(() => breadcrumbBuilders.venterPaInntektsmelding())
+    const flexjarEnabled = useToggle('flexjar-ditt-sykefravaer-enabled')
 
     return (
         <>
@@ -53,7 +55,9 @@ const Inntektsmelding = () => {
                 ></LenkeMedUmami>
             </BodyLong>
 
-            <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
+            {flexjarEnabled.enabled && (
+                <Flexjar feedbackId="manglende-inntektsmelding" sporsmal="Var denne informasjonen nyttig for deg?" />
+            )}
         </>
     )
 }
