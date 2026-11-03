@@ -201,5 +201,9 @@ export async function expectNarmestelederIkkeSynlig(page: Page, fulltNavn: strin
 }
 
 export async function expectIngenNarmesteleder(page: Page): Promise<void> {
-    await expect(page.getByText('Ingen nærmeste leder registrert')).toBeVisible()
+    await expect(
+        page.getByText(
+            'Arbeidsgiveren din har ikke meldt inn hvem som skal følge deg opp mens du er sykmeldt. Be gjerne lederen din eller HR om å melde inn nærmeste leder.',
+        ),
+    ).toBeVisible()
 }
