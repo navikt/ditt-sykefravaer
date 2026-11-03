@@ -12,13 +12,10 @@ export default function UseAvkreftNarmesteLeder(id: string) {
 
     return useMutation({
         mutationFn: () =>
-            fetchMedRequestId(
-                `/syk/sykefravaer/api/narmesteleder/internal/api/v1/linemanager/${id}` + testpersonQuery.query(),
-                {
-                    method: 'DELETE',
-                    credentials: 'include',
-                },
-            ),
+            fetchMedRequestId(`/syk/sykefravaer/api/narmesteleder/linemanager/${id}` + testpersonQuery.query(), {
+                method: 'DELETE',
+                credentials: 'include',
+            }),
 
         onMutate: async () => {
             await queryClient.cancelQueries({

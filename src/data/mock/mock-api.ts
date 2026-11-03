@@ -171,10 +171,10 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         'PUT /api/flexjar-backend/api/v2/feedback/:uuid': () => {
             return sendJson({}, 204)
         },
-        'GET /api/narmesteleder/internal/api/v1/employee/linemanager': () => {
+        'GET /api/narmesteleder/employee/linemanager': () => {
             return sendJson({ linemanagers: testperson.narmesteledere })
         },
-        'DELETE /api/narmesteleder/internal/api/v1/linemanager/:uuid': (params) => {
+        'DELETE /api/narmesteleder/linemanager/:uuid': (params) => {
             const uuid = params.uuid
             if (uuid === '00000000-0000-4000-8000-000000000003') {
                 res.status(500)

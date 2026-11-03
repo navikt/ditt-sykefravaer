@@ -68,7 +68,7 @@ describe('useAvkreftNarmesteLeder og useNarmesteledere regresjonstest for asynkr
                 // esyfo returnerer 202 Accepted med tom body ved sletting
                 return Promise.resolve(new Response(null, { status: 202, statusText: 'Accepted' }))
             }
-            if (method === 'GET' && url.includes('/internal/api/v1/employee/linemanager')) {
+            if (method === 'GET' && url.includes('/employee/linemanager')) {
                 getCallCount++
                 return Promise.resolve(
                     new Response(JSON.stringify(getResponsePayload), {
@@ -129,7 +129,7 @@ describe('useAvkreftNarmesteLeder og useNarmesteledere regresjonstest for asynkr
             if (method === 'DELETE') {
                 return Promise.resolve(new Response('Feil i backend', { status: 500, statusText: 'Server Error' }))
             }
-            if (method === 'GET' && url.includes('/internal/api/v1/employee/linemanager')) {
+            if (method === 'GET' && url.includes('/employee/linemanager')) {
                 return Promise.resolve(
                     new Response(JSON.stringify(getResponsePayload), {
                         status: 200,

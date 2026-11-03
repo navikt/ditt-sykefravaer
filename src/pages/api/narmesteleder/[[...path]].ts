@@ -4,7 +4,7 @@ import { beskyttetApi } from '../../../auth/beskyttetApi'
 import { proxyKallTilBackend } from '../../../proxy/backendproxy'
 import { getServerEnv } from '../../../utils/env'
 
-const tillatteApier = ['GET /internal/api/v1/employee/linemanager', 'DELETE /internal/api/v1/linemanager/[uuid]']
+export const tillatteApier = ['GET /employee/linemanager', 'DELETE /linemanager/[uuid]']
 
 const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) => {
     await proxyKallTilBackend({
@@ -15,6 +15,7 @@ const handler = beskyttetApi(async (req: NextApiRequest, res: NextApiResponse) =
         hostname: 'esyfo-narmesteleder.team-esyfo',
         backendClientId: getServerEnv().ESYFO_NARMESTELEDER_CLIENT_ID,
         https: false,
+        backendPathPrefix: '/internal/api/v1',
     })
 })
 

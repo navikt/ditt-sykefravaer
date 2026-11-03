@@ -41,7 +41,7 @@ export default function UseNarmesteledere() {
         queryKey: ['narmesteledere'],
         queryFn: async () => {
             const res: LinemanagerResponse = await fetchJsonMedRequestId(
-                '/syk/sykefravaer/api/narmesteleder/internal/api/v1/employee/linemanager' + testpersonQuery.query(),
+                '/syk/sykefravaer/api/narmesteleder/employee/linemanager' + testpersonQuery.query(),
             )
             const avkreftede = hentAvkreftedeLederIder(queryClient)
             return res.linemanagers.map(tilNarmesteLeder).filter((nl) => !avkreftede.has(nl.id))

@@ -13,6 +13,14 @@ interface Opts {
     hostname: string
     backendClientId: string
     https: boolean
+    backendPathPrefix?: string
+}
+
+export function byggBackendSti(rewritedPath: string, backendPathPrefix?: string): string {
+    if (!backendPathPrefix) {
+        return rewritedPath
+    }
+    return `${backendPathPrefix}${rewritedPath}`
 }
 
 export async function proxyKallTilBackend(opts: Opts) {
@@ -35,5 +43,6 @@ export async function proxyKallTilBackend(opts: Opts) {
         })
     }
 
-    await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenX.token })
+    const backendPath = byggBackendSti(rewritedPath, opts.backendPathPrefix)
+    await proxyApiRouteRequest({ ...opts, path: backendPath, bearerToken: tokenX.token })
 }
