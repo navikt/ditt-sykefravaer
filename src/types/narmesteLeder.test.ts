@@ -1,89 +1,27 @@
-import { describe, it, expect } from 'vitest'
+import { describe, expect, it } from 'vitest'
 
 import { Linemanager, tilNarmesteLeder } from './narmesteLeder'
 
+const lagLinemanager = (middleName: string | null): Linemanager => ({
+    id: '00000000-0000-4000-8000-000000000001',
+    orgNumber: '123456789',
+    activeFrom: '2024-01-01T08:00:00Z',
+    name: { firstName: 'Kari', middleName, lastName: 'Nordmann' },
+    emailAddresses: ['leder@example.test'],
+    mobile: '00000000',
+})
+
 describe('tilNarmesteLeder', () => {
-    it('mapper leder med fornavn og etternavn', () => {
-        const dto: Linemanager = {
-            id: 'uuid-1',
-            orgNumber: '123456789',
-            activeFrom: '2024-01-01',
-            name: {
-                firstName: 'Kari',
-                middleName: null,
-                lastName: 'Nordmann',
-            },
-            emailAddresses: ['leder@example.com'],
-            mobile: '12345678',
-        }
-
-        const resultat = tilNarmesteLeder(dto)
-
-        expect(resultat).toEqual({
-            id: 'uuid-1',
+    it('mapper til klientmodellen uten e-post og mobil', () => {
+        expect(tilNarmesteLeder(lagLinemanager(null))).toEqual({
+            id: '00000000-0000-4000-8000-000000000001',
             navn: 'Kari Nordmann',
             orgnummer: '123456789',
-            aktivFom: '2024-01-01',
+            aktivFom: '2024-01-01T08:00:00Z',
         })
     })
 
-    it('mapper leder med fornavn, mellomnavn og etternavn', () => {
-        const dto: Linemanager = {
-            id: 'uuid-2',
-            orgNumber: '987654321',
-            activeFrom: '2023-05-15',
-            name: {
-                firstName: 'Ola',
-                middleName: 'Mellom',
-                lastName: 'Nordmann',
-            },
-            emailAddresses: ['ola@example.com'],
-            mobile: '87654321',
-        }
-
-        const resultat = tilNarmesteLeder(dto)
-
-        expect(resultat.navn).toBe('Ola Mellom Nordmann')
-    })
-
-    it('gir ikke dobbelt mellomrom når middleName er null eller tom', () => {
-        const dtoMedNull: Linemanager = {
-            id: 'uuid-3',
-            orgNumber: '123456789',
-            activeFrom: '2024-01-01',
-            name: {
-                firstName: 'Kari',
-                middleName: null,
-                lastName: 'Nordmann',
-            },
-            emailAddresses: [],
-            mobile: null,
-        }
-
-        const resultat = tilNarmesteLeder(dtoMedNull)
-
-        expect(resultat.navn).toBe('Kari Nordmann')
-        expect(resultat.navn).not.toContain('  ')
-    })
-
-    it('tar ikke med emailAddresses eller mobile i NarmesteLeder', () => {
-        const dto: Linemanager = {
-            id: 'uuid-4',
-            orgNumber: '123456789',
-            activeFrom: '2024-01-01',
-            name: {
-                firstName: 'Kari',
-                middleName: null,
-                lastName: 'Nordmann',
-            },
-            emailAddresses: ['leder@example.com'],
-            mobile: '99999999',
-        }
-
-        const resultat = tilNarmesteLeder(dto)
-
-        expect(resultat).not.toHaveProperty('emailAddresses')
-        expect(resultat).not.toHaveProperty('mobile')
-        expect(Object.keys(resultat).sort()).toEqual(['aktivFom', 'id', 'navn', 'orgnummer'].sort())
+    it('tar med mellomnavn når det finnes', () => {
+        expect(tilNarmesteLeder(lagLinemanager('Mellom')).navn).toBe('Kari Mellom Nordmann')
     })
 })

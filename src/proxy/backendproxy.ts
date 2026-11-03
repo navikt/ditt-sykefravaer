@@ -16,13 +16,6 @@ interface Opts {
     backendPathPrefix?: string
 }
 
-export function byggBackendSti(rewritedPath: string, backendPathPrefix?: string): string {
-    if (!backendPathPrefix) {
-        return rewritedPath
-    }
-    return `${backendPathPrefix}${rewritedPath}`
-}
-
 export async function proxyKallTilBackend(opts: Opts) {
     if (!opts.req.url) return null
     const rewritedPath = opts.req.url.replace(`/api/${opts.backend}`, '')
@@ -43,6 +36,7 @@ export async function proxyKallTilBackend(opts: Opts) {
         })
     }
 
-    const backendPath = byggBackendSti(rewritedPath, opts.backendPathPrefix)
+    // Backend kan ha et prefiks (f.eks. /internal) som ikke kan eksponeres i nettleserstien
+    const backendPath = (opts.backendPathPrefix ?? '') + rewritedPath
     await proxyApiRouteRequest({ ...opts, path: backendPath, bearerToken: tokenX.token })
 }
