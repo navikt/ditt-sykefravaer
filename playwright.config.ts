@@ -47,8 +47,9 @@ const createOptions = (medDekorator = false, port = 3000): OptionsType => {
     }
 }
 
-const opts = createOptions(false, 3000)
-const optsMedDekorator = createOptions(true, 3001)
+const port = Number(process.env.PLAYWRIGHT_PORT ?? 3000)
+const opts = createOptions(false, port)
+const optsMedDekorator = createOptions(true, port + 1)
 const servers = [opts.server, optsMedDekorator.server].filter(Boolean) as TestConfigWebServer
 
 const alleBrowserConfigs: NamedProject[] = commonBrowserConfigs(opts, optsMedDekorator)
