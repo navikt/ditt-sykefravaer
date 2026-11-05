@@ -86,7 +86,7 @@
         "play": "PLAYWRIGHT_ALL=true npx playwright test --ui",
         "play-headless": "npx playwright test",
         "play-build": "export PLAYWRIGHT_ALL=true BUILD=true; npm run build && npx playwright test --ui",
-        "play-headless-build": "export BUILD=true INTEGRASJONSTEST=true; npm run build && npx playwright test",
+        "play-headless-build": "export BUILD=true INTEGRASJONSTEST=true PLAYWRIGHT_HTML_OPEN=never; npm run build && npx playwright test --max-failures=1",
         "prettier:write": "prettier --write .",
         "prettier:check": "prettier --check .",
         "lint": "eslint src playwright",
