@@ -18,7 +18,9 @@ export async function getFlagsServerSide(
     context: Pick<GetServerSidePropsContext, 'req' | 'res' | 'query'>,
 ): Promise<{ toggles: IToggle[] }> {
     if (isMockBackend()) {
-        logger.info('Running in local or demo mode, falling back to development toggles.')
+        if (process.env.INTEGRASJONSTEST !== 'true') {
+            logger.info('Running in local or demo mode, falling back to development toggles.')
+        }
         return { toggles: localDevelopmentToggles(context) }
     }
 
