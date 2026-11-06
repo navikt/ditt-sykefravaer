@@ -1,5 +1,6 @@
 import { expect, Page, TestInfo } from '@playwright/test'
 import { AxeBuilder } from '@axe-core/playwright'
+import type { AxeResults } from 'axe-core'
 
 export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: string[] = []) {
     const axeBuilder = new AxeBuilder({ page }).exclude('.ignore-axe')
@@ -67,8 +68,10 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                         })
                     }
                 } catch {
-                    // Ignorer hvis vi ikke kan ta screenshot av elementet
-                    console.log(`Kunne ikke ta screenshot av element: ${node.target.join(' ')}`)
+                    testInfo.annotations.push({
+                        type: 'Kunne ikke ta skjermbilde',
+                        description: node.target.join(' '),
+                    })
                 }
             }
         }
@@ -89,15 +92,11 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
             )
             .join('\n' + '─'.repeat(80) + '\n')
 
-        // Console log for debugging (mindre detaljert nå)
-        console.log('==================\n')
-        console.log(`${violations.length} UU-violation(s) detected - se attachments i Playwright GUI for detaljer`)
-
         expect(violations, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toHaveLength(0)
     }
 }
 
-function generateHtmlReport(violations: any[], url: string): string {
+function generateHtmlReport(violations: AxeResults['violations'], url: string): string {
     return `
 <!DOCTYPE html>
 <html lang="nb">
@@ -180,7 +179,7 @@ function generateHtmlReport(violations: any[], url: string): string {
                 <div class="element-list">
                     ${violation.nodes
                         .map(
-                            (node: { target: any[] }) => `
+                            (node) => `
                         <div class="element">${node.target.join(' ')}</div>
                     `,
                         )
