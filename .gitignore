@@ -4,6 +4,7 @@
 .idea
 *.iml
 .next
+/next-env.d.ts
 
 # dependencies
 /node_modules
@@ -35,3 +36,4 @@ node_modules/
 
 /tsconfig.tsbuildinfo
 /.omo/
+/.opencode/
