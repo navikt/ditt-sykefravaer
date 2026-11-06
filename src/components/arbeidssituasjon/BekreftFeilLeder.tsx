@@ -12,12 +12,26 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.id)
+    const {
+        mutateAsync: avkreft,
+        isPending,
+        isSuccess,
+        isError,
+    } = useAvkreftNarmesteLeder(narmesteLeder.id, narmesteLeder.orgnummer)
+
+    const bekreft = async () => {
+        try {
+            await avkreft()
+            toggle()
+        } catch {
+            // Feilen vises av mutasjonen i dialogen.
+        }
+    }
 
     return (
         <Modal
             open={open}
-            onClose={() => {}}
+            onClose={toggle}
             className="w-96"
             aria-label="Endre nærmeste leder"
             header={{
@@ -30,13 +44,24 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 {isError && <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>}
 
                 <BodyLong spacing>
-                    Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i{' '}
-                    <strong>{orgNavn}</strong>?
+                    {narmesteLeder.navn ? (
+                        <>
+                            Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
+                            leder i <strong>{orgNavn}</strong>?
+                        </>
+                    ) : (
+                        <>
+                            Er du sikker på at du vil fjerne den registrerte nærmeste lederen din i{' '}
+                            <strong>{orgNavn}</strong>?
+                        </>
+                    )}
                 </BodyLong>
-                <BodyLong spacing>
-                    Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt
-                    det.
-                </BodyLong>
+                {narmesteLeder.navn && (
+                    <BodyLong spacing>
+                        Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har
+                        valgt det.
+                    </BodyLong>
+                )}
             </Modal.Body>
             <Modal.Footer>
                 <Button
@@ -45,7 +70,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     loading={isPending}
                     type="button"
                     disabled={isPending || isSuccess}
-                    onClick={() => avkreft()}
+                    onClick={bekreft}
                 >
                     Ja, jeg er sikker
                 </Button>

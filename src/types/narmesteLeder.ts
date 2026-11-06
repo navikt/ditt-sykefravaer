@@ -13,7 +13,7 @@ export interface Linemanager {
         firstName: string
         middleName: string | null
         lastName: string
-    }
+    } | null
     emailAddresses: string[]
     mobile: string | null
 }
@@ -23,7 +23,7 @@ export interface LinemanagerResponse {
 }
 
 export function tilNarmesteLeder(dto: Linemanager): NarmesteLeder {
-    const navn = [dto.name.firstName, dto.name.middleName, dto.name.lastName].filter(Boolean).join(' ')
+    const navn = dto.name ? [dto.name.firstName, dto.name.middleName, dto.name.lastName].filter(Boolean).join(' ') : ''
     return {
         id: dto.id,
         navn,

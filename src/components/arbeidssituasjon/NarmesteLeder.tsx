@@ -2,7 +2,8 @@ import { BodyShort, Link } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
-import useNarmesteledere from '../../hooks/useNarmesteledere'
+import useNarmesteledere, { useAvkreftedeLedere } from '../../hooks/useNarmesteledere'
+import { NarmesteLeder as NarmesteLederType } from '../../types/narmesteLeder'
 import { tekst } from '../../utils/tekster'
 
 import BekreftFeilLeder from './BekreftFeilLeder'
@@ -14,30 +15,49 @@ interface NaermesteLederContainerProps {
 
 const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const [open, setOpen] = useState<boolean>(false)
+    const avkreftede = useAvkreftedeLedere()
 
     if (!narmesteLedere) {
         return null
     }
-    const leder = narmesteLedere
-        .filter((nl) => nl.navn) // Har navn på leder
-        .find((nl) => nl.orgnummer === orgnummer)
-
-    const toggleOpen = () => {
-        setOpen(!open)
-    }
+    const leder =
+        narmesteLedere.find((nl) => nl.orgnummer === orgnummer && nl.navn) ??
+        narmesteLedere.find((nl) => nl.orgnummer === orgnummer)
 
     if (!orgNavn) {
         return null
     }
 
+    const venter = avkreftede.some((nl) => nl.orgnummer === orgnummer)
+    const ventetekst = 'Vi har bedt om å fjerne en nærmeste leder. Vi kan ikke bekrefte at endringen er fullført ennå.'
+
     if (!leder) {
-        return <BodyShort spacing>{tekst('din-situasjon.ingen-nærmesteleder')}</BodyShort>
+        return (
+            <BodyShort spacing role={venter ? 'status' : undefined}>
+                {venter ? ventetekst : tekst('din-situasjon.ingen-nærmesteleder')}
+            </BodyShort>
+        )
     }
 
     return (
         <>
-            {leder.navn && (
+            {venter && (
+                <BodyShort spacing role="status">
+                    {ventetekst}
+                </BodyShort>
+            )}
+            <LederVisning key={leder.id} leder={leder} orgNavn={orgNavn} />
+        </>
+    )
+}
+
+function LederVisning({ leder, orgNavn }: { leder: NarmesteLederType; orgNavn: string }) {
+    const [open, setOpen] = useState(false)
+    const lukk = () => setOpen(false)
+
+    return (
+        <>
+            {leder.navn ? (
                 <BodyShort spacing>
                     {parserWithReplace(
                         tekst('din-situasjon.nærmesteleder', {
@@ -45,12 +65,16 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                         }),
                     )}
                 </BodyShort>
+            ) : (
+                <BodyShort spacing>
+                    Arbeidsgiveren din har registrert en nærmeste leder, men navnet er ikke tilgjengelig.
+                </BodyShort>
             )}
 
-            <Link as="button" onClick={() => toggleOpen()}>
+            <Link as="button" onClick={() => setOpen(true)}>
                 Meld fra om endring
             </Link>
-            <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
+            <BekreftFeilLeder open={open} toggle={lukk} narmesteLeder={leder} orgNavn={orgNavn} />
         </>
     )
 }
