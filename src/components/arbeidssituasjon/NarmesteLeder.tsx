@@ -21,7 +21,7 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         return null
     }
     const leder =
-        narmesteLedere.find((nl) => nl.orgnummer === orgnummer && nl.navn) ??
+        narmesteLedere.find((nl) => nl.orgnummer === orgnummer && nl.navn.trim()) ??
         narmesteLedere.find((nl) => nl.orgnummer === orgnummer)
 
     if (!orgNavn) {
@@ -46,7 +46,14 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
                     {ventetekst}
                 </BodyShort>
             )}
-            <LederVisning key={leder.id} leder={leder} orgNavn={orgNavn} />
+            {leder.navn.trim() ? (
+                <LederVisning key={leder.id} leder={leder} orgNavn={orgNavn} />
+            ) : (
+                <BodyShort spacing>
+                    Navnet på den registrerte nærmeste lederen din er ikke tilgjengelig. Kontakt arbeidsgiveren din hvis
+                    du vil endre nærmeste leder.
+                </BodyShort>
+            )}
         </>
     )
 }
@@ -57,19 +64,13 @@ function LederVisning({ leder, orgNavn }: { leder: NarmesteLederType; orgNavn: s
 
     return (
         <>
-            {leder.navn ? (
-                <BodyShort spacing>
-                    {parserWithReplace(
-                        tekst('din-situasjon.nærmesteleder', {
-                            '%ARBEIDSGIVER%': leder.navn,
-                        }),
-                    )}
-                </BodyShort>
-            ) : (
-                <BodyShort spacing>
-                    Arbeidsgiveren din har registrert en nærmeste leder, men navnet er ikke tilgjengelig.
-                </BodyShort>
-            )}
+            <BodyShort spacing>
+                {parserWithReplace(
+                    tekst('din-situasjon.nærmesteleder', {
+                        '%ARBEIDSGIVER%': leder.navn,
+                    }),
+                )}
+            </BodyShort>
 
             <Link as="button" onClick={() => setOpen(true)}>
                 Meld fra om endring

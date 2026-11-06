@@ -27,6 +27,38 @@ const forste: Leder = { id: 'a', navn: 'Leder A', orgnummer: '123', aktivFom: '2
 const andre: Leder = { ...forste, id: 'b', navn: 'Leder B' }
 
 describe('NarmesteLeder', () => {
+    it('lar ikke brukeren avkrefte en leder uten navn og lukker dialogen hvis navnet forsvinner', () => {
+        lederdata.ledere = [forste]
+        lederdata.avkreftede = []
+        const visning = render(<NarmesteLeder orgnummer="123" orgNavn="Arbeidsgiver" />)
+        fireEvent.click(screen.getByRole('button', { name: 'Meld fra om endring' }))
+        expect(screen.getByRole('dialog')).toHaveTextContent('Leder A')
+
+        for (const navn of ['', '   ']) {
+            lederdata.ledere = [{ ...forste, navn }]
+            visning.rerender(<NarmesteLeder orgnummer="123" orgNavn="Arbeidsgiver" />)
+            expect(
+                screen.getByText(/Navnet på den registrerte nærmeste lederen din er ikke tilgjengelig/),
+            ).toBeVisible()
+            expect(screen.queryByRole('button', { name: 'Meld fra om endring' })).not.toBeInTheDocument()
+            expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+        }
+
+        lederdata.ledere = [forste]
+        visning.rerender(<NarmesteLeder orgnummer="123" orgNavn="Arbeidsgiver" />)
+        expect(screen.getByRole('button', { name: 'Meld fra om endring' })).toBeVisible()
+        expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    })
+
+    it('velger en leder med navn fremfor en leder med bare mellomrom i navnet', () => {
+        lederdata.ledere = [{ ...forste, navn: '   ' }, andre]
+        lederdata.avkreftede = []
+        render(<NarmesteLeder orgnummer="123" orgNavn="Arbeidsgiver" />)
+        expect(screen.getByText(/Leder B/)).toBeVisible()
+        fireEvent.click(screen.getByRole('button', { name: 'Meld fra om endring' }))
+        expect(screen.getByRole('dialog')).toHaveTextContent('Leder B')
+    })
+
     it('nullstiller dialogen når valgt relasjon endres og når lederen kommer tilbake', () => {
         lederdata.ledere = [forste]
         lederdata.avkreftede = []

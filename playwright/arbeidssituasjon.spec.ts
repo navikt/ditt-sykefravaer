@@ -105,7 +105,7 @@ test.describe('Tester arbeidssituasjon', () => {
         )
     }
 
-    test('viser registrert leder uten navn og lar brukeren melde fra om endring', async ({ page }) => {
+    test('viser registrert leder uten navn uten å tilby avkrefting', async ({ page }) => {
         await page.route('**/api/narmesteleder/employee/linemanager*', async (route) => {
             const response = await route.fetch()
             const data = await response.json()
@@ -116,14 +116,12 @@ test.describe('Tester arbeidssituasjon', () => {
         })
         await page.goto('/syk/sykefravaer?testperson=snart-slutt')
         await expect(
-            page.getByText('Arbeidsgiveren din har registrert en nærmeste leder, men navnet er ikke tilgjengelig.'),
+            page.getByText(
+                'Navnet på den registrerte nærmeste lederen din er ikke tilgjengelig. Kontakt arbeidsgiveren din hvis du vil endre nærmeste leder.',
+            ),
         ).toBeVisible()
-        await page.getByRole('button', { name: 'Meld fra om endring' }).click()
-        const modal = page.getByRole('dialog', { name: 'Endre nærmeste leder' })
-        await expect(modal).toContainText('Er du sikker på at du vil fjerne den registrerte nærmeste lederen din')
-        await avkreftNarmesteleder(page, ALBUS_DUMBLEDORE_LEDER_ID)
-        await expect(modal).toBeHidden()
-        await expectIngenNarmesteleder(page)
+        await expect(page.getByRole('button', { name: 'Meld fra om endring' })).toHaveCount(0)
+        await expect(page.getByRole('dialog', { name: 'Endre nærmeste leder' })).toHaveCount(0)
     })
 
     test('Bruker med flere arbeidsgivere', async ({ page, getCLS }) => {

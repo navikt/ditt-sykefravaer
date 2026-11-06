@@ -19,6 +19,10 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
         isError,
     } = useAvkreftNarmesteLeder(narmesteLeder.id, narmesteLeder.orgnummer)
 
+    if (!narmesteLeder.navn.trim()) {
+        return null
+    }
+
     const bekreft = async () => {
         try {
             await avkreft()
@@ -44,24 +48,13 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                 {isError && <Alert variant="error">Beklager, det oppstod en feil! Vennligst prøv igjen senere.</Alert>}
 
                 <BodyLong spacing>
-                    {narmesteLeder.navn ? (
-                        <>
-                            Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste
-                            leder i <strong>{orgNavn}</strong>?
-                        </>
-                    ) : (
-                        <>
-                            Er du sikker på at du vil fjerne den registrerte nærmeste lederen din i{' '}
-                            <strong>{orgNavn}</strong>?
-                        </>
-                    )}
+                    Er du sikker på at du vil fjerne <strong>{narmesteLeder.navn}</strong> som din nærmeste leder i{' '}
+                    <strong>{orgNavn}</strong>?
                 </BodyLong>
-                {narmesteLeder.navn && (
-                    <BodyLong spacing>
-                        Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har
-                        valgt det.
-                    </BodyLong>
-                )}
+                <BodyLong spacing>
+                    Hvis du er usikker på om navnet er riktig, bør du spørre arbeidsgiveren din om hvorfor de har valgt
+                    det.
+                </BodyLong>
             </Modal.Body>
             <Modal.Footer>
                 <Button
