@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useEffectEvent, useRef, useState } from 'react'
 import { Alert, BodyShort, Button, Label, Textarea } from '@navikt/ds-react'
 import { MagnifyingGlassIcon } from '@navikt/aksel-icons'
 
@@ -15,6 +15,8 @@ interface FlexjarFellesProps {
     setActiveState: (s: string | number | null) => void
     thanksFeedback: boolean
     setThanksFeedback: (b: boolean) => void
+    errorMsg: string | null
+    setErrorMsg: (message: string | null) => void
     getPlaceholder: () => string
     textRequired?: boolean
     flexjarsporsmal: string
@@ -34,6 +36,8 @@ export function FlexjarFelles({
     setActiveState,
     thanksFeedback,
     setThanksFeedback,
+    errorMsg,
+    setErrorMsg,
     flexjartittel,
     flexjarsporsmal,
     children,
@@ -46,66 +50,43 @@ export function FlexjarFelles({
     reset,
 }: FlexjarFellesProps) {
     const [textValue, setTextValue] = useState('')
-    const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const textAreaRef = useRef(null)
 
-    const fetchFeedback = useCallback(
-        async (knappeklikk?: () => void): Promise<boolean> => {
-            if (activeState === null) {
-                return false
+    const fetchFeedback = async (knappeklikk?: () => void): Promise<boolean> => {
+        if (activeState === null) {
+            return false
+        }
+
+        const body = {
+            feedback: textValue,
+            feedbackId: feedbackId,
+            svar: activeState,
+            ...feedbackProps,
+        }
+        if (feedbackPropsFunction) {
+            Object.assign(body, feedbackPropsFunction())
+        }
+
+        try {
+            if (!data?.id) {
+                await opprettFeedback(body)
+            } else {
+                await oppdaterFeedback({ body, id: data.id })
             }
 
-            const body = {
-                feedback: textValue,
-                feedbackId: feedbackId,
-                svar: activeState,
-                ...feedbackProps,
+            if (knappeklikk) {
+                knappeklikk()
             }
-            if (feedbackPropsFunction) {
-                Object.assign(body, feedbackPropsFunction())
-            }
+            return true
+        } catch {
+            return false
+        }
+    }
+    const fetchFeedbackFromEffect = useEffectEvent(() => fetchFeedback())
 
-            try {
-                if (!data?.id) {
-                    await opprettFeedback(body)
-                } else {
-                    await oppdaterFeedback({ body, id: data.id })
-                }
-
-                if (knappeklikk) {
-                    knappeklikk()
-                }
-                return true
-            } catch {
-                return false
-            }
-        },
-        [
-            activeState,
-            data?.id,
-            feedbackId,
-            feedbackProps,
-            opprettFeedback,
-            oppdaterFeedback,
-            textValue,
-            feedbackPropsFunction,
-        ],
-    )
     useEffect(() => {
-        setErrorMsg(null)
+        fetchFeedbackFromEffect().catch()
     }, [activeState])
-
-    useEffect(() => {
-        fetchFeedback().catch()
-        // kan ikke bruke fetchFeedback som dependency, da blir det dobble kall
-    }, [activeState])
-
-    useEffect(() => {
-        setErrorMsg(null)
-        setTextValue('')
-        setActiveState(null)
-        reset()
-    }, [setActiveState, feedbackId, reset])
 
     const sendTilbakemelding = 'Send tilbakemelding'
 
@@ -227,6 +208,7 @@ interface FeedbackButtonProps {
     svar: string
     activeState: string | number | null
     setThanksFeedback: (b: boolean) => void
+    clearError: () => void
     setActiveState: (s: string | null | number) => void
     feedbackId: string
     disabled?: boolean
@@ -253,6 +235,7 @@ export function FeedbackButton(props: FeedbackButtonProps) {
                     svar: props.svar,
                 })
                 props.setThanksFeedback(false)
+                props.clearError()
                 if (props.activeState === props.svar) {
                     props.setActiveState(null)
                 } else {
