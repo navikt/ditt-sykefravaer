@@ -2,7 +2,7 @@ import { logAnalyticsCustomEvent } from '@navikt/nav-dekoratoren-moduler'
 import { logger } from '@navikt/next-logger'
 import { useLayoutEffect, useRef } from 'react'
 
-import { isOpplaering, isProd, umamiEnabled } from '../../utils/environment'
+import { umamiEnabled } from '../../utils/environment'
 
 export type validEventNames =
     'navigere' | 'alert vist' | 'knapp klikket' | 'komponent vist' | 'expansioncard åpnet' | 'expansioncard lukket' //Bruk kun navn fra taksonomien
@@ -15,8 +15,6 @@ export const logEvent = (eventName: validEventNames, eventData: Record<string, s
                 eventName,
                 eventData,
             }).catch((e) => logger.warn(`Feil ved umami logging`, e))
-        } else if (!isProd() && isOpplaering()) {
-            console.log(`Logger ${eventName} - Event properties: ${JSON.stringify(eventData)}!`)
         }
     }
 }
