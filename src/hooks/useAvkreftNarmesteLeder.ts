@@ -19,8 +19,7 @@ export default function UseAvkreftNarmesteLeder(id: string) {
             }),
 
         // Esyfo svarer 202 før avkreftingen er fullført. Oppdater cachen uten å hente listen på nytt.
-        onSuccess: async (_, { id, testperson }) => {
-            await queryClient.cancelQueries({ queryKey: narmesteledereKey(testperson), exact: true })
+        onSuccess: (_, { id, testperson }) => {
             queryClient.setQueryData<NarmesteLeder[]>(narmesteledereKey(testperson), (liste) =>
                 liste?.filter((nl) => nl.id !== id),
             )

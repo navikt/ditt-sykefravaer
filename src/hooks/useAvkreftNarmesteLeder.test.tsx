@@ -42,48 +42,6 @@ afterEach(() => {
 })
 
 describe('avkrefting av nærmeste leder', () => {
-    it('kansellerer en pågående GET, men lar et senere GET-svar oppdatere listen', async () => {
-        const { wrapper } = oppsett()
-        let get: () => Promise<Response> = async () => svar([leder, annenLeder])
-        let fullforGammelGet: (response: Response) => void = () => {
-            throw new Error('GET ikke startet')
-        }
-        vi.stubGlobal(
-            'fetch',
-            vi.fn((_url: string, init?: RequestInit) =>
-                init?.method === 'DELETE' ? Promise.resolve(new Response(null, { status: 202 })) : get(),
-            ),
-        )
-
-        const { result: liste } = renderHook(() => useNarmesteledere(), { wrapper })
-        const { result: avkreft } = renderHook(() => useAvkreftNarmesteLeder(leder.id), { wrapper })
-        await waitFor(() => expect(liste.current.data?.map((l) => l.id)).toEqual([leder.id, annenLeder.id]))
-
-        get = () =>
-            new Promise((resolve) => {
-                fullforGammelGet = resolve
-            })
-        let gammelGet: Promise<unknown>
-        act(() => {
-            gammelGet = liste.current.refetch()
-        })
-        await act(async () => {
-            await avkreft.current.mutateAsync()
-        })
-        await waitFor(() => expect(liste.current.data?.map((l) => l.id)).toEqual([annenLeder.id]))
-        await act(async () => {
-            fullforGammelGet(svar([leder, annenLeder]))
-            await gammelGet
-        })
-        expect(liste.current.data?.map((l) => l.id)).toEqual([annenLeder.id])
-
-        get = async () => svar([leder, annenLeder])
-        await act(async () => {
-            await liste.current.refetch()
-        })
-        await waitFor(() => expect(liste.current.data?.map((l) => l.id)).toEqual([leder.id, annenLeder.id]))
-    })
-
     it('fjerner bare valgt leder etter 202 uten automatisk oppfølgende GET', async () => {
         const { client, wrapper } = oppsett()
         const fetch = vi.fn((_url: string, init?: RequestInit) =>
