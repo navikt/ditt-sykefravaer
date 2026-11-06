@@ -13,6 +13,13 @@ test.describe('Sykmelding kvittering', () => {
     })
 
     test('Kan gi ja feedback', async ({ page }) => {
+        const feedbackMethods: string[] = []
+        page.on('request', (request) => {
+            if (request.url().includes('/flexjar-backend/api/v2/feedback')) {
+                feedbackMethods.push(request.method())
+            }
+        })
+
         const feedbackTittel = page.getByText('Hjelp oss med å gjøre denne siden bedre')
         const feedbackSection = page.getByRole('region').filter({ has: feedbackTittel })
         await feedbackSection.getByRole('button', { name: 'Ja' }).click()
@@ -24,13 +31,17 @@ test.describe('Sykmelding kvittering', () => {
 
         await test.step('Payload inneholder arbeidssituasjon', async () => {
             const [request] = await Promise.all([
-                page.waitForRequest((request) => request.url().includes('/flexjar-backend/api/v2/feedback')),
+                page.waitForRequest(
+                    (request) =>
+                        request.url().includes('/flexjar-backend/api/v2/feedback') && request.method() === 'PUT',
+                ),
                 feedbackSection.getByRole('button', { name: 'Send tilbakemelding' }).click(),
             ])
             const postData = JSON.parse(request.postData() || '{}')
             expect(postData).toHaveProperty('arbeidssituasjon', 'ARBEIDSTAKER')
         })
 
-        await page.getByText('Takk for tilbakemeldingen!').isVisible()
+        await expect(page.getByText('Takk for tilbakemeldingen!')).toBeVisible()
+        expect(feedbackMethods).toEqual(['POST', 'PUT'])
     })
 })

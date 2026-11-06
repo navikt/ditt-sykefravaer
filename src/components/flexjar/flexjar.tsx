@@ -9,17 +9,34 @@ import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
 import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
 
-export const Flexjar = ({
-    feedbackId,
-    sporsmal,
-    feedbackProps,
-}: {
+interface FlexjarProps {
     feedbackId: string
     sporsmal?: string
     feedbackProps?: Record<string, string | undefined | boolean | number>
-}) => {
-    const [activeState, setActiveState] = useState<string | number | null>(null)
+}
+
+export const Flexjar = (props: FlexjarProps) => {
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
+
+    return (
+        <FlexjarInnhold
+            key={props.feedbackId}
+            {...props}
+            thanksFeedback={thanksFeedback}
+            setThanksFeedback={setThanksFeedback}
+        />
+    )
+}
+
+const FlexjarInnhold = ({
+    feedbackId,
+    sporsmal,
+    feedbackProps,
+    thanksFeedback,
+    setThanksFeedback,
+}: FlexjarProps & { thanksFeedback: boolean; setThanksFeedback: (b: boolean) => void }) => {
+    const [activeState, setActiveState] = useState<string | number | null>(null)
+    const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const { mutateAsync: opprettFeedback, data, reset, isPending: oppretterFeedback } = UseOpprettFlexjarFeedback()
     const { mutateAsync: oppdaterFeedback, isPending: oppdatererFreedback } = UseOppdaterFlexjarFeedback()
     const lagrerFeedback = oppretterFeedback || oppdatererFreedback
@@ -81,6 +98,8 @@ export const Flexjar = ({
             activeState={activeState}
             thanksFeedback={thanksFeedback}
             setThanksFeedback={setThanksFeedback}
+            errorMsg={errorMsg}
+            setErrorMsg={setErrorMsg}
             getPlaceholder={getPlaceholder}
             feedbackProps={{
                 ...maksdatoMetadata(),
@@ -100,6 +119,7 @@ export const Flexjar = ({
                     tekst="Ja"
                     svar="JA"
                     {...feedbackButtonProps}
+                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
                 <FeedbackButton
@@ -107,6 +127,7 @@ export const Flexjar = ({
                     tekst="Nei"
                     svar="NEI"
                     {...feedbackButtonProps}
+                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
                 <FeedbackButton
@@ -114,6 +135,7 @@ export const Flexjar = ({
                     tekst="Foreslå forbedring"
                     svar="FORBEDRING"
                     {...feedbackButtonProps}
+                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
             </div>
