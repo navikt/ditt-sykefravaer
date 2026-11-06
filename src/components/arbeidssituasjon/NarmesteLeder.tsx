@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
 import useNarmesteledere from '../../hooks/useNarmesteledere'
+import { NarmesteLeder as NarmesteLederType } from '../../types/narmesteLeder'
 import { tekst } from '../../utils/tekster'
 
 import BekreftFeilLeder from './BekreftFeilLeder'
@@ -14,39 +15,54 @@ interface NaermesteLederContainerProps {
 
 const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const [open, setOpen] = useState<boolean>(false)
 
     if (!narmesteLedere) {
         return null
     }
-    const leder = narmesteLedere
-        .filter((nl) => !nl.aktivTom && nl.navn) // Aktiv og har navn på leder
-        .find((nl) => nl.orgnummer === orgnummer)
+    const leder =
+        narmesteLedere.find((nl) => nl.orgnummer === orgnummer && nl.navn.trim()) ??
+        narmesteLedere.find((nl) => nl.orgnummer === orgnummer)
 
-    const toggleOpen = () => {
-        setOpen(!open)
+    if (!orgNavn) {
+        return null
     }
 
-    if (!leder || !orgNavn) {
-        return null
+    if (!leder) {
+        return <BodyShort spacing>{tekst('din-situasjon.ingen-nærmesteleder')}</BodyShort>
     }
 
     return (
         <>
-            {leder.navn && (
+            {leder.navn.trim() ? (
+                <LederVisning key={leder.id} leder={leder} orgNavn={orgNavn} />
+            ) : (
                 <BodyShort spacing>
-                    {parserWithReplace(
-                        tekst('din-situasjon.nærmesteleder', {
-                            '%ARBEIDSGIVER%': leder.navn,
-                        }),
-                    )}
+                    Navnet på den registrerte nærmeste lederen din er ikke tilgjengelig. Kontakt arbeidsgiveren din hvis
+                    du vil endre nærmeste leder.
                 </BodyShort>
             )}
+        </>
+    )
+}
 
-            <Link as="button" onClick={() => toggleOpen()}>
+function LederVisning({ leder, orgNavn }: { leder: NarmesteLederType; orgNavn: string }) {
+    const [open, setOpen] = useState(false)
+    const lukk = () => setOpen(false)
+
+    return (
+        <>
+            <BodyShort spacing>
+                {parserWithReplace(
+                    tekst('din-situasjon.nærmesteleder', {
+                        '%ARBEIDSGIVER%': leder.navn,
+                    }),
+                )}
+            </BodyShort>
+
+            <Link as="button" onClick={() => setOpen(true)}>
                 Meld fra om endring
             </Link>
-            <BekreftFeilLeder open={open} toggle={toggleOpen} narmesteLeder={leder} orgNavn={orgNavn} />
+            <BekreftFeilLeder open={open} toggle={lukk} narmesteLeder={leder} orgNavn={orgNavn} />
         </>
     )
 }

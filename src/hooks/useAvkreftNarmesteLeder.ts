@@ -1,31 +1,36 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 
+import { NarmesteLeder } from '../types/narmesteLeder'
 import { fetchMedRequestId } from '../utils/fetch'
 
+import { narmesteledereKey } from './useNarmesteledere'
 import { UseTestpersonQuery } from './useTestpersonQuery'
 
-export default function UseAvkreftNarmesteLeder(org: string) {
+export default function UseAvkreftNarmesteLeder(id: string) {
     const queryClient = useQueryClient()
     const testpersonQuery = UseTestpersonQuery()
+    const testperson = testpersonQuery.query()
 
-    return useMutation({
-        mutationFn: () =>
-            fetchMedRequestId(`/syk/sykefravaer/api/narmesteleder/v2/${org}/avkreft` + testpersonQuery.query(), {
-                method: 'POST',
+    const mutation = useMutation({
+        mutationFn: ({ id, testperson }: { id: string; testperson: string }) =>
+            fetchMedRequestId(`/syk/sykefravaer/api/narmesteleder/linemanager/${id}` + testperson, {
+                method: 'DELETE',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
             }),
 
-        onSuccess: () => {
-            setTimeout(
-                () =>
-                    queryClient.invalidateQueries({
-                        queryKey: ['narmesteledere'],
-                    }),
-                200,
+        // Esyfo svarer 202 før avkreftingen er fullført. Oppdater cachen uten å hente listen på nytt.
+        onSuccess: (_, { id, testperson }) => {
+            queryClient.setQueryData<NarmesteLeder[]>(narmesteledereKey(testperson), (liste) =>
+                liste?.filter((nl) => nl.id !== id),
             )
         },
     })
+
+    const variabler = () => ({ id, testperson })
+
+    return {
+        ...mutation,
+        mutate: () => mutation.mutate(variabler()),
+        mutateAsync: () => mutation.mutateAsync(variabler()),
+    }
 }

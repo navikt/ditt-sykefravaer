@@ -12,12 +12,25 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const { mutate: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.orgnummer)
+    const { mutateAsync: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.id)
+
+    if (!narmesteLeder.navn.trim()) {
+        return null
+    }
+
+    const bekreft = async () => {
+        try {
+            await avkreft()
+            toggle()
+        } catch {
+            // Feilen vises av mutasjonen i dialogen.
+        }
+    }
 
     return (
         <Modal
             open={open}
-            onClose={() => {}}
+            onClose={toggle}
             className="w-96"
             aria-label="Endre nærmeste leder"
             header={{
@@ -45,7 +58,7 @@ const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilL
                     loading={isPending}
                     type="button"
                     disabled={isPending || isSuccess}
-                    onClick={() => avkreft()}
+                    onClick={bekreft}
                 >
                     Ja, jeg er sikker
                 </Button>

@@ -4,7 +4,7 @@ import { Persona } from '../../testperson'
 import { sendtSoknad } from '../soknader'
 import { nySykmelding, sendtSykmelding } from '../sykmeldinger'
 
-import { commonPersona } from './personas'
+import { ALBUS_DUMBLEDORE_LEDER_ID, commonPersona } from './personas'
 
 export const clsPerson: Persona = {
     ...commonPersona(),
@@ -12,10 +12,16 @@ export const clsPerson: Persona = {
     sykmeldinger: [sendtSykmelding, nySykmelding],
     narmesteledere: [
         {
-            navn: 'Albus Dumbledore',
-            orgnummer: '972674818',
-            arbeidsgiverForskutterer: true,
-            aktivFom: dayjs().add(10, 'days').format('YYYY-MM-DD'),
+            id: ALBUS_DUMBLEDORE_LEDER_ID,
+            orgNumber: '972674818',
+            activeFrom: dayjs().add(10, 'days').format('YYYY-MM-DD'),
+            name: {
+                firstName: 'Albus',
+                middleName: null,
+                lastName: 'Dumbledore',
+            },
+            emailAddresses: ['albus@fake.nav.no'],
+            mobile: '99999999',
         },
     ],
     beskrivelse: 'CLS',
