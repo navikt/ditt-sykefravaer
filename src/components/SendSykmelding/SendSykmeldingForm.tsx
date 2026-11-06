@@ -90,7 +90,10 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
         (values) => {
             logUmamiEvent(
                 { eventName: 'skjema fullført', data: { skjemanavn } },
-                { 'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null },
+                {
+                    'antall egenmeldingsdager': values.egenmeldingsdager?.length ?? null,
+                    arbeidssituasjon: values.arbeidssituasjon,
+                },
             )
         },
         () => logUmamiEvent({ eventName: 'skjema innsending feilet', data: { skjemanavn } }),
