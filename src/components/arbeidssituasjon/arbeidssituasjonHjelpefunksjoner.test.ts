@@ -19,7 +19,5 @@ describe('finnAktuelleArbeidsgivere', () => {
         const leder = { id: 'leder', navn: '', orgnummer: '123', aktivFom: '2020-01-01' }
         expect(finnAktuelleArbeidsgivere([leder], [sykmelding])).toEqual(['123'])
         expect(finnAktuelleArbeidsgivere([], [sykmelding])).toEqual([])
-        expect(finnAktuelleArbeidsgivere([], [sykmelding], ['123'])).toEqual(['123'])
-        expect(finnAktuelleArbeidsgivere([], [sykmelding], ['456'])).toEqual([])
     })
 })

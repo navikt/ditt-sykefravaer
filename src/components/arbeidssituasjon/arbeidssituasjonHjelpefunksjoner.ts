@@ -5,14 +5,13 @@ import { selectSykmeldingerYngreEnnTreMaaneder } from '../../utils/sykmeldingerU
 export const finnAktuelleArbeidsgivere = (
     narmesteLedere?: NarmesteLeder[],
     sykmeldinger?: DittSykefravaerSykmelding[],
-    avkreftedeOrgnumre: string[] = [],
 ) => {
-    let aktiveLedereOrgnummer: string[] = avkreftedeOrgnumre
+    let aktiveLedereOrgnummer: string[] = []
     let sykmeldingerMedAktivNaermesteLeder: DittSykefravaerSykmelding[] = []
     let sykmeldingerFiltrertPaPeriode: DittSykefravaerSykmelding[] = []
 
     if (narmesteLedere) {
-        aktiveLedereOrgnummer = [...narmesteLedere.map((nl) => nl.orgnummer), ...avkreftedeOrgnumre]
+        aktiveLedereOrgnummer = narmesteLedere.map((nl) => nl.orgnummer)
     }
     if (sykmeldinger) {
         sykmeldingerMedAktivNaermesteLeder = sykmeldinger

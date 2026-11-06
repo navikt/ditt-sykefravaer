@@ -3,7 +3,7 @@ import React from 'react'
 import { Buildings2Icon } from '@navikt/aksel-icons'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
-import useNarmesteledere, { useAvkreftedeLedere } from '../../hooks/useNarmesteledere'
+import useNarmesteledere from '../../hooks/useNarmesteledere'
 import useTsmSykmeldinger from '../../hooks/useDittSykefravaerSykmeldinger'
 import { tekst } from '../../utils/tekster'
 
@@ -13,7 +13,6 @@ import { finnAktuelleArbeidsgivere } from './arbeidssituasjonHjelpefunksjoner'
 
 const Arbeidssituasjon = () => {
     const { data: narmesteLedere, isLoading: nlLaster } = useNarmesteledere()
-    const avkreftede = useAvkreftedeLedere()
     const { data: sykmeldinger, isLoading: smLaster } = useTsmSykmeldinger()
 
     if (nlLaster || smLaster) {
@@ -30,8 +29,7 @@ const Arbeidssituasjon = () => {
         return null
     }
 
-    const avkreftedeOrgnumre = avkreftede.flatMap((leder) => (leder.orgnummer ? [leder.orgnummer] : []))
-    const arbeidsgivere: string[] = finnAktuelleArbeidsgivere(narmesteLedere, sykmeldinger, avkreftedeOrgnumre)
+    const arbeidsgivere: string[] = finnAktuelleArbeidsgivere(narmesteLedere, sykmeldinger)
 
     return (
         <>

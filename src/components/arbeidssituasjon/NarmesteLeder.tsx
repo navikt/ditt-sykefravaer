@@ -2,7 +2,7 @@ import { BodyShort, Link } from '@navikt/ds-react'
 import React, { useState } from 'react'
 
 import { parserWithReplace } from '../../utils/html-react-parser-utils'
-import useNarmesteledere, { useAvkreftedeLedere } from '../../hooks/useNarmesteledere'
+import useNarmesteledere from '../../hooks/useNarmesteledere'
 import { NarmesteLeder as NarmesteLederType } from '../../types/narmesteLeder'
 import { tekst } from '../../utils/tekster'
 
@@ -15,7 +15,6 @@ interface NaermesteLederContainerProps {
 
 const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => {
     const { data: narmesteLedere } = useNarmesteledere()
-    const avkreftede = useAvkreftedeLedere()
 
     if (!narmesteLedere) {
         return null
@@ -28,24 +27,12 @@ const NarmesteLeder = ({ orgnummer, orgNavn }: NaermesteLederContainerProps) => 
         return null
     }
 
-    const venter = avkreftede.some((nl) => nl.orgnummer === orgnummer)
-    const ventetekst = 'Vi har bedt om å fjerne en nærmeste leder. Vi kan ikke bekrefte at endringen er fullført ennå.'
-
     if (!leder) {
-        return (
-            <BodyShort spacing role={venter ? 'status' : undefined}>
-                {venter ? ventetekst : tekst('din-situasjon.ingen-nærmesteleder')}
-            </BodyShort>
-        )
+        return <BodyShort spacing>{tekst('din-situasjon.ingen-nærmesteleder')}</BodyShort>
     }
 
     return (
         <>
-            {venter && (
-                <BodyShort spacing role="status">
-                    {ventetekst}
-                </BodyShort>
-            )}
             {leder.navn.trim() ? (
                 <LederVisning key={leder.id} leder={leder} orgNavn={orgNavn} />
             ) : (

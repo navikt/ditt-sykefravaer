@@ -12,12 +12,7 @@ interface BekreftFeilLederProps {
 }
 
 const BekreftFeilLeder = ({ open, toggle, narmesteLeder, orgNavn }: BekreftFeilLederProps) => {
-    const {
-        mutateAsync: avkreft,
-        isPending,
-        isSuccess,
-        isError,
-    } = useAvkreftNarmesteLeder(narmesteLeder.id, narmesteLeder.orgnummer)
+    const { mutateAsync: avkreft, isPending, isSuccess, isError } = useAvkreftNarmesteLeder(narmesteLeder.id)
 
     if (!narmesteLeder.navn.trim()) {
         return null
