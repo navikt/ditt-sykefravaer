@@ -91,4 +91,54 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(page.locator('text=Februar: Ingen inntekt registrert')).toBeVisible()
         await expect(page.locator('text=Januar: Ingen inntekt registrert')).toBeVisible()
     })
+
+    test('viser melding etter at den er hentet', async ({ page }) => {
+        let fortsettHenting: () => void = () => undefined
+        const ventPaHenting = new Promise<void>((resolve) => {
+            fortsettHenting = resolve
+        })
+
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', async (route) => {
+            await ventPaHenting
+            await route.continue()
+        })
+
+        const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+        try {
+            await page.goto(url)
+            await expect(page.locator('.aksel-skeleton').first()).toBeVisible()
+            await expect(page).toHaveURL(url)
+        } finally {
+            fortsettHenting()
+        }
+
+        await expect(
+            page.getByRole('heading', { name: 'Sjekk at opplysningene om inntekten din stemmer' }),
+        ).toBeVisible()
+        await expect(page).toHaveURL(url)
+    })
+
+    test('sender videre til forsiden når meldingen ikke finnes', async ({ page }) => {
+        const dokumentforesporsler: string[] = []
+        page.on('request', (request) => {
+            if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
+                dokumentforesporsler.push(request.url())
+            }
+        })
+
+        await page.goto('/syk/sykefravaer/beskjed/ukjent?testperson=forelagt-fra-a-ordningen')
+
+        await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+        expect(dokumentforesporsler).toHaveLength(1)
+    })
+
+    test('sender videre til forsiden når meldinger ikke kan hentes', async ({ page }) => {
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) =>
+            route.fulfill({ status: 500, body: 'Feil ved henting av meldinger' }),
+        )
+
+        await page.goto('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
+
+        await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+    })
 })
