@@ -158,6 +158,9 @@ test.describe('Frilanser', () => {
             ).click()
 
             await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
+            await expect(
+                page.getByRole('heading', { name: 'Du må fylle ut disse feltene før du kan registrere sykmeldingen.' }),
+            ).toBeFocused()
             await expect(page.getByRole('link', { name: 'Du må fylle inn en dato.' })).toBeVisible()
         })
 
