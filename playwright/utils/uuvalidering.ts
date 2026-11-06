@@ -1,5 +1,6 @@
 import { expect, Page, TestInfo } from '@playwright/test'
 import { AxeBuilder } from '@axe-core/playwright'
+import type { AxeResults } from 'axe-core'
 
 export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: string[] = []) {
     const axeBuilder = new AxeBuilder({ page }).exclude('.ignore-axe')
@@ -97,7 +98,7 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
     }
 }
 
-function generateHtmlReport(violations: any[], url: string): string {
+function generateHtmlReport(violations: AxeResults['violations'], url: string): string {
     return `
 <!DOCTYPE html>
 <html lang="nb">
@@ -180,7 +181,7 @@ function generateHtmlReport(violations: any[], url: string): string {
                 <div class="element-list">
                     ${violation.nodes
                         .map(
-                            (node: { target: any[] }) => `
+                            (node) => `
                         <div class="element">${node.target.join(' ')}</div>
                     `,
                         )
