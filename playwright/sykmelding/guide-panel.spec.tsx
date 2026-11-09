@@ -69,7 +69,7 @@ test.describe('Guide panel', () => {
 
             await expect(
                 page.getByText(
-                    'Sykmeldingen din er skrevet tilbake i tid, og NAV må derfor vurdere om det er en gyldig grunn til at sykmeldingen starter før du var i kontakt med legen.',
+                    'Sykmeldingen din er skrevet tilbake i tid, og Nav må derfor vurdere om det er en gyldig grunn til at sykmeldingen starter før du var i kontakt med legen.',
                 ),
             ).toBeVisible()
             await expect(page.getByRole('button', { name: 'Bekreft sykmelding' })).toBeVisible()
@@ -81,7 +81,7 @@ test.describe('Guide panel', () => {
 
             await expect(
                 page.getByText(
-                    'Sykmeldingen din er skrevet tilbake i tid, og NAV må derfor vurdere om det er en gyldig grunn til at sykmeldingen starter før du var i kontakt med legen.',
+                    'Sykmeldingen din er skrevet tilbake i tid, og Nav må derfor vurdere om det er en gyldig grunn til at sykmeldingen starter før du var i kontakt med legen.',
                 ),
             ).toBeVisible()
             await expect(page.getByRole('heading', { name: 'Sykmeldingen er sendt' })).toBeVisible()

@@ -1,22 +1,6 @@
 import { capitalizeFirstLetter } from './stringUtils'
 
-const shouldUpperCase = [
-    'SFO',
-    'AS',
-    'ASA',
-    'NAV',
-    'SA',
-    'HF',
-    'BUP',
-    'VVS',
-    'KF',
-    'IKS',
-    'DNB',
-    'DNV',
-    'A/S',
-    'DA',
-    'DPS',
-]
+const shouldUpperCase = ['SFO', 'AS', 'ASA', 'SA', 'HF', 'BUP', 'VVS', 'KF', 'IKS', 'DNB', 'DNV', 'A/S', 'DA', 'DPS']
 
 const shouldLowerCase = [
     'skole',

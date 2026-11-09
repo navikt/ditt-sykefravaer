@@ -12,8 +12,8 @@ describe('MeldingTilNavView', () => {
             beskrivBistand: null,
         }
         render(<MeldingTilNavView meldingTilNav={meldingTilNav} parentId="test" />)
-        expect(screen.getByText('Melding til NAV')).toBeInTheDocument()
-        expect(screen.getByText('Ønskes bistand fra NAV nå?')).toBeInTheDocument()
+        expect(screen.getByText('Melding til Nav')).toBeInTheDocument()
+        expect(screen.getByText('Ønskes bistand fra Nav nå?')).toBeInTheDocument()
     })
 
     it('Viser ikke ønsker bistand hvis bistandUmiddelbart er false', () => {
@@ -23,10 +23,10 @@ describe('MeldingTilNavView', () => {
         }
         render(<MeldingTilNavView meldingTilNav={meldingTilNav} parentId="test" />)
         expect(() => {
-            expect(screen.getByText('Melding til NAV'))
+            expect(screen.getByText('Melding til Nav'))
         }).toThrow()
         expect(() => {
-            screen.getByText('Ønskes bistand fra NAV nå?')
+            screen.getByText('Ønskes bistand fra Nav nå?')
         }).toThrow()
     })
 
@@ -42,8 +42,8 @@ describe('MeldingTilNavView', () => {
 
     it('Viser ikke seksjon hvis objekt ikke eksisterer', () => {
         render(<MeldingTilNavView parentId="test" />)
-        expect(screen.queryByText('Melding til NAV')).not.toBeInTheDocument()
-        expect(screen.queryByText('Ønskes bistand fra NAV nå?')).not.toBeInTheDocument()
+        expect(screen.queryByText('Melding til Nav')).not.toBeInTheDocument()
+        expect(screen.queryByText('Ønskes bistand fra Nav nå?')).not.toBeInTheDocument()
         expect(screen.queryByText('Nærmere beskrivelse')).not.toBeInTheDocument()
     })
 })

@@ -36,7 +36,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             )(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -62,7 +62,7 @@ test.describe('Selvstendig næringsdrivende', () => {
             )(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 

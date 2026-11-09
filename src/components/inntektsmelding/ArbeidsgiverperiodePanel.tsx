@@ -14,7 +14,7 @@ export function ArbeidsgiverperiodePanel({ inntektsmelding }: { inntektsmelding:
             </Heading>
             <ReadMore className="mt-4" header="Les mer">
                 Arbeidsgiveren din er vanligvis ansvarlig for å betale sykepenger til deg de første 16 kalenderdagene av
-                sykefraværet ditt. Etter dette overtar NAV betalingen til deg eller din arbeidsgiver hvis du har rett
+                sykefraværet ditt. Etter dette overtar Nav betalingen til deg eller din arbeidsgiver hvis du har rett
                 til sykepenger.
             </ReadMore>
             {inntektsmelding.arbeidsgiverperioder.map((agperiode, i) => {

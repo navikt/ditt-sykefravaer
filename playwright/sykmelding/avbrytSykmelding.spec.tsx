@@ -53,7 +53,7 @@ test.describe('Avbryt sykmelding', () => {
 
         await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
         await page.waitForURL('**/kvittering')
-        await expect(page.getByText(/Sykmeldingen ble sendt til NAV./)).toBeVisible()
+        await expect(page.getByText(/Sykmeldingen ble sendt til Nav./)).toBeVisible()
 
         await gotoRoot(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)

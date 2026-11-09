@@ -6,7 +6,7 @@ test.describe('Kvittering', () => {
         await gotoScenario('kvittering')(page)
         await navigateToFirstSykmelding('tidligere', '100%')(page)
 
-        await expect(page.locator('text=Sykmeldingen ble sendt til NAV.')).toBeVisible()
+        await expect(page.locator('text=Sykmeldingen ble sendt til Nav.')).toBeVisible()
         await expect(page.getByRole('heading', { name: 'Sykmeldingen gjelder' })).toBeVisible()
 
         await expect(

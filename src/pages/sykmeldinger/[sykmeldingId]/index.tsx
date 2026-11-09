@@ -85,7 +85,7 @@ function SykmeldingPage(): ReactElement {
         return (
             <SykmeldingerWrapper>
                 <Alert variant="error" role="alert" aria-live="polite">
-                    En uventet feil oppsto. Vennligst kontakt NAV dersom problemet vedvarer.
+                    En uventet feil oppsto. Vennligst kontakt Nav dersom problemet vedvarer.
                 </Alert>
             </SykmeldingerWrapper>
         )

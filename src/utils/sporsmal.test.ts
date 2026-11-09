@@ -48,7 +48,7 @@ describe('sporsmal', () => {
 
     describe('sporsmal.harBruktEgenmeldingsdager', () => {
         it('skal inkludere prettifisert arbeidsgivernavn i spørsmålet', () => {
-            expect(sporsmal.harBruktEgenmeldingsdager('nav as')).toBe('Brukte du egenmelding hos NAV AS')
+            expect(sporsmal.harBruktEgenmeldingsdager('nav as')).toBe('Brukte du egenmelding hos Nav AS')
         })
     })
 

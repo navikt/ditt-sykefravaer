@@ -25,7 +25,7 @@ test.describe('Arbeidssituasjon - Permittert', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
         await expectDineSvar({
@@ -44,7 +44,7 @@ test.describe('Arbeidssituasjon - Permittert', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 

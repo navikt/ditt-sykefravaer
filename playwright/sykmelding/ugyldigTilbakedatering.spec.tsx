@@ -24,7 +24,7 @@ test.describe('Ugyldig tilbakedatert sykmelding', () => {
         await bekreftSykmelding(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
