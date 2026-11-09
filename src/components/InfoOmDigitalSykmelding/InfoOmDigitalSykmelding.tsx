@@ -9,7 +9,7 @@ export const InfoOmDigitalSykmelding = (): ReactElement => (
         <Accordion.Content>
             <section>
                 <BodyLong spacing>
-                    NAV får alle sykmeldinger som blir skrevet i Norge. Den som er sykmeldt, finner den på{' '}
+                    Nav får alle sykmeldinger som blir skrevet i Norge. Den som er sykmeldt, finner den på{' '}
                     <Link href={basePath() || '#'}>Ditt sykefravær</Link>, der du er logget inn nå.
                 </BodyLong>
                 <BodyLong spacing>
@@ -28,7 +28,7 @@ export const InfoOmDigitalSykmelding = (): ReactElement => (
                 <BodyLong>Ifølge folketrygdloven har den to formål:</BodyLong>
                 <ul>
                     <BodyLong as="li">
-                        Melde fra om sykefravær til NAV og arbeidsgiveren slik at du kan få hjelp til å komme tilbake i
+                        Melde fra om sykefravær til Nav og arbeidsgiveren slik at du kan få hjelp til å komme tilbake i
                         jobb.
                     </BodyLong>
                     <BodyLong as="li" spacing>
@@ -65,7 +65,7 @@ export function SerIkkeSykmelding(): ReactElement {
 
                 <div className="mb-4">
                     <BodyShort>
-                        Det kan også bety at den som har sykmeldt deg ikke sender den digitalt til NAV. Da bruker du{' '}
+                        Det kan også bety at den som har sykmeldt deg ikke sender den digitalt til Nav. Da bruker du{' '}
                         <Link
                             href="https://www.helsedirektoratet.no/veiledere/sykmelderveileder/sykmelding-og-erklaeringer"
                             target="_blank"

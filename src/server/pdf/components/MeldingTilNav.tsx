@@ -30,11 +30,11 @@ const MeldingTilNav = ({ meldingTilNav }: Props): ReactElement | null => {
     }
 
     return (
-        <Section title="Melding til NAV" Icon={PeopleDialogOutline}>
+        <Section title="Melding til Nav" Icon={PeopleDialogOutline}>
             <View style={styles.content}>
                 {meldingTilNav.bistandUmiddelbart && (
                     <View style={styles.view}>
-                        <Text style={styles.title}>Ønskes bistand fra NAV nå?</Text>
+                        <Text style={styles.title}>Ønskes bistand fra Nav nå?</Text>
                         <Text style={styles.jaText}>Ja</Text>
                     </View>
                 )}

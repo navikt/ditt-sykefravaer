@@ -58,9 +58,9 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
                 </ExpansionCard.Header>
                 <ExpansionCard.Content>
                     <BodyLong spacing>
-                        Du kan maksimalt få sykepenger fra NAV i 52 uker. Grensen er den samme enten du er helt eller
+                        Du kan maksimalt få sykepenger fra Nav i 52 uker. Grensen er den samme enten du er helt eller
                         delvis sykmeldt og kalles også maksdato. Datoen gjelder hvis du er sammenhengende sykmeldt. Den
-                        vil flytte seg hvis du for eksempel ikke får sykepenger fra NAV i perioder, eller hvis du tar
+                        vil flytte seg hvis du for eksempel ikke får sykepenger fra Nav i perioder, eller hvis du tar
                         ferie.
                     </BodyLong>
 
@@ -78,7 +78,7 @@ const MaksdatoExpansionCard = ({ utbetaltTom, maxDate }: { utbetaltTom: string; 
                             tekst="folketrygdloven § 8-12."
                         ></LenkeMedUmami>
                         {
-                            ' Blir du syk på nytt før disse ukene har gått, kan det være aktuelt med AAP som erstatning for sykepenger. Ta gjerne kontakt med NAV eller snakk med veilederen din om dette. '
+                            ' Blir du syk på nytt før disse ukene har gått, kan det være aktuelt med AAP som erstatning for sykepenger. Ta gjerne kontakt med Nav eller snakk med veilederen din om dette. '
                         }
                     </BodyLong>
 

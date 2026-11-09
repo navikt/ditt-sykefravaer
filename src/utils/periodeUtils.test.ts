@@ -237,7 +237,7 @@ describe('periodeUtils', () => {
                 },
                 reisetilskudd: false,
             }
-            expect(getDescription(periode, 'NAV')).toBe('100% sykmeldt fra NAV i 3 dager')
+            expect(getDescription(periode, 'Nav')).toBe('100% sykmeldt fra Nav i 3 dager')
         })
 
         it('Gradert periode', () => {
@@ -271,7 +271,7 @@ describe('periodeUtils', () => {
                 aktivitetIkkeMulig: null,
                 reisetilskudd: false,
             }
-            expect(getDescription(periode, 'NAV')).toBe('80% sykmeldt fra NAV i 3 dager')
+            expect(getDescription(periode, 'Nav')).toBe('80% sykmeldt fra Nav i 3 dager')
         })
 
         it('Reisetilskudd periode', () => {

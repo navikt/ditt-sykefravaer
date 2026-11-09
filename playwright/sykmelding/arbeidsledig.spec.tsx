@@ -27,7 +27,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
@@ -77,7 +77,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         await page.getByRole('button', { name: /Bekreft sykmelding/ }).click()
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
         await expectDineSvar({
@@ -100,7 +100,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
@@ -126,7 +126,7 @@ test.describe('Arbeidssituasjon - Arbeidsledig', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 

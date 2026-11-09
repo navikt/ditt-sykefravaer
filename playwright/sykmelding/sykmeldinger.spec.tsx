@@ -20,10 +20,10 @@ test.describe('Sykmeldinger landingsside', () => {
         await expect(page.locator('text=Du har ingen nye sykmeldinger')).toBeVisible()
         await expect(page.locator('text=Tidligere sykmeldinger')).toBeVisible()
 
-        await expect(page.getByRole('link', { name: /Sendt til NAV/ })).toBeVisible()
+        await expect(page.getByRole('link', { name: /Sendt til Nav/ })).toBeVisible()
         await expect(page.getByRole('link', { name: /Sendt til arbeidsgiver/ })).toBeVisible()
         await expect(page.getByRole('link', { name: /Avbrutt av deg/ })).toBeVisible()
-        await expect(page.getByRole('link', { name: /Avvist av NAV/ })).toBeVisible()
+        await expect(page.getByRole('link', { name: /Avvist av Nav/ })).toBeVisible()
         await expect(page.getByRole('link', { name: /Utgått/ })).toBeVisible()
     })
 
@@ -35,7 +35,7 @@ test.describe('Sykmeldinger landingsside', () => {
 
         await expect(sykmeldingerList).toHaveCount(3)
         await expect(sykmeldingerList.nth(0)).toHaveText(/Papirsykmelding/)
-        await expect(sykmeldingerList.nth(1)).toHaveText(/Avvist av NAV/)
+        await expect(sykmeldingerList.nth(1)).toHaveText(/Avvist av Nav/)
         await expect(sykmeldingerList.nth(2)).toHaveText(/Sykmelding/)
     })
 
@@ -72,6 +72,6 @@ test.describe('Sykmeldinger landingsside', () => {
         await gotoScenario('avvistData')(page)
 
         const newSection = page.getByRole('region', { name: 'Nye sykmeldinger' })
-        await expect(newSection.getByRole('link', { name: /Avvist av NAV/ })).toBeVisible()
+        await expect(newSection.getByRole('link', { name: /Avvist av Nav/ })).toBeVisible()
     })
 })

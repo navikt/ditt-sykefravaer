@@ -74,7 +74,7 @@ function ActionSection({ sykmeldingId, sendResult, onSykmeldingAvbrutt }: Props)
                         Innsendingen ble ikke gjennomført på grunn av en ukjent feil, vi jobber allerede med å løse
                         problemet. Vennligst prøv igjen senere.
                     </BodyShort>
-                    <BodyShort>Vennligst kontakt NAV dersom problemet vedvarer.</BodyShort>
+                    <BodyShort>Vennligst kontakt Nav dersom problemet vedvarer.</BodyShort>
                 </Alert>
             )}
         </QuestionWrapper>

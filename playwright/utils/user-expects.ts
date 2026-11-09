@@ -9,7 +9,7 @@ export enum ExpectMeta {
 }
 
 export function expectKvittering(opts: {
-    sendtTil: 'NAV' | string
+    sendtTil: 'Nav' | string
     egenmeldingsdagerInfo: ExpectMeta.NotInDom | ExpectMeta.InDom
 }) {
     return async (page: Page): Promise<void> => {
@@ -19,8 +19,8 @@ export function expectKvittering(opts: {
         ).toBeVisible()
         await expect(page.getByRole('link', { name: /Tilbake til Ditt sykefravær/ })).toBeVisible()
 
-        if (opts.sendtTil === 'NAV') {
-            await expect(page.getByText(/Sykmeldingen ble sendt til NAV./)).toBeVisible()
+        if (opts.sendtTil === 'Nav') {
+            await expect(page.getByText(/Sykmeldingen ble sendt til Nav./)).toBeVisible()
         } else {
             await expect(page.getByText(`Sykmeldingen ble sendt til ${opts.sendtTil}.`)).toBeVisible()
         }

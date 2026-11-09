@@ -77,6 +77,6 @@ Navigasjon ut fra ditt-sykefravær til:
 
 Spørsmål knyttet til koden eller prosjektet kan stilles til flex@nav.no
 
-## For NAV-ansatte
+## For Nav-ansatte
 
 Interne henvendelser kan sendes via Slack i kanalen #flex.

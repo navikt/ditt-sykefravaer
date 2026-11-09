@@ -24,12 +24,12 @@ function Arbeidsevne({ tiltakArbeidsplassen, tiltakNAV, andreTiltak, parentId }:
                 </SykmeldingInfo>
             )}
             {tiltakNAV != null && (
-                <SykmeldingInfo heading="Tiltak i regi av NAV" variant="gray">
+                <SykmeldingInfo heading="Tiltak i regi av Nav" variant="gray">
                     {tiltakNAV}
                 </SykmeldingInfo>
             )}
             {andreTiltak != null && (
-                <SykmeldingInfo heading="Andre innspill til NAV" variant="gray">
+                <SykmeldingInfo heading="Andre innspill til Nav" variant="gray">
                     {andreTiltak}
                 </SykmeldingInfo>
             )}

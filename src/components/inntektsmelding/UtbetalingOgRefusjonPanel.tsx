@@ -21,9 +21,9 @@ export function UtbetalingOgRefusjonPanel({
                 Utbetaling og refusjon
             </Heading>
             <ReadMore className="mt-4" header="Les mer">
-                Hvis sykefraværet ditt overstiger 16 kalenderdager og du har rett til sykepenger, vil NAV stå for
+                Hvis sykefraværet ditt overstiger 16 kalenderdager og du har rett til sykepenger, vil Nav stå for
                 utbetalingen av sykepenger. Noen arbeidsgivere betaler fortsatt sykepenger fra dag 17, men de vil senere
-                bli refundert av NAV.
+                bli refundert av Nav.
             </ReadMore>
             {inntektsmelding?.begrunnelseForReduksjonEllerIkkeUtbetalt && (
                 <div className="mt-8">
@@ -75,7 +75,7 @@ export function UtbetalingOgRefusjonPanel({
                     </Label>
                     <BodyShort spacing>{toReadableDate(inntektsmelding?.refusjon.opphoersdato)}</BodyShort>
                     <BodyShort className="mt-8" spacing>
-                        NAV betaler direkte til deg etter denne datoen
+                        Nav betaler direkte til deg etter denne datoen
                     </BodyShort>
                 </Box>
             )}

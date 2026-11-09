@@ -71,7 +71,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await bekreftSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -127,7 +127,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -150,7 +150,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -179,7 +179,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await bekreftSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -204,7 +204,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await bekreftSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -224,7 +224,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -245,7 +245,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -276,7 +276,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -302,7 +302,7 @@ test.describe('Arbeidssituasjon - Fiskere', () => {
             await sendSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 

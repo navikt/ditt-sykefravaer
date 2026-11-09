@@ -38,7 +38,7 @@ const InformationBanner = ({
                         </Heading>
                         <BodyLong className="mb-2">
                             Vanligvis starter sykmeldingen den datoen du er hos behandleren. I enkelte tilfeller kan
-                            datoen i sykmeldingen settes tilbake i tid, det vi kaller tilbakedatering. NAV vurderer om
+                            datoen i sykmeldingen settes tilbake i tid, det vi kaller tilbakedatering. Nav vurderer om
                             det er en gyldig grunn for tilbakedateringen.
                         </BodyLong>
                         <BodyLong className="mb-2">
@@ -157,7 +157,7 @@ export function UnderBehandlingGuidePanel(): ReactElement {
                     Viktig informasjon
                 </Heading>
                 <BodyLong className="mb-2">
-                    Sykmeldingen din er skrevet tilbake i tid, og NAV må derfor vurdere om det er en gyldig grunn til at
+                    Sykmeldingen din er skrevet tilbake i tid, og Nav må derfor vurdere om det er en gyldig grunn til at
                     sykmeldingen starter før du var i kontakt med legen.
                 </BodyLong>
                 <BodyLong className="mb-2">

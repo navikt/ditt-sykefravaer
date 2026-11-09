@@ -78,7 +78,7 @@ test.describe('Frilanser', () => {
             )(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -126,7 +126,7 @@ test.describe('Frilanser', () => {
             await bekreftSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 
@@ -203,7 +203,7 @@ test.describe('Frilanser', () => {
             await bekreftSykmelding(page)
 
             await expectKvittering({
-                sendtTil: 'NAV',
+                sendtTil: 'Nav',
                 egenmeldingsdagerInfo: ExpectMeta.NotInDom,
             })(page)
 

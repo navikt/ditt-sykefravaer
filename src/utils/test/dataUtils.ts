@@ -121,7 +121,7 @@ export function createSykmelding(overrides?: Partial<Sykmelding>, statusEvent = 
             },
         },
         tiltakArbeidsplassen: 'Tiltak på arbeidsplassen',
-        tiltakNAV: 'Tiltak NAV',
+        tiltakNAV: 'Tiltak Nav',
         andreTiltak: 'Du må gjøre andre tiltak',
         meldingTilNAV: {
             bistandUmiddelbart: true,

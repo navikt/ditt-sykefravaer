@@ -362,7 +362,7 @@ test.describe('Egenmeldingsdager', () => {
                     await page.getByRole('button', { name: /Send sykmelding/ }).click()
 
                     await expectKvittering({
-                        sendtTil: 'NAV',
+                        sendtTil: 'Nav',
                         egenmeldingsdagerInfo: ExpectMeta.NotInDom,
                     })(page)
 

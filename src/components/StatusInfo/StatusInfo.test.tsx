@@ -122,7 +122,7 @@ describe('StatusInfo', () => {
             ).toBeInTheDocument()
             expect(
                 screen.getByText(
-                    /Siden legen har skrevet at sykmeldingen startet før dere hadde kontakt, må NAV først vurdere om det var en gyldig grunn til dette/,
+                    /Siden legen har skrevet at sykmeldingen startet før dere hadde kontakt, må Nav først vurdere om det var en gyldig grunn til dette/,
                 ),
             ).toBeInTheDocument()
         })

@@ -22,7 +22,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
@@ -46,7 +46,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         await bekreftSykmelding(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 
@@ -74,7 +74,7 @@ test.describe('Arbeidssituasjon - Annet', () => {
         )(page)
 
         await expectKvittering({
-            sendtTil: 'NAV',
+            sendtTil: 'Nav',
             egenmeldingsdagerInfo: ExpectMeta.NotInDom,
         })(page)
 

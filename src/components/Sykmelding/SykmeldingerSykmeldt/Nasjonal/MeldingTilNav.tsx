@@ -16,9 +16,9 @@ function MeldingTilNav({ meldingTilNav, parentId }: Props): ReactElement | null 
     }
 
     return (
-        <SykmeldingGroup parentId={parentId} heading="Melding til NAV" Icon={PersonChatIcon}>
+        <SykmeldingGroup parentId={parentId} heading="Melding til Nav" Icon={PersonChatIcon}>
             {meldingTilNav.bistandUmiddelbart && (
-                <SykmeldingJaInfo heading="Ønskes bistand fra NAV nå?" variant="gray" />
+                <SykmeldingJaInfo heading="Ønskes bistand fra Nav nå?" variant="gray" />
             )}
             {meldingTilNav.beskrivBistand && (
                 <SykmeldingInfo heading="Nærmere beskrivelse" variant="gray">

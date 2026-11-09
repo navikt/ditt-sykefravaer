@@ -47,7 +47,7 @@ function StatusBanner({
         return (
             <Alert variant="success" role="status">
                 <BodyShort className="font-ax-bold mb-6">
-                    {egenmeldt ? 'Egenmeldingen ble sendt til NAV.' : 'Sykmeldingen ble sendt til NAV.'}
+                    {egenmeldt ? 'Egenmeldingen ble sendt til Nav.' : 'Sykmeldingen ble sendt til Nav.'}
                     {' Du finner den på Ditt sykefravær. Du får en melding fra oss hvis vi trenger noe mer fra deg.'}
                 </BodyShort>
                 <Detail>{'Sendt: ' + toReadableDate(sykmeldingStatus.timestamp)}</Detail>

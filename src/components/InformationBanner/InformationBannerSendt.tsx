@@ -45,7 +45,7 @@ const InformationBannerSendt = ({ merknader }: InfoBannerSendtProps): ReactEleme
                         </Heading>
                         <BodyLong className="mb-2">
                             Vanligvis starter sykmeldingen den datoen du er hos behandleren. I enkelte tilfeller kan
-                            datoen i sykmeldingen settes tilbake i tid, det vi kaller tilbakedatering. NAV vurderer om
+                            datoen i sykmeldingen settes tilbake i tid, det vi kaller tilbakedatering. Nav vurderer om
                             det er en gyldig grunn for tilbakedateringen.
                         </BodyLong>
                         <BodyLong className="mb-2">
