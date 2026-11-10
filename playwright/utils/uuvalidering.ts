@@ -68,10 +68,8 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                         })
                     }
                 } catch {
-                    testInfo.annotations.push({
-                        type: 'Kunne ikke ta skjermbilde',
-                        description: node.target.join(' '),
-                    })
+                    // eslint-disable-next-line no-console -- Beholder diagnostikk når skjermbilde av et testelement feiler.
+                    console.log(`Kunne ikke ta screenshot av element: ${node.target.join(' ')}`)
                 }
             }
         }
@@ -91,6 +89,9 @@ export async function validerAxe(page: Page, testInfo: TestInfo, disableRules: s
                     `\n🔗 Hjelp: ${violation.helpUrl}\n`,
             )
             .join('\n' + '─'.repeat(80) + '\n')
+
+        // eslint-disable-next-line no-console -- Gir UU-oppsummering i testloggen før testen feiler.
+        console.log(`${violations.length} UU-violation(s) detected - se attachments i Playwright GUI for detaljer`)
 
         expect(violations, `${violations.length} UU-violation(s) funnet:\n\n${errorMessage}`).toHaveLength(0)
     }
