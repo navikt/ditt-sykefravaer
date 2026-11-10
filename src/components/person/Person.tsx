@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
+import { Alert, BodyShort, Button, Heading, LinkCard, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
 import React, { CSSProperties, ReactElement, useCallback, useRef, useState } from 'react'
 import { SandboxIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
@@ -92,15 +92,15 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
     )
 }
 
+function scenarioHref(scenario: Scenarios): string {
+    const searchParams = new URLSearchParams({
+        scenario,
+    })
+
+    return `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
+}
+
 function SykmeldingPicker() {
-    const handleChangeUserScenario = (scenario: Scenarios) => async () => {
-        const searchParams = new URLSearchParams({
-            scenario,
-        })
-
-        window.location.href = `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
-    }
-
     const grupper: readonly (readonly [ScenarioGruppeNokkel, SynligeScenarioer])[] = R.entries(synligeScenarioGrupper)
 
     return (
@@ -117,13 +117,11 @@ function SykmeldingPicker() {
                         {R.entries(scenarioer).map(([key, { description }]) => {
                             return (
                                 <li key={key} className="list-none">
-                                    <LinkPanel
-                                        as="button"
-                                        onClick={handleChangeUserScenario(key)}
-                                        className="w-full text-start"
-                                    >
-                                        {description}
-                                    </LinkPanel>
+                                    <LinkCard size="small">
+                                        <LinkCard.Title>
+                                            <LinkCard.Anchor href={scenarioHref(key)}>{description}</LinkCard.Anchor>
+                                        </LinkCard.Title>
+                                    </LinkCard>
                                 </li>
                             )
                         })}
