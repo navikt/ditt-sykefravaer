@@ -9,7 +9,7 @@ export default defineConfig([
     ...nextTs,
     {
         rules: {
-            'no-console': 'warn',
+            'no-console': 'error',
             '@typescript-eslint/no-explicit-any': 'warn',
             '@typescript-eslint/no-non-null-assertion': 'off',
             '@typescript-eslint/explicit-function-return-type': 'off',

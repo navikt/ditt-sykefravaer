@@ -7,9 +7,9 @@ import { FlagProvider } from '../../toggles/context'
 import * as customQueries from './customQueries'
 
 type ProviderProps = {
-    readonly initialState?: any[]
+    readonly initialState?: unknown[]
 
-    readonly mocks?: any[]
+    readonly mocks?: unknown[]
 }
 
 const testToggles: IToggle[] = [
