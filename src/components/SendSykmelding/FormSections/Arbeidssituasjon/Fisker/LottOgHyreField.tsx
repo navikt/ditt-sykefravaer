@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { BodyShort, Radio, RadioGroup, ReadMore, Box } from '@navikt/ds-react'
+import { BodyShort, ReadMore } from '@navikt/ds-react'
+import { RadioCard, RadioCardGroup } from '@navikt/ds-react/PREVIEW'
 import { useController } from 'react-hook-form'
 
 import { LottOgHyre } from '../../../../../types/sykmelding/sykmeldingCommon'
@@ -28,7 +29,7 @@ function LottOgHyreField(): ReactElement {
                 <BodyShort spacing>Svar begge deler hvis du mottar både fast hyre og lott.</BodyShort>
             </ReadMore>
             <QuestionWrapper className={'mt-6'}>
-                <RadioGroup
+                <RadioCardGroup
                     {...field}
                     id={field.name}
                     legend={sporsmal.fisker.lottEllerHyre}
@@ -38,26 +39,12 @@ function LottOgHyreField(): ReactElement {
                     {lottOgHyreSvar.map((lottOgHyre) => {
                         const beskrivelse = lottHyreBeskrivelse(lottOgHyre)
                         return (
-                            <Box
-                                key={lottOgHyre}
-                                paddingInline="space-8"
-                                borderWidth="2"
-                                borderRadius="12"
-                                borderColor="neutral-subtle"
-                                className="mb-2 focus-within:border-ax-border-accent focus-within:bg-ax-bg-accent-soft"
-                            >
-                                <Radio
-                                    key={lottOgHyre}
-                                    value={lottOgHyre}
-                                    {...(beskrivelse ? { description: beskrivelse } : {})}
-                                    className="w-full"
-                                >
-                                    <span className="font-medium">{lottOgHyreTittel(lottOgHyre)}</span>
-                                </Radio>
-                            </Box>
+                            <RadioCard key={lottOgHyre} value={lottOgHyre} description={beskrivelse}>
+                                {lottOgHyreTittel(lottOgHyre)}
+                            </RadioCard>
                         )
                     })}
-                </RadioGroup>
+                </RadioCardGroup>
             </QuestionWrapper>
         </SectionWrapper>
     )

@@ -1,5 +1,6 @@
 import React, { ReactElement } from 'react'
-import { BodyShort, Box, Radio, RadioGroup, ReadMore } from '@navikt/ds-react'
+import { BodyShort, ReadMore } from '@navikt/ds-react'
+import { RadioCard, RadioCardGroup } from '@navikt/ds-react/PREVIEW'
 import { useController } from 'react-hook-form'
 
 import { Blad } from '../../../../../types/sykmelding/sykmeldingCommon'
@@ -31,7 +32,7 @@ function BladField(): ReactElement {
                 </BodyShort>
             </ReadMore>
             <QuestionWrapper className={'mt-6'}>
-                <RadioGroup
+                <RadioCardGroup
                     {...field}
                     id={field.name}
                     legend={sporsmal.fisker.velgBlad}
@@ -41,26 +42,12 @@ function BladField(): ReactElement {
                     {bladtyper.map((blad) => {
                         const beskrivelse = bladbeskrivelse(blad)
                         return (
-                            <Box
-                                key={blad}
-                                paddingInline="space-8"
-                                borderWidth="2"
-                                borderRadius="12"
-                                borderColor="neutral-subtle"
-                                className="mb-2 focus-within:border-ax-border-accent focus-within:bg-ax-bg-accent-soft"
-                            >
-                                <Radio
-                                    key={blad}
-                                    value={blad}
-                                    {...(beskrivelse ? { description: beskrivelse } : {})}
-                                    className="w-full"
-                                >
-                                    <span className="font-medium">{bladTittel(blad)}</span>
-                                </Radio>
-                            </Box>
+                            <RadioCard key={blad} value={blad} description={beskrivelse}>
+                                {bladTittel(blad)}
+                            </RadioCard>
                         )
                     })}
-                </RadioGroup>
+                </RadioCardGroup>
             </QuestionWrapper>
         </SectionWrapper>
     )
