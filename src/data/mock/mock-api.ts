@@ -113,6 +113,10 @@ export async function mockApi(req: NextApiRequest, res: NextApiResponse): Promis
         },
         'GET /api/ditt-sykefravaer-backend/api/v1/meldinger': async () => {
             if (erClsTestperson) await sleep(750)
+            if (testperson.beskjedDemo?.forsinkelseMs) await sleep(testperson.beskjedDemo.forsinkelseMs)
+            if (testperson.beskjedDemo?.status) {
+                return sendJson({ message: 'Demofeil ved henting av beskjeder' }, testperson.beskjedDemo.status)
+            }
             return sendJson(testperson.meldinger)
         },
         'GET /api/ditt-sykefravaer-backend/api/v1/inntektsmeldinger': async () => {

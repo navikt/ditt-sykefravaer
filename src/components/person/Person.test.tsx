@@ -37,3 +37,21 @@ describe('Person - testdataverktøy for sykmelding', () => {
         expect(screen.queryByText(skjulteE2eScenarioer.noBrukerSvar.description)).not.toBeInTheDocument()
     })
 })
+
+describe('Person - demoscenarioer for beskjeder', () => {
+    it('viser direktelenker til beskjedscenarioene i testdataverktøyet', async () => {
+        render(<Person side="dittsykefravaer" />)
+
+        await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
+
+        expect(screen.getByRole('heading', { name: 'Beskjeder' })).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'Teknisk feil ved henting (500)' })).toHaveAttribute(
+            'href',
+            '/syk/sykefravaer/beskjed/123456y7?testperson=beskjed-teknisk-feil',
+        )
+        expect(screen.getByRole('link', { name: 'Beskjed som mangler i listen' })).toHaveAttribute(
+            'href',
+            '/syk/sykefravaer/beskjed/123456y7?testperson=beskjed-mangler',
+        )
+    })
+})

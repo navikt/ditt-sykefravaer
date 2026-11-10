@@ -41,7 +41,14 @@ const Beskjed = () => {
             return <ForelagtInntektFraAordningen melding={melding} />
         }
         const task = skapMeldinger([melding])[0]
-        return <EnkeltOppgaveAlert oppgave={task} pushLukket={() => {}} />
+        return (
+            <>
+                <Heading level="1" size="medium" spacing>
+                    Beskjed fra Nav
+                </Heading>
+                <EnkeltOppgaveAlert oppgave={task} pushLukket={() => {}} />
+            </>
+        )
     }
     return <BeskjedFeil status={404} />
 }
