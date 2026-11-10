@@ -113,9 +113,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
             fortsettHenting()
         }
 
-        await expect(
-            page.getByRole('heading', { name: 'Sjekk at opplysningene om inntekten din stemmer' }),
-        ).toBeVisible()
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
         await expect(page).toHaveURL(url)
     })
 
@@ -132,7 +130,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         const url = '/syk/sykefravaer/beskjed/ukjent?testperson=forelagt-fra-a-ordningen'
         await page.goto(url)
 
-        await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden', level: 1 })).toBeVisible()
+        await harSynligOverskrift(page, 'Fant ikke beskjeden', 1)
         await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden' })).toBeHidden()
         await expect(page).toHaveURL(url)
 
@@ -167,9 +165,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         laHentingLykkes = true
         await page.getByRole('button', { name: 'Prøv igjen' }).click()
 
-        await expect(
-            page.getByRole('heading', { name: 'Sjekk at opplysningene om inntekten din stemmer' }),
-        ).toBeVisible()
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
         await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden' })).toBeHidden()
         await expect(page).toHaveURL(url)
     })
@@ -183,13 +179,13 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
         const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
         await page.goto(url)
-        await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden', level: 1 })).toBeVisible()
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
         const hentingerForNyttForsok = antallHentinger
 
         await page.getByRole('button', { name: 'Prøv igjen' }).click()
 
         await expect.poll(() => antallHentinger).toBeGreaterThan(hentingerForNyttForsok)
-        await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden', level: 1 })).toBeVisible()
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
         await expect(page.getByRole('button', { name: 'Prøv igjen' })).toBeEnabled()
         await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
         await expect(page).toHaveURL(url)
