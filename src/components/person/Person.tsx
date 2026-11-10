@@ -1,5 +1,5 @@
-import { Alert, BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
-import React, { CSSProperties, ReactElement, useCallback, useState } from 'react'
+import { Alert, BodyShort, Button, Heading, LinkCard, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
+import React, { CSSProperties, ReactElement, useCallback, useRef, useState } from 'react'
 import { SandboxIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
 
@@ -12,7 +12,7 @@ type SynligeScenarioer = Partial<Record<Scenarios, { description: string }>>
 
 export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding' }): ReactElement {
     const [showHint, setShowHint] = useState(false)
-    const [buttonEl, setButtonEl] = useState<HTMLButtonElement | null>(null)
+    const buttonRef = useRef<HTMLButtonElement>(null)
     const [openState, setOpenState] = useState(false)
 
     const dismissHint = useCallback(() => {
@@ -26,7 +26,7 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
                 <Tooltip content="Verktøy for testing">
                     <Button
                         data-color="neutral"
-                        ref={setButtonEl}
+                        ref={buttonRef}
                         onClick={() => setOpenState((b) => !b)}
                         icon={<SandboxIcon title="Åpne testdataverktøy" />}
                         variant="tertiary"
@@ -40,7 +40,7 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
                         } as CSSProperties
                     }
                 >
-                    <Popover open={showHint} onClose={() => void 0} placement="bottom-end" anchorEl={buttonEl}>
+                    <Popover open={showHint} onClose={() => void 0} placement="bottom-end" anchorEl={buttonRef.current}>
                         <Popover.Content>
                             <Heading size="small" level="3" className="motion-safe:animate-bounce">
                                 Tips!
@@ -117,9 +117,11 @@ function SykmeldingPicker() {
                         {R.entries(scenarioer).map(([key, { description }]) => {
                             return (
                                 <li key={key} className="list-none">
-                                    <LinkPanel href={scenarioHref(key)} className="w-full text-start">
-                                        {description}
-                                    </LinkPanel>
+                                    <LinkCard size="small">
+                                        <LinkCard.Title>
+                                            <LinkCard.Anchor href={scenarioHref(key)}>{description}</LinkCard.Anchor>
+                                        </LinkCard.Title>
+                                    </LinkCard>
                                 </li>
                             )
                         })}
