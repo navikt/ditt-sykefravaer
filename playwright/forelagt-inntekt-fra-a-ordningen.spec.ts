@@ -132,13 +132,50 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         expect(dokumentforesporsler).toHaveLength(1)
     })
 
-    test('sender videre til forsiden når meldinger ikke kan hentes', async ({ page }) => {
-        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) =>
-            route.fulfill({ status: 500, body: 'Feil ved henting av meldinger' }),
-        )
+    test('sender videre til forsiden når meldinger ikke kan hentes, og henter på nytt der', async ({ page }) => {
+        let fortsettForsteFeil: () => void = () => undefined
+        const forsteFeilFrigitt = new Promise<void>((resolve) => {
+            fortsettForsteFeil = resolve
+        })
+        let varsleForsteForesporsel: () => void = () => undefined
+        const forsteForesporselMottatt = new Promise<void>((resolve) => {
+            varsleForsteForesporsel = resolve
+        })
+        let foresporslerPaBeskjed = 0
+        let foresporslerPaForsiden = 0
 
-        await page.goto('/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen')
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', async (route) => {
+            const pathname = await page.evaluate(() => window.location.pathname)
+            if (pathname.includes('/beskjed/')) {
+                foresporslerPaBeskjed++
+                if (foresporslerPaBeskjed === 1) {
+                    varsleForsteForesporsel()
+                    await forsteFeilFrigitt
+                }
+                await route.fulfill({ status: 500, body: 'Feil ved henting av meldinger' })
+                return
+            }
 
-        await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+            foresporslerPaForsiden++
+            await route.fulfill({ json: [] })
+        })
+
+        const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+        try {
+            await page.goto(url)
+            await forsteForesporselMottatt
+            const historikkforRedirect = await page.evaluate(() => window.history.length)
+
+            fortsettForsteFeil()
+
+            await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+            await expect.poll(() => foresporslerPaForsiden).toBeGreaterThan(0)
+            const historikketterRedirect = await page.evaluate(() => window.history.length)
+
+            expect(historikketterRedirect).toBeGreaterThan(historikkforRedirect)
+            expect(foresporslerPaBeskjed).toBeGreaterThan(0)
+        } finally {
+            fortsettForsteFeil()
+        }
     })
 })
