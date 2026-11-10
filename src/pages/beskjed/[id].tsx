@@ -1,6 +1,6 @@
-import { Alert, BodyShort, Button, Heading, Link, Skeleton } from '@navikt/ds-react'
+import { Button, Heading, InfoCard, Skeleton } from '@navikt/ds-react'
+import { XMarkOctagonIcon } from '@navikt/aksel-icons'
 import React from 'react'
-import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
@@ -8,6 +8,8 @@ import useMeldinger from '../../hooks/useMeldinger'
 import { ForelagtInntektFraAordningen } from '../../components/opplysningerFraAordningen/hentetFraAordningen'
 import { skapMeldinger } from '../../components/oppgaver/meldinger'
 import { EnkeltOppgaveAlert } from '../../components/oppgaver/Oppgaver'
+import { FetchError } from '../../utils/fetch'
+import { basePath } from '../../utils/environment'
 
 export interface Inntekt {
     maned: string
@@ -22,8 +24,7 @@ const Beskjed = () => {
         data: meldinger,
         isPending: meldingerLaster,
         isError: meldingerFeilet,
-        isFetching: henterMeldinger,
-        refetch: hentMeldinger,
+        error: meldingerFeil,
     } = useMeldinger()
     const melding = meldinger?.find((m) => m.uuid === id)
 
@@ -32,28 +33,7 @@ const Beskjed = () => {
     }
 
     if (meldingerFeilet) {
-        return (
-            <Alert variant="error" role="alert">
-                <Heading level="1" size="medium" spacing>
-                    Vi klarte ikke å hente beskjeden
-                </Heading>
-                <BodyShort spacing>Det oppsto en teknisk feil. Prøv igjen om litt.</BodyShort>
-                <div className="flex flex-col items-start gap-4">
-                    <Button
-                        type="button"
-                        variant="secondary"
-                        data-color="neutral"
-                        loading={henterMeldinger}
-                        onClick={() => void hentMeldinger()}
-                    >
-                        Prøv igjen
-                    </Button>
-                    <Link as={NextLink} href="/">
-                        Gå til Ditt sykefravær
-                    </Link>
-                </div>
-            </Alert>
-        )
+        return <BeskjedFeil status={meldingerFeil instanceof FetchError ? meldingerFeil.status : undefined} />
     }
 
     if (melding) {
@@ -63,15 +43,44 @@ const Beskjed = () => {
         const task = skapMeldinger([melding])[0]
         return <EnkeltOppgaveAlert oppgave={task} pushLukket={() => {}} />
     }
+    return <BeskjedFeil status={404} />
+}
+
+function BeskjedFeil({ status }: { status?: number }) {
+    const visReload = status !== 403 && status !== 404
+    const overskrift =
+        status === 403
+            ? 'Du har ikke tilgang til beskjeden'
+            : status === 404
+              ? 'Fant ikke beskjeden'
+              : 'Vi klarte ikke å hente beskjeden'
+
     return (
-        <div>
-            <Heading level="1" size="medium" spacing>
-                Fant ikke beskjeden
-            </Heading>
-            <BodyShort spacing>Vi finner ingen beskjed på denne adressen.</BodyShort>
-            <Link as={NextLink} href="/">
-                Gå til Ditt sykefravær
-            </Link>
+        <div aria-live="polite">
+            <InfoCard data-color="danger" className="mt-4">
+                <InfoCard.Header icon={<XMarkOctagonIcon aria-hidden fontSize="1.5rem" />}>
+                    <Heading level="1" size="small">
+                        {overskrift}
+                    </Heading>
+                </InfoCard.Header>
+                <InfoCard.Content>
+                    <Button
+                        className="bg-ax-bg-default"
+                        variant="secondary"
+                        type="button"
+                        size="small"
+                        onClick={() => {
+                            if (visReload) {
+                                window.location.reload()
+                            } else {
+                                window.location.href = basePath()
+                            }
+                        }}
+                    >
+                        {visReload ? 'Last inn siden på nytt' : 'Gå tilbake til Ditt sykefravær'}
+                    </Button>
+                </InfoCard.Content>
+            </InfoCard>
         </div>
     )
 }
