@@ -136,15 +136,14 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
         await validerAxe(page, testInfo)
 
-        const tilOversikten = page.getByRole('link', { name: 'Gå til Ditt sykefravær' })
-        await expect(tilOversikten).toHaveAttribute('href', '/syk/sykefravaer')
-        await tilOversikten.click()
+        await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
+        await page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' }).click()
 
         await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
-        expect(dokumentforesporsler).toHaveLength(1)
+        expect(dokumentforesporsler).toHaveLength(2)
     })
 
-    test('viser teknisk feil og lar brukeren hente beskjeden på nytt', async ({ page }) => {
+    test('viser teknisk feil og lar brukeren laste siden på nytt', async ({ page }) => {
         let laHentingLykkes = false
 
         await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', async (route) => {
@@ -158,12 +157,16 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
         await page.goto(url)
 
-        await expect(page.getByRole('alert').filter({ hasText: 'Vi klarte ikke å hente beskjeden' })).toBeVisible()
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
         await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
+        await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeHidden()
         await expect(page).toHaveURL(url)
 
         laHentingLykkes = true
-        await page.getByRole('button', { name: 'Prøv igjen' }).click()
+        await Promise.all([
+            page.waitForRequest((request) => request.isNavigationRequest() && request.frame() === page.mainFrame()),
+            page.getByRole('button', { name: 'Last inn siden på nytt' }).click(),
+        ])
 
         await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
         await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden' })).toBeHidden()
@@ -182,12 +185,35 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
         const hentingerForNyttForsok = antallHentinger
 
-        await page.getByRole('button', { name: 'Prøv igjen' }).click()
+        await Promise.all([
+            page.waitForRequest((request) => request.isNavigationRequest() && request.frame() === page.mainFrame()),
+            page.getByRole('button', { name: 'Last inn siden på nytt' }).click(),
+        ])
 
         await expect.poll(() => antallHentinger).toBeGreaterThan(hentingerForNyttForsok)
         await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
-        await expect(page.getByRole('button', { name: 'Prøv igjen' })).toBeEnabled()
+        await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeEnabled()
         await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
         await expect(page).toHaveURL(url)
     })
+
+    for (const status of [403, 404]) {
+        test(`viser tilbakeknapp når henting svarer med ${status}`, async ({ page }) => {
+            await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) =>
+                route.fulfill({ status, body: 'Beskjeden er ikke tilgjengelig' }),
+            )
+
+            const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+            await page.goto(url)
+
+            await harSynligOverskrift(
+                page,
+                status === 403 ? 'Du har ikke tilgang til beskjeden' : 'Fant ikke beskjeden',
+                1,
+            )
+            await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeVisible()
+            await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
+            await expect(page).toHaveURL(url)
+        })
+    }
 })
