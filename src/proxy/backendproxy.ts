@@ -13,6 +13,7 @@ interface Opts {
     hostname: string
     backendClientId: string
     https: boolean
+    backendPathPrefix?: string
 }
 
 export async function proxyKallTilBackend(opts: Opts) {
@@ -35,5 +36,7 @@ export async function proxyKallTilBackend(opts: Opts) {
         })
     }
 
-    await proxyApiRouteRequest({ ...opts, path: rewritedPath, bearerToken: tokenX.token })
+    // Backend kan ha et prefiks (f.eks. /internal) som ikke kan eksponeres i nettleserstien
+    const backendPath = (opts.backendPathPrefix ?? '') + rewritedPath
+    await proxyApiRouteRequest({ ...opts, path: backendPath, bearerToken: tokenX.token })
 }
