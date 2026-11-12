@@ -315,11 +315,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 fisker: {
                     blad: {
-                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
+                        sporsmaltekst: 'Er du registrert på blad B i Fiskerregisteret?',
                         svar: 'A',
                     },
                     lottOgHyre: {
-                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
+                        sporsmaltekst: 'Hvordan får du betalt for fisket?',
                         svar: 'LOTT',
                     },
                 },
@@ -362,11 +362,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 fisker: {
                     blad: {
-                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
+                        sporsmaltekst: 'Er du registrert på blad B i Fiskerregisteret?',
                         svar: 'A',
                     },
                     lottOgHyre: {
-                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
+                        sporsmaltekst: 'Hvordan får du betalt for fisket?',
                         svar: 'HYRE',
                     },
                 },
@@ -424,11 +424,11 @@ describe('sendSykmeldingMapping', () => {
                 },
                 fisker: {
                     blad: {
-                        sporsmaltekst: 'Er du registrert som Blad B i Fiskerregisteret?',
+                        sporsmaltekst: 'Er du registrert på blad B i Fiskerregisteret?',
                         svar: 'A',
                     },
                     lottOgHyre: {
-                        sporsmaltekst: 'Hva slags lønn får du fra fisket?',
+                        sporsmaltekst: 'Hvordan får du betalt for fisket?',
                         svar: 'HYRE',
                     },
                 },

@@ -33,7 +33,7 @@ describe('SendSykmeldingForm', () => {
         const bruker = userEvent.setup()
         render(<SendSykmeldingForm sykmelding={createSykmelding()} onSykmeldingAvbrutt={vi.fn()} />)
 
-        const sendKnapp = screen.getByRole('button', { name: 'Bekreft sykmelding' })
+        const sendKnapp = screen.getByRole('button', { name: 'Bekreft sykmeldingen' })
         await bruker.click(sendKnapp)
 
         const feiloppsummering = await screen.findByRole('heading', {
@@ -56,7 +56,7 @@ describe('SendSykmeldingForm', () => {
         render(<SendSykmeldingForm sykmelding={createSykmelding()} onSykmeldingAvbrutt={vi.fn()} />)
 
         await bruker.click(screen.getByRole('radio', { name: 'Ja' }))
-        await bruker.click(screen.getByRole('button', { name: 'Bekreft sykmelding' }))
+        await bruker.click(screen.getByRole('button', { name: 'Bekreft sykmeldingen' }))
 
         await waitFor(() => expect(sendSykmelding).toHaveBeenCalledTimes(1))
         expect(
