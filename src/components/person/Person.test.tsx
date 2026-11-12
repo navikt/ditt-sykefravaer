@@ -37,3 +37,19 @@ describe('Person - testdataverktøy for sykmelding', () => {
         expect(screen.queryByText(skjulteE2eScenarioer.noBrukerSvar.description)).not.toBeInTheDocument()
     })
 })
+
+describe('Person - testdataverktøy for Ditt sykefravær', () => {
+    it('beholder varslene uten en egen gruppe med beskjedscenarioer', async () => {
+        render(<Person side="dittsykefravaer" />)
+
+        await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
+
+        expect(screen.queryByRole('heading', { name: 'Beskjeder' })).not.toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: 'Varsler om forsinket saksbehandling' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('link', {
+                name: 'Opplysninger om inntekt hentet fra a-ordningen (3 måneder med inntekt)',
+            }),
+        ).toHaveAttribute('href', '/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
+    })
+})

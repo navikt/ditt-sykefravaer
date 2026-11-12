@@ -2,6 +2,7 @@ import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
 import { harSynligOverskrift } from './utils/test-utils'
+import { validerAxe } from './utils/uuvalidering'
 
 test.describe('Tester forelagt inntekt fra a-ordningen', () => {
     test('Tester når vi har tre månedsinntekter', async ({ page }) => {
@@ -91,4 +92,128 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await expect(page.locator('text=Februar: Ingen inntekt registrert')).toBeVisible()
         await expect(page.locator('text=Januar: Ingen inntekt registrert')).toBeVisible()
     })
+
+    test('viser melding etter at den er hentet', async ({ page }) => {
+        let fortsettHenting: () => void = () => undefined
+        const ventPaHenting = new Promise<void>((resolve) => {
+            fortsettHenting = resolve
+        })
+
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', async (route) => {
+            await ventPaHenting
+            await route.continue()
+        })
+
+        const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+        try {
+            await page.goto(url)
+            await expect(page.locator('.aksel-skeleton').first()).toBeVisible()
+            await expect(page).toHaveURL(url)
+        } finally {
+            fortsettHenting()
+        }
+
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
+        await expect(page).toHaveURL(url)
+    })
+
+    test('viser ikke funnet og lar brukeren gå til oversikten når meldingen ikke finnes', async ({
+        page,
+    }, testInfo) => {
+        const dokumentforesporsler: string[] = []
+        page.on('request', (request) => {
+            if (request.isNavigationRequest() && request.frame() === page.mainFrame()) {
+                dokumentforesporsler.push(request.url())
+            }
+        })
+
+        const url = '/syk/sykefravaer/beskjed/ukjent?testperson=forelagt-fra-a-ordningen'
+        await page.goto(url)
+
+        await harSynligOverskrift(page, 'Fant ikke beskjeden', 1)
+        await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden' })).toBeHidden()
+        await expect(page).toHaveURL(url)
+
+        await validerAxe(page, testInfo)
+
+        await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
+        await page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' }).click()
+
+        await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+        expect(dokumentforesporsler).toHaveLength(2)
+    })
+
+    test('viser teknisk feil og lar brukeren laste siden på nytt', async ({ page }) => {
+        let laHentingLykkes = false
+
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', async (route) => {
+            if (laHentingLykkes) {
+                await route.continue()
+            } else {
+                await route.fulfill({ status: 500, body: 'Feil ved henting av meldinger' })
+            }
+        })
+
+        const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+        await page.goto(url)
+
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
+        await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
+        await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeHidden()
+        await expect(page).toHaveURL(url)
+
+        laHentingLykkes = true
+        await Promise.all([
+            page.waitForRequest((request) => request.isNavigationRequest() && request.frame() === page.mainFrame()),
+            page.getByRole('button', { name: 'Last inn siden på nytt' }).click(),
+        ])
+
+        await harSynligOverskrift(page, 'Sjekk at opplysningene om inntekten din stemmer', 1)
+        await expect(page.getByRole('heading', { name: 'Vi klarte ikke å hente beskjeden' })).toBeHidden()
+        await expect(page).toHaveURL(url)
+    })
+
+    test('beholder teknisk feil når et nytt forsøk også feiler', async ({ page }) => {
+        let antallHentinger = 0
+        await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) => {
+            antallHentinger++
+            return route.fulfill({ status: 500, body: 'Feil ved henting av meldinger' })
+        })
+
+        const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+        await page.goto(url)
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
+        const hentingerForNyttForsok = antallHentinger
+
+        await Promise.all([
+            page.waitForRequest((request) => request.isNavigationRequest() && request.frame() === page.mainFrame()),
+            page.getByRole('button', { name: 'Last inn siden på nytt' }).click(),
+        ])
+
+        await expect.poll(() => antallHentinger).toBeGreaterThan(hentingerForNyttForsok)
+        await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
+        await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeEnabled()
+        await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
+        await expect(page).toHaveURL(url)
+    })
+
+    for (const status of [403, 404]) {
+        test(`viser tilbakeknapp når henting svarer med ${status}`, async ({ page }) => {
+            await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) =>
+                route.fulfill({ status, body: 'Beskjeden er ikke tilgjengelig' }),
+            )
+
+            const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
+            await page.goto(url)
+
+            await harSynligOverskrift(
+                page,
+                status === 403 ? 'Du har ikke tilgang til beskjeden' : 'Fant ikke beskjeden',
+                1,
+            )
+            await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeVisible()
+            await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
+            await expect(page).toHaveURL(url)
+        })
+    }
 })
