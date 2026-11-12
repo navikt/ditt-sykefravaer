@@ -38,20 +38,18 @@ describe('Person - testdataverktøy for sykmelding', () => {
     })
 })
 
-describe('Person - demoscenarioer for beskjeder', () => {
-    it('viser direktelenker til beskjedscenarioene i testdataverktøyet', async () => {
+describe('Person - testdataverktøy for Ditt sykefravær', () => {
+    it('beholder varslene uten en egen gruppe med beskjedscenarioer', async () => {
         render(<Person side="dittsykefravaer" />)
 
         await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
 
-        expect(screen.getByRole('heading', { name: 'Beskjeder' })).toBeInTheDocument()
-        expect(screen.getByRole('link', { name: 'Teknisk feil ved henting (500)' })).toHaveAttribute(
-            'href',
-            '/syk/sykefravaer/beskjed/123456y7?testperson=beskjed-teknisk-feil',
-        )
-        expect(screen.getByRole('link', { name: 'Beskjed som mangler i listen' })).toHaveAttribute(
-            'href',
-            '/syk/sykefravaer/beskjed/123456y7?testperson=beskjed-mangler',
-        )
+        expect(screen.queryByRole('heading', { name: 'Beskjeder' })).not.toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: 'Varsler om forsinket saksbehandling' })).toBeInTheDocument()
+        expect(
+            screen.getByRole('link', {
+                name: 'Opplysninger om inntekt hentet fra a-ordningen (3 måneder med inntekt)',
+            }),
+        ).toHaveAttribute('href', '/syk/sykefravaer?testperson=forelagt-fra-a-ordningen')
     })
 })

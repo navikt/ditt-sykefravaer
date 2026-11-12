@@ -33,7 +33,6 @@ import {
 } from './data/personas/maksdatoPersoner'
 import { nySoknadUtlandEOSPerson } from './data/personas/nySoknadUtlandEOSPerson'
 import { flereSoknaderPerson } from './data/personas/flereSoknaderPerson'
-import { beskjedTestpersoner } from './data/personas/beskjedTestpersoner'
 
 export interface Persona {
     soknader: Soknad[]
@@ -45,11 +44,6 @@ export interface Persona {
     meldinger: Melding[]
     inntektsmeldinger?: InntektsmeldingTyper[]
     beskrivelse: string
-    startside?: string
-    beskjedDemo?: {
-        status?: 403 | 404 | 500
-        forsinkelseMs?: number
-    }
 }
 
 export type PersonaKey =
@@ -76,18 +70,10 @@ export type PersonaKey =
     | 'forelagt-fra-a-ordningen-ingen'
     | 'venter-saksbehandling'
     | 'venter-saksbehandling-revarsel'
-    | 'beskjed-forelagt-inntekt'
-    | 'beskjed-vanlig-melding'
-    | 'beskjed-mangler'
-    | 'beskjed-ingen-tilgang'
-    | 'beskjed-ikke-funnet'
-    | 'beskjed-teknisk-feil'
-    | 'beskjed-treg-henting'
 
 export type PersonaData = Partial<Record<PersonaKey, Persona>>
 
-export type PersonaGroupKey =
-    'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing' | 'maksdato' | 'varsler' | 'beskjeder'
+export type PersonaGroupKey = 'blanding' | 'soknader-og-sykmeldinger' | 'oppgaver' | 'testing' | 'maksdato' | 'varsler'
 type PersonaGroup = Record<PersonaGroupKey, PersonaData>
 
 export function testpersoner(): PersonaData {
@@ -136,6 +122,5 @@ export function testpersonerGruppert(): PersonaGroup {
             ['cummulative-layout-shift']: jsonDeepCopy(clsPerson),
             ['mottatt-inntektsmelding']: jsonDeepCopy(mottattInntektsmelding),
         },
-        ['beskjeder']: jsonDeepCopy(beskjedTestpersoner),
     }
 }
