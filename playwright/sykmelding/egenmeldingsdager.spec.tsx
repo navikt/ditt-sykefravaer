@@ -348,7 +348,7 @@ test.describe('Egenmeldingsdager', () => {
             test.describe('Fisker', () => {
                 test('burde kunne sende inn sykmelding med egenmeldingsdager', async ({ page }) => {
                     await gotoScenario('normal')(page)
-                    await fillOutFisker('Blad A', 'Hyre - fast lønn')(page)
+                    await fillOutFisker('Blad A', 'Hyre')(page)
                     await velgArbeidstaker(/Pontypandy Fire Service/)(page)
 
                     await velgEgenmeldingsdager(
