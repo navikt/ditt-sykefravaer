@@ -5,7 +5,7 @@ import { ReactElement, useEffect, useLayoutEffect } from 'react'
 import * as R from 'remeda'
 import cn from 'classnames'
 
-import { sortDatesASC } from '../../../utils/dateUtils'
+import { dateAdd, sortDatesASC, toDate } from '../../../utils/dateUtils'
 import { logUmamiEvent } from '../../umami/umami'
 import { YesOrNo } from '../../../types/sykmelding/sykmeldingCommon'
 
@@ -51,6 +51,9 @@ function EgenmeldingerField({
     const { cumulativeBefore, cumulativeIncluding } = cumulativeDays(allPeriods, index)
     const [earliestPossibleDate, latestPossibleDate] = currentPeriodDatePicker(previous, metadata.previousSykmeldingTom)
     const hasHitPreviousSykmeldingTom = isAfter(earliestPossibleDate, latestPossibleDate)
+    const begrensetAvForrigeSykmelding =
+        metadata.previousSykmeldingTom != null &&
+        isSameDay(earliestPossibleDate, toDate(dateAdd(metadata.previousSykmeldingTom, { days: 1 })))
 
     useLayoutEffect(() => {
         if (hasHitPreviousSykmeldingTom && egenmeldingsdagerHitPrevious == null) {
@@ -94,6 +97,7 @@ function EgenmeldingerField({
                     arbeidsgiverNavn={metadata.arbeidsgiverNavn}
                     muligTomDato={latestPossibleDate}
                     muligFomDato={earliestPossibleDate}
+                    begrensetAvForrigeSykmelding={begrensetAvForrigeSykmelding}
                     onNo={() => {
                         setValue(`egenmeldingsdager.${index}.datoer`, null)
                         setValue(`egenmeldingsdager.${index}.hasClickedVidere`, null)

@@ -21,6 +21,7 @@ import {
 import {
     allTypeSykmeldingBortsettFraNy,
     apenMenGammelSykmelding,
+    egenmeldingBegrensetAvForrigeSykmelding,
     kvitteringScenario,
     mangeGamleSykmeldinger,
     unsentWithPreviousSent,
@@ -31,6 +32,7 @@ import {
     buttAgainstAvventende,
     buttAgainstAvventendeSent,
     buttAgainstGradert,
+    egenmeldingAndrePeriodeBegrensetAvForrigeSykmelding,
     enSentEnBekreftet,
     noBrukerSvar,
     unsentButtAgainstNormal,
@@ -164,6 +166,10 @@ const scenarioHistorikkOgKvittering = {
         description: 'Info i kvittering',
         scenario: kvitteringScenario,
     },
+    egenmeldingBegrensetAvForrigeSykmelding: {
+        description: 'Egenmeldingsdager begrenset av forrige sykmelding',
+        scenario: egenmeldingBegrensetAvForrigeSykmelding,
+    },
 } satisfies Record<string, { description: string; scenario: ScenarioCreator }>
 
 export const synligeScenarioGrupper = {
@@ -204,6 +210,10 @@ export const skjulteE2eScenarioer = {
     buttAgainstGradert: {
         description: 'En sendte sykmelding kant i kant med en tidligere sykmelding med gradert periode',
         scenario: buttAgainstGradert,
+    },
+    egenmeldingAndrePeriodeBegrensetAvForrigeSykmelding: {
+        description: 'Andre periode med egenmeldingsdager begrenset av forrige sykmelding',
+        scenario: egenmeldingAndrePeriodeBegrensetAvForrigeSykmelding,
     },
     noBrukerSvar: {
         description: 'En sykmelding som ble sendt inn før vi lagret brukersvar i databasen',

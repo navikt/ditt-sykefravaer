@@ -202,6 +202,62 @@ test.describe('Egenmeldingsdager', () => {
             })(page)
         })
 
+        test.describe('begrenset av forrige sykmelding', () => {
+            test('burde vise at første periode er begrenset av forrige sykmelding', async ({ page }) => {
+                await gotoScenario('egenmeldingBegrensetAvForrigeSykmelding')(page)
+                await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
+                await bekreftNarmesteleder('Station Officer Steele')(page)
+
+                const legend = `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 6. januar ${testAar}?`
+                await expect(
+                    page
+                        .getByRole('region', { name: legend })
+                        .getByText(
+                            `Ta bare med de dagene du hadde egenmelding en hel dag. Du kan velge fra og med 26. desember ${testAaretFoer}. Den forrige sykmeldingen din dekker perioden før dette.`,
+                        ),
+                ).toBeVisible()
+
+                const periode = egenmeldingsdagerHjelper(legend)(page)
+                await periode.svar.jaButton.click()
+                await velgDagMedManedsnavigering(periode, `${testAaretFoer}-12-26`)
+                await periode.videreButton.click()
+
+                await expect(page.getByText(/Hadde du egenmeldingsdager før det igjen/)).not.toBeVisible()
+
+                await expectNumberOfEgenmeldingsdagerInput(1)(page)
+            })
+
+            test('burde vise at andre periode er begrenset av forrige sykmelding', async ({ page }) => {
+                await gotoScenario('egenmeldingAndrePeriodeBegrensetAvForrigeSykmelding')(page)
+                await filloutArbeidstaker(/Pontypandy Fire Service/)(page)
+                await bekreftNarmesteleder('Station Officer Steele')(page)
+
+                const forsteLegend = `Brukte du egenmelding hos Pontypandy Fire Service før du ble sykmeldt 6. januar ${testAar}?`
+                const forstePeriodeSection = page.getByRole('region', { name: forsteLegend })
+                await expect(
+                    forstePeriodeSection.getByText('Ta bare med de dagene du hadde egenmelding en hel dag.', {
+                        exact: true,
+                    }),
+                ).toBeVisible()
+                await expect(forstePeriodeSection.getByText(/Den forrige sykmeldingen din dekker/)).not.toBeVisible()
+
+                const forstePeriode = egenmeldingsdagerHjelper(forsteLegend)(page)
+                await forstePeriode.svar.jaButton.click()
+                await velgDagMedManedsnavigering(forstePeriode, `${testAaretFoer}-12-28`)
+                await forstePeriode.videreButton.click()
+
+                await expect(
+                    page
+                        .getByRole('region', {
+                            name: `Hadde du egenmeldingsdager før det igjen – altså mellom 16. desember ${testAaretFoer} og 20. desember ${testAaretFoer}?`,
+                        })
+                        .getByText(
+                            'Ta bare med dagene du var borte fra jobb hele dagen. Den forrige sykmeldingen din dekker perioden før dette.',
+                        ),
+                ).toBeVisible()
+            })
+        })
+
         test.describe('begrenser til 16 egenmeldingsdager', () => {
             const pickArbeidsgiverAndBoss = async (page: Page): Promise<void> => {
                 await gotoScenario('kunNy')(page)
