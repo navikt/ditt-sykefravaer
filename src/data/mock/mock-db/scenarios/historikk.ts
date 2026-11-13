@@ -39,6 +39,13 @@ export const unsentWithPreviousSent: ScenarioCreator = () => ({
     ],
 })
 
+export const egenmeldingBegrensetAvForrigeSykmelding: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder(-14).send().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(5).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
 export const apenMenGammelSykmelding: ScenarioCreator = () => ({
     sykmeldinger: [new SykmeldingBuilder(-400).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build()],
 })
