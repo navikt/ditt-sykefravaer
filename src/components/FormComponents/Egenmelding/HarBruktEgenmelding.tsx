@@ -15,6 +15,7 @@ interface Props {
     arbeidsgiverNavn?: string
     muligTomDato: Date
     muligFomDato: Date
+    begrensetAvForrigeSykmelding: boolean
     onNo: () => void
     umamiSkjemanavn: string
 }
@@ -23,6 +24,7 @@ function HarBruktEgenmelding({
     index,
     muligTomDato,
     muligFomDato,
+    begrensetAvForrigeSykmelding,
     arbeidsgiverNavn,
     onNo,
     umamiSkjemanavn,
@@ -36,10 +38,17 @@ function HarBruktEgenmelding({
             ? `${sporsmal.harBruktEgenmeldingsdager(arbeidsgiverNavn)} før du ble sykmeldt ${sykmeldingStartDato}?`
             : `Hadde du egenmeldingsdager før det igjen – altså mellom ${fraOgMed} og ${tilOgMed}?`
 
-    const description =
+    const grunnbeskrivelse =
         index === 0
             ? 'Ta bare med de dagene du hadde egenmelding en hel dag.'
             : 'Ta bare med dagene du var borte fra jobb hele dagen.'
+
+    const begrensningstekst =
+        index === 0
+            ? `Du kan velge fra og med ${fraOgMed}. Den forrige sykmeldingen din dekker perioden før dette.`
+            : 'Den forrige sykmeldingen din dekker perioden før dette.'
+
+    const description = begrensetAvForrigeSykmelding ? `${grunnbeskrivelse} ${begrensningstekst}` : grunnbeskrivelse
 
     return (
         <QuestionWrapper>
