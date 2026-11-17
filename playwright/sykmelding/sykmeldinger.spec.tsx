@@ -20,33 +20,33 @@ test.describe('Sykmeldinger landingsside', () => {
         await expect(page.locator('text=Du har ingen nye sykmeldinger')).toBeVisible()
         await expect(page.locator('text=Tidligere sykmeldinger')).toBeVisible()
 
-        await expect(page.getByRole('link', { name: /Sendt til Nav/ })).toBeVisible()
-        await expect(page.getByRole('link', { name: /Sendt til arbeidsgiver/ })).toBeVisible()
-        await expect(page.getByRole('link', { name: /Avbrutt av deg/ })).toBeVisible()
-        await expect(page.getByRole('link', { name: /Avvist av Nav/ })).toBeVisible()
-        await expect(page.getByRole('link', { name: /Utgått/ })).toBeVisible()
+        await expect(page.getByRole('listitem').filter({ hasText: /Sendt til Nav/ })).toBeVisible()
+        await expect(page.getByRole('listitem').filter({ hasText: /Sendt til arbeidsgiver/ })).toBeVisible()
+        await expect(page.getByRole('listitem').filter({ hasText: /Avbrutt av deg/ })).toBeVisible()
+        await expect(page.getByRole('listitem').filter({ hasText: /Avvist av Nav/ })).toBeVisible()
+        await expect(page.getByRole('listitem').filter({ hasText: /Utgått/ })).toBeVisible()
     })
 
     test('skal vise bare nye sykmeldinger, sortert stigende etter dato', async ({ page }) => {
         await gotoScenario('nyeSykmeldinger')(page)
 
         const lenkepanelContainer = page.getByRole('region', { name: 'Nye sykmeldinger' })
-        const sykmeldingerList = lenkepanelContainer.locator('a')
+        const sykmeldingerList = lenkepanelContainer.getByRole('listitem').filter({ has: page.getByRole('link') })
 
         await expect(sykmeldingerList).toHaveCount(3)
-        await expect(sykmeldingerList.nth(0)).toHaveText(/Papirsykmelding/)
-        await expect(sykmeldingerList.nth(1)).toHaveText(/Avvist av Nav/)
-        await expect(sykmeldingerList.nth(2)).toHaveText(/Sykmelding/)
+        await expect(sykmeldingerList.nth(0)).toContainText(/Papirsykmelding/)
+        await expect(sykmeldingerList.nth(1)).toContainText(/Avvist av Nav/)
+        await expect(sykmeldingerList.nth(2)).toContainText(/Sykmelding/)
     })
 
     test('skal vise under behandling i egen seksjon', async ({ page }) => {
         await gotoScenario('harUnderBehandling')(page)
 
         const behandlingSection = page.getByRole('region', { name: 'Under behandling' })
-        const sykmeldingerList = behandlingSection.locator('a')
+        const sykmeldingerList = behandlingSection.getByRole('listitem').filter({ has: page.getByRole('link') })
 
         await expect(sykmeldingerList).toHaveCount(1)
-        await expect(sykmeldingerList.nth(0)).toHaveText(/Sendt til arbeidsgiver/)
+        await expect(sykmeldingerList.nth(0)).toContainText(/Sendt til arbeidsgiver/)
     })
 
     test('skal vise nye og tidligere sykmeldinger', async ({ page }) => {
@@ -72,6 +72,6 @@ test.describe('Sykmeldinger landingsside', () => {
         await gotoScenario('avvistData')(page)
 
         const newSection = page.getByRole('region', { name: 'Nye sykmeldinger' })
-        await expect(newSection.getByRole('link', { name: /Avvist av Nav/ })).toBeVisible()
+        await expect(newSection.getByRole('listitem').filter({ hasText: /Avvist av Nav/ })).toBeVisible()
     })
 })

@@ -11,7 +11,9 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
         await page
             .getByRole('region', { name: /Nye sykmeldinger/i })
-            .getByRole('link', { name: /100% sykmeldt/ })
+            .getByRole('listitem')
+            .filter({ hasText: /100% sykmeldt/ })
+            .getByRole('link')
             .click()
 
         await expect(page.getByText(/Du trenger en ny sykmelding/)).toBeVisible()
@@ -28,7 +30,9 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
             await page
                 .getByRole('region', { name: /Nye sykmeldinger/i })
-                .getByRole('link', { name: /100% sykmeldt/ })
+                .getByRole('listitem')
+                .filter({ hasText: /100% sykmeldt/ })
+                .getByRole('link')
                 .click()
 
             await expect(page.getByText(/Du trenger en ny sykmelding/)).toBeVisible()
@@ -47,7 +51,9 @@ test.describe('Bekreft avvist sykmelding som lest', () => {
 
             await page
                 .getByRole('region', { name: /Nye sykmeldinger/i })
-                .getByRole('link', { name: /100% sykmeldt/ })
+                .getByRole('listitem')
+                .filter({ hasText: /100% sykmeldt/ })
+                .getByRole('link')
                 .click()
 
             await page.getByRole('button', { name: 'Bekreft' }).click()

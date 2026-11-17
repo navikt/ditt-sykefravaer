@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Tag } from '@navikt/ds-react'
+import { LinkCard, Tag } from '@navikt/ds-react'
 
 import { RegelStatus, StatusEvent } from '../../../types/sykmelding/sykmelding'
 
@@ -12,9 +12,11 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
     if (behandlingsutfall === 'INVALID') {
         if (status === 'APEN' || status === 'BEKREFTET') {
             return (
-                <Tag data-color="warning" variant="outline" size="small">
-                    <span className="sr-only">, status: </span>Avvist av Nav
-                </Tag>
+                <LinkCard.Footer>
+                    <Tag data-color="warning" variant="outline" size="small">
+                        <span className="sr-only">, status: </span>Avvist av Nav
+                    </Tag>
+                </LinkCard.Footer>
             )
         }
     }
@@ -22,27 +24,35 @@ function LenkepanelEtikett({ status, behandlingsutfall }: LenkepanelEtikettProps
     switch (status) {
         case 'AVBRUTT':
             return (
-                <Tag data-color="danger" variant="outline" size="small">
-                    <span className="sr-only">, status: </span>Avbrutt av deg
-                </Tag>
+                <LinkCard.Footer>
+                    <Tag data-color="danger" variant="outline" size="small">
+                        <span className="sr-only">, status: </span>Avbrutt av deg
+                    </Tag>
+                </LinkCard.Footer>
             )
         case 'SENDT':
             return (
-                <Tag data-color="success" variant="outline" size="small">
-                    <span className="sr-only">, status: </span>Sendt til arbeidsgiver
-                </Tag>
+                <LinkCard.Footer>
+                    <Tag data-color="success" variant="outline" size="small">
+                        <span className="sr-only">, status: </span>Sendt til arbeidsgiver
+                    </Tag>
+                </LinkCard.Footer>
             )
         case 'UTGATT':
             return (
-                <Tag data-color="info" variant="outline" size="small">
-                    <span className="sr-only">, status: </span>Utgått
-                </Tag>
+                <LinkCard.Footer>
+                    <Tag data-color="info" variant="outline" size="small">
+                        <span className="sr-only">, status: </span>Utgått
+                    </Tag>
+                </LinkCard.Footer>
             )
         case 'BEKREFTET':
             return (
-                <Tag data-color="success" variant="outline" size="small">
-                    <span className="sr-only">, status: </span>Sendt til Nav
-                </Tag>
+                <LinkCard.Footer>
+                    <Tag data-color="success" variant="outline" size="small">
+                        <span className="sr-only">, status: </span>Sendt til Nav
+                    </Tag>
+                </LinkCard.Footer>
             )
         default:
             return null
