@@ -1,6 +1,7 @@
 import { ReactElement } from 'react'
 import { useController } from 'react-hook-form'
-import { Alert, Box, Radio, RadioGroup } from '@navikt/ds-react'
+import { Alert } from '@navikt/ds-react'
+import { RadioCard, RadioCardGroup } from '@navikt/ds-react/PREVIEW'
 
 import { ArbeidssituasjonType } from '../../../../types/sykmelding/sykmeldingCommon'
 import { FormValues } from '../../SendSykmeldingForm'
@@ -30,7 +31,7 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
 
     return (
         <QuestionWrapper>
-            <RadioGroup
+            <RadioCardGroup
                 {...field}
                 id={field.name}
                 legend={sporsmal.arbeidssituasjon}
@@ -47,27 +48,17 @@ function ArbeidssituasjonField({ harAvventendePeriode }: Props): ReactElement {
                 {arbeidssituasjonerRekkefolge.map((situasjon) => {
                     const description = arbeidssituasjonDescription(situasjon)
                     return (
-                        <Box
+                        <RadioCard
                             key={situasjon}
-                            paddingInline="space-8"
-                            borderWidth="2"
-                            borderRadius="12"
-                            borderColor="neutral-subtle"
-                            className="mb-2 focus-within:border-ax-border-accent focus-within:bg-ax-bg-accent-soft"
+                            disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
+                            value={situasjon}
+                            description={description}
                         >
-                            <Radio
-                                key={situasjon}
-                                disabled={harAvventendePeriode && situasjon !== ArbeidssituasjonType.ARBEIDSTAKER}
-                                value={situasjon}
-                                {...(description ? { description } : {})}
-                                className="w-full"
-                            >
-                                <span className="font-medium">{arbeidssituasjonLabel(situasjon)}</span>
-                            </Radio>
-                        </Box>
+                            {arbeidssituasjonLabel(situasjon)}
+                        </RadioCard>
                     )
                 })}
-            </RadioGroup>
+            </RadioCardGroup>
             {field.value === ArbeidssituasjonType.ANNET && (
                 <Alert variant="info">
                     Sykmeldingen gjelder arbeidet du er sykmeldt fra. Velg den kategorien som beskriver hvordan du

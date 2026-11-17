@@ -59,6 +59,13 @@ export const buttAgainstGradert: ScenarioCreator = () => ({
     ],
 })
 
+export const egenmeldingAndrePeriodeBegrensetAvForrigeSykmelding: ScenarioCreator = () => ({
+    sykmeldinger: [
+        new SykmeldingBuilder(-24).send().enkelPeriode({ offset: 0, days: 7 }).build(),
+        new SykmeldingBuilder(5).status(StatusEvent.APEN).enkelPeriode({ offset: 0, days: 7 }).build(),
+    ],
+})
+
 export const noBrukerSvar: ScenarioCreator = () => ({
     sykmeldinger: [new SykmeldingBuilder(-14).enkelPeriode({ offset: 0, days: 7 }).send().noBrukerSvar().build()],
 })

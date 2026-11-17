@@ -119,16 +119,22 @@ function SendSykmeldingForm({ sykmelding, onSykmeldingAvbrutt }: Props): ReactEl
             <LockSubmitProvider>
                 {autofillEnabled() && <AutoFillerDevTools sykmeldingId={sykmeldingId} />}
                 <form
-                    onSubmit={form.handleSubmit(
-                        () => {
-                            sendSmMut.mutate(form.getValues())
-                        },
-                        () => {
+                    onSubmit={async (event) => {
+                        let isInvalid = false
+                        await form.handleSubmit(
+                            () => {
+                                sendSmMut.mutate(form.getValues())
+                            },
+                            () => {
+                                isInvalid = true
+                            },
+                        )(event)
+                        if (isInvalid) {
                             requestAnimationFrame(() => {
                                 errorSectionRef.current?.focus()
                             })
-                        },
-                    )}
+                        }
+                    }}
                 >
                     <OpplysningerRiktigeSection />
                     <ArbeidssituasjonSection sykmelding={sykmelding} brukerinformasjon={brukerinformasjonData.data} />

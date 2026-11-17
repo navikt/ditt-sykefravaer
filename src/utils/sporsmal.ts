@@ -20,8 +20,8 @@ export const sporsmal = {
         `Brukte du egenmelding${arbeidsgiverNavn ? ` hos ${prettifyOrgName(arbeidsgiverNavn)}` : ''}`,
     egenmeldingsdager: 'Velg dagene du brukte egenmelding',
     fisker: {
-        velgBlad: 'Er du registrert som Blad B i Fiskerregisteret?',
-        lottEllerHyre: 'Hva slags lønn får du fra fisket?',
+        velgBlad: 'Er du registrert på blad B i Fiskerregisteret?',
+        lottEllerHyre: 'Hvordan får du betalt for fisket?',
     },
     arbeidsledigFra: (sykmeldtAs: ArbeidssituasjonType = ArbeidssituasjonType.ARBEIDSLEDIG) =>
         `Hvilken arbeidsgiver har du blitt ${arbeidsSituasjonEnumToText(sykmeldtAs)} fra?`,
@@ -79,7 +79,7 @@ export function arbeidssituasjonDescription(arbeidssituasjon: ArbeidssituasjonTy
         case ArbeidssituasjonType.NAERINGSDRIVENDE:
             return 'Enkeltpersonforetak (ENK), ansvarlig selskap (ANS), selskap med delt ansvar (DA)'
         case ArbeidssituasjonType.FISKER:
-            return 'Du har hyre, lott eller begge deler, Blad A eller B'
+            return 'Du har hyre, lott eller begge deler, blad A eller B'
         case ArbeidssituasjonType.JORDBRUKER:
             return 'Du driver med gårdsbruk, skogbruk eller reindrift'
         case ArbeidssituasjonType.ARBEIDSLEDIG:
@@ -122,11 +122,11 @@ export function bladbeskrivelse(bladtype: Blad): string {
 export function bladTittel(bladtype: Blad): string {
     switch (bladtype) {
         case Blad.A:
-            return 'Nei, jeg er registrert på Blad A'
+            return 'Nei, jeg er registrert på blad A'
         case Blad.B:
-            return 'Ja, jeg er registert på Blad B'
+            return 'Ja, jeg er registrert på blad B'
         case Blad.Ingen:
-            return 'Nei, jeg er ikke registert'
+            return 'Nei, jeg er ikke registrert'
     }
 }
 
@@ -134,20 +134,20 @@ export function overstyrtBladSvar(bladtype: Blad): string {
     switch (bladtype) {
         case Blad.A:
         case Blad.Ingen:
-            return 'Nei, jeg er registrert på Blad A eller ikke registrert'
+            return 'Nei, jeg er registrert på blad A eller ikke registrert'
         case Blad.B:
-            return 'Ja, jeg er registert på Blad B'
+            return 'Ja, jeg er registrert på blad B'
     }
 }
 
 export function lottHyreBeskrivelse(lottOgHyreSvar: LottOgHyre): string {
     switch (lottOgHyreSvar) {
         case LottOgHyre.BEGGE:
-            return 'Du får både fast hyre og lott'
+            return 'Du får fast lønn og i tillegg en andel av inntektene fra fangsten'
         case LottOgHyre.HYRE:
             return 'Du får fast lønn fra arbeidsgiveren din, som en vanlig ansatt'
         case LottOgHyre.LOTT:
-            return 'Du får betalt ut fra hva fartøyet fanger - ikke fast lønn'
+            return 'Du får en andel av inntektene fra fangsten, ikke fast lønn'
     }
 }
 
@@ -156,8 +156,8 @@ export function lottOgHyreTittel(lottOgHyreTittel: LottOgHyre): string {
         case LottOgHyre.BEGGE:
             return 'Både hyre og lott'
         case LottOgHyre.HYRE:
-            return 'Hyre - fast lønn'
+            return 'Hyre'
         case LottOgHyre.LOTT:
-            return 'Lott - andel av fangsten'
+            return 'Lott'
     }
 }

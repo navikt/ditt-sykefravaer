@@ -10,6 +10,11 @@ interface PerformanceMetric {
     navigationType?: string
 }
 
+type WebVitalsWindow = Window & {
+    webVitals?: Pick<typeof import('web-vitals'), 'onCLS'>
+    _clsValues?: number[]
+}
+
 export async function measureCLSWithWebVitals(page: Page): Promise<void> {
     const webVitalsPath = path.resolve(__dirname, '../../node_modules/web-vitals/dist/web-vitals.iife.js')
 
@@ -18,14 +23,14 @@ export async function measureCLSWithWebVitals(page: Page): Promise<void> {
     })
 
     await page.evaluate(() => {
-        const win = window as any
+        const win = window as WebVitalsWindow
 
         if (win.webVitals && typeof win.webVitals.onCLS === 'function') {
             win._clsValues = []
 
             win.webVitals.onCLS(
                 (metric: PerformanceMetric) => {
-                    win._clsValues.push(metric.value)
+                    win._clsValues!.push(metric.value)
                 },
                 { reportAllChanges: true },
             )
@@ -45,7 +50,7 @@ export async function getCLSValue(page: Page): Promise<number | null> {
     await page.evaluate(() => new Promise<void>((resolve) => window.setTimeout(() => resolve(), 500)))
 
     return await page.evaluate(() => {
-        const win = window as any
+        const win = window as WebVitalsWindow
         const values = win._clsValues || []
         return values.length > 0 ? values[values.length - 1] : 0
     })

@@ -102,7 +102,7 @@ describe('sporsmal', () => {
                 'Enkeltpersonforetak (ENK), ansvarlig selskap (ANS), selskap med delt ansvar (DA)',
             )
             expect(arbeidssituasjonDescription(ArbeidssituasjonType.FISKER)).toBe(
-                'Du har hyre, lott eller begge deler, Blad A eller B',
+                'Du har hyre, lott eller begge deler, blad A eller B',
             )
             expect(arbeidssituasjonDescription(ArbeidssituasjonType.JORDBRUKER)).toBe(
                 'Du driver med gårdsbruk, skogbruk eller reindrift',
@@ -153,21 +153,23 @@ describe('sporsmal', () => {
 
     describe('bladTittel', () => {
         it('skal returnere riktig tittel for Blad A', () => {
-            expect(bladTittel(Blad.A)).toBe('Nei, jeg er registrert på Blad A')
+            expect(bladTittel(Blad.A)).toBe('Nei, jeg er registrert på blad A')
         })
 
         it('skal returnere riktig tittel for Blad B', () => {
-            expect(bladTittel(Blad.B)).toBe('Ja, jeg er registert på Blad B')
+            expect(bladTittel(Blad.B)).toBe('Ja, jeg er registrert på blad B')
         })
 
         it('skal returnere riktig tittel for Blad.Ingen', () => {
-            expect(bladTittel(Blad.Ingen)).toBe('Nei, jeg er ikke registert')
+            expect(bladTittel(Blad.Ingen)).toBe('Nei, jeg er ikke registrert')
         })
     })
 
     describe('lottHyreBeskrivelse', () => {
-        it('skal beskrive BEGGE som både fast hyre og lott', () => {
-            expect(lottHyreBeskrivelse(LottOgHyre.BEGGE)).toBe('Du får både fast hyre og lott')
+        it('skal beskrive BEGGE som fast lønn og andel av fangsten', () => {
+            expect(lottHyreBeskrivelse(LottOgHyre.BEGGE)).toBe(
+                'Du får fast lønn og i tillegg en andel av inntektene fra fangsten',
+            )
         })
 
         it('skal beskrive HYRE som fast lønn', () => {
@@ -176,9 +178,9 @@ describe('sporsmal', () => {
             )
         })
 
-        it('skal beskrive LOTT som betaling ut fra fangst', () => {
+        it('skal beskrive LOTT som andel av fangsten', () => {
             expect(lottHyreBeskrivelse(LottOgHyre.LOTT)).toBe(
-                'Du får betalt ut fra hva fartøyet fanger - ikke fast lønn',
+                'Du får en andel av inntektene fra fangsten, ikke fast lønn',
             )
         })
     })
@@ -189,11 +191,11 @@ describe('sporsmal', () => {
         })
 
         it('skal returnere riktig tittel for HYRE', () => {
-            expect(lottOgHyreTittel(LottOgHyre.HYRE)).toBe('Hyre - fast lønn')
+            expect(lottOgHyreTittel(LottOgHyre.HYRE)).toBe('Hyre')
         })
 
         it('skal returnere riktig tittel for LOTT', () => {
-            expect(lottOgHyreTittel(LottOgHyre.LOTT)).toBe('Lott - andel av fangsten')
+            expect(lottOgHyreTittel(LottOgHyre.LOTT)).toBe('Lott')
         })
     })
 })

@@ -6,7 +6,6 @@ import { SykmeldingInfo, SykmeldingListInfo } from '../../../molecules/sykmeldin
 import {
     arbeidsSituasjonEnumToText,
     overstyrtBladSvar,
-    sporsmal,
     uriktigeOpplysningerEnumToText,
 } from '../../../../utils/sporsmal'
 import { capitalizeFirstLetter, pluralize } from '../../../../utils/stringUtils'
@@ -268,9 +267,7 @@ function FiskerBladAnswer({
 
     return (
         <SykmeldingInfo heading={response.sporsmaltekst} level="3" icon={<BoatIcon aria-hidden />}>
-            {response.sporsmaltekst === sporsmal.fisker.velgBlad
-                ? overstyrtBladSvar(response.svar)
-                : `Blad ${response.svar}`}
+            {response.sporsmaltekst === 'Velg blad' ? `Blad ${response.svar}` : overstyrtBladSvar(response.svar)}
         </SykmeldingInfo>
     )
 }

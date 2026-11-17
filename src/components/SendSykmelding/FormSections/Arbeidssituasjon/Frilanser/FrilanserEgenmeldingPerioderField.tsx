@@ -25,7 +25,10 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
         ? `Du kan velge fra og med ${toReadableDate(tidligsteDato)}. Den forrige sykmeldingen din dekker perioden før dette.`
         : `Du kan velge opptil ${maksAntallDager} dager før sykmeldingsdatoen.`
 
-    const { field: fromField, fieldState: fromFieldState } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
+    const {
+        field: { name: fromFieldName, onChange: onFromFieldChange, ref: fromFieldRef, value: fromFieldValue },
+        fieldState: fromFieldState,
+    } = useController<FormValues, `egenmeldingsperioder.0.fom`>({
         name: `egenmeldingsperioder.0.fom`,
         rules: {
             validate: (fomValue) => {
@@ -51,12 +54,12 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
     const { datepickerProps, inputProps } = useDatepicker({
         fromDate: tidligsteDato,
         toDate: dagenFoerSykmeldingen,
-        defaultSelected: fromField.value ?? undefined,
+        defaultSelected: fromFieldValue ?? undefined,
         allowTwoDigitYear: false,
         required: true,
         onDateChange: (value) => {
             if (value) {
-                fromField.onChange(value)
+                onFromFieldChange(value)
                 toField.onChange(dagenFoerSykmeldingen)
             }
         },
@@ -67,9 +70,9 @@ function FrilanserEgenmeldingPerioderField({ sykmeldingStartDato, tidligsteFom }
         <QuestionWrapper>
             <DatePicker {...datepickerProps}>
                 <DatePicker.Input
-                    id={fromField.name}
+                    id={fromFieldName}
                     {...inputProps}
-                    ref={fromField.ref}
+                    ref={fromFieldRef}
                     label={sporsmal.egenmeldingsperioder()}
                     description={beskrivelse}
                     placeholder="DD.MM.ÅÅÅÅ"

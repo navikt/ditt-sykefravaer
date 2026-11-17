@@ -16,6 +16,7 @@ export const logEvent = (eventName: validEventNames, eventData: Record<string, s
                 eventData,
             }).catch((e) => logger.warn(`Feil ved umami logging`, e))
         } else if (!isProd() && isOpplaering()) {
+            // eslint-disable-next-line no-console -- Viser analysehendelser i opplæringsmiljøet.
             console.log(`Logger ${eventName} - Event properties: ${JSON.stringify(eventData)}!`)
         }
     }
