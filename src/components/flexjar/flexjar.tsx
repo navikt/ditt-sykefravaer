@@ -40,6 +40,7 @@ export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) =
         activeState,
         setThanksFeedback,
         setActiveState,
+        clearError: () => setErrorMsg(null),
     }
 
     const { data: sykmeldinger } = useTsmSykmeldinger()
@@ -101,7 +102,6 @@ export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) =
                     tekst="Ja"
                     svar="JA"
                     {...feedbackButtonProps}
-                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
                 <FeedbackButton
@@ -109,7 +109,6 @@ export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) =
                     tekst="Nei"
                     svar="NEI"
                     {...feedbackButtonProps}
-                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
                 <FeedbackButton
@@ -117,7 +116,6 @@ export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) =
                     tekst="Foreslå forbedring"
                     svar="FORBEDRING"
                     {...feedbackButtonProps}
-                    clearError={() => setErrorMsg(null)}
                     disabled={lagrerFeedback}
                 />
             </div>
