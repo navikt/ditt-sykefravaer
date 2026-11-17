@@ -1,5 +1,5 @@
 import { ReactElement } from 'react'
-import { Accordion, BodyLong, BodyShort, Heading, Link, LinkPanel } from '@navikt/ds-react'
+import { Accordion, BodyLong, BodyShort, Heading, Link, LinkCard } from '@navikt/ds-react'
 
 import { basePath } from '../../utils/environment'
 
@@ -54,14 +54,13 @@ export function SerIkkeSykmelding(): ReactElement {
         <Accordion.Item>
             <Accordion.Header>Ser du ikke sykmeldingen din her?</Accordion.Header>
             <Accordion.Content>
-                <LinkPanel
-                    href="https://www.nav.no/dokumentarkiv/tema/SYM"
-                    target="_blank"
-                    border
-                    className="mb-8 mt-4 rounded-lg"
-                >
-                    <LinkPanel.Title className="text-ax-heading-xsmall">Sjekk dokumentlisten</LinkPanel.Title>
-                </LinkPanel>
+                <LinkCard className="mb-8 mt-4">
+                    <LinkCard.Title>
+                        <LinkCard.Anchor href="https://www.nav.no/dokumentarkiv/tema/SYM" target="_blank">
+                            Sjekk dokumentlisten
+                        </LinkCard.Anchor>
+                    </LinkCard.Title>
+                </LinkCard>
 
                 <div className="mb-4">
                     <BodyShort>
