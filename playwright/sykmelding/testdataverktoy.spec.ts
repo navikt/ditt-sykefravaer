@@ -14,7 +14,7 @@ async function sessionId(page: Page): Promise<string | undefined> {
     return cookies.find((cookie) => cookie.name === 'next-session-id')?.value
 }
 
-// Markerer dokumentet slik at vi kan verifisere at siden faktisk lastes på nytt (ikke klientnavigasjon).
+// Markerer dokumentet for å kontrollere at scenariobytte laster hele siden på nytt.
 async function markerDokument(page: Page): Promise<void> {
     await page.evaluate(() => {
         ;(window as unknown as { __fullLast?: boolean }).__fullLast = true
@@ -52,7 +52,6 @@ test.describe('Testdataverktøy for sykmeldinger', () => {
         expect(andreSession).toBeTruthy()
         expect(andreSession !== forsteSession).toBe(true)
 
-        // Gjentatt valg av samme scenario: samme URL, men siden må likevel lastes på nytt med ny økt.
         await markerDokument(page)
         await apneVerktoy(page)
         await page.getByRole('link', { name: 'Ingen sykmeldinger' }).click()
@@ -66,7 +65,6 @@ test.describe('Testdataverktøy for sykmeldinger', () => {
             })
             .toBe(true)
 
-        // Tilbake til et scenario med data.
         await apneVerktoy(page)
         await page.getByRole('link', { name: 'En ny og et par innsendte (standard)' }).click()
         await expect(page).toHaveURL(/scenario=normal$/)
