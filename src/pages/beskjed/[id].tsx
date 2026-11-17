@@ -1,6 +1,7 @@
-import { Button, Heading, InfoCard, Skeleton } from '@navikt/ds-react'
+import { Button, Heading, InfoCard, Link, Skeleton } from '@navikt/ds-react'
 import { XMarkOctagonIcon } from '@navikt/aksel-icons'
 import React from 'react'
+import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
@@ -9,7 +10,6 @@ import { ForelagtInntektFraAordningen } from '../../components/opplysningerFraAo
 import { skapMeldinger } from '../../components/oppgaver/meldinger'
 import { EnkeltOppgaveAlert } from '../../components/oppgaver/Oppgaver'
 import { FetchError } from '../../utils/fetch'
-import { basePath } from '../../utils/environment'
 
 export interface Inntekt {
     maned: string
@@ -54,6 +54,7 @@ const Beskjed = () => {
 }
 
 function BeskjedFeil({ status }: { status?: number }) {
+    const router = useRouter()
     const visReload = status !== 403 && status !== 404
     const overskrift =
         status === 403
@@ -71,21 +72,21 @@ function BeskjedFeil({ status }: { status?: number }) {
                     </Heading>
                 </InfoCard.Header>
                 <InfoCard.Content>
-                    <Button
-                        className="bg-ax-bg-default"
-                        variant="secondary"
-                        type="button"
-                        size="small"
-                        onClick={() => {
-                            if (visReload) {
-                                window.location.reload()
-                            } else {
-                                window.location.href = basePath()
-                            }
-                        }}
-                    >
-                        {visReload ? 'Last inn siden på nytt' : 'Gå tilbake til Ditt sykefravær'}
-                    </Button>
+                    {visReload ? (
+                        <Button
+                            className="bg-ax-bg-default"
+                            variant="secondary"
+                            type="button"
+                            size="small"
+                            onClick={() => router.reload()}
+                        >
+                            Last inn siden på nytt
+                        </Button>
+                    ) : (
+                        <Link as={NextLink} href="/">
+                            Gå tilbake til Ditt sykefravær
+                        </Link>
+                    )}
                 </InfoCard.Content>
             </InfoCard>
         </div>

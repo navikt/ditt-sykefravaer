@@ -137,10 +137,12 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
         await validerAxe(page, testInfo)
 
         await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
-        await page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' }).click()
+        const tilbakeLenke = page.getByRole('link', { name: 'Gå tilbake til Ditt sykefravær' })
+        await expect(tilbakeLenke).toHaveAttribute('href', '/syk/sykefravaer')
+        await tilbakeLenke.click()
 
         await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
-        expect(dokumentforesporsler).toHaveLength(2)
+        expect(dokumentforesporsler).toHaveLength(1)
     })
 
     test('viser teknisk feil og lar brukeren laste siden på nytt', async ({ page }) => {
@@ -159,7 +161,7 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
         await harSynligOverskrift(page, 'Vi klarte ikke å hente beskjeden', 1)
         await expect(page.getByRole('heading', { name: 'Fant ikke beskjeden' })).toBeHidden()
-        await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeHidden()
+        await expect(page.getByRole('link', { name: 'Gå tilbake til Ditt sykefravær' })).toBeHidden()
         await expect(page).toHaveURL(url)
 
         laHentingLykkes = true
@@ -199,9 +201,13 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
 
     for (const status of [403, 404]) {
         test(`viser tilbakeknapp når henting svarer med ${status}`, async ({ page }) => {
-            await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) =>
-                route.fulfill({ status, body: 'Beskjeden er ikke tilgjengelig' }),
-            )
+            let laHentingLykkes = false
+            await page.route('**/api/ditt-sykefravaer-backend/api/v1/meldinger**', (route) => {
+                if (laHentingLykkes) {
+                    return route.continue()
+                }
+                return route.fulfill({ status, body: 'Beskjeden er ikke tilgjengelig' })
+            })
 
             const url = '/syk/sykefravaer/beskjed/123456y7?testperson=forelagt-fra-a-ordningen'
             await page.goto(url)
@@ -211,9 +217,22 @@ test.describe('Tester forelagt inntekt fra a-ordningen', () => {
                 status === 403 ? 'Du har ikke tilgang til beskjeden' : 'Fant ikke beskjeden',
                 1,
             )
-            await expect(page.getByRole('button', { name: 'Gå tilbake til Ditt sykefravær' })).toBeVisible()
+            await expect(page.getByRole('link', { name: 'Gå tilbake til Ditt sykefravær' })).toBeVisible()
             await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeHidden()
             await expect(page).toHaveURL(url)
+
+            laHentingLykkes = true
+            await Promise.all([
+                page.waitForResponse(
+                    (response) =>
+                        response.url().includes('/api/ditt-sykefravaer-backend/api/v1/meldinger') &&
+                        response.status() === 200,
+                ),
+                page.getByRole('link', { name: 'Gå tilbake til Ditt sykefravær' }).click(),
+            ])
+
+            await expect(page).toHaveURL(/\/syk\/sykefravaer\/?$/)
+            await harSynligOverskrift(page, 'Ditt sykefravær', 1)
         })
     }
 })

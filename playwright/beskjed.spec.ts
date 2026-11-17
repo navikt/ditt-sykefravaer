@@ -52,8 +52,11 @@ test.describe('Beskjeder', () => {
             expect(response.status()).toBe(status)
             await harSynligOverskrift(page, overskrift, 1)
             await expect(page).toHaveURL(url)
-            const knapp = status === 500 ? 'Last inn siden på nytt' : 'Gå tilbake til Ditt sykefravær'
-            await expect(page.getByRole('button', { name: knapp })).toBeVisible()
+            if (status === 500) {
+                await expect(page.getByRole('button', { name: 'Last inn siden på nytt' })).toBeVisible()
+            } else {
+                await expect(page.getByRole('link', { name: 'Gå tilbake til Ditt sykefravær' })).toBeVisible()
+            }
         })
     }
 
