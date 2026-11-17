@@ -1,21 +1,10 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
 import { skjulteE2eScenarioer, tekniskeScenarioer } from '../../data/mock/mock-db/scenarios'
 
 import Person from './Person'
-
-// Aksel sin Popover bruker floating-ui, som kaller `new ResizeObserver(...)`. Den globale mocken i
-// vitest.setup.mts er en pilfunksjon og kan derfor ikke brukes som konstruktør.
-vi.stubGlobal(
-    'ResizeObserver',
-    class {
-        observe(): void {}
-        unobserve(): void {}
-        disconnect(): void {}
-    },
-)
 
 describe('Person - testdataverktøy for sykmelding', () => {
     it('viser de fire synlige scenariogruppene, men ingen tekniske eller E2E-scenarioer', async () => {

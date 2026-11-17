@@ -3,17 +3,6 @@ import { describe, expect, it, vi } from 'vitest'
 
 import { Flexjar } from './flexjar'
 
-// Aksel TextareaAutoSize bruker `new ResizeObserver(...)`. Den globale mocken i
-// vitest.setup.mts er en pilfunksjon og kan derfor ikke brukes som konstruktør.
-vi.stubGlobal(
-    'ResizeObserver',
-    class {
-        observe(): void {}
-        unobserve(): void {}
-        disconnect(): void {}
-    },
-)
-
 vi.mock('../../hooks/useDittSykefravaerSykmeldinger', () => ({ default: () => ({ data: undefined }) }))
 vi.mock('../../hooks/useMaxDate', () => ({ default: () => ({ data: undefined }) }))
 vi.mock('../umami/umami', () => ({ logEvent: vi.fn() }))
