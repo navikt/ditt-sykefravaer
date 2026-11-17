@@ -32,7 +32,7 @@ vi.mock('./queryhooks/useOppdaterFlexjarFeedback', () => ({
 }))
 
 describe('Flexjar', () => {
-    it('fjerner valideringsfeilen når et annet svar velges', () => {
+    it('fjerner valideringsfeilen og beholder teksten når et annet svar velges', () => {
         render(<Flexjar feedbackId="ditt-sykefravaer-fant-du" />)
         const feilmeldingTomTekst = 'Tilbakemeldingen kan ikke være tom. Legg til tekst i feltet.'
 
@@ -41,8 +41,12 @@ describe('Flexjar', () => {
         expect(screen.getByText(feilmeldingTomTekst)).toBeInTheDocument()
 
         fireEvent.click(screen.getByRole('button', { name: 'Ja' }))
-
         expect(screen.queryByText(feilmeldingTomTekst)).not.toBeInTheDocument()
-        expect(screen.getByRole('textbox')).toHaveValue('')
+
+        fireEvent.change(screen.getByRole('textbox'), { target: { value: 'Dette er en test' } })
+        fireEvent.click(screen.getByRole('button', { name: 'Nei' }))
+
+        expect(screen.getByRole('textbox')).toHaveValue('Dette er en test')
+        expect(screen.queryByText(feilmeldingTomTekst)).not.toBeInTheDocument()
     })
 })
