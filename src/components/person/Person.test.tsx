@@ -28,10 +28,10 @@ describe('Person - testdataverktøy for sykmelding', () => {
         expect(screen.getByRole('heading', { name: 'Status og unntak' })).toBeInTheDocument()
         expect(screen.getByRole('heading', { name: 'Historikk og kvittering' })).toBeInTheDocument()
 
-        expect(screen.getByRole('button', { name: 'En ny og et par innsendte (standard)' })).toBeInTheDocument()
-        expect(screen.getByRole('button', { name: 'En sykmelding med flere perioder' })).toBeInTheDocument()
-        expect(screen.getByRole('button', { name: 'Utgått sykmelding' })).toBeInTheDocument()
-        expect(screen.getByRole('button', { name: 'Info i kvittering' })).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'En ny og et par innsendte (standard)' })).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'En sykmelding med flere perioder' })).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'Utgått sykmelding' })).toBeInTheDocument()
+        expect(screen.getByRole('link', { name: 'Info i kvittering' })).toBeInTheDocument()
 
         expect(screen.queryByText(tekniskeScenarioer.feilmelding.description)).not.toBeInTheDocument()
         expect(screen.queryByText(skjulteE2eScenarioer.noBrukerSvar.description)).not.toBeInTheDocument()

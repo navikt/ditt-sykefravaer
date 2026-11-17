@@ -92,15 +92,15 @@ export default function Person({ side }: { side: 'dittsykefravaer' | 'sykmelding
     )
 }
 
+function scenarioHref(scenario: Scenarios): string {
+    const searchParams = new URLSearchParams({
+        scenario,
+    })
+
+    return `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
+}
+
 function SykmeldingPicker() {
-    const handleChangeUserScenario = (scenario: Scenarios) => async () => {
-        const searchParams = new URLSearchParams({
-            scenario,
-        })
-
-        window.location.href = `/syk/sykefravaer/sykmeldinger/?${searchParams.toString()}`
-    }
-
     const grupper: readonly (readonly [ScenarioGruppeNokkel, SynligeScenarioer])[] = R.entries(synligeScenarioGrupper)
 
     return (
@@ -117,11 +117,7 @@ function SykmeldingPicker() {
                         {R.entries(scenarioer).map(([key, { description }]) => {
                             return (
                                 <li key={key} className="list-none">
-                                    <LinkPanel
-                                        as="button"
-                                        onClick={handleChangeUserScenario(key)}
-                                        className="w-full text-start"
-                                    >
+                                    <LinkPanel href={scenarioHref(key)} className="w-full text-start">
                                         {description}
                                     </LinkPanel>
                                 </li>
