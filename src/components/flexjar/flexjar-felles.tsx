@@ -52,15 +52,15 @@ export function FlexjarFelles({
     const [textValue, setTextValue] = useState('')
     const textAreaRef = useRef(null)
 
-    const fetchFeedback = async (knappeklikk?: () => void): Promise<boolean> => {
-        if (activeState === null) {
+    const fetchFeedback = async (svar: string | number | null, knappeklikk?: () => void): Promise<boolean> => {
+        if (svar === null) {
             return false
         }
 
         const body = {
             feedback: textValue,
             feedbackId: feedbackId,
-            svar: activeState,
+            svar,
             ...feedbackProps,
         }
         if (feedbackPropsFunction) {
@@ -82,10 +82,10 @@ export function FlexjarFelles({
             return false
         }
     }
-    const fetchFeedbackFromEffect = useEffectEvent(() => fetchFeedback())
+    const fetchFeedbackFromEffect = useEffectEvent((svar: string | number | null) => fetchFeedback(svar))
 
     useEffect(() => {
-        fetchFeedbackFromEffect().catch()
+        fetchFeedbackFromEffect(activeState).catch()
     }, [activeState])
 
     const sendTilbakemelding = 'Send tilbakemelding'
@@ -101,7 +101,7 @@ export function FlexjarFelles({
             svar: activeState + '',
             tekst: sendTilbakemelding,
         })
-        const oppdatert = await fetchFeedback(p)
+        const oppdatert = await fetchFeedback(activeState, p)
         if (oppdatert) {
             setErrorMsg(null)
 
