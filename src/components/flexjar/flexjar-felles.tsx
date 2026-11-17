@@ -85,7 +85,7 @@ export function FlexjarFelles({
     const fetchFeedbackFromEffect = useEffectEvent((svar: string | number | null) => fetchFeedback(svar))
 
     useEffect(() => {
-        fetchFeedbackFromEffect(activeState).catch()
+        void fetchFeedbackFromEffect(activeState)
     }, [activeState])
 
     const sendTilbakemelding = 'Send tilbakemelding'
