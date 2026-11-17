@@ -48,3 +48,16 @@ describe('Person - testdataverktøy for sykmelding', () => {
         )
     })
 })
+
+describe('Person - testdataverktøy for ditt sykefravær', () => {
+    it('lar testpersoner være vanlige lenker med testperson som søkeparameter', async () => {
+        render(<Person side="dittsykefravaer" />)
+
+        await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
+
+        expect(screen.getByRole('link', { name: 'Person som er helt frisk' })).toHaveAttribute(
+            'href',
+            '/syk/sykefravaer?testperson=helt-frisk',
+        )
+    })
+})
