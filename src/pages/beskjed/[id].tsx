@@ -1,7 +1,5 @@
-import { Button, Heading, InfoCard, Link, Skeleton } from '@navikt/ds-react'
-import { XMarkOctagonIcon } from '@navikt/aksel-icons'
-import React from 'react'
-import NextLink from 'next/link'
+import { Skeleton } from '@navikt/ds-react'
+import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
@@ -9,7 +7,6 @@ import useMeldinger from '../../hooks/useMeldinger'
 import { ForelagtInntektFraAordningen } from '../../components/opplysningerFraAordningen/hentetFraAordningen'
 import { skapMeldinger } from '../../components/oppgaver/meldinger'
 import { EnkeltOppgaveAlert } from '../../components/oppgaver/Oppgaver'
-import { FetchError } from '../../utils/fetch'
 
 export interface Inntekt {
     maned: string
@@ -20,77 +17,26 @@ const Beskjed = () => {
     const router = useRouter()
     const { id } = router.query
 
-    const {
-        data: meldinger,
-        isPending: meldingerLaster,
-        isError: meldingerFeilet,
-        error: meldingerFeil,
-    } = useMeldinger()
+    const { data: meldinger, isLoading: meldingerLaster } = useMeldinger()
     const melding = meldinger?.find((m) => m.uuid === id)
 
-    if (!router.isReady || meldingerLaster) {
+    useEffect(() => {
+        if (router.isReady && !meldingerLaster && !melding) {
+            void router.push('/')
+        }
+    }, [router, meldingerLaster, melding])
+
+    if (meldingerLaster) {
         return <Skeleton variant="rectangle" height="86px" className="mb-2" />
     }
-
-    if (meldingerFeilet) {
-        return <BeskjedFeil status={meldingerFeil instanceof FetchError ? meldingerFeil.status : undefined} />
-    }
-
     if (melding) {
         if (melding.meldingType === 'FORELAGT_INNTEKT_FRA_AAREG') {
             return <ForelagtInntektFraAordningen melding={melding} />
         }
         const task = skapMeldinger([melding])[0]
-        return (
-            <>
-                <Heading level="1" size="medium" spacing>
-                    Beskjed fra Nav
-                </Heading>
-                <EnkeltOppgaveAlert oppgave={task} pushLukket={() => {}} />
-            </>
-        )
+        return <EnkeltOppgaveAlert oppgave={task} pushLukket={() => {}} />
     }
-    return <BeskjedFeil status={404} />
-}
-
-function BeskjedFeil({ status }: { status?: number }) {
-    const router = useRouter()
-    const visReload = status !== 403 && status !== 404
-    const overskrift =
-        status === 403
-            ? 'Du har ikke tilgang til beskjeden'
-            : status === 404
-              ? 'Fant ikke beskjeden'
-              : 'Vi klarte ikke å hente beskjeden'
-
-    return (
-        <div aria-live="polite">
-            <InfoCard data-color="danger" className="mt-4">
-                <InfoCard.Header icon={<XMarkOctagonIcon aria-hidden fontSize="1.5rem" />}>
-                    <Heading level="1" size="small">
-                        {overskrift}
-                    </Heading>
-                </InfoCard.Header>
-                <InfoCard.Content>
-                    {visReload ? (
-                        <Button
-                            className="bg-ax-bg-default"
-                            variant="secondary"
-                            type="button"
-                            size="small"
-                            onClick={() => router.reload()}
-                        >
-                            Last inn siden på nytt
-                        </Button>
-                    ) : (
-                        <Link as={NextLink} href="/">
-                            Gå tilbake til Ditt sykefravær
-                        </Link>
-                    )}
-                </InfoCard.Content>
-            </InfoCard>
-        </div>
-    )
+    return <span>Du blir sendt videre...</span>
 }
 
 export const getServerSideProps = beskyttetSideUtenProps
