@@ -15,27 +15,9 @@ interface FlexjarProps {
     feedbackProps?: Record<string, string | undefined | boolean | number>
 }
 
-export const Flexjar = (props: FlexjarProps) => {
-    const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
-
-    return (
-        <FlexjarInnhold
-            key={props.feedbackId}
-            {...props}
-            thanksFeedback={thanksFeedback}
-            setThanksFeedback={setThanksFeedback}
-        />
-    )
-}
-
-const FlexjarInnhold = ({
-    feedbackId,
-    sporsmal,
-    feedbackProps,
-    thanksFeedback,
-    setThanksFeedback,
-}: FlexjarProps & { thanksFeedback: boolean; setThanksFeedback: (b: boolean) => void }) => {
+export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) => {
     const [activeState, setActiveState] = useState<string | number | null>(null)
+    const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
     const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const { mutateAsync: opprettFeedback, data, reset, isPending: oppretterFeedback } = UseOpprettFlexjarFeedback()
     const { mutateAsync: oppdaterFeedback, isPending: oppdatererFreedback } = UseOppdaterFlexjarFeedback()
