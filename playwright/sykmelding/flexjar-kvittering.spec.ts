@@ -1,6 +1,7 @@
 import { expect } from '@playwright/test'
 
 import { test } from '../utils/fixtures'
+import { trackFeedbackMethods } from '../utils/flexjar-utils'
 
 test.describe('Sykmelding kvittering', () => {
     test.beforeEach(async ({ page }) => {
@@ -13,12 +14,7 @@ test.describe('Sykmelding kvittering', () => {
     })
 
     test('Kan gi ja feedback', async ({ page }) => {
-        const feedbackMethods: string[] = []
-        page.on('request', (request) => {
-            if (request.url().includes('/flexjar-backend/api/v2/feedback')) {
-                feedbackMethods.push(request.method())
-            }
-        })
+        const feedbackMethods = trackFeedbackMethods(page)
 
         const feedbackTittel = page.getByText('Hjelp oss med å gjøre denne siden bedre')
         const feedbackSection = page.getByRole('region').filter({ has: feedbackTittel })

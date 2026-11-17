@@ -1,18 +1,8 @@
-import { expect, type Page } from '@playwright/test'
+import { expect } from '@playwright/test'
 
 import { test } from './utils/fixtures'
 import { validerCLS } from './utils/cls-validering'
-
-function trackFeedbackMethods(page: Page): string[] {
-    const feedbackMethods: string[] = []
-    page.on('request', (request) => {
-        if (request.url().includes('/flexjar-backend/api/v2/feedback')) {
-            feedbackMethods.push(request.method())
-        }
-    })
-
-    return feedbackMethods
-}
+import { trackFeedbackMethods } from './utils/flexjar-utils'
 
 test.describe('Flexjar', () => {
     test.beforeEach(async ({ page }) => {
