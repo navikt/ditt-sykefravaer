@@ -15,11 +15,11 @@ const dirtyGlobal = global as any
 
 dirtyGlobal.TextEncoder = TextEncoder
 dirtyGlobal.TextDecoder = TextDecoder
-dirtyGlobal.ResizeObserver = vi.fn().mockImplementation(() => ({
-    observe: vi.fn(),
-    unobserve: vi.fn(),
-    disconnect: vi.fn(),
-}))
+dirtyGlobal.ResizeObserver = class {
+    observe(): void {}
+    unobserve(): void {}
+    disconnect(): void {}
+}
 dirtyGlobal.scrollTo = vi.fn().mockImplementation(() => 0)
 
 HTMLCanvasElement.prototype.getContext = vi.fn()

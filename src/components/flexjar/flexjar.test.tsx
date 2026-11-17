@@ -1,0 +1,43 @@
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
+import { describe, expect, it, vi } from 'vitest'
+
+import { Flexjar } from './flexjar'
+
+vi.mock('../../hooks/useDittSykefravaerSykmeldinger', () => ({ default: () => ({ data: undefined }) }))
+vi.mock('../../hooks/useMaxDate', () => ({ default: () => ({ data: undefined }) }))
+vi.mock('../umami/umami', () => ({ logEvent: vi.fn() }))
+
+// Tilbakemeldingen er allerede opprettet. POST/PUT-flyten testes i Playwright.
+vi.mock('./queryhooks/useOpprettFlexjarFeedback', () => ({
+    UseOpprettFlexjarFeedback: () => ({
+        data: { id: 'feedback-id' },
+        mutateAsync: vi.fn().mockResolvedValue({ id: 'feedback-id' }),
+        reset: vi.fn(),
+        isPending: false,
+    }),
+}))
+vi.mock('./queryhooks/useOppdaterFlexjarFeedback', () => ({
+    UseOppdaterFlexjarFeedback: () => ({ mutateAsync: vi.fn().mockResolvedValue(undefined), isPending: false }),
+}))
+
+describe('Flexjar', () => {
+    it('fjerner valideringsfeilen og beholder teksten når et annet svar velges', async () => {
+        const bruker = userEvent.setup()
+        render(<Flexjar feedbackId="ditt-sykefravaer-fant-du" />)
+        const feilmeldingTomTekst = 'Tilbakemeldingen kan ikke være tom. Legg til tekst i feltet.'
+
+        await bruker.click(screen.getByRole('button', { name: 'Nei' }))
+        await bruker.click(screen.getByRole('button', { name: 'Send tilbakemelding' }))
+        expect(screen.getByText(feilmeldingTomTekst)).toBeInTheDocument()
+
+        await bruker.click(screen.getByRole('button', { name: 'Ja' }))
+        expect(screen.queryByText(feilmeldingTomTekst)).not.toBeInTheDocument()
+
+        await bruker.type(screen.getByRole('textbox'), 'Dette er en test')
+        await bruker.click(screen.getByRole('button', { name: 'Nei' }))
+
+        expect(screen.getByRole('textbox')).toHaveValue('Dette er en test')
+        expect(screen.queryByText(feilmeldingTomTekst)).not.toBeInTheDocument()
+    })
+})

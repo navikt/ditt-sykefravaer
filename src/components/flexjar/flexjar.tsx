@@ -9,17 +9,16 @@ import { FeedbackButton, FlexjarFelles } from './flexjar-felles'
 import { UseOpprettFlexjarFeedback } from './queryhooks/useOpprettFlexjarFeedback'
 import { UseOppdaterFlexjarFeedback } from './queryhooks/useOppdaterFlexjarFeedback'
 
-export const Flexjar = ({
-    feedbackId,
-    sporsmal,
-    feedbackProps,
-}: {
+interface FlexjarProps {
     feedbackId: string
     sporsmal?: string
     feedbackProps?: Record<string, string | undefined | boolean | number>
-}) => {
+}
+
+export const Flexjar = ({ feedbackId, sporsmal, feedbackProps }: FlexjarProps) => {
     const [activeState, setActiveState] = useState<string | number | null>(null)
     const [thanksFeedback, setThanksFeedback] = useState<boolean>(false)
+    const [errorMsg, setErrorMsg] = useState<string | null>(null)
     const { mutateAsync: opprettFeedback, data, reset, isPending: oppretterFeedback } = UseOpprettFlexjarFeedback()
     const { mutateAsync: oppdaterFeedback, isPending: oppdatererFreedback } = UseOppdaterFlexjarFeedback()
     const lagrerFeedback = oppretterFeedback || oppdatererFreedback
@@ -41,6 +40,7 @@ export const Flexjar = ({
         activeState,
         setThanksFeedback,
         setActiveState,
+        clearError: () => setErrorMsg(null),
     }
 
     const { data: sykmeldinger } = useTsmSykmeldinger()
@@ -81,6 +81,8 @@ export const Flexjar = ({
             activeState={activeState}
             thanksFeedback={thanksFeedback}
             setThanksFeedback={setThanksFeedback}
+            errorMsg={errorMsg}
+            setErrorMsg={setErrorMsg}
             getPlaceholder={getPlaceholder}
             feedbackProps={{
                 ...maksdatoMetadata(),
