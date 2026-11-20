@@ -86,13 +86,17 @@ function ArbeidssituasjonHelpAccordion(): ReactElement {
                 </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item>
-                <Accordion.Header>Har du flere jobber?</Accordion.Header>
+                <Accordion.Header>Er du sykmeldt fra flere jobber eller inntektskilder?</Accordion.Header>
                 <Accordion.Content>
-                    <BodyLong spacing>Du trenger én sykmelding per jobb eller arbeidssituasjon du har.</BodyLong>
-                    <BodyLong>
-                        Denne sykmeldingen gjelder bare for én jobb. Be legen om egne sykmeldinger for hver
-                        arbeidssituasjon du er sykmeldt fra.
+                    <BodyLong spacing>
+                        Da trenger du én sykmelding for hver av dem. Det gjelder all inntekt fra arbeid, også fra
+                        småjobber, verv og oppdrag ved siden av hovedjobben din.
                     </BodyLong>
+                    <BodyLong spacing>
+                        Det gjelder ikke penger du får på andre måter, for eksempel når du selger egne brukte ting,
+                        leier ut noe eller får renter.
+                    </BodyLong>
+                    <BodyLong>Mangler du en sykmelding? Ta kontakt med legen eller behandleren din.</BodyLong>
                 </Accordion.Content>
             </Accordion.Item>
             <Accordion.Item>
