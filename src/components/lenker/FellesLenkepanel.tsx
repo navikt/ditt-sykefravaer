@@ -1,56 +1,39 @@
-import { BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
+import { LinkCard } from '@navikt/ds-react'
 import React from 'react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 
 import { logEvent } from '../umami/umami'
 
 interface FellesLenkepanelProps {
-    url?: string
+    url: string
     ikon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement> & React.RefAttributes<SVGSVGElement>>
     tekst: string
     undertekst?: string
 }
 
 export const FellesLenkepanel = (props: FellesLenkepanelProps) => {
-    const heading = () => {
-        if (props.undertekst) {
-            return (
-                <div>
-                    <Heading size="small" level="2">
-                        {props.tekst}
-                    </Heading>
-                    <BodyShort>{props.undertekst}</BodyShort>
-                </div>
-            )
-        }
-        return (
-            <Heading size="small" level="2">
-                {props.tekst}
-            </Heading>
-        )
-    }
     return (
-        <LinkPanel
-            as={Link}
-            className="mb-2"
-            onClick={() => {
-                if (props.url) {
-                    logEvent('navigere', {
-                        destinasjon: props.url,
-                        lenketekst: props.tekst,
-                        komponent: 'ditt sykefravær lenkepanel',
-                    })
-                }
-            }}
-            href={props.url}
-            border={true}
-        >
-            <div className="flex">
-                <div className="ml-0.5 mr-4 flex items-center">
-                    <props.ikon aria-hidden={true} height="30px" width="30px" />
-                </div>
-                {heading()}
-            </div>
-        </LinkPanel>
+        <LinkCard className="mb-2">
+            <LinkCard.Icon>
+                <props.ikon aria-hidden={true} height="30px" width="30px" />
+            </LinkCard.Icon>
+            <LinkCard.Title as="h2">
+                <LinkCard.Anchor asChild>
+                    <NextLink
+                        href={props.url}
+                        onClick={() => {
+                            logEvent('navigere', {
+                                destinasjon: props.url,
+                                lenketekst: props.tekst,
+                                komponent: 'ditt sykefravær lenkepanel',
+                            })
+                        }}
+                    >
+                        {props.tekst}
+                    </NextLink>
+                </LinkCard.Anchor>
+            </LinkCard.Title>
+            {props.undertekst && <LinkCard.Description>{props.undertekst}</LinkCard.Description>}
+        </LinkCard>
     )
 }

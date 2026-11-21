@@ -127,7 +127,7 @@ export function navigateToFirstSykmelding(
                 break
         }
 
-        // Text in aria-label
+        // Lenkens navn er bare tittelen, så status og periode finnes i listeelementet rundt
         let linkRegexp: RegExp
         switch (variant) {
             case '100%':
@@ -149,8 +149,10 @@ export function navigateToFirstSykmelding(
 
         await page
             .getByRole('region', { name: sectionRegex })
-            .getByRole('link', { name: new RegExp(linkRegexp) })
+            .getByRole('listitem')
+            .filter({ hasText: linkRegexp })
             .first()
+            .getByRole('link')
             .click()
     }
 }

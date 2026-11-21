@@ -1,10 +1,9 @@
 import { ReactElement } from 'react'
-import Link from 'next/link'
-import { BodyShort, LinkPanel } from '@navikt/ds-react'
+import NextLink from 'next/link'
+import { BodyShort, LinkCard } from '@navikt/ds-react'
 
 import { getReadableSykmeldingLength, getSykmeldingTitle } from '../../../utils/sykmeldingUtils'
 import { getDescription } from '../../../utils/periodeUtils'
-import { cn } from '../../../utils/tw-utils'
 import { Sykmelding } from '../../../types/sykmelding/sykmelding'
 
 import LenkepanelIcon from './LenkepanelIcon'
@@ -26,39 +25,27 @@ export function Lenkepanel({ sykmelding, notifying }: LenkepanelProps): ReactEle
     const sykmeldingPeriod: string = getReadableSykmeldingLength(sykmelding)
 
     return (
-        <Link href={`/sykmeldinger/${id}`} passHref legacyBehavior>
-            <LinkPanel
-                className={cn('mb-4 p-6 [&>div]:w-full', {
-                    'border-ax-warning-400 bg-ax-warning-100 hover:border-ax-warning-600': notifying,
-                })}
-                border
-            >
-                <div className="flex gap-3 max-[560px]:flex-col">
-                    <div className="mr-8 hidden ax-md:block">
-                        <LenkepanelIcon
-                            behandlingsutfall={behandlingsutfallStatus}
-                            isPaper={Boolean(papirsykmelding)}
-                        />
-                    </div>
-                    <div className="grow">
-                        <BodyShort>{sykmeldingPeriod}</BodyShort>
-                        <BodyShort size="large" className="font-semibold">
-                            {getSykmeldingTitle(sykmelding)}
-                        </BodyShort>
-                        <ul className="list-disc list-outside ms-4">
-                            {sykmelding.sykmeldingsperioder.map((periode, index) => (
-                                <li key={index} className="pl-1.5 leading-relaxed">
-                                    {getDescription(periode, arbeidsgiverNavn)}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <div className="flex shrink-0 items-center">
-                        <LenkepanelEtikett status={status} behandlingsutfall={behandlingsutfallStatus} />
-                    </div>
-                </div>
-            </LinkPanel>
-        </Link>
+        <LinkCard className="mb-4" data-color={notifying ? 'warning' : undefined}>
+            <LinkCard.Icon className="hidden ax-md:block">
+                <LenkepanelIcon behandlingsutfall={behandlingsutfallStatus} isPaper={Boolean(papirsykmelding)} />
+            </LinkCard.Icon>
+            <LinkCard.Title>
+                <LinkCard.Anchor asChild>
+                    <NextLink href={`/sykmeldinger/${id}`}>{getSykmeldingTitle(sykmelding)}</NextLink>
+                </LinkCard.Anchor>
+            </LinkCard.Title>
+            <LinkCard.Description>
+                <BodyShort>{sykmeldingPeriod}</BodyShort>
+                <ul className="list-disc list-outside ms-4">
+                    {sykmelding.sykmeldingsperioder.map((periode, index) => (
+                        <li key={index} className="pl-1.5 leading-relaxed">
+                            {getDescription(periode, arbeidsgiverNavn)}
+                        </li>
+                    ))}
+                </ul>
+            </LinkCard.Description>
+            <LenkepanelEtikett status={status} behandlingsutfall={behandlingsutfallStatus} />
+        </LinkCard>
     )
 }
 

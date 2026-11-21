@@ -12,7 +12,7 @@ test.describe('Inntektsmeldinger', () => {
         await page.getByRole('link', { name: /inntektsmeldinger/i }).click()
 
         const verifyInntektsmeldingPanel = async (navn: string) => {
-            const panel = page.getByRole('link', { name: navn })
+            const panel = page.getByRole('listitem').filter({ has: page.getByRole('link', { name: navn }) })
             await Promise.all([
                 expect(panel.getByText(/For sykefravær som startet/i)).toBeVisible(),
                 expect(panel.getByText(/Mottatt:/i)).toBeVisible(),
