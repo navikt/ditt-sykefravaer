@@ -1,10 +1,13 @@
 import { ReactElement } from 'react'
-import { BodyShort, List, ReadMore, Box } from '@navikt/ds-react'
+import { BodyShort, Box, List, ReadMore } from '@navikt/ds-react'
 
 export function ArbeidssituasjonInfo(): ReactElement {
     return (
         <>
-            <BodyShort className="mt-4 -mb-4">Velg det som passer for denne sykmeldingen.</BodyShort>
+            <BodyShort className="mt-4">Velg det som passer for denne sykmeldingen.</BodyShort>
+            <BodyShort className="mt-4">
+                Har du flere jobber eller andre inntektskilder, trenger du én sykmelding for hver av dem.
+            </BodyShort>
             <ReadMore header="Spørsmålet forklart" className="mt-4 -mb-4">
                 <BodyShort spacing>
                     Arbeidssituasjonen din avgjør hvilken søknad om sykepenger du får, hvem som betaler sykepengene
