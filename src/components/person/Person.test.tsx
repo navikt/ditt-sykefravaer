@@ -25,4 +25,28 @@ describe('Person - testdataverktøy for sykmelding', () => {
         expect(screen.queryByText(tekniskeScenarioer.feilmelding.description)).not.toBeInTheDocument()
         expect(screen.queryByText(skjulteE2eScenarioer.noBrukerSvar.description)).not.toBeInTheDocument()
     })
+
+    it('lar scenarioene være vanlige lenker med scenario som søkeparameter', async () => {
+        render(<Person side="sykmelding" />)
+
+        await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
+
+        expect(screen.getByRole('link', { name: 'Utgått sykmelding' })).toHaveAttribute(
+            'href',
+            '/syk/sykefravaer/sykmeldinger/?scenario=utgatt',
+        )
+    })
+})
+
+describe('Person - testdataverktøy for ditt sykefravær', () => {
+    it('lar testpersoner være vanlige lenker med testperson som søkeparameter', async () => {
+        render(<Person side="dittsykefravaer" />)
+
+        await userEvent.click(screen.getByRole('button', { name: 'Verktøy for testing' }))
+
+        expect(screen.getByRole('link', { name: 'Person som er helt frisk' })).toHaveAttribute(
+            'href',
+            '/syk/sykefravaer?testperson=helt-frisk',
+        )
+    })
 })

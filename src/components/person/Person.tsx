@@ -1,4 +1,4 @@
-import { Alert, BodyShort, Button, Heading, LinkPanel, Modal, Popover, Tooltip } from '@navikt/ds-react'
+import { Alert, Button, Heading, LinkCard, Modal, Popover, Tooltip } from '@navikt/ds-react'
 import React, { CSSProperties, ReactElement, useCallback, useState } from 'react'
 import { SandboxIcon } from '@navikt/aksel-icons'
 import * as R from 'remeda'
@@ -117,9 +117,11 @@ function SykmeldingPicker() {
                         {R.entries(scenarioer).map(([key, { description }]) => {
                             return (
                                 <li key={key} className="list-none">
-                                    <LinkPanel href={scenarioHref(key)} className="w-full text-start">
-                                        {description}
-                                    </LinkPanel>
+                                    <LinkCard size="small">
+                                        <LinkCard.Title>
+                                            <LinkCard.Anchor href={scenarioHref(key)}>{description}</LinkCard.Anchor>
+                                        </LinkCard.Title>
+                                    </LinkCard>
                                 </li>
                             )
                         })}
@@ -196,9 +198,15 @@ function PersonGruppeVisning({ gruppe, personer }: { gruppe: PersonaGroupKey; pe
             </Heading>
             <ul className="mt-2 flex flex-col gap-2">
                 {Object.entries(personer).map(([key, person]) => (
-                    <LinkPanel key={key} className="w-full text-start" href={`/syk/sykefravaer?testperson=${key}`}>
-                        <BodyShort>{person.beskrivelse}</BodyShort>
-                    </LinkPanel>
+                    <li key={key} className="list-none">
+                        <LinkCard size="small">
+                            <LinkCard.Title>
+                                <LinkCard.Anchor href={`/syk/sykefravaer?testperson=${key}`}>
+                                    {person.beskrivelse}
+                                </LinkCard.Anchor>
+                            </LinkCard.Title>
+                        </LinkCard>
+                    </li>
                 ))}
             </ul>
         </>

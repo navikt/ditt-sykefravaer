@@ -1,5 +1,5 @@
 import React from 'react'
-import { BodyLong, BodyShort, Heading, LinkPanel } from '@navikt/ds-react'
+import { BodyLong, BodyShort, LinkCard } from '@navikt/ds-react'
 import Link from 'next/link'
 
 import { beskyttetSideUtenProps } from '../../auth/beskyttetSide'
@@ -25,30 +25,36 @@ const InntektsmeldingerPage = () => {
                     Du har ingen inntektsmeldinger.
                 </BodyShort>
             )}
-            {inntektsmeldinger
-                ?.sort((a, b) => b.mottattDato.localeCompare(a.mottattDato))
-                ?.map((inntektsmelding) => (
-                    <LinkPanel
-                        key={inntektsmelding.inntektsmeldingId}
-                        href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}
-                        as={Link}
-                        className="mt-4"
-                    >
-                        <div>
-                            <Heading size="small" level="2" spacing>
-                                {inntektsmelding.organisasjonsnavn}
-                            </Heading>
-                            {inntektsmelding.foersteFravaersdag && (
-                                <BodyShort spacing>
-                                    For sykefravær som startet {toReadableDate(inntektsmelding.foersteFravaersdag)}
-                                </BodyShort>
-                            )}
-                            <BodyShort className="text-ax-neutral-700">
-                                Mottatt: {toReadableDate(inntektsmelding.mottattDato)}
-                            </BodyShort>
-                        </div>
-                    </LinkPanel>
-                ))}
+            {inntektsmeldinger && inntektsmeldinger.length > 0 && (
+                <ul className="mt-4 flex list-none flex-col gap-4 p-0">
+                    {inntektsmeldinger
+                        .sort((a, b) => b.mottattDato.localeCompare(a.mottattDato))
+                        .map((inntektsmelding) => (
+                            <li key={inntektsmelding.inntektsmeldingId}>
+                                <LinkCard>
+                                    <LinkCard.Title as="h2">
+                                        <LinkCard.Anchor asChild>
+                                            <Link href={`/inntektsmeldinger/${inntektsmelding.inntektsmeldingId}`}>
+                                                {inntektsmelding.organisasjonsnavn}
+                                            </Link>
+                                        </LinkCard.Anchor>
+                                    </LinkCard.Title>
+                                    <LinkCard.Description>
+                                        {inntektsmelding.foersteFravaersdag && (
+                                            <span className="block">
+                                                For sykefravær som startet{' '}
+                                                {toReadableDate(inntektsmelding.foersteFravaersdag)}
+                                            </span>
+                                        )}
+                                        <span className="block text-ax-neutral-700">
+                                            Mottatt: {toReadableDate(inntektsmelding.mottattDato)}
+                                        </span>
+                                    </LinkCard.Description>
+                                </LinkCard>
+                            </li>
+                        ))}
+                </ul>
+            )}
         </>
     )
 }
